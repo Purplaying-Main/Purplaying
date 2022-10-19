@@ -1,0 +1,29 @@
+.policy-explain
+{
+   float: left;
+   width: 30%;
+   box-sizing: border-box;
+   text-align: left;
+}
+.policy-explain > .title{
+    font-size: 20px;
+    font-weight: bold;
+}
+.policy-explain > .policy-explain-ul {
+   padding-top: 50px;
+}
+
+.policy{
+    float: right;
+    width: 70%;
+    box-sizing: border-box;
+}
+.policy > .policy-notepad{
+    float: right;
+    text-align: left;
+    color: gray;
+    resize: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+/* change border radius for the tab , apply corners on top*/

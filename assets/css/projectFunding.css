@@ -1,0 +1,153 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+/* 우선 순위가 높은 가상클래스 root */
+:root { width:100%; margin: 0 auto; scroll-behavior: smooth; 
+  /* color */
+  --color-primary-rgb : #333;
+  --color-reverse-rgb : #999;
+  --color-links : rgb(100, 50, 200);
+  --color-links-hover : rgba(100, 50, 200, 0.5);
+  /* font family */
+  --font-primary : 'Noto Sans KR', sans-serif;
+  }
+  
+  body { color: rgba(var(--color-primary-rgb), 1); }
+
+  a { color: var(--color-links); text-decoration: none; }
+  
+  a:hover { color: var(--color-links-hover); text-decoration: none; }
+  
+  h1,h2,h3,h4,h5,h6 { font-family: var(--font-primary); }
+
+/*--------------------------------------------------------------
+# Sections & Section Header
+--------------------------------------------------------------*/
+section { width:100%; margin: 0 auto; }
+section .contentsWrap {
+  margin: 20px 40px; 
+  padding: 20px; 
+  text-align: left; 
+  /*test code*/border: solid 1px darkblue;
+  }
+
+h4, .lb {
+  font-weight: bold;
+}
+
+
+.between{
+  justify-content: space-between;
+}
+
+.thumnail {
+  min-width: fit-content;
+  width: 180px;
+  max-width: 180px;
+  min-height: fit-content;
+  height: 150px;
+  max-height: 150px;
+  border: none;
+}
+
+.msg{
+  background-color: rgba(128,128,128,0.05);
+}
+
+.projectName{
+  font-size: 30px;
+  font-weight: bold;
+}
+
+
+input[type="text"]{
+  height: 28px;
+  margin: 2.5px 0;
+}
+
+#postcode{
+  width: 120px;
+
+}
+
+#address{
+  width: 140px;
+}
+
+#detailAddress{
+  width: 240px;
+}
+
+#deliveryMemo{
+  width: 450px;
+}
+
+.pay{
+  background-color: var(--color-links);
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  width: 100px;
+}
+
+
+.paycontent{
+  display: none;
+  width: auto;
+  height: 300px;
+}
+
+#naver:checked ~ #naver_pay{
+  display: block;
+}
+
+.fundingFinal{
+  justify-content: center;
+}
+
+.btn{
+  background-color: var(--color-links);
+  color: white;
+  font-weight: bold;
+}
+
+footer { height: 200px; text-align: center; background-color: #333; color: var(--color-reverse-rgb);}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*--------------------------------------------------------------
+# mobile
+--------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}

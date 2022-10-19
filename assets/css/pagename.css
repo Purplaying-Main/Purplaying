@@ -1,0 +1,10 @@
+.pagenameul {
+    list-style: none;
+}
+.pagenameul > li > a{
+    font-size: 10px;
+    color: gray;
+}
+.pagenameul > li {
+    display: inline;
+}

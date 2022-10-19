@@ -1,0 +1,364 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+/* 우선 순위가 높은 가상클래스 root */
+  :root { width:100%; height: 100%; margin: 0 auto; scroll-behavior: smooth; 
+  /* color */
+  --color-primary-rgb : #333;
+  --color-reverse-rgb : #999;
+  --color-links : rgb(100, 50, 200);
+  --color-links-hover : rgba(100, 50, 200, 0.5);
+  /* font family */
+  --font-primary : 'Noto Sans KR', sans-serif;
+  }
+  
+  body { color: rgba(var(--color-primary-rgb), 1); }
+
+  a { color: var(--color-links); text-decoration: none; }
+  
+  a:hover { color: var(--color-links-hover); text-decoration: none; }
+  
+  h1,h2,h3,h4,h5,h6 { font-family: var(--font-primary); }
+
+/*--------------------------------------------------------------
+# Sections & Section Header
+--------------------------------------------------------------*/
+section {width:100%; height: 100%; margin: 0 auto;}
+section .contentsWrap {width:100%; height: 100%; margin: 20px 40px; padding: 20px; text-align:center ; /*test code*/border:solid transparent;}
+
+/* body page */
+* {
+  
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.tabs{
+  width: 1000px;
+  max-width: 100%;
+  height: 100% !important;
+  display: flex;
+  margin: 40px auto;
+  position: relative;
+  justify-items: auto;
+  justify-content: space-between;
+  align-content: center;
+  padding: 0;
+  
+}
+
+.tabs .tab{
+  
+  display: inline-flex;
+  
+}
+
+.tabs .tab>input[type="radio"] {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+.tabs .tab>label {
+  display: block;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 6px 21px;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  color: #FFF;
+  background: #d892f6;
+}
+
+.tabs .content {
+  display: none;
+  width: 100%;
+  height: 100%;
+  padding: 25px;  
+  position: absolute;
+  top: 50px;
+  left: 0;
+  background: #ebe9e9;
+  color: #DFDFDF;
+
+}
+
+.tabs>.tab>[id^="tab"]:checked + label {
+  top: 0;
+  background: #5d3e6a;
+  color: #F5F5F5;
+}
+
+.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+  color: #333;
+  width: 100%;
+  height: fit-content;
+  padding: 25px;  
+  top: 50px;
+  left: 0;
+  background: #ebe9e9;
+
+
+}
+
+.ProjectPlanBase{
+  margin: 20px 40px; padding: 20px; text-align:justify ; /*test code*/border:solid transparent;
+  box-sizing: border-box;
+  display: block;
+  align-items: center;
+  align-content: center;
+  font-size: 14px;
+  line-height: 23px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  max-width: 1300px;
+  text-decoration-line:none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+
+
+}
+.ProjectPlan{
+  box-sizing: border-box;
+  display: block;
+  align-items: center;
+  font-size: 14px;
+  line-height: 23px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 10px;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+  align-content: center;
+ 
+}
+
+.ProjectItemWrap-1{
+  align-items: center;
+  align-content: center;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  box-sizing: border-box;
+  display: flex;
+  font-size: 14px;
+  justify-content:space-between;
+  line-height: 23px;
+  margin-bottom: 30px;
+  padding-bottom: 25px;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+}
+
+.ProjectInfo{
+  align-items: center;
+  box-sizing: border-box;
+  display: block;
+  width: 60%;
+  font-size: 14px;
+  text-align: justify;
+  line-height: 23px;
+  margin-block-end: 14px;
+  margin-block-start: 0px;
+  margin-bottom: 14px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-left: 0px;
+  margin-right: 20px;
+  margin-top: 0px;
+  text-size-adjust: 100%;
+}
+
+.ProjectInfoTitle{
+  box-sizing: border-box;
+  display: block;
+  
+  font-size: 17px;
+  line-height: 23px;
+  margin-bottom: 12px;
+  text-size-adjust: 100%;
+}
+
+.ProjectInfoDescription-1{
+  box-sizing: border-box;
+  display: block;
+  width: max-content;
+  font-size: 14px;
+  line-height: 23px;
+  margin-bottom: 0px;
+  margin-inline-start: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  text-size-adjust: 100%;
+}
+.ProjectInfoDescription-2{
+  border: solid 1px black;
+  width: fit-content;
+  padding-right: 10px;
+  background-color: #999;
+}
+
+.TitleNotice{
+  font-size: 15px;
+  font-weight: bold;
+}
+  
+.ProjectForms{
+  box-sizing: border-box;
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  line-height: 23px;
+  margin-right: 0px;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+}
+
+.style_ProjectForms{
+  box-sizing: border-box;
+  display: block;
+  font-size: 14px;
+  line-height: 23px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  margin-right: 0px;
+  margin-top: 0px;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+}
+
+.style_ProjectFormsTitle{
+  box-sizing: border-box;
+  display: flex;
+  font-size: 15px;
+  letter-spacing: -0.055px;
+  line-height: 18px;
+  margin-block-end: 8px;
+  margin-block-start: 0px;
+  margin-bottom: 8px;
+  margin-inline-end: 0px;
+  margin-inline-start: 0px;
+  margin-left: 10px;
+  margin-right: 0px;
+  margin-top: 0px;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+}
+
+.image-container{
+  box-sizing: border-box;
+  display: flex;
+  font-size: 15px;
+  justify-content: center ;
+
+}
+#preview-image
+{ 
+  display: flex;
+  max-width: 1000px;
+  width: 50%;
+}
+#input-image{
+  display: block;
+  width: 100%;
+  justify-content: space-between ;
+}
+
+.style_ProjectFormsContent{
+  
+  box-sizing: border-box;
+  display: block;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 14px;
+  line-height: 23px;
+  position: relative;
+  text-decoration-line: none;
+  text-decoration-style: solid;
+  text-size-adjust: 100%;
+  text-align: justify;
+
+}
+
+.UploadImagePreview{
+  
+  border: solid 1px black;
+  width: 50%;
+  min-height: 200px;
+  margin-left: 100px;
+}
+
+select{
+  font-size: 20px;
+  width: 400px;
+  height: 40px;
+}
+
+input{
+  
+  font-size: 20px;
+  width:400px;
+  height: 40px;
+}
+
+.inputgoal{
+  
+}
+
+ footer {position: absolute; bottom:0; height: 20px; text-align: center; background-color: #333; color: var(--color-reverse-rgb);}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  
+  
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+
+/*--------------------------------------------------------------
+# mobile
+--------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}

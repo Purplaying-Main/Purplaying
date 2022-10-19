@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">   <!-- 아이콘 -->
+  <link rel="stylesheet" href="assets/css/owl.css">   <!-- 캐러셀(carousel) -->
+  <link rel="stylesheet" href="assets/css/animate.css">   <!-- 애니메이션효과 -->
+  <link rel="stylesheet" href="assets/css/main.css" > <!-- main style-->
+  <link rel="stylesheet" href="assets/css/headers.css" > <!-- header-->
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/"> <!-- header-->
+  <link rel="stylesheet" href="assets/css/projectFunding.css"> <!-- projectFunding-->
+
+  <!-- JS -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script> 
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+  <title>Purplaying</title>
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+    </symbol>
+    <symbol id="home" viewBox="0 0 16 16">
+      <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+    </symbol>
+    <symbol id="speedometer2" viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+      <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+    </symbol>
+    <symbol id="table" viewBox="0 0 16 16">
+      <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+    </symbol>
+    <symbol id="people-circle" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </symbol>
+    <symbol id="grid" viewBox="0 0 16 16">
+      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+    </symbol>
+  </svg>
+  
+ <!--헤더 (메뉴, 네비게이션) -->
+ <main>
+  <h1 class="visually-hidden">Headers examples</h1>
+
+  <header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">메뉴1</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴2</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴3</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴4</a></li>
+        </ul>
+
+        <!-- 검색창 -->
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--메인 컨테이너 -->
+  <section class="container">
+    <h1 class="visually-hidden">홈</h1>
+    <div class="contentsWrap row">
+
+      <!--바디 영역 시작-->
+        <div class="col-1"></div>
+
+        <!--컨텐츠 영역 시작-->
+        <div class="projectFunding col-10 lh-lg">
+          <h1 class="fw-bold text-center py-3 mb-3">펀딩 프로젝트 후원하기</h1>
+
+          <!-- 프로젝트명 -->
+          <div class="project pb-5">
+            <div class="row">
+             
+              <div class="projectImg col-4 text-end">
+                <img class="thumnail" src="assets\img\logo_img.png" alt="프로젝트이미지">
+              </div>
+              <div class="projectInfo col-6 mt-2">
+                <div class="projectDetail row">
+                  <div class="col-10" id="category">카테고리명 / 제작자명</div>
+                </div>
+                <div class="projectName col">프로젝트명_Purplaying</div>
+                <div class="projectStatus row">
+                  <div class="col-4" id="fundingMoney">1,234,567 원</div>
+                  <div class="col-2" id="fundingPercent">123%</div>
+                  <div class="col-4" id="fundingDday">10일 남음</div>
+                </div>
+            </div>
+            </div>
+          </div>
+
+          <!-- 리워드 정보 -->
+          <div class="rewardInfo pb-4">
+            <h4>리워드 정보</h4>
+            <hr>
+            <div class="rewardDetail between row mx-1">
+                <div class="col-2 lb">
+                  리워드 패키지<br>
+                  리워드 가격<br>
+                  구성품
+                </div>
+                <div class="col-7 text-end">
+                  [패키지명1]<br>
+                  20,000원<br>
+                  구성품1<br>
+                  구성품2
+                </div>
+            </div>
+          </div>
+
+          <!-- 후원자 정보 -->
+          <div class="supporterInfo pb-4">
+            <h4>후원자 정보</h4>
+            <hr>
+            <div class="between row mx-1">
+                <div class="contact col-4">
+                  <div class="lb">연락처</div>
+                  <div>010-2023-0111</div>
+                  <br>
+                  <div class="lb">이메일</div>
+                  <div>Purplaying@email.com</div>
+                </div>
+                <div class="messageBox col-5 py-3 my-4">
+                  <div class="text-left px-3 py-2 msg text-break" id="message">기입된 연락처 또는 이메일로 프로젝트에 대한
+                    알림 및 소식이 전달됩니다.</div>
+                </div>
+            </div>
+          </div>
+
+          <!-- 배송 정보 -->
+          <div class="delivery pb-4">
+            <h4>배송정보</h4>
+            <hr>
+              <div class="samePerson col-12 text-end pe-3">
+                <input type="checkbox" id="sameChb">
+                <label for="sameChb">후원자 정보와 동일</label>
+              </div>
+              <div class="deliveryInfo between row lb mx-1">
+                <div class="col-2 ps-2">
+                    수령인<br>
+                    연락처<br>
+                    주소<br><br>
+                    배송요청사항
+                </div>
+                <div class="col-9 text-end">
+                    <input type="text" id="recieverName" maxlength="7" required><br>
+                    <input type="text" id="phoneNumber" maxlength="12" required><br>
+                    <input type="text" id="postcode" placeholder="우편번호" readonly>
+                    <!--JavaScript 삽입됨-->
+                    <input type="button" class="btn" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기"><br>
+                    <input type="text" id="address" placeholder="기본주소" required>
+                    <input type="text" id="detailAddress" placeholder="상세주소" maxlength="50"><Br>
+                    <input type="text" id="deliveryMemo" placeholder="배송시 요청 사항을 작성하세요." maxlength="50">
+                </div>
+              </div>
+          </div>
+
+          <!-- 포인트 및 쿠폰 -->
+          <div class="point_coupon pb-4">
+            <h4>포인트 및 쿠폰</h4>
+            <hr>
+            <div class="discount between row mx-1">
+                <div class="col-2 ps-2 lb">
+                  쿠폰 선택<br>
+                  포인트 사용
+                </div>
+                <div class="col-7 pe-3 text-end">
+                  <select>
+                  <option selected>선택 가능한 쿠폰</option>
+                  <option>축! 신규 가입 쿠폰 -1,000원</option>
+                  </select><br>
+                  보유포인트 <strong>0 </strong>P<br>
+                  <input class="text-end" type="text" id="usePoint">
+                  <button class="btn" id="useAllBtn">모두 사용</button>
+                </div>
+            </div>
+          </div>
+
+          <!-- 결제수단 선택 -->
+          <div class="paymentOption pb-4">
+            <h4>결제수단 선택</h4>
+            <hr>
+            <div class="selectOption row mx-1">
+              <div class="col-10">
+                <input type="radio" class="col-1" id="card" name="option" checked>
+                <label for="card">카드결제</label>
+                <input type="radio" class="col-1" id="naver" name="option">
+                <label for="naver">네이버페이</label>
+                <div id="naver_pay" class="paycontent">페이부분</div>
+              </div>
+            </div>
+            <div class="paycontent"></div>
+          </div>   
+
+          <!-- 최종 확인 -->
+          <div class="finalConfirm">
+            <div class="fundingAmount between row msg mx-1">
+                <div class="col-2 fw-bold">
+                  후원 금액<br>
+                  할인 금액<br>
+                  결제 금액
+                </div>
+                <div class="col-7 text-end">
+                  20,000원<br>
+                  -1,000원 [축! 신규 가입 쿠폰]<br>
+                  -1,000원 [1,000 포인트 사용]<br>
+                  18,000원
+                </div>
+            </div>
+            <div class="fundingNotice mt-3 pt-2"> <!-- 펀딩 유의 사항 -->
+              <h4>펀딩 유의 사항</h4>
+              <hr>
+              <div class="row msg mx-1 py-3">
+                <div class="col-7">
+                후원은 구매가 아니며, 프로젝트에 대한 자금 지원입니다.<br>
+                프로젝트는 계획과 다르게 진행 될 수 있습니다.
+                </div>    
+                <div class="text-end col-5 ps-2" id="checkbox">
+                  <div>
+                    <input  id="chb1" type="checkbox" name="agree" required>
+                    <label for="chb1">개인정보 제 3자 제공 동의</label>
+                    <a data-bs-toggle="modal" data-bs-target="#agree4Modal" href="#">내용보기</a>
+                     <!-- Modal -->
+                     <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="agree4ModalLabel">개인정보 제 3자 제공 동의</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            회원의 개인정보는 당사의 개인정보 취급방침에 따라 안전하게 보호됩니다.
+                            '회사'는 이용자들의 개인정보를 개인정보 취급방침의 '제 2조 수집하는 개인정보의 항목, 수집방법 및 이용목적'에서 
+                            고지한 범위 내에서 사용하며, 이용자의 사전 동의 없이는 동 범위를 초과하여 이용하거나
+                            원칙적으로 이용자의 개인정보를 외부에 공개하지 않습니다.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div> <!-- Modal end-->
+                  </div>
+                  <div>
+                    <input  id="chb2" type="checkbox" name="agree" required>
+                    <label for="chb2">유의 사항 확인</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fundingFinal row">
+              <div class="col-8 text-center">
+                <div class="fundingMessage fs-5 mt-4 mb-2">펀딩이 성공하면 <strong>2023.01.11</strong> 에 자동으로 결제됩니다.</div>
+                <button class="fundingBtn btn fs-3 w-50 mt-3 mb-3">후원하기</button>
+              </div>
+            </div> 
+          </div>
+
+        </div>  
+        <!--컨텐츠 영역 종료-->
+
+      </div>
+      <!--바디 영역 종료-->
+
+    </div>
+  </section>
+  <!--메인 컨테이너 종료-->
+  
+
+  <!--푸터 -->
+  <footer>
+    <div class="sitemap">
+      <h3>푸터 영역</h3>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  function execDaumPostcode() { // 주소찾기 JS (다음 POSTCODE API 사용)
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = '';
+                var extraAddr = '';
+
+                if (data.userSelectedType === 'R') { 
+                    addr = data.roadAddress;
+                } else { 
+                    addr = data.jibunAddress;
+                }
+
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("address").value = addr;
+                document.getElementById("detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
+</body>
+</html>
