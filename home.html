@@ -14,6 +14,7 @@
   <!-- JS -->
   <script src="assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
+  <script src="assets/js/include.js"></script>
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
   <!-- 네이버 로그인 callback -->
@@ -51,41 +52,7 @@
   
  
   <!--헤더 컨테이너-->
-  <h1 class="visually-hidden">Header</h1>
-  <header class="p-3 border-bottom">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <svg class="logo" width="140" height="36" aria-label="Bootstrap"></svg>
-        </a>
-
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 link-secondary">메뉴1</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">메뉴2</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">메뉴3</a></li>
-          <li><a href="#" class="nav-link px-2 link-dark">메뉴4</a></li>
-        </ul>
-
-        <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
-        </form>
-
-        <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="mypage.html">마이페이지</a></li>
-            <li><a class="dropdown-item" href="#">설정</a></li>
-            <li><a class="dropdown-item" href="#">고객센터</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">로그아웃</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </header>
+  <header w3-include-html="header.html"></header><script>includeHTML();</script>
   <!-- 카로셀 -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -140,6 +107,53 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
         <div class="container">
+          <h4>지금 달성률이 높은 펀딩</h4>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
+                <!-- 좋아요 버튼 -->
+                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                <div class="card-body">
+                  <p class="card-cate">웹툰</p>
+                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="text-danger">현재 달성률 00%</strong>
+                  </div>
+                </div>
+              </div>
+            </div><!-- project thumb end -->
+            <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
+                <!-- 좋아요 버튼 -->
+                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                <div class="card-body">
+                  <p class="card-cate">웹툰</p>
+                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="text-danger">현재 달성률 00%</strong>
+                  </div>
+                </div>
+              </div>
+            </div><!-- project thumb end -->
+            <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
+                <!-- 좋아요 버튼 -->
+                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                <div class="card-body">
+                  <p class="card-cate">웹툰</p>
+                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="text-danger">현재 달성률 00%</strong>
+                  </div>
+                </div>
+              </div>
+            </div><!-- project thumb end -->
+
+          </div>
+
           <h4>오늘의 신규펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col"><!-- project thumb start -->
@@ -239,5 +253,6 @@
       </p>
     </div>
   </footer>
+  <script>includeHTML();</script>
 </body>
 </html>

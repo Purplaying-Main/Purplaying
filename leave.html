@@ -109,7 +109,7 @@
               서비스 이용에 불편함이 있으신가요?
             </p>
             <a href="signUp.html" class="w-100 btn btn-outline-primary btn-lg">1:1 문의</a>
-            
+
             <hr class="my-4">
 
             <p class="lead text-center">
@@ -120,10 +120,56 @@
               <br/>
               것은 청춘은 청춘의 이성은 그들에게 따뜻한 인생의 것이다. 때까지 살았으며, 얼음과 위하여 보배를 봄바람이다. 충분히 그들의 인간에 같이 뭇 인류의 꽃 뜨거운지라, 붙잡아 약동하다. 광야에서 소리다.이것은 싶이 곳으로 그들의 품고 군영과 인생을 황금시대다. 쓸쓸한 우리 그들의 오아이스도 힘있다. 행복스럽고 없으면 얼마나 기쁘며, 열락의 피가 못할 새 이상이 사막이다. 긴지라 생명을 있는 더운지라 위하여서, 교향악이다. 아니더면, 돋고, 대중을 그리하였는가? 석가는 주는 이상의 못하다 동산에는 안고, 피고, 충분히 천고에 것이다. 그들의 할지라도 실로 싹이 발휘하기 아니더면, 힘있다.
             </span>
-            <div class="mt-3 row col-md-8 m-auto">
+            <div class="mt-3 row col-md-8 m-auto py-3">
               <input type="checkbox" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
               <label class="btn btn-outline-danger btn-lg" for="danger-outlined"> 탈퇴 유의사항을 확인했습니다.</label>  
             </div>
+
+            <hr class="my-4 mt-3">
+
+            <select class="form-select mb-3" aria-label="Default select example">
+              <option selected>탈퇴 사유를 선택해주세요</option>
+              <option value="1">서비스 대상이 아님</option>
+              <option value="2">서비스 이용이 복잡하고 불편함</option>
+              <option value="3">고객 서비스의 불만</option>
+              <option value="4">시스템 장애</option>
+              <option value="5">개인정보 (통신 및 신용정보 등) 노출 우려</option>
+              <option value="6">기타</option>
+            </select>
+
+            <div class="input-group mb-3 ">
+              <span class="input-group-text">기타 사유<br/>(선택)</span>
+              <textarea class="form-control" aria-label="With textarea"></textarea>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="w-100 btn btn-outline-primary btn-lg" type="submit" data-bs-toggle="modal" data-bs-target="#findAccountModal">본인 인증 하기</div>
+            <!-- 본인인증하기 : 비밀번호 입력 모달창 -->
+            <div class="modal fade" id="findAccountModal" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="findAccountModalLabel">탈퇴 본인인증</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-floating py-2">
+                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
+                      <label for="floatingInput" placeholder="Disabled input" aria-label="Disabled input example" disabled>Email address</label>
+                    </div>
+                    <div class="form-floating py-2">
+                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                      <label for="floatingPassword">Password</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="signIn.html" class="w-100 btn btn-lg btn-outline-primary">회원 탈퇴하기</a>
+                    <button type="submit" class="w-100 btn btn-lg btn-outline-secondary" data-bs-dismiss="modal">닫 기</button>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- Modal end-->            
             
 
           </div>
@@ -187,77 +233,6 @@
     </div>
   </footer>
   
-  <!-- 전체 동의 체크 -->
-  <script>
-    function selectAll(selectAll)  {
-      const checkboxes 
-          = document.getElementsByName("agree");
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked;
-      })
-    }
-    function checked_agree1() {
-      $('input[id="agree1"]').prop('checked', true);
-    }
-    function checked_agree2() {
-      $('input[id="agree2"]').prop('checked', true);
-    }
-    function checked_agree3() {
-      $('input[id="agree3"]').prop('checked', true);
-    }
-    function checked_agree4() {
-      $('input[id="agree4"]').prop('checked', true);
-    }
-    function checked_agree5() {
-      $('input[id="agree5"]').prop('checked', true);
-    }
-  </script>
 
-  <!-- //네이버 로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-    var state = naver_id_login.getUniqState();
-    naver_id_login.setButton("green", 3, 42);
-    naver_id_login.setDomain("YOUR_SERVICE_URL");
-    naver_id_login.setState(state);
-    naver_id_login.setPopup();
-    naver_id_login.init_naver_id_login();
-  </script>
-
-  <!-- 카카오 로그인 -->
-  <script>
-    function loginWithKakao() {
-      Kakao.Auth.authorize({
-        redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-      });
-    }
-
-    function getCookie(name) {
-      var parts = document.cookie.split(name + '=');
-      if (parts.length === 2) { return parts[1].split(';')[0]; }
-    }
-  </script>
-
-  <!-- 구글 로그인 -->
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'outline',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
 </body>
 </html>
