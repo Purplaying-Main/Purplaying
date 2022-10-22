@@ -22,6 +22,8 @@
   
   h1,h2,h3,h4,h5,h6 { font-family: var(--font-primary); }
 
+  li { list-style:none; }
+
 /*--------------------------------------------------------------
 # Sections & Section Header
 --------------------------------------------------------------*/
@@ -75,6 +77,10 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 #item01 { background: url('../img/carousel01.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+.carousel-project { height: 31rem;}
+#projectCarousel01 { background: url('../img/carousel01.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#projectCarousel02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#projectCarousel03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 /* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 { margin-bottom: 1.5rem; text-align: center; }
 /* rtl:begin:ignore */
@@ -84,6 +90,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 /* rtl:begin:remove */
 .featurette-heading { letter-spacing: -.05rem;}
 
+#projectDetailimg img {width: 100%;}
 /*--------------------------------------------------------------
 # RESPONSIVE CSS
 --------------------------------------------------------------*/
