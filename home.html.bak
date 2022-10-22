@@ -52,6 +52,7 @@
   
  
   <!--헤더 컨테이너-->
+<<<<<<< HEAD
   <h1 class="visually-hidden">Header</h1>
   <header class="p-3 border-bottom">
     <div class="container">
@@ -87,6 +88,9 @@
       </div>
     </div>
   </header>
+=======
+  <header w3-include-html="header.html"></header><script>includeHTML();</script>
+>>>>>>> 5e1427259170205e9cdd762fa768d42aa1f986d4
   <!-- 카로셀 -->
   <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
