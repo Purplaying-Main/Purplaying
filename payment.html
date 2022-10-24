@@ -149,7 +149,7 @@
                 <p id="dt_email">Purplaying@email.com</p>
               </div>
               <div class="col-6 py-3 my-4">
-                <p class="text-left px-3 py-2">등록된 회원 정보의 연락처 또는 이메일로
+                <p class="text-left px-3 py-2">등록된 회원 정보로
                   프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
               </div>
           </div>
@@ -175,22 +175,22 @@
             <div class="d-flex justify-content-between mx-1">
               <p class="fw-bold">주소</p>
             <!--JavaScript -->
-              <div class="col-4 text-end">
-                <input type="text" class="col-4" id="dt_postcode" placeholder="우편번호" readonly>
+              <div class="text-end">
+                <input type="text" class="col-4 ps-1" id="dt_postcode" placeholder="우편번호" readonly>
                 <input type="button" class="btn" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
               </div>
             </div>
             <div class="d-flex justify-content-end mx-1">
               <div class="col-10 text-end">
-                <input type="text" class="col-2" id="dt_address" placeholder="기본주소" required>
-                <input type="text" class="col-3" id="dt_detailAddress" placeholder="상세주소" maxlength="50">
+                <input type="text" class="col-2 ps-1" id="dt_address" placeholder="기본주소" required>
+                <input type="text" class="col-3 ps-1" id="dt_detailAddress" placeholder="상세주소" maxlength="50">
               </div>
             </div>
           </div>
           <!--JavaScript 종료 -->
           <div class="d-flex justify-content-between mx-1">
             <p class="fw-bold col-2">배송 요청사항</p>
-            <div class="col-7 text-end"><input type="text" class="col-6" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
+            <div class="col-7 text-end"><input type="text" class="col-6 ps-1" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
           </div>
         </div>
 
@@ -216,9 +216,9 @@
                 </p>
             </div>
             <div class="d-flex justify-content-end mx-1">
-                <div class="col-4 text-end">
-                  <input type="text" class="text-end mt-2 mb-1" id="dt_usePoint" maxlength="10">
-                  <button class="btn py-1 ms-1" id="useAllBtn">모두 사용</button>
+                <div class="text-end">
+                  <input type="text" class="col-3 text-end" id="dt_usePoint" maxlength="7">
+                  <button class="btn py-1" id="useAllBtn">모두 사용</button>
                 </div>
             </div>
             </div>
@@ -229,7 +229,7 @@
           <h5>결제수단 선택</h5>
           <hr>
           <div class="d-flex mx-1">
-            <div class="col-6">
+            <div class="col-5">
               <p class="fw-bold">간편 결제</p>
               <!--간편 결제 -->
               <div class="col-auto d-none d-lg-block text-center" data-bs-toggle="modal" data-bs-target="#agree2Modal">
@@ -253,27 +253,27 @@
                 </div>
               </div> <!-- Modal end-->
             </div>
-            <div class="col-6">
+            <div class="col-7">
               <p class="fw-bold">카드 결제</p>
               <!--카드 결제 내용-->
-                <div class="d-flex justify-content-between mb-2">
+                <div class="d-flex mb-2">
                   <label>카드번호</label>
-                  <input type="text" class="col-2 me-1" id="dt_cardNumber1" maxlength="4" required>
+                  <input type="text" class="col-2 mx-1" id="dt_cardNumber1" maxlength="4" required>
                   <input type="text" class="col-2 me-1" id="dt_cardNumber2" maxlength="4" required>
                   <input type="password" class="col-2 me-1" id="dt_cardNumber3" maxlength="4" required>
                   <input type="text" class="col-2" id="dt_cardNumber4" maxlength="4" required>
                 </div>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex">
                   <div class="mb-2">  
                     <label>유효기간</label>
-                    <input type="text" class="col-5" id="dt_validDate" maxlength="4" placeholder="MMYY" required>
+                    <input type="text" class="col-5 ps-1" id="dt_validDate" maxlength="4" placeholder="MMYY" required>
                   </div>
                   <div class="mb-2">
                     <label>카드 비밀번호</label>
-                    <input type="text" class="col-4" id="dt_cardPwd" maxlength="2" placeholder="앞 2자리" required>
+                    <input type="text" class="col-4 ps-1" id="dt_cardPwd" maxlength="2" placeholder="앞 2자리" required>
                   </div>
                 </div>
-                <div class="mb-2">
+                <div class="d-flex mb-2">
                   <label>CVC</label>
                   <input type="text" class="col-2 ms-2" id="dt_userBirth" maxlength="3"required>
                 </div>
