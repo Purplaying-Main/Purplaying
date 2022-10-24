@@ -13,6 +13,7 @@
   <!-- JS -->
   <script src="assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
   <!-- 네이버 로그인 callback -->
@@ -92,112 +93,113 @@
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-        <h3 class="text-center py-3 mb-3">펀딩 프로젝트 후원하기</h1>
+        <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h1>
 
         <!-- 프로젝트명 -->
-        <div class="pb-4">
-          <div class="row justify-content-center">             
-            <div class="col-4 text-center">
-              <img class="img-thumbnail" id="dt_fundingImg" src="https://picsum.photos/400/200" alt="프로젝트이미지">
+        <div class="mb-2">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col-auto d-none d-lg-block">
+              <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             </div>
-            <div class="col-8 mt-2">
-              <div class="row">
-                <div class="col-10"><span id="dt_category">카테고리명</span> 
-                  / 
-                  <span id="dt_creator">제작자명</span></div>
+            <div class="col p-4 d-flex flex-column position-static">
+              <div class="row mb-2">
+                <p class="col-6"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">제작자명</span></p> 
               </div>
-              <div class="fs-3 fw-bold"><span id="dt_fundingName">프로젝트명_Purplaying</span></div>
-              <div class="d-flex">
-                <div class="col-4"><span id="dt_fundingMoney">1,234,567</span>원</div>
-                <div class="col-4"><span id="dt_fundingPercent">123</span>% 달성</div>
-                <div class="col-4">종료 D-<span id="dt_fundingDday">10</span></div>
+                <h2 class="mb-2">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h2>
+              <div class>
+                <p>
+                <span class="text-danger" id="dt_fundingMoney">1,234,567원</span>
+                <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 0%</span>
+                <span class="text-danger" id="dt_dDay">종료 D-10</span>
+              </p>
               </div>
             </div>
           </div>
         </div>
 
         <!-- 리워드 정보 -->
-        <div class="pb-4">
-          <h4>리워드 정보</h4>
+        <div class="mb-2">
+          <h5>리워드 정보</h5>
           <hr>
             <div class="d-flex justify-content-between mx-1">
-              <div class="fw-bold">리워드 패키지</div>
-              <div>[<span id="dt_rewardName">패키지명1</span>]</div>
+              <p class="fw-bold">리워드 패키지</p>
+              <p>[<span id="dt_rewardName">패키지명1</span>]</p>
             </div>
             <div class="d-flex justify-content-between mx-1">
-              <div class="fw-bold">리워드 가격</div>
-              <div id="dt_rewardPrice"><span id="dt_price">20,000</span>원</div>
+              <p class="fw-bold">리워드 가격</p>
+              <p id="dt_rewardPrice"><span id="dt_price">20,000</span>원</p>
             </div>
             <div class="d-flex justify-content-between mx-1">
-              <div class="fw-bold">구성품</div>
-              <div id="dt_rewardItem">구성품1, 구성품2, 구성품n</div>
+              <p class="fw-bold">구성품</p>
+              <p id="dt_rewardItem">구성품1, 구성품2</p>
             </div>
         </div>
 
         <!-- 후원자 정보 -->
-        <div class="pb-4">
-          <h4>후원자 정보</h4>
+        <div class="mb-2">
+          <h5>후원자 정보</h5>
           <hr>
           <div class="d-flex justify-content-between mx-1">
               <div class="col-3">
-                <div class="fw-bold">연락처</div>
-                <div id="dt_phoneNM">010-2023-0111</div>
+                <p class="fw-bold">연락처</p>
+                <p id="dt_phoneNM">010-2023-0111</p>
                 <br>
-                <div class="fw-bold">이메일</div>
-                <div id="dt_email">Purplaying@email.com</div>
+                <p class="fw-bold">이메일</p>
+                <p id="dt_email">Purplaying@email.com</p>
               </div>
               <div class="col-6 py-3 my-4">
-                <div class="text-left px-3 py-2 cs_msg">등록된 회원 정보의 연락처 또는 이메일로
-                  프로젝트에 대한 알림 및 소식이 전달됩니다.</div>
+                <p class="text-left px-3 py-2">등록된 회원 정보의 연락처 또는 이메일로
+                  프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
               </div>
           </div>
         </div>
 
         <!-- 배송 정보 -->
-        <div class="pb-4">
-          <h4>배송정보</h4>
+        <div class="mb-2">
+          <h5>배송정보</h5>
           <hr>
-          <div class="col-12 text-end pe-3">
+          <div class="col-12 text-end mb-2 pe-2">
             <input type="checkbox" id="dt_sameChk">
             <label for="dt_sameChk">후원자 정보와 동일</label>
           </div>
           <div class="d-flex justify-content-between mx-1">
-            <div class="fw-bold">수령인</div>
+            <p class="fw-bold">수령인</p>
             <div><input type="text" id="dt_recieverName" maxlength="7" required></div>
           </div>
           <div class="d-flex justify-content-between mx-1">
-            <div class="fw-bold">연락처</div>
+            <p class="fw-bold">연락처</p>
             <div><input type="text" id="dt_phoneNumber" maxlength="12" required></div>
           </div>
-          <div>
+          <div class="mb-2">
             <div class="d-flex justify-content-between mx-1">
-              <div class="fw-bold">주소</div>
+              <p class="fw-bold">주소</p>
             <!--JavaScript -->
               <div class="col-4 text-end">
-                <input type="text" class="col-4 pt-2 pb-2" id="dt_postcode" placeholder="우편번호" readonly>
-                <input type="button" class="btn py-1 ms-1 my-1" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
+                <input type="text" class="col-4" id="dt_postcode" placeholder="우편번호" readonly>
+                <input type="button" class="btn" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
               </div>
             </div>
             <div class="d-flex justify-content-end mx-1">
               <div class="col-10 text-end">
-                <input type="text" class="col-3" id="dt_address" placeholder="기본주소" required>
-                <input type="text" class="col-4" id="dt_detailAddress" placeholder="상세주소" maxlength="50">
+                <input type="text" class="col-2" id="dt_address" placeholder="기본주소" required>
+                <input type="text" class="col-3" id="dt_detailAddress" placeholder="상세주소" maxlength="50">
               </div>
             </div>
           </div>
           <!--JavaScript 종료 -->
           <div class="d-flex justify-content-between mx-1">
-            <div class="fw-bold col-2">배송 요청사항</div>
-            <div class="col-7 text-end"><input type="text" class="col-7" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
+            <p class="fw-bold col-2">배송 요청사항</p>
+            <div class="col-7 text-end"><input type="text" class="col-6" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
           </div>
         </div>
 
         <!-- 포인트 및 쿠폰 -->
-        <div class="pb-4">
-          <h4>포인트 및 쿠폰</h4>
+        <div class="mb-2">
+          <h5>포인트 및 쿠폰</h5>
           <hr>
             <div class="d-flex justify-content-between mx-1">
-                <div class="fw-bold">쿠폰 선택</div>
+                <p class="fw-bold">쿠폰 선택</p>
                 <div>
                   <select>
                     <option selected>선택 가능한 쿠폰</option>
@@ -208,14 +210,14 @@
             </div>
             <div>
               <div class="d-flex justify-content-between mx-1">
-                <div class="fw-bold">포인트 사용</div>
-                <div class="text-end">
+                <p class="fw-bold">포인트 사용</p>
+                <p class="text-end">
                   보유포인트 <span id="dt_point"><strong>0 </strong></span>P<br>
-                </div>
+                </p>
             </div>
             <div class="d-flex justify-content-end mx-1">
                 <div class="col-4 text-end">
-                  <input type="text" class="col-4 text-end mt-2 mb-1" id="dt_usePoint" maxlength="10">
+                  <input type="text" class="text-end mt-2 mb-1" id="dt_usePoint" maxlength="10">
                   <button class="btn py-1 ms-1" id="useAllBtn">모두 사용</button>
                 </div>
             </div>
@@ -223,137 +225,96 @@
           </div>
 
         <!-- 결제수단 선택 -->
-        <div class="pb-4">
-          <h4>결제수단 선택</h4>
+        <div class="mb-2">
+          <h5>결제수단 선택</h5>
           <hr>
-          <div class="row mx-1">
-            <!-- 탭 시작 -->
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <button class="nav-link active py-1" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">간편 결제</button>
-              </li>
-              <li class="nav-item" role="presentation">
-                <button class="nav-link py-1" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">카드 결제</button>
-              </li>
-            </ul>
-            <div class="tab-content" id="pills-tabContent">
-              <!--간편 결제 내용-->
-              <div class="tab-pane fade show active d-flex col-6" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
-                <div class="d-flex">
-                  <a data-bs-toggle="modal" data-bs-target="#agree4Modal" href="#"><img class="cs_cardImg" src="/assets/img/cardMine.PNG"></a>
-                  <!-- Modal -->
-                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="agree4ModalLabel">간편 결제 창</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">결제</button>
-                        </div>
-                      </div>
-                    </div>
-                </div> <!-- Modal end-->
-                  <a data-bs-toggle="modal" data-bs-target="#agree4Modal" href="#"><img class="cs_cardImg" src="/assets/img/cardADD.PNG"></a>
-                  <!-- Modal -->
-                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="agree4ModalLabel">간편 카드 추가 창</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">결제</button>
-                        </div>
-                      </div>
-                    </div>
-                </div> <!-- Modal end-->
-                </div>
+          <div class="d-flex mx-1">
+            <div class="col-6">
+              <p class="fw-bold">간편 결제</p>
+              <!--간편 결제 -->
+              <div class="col-auto d-none d-lg-block text-center" data-bs-toggle="modal" data-bs-target="#agree2Modal">
+                <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                  <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">간편결제카드추가</text></svg>
               </div>
+              <!-- Modal start-->
+              <div class="modal fade" id="agree2Modal" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="agree2ModalLabel">간편결제카드추가</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree2()">추가</button>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+            </div>
+            <div class="col-6">
+              <p class="fw-bold">카드 결제</p>
               <!--카드 결제 내용-->
-              <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                <div>
-                  <div class="d-flex justify-content-between">
-                    <div class="d-flex justify-content-between col-8">
-                      <label class="col-3 fw-bold text-start me-1">카드번호</label>
-                      <div class="col-9">
-                        <input type="text" class="col-2 me-1" id="dt_cardNumber1" maxlength="4" required>
-                        <input type="text" class="col-2 me-1" id="dt_cardNumber2" maxlength="4" required>
-                        <input type="text" class="col-2 me-1" id="dt_cardNumber3" maxlength="4" required>
-                        <input type="text" class="col-2" id="dt_cardNumber4" maxlength="4" required>
-                      </div>
-                    </div>
-                    <div class="d-flex col-4">
-                      <label class="col-3 fw-bold me-2">할부기간</label>
-                      <select class="col-6">
-                        <option selected>일시불</option>
-                        <option selected>2개월</option>
-                        <option selected>3개월</option>
-                        <option selected>4개월</option>
-                        <option selected>5개월</option>
-                      </select>
-                    </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <label>카드번호</label>
+                  <input type="text" class="col-2 me-1" id="dt_cardNumber1" maxlength="4" required>
+                  <input type="text" class="col-2 me-1" id="dt_cardNumber2" maxlength="4" required>
+                  <input type="password" class="col-2 me-1" id="dt_cardNumber3" maxlength="4" required>
+                  <input type="text" class="col-2" id="dt_cardNumber4" maxlength="4" required>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <div class="mb-2">  
+                    <label>유효기간</label>
+                    <input type="text" class="col-5" id="dt_validDate" maxlength="4" placeholder="MMYY" required>
                   </div>
-                <div class="d-flex">
-                  <div class="col-6">
-                    <label class="col-3 fw-bold text-start me-2">유효기간</label>
-                    <input type="text" class="col-3 ms-3" id="dt_validDate" maxlength="4" placeholder="MMYY" required>
-                  </div>
-                  <div class="col-5">
-                    <label class="fw-bold text-start me-2">카드 비밀번호</label>
+                  <div class="mb-2">
+                    <label>카드 비밀번호</label>
                     <input type="text" class="col-4" id="dt_cardPwd" maxlength="2" placeholder="앞 2자리" required>
                   </div>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                      <label class="col-5 fw-bold text-start me-2">생년월일 6자리</label>
-                      <input type="text" class="col-4" id="dt_userBirth" maxlength="6" placeholder="YYMMDD" required>
-                    </div>
+                <div class="mb-2">
+                  <label>CVC</label>
+                  <input type="text" class="col-2 ms-2" id="dt_userBirth" maxlength="3"required>
                 </div>
-                </div>
-              </div>
-            </div><!-- 탭 종료 -->
+            </div>
           </div>
-        </div>   
+        </div>
+
         
         <!-- 결제 금액 계산 -->
-        <div class="pb-2 cs_msg">
+        <div class="mb-2">
+          <hr>
           <div class="d-flex justify-content-between mx-2">
-            <div class="fw-bold">후원 금액</div>
-            <div><span id="dt_fundingPrice">20,000</span>원</div>
+            <p class="fw-bold">후원 금액</p>
+            <p><span id="dt_fundingPrice">20,000</span>원</p>
           </div>
           <div>
-            <div class="d-flex justify-content-between fw-bold mx-2">할인 금액</div>
+            <p class="d-flex justify-content-between fw-bold mx-2">할인 금액</p>
             <div class="d-flex justify-content-between me-1 ms-3">
-              <div>쿠폰 사용</div>
-              <div><span id="dt_usedCoupon">-1,000원 [축! 신규 가입 쿠폰]</span></div>
+              <p>쿠폰 사용</p>
+              <p><span id="dt_usedCoupon">-1,000원 [축! 신규 가입 쿠폰]</span></p>
             </div>
             <div class="d-flex justify-content-between me-1 ms-3">
-              <div>포인트 사용</div>
-              <div><span id="dt_usedCoupon">-1,000원 [1,000포인트 사용]</span></div>
+              <p>포인트 사용</p>
+              <p><span id="dt_usedCoupon">-1,000원 [1,000포인트 사용]</span></p>
             </div>
           </div>
-          <div class="d-flex justify-content-between pt-2 mx-2 my-2 cs_dash">
-            <div class="fw-bold">결제 금액</div>
-            <div><span id="dt_totalPrice">18,000</span>원</div>
+          <div class="d-flex justify-content-between pt-2 mx-2 my-2">
+            <p class="fw-bold">결제 금액</p>
+            <p><span id="dt_totalPrice">18,000</span>원</p>
           </div>
         </div>
 
         <!-- 펀딩 유의 사항 -->
-        <div class="mt-3"> 
-          <h4>펀딩 유의 사항</h4>
+        <div class="mb-2"> 
+          <h5>펀딩 유의 사항</h5>
           <hr>
-          <div class="row py-3 mx-1 cs_msg">
-            <div class="col-7">
+          <div class="row py-3 mx-1">
+            <p class="col-7">
             후원은 구매가 아니며, 프로젝트에 대한 자금 지원입니다.<br>
             프로젝트는 계획과 다르게 진행 될 수 있습니다.
-            </div>    
+            </p>    
             <div class="col-5 text-end">
               <div>
                 <input id="chk1" type="checkbox" name="agree" required>
@@ -367,14 +328,14 @@
                           <h5 class="modal-title" id="agree4ModalLabel">개인정보 제 3자 제공 동의</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
+                        <p class="modal-body">
                           회원의 개인정보는 당사의 개인정보 취급방침에 따라 안전하게 보호됩니다.
                           '회사'는 이용자들의 개인정보를 개인정보 취급방침의 '제 2조 수집하는 개인정보의 항목, 수집방법 및 이용목적'에서 
                           고지한 범위 내에서 사용하며, 이용자의 사전 동의 없이는 동 범위를 초과하여 이용하거나
                           원칙적으로 이용자의 개인정보를 외부에 공개하지 않습니다.
-                        </div>
+                        </p>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
+                          <button type="button" class="btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
                         </div>
                       </div>
                     </div>
@@ -388,7 +349,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-8 text-center">
-             <div class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.11</strong></span> 에 자동으로 결제됩니다.</div>
+             <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.11</strong></span> 에 자동으로 결제됩니다.</p>
               <button class="btn fs-3 w-50 my-3">후원하기</button>
             </div>
           </div> 
@@ -430,7 +391,7 @@
         <form>
           <h5>고객지원</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><button class="btn btn-primary" type="button">고객센터 문의하기</button></li>
+            <li class="nav-item mb-2"><button class="btn-primary" type="button">고객센터 문의하기</button></li>
           </ul>
         </form>
       </div>
@@ -444,5 +405,27 @@
       </p>
     </div>
   </footer>
+  <script>
+    /*----주소 찾기----*/
+    function execDaumPostcode() { 
+          new daum.Postcode({
+              oncomplete: function(data) {
+                  var addr = '';
+                  var extraAddr = '';
+  
+                  if (data.userSelectedType === 'R') { 
+                      addr = data.roadAddress;
+                  } else { 
+                      addr = data.jibunAddress;
+                  }
+  
+                  document.getElementById('dt_postcode').value = data.zonecode;
+                  document.getElementById("dt_address").value = addr;
+                  document.getElementById("dt_detailAddress").focus();
+              }
+          }).open();
+      } //API reference  http://postcode.map.daum.net/guide
+  
+  </script>
 </body>
 </html>
