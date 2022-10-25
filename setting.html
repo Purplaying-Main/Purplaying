@@ -351,13 +351,150 @@
             </div>
             <!-- tab 3 contents -->
             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
-              <h5>배송지</h5>
-              <p>tab 03 contents</p>
+                <div class="row justify-content-between">
+                  <div class="col-auto">
+                    <h6>등록된 배송지</h6>
+                  </div>
+                  <div class="col-auto px-3 text-end">
+                    <button class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#addressRegModal">배송지 추가</button>
+                  </div>
+                </div>
+                <!-- card start -->
+                <div class="row border rounded w-75 mx-1">
+                  <div class="border-bottom justify-content-between d-md-flex py-2">
+                    <h6 class="col-auto text-info">기본 배송지</h6>
+                    <div class="col-auto d-md-flex px-3">
+                      <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
+                      <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                    </div>
+                  </div>
+                  <div class="px-3 pt-2">
+                    <h6>받는분 : 홍길동</h6>
+                    <h6>[06541] 서울특별시  서초구 강남대로 479 3층 </h6>
+                    <h6>010-0000-0000</h6>
+                  </div>
+                </div>
+              <!-- card end -->
+              <hr class="my-4">
+              <!-- card start -->
+              <div class="row border rounded w-75 mx-1">
+                <div class="border-bottom justify-content-between d-md-flex py-2">
+                  <h6 class="col-auto text-info">배송지 #2</h6>
+                  <div class="col-auto d-md-flex px-3">
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                  </div>
+                </div>
+                <div class="px-3 pt-2">
+                  <h6>받는분 : 홍길동</h6>
+                  <h6>[06541] 서울특별시  서초구 강남대로 479 3층 </h6>
+                  <h6>010-0000-0000</h6>
+                </div>
+              </div>
+              <!-- card end -->
+              <!-- modal start -->
+              <div class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">배송지 추가</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">수령인</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address" name="address" />
+                          <label for="label_address">배송지 주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address_detail" name="address_detail"/>
+                          <label for="label_address_detail">상세 주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="userphone" name="userphone"/>
+                          <label for="label_userphone">연락처</label>
+                        </div>
+                        <div class="pb-2 border-bottom">
+                          <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
+                          기본배송지로 등록
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
             </div>
             <!-- tab 4 contents -->
             <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
-              <h5>tab 04</h5>
-              <p>tab 04 contents</p>
+              <ul class="border-bottom py-3">
+                <li class="row justify-content-between">
+                  <div class="col-auto">
+                    <h6>메시지</h6>
+                  </div>
+                  <div class="col-auto px-3 text-end">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                    </div>
+                  </div>
+                </li>
+                <li class="row text-muted">
+                  <p>새 메시지 알림을 이메일로 수신합니다.</p>
+                </li>
+              </ul>
+              <ul class="border-bottom py-3">
+                <li class="row justify-content-between">
+                  <div class="col-auto">
+                    <h6>후원 프로젝트 업데이트</h6>
+                  </div>
+                  <div class="col-auto px-3 text-end">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                    </div>
+                  </div>
+                </li>
+                <li class="row text-muted">
+                  <p>후원하고 있는 프로젝트 업데이트 알림을 이메일로 수신합니다</p>
+                </li>
+              </ul>
+              <ul class="border-bottom py-3">
+                <li class="row justify-content-between">
+                  <div class="col-auto">
+                    <h6>관심목록</h6>
+                  </div>
+                  <div class="col-auto px-3 text-end">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                    </div>
+                  </div>
+                </li>
+                <li class="row text-muted">
+                  <p>관심목록에 등록된 이용자의 프로젝트 관련 알림을 이메일로 수신합니다.</p>
+                </li>
+              </ul>
+              <ul class="border-bottom py-3">
+                <li class="row justify-content-between">
+                  <div class="col-auto">
+                    <h6>마케팅 알림</h6>
+                  </div>
+                  <div class="col-auto px-3 text-end">
+                    <div class="form-check form-switch">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                    </div>
+                  </div>
+                </li>
+                <li class="row text-muted">
+                  <p>퍼플레잉 신규 콘텐츠 및 추천 알림을 이메일로 수신합니다.</p>
+                </li>
+              </ul>
             </div>
           </div>
         </div><!-- 탭 컨텐츠 end -->
