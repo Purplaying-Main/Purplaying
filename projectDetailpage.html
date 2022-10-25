@@ -136,7 +136,22 @@
               <li><button type="button" class="btn btn-primary container mb-4">펀딩하기</button></li>
               <div class="d-md-block d-grid gap-3">
                 <button type="button" class="btn btn-outline-info">찜하기</button>
-                <button type="button" class="btn btn-outline-info">공유하기</button>
+                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#agree4Modal">공유하기</button>
+                    <!-- 공유하기 Modal -->
+                    <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="agree4ModalLabel">펀딩 공유하기</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-footer">
+                            <input class="col-10" id="showURL" readonly>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="copyURL()">복사</button>
+                          </div>
+                        </div>
+                      </div>
+                  </div> <!-- Modal end-->
                 <button type="button" class="btn btn-outline-info" onclick="location.href='1대1문의(plus).html'">문의하기</button>
               </div>
               <hr class="my-4">
@@ -378,5 +393,22 @@
         </p>
       </div>
     </footer>
+
+  <script>
+    //현재페이지 URL 가져오기
+    document.getElementById("showURL").value = window.location.pathname;
+
+  //클립보드에 현재페이지 URL 저장하기
+  function copyURL(){
+    var content = document.getElementById("showURL").value;
+    navigator.clipboard.writeText(content)
+    .then(() => {
+      alert("복사 성공");
+    })
+    .catch(e => {
+      alert("복사 실패");
+    })
+    }
+  </script>
   </body>
 </html>
