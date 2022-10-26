@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SettingController {
 
+	//setting.html호출
 	@RequestMapping(value="/setting", method=RequestMethod.GET)
 	public String setting() {
 		return "setting";
