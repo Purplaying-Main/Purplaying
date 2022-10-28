@@ -8,7 +8,7 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
-
+ 
 	<!--메인 컨테이너 -->
 	<section>
 		<h1 class="visually-hidden">HOME</h1>
