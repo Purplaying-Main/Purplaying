@@ -289,7 +289,8 @@
                   <div class="border-bottom justify-content-between d-md-flex py-2">
                     <h6 class="col-auto text-info">기본 배송지</h6>
                     <div class="col-auto d-md-flex px-3">
-                      <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
+                      <!-- 수정 -->
+                      <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal">M</button>
                       <button class="btn btn-outline-danger btn-sm" type="button">D</button>
                     </div>
                   </div>
@@ -317,12 +318,49 @@
                 </div>
               </div>
               <!-- card end -->
-              <!-- modal start -->
+              <!-- 배송지 추가 modal start -->
               <div class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header p-5 pb-4 border-bottom-0">
                       <h5 class="fw-bold mb-0">배송지 추가</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">수령인</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address" name="address" />
+                          <label for="label_address">배송지 주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address_detail" name="address_detail"/>
+                          <label for="label_address_detail">상세 주소</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="userphone" name="userphone"/>
+                          <label for="label_userphone">연락처</label>
+                        </div>
+                        <div class="pb-2 border-bottom">
+                          <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
+                          기본배송지로 등록
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+              
+              <!-- 배송지 수정 modal start -->
+              <div class="modal fade" id="addressModiModal" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">배송지 수정</h5>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-5 pt-0">
