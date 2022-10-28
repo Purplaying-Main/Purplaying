@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="resources/assets/css/headers.css"> <!-- header-->
    <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">  --><!-- header-->
   <!-- JS -->
-  <script src="<%=request.getContextPath()%>resources/assets/js/bootstrap.bundle.min.js"></script>
-  <script src="<%=request.getContextPath()%>resources/assets/js/include.js"></script>
+  <script src="resources/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="resources/assets/js/include.js"></script>
   
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <!-- <script src="resource/assets/js/bootstrap.bundle.min.js"></script> 
