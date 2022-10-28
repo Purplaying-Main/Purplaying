@@ -3,22 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<!-- CSS -->
-  <link rel="stylesheet" href="resources/assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
-  <link rel="stylesheet" href="resources/assetss/css/animate.css">   <!-- 애니메이션효과 -->
-  <link rel="stylesheet" href="resources/assets/css/main.css" > <!-- main style-->
-  <link rel="stylesheet" href="resources/assets/css/headers.css" > <!-- header-->
-  <!-- JS -->
-  <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
-  <script src="http://www.w3schools.com/lib/w3data.js"></script> 
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <!-- 아이콘  -->
-  <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
+ <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
+ <%@ include file ="meta.jsp" %>
 
-<title>Purplaying</title>
+ <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 </head>
 <body>
+    <!--헤더 인클루드-->
+   <%@ include file ="header.jsp" %>
+  
 	<!--메인 컨테이너 -->
   <section>
     <h1 class="visually-hidden">HOME</h1>
@@ -289,7 +283,9 @@
       </div>
     </div><!-- contentsWrap end -->
   </section>
-
+  <!--푸터 인클루드-->
+  <%@ include file ="footer.jsp" %>
+  
   <script>
     /*----주소 찾기----*/
     function execDaumPostcode() { 
