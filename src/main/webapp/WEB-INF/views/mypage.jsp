@@ -3,13 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Insert title here</title>
+	<!-- meta태그, CSS, JS, 타이틀 인클루드  -->
+  <%@ include file ="meta.jsp" %>
 </head>
 <body>
-	<!--메인 컨테이너 -->
+  <!--헤더 인클루드-->
+   <%@ include file ="header.jsp" %>
+  
+  <!--메인 컨테이너 -->
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
@@ -163,5 +164,8 @@
         </div>
     </div><!-- contentsWrap end -->
   </section>
+  
+  <!--푸터 인클루드-->
+  <%@ include file ="footer.jsp" %>
 </body>
 </html>
