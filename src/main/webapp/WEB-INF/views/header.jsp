@@ -29,7 +29,7 @@
   <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/purplaying/index" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <a href="/purplaying/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
           <svg class="logo" width="140" height="36" aria-label="Bootstrap"></svg>
         </a>
 
@@ -53,13 +53,13 @@
         </form>
 
         <div class="dropdown text-end">
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="mypage.html">마이페이지</a></li>
-            <li><a class="dropdown-item" href="#">설정</a></li>
-            <li><a class="dropdown-item" href="#">고객센터</a></li>
+            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
+            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
+            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">로그아웃</a></li>
           </ul>
