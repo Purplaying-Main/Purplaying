@@ -29,7 +29,7 @@
           </ul>
         </div>
         <div class="container py-4"><!-- genre div start -->
-          <h4>웹툰</h4>
+          <h4>시/에세이</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">

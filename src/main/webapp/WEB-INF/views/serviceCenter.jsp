@@ -38,7 +38,7 @@
 				<!-- 탭 menu end-->
 				<div class="row container mb-4 px-5">
 					<!-- 탭 컨텐츠 start -->
-					<div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-content align-items-center" id="v-pills-tabContent">
 						<!-- tab 1 contents -->
 						<div class="tab-pane fade show active" id="v-pills-tab01"
 							role="tabpanel" aria-labelledby="v-pills-tab01-tab">
@@ -62,7 +62,7 @@
 													</tr>
 												</thead>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -70,7 +70,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -78,7 +78,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -86,7 +86,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -94,7 +94,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -102,7 +102,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='notice'">
 														<td>00</td>
 														<td>[공지사항]공지 사항 있어요</td>
 														<td>admin</td>
@@ -282,7 +282,7 @@
 													</tr>
 												</thead>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>이**</td>
@@ -291,7 +291,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>김**</td>
@@ -300,7 +300,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>김**</td>
@@ -309,7 +309,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>한**</td>
@@ -318,7 +318,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>김**</td>
@@ -327,7 +327,7 @@
 													</tr>
 												</tbody>
 												<tbody id="ntbody">
-													<tr>
+													<tr onclick="location.href='showinquiry'">
 														<td>00</td>
 														<td>[답변전]문의 사항 있어요</td>
 														<td>김**</td>
@@ -363,7 +363,7 @@
 												<div class="col-1">
 													<button class="btn btn-primary text-end"
 														style="float: right;"
-														onclick="location.href='inquiryWrite.jsp'">등 록</button>
+														onclick="location.href='inquirywrite'">등 록</button>
 												</div>
 											</div>
 											<div class='inpage search mt-4 text-center'>

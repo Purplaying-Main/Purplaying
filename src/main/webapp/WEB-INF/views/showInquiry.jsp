@@ -13,9 +13,9 @@
 	<!--페이지 내용 시작-->
 	<section>
 		<!-- 프로젝트 작성 페이지 탭 -->
-		<div class="container mb-3 col-8">
+		<div class="container my-3 col-8">
 			<div class="border rounded">
-				<div class="bg-light border-bottom d-flex">1
+				<div class="bg-light border-bottom d-flex">
 					<span class="col-auto px-1 border-right mx-2">10</span> <span
 						class="col-8 border-right">[답변완료] 문의 사항 있어요</span>
 					<div class="col-3 text-end">

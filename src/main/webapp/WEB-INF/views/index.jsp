@@ -68,7 +68,7 @@
           <h4>지금 달성률이 높은 펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -82,7 +82,7 @@
               </div>
             </div><!-- project thumb end -->
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -96,7 +96,7 @@
               </div>
             </div><!-- project thumb end -->
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -115,7 +115,7 @@
           <h4>오늘의 신규펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -129,7 +129,7 @@
               </div>
             </div><!-- project thumb end -->
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -143,7 +143,7 @@
               </div>
             </div><!-- project thumb end -->
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
+              <div class="card shadow-sm" onclick="location.href='projectdetail'">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>

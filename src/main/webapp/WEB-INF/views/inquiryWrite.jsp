@@ -41,8 +41,44 @@
 					</div>
 				</div>
 				<div class="text-end">
-					<button class="btn btn-primary px-4">취 소</button>
-					<button class="btn btn-primary px-4" onclick="location.href='serviceCenter.jsp'">게 시</button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryWriteCancelModal">취 소</button>
+					<div class="modal fade" id="inquiryWriteCancelModal" tabindex="-1"
+						aria-labelledby="inquiryWriteCancelModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="inquiryWriteCancelModalLabel">작성 취소</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">
+									<label class="form-label">1대1 문의 작성을 취소하시겠습니까?</label>
+									<div class="invalid-feedback">Please enter your shipping address.</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#inquiryWriteFinishModal">게 시</button>
+					<div class="modal fade" id="inquiryWriteFinishModal" tabindex="-1"
+						aria-labelledby="inquiryWriteFinishModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="inquiryWriteFinishLabel">작성 완료</h5>
+								</div>
+								<div class="modal-body text-center">
+									<label class="form-label">1대1 문의 등록완료</label>
+									<div class="invalid-feedback">Please enter your shipping address.</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -7,27 +7,87 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class pageController {
-    //setting.html호출
+    //setting.jsp호출
     @RequestMapping(value="/setting", method=RequestMethod.GET)
     public String setting() {
         return "setting";
     }
     
-    //serviceCenter.html호출
+    //serviceCenter.jsp호출
     @RequestMapping(value="/servicecenter", method=RequestMethod.GET)
     public String serviceCenter() {
         return "serviceCenter";
     }
     
-    //inquiryWrite.html호출
+    //inquiryWrite.jsp호출
     @RequestMapping(value="/inquirywrite", method=RequestMethod.GET)
     public String inquiryWrite() {
         return "inquiryWrite";
     }
     
-    //inquiryWrite.html호출
-    @RequestMapping(value="/showinquiryanswer", method=RequestMethod.GET)
+    //showInquiry.jsp호출
+    @RequestMapping(value="/showinquiry", method=RequestMethod.GET)
     public String showInquiryAnswer() {
-        return "showInquiryAnswer";
+        return "showInquiry";
+    }
+    
+    //notice.jsp호출
+    @RequestMapping(value="/notice", method=RequestMethod.GET)
+    public String notice() {
+        return "notice";
+    }
+    
+    //writeAnswer.jsp(Admin)호출
+    @RequestMapping(value="/writeanswer", method=RequestMethod.GET)
+    public String writeAnswer() {
+        return "writeAnswer";
+    }
+    
+    //projectDetail.jsp(Admin)호출
+    @RequestMapping(value="/projectdetail", method=RequestMethod.GET)
+    public String projectDetail() {
+        return "projectDetail";
+    }
+    
+    //payment.jsp호출
+    @RequestMapping(value="/payment", method=RequestMethod.GET)
+    public String payment() {
+        return "payment";
+    }
+    
+    //paymentcompleted.jsp호출
+    @RequestMapping(value="/paymentcompleted", method=RequestMethod.GET)
+    public String paymentCompleted() {
+        return "paymentCompleted";
+    }
+    
+    //mypage.jsp호출
+    @RequestMapping(value="/mypage", method=RequestMethod.GET)
+    public String mypage() {
+        return "mypage";
+    }
+    
+    //genre.jsp호출
+    @RequestMapping(value="/genre", method=RequestMethod.GET)
+    public String genre() {
+        return "genre";
+    }
+    
+    //genreLiterature.jsp호출
+    @RequestMapping(value="/genreliterature", method=RequestMethod.GET)
+    public String genreLiterature() {
+        return "genreLiterature";
+    }
+    
+    //genrePoemEssay.jsp호출
+    @RequestMapping(value="/genrepoemessay", method=RequestMethod.GET)
+    public String genrePoemEssay() {
+        return "genrePoemEssay";
+    }
+    
+    //genreWebtoon.jsp호출
+    @RequestMapping(value="/genrewebtoon", method=RequestMethod.GET)
+    public String genreWebtoon() {
+        return "genreWebtoon";
     }
 }

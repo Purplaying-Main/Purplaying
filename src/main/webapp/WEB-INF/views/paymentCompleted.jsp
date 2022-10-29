@@ -141,8 +141,8 @@
 
         <!--하단 영역-->
         <div class="d-flex justify-content-end mb-2">
-          <a class="btn btn-primary" href="mypage.html">주문내역확인</a>
-          <a class="btn btn-secondary ms-2" href="home.html">메인으로</a>
+          <a class="btn btn-primary" href="mypage">주문내역확인</a>
+          <a class="btn btn-secondary ms-2" href="/purplaying/">메인으로</a>
         </div>
 
       </div><!--컨텐츠 영역-->

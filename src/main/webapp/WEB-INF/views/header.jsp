@@ -26,40 +26,27 @@
   
  <!--헤더 컨테이너-->
   <h1 class="visually-hidden">Header</h1>
-  <header class="p-3 border-bottom">
+   <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/purplaying/index" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+        <a href="/purplaying/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
           <svg class="logo" width="140" height="36" aria-label="Bootstrap"></svg>
         </a>
-
-        <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          											장르별</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">문학</a></li>
-              <li><a class="dropdown-item" href="#">시/에세이</a></li>
-              <li><a class="dropdown-item" href="#">웹툰</a></li>
-            </ul>
-          </div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
-        </div>
-
-        <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small">
             <li><a class="dropdown-item" href="mypage.html">마이페이지</a></li>
             <li><a class="dropdown-item" href="#">설정</a></li>
             <li><a class="dropdown-item" href="#">고객센터</a></li>
+            <li><a class="dropdown-item" href="mypage">마이페이지</a></li>
+            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
+            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">로그아웃</a></li>
           </ul>

@@ -275,7 +275,7 @@
           <div class="row justify-content-center">
             <div class="col-8 text-center">
              <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.11</strong></span> 에 자동으로 결제됩니다.</p>
-             <a class="btn btn-primary fs-3 w-50 my-3" href="paymentCompleted.html">후원하기</a>
+             <a class="btn btn-primary fs-3 w-50 my-3" href="paymentcompleted">후원하기</a>
             </div>
           </div> 
         </div>
