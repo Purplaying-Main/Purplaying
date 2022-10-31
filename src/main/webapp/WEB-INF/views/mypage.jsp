@@ -58,7 +58,7 @@
                 </div>
               </div>
               <!-- project card end -->
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary" onclick="location.href='projectRegister.html'">신규프로젝트 신청하기</button>
+              <button type="button" class="w-100 btn btn-lg btn-outline-primary" onclick="location.href='projectregister'">신규프로젝트 신청하기</button>
             </div>
             
             <!-- 관심 tab -->
