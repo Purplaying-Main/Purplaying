@@ -4,7 +4,7 @@
 <html>
 <head>
 <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-<%@ include file="meta.jsp"%>
+<%@ include file="meta4.jsp"%>
 </head>
 
 <body>
@@ -21,8 +21,8 @@
 						style="resize: none;"></textarea>
 				</div>
 				<div class="row" style="height: 500px;">
-					<textarea class="form-control" placeholder="내용을 입력하세요​"
-						style="resize: none;"></textarea>
+					<textarea id="summernote" placeholder="내용을 입력하세요​"
+						></textarea>
 				</div>
 				<div class="row">
 					<div class="col-10 text-end">
@@ -84,6 +84,20 @@
 		</div>
 	</section>
 	<!--페이지 내용 종료-->
+	<script>
+		$(document).ready(function() {
+			//여기 아래 부분
+			$('#summernote').summernote({
+				  height: 445,                 // 에디터 높이
+				  minHeight: 445,             // 최소 높이
+				  maxHeight: 445,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+		          
+			});
+		});
+	</script>
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
 </body>
