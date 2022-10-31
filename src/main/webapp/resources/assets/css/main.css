@@ -1,0 +1,114 @@
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+/* 우선 순위가 높은 가상클래스 root */
+  :root { width:100%; margin: 0 auto; scroll-behavior: smooth; 
+  /* color */
+  --color-primary-rgb : #333;
+  --color-reverse-rgb : #999;
+  --color-links : rgb(100, 50, 200);
+  --color-links-hover : rgba(100, 50, 200, 0.5);
+  /* font family */
+  --font-primary : 'Noto Sans KR', sans-serif;
+  }
+  
+  body { color: rgba(var(--color-primary-rgb), 1); }
+
+  header {width:100%; height: 100%;}
+
+  a { color: var(--color-links); text-decoration: none; }
+  
+  a:hover { color: var(--color-links-hover); text-decoration: none; }
+  
+  h1,h2,h3,h4,h5,h6 { font-family: var(--font-primary); }
+
+  li { list-style:none; }
+
+  button {border :0; outline:0; background: transparent; }
+
+/*--------------------------------------------------------------
+# Sections & Section Header
+--------------------------------------------------------------*/
+section { width:100%; margin: 0 auto; }
+section .contentsWrap {margin: 20px 40px; padding: 20px;}
+
+footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--color-reverse-rgb);}
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+/* logo */
+.logo { background: url('../img/purplaying_logo_eng.png'); background-repeat : no-repeat; background-size : contain;}
+/* album card */
+.card  {text-align: left;}
+.bd-placeholder-img { position : relative;}
+/* 좋아요 버튼 */
+.likeBtn {z-index: 999; position: absolute; top: 20px; right : 20px; } 
+/* Carousel base class */
+.carousel { margin-bottom: 4rem }
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption { bottom: 3rem; z-index: 10;}
+/* Declare heights because of positioning of img element */
+.carousel-item { height: 32rem;}
+#item01 { background: url('../img/PSD_08.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#item02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#item03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+.carousel-project { height: 31rem;}
+#projectCarousel01 { background: url('../img/carousel01.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#projectCarousel02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+#projectCarousel03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 { margin-bottom: 1.5rem; text-align: center; }
+/* rtl:begin:ignore */
+.marketing .col-lg-4 p { margin-right: .75rem; margin-left: .75rem;}
+/* Featurettes------------------------- */
+.featurette-divider { margin: 5rem 0; /* Space out the Bootstrap <hr> more */ }
+/* rtl:begin:remove */
+.featurette-heading { letter-spacing: -.05rem;}
+
+#projectDetailimg img {width: 100%;}
+/*--------------------------------------------------------------
+# RESPONSIVE CSS
+--------------------------------------------------------------*/
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg { font-size: 3.5rem; }
+  .featurette-heading { margin-top: 7rem; }
+  .carousel-caption p { margin-bottom: 1.25rem; font-size: 1.25rem; line-height: 1.4;}
+  .featurette-heading { font-size: 50px;}
+
+}
+
+#msg {
+	height: 30px;
+	text-align: center;
+	font-size: 16px;
+	color: red;
+	margin-bottom: 20px;		
+}
+
