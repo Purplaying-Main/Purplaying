@@ -32,7 +32,7 @@
         <form>
           <h5>고객지원</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><button class="btn btn-primary" type="button">고객센터 문의하기</button></li>
+            <li class="nav-item mb-2"><button class="btn btn-primary" type="button" onclick="location.href='servicecenter'">고객센터 문의하기</button></li>
           </ul>
         </form>
       </div>
