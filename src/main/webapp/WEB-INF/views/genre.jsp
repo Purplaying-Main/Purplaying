@@ -28,12 +28,12 @@
 				<div class="container py-4">
 					<!-- genre div start -->
 					<h4>
-						<a href="genreLiterature.html">문학</a>
+						<a href="genreliterature">문학</a>
 					</h4>
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 						<div class="col">
-							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<!-- project thumb start --> 
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -66,7 +66,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -99,7 +99,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -137,12 +137,12 @@
 				<div class="container py-4">
 					<!-- genre div start -->
 					<h4>
-						<a href="genrePoemEssay.html">시/에세이</a>
+						<a href="genrepoemessay">시/에세이</a>
 					</h4>
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -175,7 +175,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -208,7 +208,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -246,12 +246,12 @@
 				<div class="container py-4">
 					<!-- genre div start -->
 					<h4>
-						<a href="genrePoemEssay.html">웹툰</a>
+						<a href="genrewebtoon">웹툰</a>
 					</h4>
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -284,7 +284,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
@@ -317,7 +317,7 @@
 						<!-- project thumb end -->
 						<div class="col">
 							<!-- project thumb start -->
-							<div class="card shadow-sm">
+							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
 									<i class="fa-solid fa-heart"></i>
