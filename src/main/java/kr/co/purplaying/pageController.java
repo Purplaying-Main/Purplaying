@@ -90,4 +90,10 @@ public class pageController {
     public String genreWebtoon() {
         return "genreWebtoon";
     }
+    
+    //signIn.jsp호출
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login() {
+        return "signIn";
+    }
 }

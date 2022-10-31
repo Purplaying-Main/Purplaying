@@ -1,11 +1,3 @@
-//네이버 로그인 버튼 노출 영역
-    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-    var state = naver_id_login.getUniqState();
-    naver_id_login.setButton("green", 3, 42);
-    naver_id_login.setDomain("YOUR_SERVICE_URL");
-    naver_id_login.setState(state);
-    naver_id_login.setPopup();
-    naver_id_login.init_naver_id_login();
 
 // 카카오 로그인
     function loginWithKakao() {

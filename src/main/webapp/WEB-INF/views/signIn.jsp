@@ -1,38 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLDecoder" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
+  <!-- 전체 동의 체크 -->
+  <script src="resources/assets/js/selectAll.js"></script>
+  <!-- 소셜 로그인(카카오, 네이버, 구글) -->
+  <script src="resources/assets/js/social.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    <!--메인 컨테이너 -->
   <section>
-    <h1 class="visually-hidden">HOME</h1>
+    <h1 class="visually-hidden">Sign In</h1>
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-       
+      
         <div class="form-signin w-100 m-auto">
-          <form>
+          <form action="<c:url value='/login/login'/>"  method="POST" onsubmit="return formCheck(this)">
             <img class="mb-4 text-center" src="assets/img/purplaying_logo_kor.png" alt="" width="200px">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
-        
+        	<div id="msg">
+				<c:if test="${ not empty param.msg }">
+					<i class="fa fa-exclamation-circle">${URLDecoder.decode(param.msg) }</i>
+				</c:if>
+			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id" value="${cookie.id.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating py-2">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pwd">
               <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating py-2">
+              <input type="true" name="toURL" value="${param.toURL }" />
             </div>
         
             <div class="checkbox mb-3">
               <label>
-                <input type="checkbox" value="remember-me"> 다음에도 내 정보 기억하기
+                <input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "" : "checked" }/> 다음에도 내 정보 기억하기
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
@@ -52,8 +66,6 @@
               </a>
               <p id="token-result"></p>
             </div>
-          <!-- 네이버 로그인 버튼 노출 영역 -->
-          <div class="col-4" id="naver_id_login"></div>
           <!-- 구글 로그인 버튼 노출 영역 -->
           <div class="col-4 g-signin2" data-onsuccess="onSignIn"></div>
         </div>
@@ -65,78 +77,5 @@
   </section>
    <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
-  
-   <!-- 전체 동의 체크 -->
-  <script>
-    function selectAll(selectAll)  {
-      const checkboxes 
-          = document.getElementsByName("agree");
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked;
-      })
-    }
-    function checked_agree1() {
-      $('input[id="agree1"]').prop('checked', true);
-    }
-    function checked_agree2() {
-      $('input[id="agree2"]').prop('checked', true);
-    }
-    function checked_agree3() {
-      $('input[id="agree3"]').prop('checked', true);
-    }
-    function checked_agree4() {
-      $('input[id="agree4"]').prop('checked', true);
-    }
-    function checked_agree5() {
-      $('input[id="agree5"]').prop('checked', true);
-    }
-  </script>
-
-  <!-- //네이버 로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-    var state = naver_id_login.getUniqState();
-    naver_id_login.setButton("green", 3, 42);
-    naver_id_login.setDomain("YOUR_SERVICE_URL");
-    naver_id_login.setState(state);
-    naver_id_login.setPopup();
-    naver_id_login.init_naver_id_login();
-  </script>
-
-  <!-- 카카오 로그인 -->
-  <script>
-    function loginWithKakao() {
-      Kakao.Auth.authorize({
-        redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-      });
-    }
-
-    function getCookie(name) {
-      var parts = document.cookie.split(name + '=');
-      if (parts.length === 2) { return parts[1].split(';')[0]; }
-    }
-  </script>
-
-  <!-- 구글 로그인 -->
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'outline',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
 </body>
 </html>

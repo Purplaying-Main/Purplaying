@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
+
+<c:set var="loginout" value="${sessionScope.id == null ? 'Login' : 'Logout' }"/>
+<c:set var="loginoutlink" value="${sessionScope.id == null ? '/login' : '/login/logout' }"/>
+<c:set var="loginHidden" value="${sessionScope.id == null ? '' : 'display:none' }"/>
+<c:set var="loginDisplay" value="${sessionScope.id == null ? 'display:none' : '' }"/>
+
 	
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -37,9 +45,9 @@
           <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
           											장르별</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="genreliterature">문학</a></li>
-              <li><a class="dropdown-item" href="genrepoemessay">시/에세이</a></li>
-              <li><a class="dropdown-item" href="genrewebtoon">웹툰</a></li>
+              <li><a class="dropdown-item" href="../genreliterature">문학</a></li>
+              <li><a class="dropdown-item" href="../genreliterature">시/에세이</a></li>
+              <li><a class="dropdown-item" href="../genreliterature">웹툰</a></li>
             </ul>
           </div>
           <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
@@ -48,21 +56,28 @@
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="genre">
-          <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
-          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu text-small">
-            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
-            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
-            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">로그아웃</a></li>
-          </ul>
+          <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
+	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
+	          <button type="button" class="btn btn-primary">Sign-up</button>
+          </div>
+          <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
+	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+	          </a>
+	          <ul class="dropdown-menu text-small">
+	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
+	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
+	            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>
+	            <li><hr class="dropdown-divider"></li>
+	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
+	          </ul>
+          </div>
+          
         </div>
       </div>
     </div>
