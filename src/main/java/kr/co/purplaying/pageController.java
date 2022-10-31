@@ -96,4 +96,10 @@ public class pageController {
     public String login() {
         return "signIn";
     }
+    
+    //searchResult.jsp호출
+    @RequestMapping(value="/searchResult", method=RequestMethod.GET)
+    public String searchResult() {
+        return "searchResult";
+    }
 }

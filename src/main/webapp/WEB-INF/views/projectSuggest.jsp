@@ -3,27 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-<%@ include file="meta.jsp"%>
+
 </head>
 <body>
-	<%@ include file="header.jsp"%>
  
 	<!--메인 컨테이너 -->
 	<section>
 		<h1 class="visually-hidden">HOME</h1>
-		<div class="contentsWrap">
-			<!--컨텐츠 영역-->
-			<!-- 펀딩 프로젝트 -->
 			<div class="album">
-				<div class="dropdown container">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						data-bs-toggle="dropdown" aria-expanded="false">달성률</button>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">최신등록순</a></li>
-						<li><a class="dropdown-item" href="#">관심많은순</a></li>
-					</ul>
-					<p>"<%=request.getParameter("search")%>" 검색 결과</p>
 				</div>
 				<div class="container py-4">
 					<!-- genre div start -->
@@ -357,8 +344,5 @@
 
 	</section>
 
-
-	<!--푸터 인클루드-->
-	<%@ include file="footer.jsp"%>
 </body>
 </html>

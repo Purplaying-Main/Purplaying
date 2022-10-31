@@ -50,13 +50,13 @@
               <li><a class="dropdown-item" href="/purplaying/genrewebtoon">웹툰</a></li>
             </ul>
           </div>
-          <div><a class="nav-link px-2 link-dark fw-bold mx-2" href="/purplaying/popularFunding">인기펀딩</a></div>
-          <div><a class="nav-link px-2 link-dark fw-bold mx-2" href="/purplaying/newFunding">신규펀딩</a></div>
-          <div><a class="nav-link px-2 link-dark fw-bold mx-2" href="/purplaying/comingsoonFunding">펀딩예정</a></div>
+          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
+          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
+          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="genre">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="searchResult">
           <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
         </form>
 
