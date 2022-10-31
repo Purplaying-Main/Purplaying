@@ -45,9 +45,9 @@
           <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
           											장르별</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="../genreliterature">문학</a></li>
-              <li><a class="dropdown-item" href="../genreliterature">시/에세이</a></li>
-              <li><a class="dropdown-item" href="../genreliterature">웹툰</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genreliterature">문학</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genrepoemessay">시/에세이</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genrewebtoon">웹툰</a></li>
             </ul>
           </div>
           <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
@@ -56,8 +56,8 @@
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="genre">
+          <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
