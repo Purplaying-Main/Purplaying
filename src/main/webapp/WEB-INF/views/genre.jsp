@@ -23,6 +23,7 @@
 						<li><a class="dropdown-item" href="#">최신등록순</a></li>
 						<li><a class="dropdown-item" href="#">관심많은순</a></li>
 					</ul>
+					<p>'<%=request.getParameter("search")%>'검색결과</p>
 				</div>
 				<div class="container py-4">
 					<!-- genre div start -->
