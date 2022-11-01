@@ -21,6 +21,16 @@
       <!--컨텐츠 영역-->
       <!-- 펀딩 프로젝트 -->
       <div class="album">
+        <div class="dropdown container">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            장르별
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">문학</a></li>
+            <li><a class="dropdown-item" href="#">시/에세이</a></li>
+            <li><a class="dropdown-item" href="#">웹툰</a></li>
+          </ul>
+        </div>
         <div class="container py-4"><!-- genre div start -->
           <h4>Comingsoon ! 펀딩예정</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -32,18 +42,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
@@ -55,18 +60,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
@@ -78,18 +78,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
@@ -105,18 +100,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
@@ -128,18 +118,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
@@ -151,18 +136,13 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
+                <div class="card-cate d-flex justify-content-between">
+                  <p onclick="location.href='genrewebtoon'">웹툰</p>
+                  <p class="text-danger"><strong>D-1</strong></p>
+                </div>
+                <div class="link-div" onclick="location.href='projectdetail'">
+	                <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                 </div>
                 </div>
               </div>
             </div><!-- project thumb end -->

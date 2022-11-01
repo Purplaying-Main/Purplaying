@@ -21,6 +21,16 @@
       <!--컨텐츠 영역-->
       <!-- 펀딩 프로젝트 -->
       <div class="album">
+        <div class="dropdown container">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            장르별
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">문학</a></li>
+            <li><a class="dropdown-item" href="#">시/에세이</a></li>
+            <li><a class="dropdown-item" href="#">웹툰</a></li>
+          </ul>
+        </div>
         <div class="container py-4"><!-- genre div start -->
           <h4>New! 신규펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
