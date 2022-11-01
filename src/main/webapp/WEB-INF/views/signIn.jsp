@@ -25,7 +25,7 @@
       
         <div class="form-signin w-100 m-auto">
           <form action="<c:url value='/login/login'/>"  method="POST" onsubmit="return formCheck(this)">
-            <img class="mb-4 text-center" src="assets/img/purplaying_logo_kor.png" alt="" width="200px">
+            <img class="mb-4 text-center" src="resources/assets/img/purplaying_logo_kor.png" alt="" width="200px">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
         	<div id="msg">
 				<c:if test="${ not empty param.msg }">
@@ -41,7 +41,7 @@
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-floating py-2">
-              <input type="true" name="toURL" value="${param.toURL }" />
+              <input type="hidden" name="toURL" value="${param.toURL }" />
             </div>
         
             <div class="checkbox mb-3">
@@ -50,7 +50,7 @@
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+            <p class="mt-5 mb-3 text-muted">&copy; 2022 Purplaying</p>
           </form>
         </div>
 
