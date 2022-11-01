@@ -1,12 +1,13 @@
-button:first-child
+.likeBtn:first-child
 .active {
   color: red;
 }
-.likeBtn {
-  display: flex;
-  height: 40px;
-  margin-top: 4px;
+.likeBtn{
+	width:fit-content;
+	height:fit-content;
 }
-.like_comment 
-button:first-child{
-}
+.fas,.fa-solid {
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900; 
+  font-size: 30px;
+  }

@@ -7,9 +7,6 @@
   <%@ include file ="meta.jsp" %>
 
 </head>
-<link rel="stylesheet" href="resources/assets/css/heart.css">
-<link rel="stylesheet" href="resources/assets/css/indexHover.css">
-<script src="resources/assets/js/heart.js"></script>
 <body>
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>

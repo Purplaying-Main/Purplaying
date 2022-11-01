@@ -6764,7 +6764,8 @@ readers do not read off random characters that represent icons */
 .fas,
 .fa-solid {
   font-family: 'Font Awesome 6 Free';
-  font-weight: 900; }
+  font-weight: 900; 
+  }
 @font-face {
   font-family: "Font Awesome 5 Brands";
   font-display: block;
