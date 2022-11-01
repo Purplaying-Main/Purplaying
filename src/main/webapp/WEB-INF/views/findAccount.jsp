@@ -123,7 +123,7 @@
 
         <hr class="my-4">
         
-        <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signUp.html">회원가입</a></p>
+        <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signup">회원가입</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 로그인</h5>
         <div class="row">
             <!-- 카카오 로그인 버튼 노출 영역 -->

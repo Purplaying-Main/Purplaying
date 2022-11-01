@@ -50,13 +50,15 @@
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="text-center mt-4">아이디/비밀번호를 잊으셨나요?<a href="findaccount">아이디 / 비밀번호 찾기</a></p>
             <p class="mt-5 mb-3 text-muted">&copy; 2022 Purplaying</p>
+            
           </form>
         </div>
 
         <hr class="my-4">
         
-        <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signUp.html">회원가입</a></p>
+        <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signup">회원가입</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 로그인</h5>
         <div class="row">
             <!-- 카카오 로그인 버튼 노출 영역 -->

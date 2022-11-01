@@ -7,12 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class pageController {
-    //setting.jsp호출
-    @RequestMapping(value="/setting", method=RequestMethod.GET)
-    public String setting() {
-        return "setting";
-    }
     
+    //고객센터///////////////////////////////////////////////////////////////////////////////////////
     //serviceCenter.jsp호출
     @RequestMapping(value="/servicecenter", method=RequestMethod.GET)
     public String serviceCenter() {
@@ -30,7 +26,6 @@ public class pageController {
     public String questions() {
         return "questions";
     }
-    
     //inquiryWrite.jsp호출
     @RequestMapping(value="/inquirywrite", method=RequestMethod.GET)
     public String inquiryWrite() {
@@ -60,7 +55,9 @@ public class pageController {
     public String writeAnswer() {
         return "writeAnswer";
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
     
+    //프로젝트///////////////////////////////////////////////////////////////////////////////////////
     //projectDetail.jsp(Admin)호출
     @RequestMapping(value="/projectdetail", method=RequestMethod.GET)
     public String projectDetail() {
@@ -84,7 +81,9 @@ public class pageController {
     public String paymentCompleted() {
         return "paymentCompleted";
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
     
+    //회원///////////////////////////////////////////////////////////////////////////////////////
     //mypage.jsp호출
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
     public String mypage() {
@@ -97,6 +96,32 @@ public class pageController {
         return "leave";
     }
     
+    //setting.jsp호출
+    @RequestMapping(value="/setting", method=RequestMethod.GET)
+    public String setting() {
+        return "setting";
+    }
+    
+    //signIn.jsp호출
+    @RequestMapping(value="/login", method=RequestMethod.GET)
+    public String login() {
+        return "signIn";
+    }
+    
+    //signUp.jsp호출
+    @RequestMapping(value="/signup", method=RequestMethod.GET)
+    public String signUp() {
+        return "signup";
+    }
+    
+    //findaccount.jsp호출
+    @RequestMapping(value="/findaccount", method=RequestMethod.GET)
+    public String findAccount() {
+        return "findAccount";
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////
+    
+    //카데고리, 검색///////////////////////////////////////////////////////////////////////////////////////
     //genre.jsp호출
     @RequestMapping(value="/genre", method=RequestMethod.GET)
     public String genre() {
@@ -121,17 +146,6 @@ public class pageController {
         return "genreWebtoon";
     }
     
-    //signIn.jsp호출
-    @RequestMapping(value="/login", method=RequestMethod.GET)
-    public String login() {
-        return "signIn";
-    }
-    
-    //signUp.jsp호출
-    @RequestMapping(value="/signup", method=RequestMethod.GET)
-    public String signUp() {
-        return "signup";
-    }
     
     //searchResult.jsp호출
     @RequestMapping(value="/searchResult", method=RequestMethod.GET)
@@ -144,7 +158,9 @@ public class pageController {
     public String profilSearch() {
         return "creatorSearch";
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
     
+    //헤더연결 페이지///////////////////////////////////////////////////////////////////////////////////////
     //popularFunding.jsp호출
     @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
     public String popularFunding() {
@@ -162,11 +178,13 @@ public class pageController {
     public String comingsoonFunding() {
         return "comingsoonFunding";
     }
+    /////////////////////////////////////////////////////////////////////////////////////////
     
+    //푸터연결 페이지///////////////////////////////////////////////////////////////////////////////////////
     //guidepage.jsp호출
     @RequestMapping(value="/guidepage", method=RequestMethod.GET)
     public String guide_page() {
         return "guide_page";
     }
-
+    /////////////////////////////////////////////////////////////////////////////////////////
 }

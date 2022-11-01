@@ -7,7 +7,7 @@
       <div class="col-6 col-md-2 mb-3">
         <h5>퍼플레잉</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">공지사항</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted" onclick="location.href='servicecenter'">공지사항</a></li>
           <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">서비스 소개</a></li>
         </ul>
       </div>

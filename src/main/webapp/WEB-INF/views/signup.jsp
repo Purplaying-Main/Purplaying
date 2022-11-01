@@ -284,7 +284,7 @@
 
         <hr class="my-4">
         
-        <p class="text-center">이미 퍼플레잉 계정이 있나요? <a href="signIn.html">로그인</a></p>
+        <p class="text-center">이미 퍼플레잉 계정이 있나요? <a href="login">로그인</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 회원가입</h5>
         <div class="row">
             <!-- 카카오 로그인 버튼 노출 영역 -->

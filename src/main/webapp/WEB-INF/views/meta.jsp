@@ -18,11 +18,11 @@
   <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="resources/assets/js/include.js"></script>
- 
   <script src="resources/assets/js/heart.js"></script>
 
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
+  
   
   <title>Purplaying</title>

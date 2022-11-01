@@ -36,7 +36,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -69,7 +69,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -102,7 +102,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -145,7 +145,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -178,7 +178,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -211,7 +211,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -254,7 +254,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -287,7 +287,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -320,7 +320,7 @@
 							<div class="card shadow-sm" onclick="location.href='projectdetail'">
 								<!-- 좋아요 버튼 -->
 								<button class="likeBtn">
-									<i class="fa-solid fa-heart"></i>
+									<i class="fa-solid fa-heart far"></i>
 								</button>
 								<svg class="bd-placeholder-img card-img-top" width="100%"
 									height="225" xmlns="http://www.w3.org/2000/svg" role="img"
