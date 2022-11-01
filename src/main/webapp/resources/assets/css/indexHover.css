@@ -7,3 +7,7 @@ p.card-cate{
 .link-div:hover{
 	cursor:pointer;
 }
+
+#oneDetail {
+	cursor:pointer;
+}

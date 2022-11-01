@@ -56,7 +56,7 @@
 									<div class="invalid-feedback">Please enter your shipping address.</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='oneonone'">확인</button>
 								</div>
 							</div>
 						</div>
@@ -74,7 +74,7 @@
 									<div class="invalid-feedback">Please enter your shipping address.</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='oneonone'">확인</button>
 								</div>
 							</div>
 						</div>

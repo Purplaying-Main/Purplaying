@@ -19,6 +19,18 @@ public class pageController {
         return "serviceCenter";
     }
     
+    //oneonone.jsp호출
+    @RequestMapping(value="/oneonone", method=RequestMethod.GET)
+    public String oneonone() {
+        return "oneonone";
+    }
+    
+    //questions.jsp호출
+    @RequestMapping(value="/questions", method=RequestMethod.GET)
+    public String questions() {
+        return "questions";
+    }
+    
     //inquiryWrite.jsp호출
     @RequestMapping(value="/inquirywrite", method=RequestMethod.GET)
     public String inquiryWrite() {

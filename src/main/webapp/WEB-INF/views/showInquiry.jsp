@@ -34,7 +34,7 @@
 				</div>
 				<button class="my-3 btn btn-primary text-end"
 					style="float: right; ${adminWrite}"
-					onclick="location.href='serviceCenter'">등 록</button>
+					onclick="location.href='oneonone'">등 록</button>
 			</div>
 
 		</div>
