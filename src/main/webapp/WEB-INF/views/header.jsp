@@ -51,9 +51,9 @@
               <li><a class="dropdown-item" href="/purplaying/genrewebtoon">웹툰</a></li>
             </ul>
           </div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
-          <div><a href="#" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
+          <div><a href="/purplaying/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
+          <div><a href="/purplaying/newFunding" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
+          <div><a href="/purplaying/comingsoonFunding" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
         </div>
 
         <!-- 검색창 -->

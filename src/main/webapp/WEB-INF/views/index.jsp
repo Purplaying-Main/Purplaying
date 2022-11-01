@@ -68,7 +68,7 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
         <div class="container">
-          <h4>지금 달성률이 높은 펀딩</h4>
+          <h4><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
@@ -77,13 +77,18 @@
                 <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
-                <div class="card-body">
+                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -99,9 +104,14 @@
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -117,16 +127,21 @@
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
           </div>
          
-          <h4>오늘의 신규펀딩</h4>
+          <h4><a href="/purplaying/newFunding">오늘의 신규 펀딩</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
@@ -139,9 +154,14 @@
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -157,9 +177,14 @@
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -175,9 +200,14 @@
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                   </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-	                    <strong class="text-danger">현재 달성률 00%</strong>
-	                  </div>
+                     	<strong class="text-danger">현재 달성률 75%</strong>
+                    	<small class="text-muted">1,805,000원</small>
+                    	<small class="text-muted text-end">43일 남음</small>
+                  	</div>
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>

@@ -103,14 +103,28 @@ public class pageController {
         return "signIn";
     }
     
-<<<<<<< HEAD
-    
-    
-=======
     //searchResult.jsp호출
     @RequestMapping(value="/searchResult", method=RequestMethod.GET)
     public String searchResult() {
         return "searchResult";
     }
->>>>>>> branch 'Modify-3' of https://github.com/Purplaying-Main/Purplaying.git
+    
+    //popularFunding.jsp호출
+    @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
+    public String popularFunding() {
+        return "popularFunding";
+    }
+    
+    //newFunding.jsp호출
+    @RequestMapping(value="/newFunding", method=RequestMethod.GET)
+    public String newFunding() {
+        return "newFunding";
+    }
+    
+    //comingsoonFunding.jsp호출
+    @RequestMapping(value="/comingsoonFunding", method=RequestMethod.GET)
+    public String comingsoonFunding() {
+        return "comingsoonFunding";
+    }
+
 }
