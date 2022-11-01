@@ -3,7 +3,7 @@
  * 리워드 선택시, select 메뉴 선택
  */
 
- function rewardSelect(item){
+ function rewardSelect(item){-
 
     document.getElementById("rewardSelect").value = item;
     
