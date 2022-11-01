@@ -10,6 +10,7 @@
   --color-links-hover : rgba(100, 50, 200, 0.5);
   /* font family */
   --font-primary : 'Noto Sans KR', sans-serif;
+  overflow-x: hidden;
   }
   
   body { color: rgba(var(--color-primary-rgb), 1); }
@@ -75,7 +76,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption { bottom: 3rem; z-index: 10;}
 /* Declare heights because of positioning of img element */
-.carousel-item { height: 32rem;}
+.carousel-item { height: 41.5rem;}
 #item01 { background: url('../img/PSD_08.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}

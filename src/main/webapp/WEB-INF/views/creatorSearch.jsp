@@ -18,7 +18,7 @@
 			<div class="album">
 				<div class="dropdown container">
 					<p>
-					<!-- 지울지말지 고민  -->
+						<!-- 지울지말지 고민  -->
 					<h2>
 						"<%=request.getParameter("search")%>" 정보
 					</h2>
@@ -31,7 +31,7 @@
 						<div class="col">
 							<!-- project thumb start -->
 
-							<li class="row d-flex">
+							<li class="row d-flex border rounded p-3 m-1">
 								<div class="col-4">
 									<img src="https://picsum.photos/90"
 										class="img-thumbnail rounded-circle" alt="유저 프로필">
@@ -41,7 +41,7 @@
 									<h6 class="row text-muted">창작자 이메일</h6>
 								</div>
 							</li>
-							
+
 						</div>
 					</div>
 				</div>

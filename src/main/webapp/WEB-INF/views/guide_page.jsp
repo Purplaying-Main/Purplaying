@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>guide_page</title>
+  <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
+  <%@ include file ="meta.jsp" %>
 </head>
+
 <body>
-	<!--메인 컨테이너 -->
+  <!--헤더 인클루드-->
+   <%@ include file ="header.jsp" %>
+   
     
     <section>
         <div><h5>퍼플레잉 가이드</h5></div>
@@ -273,5 +274,8 @@
         </div>
       </div>
     </section>
+  
+  <!--푸터 인클루드-->
+  <%@ include file ="footer.jsp" %>
 </body>
 </html>

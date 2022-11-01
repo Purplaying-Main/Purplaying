@@ -22,17 +22,7 @@
 						"<%=request.getParameter("search")%>" 검색 결과
 					</h2>
 					</p>
-				</div>
-				<div class="container py-4">
-					<h4>
-						<a>도서명</a>
-					</h4>
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<div class="col">
-							<h5>검색 결과가 없습니다.</h5>
-						</div>
-					</div>
-				</div>
+				</div>w
 				<div class="container py-4">
 					<h4>
 						<a>창작자명</a>
@@ -42,16 +32,14 @@
 						<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 							<div class="col">
 								<!-- 창작자 list start -->
-								<li class="row d-flex">
-									<div class="col-4">
-										<img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필">
-									</div>
-									<div class="col">
-										<h5 class="row text-primary mt-2">창작자 이름</h5>
-										<h6 class="row text-muted">창작자 이메일</h6>
-										<h6 class="row text-muted" onclick="location.href='creatorSearch?=id'">올린 프로젝트 더보기 >></h6>
-									</div>
-								</li>
+								<li class="row d-flex border rounded p-3 m-1">
+					                <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
+					                <div class="col">
+					                  <h5 class="row text-primary mt-2">창작자 이름</h5>
+					                  <h6 class="row text-muted">창작자 이메일</h6>
+					                  <h6 class="row text-muted" onclick="location.href='creatorSearch?=id'">올린 프로젝트 더보기</h6>
+					                </div>
+					              </li>
 								<!-- 창작자 list end -->
 							</div>
 						</div>

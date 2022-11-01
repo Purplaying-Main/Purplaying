@@ -16,7 +16,7 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
           <div class="py-3 text-center">
-            <a href="/purplaying/genreLiterature"><h4>문학</h4></a>
+            <a href="genreliterature"><h4>문학</h4></a>
             <h1>진행중인 펀딩명</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->

@@ -55,6 +55,12 @@ public class pageController {
         return "projectDetail";
     }
     
+    //projectregister.jsp(Admin)호출
+    @RequestMapping(value="/projectregister", method=RequestMethod.GET)
+    public String projectRegister() {
+        return "projectRegister";
+    }
+    
     //payment.jsp호출
     @RequestMapping(value="/payment", method=RequestMethod.GET)
     public String payment() {
@@ -71,6 +77,12 @@ public class pageController {
     @RequestMapping(value="/mypage", method=RequestMethod.GET)
     public String mypage() {
         return "mypage";
+    }
+    
+    //leave.jsp호출
+    @RequestMapping(value="/leave", method=RequestMethod.GET)
+    public String leave() {
+        return "leave";
     }
     
     //genre.jsp호출
@@ -103,6 +115,12 @@ public class pageController {
         return "signIn";
     }
     
+    //signUp.jsp호출
+    @RequestMapping(value="/signup", method=RequestMethod.GET)
+    public String signUp() {
+        return "signup";
+    }
+    
     //searchResult.jsp호출
     @RequestMapping(value="/searchResult", method=RequestMethod.GET)
     public String searchResult() {
@@ -131,6 +149,12 @@ public class pageController {
     @RequestMapping(value="/comingsoonFunding", method=RequestMethod.GET)
     public String comingsoonFunding() {
         return "comingsoonFunding";
+    }
+    
+    //guidepage.jsp호출
+    @RequestMapping(value="/guidepage", method=RequestMethod.GET)
+    public String guide_page() {
+        return "guide_page";
     }
 
 }
