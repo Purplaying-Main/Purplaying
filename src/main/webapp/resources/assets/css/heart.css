@@ -1,0 +1,12 @@
+button:first-child
+.active {
+  color: red;
+}
+.likeBtn {
+  display: flex;
+  height: 40px;
+  margin-top: 4px;
+}
+.like_comment 
+button:first-child{
+}

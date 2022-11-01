@@ -103,6 +103,14 @@ public class pageController {
         return "signIn";
     }
     
+<<<<<<< HEAD
     
     
+=======
+    //searchResult.jsp호출
+    @RequestMapping(value="/searchResult", method=RequestMethod.GET)
+    public String searchResult() {
+        return "searchResult";
+    }
+>>>>>>> branch 'Modify-3' of https://github.com/Purplaying-Main/Purplaying.git
 }

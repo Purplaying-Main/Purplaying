@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,24 +22,11 @@
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--carousel thumbnail start-->
             <div id="projectCarousel" class="carousel slide col-md-8" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
               <div class="carousel-inner">
                 <div class="carousel-project active" id="projectCarousel01">
                   <div class="container"></div>
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
             <!--carousel thumbnail end-->
             <ul class="col-md-4">
@@ -66,7 +53,7 @@
                         </div>
                       </div>
                   </div> <!-- Modal end-->
-                <button type="button" class="btn btn-outline-info" onclick="location.href='1대1문의(plus).html'">문의하기</button>
+                <button type="button" class="btn btn-outline-info" onclick="location.href='servicecenter'">문의하기</button>
               </div>
               <hr class="my-4">
               <li class="row d-flex">

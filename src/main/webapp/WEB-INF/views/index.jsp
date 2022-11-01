@@ -5,8 +5,11 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-</head>
 
+</head>
+<link rel="stylesheet" href="resources/assets/css/heart.css">
+<link rel="stylesheet" href="resources/assets/css/indexHover.css">
+<script src="resources/assets/js/heart.js"></script>
 <body>
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
@@ -68,102 +71,124 @@
           <h4>지금 달성률이 높은 펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+             <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+             <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-
           </div>
-
+         
           <h4>오늘의 신규펀딩</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+             <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm" onclick="location.href='projectdetail'">
+             <div class="col"><!-- project thumb start -->
+              <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn"><i class="fa-solid fa-heart"></i></button>
+                <button class="likeBtn" onclick="clickBtn()"><i class="fa-solid fa-heart"></i></button>
+                <div onclick="location.href='projectdetail'">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
                 <div class="card-body">
-                  <p class="card-cate">웹툰</p>
-                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <strong class="text-danger">현재 달성률 00%</strong>
+                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
+                  <div class="link-div" onclick="location.href='projectdetail'">
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <div class="d-flex justify-content-between align-items-center">
+	                    <strong class="text-danger">현재 달성률 00%</strong>
+	                  </div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-
           </div>
-
         </div>
       </div>
     </div>
   </section>
-  
+
+ 
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

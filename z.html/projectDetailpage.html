@@ -7,15 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
-  <link rel="stylesheet" href="assets/css/animate.css">   <!-- 애니메이션효과 -->
-  <link rel="stylesheet" href="assets/css/main.css" > <!-- main style-->
-  <link rel="stylesheet" href="assets/css/headers.css" > <!-- header-->
+  <link rel="stylesheet" href="/Purplaying/src/main/webapp/resources/assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="/Purplaying/src/main/webapp/resources/assets/css/owl.css"> <!-- 캐러셀(carousel) -->
+  <link rel="stylesheet" href="/Purplaying/src/main/webapp/resources/assets/css/animate.css"> <!-- 애니메이션효과 -->
+  <link rel="stylesheet" href="/Purplaying/src/main/webapp/resources/assets/css/main.css"> <!-- main style-->
+  <link rel="stylesheet" href="/Purplaying/src/main/webapp/resources/assets/css/headers.css"> <!-- header-->
+  <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">  --><!-- header-->
   <!-- JS -->
-  <script src="assets/js/bootstrap.bundle.min.js"></script> 
+  <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
+  <script src="resources/assets/js/include.js"></script>
+
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
 
   <title>Purplaying</title>
 
@@ -108,24 +113,11 @@
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--carousel thumbnail start-->
             <div id="projectCarousel" class="carousel slide col-md-8" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
               <div class="carousel-inner">
                 <div class="carousel-project active" id="projectCarousel01">
                   <div class="container"></div>
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
             <!--carousel thumbnail end-->
             <ul class="col-md-4">
@@ -152,7 +144,7 @@
                         </div>
                       </div>
                   </div> <!-- Modal end-->
-                <button type="button" class="btn btn-outline-info" onclick="location.href='1대1문의(plus).html'">문의하기</button>
+                <button type="button" class="btn btn-outline-info" onclick="location.href='servicecenter'">문의하기</button>
               </div>
               <hr class="my-4">
               <li class="row d-flex">

@@ -57,7 +57,7 @@
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="genre">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="searchResult">
           <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
         </form>
 
