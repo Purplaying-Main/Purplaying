@@ -5,6 +5,7 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
+  
 </head>
 
 <body>
@@ -16,7 +17,7 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
           <div class="py-3 text-center">
-            <a href="genreliterature"><h4>문학</h4></a>
+            <h4><a href="genreliterature">문학</a></h4>
             <h1>진행중인 펀딩명</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
@@ -58,8 +59,8 @@
 				</div>
               </li>
               <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
-              <div class="row px-2 justify-content-end">
-                <button type="button" class="col mx-1 btn btn-outline-info">찜하기</button>
+              <div class="row px-2 justify-content-between">
+              	<button type="button" class="col mx-1 btn btn-outline-info" id="pickBtn" onclick="pickFunding()" autocomplete="off"><i class="fa-lg fa-solid fa-heart"></i> 찜하기
                 <button type="button" class="col mx-1 btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#agree4Modal">공유하기</button>
                     <!-- 공유하기 Modal -->
                     <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
@@ -279,9 +280,15 @@
         </div>
     </section>
    <!--페이지 내용 종료-->
+   
+   <!-- 찜하기 JS -->
+  <script src="resources/assets/js/pickBtn.js"></script> 
    <!-- 리워드 선택 JS  -->
    <script src="resources/assets/js/rewardSelect.js"></script> 
-   
+   <!-- 페이지 URL copy JS -->
+   <script src="resources/assets/js/copyURL.js"></script> 
+   <!-- 페이지 URL 가져오는 JS  -->
+   <script>document.getElementById("showURL").value = window.location.pathname;</script>
  <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
