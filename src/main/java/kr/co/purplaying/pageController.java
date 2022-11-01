@@ -109,6 +109,12 @@ public class pageController {
         return "searchResult";
     }
     
+    //profilSearch.jsp호출
+    @RequestMapping(value="/creatorSearch", method=RequestMethod.GET)
+    public String profilSearch() {
+        return "creatorSearch";
+    }
+    
     //popularFunding.jsp호출
     @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
     public String popularFunding() {
