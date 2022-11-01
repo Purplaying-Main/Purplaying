@@ -64,13 +64,15 @@
         <div class="dropdown text-end">
           <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
 	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
-	          <button type="button" class="btn btn-primary">Sign-up</button>
+	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/signup'">Sign-up</button>
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
+	            <li><a class="dropdown-item link-primary" href="/purplaying/projectregister"><strong>신규 프로젝트 올리기</strong></a></li>
+	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>

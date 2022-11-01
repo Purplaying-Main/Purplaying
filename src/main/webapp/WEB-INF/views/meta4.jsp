@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="resources/assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="resources/assets/css/dist/bootstrap.css"> <!-- 부트스트랩 -->
   <link rel="stylesheet" href="resources/assets/css/owl.css"> <!-- 캐러셀(carousel) -->
   <link rel="stylesheet" href="resources/assets/css/animate.css"> <!-- 애니메이션효과 -->
   <link rel="stylesheet" href="resources/assets/css/main.css"> <!-- main style-->

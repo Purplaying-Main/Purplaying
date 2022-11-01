@@ -4,7 +4,7 @@
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-  <%@ include file ="meta.jsp" %>
+  <%@ include file="meta.jsp"%>
 </head>
 
 <body>
@@ -54,7 +54,7 @@
               <li>
               	<div class="input-group mb-3">
               	  <span for="rewardSelectPrice" class="input-group-text">금액</span>
-				  <input type="number" class="form-control" id="rewardSelectPrice" placeholder="1000">
+				  <input type="number" class="form-control" id="rewardSelectPrice" placeholder="1000" readonly>
 				</div>
               </li>
               <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
