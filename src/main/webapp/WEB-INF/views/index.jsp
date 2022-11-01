@@ -24,7 +24,7 @@
           <div class="carousel-caption text-start">
             <h1>물고기는 존재하지 않는다</h1>
             <p>다양한 사람들이 모여 한 권의 책을 추천합니다.</p>
-            <p><a class="btn btn-outline-secondary" href="#">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
           <div class="carousel-caption text-start">
             <!-- <h1>2022 노벨문학상, 아니 에르노</h1>
             <p>Some representative placeholder content for the third slide of this carousel.</p> -->
-            <p><a class="btn btn-outline-secondary" href="#">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
           </div>
         </div>
       </div>
