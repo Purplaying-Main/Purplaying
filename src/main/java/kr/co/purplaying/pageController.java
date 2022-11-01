@@ -37,6 +37,12 @@ public class pageController {
         return "notice";
     }
     
+    //noticeWrite.jsp호출
+    @RequestMapping(value="/noticeWrite", method=RequestMethod.GET)
+    public String noticeWrite() {
+        return "noticeWrite";
+    }
+    
     //writeAnswer.jsp(Admin)호출
     @RequestMapping(value="/writeanswer", method=RequestMethod.GET)
     public String writeAnswer() {
@@ -96,4 +102,7 @@ public class pageController {
     public String login() {
         return "signIn";
     }
+    
+    
+    
 }

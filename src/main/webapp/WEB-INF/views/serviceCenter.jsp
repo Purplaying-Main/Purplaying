@@ -130,7 +130,11 @@
 													<a href="#" class='arrow right'><span>→</span></a> <a
 														href="#" class="last">끝 페이지</a>
 												</div>
-												<div class="col-1"></div>
+												<div class="col-1">
+													<button class="btn btn-primary text-end"
+														style="float: right; ${adminWrite}"
+														onclick="location.href='noticeWrite'">등 록</button>
+												</div>
 												<div class='inpage search mt-4 text-center'>
 													<input name="search_str" id="textfield" value=""
 														title="선택한 검색어 입력란" class="stxt" style="width: 25%;"

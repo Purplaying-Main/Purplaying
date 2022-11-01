@@ -32,8 +32,13 @@
 				<div class="mb-5 border-top">
 					<div class="mb-5 mx-2">답변 내용</div>
 				</div>
+				<button class="my-3 btn btn-primary text-end"
+					style="float: right; ${adminWrite}"
+					onclick="location.href='serviceCenter'">등 록</button>
 			</div>
+
 		</div>
+
 	</section>
 	<!--페이지 내용 종료-->
 
