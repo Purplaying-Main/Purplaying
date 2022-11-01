@@ -181,10 +181,39 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //푸터연결 페이지///////////////////////////////////////////////////////////////////////////////////////
-    //guidepage.jsp호출
-    @RequestMapping(value="/guidepage", method=RequestMethod.GET)
-    public String guide_page() {
-        return "guide_page";
+    //공지사항은 최상단에 별도로 삽입함
+    
+    //serviceIntroduce.jsp호출
+    @RequestMapping(value="/serviceIntroduce", method=RequestMethod.GET)
+    public String serviceIntroduce() {
+        return "serviceIntroduce";
     }
-    /////////////////////////////////////////////////////////////////////////////////////////
+    
+    //creationguide.jsp호출
+    @RequestMapping(value="/creationguide", method=RequestMethod.GET)
+    public String creationguide() {
+        return "creationguide";
+    }
+    
+    //fundingguide.jsp호출
+    @RequestMapping(value="/fundingguide", method=RequestMethod.GET)
+    public String fundingguide() {
+        return "fundingguide";
+    }
+    
+    //termsofuse.jsp호출
+    @RequestMapping(value="/termsofuse", method=RequestMethod.GET)
+    public String termsofuse() {
+        return "termsofuse";
+    }
+    
+    //privacypolicy.jsp호출
+    @RequestMapping(value="/privacypolicy", method=RequestMethod.GET)
+    public String privacypolicy() {
+        return "privacypolicy";
+    }
 }
+    
+    
+    /////////////////////////////////////////////////////////////////////////////////////////
+
