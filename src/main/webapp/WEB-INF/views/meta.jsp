@@ -17,7 +17,6 @@
   <!-- JS -->
   <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
-  <script src="resources/assets/js/include.js"></script>
   <script src="resources/assets/js/heart.js"></script>
 
   <!-- 아이콘  -->

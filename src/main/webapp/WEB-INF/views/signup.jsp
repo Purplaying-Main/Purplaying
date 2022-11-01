@@ -9,7 +9,8 @@
 <body>
   <!--헤더 인클루드-->
   <%@ include file ="header.jsp" %>
-
+  <!-- 전체 동의 체크-->
+  <script src="resources/assets/js/selectAll.js"></script>
   <!--메인 컨테이너 -->
  <section>
     <h1 class="visually-hidden">HOME</h1>
@@ -22,7 +23,7 @@
             <label for="email" class="form-label">Email</label>
             <div class="input-group mb-2">
                 <input type="email" class="form-control" id="email" placeholder="you@example.com" required autofocus>
-                <button type="submit" class="btn btn-secondary col-md-3">인증하기</button> 
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증하기</button>
                 <div class="invalid-feedback">
                   Please enter a valid email address for shipping updates.
                 </div>
@@ -37,24 +38,6 @@
               Please enter your shipping address.
             </div>
           </div>
-
-          <!--  이름 <div class="row">
-            <div class="col-sm-6">
-              <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid first name is required.
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <label for="lastName" class="form-label">Last name</label>
-              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-              <div class="invalid-feedback">
-                Valid last name is required.
-              </div>
-            </div>
-          </div> -->
 
             <div class="col-12 mt-2">
               <label for="username" class="form-label">Username</label>
@@ -77,7 +60,7 @@
             </div>
             
             <hr class="my-4">
-            <!-- 전체 동의 -->
+			<!-- 전체 동의 -->
             <div class="accordion" id="accordionPanelsStayOpenExample">
               <div class="accordion-item">
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -116,7 +99,7 @@
                               .<br>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree1()">동의</button>
+                              <label for="agree1" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                             </div>
                           </div>
                         </div>
@@ -149,7 +132,7 @@
                               .<br>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree2()">동의</button>
+                              <label for="agree2" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                             </div>
                           </div>
                         </div>
@@ -183,7 +166,7 @@
                               .<br>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree3()">동의</button>
+                              <label for="agree3" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                             </div>
                           </div>
                         </div>
@@ -216,7 +199,7 @@
                               .<br>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
+                              <label for="agree4" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                             </div>
                           </div>
                         </div>
@@ -249,7 +232,7 @@
                               .<br>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree5()">동의</button>
+                              <label for="agree5" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                             </div>
                           </div>
                         </div>
@@ -275,7 +258,7 @@
                   퍼플레잉에서 다양한 작품을 만나보세요.
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                  <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='login'">확인</button>
                 </div>
               </div>
             </div>
@@ -311,77 +294,6 @@
   </section>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
-  <!-- 전체 동의 체크 -->
-  <script>
-    function selectAll(selectAll)  {
-      const checkboxes 
-          = document.getElementsByName("agree");
-      
-      checkboxes.forEach((checkbox) => {
-        checkbox.checked = selectAll.checked;
-      })
-    }
-    function checked_agree1() {
-      $('input[id="agree1"]').prop('checked', true);
-    }
-    function checked_agree2() {
-      $('input[id="agree2"]').prop('checked', true);
-    }
-    function checked_agree3() {
-      $('input[id="agree3"]').prop('checked', true);
-    }
-    function checked_agree4() {
-      $('input[id="agree4"]').prop('checked', true);
-    }
-    function checked_agree5() {
-      $('input[id="agree5"]').prop('checked', true);
-    }
-  </script>
-
-  <!-- //네이버 로그인 버튼 노출 영역 -->
-  <script type="text/javascript">
-    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
-    var state = naver_id_login.getUniqState();
-    naver_id_login.setButton("green", 3, 42);
-    naver_id_login.setDomain("YOUR_SERVICE_URL");
-    naver_id_login.setState(state);
-    naver_id_login.setPopup();
-    naver_id_login.init_naver_id_login();
-  </script>
-
-  <!-- 카카오 로그인 -->
-  <script>
-    function loginWithKakao() {
-      Kakao.Auth.authorize({
-        redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
-      });
-    }
-
-    function getCookie(name) {
-      var parts = document.cookie.split(name + '=');
-      if (parts.length === 2) { return parts[1].split(';')[0]; }
-    }
-  </script>
-
-  <!-- 구글 로그인 -->
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'outline',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
+ 
 </body>
 </html>

@@ -8,8 +8,6 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-  <!-- 전체 동의 체크 -->
-  <script src="resources/assets/js/selectAll.js"></script>
   <!-- 소셜 로그인(카카오, 네이버, 구글) -->
   <script src="resources/assets/js/social.js"></script>
 </head>
