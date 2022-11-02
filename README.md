@@ -16,7 +16,7 @@ admin 아이디 : admin@gmail.com 비밀번호 : 0111
 	+ [고영은] address, mypage
 	+ [김영은] chat_service
 	
-	나아아아아중에
+나아아아아중에
 	+ signup,signin 페이지에 소셜 로그인 이미지 추가
 	+ setting 페이지 프로필 사진 변경 모달에 사진 클릭 후 적용되는 스크립트 필요
 
