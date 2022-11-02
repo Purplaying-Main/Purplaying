@@ -30,7 +30,7 @@
               </div>
             </div>
             <!--thumbnail end-->
-            <ul class="col-md-4">
+            <ul class="col-md-4" id="move">
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">45일</h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">75%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">1,805,000원</h4></li>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="col">
               	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
-				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1">
+				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
 				</div>
               </li>
               <li>
@@ -114,6 +114,8 @@
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">1000원</h5>
+                      <div class="mt-3 row px-3"><br></div>
+                      <div class="row px-3"><br></div>
                       <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(1);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
