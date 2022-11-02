@@ -33,7 +33,7 @@
           <div class="carousel-caption text-start">
             <h1>화제의 번역서 원서로 읽기</h1>
             <p>읽고 싶었던 원서 번역 펀딩하기</p>
-            <p><a class="btn btn-outline-secondary" href="#">펀딩 가이드</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/fundingguide">펀딩 가이드</a></p>
           </div>
         </div>
       </div>
