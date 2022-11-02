@@ -1,12 +1,12 @@
-.likeBtn:first-child
-.active {
+.likeBtn .active{
   color: red;
 }
+
 .likeBtn{
 	width:fit-content;
 	height:fit-content;
 }
-.fas,.fa-solid {
+.fa-solid {
   font-family: 'Font Awesome 6 Free';
   font-weight: 900; 
   font-size: 30px;
