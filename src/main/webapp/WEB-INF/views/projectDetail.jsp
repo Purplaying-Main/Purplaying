@@ -60,7 +60,7 @@
               </li>
               <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
               <div class="row px-2 justify-content-between">
-              	<button type="button" class="col mx-1 btn btn-outline-info" id="pickBtn" onclick="pickFunding()" autocomplete="off"><i class="fa-lg fa-solid fa-heart"></i> 찜하기
+              	<input type="button" class="col mx-1 btn btn-outline-info fa-1x fa-heart far" onclick="pickBtn()" value="&#xf004 찜하기">
                 <button type="button" class="col mx-1 btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#agree4Modal">공유하기</button>
                     <!-- 공유하기 Modal -->
                     <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
@@ -110,13 +110,11 @@
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
                       <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="fw-normal">01 선물없이 후원하기 +1000원</strong>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title pricing-card-title">10000원</h5>
-                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
-                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" href="#total-amount" onclick="javascript:rewardSelect('1');">이 리워드 펀딩하기</button>
+                      <h5 class="card-title pricing-card-title">1000원</h5>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(1);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 1 end-->
@@ -124,13 +122,13 @@
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
                       <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="fw-normal">02 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
                       <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
                       <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="javascript:rewardSelect('2');">이 리워드 펀딩하기</button>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(2);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 2 end-->
@@ -138,13 +136,13 @@
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
                       <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="fw-normal">03 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
                       <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
                       <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="javascript:rewardSelect('3');">이 리워드 펀딩하기</button>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(3);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 3 end-->
@@ -152,13 +150,13 @@
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
                       <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="fw-normal">04 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
                       <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
                       <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="javascript:rewardSelect('4');">이 리워드 펀딩하기</button>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(4);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 4 end-->
