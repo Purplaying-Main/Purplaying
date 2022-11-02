@@ -18,10 +18,10 @@
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-        <h4 class="mb-3">아이디 비밀번호 찾기</h4>
+        <h2 class="mb-3">아이디 비밀번호 찾기</h2>
 
         <div class="row container mb-4">
-          <div class="nav nav-pills nav-fill" id="v-pills-tab" role="tablist">
+          <div class="nav nav-tabs nav-justified my-4" id="v-pills-tab" role="tablist">
             <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">아이디 찾기</button>
             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">비밀번호 찾기</button>
           </div>
@@ -30,9 +30,9 @@
           <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
               <!-- 아이디 찾기 -->
-              <div class="form-signin w-100 m-auto">
-                <p class="text-muted text-center">
-                  계정의 가입여부를 확인해드립니다.
+              <div class="form-signin">
+                <p class="text-center">
+         		  계정의 가입여부를 확인해드립니다.
                 </p>
                 <form>
                   <div class="form-floating py-2">
@@ -53,7 +53,7 @@
                           다른 계정을 입력해주세요.
                         </div>
                         <div class="modal-footer">
-                          <a href="signUp.html" class="w-100 btn btn-lg btn-primary">회원가입</a>
+                          <a href="/purplaying/login" class="w-100 btn btn-lg btn-primary">회원가입</a>
                           <button type="submit" class="w-100 btn btn-lg btn-light border" data-bs-dismiss="modal">닫    기</button>
                         </div>
                       </div>
@@ -71,7 +71,7 @@
                           퍼플레잉에 가입한 계정입니다.<br>로그인 하시고 퍼플레잉을 이용하세요
                         </div>
                         <div class="modal-footer">
-                          <a href="signIn.html" class="w-100 btn btn-lg btn-outline-primary">로그인</a>
+                          <a href="/purplaying/login" class="w-100 btn btn-lg btn-outline-primary">로그인</a>
                           <button type="submit" class="w-100 btn btn-lg btn-outline-secondary" data-bs-dismiss="modal">다시 확인</button>
                         </div>
                       </div>
@@ -106,7 +106,7 @@
                           다른 계정을 입력해주세요.
                         </div>
                         <div class="modal-footer">
-                          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
                         </div>
                       </div>
                     </div>
@@ -117,36 +117,14 @@
           </div>
         </div>
 
-
-
-       
-
         <hr class="my-4">
-        
+    
         <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signup">회원가입</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 로그인</h5>
-        <div class="row">
-            <!-- 카카오 로그인 버튼 노출 영역 -->
-            <div class="col-4">
-              <a id="kakao-login-btn" href="javascript:loginWithKakao()">
-                <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="180" alt="카카오 로그인 버튼" />
-              </a>
-              <p id="token-result"></p>
-            </div>
-          <!-- 네이버 로그인 버튼 노출 영역 -->
-          <div class="col-4" id="naver_id_login"></div>
-          <!-- 구글 로그인 버튼 노출 영역 -->
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
-
+		<!--소셜 로그인 인클루드-->
+  		<%@ include file ="socialLogin.jsp" %>
       </div>
-
-     
-
-
-
     </div>
-
   </section>
   
   <!--푸터 인클루드-->

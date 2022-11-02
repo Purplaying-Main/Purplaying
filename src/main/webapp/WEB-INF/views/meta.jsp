@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="resources/assets/css/headers.css"> <!-- header-->
   <link rel="stylesheet" href="resources/assets/css/heart.css">
   <link rel="stylesheet" href="resources/assets/css/indexHover.css">
-  <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">  --><!-- header-->
+  
   <!-- JS -->
   <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 

@@ -22,7 +22,7 @@
 						"<%=request.getParameter("search")%>" 검색 결과
 					</h2>
 					</p>
-				</div>w
+				</div>
 				<div class="container py-4">
 					<h4>
 						<a>창작자명</a>

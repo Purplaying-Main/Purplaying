@@ -205,11 +205,35 @@
         </div>
         <!-- tab 4 contents -->
         <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
-          <div class="row">
-            <h5>프로젝트 소개​</h5>
-            <p>무엇을 만들기 위한 프로젝트인지 분명히 알려주세요.</p>
+          <div class="row mb-4">
+            <div class="col-4">
+              <h5>프로젝트 소개</h5>
+              <p>무엇을 만들기 위한 프로젝트인지 분명히 알려주세요.</p>
+              <ul class="bg-light rounded p-3 text-muted text-small">
+                <li>
+                  <p>Q.무엇을 만들기 위한 프로젝트인가요?</p>
+                <li>
+                  <p>Q.프로젝트를 간단히 소개한다면?</p>
+                </li>
+                <li>
+                  <p>Q.이 프로젝트가 왜 의미있나요?</p>
+                </li>
+                <li>
+                  <p>Q.이 프로젝트를 시작하게 된 배경이 무엇인가요?</p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-8">
+              <!-- 글작성 영역 summernote -->
+				<div>
+					<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+				</div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+		        <button class="btn btn-primary me-md-2" type="button">저장하기</button>
+		        <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		    </div>
           </div>
-          <textarea class="form-control" placeholder="예시&#13;&#10;​Q. 무엇을 만들기 위한 프로젝트인가요?&#13;&#10;​Q. 프로젝트를 간단히 소개한다면?&#13;&#10;​Q. 이 프로젝트가 왜 의미있나요?&#13;&#10;​Q. 이 프로젝트를 시작하게 된 배경이 무엇인가요?​" rows="30" style="resize: none;"></textarea>
         </div>
         <!-- tab 5 contents -->
         <div class="tab-pane fade" id="v-pills-tab05" role="tabpanel" aria-labelledby="v-pills-tab05-tab">
@@ -225,7 +249,7 @@
               </div>
             </div>
           </div>
-          <div class="row pb-3 border-bottom mt-4">
+          <div class="row pb-3 mt-4">
             <div class="col-6">
               <h5>입금 계좌</h5>
               <p>후원금을 전달받을 계좌를 등록해주세요.</p>
@@ -270,6 +294,10 @@
 
             </div>
           </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+		     <button class="btn btn-primary me-md-2" type="button">저장하기</button>
+		     <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		  </div>
         </div>
         <!-- tab 6 contents -->
         <div class="tab-pane fade" id="v-pills-tab06" role="tabpanel" aria-labelledby="v-pills-tab06-tab">
@@ -292,11 +320,10 @@
             </div>
             <div class="col-8">
               <!-- 글작성 영역 summernote -->
-				<div>
-					<textarea id="summernote" placeholder="내용을 입력하세요​"></textarea>
-				</div>
-				<!-- 취소,등록버튼 영역 start -->
-				<div class="text-end my-5">
+			  <textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+            </div>
+            <!-- 취소,등록버튼 영역 start -->
+				<div class="text-end my-5 border-top border-2 py-4">
 					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#fundingWriteCancelModal">작성취소</button>
 					<!-- 작성취소 모달창 start -->
 					<div class="modal fade" id="fundingWriteCancelModal" tabindex="-1"
@@ -337,7 +364,6 @@
 					</div>
 				</div>
 				<!-- 취소,등록버튼 영역 end -->
-            </div>
           </div>
         </div><!-- tab 6 contents end -->
       </div><!-- 탭 컨텐츠 end -->
@@ -347,7 +373,7 @@
     <script>
 		$(document).ready(function() {
 			//여기 아래 부분
-			$('#summernote').summernote({
+			$('.summernote').summernote({
 				  //height: 445,                 // 에디터 높이
 				  minHeight: 500,             // 최소 높이
 				  //maxHeight: 445,             // 최대 높이

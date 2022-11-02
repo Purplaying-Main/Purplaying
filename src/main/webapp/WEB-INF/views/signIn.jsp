@@ -58,18 +58,8 @@
         
         <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signup">회원가입</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 로그인</h5>
-        <div class="row">
-            <!-- 카카오 로그인 버튼 노출 영역 -->
-            <div class="col-4">
-              <a id="kakao-login-btn" href="javascript:loginWithKakao()">
-                <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="180" alt="카카오 로그인 버튼" />
-              </a>
-              <p id="token-result"></p>
-            </div>
-          <!-- 구글 로그인 버튼 노출 영역 -->
-          <div class="col-4 g-signin2" data-onsuccess="onSignIn"></div>
-        </div>
-
+		<!--소셜 로그인 인클루드-->
+  		<%@ include file ="socialLogin.jsp" %>
       </div>
 
     </div>
