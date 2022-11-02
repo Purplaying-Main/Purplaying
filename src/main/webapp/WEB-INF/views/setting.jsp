@@ -132,9 +132,10 @@
                   <div class="col-auto">
                     <h6>이메일</h6>
                   </div>
-                  <div class="col-auto px-3 text-end">
+                  <!-- 이메일 변경 버튼 숨기기 -->
+                  <!-- <div class="col-auto px-3 text-end">
                     <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#introChangeModal" disabled>변경</button>
-                  </div>
+                  </div> -->
                 </li>
                 <li class="row">
                   <p>ezenac@gmail.com</p>
@@ -263,7 +264,7 @@
                     <h6>회원탈퇴</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <button class="btn btn-outline-primary" onclick="location.href='leave.html'">탈퇴</button>
+                    <button class="btn btn-outline-primary" onclick="location.href='leave'">탈퇴</button>
                   </div>
                 </li>
                 <li class="row">
@@ -288,7 +289,7 @@
                     <div class="col-auto d-md-flex px-3">
                       <!-- 수정 -->
                       <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal">M</button>
-                      <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+            		  <button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal">D</button>
                     </div>
                   </div>
                   <div class="px-3 pt-2">
@@ -304,9 +305,9 @@
                 <div class="border-bottom justify-content-between d-md-flex py-2">
                   <h6 class="col-auto text-info">배송지 #2</h6>
                   <div class="col-auto d-md-flex px-3">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
-                  </div>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal">M</button>
+            		<button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal">D</button>
+                   </div>
                 </div>
                 <div class="px-3 pt-2">
                   <h6>받는분 : 홍길동</h6>
@@ -345,7 +346,7 @@
                           <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
                           기본배송지로 등록
                         </div>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 저장</button>
                       </form>
                     </div><!-- modal body -->
                   </div>
@@ -382,7 +383,27 @@
                           <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
                           기본배송지로 등록
                         </div>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+              
+              <!-- 배송지 삭제 modal start -->
+              <div class="modal fade" id="addressDelModal" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">배송지 삭제</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <h4>배송지를 삭제 하시겠습니까?</h4>
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 삭제</button>
                       </form>
                     </div><!-- modal body -->
                   </div>
