@@ -14,6 +14,10 @@
 	<!--페이지 내용 시작-->
 	<section>
 		<div class="row container" style="margin: 0 auto;">
+			<h3 style="font-weight: bold">창작자</h3>
+			<small class="text-muted">프로젝트를 개설하셨나요?</small>
+		</div>
+		<div class="row container" style="margin: 0 auto;">
             <div class="row mb-3 text-center">
                 <div class="col-6 themed-grid-col">
                     <table class="table mb-2">
@@ -43,7 +47,6 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button type="button" class="btn btn-primary">문서 모두 보기</button>
                 </div>
                 <div class="col-6 themed-grid-col">
                     <table class="table mb-2">
