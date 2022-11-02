@@ -10,6 +10,7 @@
 <body>
    <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
+   
 
   <!--메인 컨테이너 -->
   <section>
@@ -40,7 +41,7 @@
                   </div>
                 </li>
                 <li class="row w-25">
-                  <img class="img-thumbnail" src="assets/img/purplaying-rect-logo.png">
+                  <img class="img-thumbnail" src="">
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true">
@@ -50,12 +51,8 @@
                         <h5 class="modal-title" id="profileChangeModalLabel" >프로필 사진 변경</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body mx-auto">
-                        <img class="img-thumbnail mb-3" src="assets/img/purplaying-rect-logo.png">
-                        <div class="input-group mb-3">
-                          <input type="file" class="form-control" id="inputGroupFile02">
-                          <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                        </div>
+                      <div class="modal-body">
+                        <%@ include file = "imageUpload.jsp"%>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
@@ -464,7 +461,6 @@
       </div><!-- 탭 end-->
     </div><!-- contentsWrap end -->
   </section>
-  
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
