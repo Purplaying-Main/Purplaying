@@ -52,8 +52,8 @@
                       </div>
                     </div>
                   </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
-                  <div class="mb-1 text-danger">현재 달성률 00%</div>
+                  <h4 class="mb-0"><a href="projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
+                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
                   <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                   <p class="text-muted mb-0">심사완료</a>
                 </div>
@@ -75,17 +75,13 @@
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 00XXAA11</p> 
                     <div class="col-auto">
-                      <!-- on off btn -->
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                      </div>
+                      <a href="paymentcompleted">상세보기</a>
                     </div>
                   </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
-                  <div class="mb-1 text-danger">현재 달성률 00%</div>
+                  <h4 class="mb-0"><a href="projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
+                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
                   <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                  <p class="text-muted mb-0">심사완료</a>
+                  
                 </div>
               </div>
               <!-- project card end -->
