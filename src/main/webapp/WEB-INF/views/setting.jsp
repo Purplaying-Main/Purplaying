@@ -11,6 +11,9 @@
    <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
+   <!-- 주소 찾기 -->
+   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   <script src="resources/assets/js/addressSearch.js" ></script>
 
   <!--메인 컨테이너 -->
   <section>
@@ -331,7 +334,11 @@
                           <label for="label_username">수령인</label>
                         </div>
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control rounded-3" id="address" name="address" />
+                          <input type="text" class="form-control rounded-3" id="address_num" name="address_num" readonly/>
+                          <label for="label_address">우편번호</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address" name="address" readonly/>
                           <label for="label_address">배송지 주소</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -482,6 +489,7 @@
       </div><!-- 탭 end-->
     </div><!-- contentsWrap end -->
   </section>
+  
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
