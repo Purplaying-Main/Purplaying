@@ -51,16 +51,16 @@
 									<tbody>
 										<tr>
 											<th scope="row">5</th>
-											<td>답변완료</td>
-											<td class="oneDetail" onclick="location.href='showinquiry'">문의사항있어요</td>
+											<td>답변중</td>
+											<td class="oneDetail" onclick="location.href='showinquiry2'">문의사항있어요</td>
 											<td>김**</td>
 											<td>공개</td>
 											<td>2022-10-31</td>
 										</tr>
 										<tr>
 											<th scope="row">4</th>
-											<td>답변완료</td>
-											<td class="oneDetail" onclick="location.href='showinquiry'">문의사항있어요</td>
+											<td>답변중</td>
+											<td class="oneDetail" onclick="location.href='showinquiry2'">문의사항있어요</td>
 											<td>김**</td>
 											<td>비공개</td>
 											<td>2022-10-31</td>

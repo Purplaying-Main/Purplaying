@@ -41,6 +41,12 @@ public class pageController {
         return "showInquiry";
     }
     
+    //showInquiry2.jsp호출
+    @RequestMapping(value="/showinquiry2", method=RequestMethod.GET)
+    public String showInquiryAnswer2() {
+        return "showInquiry2";
+    }
+    
     //notice.jsp호출
     @RequestMapping(value="/notice", method=RequestMethod.GET)
     public String notice() {
