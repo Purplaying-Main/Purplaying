@@ -59,7 +59,7 @@
 													<li class="col text-muted">2022-10-17</li>
 												</ul>
 												<ul class="row border-2 border-bottom py-2">
-													<li class="col fw-semibold">이전글</li>
+													<li class="col fw-semibold">다음글</li>
 													<li class="col text-muted">공지사항</li>
 													<li class="col-8 fw-light text-truncate">[서비스 개선] 10월 17일 업데이트 (메시지 이미지 첨부, 알림 세부설정, 대시보드 업데이트)</li>
 													<li class="col text-muted">2022-10-17</li>

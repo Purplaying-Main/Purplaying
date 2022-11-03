@@ -31,7 +31,7 @@
 # Sections & Section Header
 --------------------------------------------------------------*/
 section { width:100%; margin: 0 auto; }
-section .contentsWrap {padding: 0 20px;}
+section .contentsWrap {padding: 3rem;}
 
 footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--color-reverse-rgb);}
 .bd-placeholder-img {
