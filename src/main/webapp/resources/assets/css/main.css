@@ -115,7 +115,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 
 .progress { margin: 10px 0;}
 
-.fa-heart { font-size: 1.5rem; color: #ffffff; }
+.fa-heart { font-size: 1.2rem; color: #fff; border-radius: 50%; background-color: rgba(255, 255, 255, 0.3); padding: 0.4rem; }
 
 /* body 스크롤 방지용 */
 .stop-scroll{

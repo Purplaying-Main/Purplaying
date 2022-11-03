@@ -150,8 +150,8 @@
                 <div class="card-header d-flex">
                   <div class="col-8 text-start">리워드 #01</div>
                   <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
                   </div>
                 </div>
                 <div class="card-body">
@@ -166,8 +166,8 @@
                 <div class="card-header d-flex">
                   <div class="col-8 text-start">리워드 #02</div>
                   <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
                   </div>
                 </div>
                 <div class="card-body">
@@ -178,6 +178,53 @@
                   수량 00개
                 </div>
               </div><!--reward end-->
+              
+              <!-- 리워드 수정 modal start -->
+              <div class="modal fade" id="rewardModiModal" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">리워드 수정</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                          <h5>리워드 금액</h5>
+			              <p>배송이 필요한 선물을 배송비를 포함해주세요.</p>
+			              <textarea class="form-control mt-2" placeholder="1000원 이상의 금액을 입력하세요" rows="1" style="resize: none;"></textarea>
+			              <hr class="mb-4">
+			              <h5>리워드 설명</h5>
+			              <textarea class="form-control mt-2" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
+			              <hr class="mb-4">
+			              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
+			              <textarea class="form-control mt-2" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+               <!-- 리워드 삭제 modal start -->
+              <div class="modal fade" id="rewardDelModal" tabindex="-1" aria-labelledby="rewardDelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">리워드 삭제</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <h4>리워드를 삭제 하시겠습니까?</h4>
+                          <p>삭제된 리워드는 복구되지 않습니다.</p>
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 삭제</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+              
             </div>
             <div class="col-8 px-3">
               <h5>리워드 만들기</h5>

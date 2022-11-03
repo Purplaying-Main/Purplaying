@@ -23,7 +23,7 @@
       
         <div class="form-signin w-100 m-auto">
           <form action="<c:url value='/login/login'/>"  method="POST" onsubmit="return formCheck(this)">
-            <img class="mb-4 text-center" src="resources/assets/img/purplaying_logo_kor.png" alt="" width="200px">
+            <img class="mb-4 text-center pt-4 w-25" src="resources/assets/img/purplaying_logo_kor.png" alt="퍼플레잉 로고">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
         	<div id="msg">
 				<c:if test="${ not empty param.msg }">

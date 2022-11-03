@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<!-- 카카오 로그인 버튼 노출 영역 -->
-<div class="row col-10 mx-auto py-4">
-	<div class="col">
+
+<div class="row mx-auto py-4">
+	<!-- 카카오 로그인 버튼 노출 영역 -->
+	<div class="col text-center py-2">
 		<a id="kakao-login-btn" href="javascript:loginWithKakao()">
 			<img src="resources/assets/img/kakao_login.png" alt="카카오 로그인 버튼" style="height:2.8rem;"/>
 		</a>
@@ -11,12 +11,12 @@
 	</div>
 	
 	<!-- 네이버 로그인 버튼 노출 영역 -->
-	<div class="col text-center" id="naver_id_login">
+	<div class="col text-center py-2" id="naver_id_login">
 		<img src="resources/assets/img/naver_login.png" alt="네이버 로그인 버튼" style="height:2.8rem;"/>
 	</div>
 	          
 	<!-- 구글 로그인 버튼 노출 영역 -->
-	<div id="buttonDiv" class="col" style="height:3rem;"></div> 
+	<div id="buttonDiv" class="col text-center pt-2" style="margin:0 auto; min-width:14rem; height:4rem;"></div> 
  	 <script src="https://accounts.google.com/gsi/client" async defer></script>
       <script>
         function handleCredentialResponse(response) {
@@ -29,7 +29,7 @@
           });
           google.accounts.id.renderButton(
             document.getElementById("buttonDiv"),
-            { theme: "outline", height:"4rem" }  // customization attributes
+            { theme: "outline", size: "large"}  // customization attributes
           );
           google.accounts.id.prompt(); // also display the One Tap dialog
         }
