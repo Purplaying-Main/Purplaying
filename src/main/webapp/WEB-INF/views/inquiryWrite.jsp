@@ -52,7 +52,7 @@
 			</table>
 			<!-- 글작성 영역 summernote -->
 			<div style="height: 500px;">
-				<textarea id="summernote" placeholder="내용을 입력하세요​"></textarea>
+				<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
 			</div>
 
 				<div class="text-end my-5">
