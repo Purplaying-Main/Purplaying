@@ -17,12 +17,7 @@
 			<!-- 펀딩 프로젝트 -->
 			<div class="album">
 				<div class="dropdown container">
-					<p>
-						<!-- 지울지말지 고민  -->
-					<h2>
-						"<%=request.getParameter("search")%>" 정보
-					</h2>
-					</p>
+					<p></p>
 				</div>
 				<div class="container py-4">
 					<!-- profil div start -->

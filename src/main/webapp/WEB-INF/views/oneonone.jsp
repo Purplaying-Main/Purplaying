@@ -51,7 +51,7 @@
 									<tbody>
 										<tr>
 											<th scope="row">5</th>
-											<td>답변전</td>
+											<td>답변완료</td>
 											<td class="oneDetail" onclick="location.href='showinquiry'">문의사항있어요</td>
 											<td>김**</td>
 											<td>공개</td>
@@ -59,7 +59,7 @@
 										</tr>
 										<tr>
 											<th scope="row">4</th>
-											<td>답변전</td>
+											<td>답변완료</td>
 											<td class="oneDetail" onclick="location.href='showinquiry'">문의사항있어요</td>
 											<td>김**</td>
 											<td>비공개</td>

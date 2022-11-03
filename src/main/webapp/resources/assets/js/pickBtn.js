@@ -14,7 +14,7 @@ function pickBtn() {
    } else {
       _buttonI.classList.remove("fas");
       _buttonI.classList.remove("active");
-      _buttonI.setAttribute("style","color: #90AEFF;"); //비활성시 원래 색으로
+      _buttonI.setAttribute("style","color: rgb(156, 102, 255);"); //비활성시 원래 색으로
       _buttonI.classList.add("far");
    }
 }
