@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file ="meta.jsp" %>
     <link rel="stylesheet" href="resources/assets/css/imageUpload.css">
 </head>
 <body>
