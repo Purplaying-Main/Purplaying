@@ -81,9 +81,55 @@
         <div class="mb-3">
           <h5>배송정보</h5>
           <hr>
-          <div class="form-check d-flex justify-content-end text-end mb-1 pe-2">
-            <input type="checkbox" class="form-check-input" id="dt_sameChk">
-            <label class="form-check-label ms-2" for="dt_sameChk">후원자 정보와 동일</label>
+          <div class="d-flex justify-content-between mx-1 mb-1">
+          	<p class="form-label fw-bold">배송지</p>
+            <div class="d-flex">
+          	<input type="button" class="form-label btn btn-primary btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#deliveryModal" value="배송지목록">
+                  <!-- Modal -->
+                  <div class="modal fade" id="deliveryModal" tabindex="-1" aria-labelledby="deliveryModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="deliveryModalLabel">등록된 배송지</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                     <div class="modal-body py-1">
+	                   <!-- card start -->
+                		<div class="card">
+                  			<div class="d-flex justify-content-between card-title px-3 pt-1">
+                    			<span class="text-primary pt-1">기본 배송지</span>
+                      			<input type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addressModiModal" value="선택">
+                  	 		</div>
+                  			<div class="card-body px-3 pt-1">
+                    			<span class="card-text">수령인 : 한승훈</span><br>
+                    			<span class="card-text">[06541] 서울특별시 서초구 강남대로 479 3층 </span><br>
+                    			<span class="card-text">010-2023-0111</span>
+                  			</div>
+                		</div>
+              			<!-- card end -->
+	                   <!-- card start -->
+                		<div class="card mt-1">
+                  			<div class="d-flex justify-content-between card-title px-3 pt-1">
+                    			<span class="text-primary pt-1">배송지2</span>
+                      			<input type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addressModiModal" value="선택">
+                  	 		</div>
+                  			<div class="card-body px-3 pt-1">
+                    			<span class="card-text">수령인 : 이규황</span><br>
+                    			<span class="card-text">[06541] 서울특별시 서초구 강남대로 479 3층 </span><br>
+                    			<span class="card-text">010-2022-1104</span>
+                  			</div>
+                		</div>
+              			<!-- card end -->              			
+                       </div>
+                       <div class="modal-footer">
+                          <button type="button" class="btn-sm" data-bs-dismiss="modal">닫기</button>
+                       </div>
+                      </div>
+                    </div>
+                </div> <!-- Modal end-->
+            <input type="checkbox" class="form-check-input ms-2" id="dt_sameChk">
+            <label class="form-check-label-sm ms-2" for="dt_sameChk">후원자 정보와 동일</label>
+          	</div>
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">수령인</p>
@@ -114,7 +160,7 @@
           </div>
         </div>
 
-        <!-- 포인트 및 쿠폰 -->
+        <!-- 포인트 및 쿠폰 
         <div class="mb-3">
           <h5>포인트 및 쿠폰</h5>
           <hr>
@@ -140,7 +186,7 @@
                   <button class="btn btn-primary btn-sm ms-1 py-1" id="useAllBtn">모두 사용</button>
             </div>
             </div>
-          </div>
+          </div>-->
 
         <!-- 결제수단 선택 -->
         <div class="mb-3">
@@ -210,6 +256,7 @@
             <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
           </div>
           <div>
+          <!--  쿠폰 & 포인트 주석처리
           <div class="d-flex justify-content-between mx-2">
               <p class="form-label fw-bold">할인 금액</p>
               <p class="form-label text-danger"><span id="dt_totalDiscount">-2,000원</span></p>
@@ -222,7 +269,7 @@
               <p class="form-label">포인트 사용</p>
               <p class="form-label"><span id="dt_usedCoupon">-1,000원 [1,000포인트 사용]</span></p>
             </div>
-          </div>
+          </div> -->
           <div class="d-flex justify-content-between pt-2 mx-2 my-2">
             <p class="form-label fw-bold">결제 금액</p>
             <p class="form-label"><span id="dt_totalPrice">18,000</span>원</p>

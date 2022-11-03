@@ -95,7 +95,7 @@
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">주소</p>
-                    <p class="form-label" id="dt_address">서울시 강남구 이젠아카데미</p>
+                    <p class="form-label" id="dt_address">서울특별시 서초구 강남대로 479 3층</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">배송요청사항</p>
@@ -122,10 +122,10 @@
                     <p class="form-label fw-bold">후원 금액</p>
                     <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
                   </div>
-                  <div class="d-flex justify-content-between">
+                  <!--  <div class="d-flex justify-content-between">
                       <p class="form-label fw-bold">할인 금액</p>
                       <p class="form-label"><span class="text-danger" id="dt_totalDiscount">-2,000원</span></p>
-                  </div>
+                  </div> -->
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
                     <p class="form-label"><span id="dt_totalPrice">18,000</span>원</p>
