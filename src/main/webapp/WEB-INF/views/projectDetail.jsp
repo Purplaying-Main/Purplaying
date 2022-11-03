@@ -60,8 +60,8 @@
               </li>
               <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
               <div class="row px-2 justify-content-between">
-              	<input type="button" class="col mx-1 btn btn-outline-info fa-1x fa-heart far" onclick="pickBtn()" value="&#xf004 찜하기">
-                <button type="button" class="col mx-1 btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#agree4Modal">공유하기</button>
+              	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
+                <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
                     <!-- 공유하기 Modal -->
                     <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
@@ -77,7 +77,7 @@
                         </div>
                       </div>
                   </div> <!-- Modal end-->
-                <button type="button" class="col mx-1 btn btn-outline-info" onclick="location.href='servicecenter'">문의하기</button>
+                <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='servicecenter'" value="&#xf059 문의하기">
               </div>
               <hr class="my-4">
               <li class="row d-flex border rounded p-3 m-1">
@@ -109,7 +109,7 @@
                 <div class="col mt-2"><!-- 리워드 1 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
                       <strong class="fw-normal">01 선물없이 후원하기 +1000원</strong>
                     </div>
                     <div class="card-body">
@@ -123,7 +123,7 @@
                 <div class="col mt-2"><!-- 리워드 2 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
                       <strong class="fw-normal">02 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
@@ -137,7 +137,7 @@
                 <div class="col mt-2"><!-- 리워드 3 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
                       <strong class="fw-normal">03 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
@@ -151,7 +151,7 @@
                 <div class="col mt-2"><!-- 리워드 4 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
                       <strong class="fw-normal">04 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">

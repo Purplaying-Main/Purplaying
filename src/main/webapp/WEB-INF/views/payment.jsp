@@ -260,7 +260,7 @@
                           원칙적으로 이용자의 개인정보를 외부에 공개하지 않습니다.
                         </p>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()"><label for="chk1">동의</label></button>
                         </div>
                       </div>
                     </div>
