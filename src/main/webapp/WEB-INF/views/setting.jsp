@@ -331,6 +331,10 @@
                       <form class="">
                         <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">배송지 이름</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
                           <label for="label_username">수령인</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -370,6 +374,10 @@
                     </div>
                     <div class="modal-body p-5 pt-0">
                       <form class="">
+                      	<div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">배송지 이름</label>
+                        </div>
                         <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="username" name="username"/>
                           <label for="label_username">수령인</label>
