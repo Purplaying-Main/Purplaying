@@ -35,6 +35,7 @@
             <!-- 펀딩현황 tab -->
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
               
+              <h5 class="my-2">[userName]님이 창작중인 펀딩</h5>
               <!-- project card start -->
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col-auto d-none d-lg-block">
@@ -58,7 +59,37 @@
                 </div>
               </div>
               <!-- project card end -->
-              <button type="button" class="w-100 btn btn-lg btn-outline-primary" onclick="location.href='projectregister'">신규프로젝트 신청하기</button>
+              <!-- 신규 프로젝트 작성 버튼 -->
+              <div class="row">
+             	 <button type="button" class="mx-auto col-8 btn btn-lg btn-outline-primary" onclick="location.href='projectregister'">신규프로젝트 신청하기</button>
+              </div>
+              <hr class="mt-4 mb-2">
+              
+              <h5 class="mt-4 mb-2">[userName]님이 후원중인 펀딩</h5>
+               <!-- project card start -->
+              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
+                <div class="col p-4 d-flex flex-column position-static">
+                  <div class="row justify-content-between mb-2">
+                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 00XXAA11</p> 
+                    <div class="col-auto">
+                      <!-- on off btn -->
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
+                  <div class="mb-1 text-danger">현재 달성률 00%</div>
+                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                  <p class="text-muted mb-0">심사완료</a>
+                </div>
+              </div>
+              <!-- project card end -->
+              <div class="my-4"></div>
             </div>
             
             <!-- 관심 tab -->
