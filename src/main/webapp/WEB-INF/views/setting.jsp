@@ -375,6 +375,10 @@
                           <label for="label_username">수령인</label>
                         </div>
                         <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address_num" name="address_num" />
+                          <label for="label_address">우편번호</label>
+                        </div>
+                        <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="address" name="address" />
                           <label for="label_address">배송지 주소</label>
                         </div>
