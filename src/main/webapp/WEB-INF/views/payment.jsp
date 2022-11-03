@@ -5,9 +5,7 @@
 <head>
  <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
  <%@ include file ="meta.jsp" %>
-
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 </head>
 <body>
     <!--헤더 인클루드-->
@@ -100,13 +98,13 @@
               <p class="form-label fw-bold">주소</p>
             <!--JavaScript -->
               <div class="d-flex justify-content-end">
-                <div class="col-4"><input type="text" class="form-control form-control-sm ps-1" id="dt_postcode" placeholder="우편번호" readonly></div>
+                <div class="col-4"><input type="text" class="form-control form-control-sm ps-1" id="address_num" placeholder="우편번호" readonly></div>
                 <input type="button" class="btn btn-primary btn-sm ms-1" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
               </div>
             </div>
             <div class="d-flex justify-content-end mx-1 mb-1">
-                <div class="col-2"><input type="text" class="form-control form-control-sm col-2 ps-1" id="dt_address" placeholder="기본주소" required></div>
-                <div class="col-3 ps-1"><input type="text" class="form-control form-control-sm" id="dt_detailAddress" placeholder="상세주소" maxlength="50"></div>
+                <div class="col-2"><input type="text" class="form-control form-control-sm col-2 ps-1" id="address" placeholder="기본주소" required readonly></div>
+                <div class="col-3 ps-1"><input type="text" class="form-control form-control-sm" id="address_detail" placeholder="상세주소" maxlength="50"></div>
             </div>
           </div>
           <!--JavaScript 종료 --> 
@@ -285,28 +283,6 @@
   </section>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
-  
-  <script>
-    /*----주소 찾기----*/
-    function execDaumPostcode() { 
-          new daum.Postcode({
-              oncomplete: function(data) {
-                  var addr = '';
-                  var extraAddr = '';
-  
-                  if (data.userSelectedType === 'R') { 
-                      addr = data.roadAddress;
-                  } else { 
-                      addr = data.jibunAddress;
-                  }
-  
-                  document.getElementById('dt_postcode').value = data.zonecode;
-                  document.getElementById("dt_address").value = addr;
-                  document.getElementById("dt_detailAddress").focus();
-              }
-          }).open();
-      } //API reference  http://postcode.map.daum.net/guide
-  
-  </script>
+  <script src="resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
 </body>
 </html>

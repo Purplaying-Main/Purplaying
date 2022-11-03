@@ -40,3 +40,21 @@ window.onload = function(){
 	});
 }
   
+//주소 찾기 (버튼으로 호출)
+    function execDaumPostcode() { 
+         new daum.Postcode({
+              oncomplete: function(data) {
+                  var addr = '';
+                 var extraAddr = '';
+  
+                 if (data.userSelectedType === 'R') { 
+                      addr = data.roadAddress;
+                 } else { 
+                 }
+  
+                  document.getElementById('address_num').value = data.zonecode;
+                  document.getElementById('address').value = addr;
+                  document.getElementById('address_detail').focus();
+              }
+          }).open();
+      } //API reference  http://postcode.map.daum.net/guide
