@@ -214,6 +214,21 @@
                             <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
                             <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
                           </ul>
+                          <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
+                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
+                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
+                          </div>
+                          <div class="align-items-end" id="ModiArea1" style="display: none;">
+                            <div class="col-10">
+                              <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
+                              <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                              <div class="text-end">
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">작성</button>
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">취소</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         </div>
                       </div>
                     </div><!--아코디언 아이템1 종료-->
@@ -231,9 +246,39 @@
                             <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
                             <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
                           </ul>
+                          <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
+                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
+                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
+                          </div>
+                          <div class="align-items-end" id="ModiArea1" style="display: none;">
+                            <div class="col-10">
+                              <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
+                              <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                              <div class="text-end">
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">작성</button>
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">취소</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         </div>
                       </div>
                     </div><!--아코디언 아이템2 종료-->
+                  </div>
+               	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
+                    <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
+                	  <button type="button" class="btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                    </div>
+                    <div class="align-items-end" id="writeArea2" style="display: none;">
+                      <div class="col-10">
+                        <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
+                        <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                        <div class="text-end">
+                          <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">작성</button>
+                          <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">취소</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- tab 3 contents -->
@@ -290,9 +335,11 @@
                       함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
                       펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong>2022.11.18</strong> 이후로는 
                       불가합니다.</p>
+                      <br/>
                     </div>
                     <hr></hr>
                     <div>
+                      <br/>
                       <p class="text-muted">만일 수령한 리워드에 하자가 존재하거나 창작자가 약속한 발송시작일에 발송이 이루어지지 않은 경우 펀딩금 반환 신청이 
                       가능합니다.<br/>
                       <strong>퍼플레잉 프리오더 프로젝트는 전자상거래법의 적용을 받아,</strong> 리워드가 마음에 들지 않는 경우에도 펀딩금 반환 신청이
@@ -342,14 +389,16 @@
    <!--페이지 내용 종료-->
    
    <!-- 찜하기 JS -->
-  <script src="resources/assets/js/pickBtn.js"></script> 
+   <script src="resources/assets/js/pickBtn.js"></script> 
    <!-- 리워드 선택 JS  -->
    <script src="resources/assets/js/rewardSelect.js"></script> 
    <!-- 페이지 URL copy JS -->
    <script src="resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->
    <script>document.getElementById("showURL").value = window.location.pathname;</script>
- <!--푸터 인클루드-->
+   <!-- show / hide JS -->
+   <script src="resources/assets/js/showHide.js"></script> 
+  <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
 </html>
