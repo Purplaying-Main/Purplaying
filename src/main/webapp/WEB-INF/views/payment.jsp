@@ -20,7 +20,7 @@
         <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h3>
 
         <!-- 프로젝트명 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col-auto d-none d-lg-block">
               <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -41,7 +41,7 @@
         </div>
 
         <!-- 리워드 정보 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <h5>리워드 정보</h5>
           <hr>
             <div class="d-flex justify-content-between mx-1">
@@ -59,7 +59,7 @@
         </div>
 
         <!-- 후원자 정보 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <h5>후원자 정보</h5>
           <hr>
           <div class="d-flex justify-content-between mx-1">
@@ -78,7 +78,7 @@
         </div>
 
         <!-- 배송 정보 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <h5>배송정보</h5>
           <hr>
           <div class="d-flex justify-content-between mx-1 mb-1">
@@ -189,7 +189,7 @@
           </div>-->
 
         <!-- 결제수단 선택 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <h5>결제수단 선택</h5>
           <hr>
           <div class="d-flex mx-1">
@@ -249,19 +249,18 @@
 
         
         <!-- 결제 금액 계산 -->
-        <div class="mb-3">
+        <div class="mb-4">
           <hr>
           <div class="d-flex justify-content-between mx-2">
             <p class="form-label fw-bold">후원 금액</p>
             <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
           </div>
-          <div>
-          <!--  쿠폰 & 포인트 주석처리
+          <div>           
           <div class="d-flex justify-content-between mx-2">
-              <p class="form-label fw-bold">할인 금액</p>
-              <p class="form-label text-danger"><span id="dt_totalDiscount">-2,000원</span></p>
+              <p class="form-label fw-bold">배송비</p>
+              <p class="form-label"><span id="dt_totalDiscount">3,000원</span></p>
           </div>
-            <div class="d-flex justify-content-between me-1 ms-3">
+            <!--쿠폰 & 포인트 주석처리<div class="d-flex justify-content-between me-1 ms-3">
               <p class="form-label">쿠폰 사용</p>
               <p class="form-label"><span id="dt_usedCoupon">-1,000원 [축! 신규 가입 쿠폰]</span></p>
             </div>
@@ -270,14 +269,14 @@
               <p class="form-label"><span id="dt_usedCoupon">-1,000원 [1,000포인트 사용]</span></p>
             </div>
           </div> -->
-          <div class="d-flex justify-content-between pt-2 mx-2 my-2">
+          <div class="d-flex justify-content-between pt-2 mx-2">
             <p class="form-label fw-bold">결제 금액</p>
-            <p class="form-label"><span id="dt_totalPrice">20,000</span>원</p>
+            <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
           </div>
         </div>
 
         <!-- 펀딩 유의 사항 -->
-        <div class="mb-2"> 
+        <div class="my-3"> 
           <h5>펀딩 유의 사항</h5>
           <hr>
           <div class="d-flex justify-content-between py-1 mx-1">
@@ -305,7 +304,7 @@
                           원칙적으로 이용자의 개인정보를 외부에 공개하지 않습니다.
                         </p>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()"><label for="chk1">동의</label></button>
+                          <label for="chk1" class="btn btn-primary" data-bs-dismiss="modal">동의</label>
                         </div>
                       </div>
                     </div>
@@ -319,7 +318,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-8 text-center">
-             <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.11</strong></span> 에 자동으로 결제됩니다.</p>
+             <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.12</strong></span> 에 자동으로 결제됩니다.</p>
              <a class="btn btn-primary fs-3 w-50 my-3" href="paymentcompleted">후원하기</a>
             </div>
           </div> 

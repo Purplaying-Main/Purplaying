@@ -101,10 +101,6 @@
                     <p class="form-label fw-bold">배송요청사항</p>
                     <p class="form-label" id="dt_deliveryMemo">부재 시 연락주세요</p>
                   </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">배송예정일</p>
-                    <p class="form-label" id="dt_deliveryDate">2023.01.11</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -122,13 +118,13 @@
                     <p class="form-label fw-bold">후원 금액</p>
                     <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
                   </div>
-                  <!--  <div class="d-flex justify-content-between">
-                      <p class="form-label fw-bold">할인 금액</p>
-                      <p class="form-label"><span class="text-danger" id="dt_totalDiscount">-2,000원</span></p>
-                  </div> -->
+                  <div class="d-flex justify-content-between">
+                      <p class="form-label fw-bold">배송비</p>
+                      <p class="form-label"><span>3,000원</span></p>
+                  </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
-                    <p class="form-label"><span id="dt_totalPrice">20,000</span>원</p>
+                    <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
                   </div>
                 </div>
               </div>
