@@ -5,7 +5,11 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
-  
+  <style>
+  .fa-heart{
+  border-radius: 0.375rem; 
+  }
+  </style>
 </head>
 
 <body>
@@ -62,20 +66,20 @@
               <div class="row px-2 justify-content-between">
               	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
-                    <!-- 공유하기 Modal -->
-                    <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="agree4ModalLabel">펀딩 공유하기</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-footer">
-                            <input class="col-10" id="showURL" readonly>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="copyURL()">복사</button>
-                          </div>
+                  <!-- 공유하기 Modal -->
+                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="agree4ModalLabel">펀딩 공유하기</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                          <input class="col-10" id="showURL" readonly>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="copyURL()">복사</button>
                         </div>
                       </div>
+                    </div>
                   </div> <!-- Modal end-->
                 <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='servicecenter'" value="&#xf059 문의하기">
               </div>
@@ -85,7 +89,7 @@
                 <div class="col">
                   <h5 class="row text-primary mt-2">창작자 이름</h5>
                   <h6 class="row text-muted">창작자 이메일</h6>
-                  <h6 class="row text-muted" onclick="location.href='creatorSearch?=id'" style="cursor:pointer">올린 프로젝트 더보기</h6>
+                  <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
             </ul>
@@ -170,6 +174,7 @@
                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">프로젝트 기본정보</button>
                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">업데이트</button>
                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>
+                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">정책</button>
               </div>
             </div>
             <div class="row container mb-4 px-5"><!-- 탭 컨텐츠 start -->
@@ -263,7 +268,7 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">제작자 닉네임 ></h6>
+                            <h6 class="my-0">창작자 닉네임 ></h6>
                             <p class="my-0 text-small">작성일 ></p>
                           </div>
                           <p class="mb-5">내용 ></p>
@@ -273,6 +278,61 @@
                     </div>
                   </div>
                   <!--댓글 종료-->
+                </div>
+                <!-- tab 4 contents -->
+                <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
+                  <div>
+                    <div>
+                      <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
+                      <br/>
+                      <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
+                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong>2022.11.21 17시</strong>에 모두
+                      함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
+                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong>2022.11.18</strong> 이후로는 
+                      불가합니다.</p>
+                    </div>
+                    <hr></hr>
+                    <div>
+                      <p class="text-muted">만일 수령한 리워드에 하자가 존재하거나 창작자가 약속한 발송시작일에 발송이 이루어지지 않은 경우 펀딩금 반환 신청이 
+                      가능합니다.<br/>
+                      <strong>퍼플레잉 프리오더 프로젝트는 전자상거래법의 적용을 받아,</strong> 리워드가 마음에 들지 않는 경우에도 펀딩금 반환 신청이
+                      가능합니다.<br/></p>
+					  <br/>
+					  <h5 style="font-weight: bold;">펀딩금 반환 안내</h5>
+					  <p class="text-muted">펀딩 종료 후, 아래 정책에 따라 펀딩금 반환 신청을 할 수 있습니다. 펀딩금 반환은 투자자가 펀딩한 결제 건을 
+					  취소하는 방식으로 이뤄집니다.<br/>
+					  펀딩금 반환은 <a href="/purplaying/mypage" style="text-decoration: underline; color: #9E62FA; font-weight: 
+					  bold;"> 마이페이지 > 펀딩현황</a>에서 신청하실 수 있습니다.<br/></p>
+					  <br/>
+					  <h6 style="font-weight: bold;">1) 리워드가 지연될 경우</h6>
+					  <p class="text-muted"><strong>창작자가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우,</strong> 투자자는 펀딩금 반환 
+					  신청을 할 수 있습니다.<br/>
+					  리워드 별 발송 시작 예정일은 다를 수 있으니, <a href="/purplaying/mypage" style="text-decoration: underline; color: #AAAAAA;">
+					  마이페이지 > 펀딩현황</a>에서 펀딩한 리워드의 발송 시작 예정일을 확인하세요.<br/></p>
+					  <h6 style="font-weight: bold;">2) 리워드에 하자가 있거나 단순변심인 경우</h6>
+					  	<ul class="text-muted">
+					  	  <li>- 투자자 단순변심에 의한 교환/펀딩금 반환은 리워드 배송 완료일로부터 7일 이내에 신청할 수 있습니다. (반품 배송비 투자자 부담)</li>
+						  <li>- 다음의 경우에는 단순변심에 의한 펀딩금 반환을 신청할 수 없습니다.</li>
+						    <ul>
+						  	  <li>- 투자자의 귀책사유로 인하여 리워드가 멸실 또는 훼손된 경우</li>
+						  	  <li>- 투자자의 리워드 사용 또는 일부 소비로 인해 리워드의 가치 등이 현저히 감소한 경우</li>
+					  	  	  <li>- 시간이 지나 다시 판매하기가 곤란할 정도로 리워드의 가치가 현저히 감소한 경우</li>
+						      <li>- 복제가 가능한 리워드의 포장이 훼손된 경우</li>
+						      <li>- 투자자의 주문에 따라 개별적으로 생산되는 리워드로서 펀딩 시 반품이나 교환의 제한을 명시적으로 고지하고 투자자의 동의를 받은 
+						      경우</li>
+						      <li>- 기타 법령 및 규정에 의해 리워드의 반품이 제한되는 경우</li>
+						    </ul>
+						  <li>- 투자자는 표시 또는 광고와 상이한 리워드가 배송된 경우, 리워드의 배송완료일로부터 90일 이내 또는 해당 사실을 인지하거나 인지할 수 
+						  있었던 날로부터 30일 이내에 펀딩금 반환을 요청할 수 있습니다. (반품 배송비 창작자 부담)</li>
+					  	</ul>
+					  <br/>
+					  <h6 style="font-weight: bold;"> 기타 주의 사항</h6>
+					  <p class="text-muted" style="font-size: small;">회사는 창작자와 상호 협의 하에 프로젝트를 취소할 수 있으며, 펀딩 종료 후 
+					  프로젝트가 취소될 경우에는 펀딩금이 반환됩니다.<br/>
+					  ※ 더 자세한 사항은 <a href="/purplaying/fundingguide" style="text-decoration: underline; color: #AAAAAA;"> 펀딩금 반환 정책</a>
+					  에서 확인하세요.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div><!-- 탭 컨텐츠 end -->
