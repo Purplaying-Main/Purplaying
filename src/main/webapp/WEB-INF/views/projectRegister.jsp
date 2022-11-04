@@ -4,7 +4,7 @@
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-  <%@ include file ="meta.jsp" %>
+  <%@ include file ="meta4.jsp" %>
 </head>
 
 <body>
@@ -150,8 +150,8 @@
                 <div class="card-header d-flex">
                   <div class="col-8 text-start">리워드 #01</div>
                   <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
                   </div>
                 </div>
                 <div class="card-body">
@@ -166,8 +166,8 @@
                 <div class="card-header d-flex">
                   <div class="col-8 text-start">리워드 #02</div>
                   <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
+                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
                   </div>
                 </div>
                 <div class="card-body">
@@ -178,6 +178,53 @@
                   수량 00개
                 </div>
               </div><!--reward end-->
+              
+              <!-- 리워드 수정 modal start -->
+              <div class="modal fade" id="rewardModiModal" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">리워드 수정</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                          <h5>리워드 금액</h5>
+			              <p>배송이 필요한 선물을 배송비를 포함해주세요.</p>
+			              <textarea class="form-control mt-2" placeholder="1000원 이상의 금액을 입력하세요" rows="1" style="resize: none;"></textarea>
+			              <hr class="mb-4">
+			              <h5>리워드 설명</h5>
+			              <textarea class="form-control mt-2" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
+			              <hr class="mb-4">
+			              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
+			              <textarea class="form-control mt-2" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+               <!-- 리워드 삭제 modal start -->
+              <div class="modal fade" id="rewardDelModal" tabindex="-1" aria-labelledby="rewardDelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">리워드 삭제</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <h4>리워드를 삭제 하시겠습니까?</h4>
+                          <p>삭제된 리워드는 복구되지 않습니다.</p>
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 삭제</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+              
             </div>
             <div class="col-8 px-3">
               <h5>리워드 만들기</h5>
@@ -205,11 +252,35 @@
         </div>
         <!-- tab 4 contents -->
         <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
-          <div class="row">
-            <h5>프로젝트 소개​</h5>
-            <p>무엇을 만들기 위한 프로젝트인지 분명히 알려주세요.</p>
+          <div class="row mb-4">
+            <div class="col-4">
+              <h5>프로젝트 소개</h5>
+              <p>무엇을 만들기 위한 프로젝트인지 분명히 알려주세요.</p>
+              <ul class="bg-light rounded p-3 text-muted text-small">
+                <li>
+                  <p>Q.무엇을 만들기 위한 프로젝트인가요?</p>
+                <li>
+                  <p>Q.프로젝트를 간단히 소개한다면?</p>
+                </li>
+                <li>
+                  <p>Q.이 프로젝트가 왜 의미있나요?</p>
+                </li>
+                <li>
+                  <p>Q.이 프로젝트를 시작하게 된 배경이 무엇인가요?</p>
+                </li>
+              </ul>
+            </div>
+            <div class="col-8">
+              <!-- 글작성 영역 summernote -->
+				<div>
+					<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+				</div>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+		        <button class="btn btn-primary me-md-2" type="button">저장하기</button>
+		        <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		    </div>
           </div>
-          <textarea class="form-control" placeholder="예시&#13;&#10;​Q. 무엇을 만들기 위한 프로젝트인가요?&#13;&#10;​Q. 프로젝트를 간단히 소개한다면?&#13;&#10;​Q. 이 프로젝트가 왜 의미있나요?&#13;&#10;​Q. 이 프로젝트를 시작하게 된 배경이 무엇인가요?​" rows="30" style="resize: none;"></textarea>
         </div>
         <!-- tab 5 contents -->
         <div class="tab-pane fade" id="v-pills-tab05" role="tabpanel" aria-labelledby="v-pills-tab05-tab">
@@ -225,7 +296,7 @@
               </div>
             </div>
           </div>
-          <div class="row pb-3 border-bottom mt-4">
+          <div class="row pb-3 mt-4">
             <div class="col-6">
               <h5>입금 계좌</h5>
               <p>후원금을 전달받을 계좌를 등록해주세요.</p>
@@ -270,6 +341,10 @@
 
             </div>
           </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+		     <button class="btn btn-primary me-md-2" type="button">저장하기</button>
+		     <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		  </div>
         </div>
         <!-- tab 6 contents -->
         <div class="tab-pane fade" id="v-pills-tab06" role="tabpanel" aria-labelledby="v-pills-tab06-tab">
@@ -291,15 +366,71 @@
               </ul>
             </div>
             <div class="col-8">
-              <textarea class="form-control" placeholder="내용을 입력하세요." rows="30" style="resize: none;"></textarea>
+              <!-- 글작성 영역 summernote -->
+			  <textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
             </div>
+            <!-- 취소,등록버튼 영역 start -->
+				<div class="text-end my-5 border-top border-2 py-4">
+					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#fundingWriteCancelModal">작성취소</button>
+					<!-- 작성취소 모달창 start -->
+					<div class="modal fade" id="fundingWriteCancelModal" tabindex="-1"
+						aria-labelledby="fundingWriteCancelModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="fundingWriteCancelModalLabel">작성 취소</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">
+									<h6 class="form-label">펀딩 프로젝트 등록을 취소하시겠습니까?</h6>
+									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='mypage'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 작성취소 모달창 end -->
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal">게 시</button>
+					<div class="modal fade" id="fundingWriteFinishModal" aria-labelledby="fundingWriteFinishModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="fundingWriteFinishLabel">작성 완료</h5>
+								</div>
+								<div class="modal-body text-center">
+									<label class="form-label">펀딩 프로젝트 등록완료</label>
+									<div class="invalid-feedback">펀딩 프로젝트가 등록되었습니다.</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='mypage'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 취소,등록버튼 영역 end -->
           </div>
-        </div>
+        </div><!-- tab 6 contents end -->
       </div><!-- 탭 컨텐츠 end -->
     </div><!-- contentsWrap end -->
    </section>
    <!--페이지 내용 종료-->
-    
+    <script>
+		$(document).ready(function() {
+			//여기 아래 부분
+			$('.summernote').summernote({
+				  //height: 445,                 // 에디터 높이
+				  minHeight: 500,             // 최소 높이
+				  //maxHeight: 445,             // 최대 높이
+				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+				  lang: "ko-KR",					// 한글 설정
+				  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+		          
+			});
+		});
+	</script>
  <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

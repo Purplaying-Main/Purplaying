@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-  <%@ include file ="meta.jsp" %>
+  <%@ include file="meta.jsp"%>
+  <style>
+  .fa-heart{
+  border-radius: 0.375rem; 
+  }
+  </style>
 </head>
 
 <body>
@@ -16,65 +21,75 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
           <div class="py-3 text-center">
-            <a href="genreLiterature.html"><h4>문학</h4></a>
+            <h4><a href="genreliterature">문학</a></h4>
             <h1>진행중인 펀딩명</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
-            <!--carousel thumbnail start-->
+            <!--thumbnail start-->
             <div id="projectCarousel" class="carousel slide col-md-8" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
               <div class="carousel-inner">
                 <div class="carousel-project active" id="projectCarousel01">
                   <div class="container"></div>
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
-            <!--carousel thumbnail end-->
-            <ul class="col-md-4">
+            <!--thumbnail end-->
+            <ul class="col-md-4" id="move">
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">45일</h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">75%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">1,805,000원</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">170명</h4></li>
-              <li><button type="button" class="btn btn-primary container mb-4" onclick="location.href='payment'">펀딩하기</button></li>
-              <div class="d-md-block d-grid gap-3">
-                <button type="button" class="btn btn-outline-info">찜하기</button>
-                <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#agree4Modal">공유하기</button>
-                    <!-- 공유하기 Modal -->
-                    <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="agree4ModalLabel">펀딩 공유하기</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-footer">
-                            <input class="col-10" id="showURL" readonly>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="copyURL()">복사</button>
-                          </div>
+              <li><hr class="mb-2"></li>
+              <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
+              	<div class="col-8">
+              		<label for="rewardSelectLabel" class="form-label">리워드 선택</label>
+	              	<select class="form-select fs-6" id="rewardSelect" name="rewardSelect">
+					  <option selected>리워드를 선택해주세요</option>
+					  <option value="1">01 선물없이 후원하기 +1000원</option>
+					  <option value="2">02 프리미엄 메탈 케이스_싱글set</option>
+					  <option value="3">03 프리미엄 메탈 케이스_싱글set</option>
+					  <option value="4">04 프리미엄 메탈 케이스_싱글set</option>
+					</select>
+				</div>
+				<div class="col">
+              	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
+				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
+				</div>
+              </li>
+              <li>
+              	<div class="input-group mb-3">
+              	  <span for="rewardSelectPrice" class="input-group-text">금액</span>
+				  <input type="number" class="form-control" id="rewardSelectPrice" placeholder="1000" readonly>
+				</div>
+              </li>
+              <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
+              <div class="row px-2 justify-content-between">
+              	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
+                <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
+                  <!-- 공유하기 Modal -->
+                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="agree4ModalLabel">펀딩 공유하기</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                          <input class="col-10" id="showURL" readonly>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="copyURL()">복사</button>
                         </div>
                       </div>
+                    </div>
                   </div> <!-- Modal end-->
-                <button type="button" class="btn btn-outline-info" onclick="location.href='1대1문의(plus).html'">문의하기</button>
+                <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='servicecenter'" value="&#xf059 문의하기">
               </div>
               <hr class="my-4">
-              <li class="row d-flex">
+              <li class="row d-flex border rounded p-3 m-1">
                 <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
                   <h5 class="row text-primary mt-2">창작자 이름</h5>
                   <h6 class="row text-muted">창작자 이메일</h6>
-                  <h6 class="row text-muted">올린 프로젝트 더보기 >></h6>
+                  <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
             </ul>
@@ -82,66 +97,72 @@
           <div class="row mb-2"><!-- 상세페이지 하단 start-->
           <hr class="mb-4">
             <!-- 리워드 -->
-            <div class="p-2">
-              <h4 class="mt-2">리워드 선택하기</h4>
-              <div class="row row-cols-1 row-cols-md-4 mb-3 text-center">
+	              <h4 class="d-flex mt-2">리워드 선택하기
+	              	<div class="dropdown px-2">
+					  <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					    얼리버드 타입
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" href="#">슈퍼얼리버드</a></li>
+					    <li><a class="dropdown-item" href="#">얼리버드</a></li>
+					  </ul>
+				  	</div>
+	              </h4>
+	              
+              <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100">
                 <div class="col mt-2"><!-- 리워드 1 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
+                      <strong class="fw-normal">01 선물없이 후원하기 +1000원</strong>
                     </div>
                     <div class="card-body">
-                      <h5 class="card-title pricing-card-title">10000원</h5>
-                      <p class="mt-3 mb-4">
-                        (선택)4가지 색상 중 택 1
-                      </p>
-                      <button type="button" class="w-100 btn btn-outline-primary">이 리워드 펀딩하기</button>
+                      <h5 class="card-title pricing-card-title">1000원</h5>
+                      <div class="mt-3 row px-3"><br></div>
+                      <div class="row px-3"><br></div>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(1);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 1 end-->
                 <div class="col mt-2"><!-- 리워드 2 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
+                      <strong class="fw-normal">02 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
-                      <p class="mt-3 mb-4">
-                        (선택)4가지 색상 중 택 1
-                      </p>
-                      <button type="button" class="w-100 btn btn-outline-primary">이 리워드 펀딩하기</button>
+                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
+                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(2);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 2 end-->
                 <div class="col mt-2"><!-- 리워드 3 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
+                      <strong class="fw-normal">03 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
-                      <p class="mt-3 mb-4">
-                        (선택)4가지 색상 중 택 1
-                      </p>
-                      <button type="button" class="w-100 btn btn-outline-primary">이 리워드 펀딩하기</button>
+                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
+                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(3);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 3 end-->
                 <div class="col mt-2"><!-- 리워드 4 start-->
                   <div class="card mb-4 rounded-3 shadow-sm">
                     <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong>
-                      <strong class="fw-normal">01 프리미엄 메탈 케이스_싱글set</strong>
+                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
+                      <strong class="fw-normal">04 프리미엄 메탈 케이스_싱글set</strong>
                     </div>
                     <div class="card-body">
                       <h5 class="card-title pricing-card-title">10000원</h5>
-                      <p class="mt-3 mb-4">
-                        (선택)4가지 색상 중 택 1
-                      </p>
-                      <button type="button" class="w-100 btn btn-outline-primary">이 리워드 펀딩하기</button>
+                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
+                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
+                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(4);">이 리워드 펀딩하기</button>
                     </div>
                   </div>
                 </div><!-- 리워드 4 end-->
@@ -153,25 +174,26 @@
                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">프로젝트 기본정보</button>
                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">업데이트</button>
                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>
+                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">정책</button>
               </div>
             </div>
             <div class="row container mb-4 px-5"><!-- 탭 컨텐츠 start -->
-              <div class="tab-content" id="v-pills-tabContent">
+              <div class="tab-content row mx-auto" id="v-pills-tabContent">
                 <!-- tab 1 contents -->
                 <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
                   <dl class="row">
                     <dt class="col-sm-3"><strong class="text-muted">목표금액</strong></dt>
-                    <dd class="col-sm-9"><h5 class="text-success">3,000,000원</h5></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">3,000,000원</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
-                    <dd class="col-sm-9"><h5 class="text-success">2022.11.04 ~ 2022.01.11</h5></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">2022.11.04 ~ 2022.01.11</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h5 class="text-success">목표금액 달성시 2022.01.12에 결제 진행</h5></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 2022.01.12에 결제 진행</h6></dd>
                   </dl>
-                  <hr class="mb-4">
+                  	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->
 		              <h4 class="mt-2">프로젝트 소개</h4>
-		              <div class="mt2" id="projectDetailimg">
-		                  <img src="assets/img/projectDetailExample.jpg">
+		              <div class="mt-2" id="projectDetailimg">
+		                  <img src="resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
                 </div>
@@ -223,7 +245,7 @@
                         <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
                       </div>
                       <div class=" col-2 text-start">
-                        <button class="btn btn-primary">확 인</button>
+                        <button class="btn btn-primary">작 성</button>
                       </div>
                       <hr class="mt-3">
                     </div>
@@ -235,7 +257,7 @@
                     </div>
                     <div class="col-11">
                       <div class="border-bottom">
-                        <p class="my-0">후원자 닉네임</p>
+                        <h6 class="my-0">후원자 닉네임</h6>
                         <p class="my-0 text-small">작성일 ></p>
                       </div>
                       <p class="mb-5">내용 ></p>
@@ -246,7 +268,7 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <p class="my-0">제작자 닉네임 ></p>
+                            <h6 class="my-0">창작자 닉네임 ></h6>
                             <p class="my-0 text-small">작성일 ></p>
                           </div>
                           <p class="mb-5">내용 ></p>
@@ -257,13 +279,76 @@
                   </div>
                   <!--댓글 종료-->
                 </div>
+                <!-- tab 4 contents -->
+                <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
+                  <div>
+                    <div>
+                      <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
+                      <br/>
+                      <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
+                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong>2022.11.21 17시</strong>에 모두
+                      함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
+                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong>2022.11.18</strong> 이후로는 
+                      불가합니다.</p>
+                    </div>
+                    <hr></hr>
+                    <div>
+                      <p class="text-muted">만일 수령한 리워드에 하자가 존재하거나 창작자가 약속한 발송시작일에 발송이 이루어지지 않은 경우 펀딩금 반환 신청이 
+                      가능합니다.<br/>
+                      <strong>퍼플레잉 프리오더 프로젝트는 전자상거래법의 적용을 받아,</strong> 리워드가 마음에 들지 않는 경우에도 펀딩금 반환 신청이
+                      가능합니다.<br/></p>
+					  <br/>
+					  <h5 style="font-weight: bold;">펀딩금 반환 안내</h5>
+					  <p class="text-muted">펀딩 종료 후, 아래 정책에 따라 펀딩금 반환 신청을 할 수 있습니다. 펀딩금 반환은 투자자가 펀딩한 결제 건을 
+					  취소하는 방식으로 이뤄집니다.<br/>
+					  펀딩금 반환은 <a href="/purplaying/mypage" style="text-decoration: underline; color: #9E62FA; font-weight: 
+					  bold;"> 마이페이지 > 펀딩현황</a>에서 신청하실 수 있습니다.<br/></p>
+					  <br/>
+					  <h6 style="font-weight: bold;">1) 리워드가 지연될 경우</h6>
+					  <p class="text-muted"><strong>창작자가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우,</strong> 투자자는 펀딩금 반환 
+					  신청을 할 수 있습니다.<br/>
+					  리워드 별 발송 시작 예정일은 다를 수 있으니, <a href="/purplaying/mypage" style="text-decoration: underline; color: #AAAAAA;">
+					  마이페이지 > 펀딩현황</a>에서 펀딩한 리워드의 발송 시작 예정일을 확인하세요.<br/></p>
+					  <h6 style="font-weight: bold;">2) 리워드에 하자가 있거나 단순변심인 경우</h6>
+					  	<ul class="text-muted">
+					  	  <li>- 투자자 단순변심에 의한 교환/펀딩금 반환은 리워드 배송 완료일로부터 7일 이내에 신청할 수 있습니다. (반품 배송비 투자자 부담)</li>
+						  <li>- 다음의 경우에는 단순변심에 의한 펀딩금 반환을 신청할 수 없습니다.</li>
+						    <ul>
+						  	  <li>- 투자자의 귀책사유로 인하여 리워드가 멸실 또는 훼손된 경우</li>
+						  	  <li>- 투자자의 리워드 사용 또는 일부 소비로 인해 리워드의 가치 등이 현저히 감소한 경우</li>
+					  	  	  <li>- 시간이 지나 다시 판매하기가 곤란할 정도로 리워드의 가치가 현저히 감소한 경우</li>
+						      <li>- 복제가 가능한 리워드의 포장이 훼손된 경우</li>
+						      <li>- 투자자의 주문에 따라 개별적으로 생산되는 리워드로서 펀딩 시 반품이나 교환의 제한을 명시적으로 고지하고 투자자의 동의를 받은 
+						      경우</li>
+						      <li>- 기타 법령 및 규정에 의해 리워드의 반품이 제한되는 경우</li>
+						    </ul>
+						  <li>- 투자자는 표시 또는 광고와 상이한 리워드가 배송된 경우, 리워드의 배송완료일로부터 90일 이내 또는 해당 사실을 인지하거나 인지할 수 
+						  있었던 날로부터 30일 이내에 펀딩금 반환을 요청할 수 있습니다. (반품 배송비 창작자 부담)</li>
+					  	</ul>
+					  <br/>
+					  <h6 style="font-weight: bold;"> 기타 주의 사항</h6>
+					  <p class="text-muted" style="font-size: small;">회사는 창작자와 상호 협의 하에 프로젝트를 취소할 수 있으며, 펀딩 종료 후 
+					  프로젝트가 취소될 경우에는 펀딩금이 반환됩니다.<br/>
+					  ※ 더 자세한 사항은 <a href="/purplaying/fundingguide" style="text-decoration: underline; color: #AAAAAA;"> 펀딩금 반환 정책</a>
+					  에서 확인하세요.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div><!-- 탭 컨텐츠 end -->
           </div><!-- 상세페이지 하단 종료 --> 
         </div>
     </section>
    <!--페이지 내용 종료-->
-    
+   
+   <!-- 찜하기 JS -->
+  <script src="resources/assets/js/pickBtn.js"></script> 
+   <!-- 리워드 선택 JS  -->
+   <script src="resources/assets/js/rewardSelect.js"></script> 
+   <!-- 페이지 URL copy JS -->
+   <script src="resources/assets/js/copyURL.js"></script> 
+   <!-- 페이지 URL 가져오는 JS  -->
+   <script>document.getElementById("showURL").value = window.location.pathname;</script>
  <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

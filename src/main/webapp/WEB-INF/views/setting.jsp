@@ -10,6 +10,10 @@
 <body>
    <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
+   
+   <!-- 주소 찾기 -->
+   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   <script src="resources/assets/js/addressSearch.js" ></script>
 
   <!--메인 컨테이너 -->
   <section>
@@ -24,7 +28,7 @@
           <button class="nav-link active" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">프로필</button>
           <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">계정</button>
           <button class="nav-link" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">배송지</button>
-          <button class="nav-link" id="v-pills-04-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">알림</button>
+          <button class="nav-link" id="v-pills-04-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">수신여부</button>
         </div><!-- 탭 menu end-->
         <div class="row container mb-4 px-5"><!-- 탭 컨텐츠 start -->
           <div class="tab-content" id="v-pills-tabContent">
@@ -40,7 +44,7 @@
                   </div>
                 </li>
                 <li class="row w-25">
-                  <img class="img-thumbnail" src="assets/img/purplaying-rect-logo.png">
+                  <img class="img-thumbnail" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg">
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true">
@@ -50,12 +54,8 @@
                         <h5 class="modal-title" id="profileChangeModalLabel" >프로필 사진 변경</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body mx-auto">
-                        <img class="img-thumbnail mb-3" src="assets/img/purplaying-rect-logo.png">
-                        <div class="input-group mb-3">
-                          <input type="file" class="form-control" id="inputGroupFile02">
-                          <label class="input-group-text" for="inputGroupFile02">Upload</label>
-                        </div>
+                      <div class="modal-body">
+                        <%@ include file = "imageUpload.jsp"%>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
@@ -135,9 +135,10 @@
                   <div class="col-auto">
                     <h6>이메일</h6>
                   </div>
-                  <div class="col-auto px-3 text-end">
+                  <!-- 이메일 변경 버튼 숨기기 -->
+                  <!-- <div class="col-auto px-3 text-end">
                     <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#introChangeModal" disabled>변경</button>
-                  </div>
+                  </div> -->
                 </li>
                 <li class="row">
                   <p>ezenac@gmail.com</p>
@@ -266,7 +267,7 @@
                     <h6>회원탈퇴</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <button class="btn btn-outline-primary" onclick="location.href='leave.html'">탈퇴</button>
+                    <button class="btn btn-outline-primary" onclick="location.href='leave'">탈퇴</button>
                   </div>
                 </li>
                 <li class="row">
@@ -291,7 +292,7 @@
                     <div class="col-auto d-md-flex px-3">
                       <!-- 수정 -->
                       <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal">M</button>
-                      <button class="btn btn-outline-danger btn-sm" type="button">D</button>
+            		  <button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal">D</button>
                     </div>
                   </div>
                   <div class="px-3 pt-2">
@@ -307,9 +308,9 @@
                 <div class="border-bottom justify-content-between d-md-flex py-2">
                   <h6 class="col-auto text-info">배송지 #2</h6>
                   <div class="col-auto d-md-flex px-3">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button">D</button>
-                  </div>
+                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal">M</button>
+            		<button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal">D</button>
+                   </div>
                 </div>
                 <div class="px-3 pt-2">
                   <h6>받는분 : 홍길동</h6>
@@ -330,10 +331,18 @@
                       <form class="">
                         <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">배송지 이름</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
                           <label for="label_username">수령인</label>
                         </div>
                         <div class="form-floating mb-3">
-                          <input type="text" class="form-control rounded-3" id="address" name="address" />
+                          <input type="text" class="form-control rounded-3" id="address_num" name="address_num" readonly/>
+                          <label for="label_address">우편번호</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address" name="address" readonly/>
                           <label for="label_address">배송지 주소</label>
                         </div>
                         <div class="form-floating mb-3">
@@ -348,7 +357,7 @@
                           <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
                           기본배송지로 등록
                         </div>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 저장</button>
                       </form>
                     </div><!-- modal body -->
                   </div>
@@ -365,9 +374,17 @@
                     </div>
                     <div class="modal-body p-5 pt-0">
                       <form class="">
+                      	<div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="username" name="username"/>
+                          <label for="label_username">배송지 이름</label>
+                        </div>
                         <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="username" name="username"/>
                           <label for="label_username">수령인</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                          <input type="text" class="form-control rounded-3" id="address_num" name="address_num" />
+                          <label for="label_address">우편번호</label>
                         </div>
                         <div class="form-floating mb-3">
                           <input type="text" class="form-control rounded-3" id="address" name="address" />
@@ -385,7 +402,27 @@
                           <input class="form-check-input" type="checkbox" id="defaultAddressReg" value="" aria-label="...">
                           기본배송지로 등록
                         </div>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="submit">배송지 저장</button>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+              
+              <!-- 배송지 삭제 modal start -->
+              <div class="modal fade" id="addressDelModal" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">배송지 삭제</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                        <div class="form-floating mb-3">
+                          <h4>배송지를 삭제 하시겠습니까?</h4>
+                        </div>
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">배송지 삭제</button>
                       </form>
                     </div><!-- modal body -->
                   </div>
@@ -400,10 +437,7 @@
                     <h6>메시지</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -416,10 +450,7 @@
                     <h6>후원 프로젝트 업데이트</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -432,10 +463,7 @@
                     <h6>관심목록</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -448,10 +476,7 @@
                     <h6>마케팅 알림</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">

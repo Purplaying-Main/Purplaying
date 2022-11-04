@@ -1,0 +1,8 @@
+.likeBtn .active{
+  color: red;
+}
+
+.likeBtn{
+	width:fit-content;
+	height:fit-content;
+}

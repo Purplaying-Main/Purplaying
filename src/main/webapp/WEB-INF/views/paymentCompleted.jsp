@@ -36,7 +36,7 @@
                 <div class ="text-end pt-1">
                   <p>예약번호 : <span id=dt_reserveNum>1234567</span></p>
                 </div>
-                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">제작자명</span></p> 
+                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">창작자명</span></p> 
                 <h4 class="fw-bold">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
               </div>
             </div>
@@ -46,8 +46,8 @@
           <div class="row justify-content-center">
 
             <!--리워드 정보-->
-            <div class="d-flex mb-2 ">
-            <div class="col-6  ">
+            <div class="d-flex mb-2">
+            <div class="col-6">
               <div class="card">
                 <h5 class="card-header">리워드 정보</h5>
                 <div class="card-body">
@@ -71,7 +71,7 @@
             <div class="col-6">
               <div class="card">
                 <h5 class="card-header">후원자 정보</h5>
-                <div class="card-body">
+                <div class="card-body" style="line-height: 3.47;">
                     <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">010-2023-0111</span></p>
                     <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">purplaying@email.com</span></p>
                 </div>
@@ -95,15 +95,11 @@
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">주소</p>
-                    <p class="form-label" id="dt_address">서울시 강남구 이젠아카데미</p>
+                    <p class="form-label" id="dt_address">서울특별시 서초구 강남대로 479 3층</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">배송요청사항</p>
                     <p class="form-label" id="dt_deliveryMemo">부재 시 연락주세요</p>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">배송예정일</p>
-                    <p class="form-label" id="dt_deliveryDate">2023.01.11</p>
                   </div>
                 </div>
               </div>
@@ -123,12 +119,12 @@
                     <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
                   </div>
                   <div class="d-flex justify-content-between">
-                      <p class="form-label fw-bold">할인 금액</p>
-                      <p class="form-label"><span class="text-danger" id="dt_totalDiscount">-2,000원</span></p>
+                      <p class="form-label fw-bold">배송비</p>
+                      <p class="form-label"><span>3,000원</span></p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
-                    <p class="form-label"><span id="dt_totalPrice">18,000</span>원</p>
+                    <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
                   </div>
                 </div>
               </div>
@@ -141,7 +137,7 @@
 
         <!--하단 영역-->
         <div class="d-flex justify-content-end mb-2">
-          <a class="btn btn-primary" href="mypage">주문내역확인</a>
+          <a class="btn btn-primary" href="mypage">펀딩내역확인</a>
           <a class="btn btn-secondary ms-2" href="/purplaying/">메인으로</a>
         </div>
 

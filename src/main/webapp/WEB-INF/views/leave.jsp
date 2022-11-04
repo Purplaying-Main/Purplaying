@@ -25,7 +25,7 @@
             <p class="lead text-center">
               서비스 이용에 불편함이 있으신가요?
             </p>
-            <a href="signUp.html" class="w-100 btn btn-outline-primary btn-lg">1:1 문의</a>
+            <a href="/purplaying/oneonone" class="w-100 btn btn-outline-primary btn-lg">1:1 문의</a>
 
             <hr class="my-4">
 
@@ -73,7 +73,7 @@
                   <div class="modal-body">
                     <div class="form-floating py-2">
                       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" disabled>
-                      <label for="floatingInput" placeholder="Disabled input" aria-label="Disabled input example" disabled>Email address</label>
+                      <label for="floatingInput" placeholder="Disabled input" aria-label="Disabled input example" readonly>Email address</label>
                     </div>
                     <div class="form-floating py-2">
                       <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
@@ -81,7 +81,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <a href="signIn.html" class="w-100 btn btn-lg btn-outline-primary">회원 탈퇴하기</a>
+                    <a href="/purplaying/" class="w-100 btn btn-lg btn-outline-primary">회원 탈퇴하기</a>
                     <button type="submit" class="w-100 btn btn-lg btn-outline-secondary" data-bs-dismiss="modal">닫 기</button>
                   </div>
                 </div>

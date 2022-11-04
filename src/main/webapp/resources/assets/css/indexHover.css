@@ -1,0 +1,13 @@
+p.card-cate:hover{
+	cursor:pointer;
+}
+p.card-cate{
+	width: fit-content;
+}
+.link-div:hover{
+	cursor:pointer;
+}
+
+#oneDetail {
+	cursor:pointer;
+}
