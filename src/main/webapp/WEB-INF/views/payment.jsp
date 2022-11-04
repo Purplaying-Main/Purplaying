@@ -272,7 +272,7 @@
           </div> -->
           <div class="d-flex justify-content-between pt-2 mx-2 my-2">
             <p class="form-label fw-bold">결제 금액</p>
-            <p class="form-label"><span id="dt_totalPrice">18,000</span>원</p>
+            <p class="form-label"><span id="dt_totalPrice">20,000</span>원</p>
           </div>
         </div>
 

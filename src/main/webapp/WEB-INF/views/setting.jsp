@@ -44,7 +44,7 @@
                   </div>
                 </li>
                 <li class="row w-25">
-                  <img class="img-thumbnail" src="">
+                  <img class="img-thumbnail" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg">
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true">
