@@ -54,7 +54,7 @@
 								<button class="likeBtn" onclick="clickBtn()">
 									<i class="fa-regular fa-heart far"></i>
 								</button>
-								<div onclick="location.href='projectdetail'">
+								<div onclick="location.href='projectdetail'" style="cursor:pointer">
 									<svg class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 										aria-label="Placeholder: Thumbnail"
@@ -90,7 +90,7 @@
 								<button class="likeBtn" onclick="clickBtn()">
 									<i class="fa-regular fa-heart far"></i>
 								</button>
-								<div onclick="location.href='projectdetail'">
+								<div onclick="location.href='projectdetail'" style="cursor:pointer">
 									<svg class="bd-placeholder-img card-img-top" width="100%"
 										height="225" xmlns="http://www.w3.org/2000/svg" role="img"
 										aria-label="Placeholder: Thumbnail"

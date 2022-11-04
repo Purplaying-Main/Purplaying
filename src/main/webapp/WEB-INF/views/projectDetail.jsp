@@ -85,7 +85,7 @@
                 <div class="col">
                   <h5 class="row text-primary mt-2">창작자 이름</h5>
                   <h6 class="row text-muted">창작자 이메일</h6>
-                  <h6 class="row text-muted" onclick="location.href='creatorSearch?=id'">올린 프로젝트 더보기</h6>
+                  <h6 class="row text-muted" onclick="location.href='creatorSearch?=id'" style="cursor:pointer">올린 프로젝트 더보기</h6>
                 </div>
               </li>
             </ul>
