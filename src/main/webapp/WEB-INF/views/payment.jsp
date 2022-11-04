@@ -28,7 +28,7 @@
             </div>
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
-                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">제작자명</span></p> 
+                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">창작자명</span></p> 
                 <h4 class="fw-bold mb-2">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
                 <p>
                 <span class="text-danger" id="dt_fundingMoney">1,234,567원</span>
