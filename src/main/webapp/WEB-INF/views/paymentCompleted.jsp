@@ -46,8 +46,8 @@
           <div class="row justify-content-center">
 
             <!--리워드 정보-->
-            <div class="d-flex mb-2 ">
-            <div class="col-6  ">
+            <div class="d-flex mb-2">
+            <div class="col-6">
               <div class="card">
                 <h5 class="card-header">리워드 정보</h5>
                 <div class="card-body">
@@ -71,7 +71,7 @@
             <div class="col-6">
               <div class="card">
                 <h5 class="card-header">후원자 정보</h5>
-                <div class="card-body">
+                <div class="card-body" style="line-height: 3.47;">
                     <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">010-2023-0111</span></p>
                     <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">purplaying@email.com</span></p>
                 </div>
