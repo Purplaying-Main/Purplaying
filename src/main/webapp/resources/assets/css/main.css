@@ -122,6 +122,8 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
   height: 100%;
   overflow: hidden;
 }
+i { font-family : 'Noto Sans KR', sans-serif; }
+i:hover {cursor: pointer;}
 
 
 

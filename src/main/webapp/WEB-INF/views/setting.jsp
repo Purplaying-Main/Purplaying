@@ -437,10 +437,7 @@
                     <h6>메시지</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -453,10 +450,7 @@
                     <h6>후원 프로젝트 업데이트</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -469,10 +463,7 @@
                     <h6>관심목록</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">
@@ -485,10 +476,7 @@
                     <h6>마케팅 알림</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-                    </div>
+                    <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                   </div>
                 </li>
                 <li class="row text-muted">

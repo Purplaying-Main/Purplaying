@@ -75,7 +75,7 @@
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 00XXAA11</p> 
                     <div class="col-auto">
-                      <a href="paymentcompleted">상세보기</a>
+                      <a href="paymentcompleted">결제내역 상세보기</a>
                     </div>
                   </div>
                   <h4 class="mb-0"><a href="projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
@@ -97,10 +97,10 @@
                 </div>
                 <div class="col p-4 d-flex flex-column position-static">
                   <div class="row justify-content-between mb-2">
-                    <p class="col-auto me-auto text-primary">펀딩예정 | 펀딩번호 00XXAA11</p> 
-                    <div class="col-auto justify-content-end">
-                      <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#NotifyRequestModal">프로젝트 소식 알림신청</button>
-                    </div>
+                    <small class="col-auto justify-content-start text-primary">펀딩예정 | 펀딩번호 00XXAA11</small> 
+                    <div class="col-auto justify-content-end form-check form-switch">
+                       <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>                   	
+					</div>
                   </div>
                   <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
                   <div class="mb-1 text-danger">현재 달성률 00%</div>
@@ -118,7 +118,7 @@
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">펀딩예정 | 펀딩번호 00XXAA11</p> 
                     <div class="col-auto justify-content-end">
-                      <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" data-bs-target="#NotifyRequestModal">프로젝트 소식 알림신청</button>
+                       <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
                     </div>
                   </div>
                   <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
@@ -129,7 +129,7 @@
               <!-- project card end -->
               
               <!-- 알림신청 버튼 : 알림 확인 모달창 -->
-              <div class="modal fade" id="NotifyRequestModal" tabindex="-1" aria-labelledby="NotifyRequestModalLabel" aria-hidden="true">
+              <!-- <div class="modal fade" id="NotifyRequestModal" tabindex="-1" aria-labelledby="NotifyRequestModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -144,7 +144,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <!-- Modal end-->
             </div>
             
@@ -158,10 +158,12 @@
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">펀딩예정 | 펀딩번호 00XXAA11</p> 
                     <div class="col-auto justify-content-end">
-                      <button class="btn btn-outline-info" type="button" data-bs-toggle="modal">프로젝트 내용이 추가되었습니다.</button>
+                      <button class="btn btn-outline-info" type="button" data-bs-toggle="modal" onclick="location.href='/purplaying/projectdetail'">
+                      	<span class="badge bg-danger">New</span> 프로젝트 내용 업데이트
+                      </button>
                     </div>
                   </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
+                  <h4 class="mb-0"><a href="/purplaying/projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
                   <div class="mb-1 text-danger">현재 달성률 00%</div>
                   <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                 </div>
@@ -177,10 +179,12 @@
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">펀딩예정 | 펀딩번호 00XXAA11</p> 
                     <div class="col-auto justify-content-end">
-                      <button class="btn btn-outline-info" type="button">펀딩이 시작되었습니다.</button>
+                      <button class="btn btn-outline-info" type="button" onclick="location.href='/purplaying/projectdetail'">
+                      	<span class="badge bg-danger">New</span> 펀딩이 시작되었습니다.
+                      </button>
                     </div>
                   </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
+                  <h4 class="mb-0"><a href="/purplaying/projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
                   <div class="mb-1 text-danger">현재 달성률 00%</div>
                   <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
                 </div>
@@ -191,7 +195,6 @@
         </div>
     </div><!-- contentsWrap end -->
   </section>
-  
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
