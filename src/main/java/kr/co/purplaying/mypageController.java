@@ -22,6 +22,7 @@ public class mypageController {
     } catch(Exception e) {
       e.printStackTrace();
     }
+    return null;
   }
 
   private boolean loginCheck(HttpServletRequest request) {
