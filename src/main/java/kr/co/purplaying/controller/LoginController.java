@@ -1,4 +1,4 @@
-package kr.co.purplaying;
+package kr.co.purplaying.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.co.purplaying.domain.User;
+import kr.co.purplaying.dao.UserDao;
 
 @Controller
 @RequestMapping("/login")

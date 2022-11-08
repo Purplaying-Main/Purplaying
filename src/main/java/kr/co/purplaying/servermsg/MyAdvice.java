@@ -1,4 +1,4 @@
-package kr.co.purplaying;
+package kr.co.purplaying.servermsg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

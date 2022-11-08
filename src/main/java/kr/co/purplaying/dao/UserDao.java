@@ -1,4 +1,6 @@
-package kr.co.purplaying;
+package kr.co.purplaying.dao;
+
+import kr.co.purplaying.domain.User;
 
 public interface UserDao {
 

@@ -1,38 +1,41 @@
-package kr.co.purplaying;
+package kr.co.purplaying.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
+import kr.co.purplaying.domain.User;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+	
+	private static final int FAIL = 0;
 	@Autowired
 	DataSource ds;
 	
-	final int FAIL = 0;
-	
+	@Override
 	public User selectUser(String id) {
 		User user = null;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		String sql = "select * from t_user where id= ? ";
-
+		 
+		String sql = "select * from t_user where id = ?";
 		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			
+			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -43,38 +46,54 @@ public class UserDaoImpl implements UserDao {
 				user.setEmail(rs.getString(4));
 				user.setBirth(new Date(rs.getDate(5).getTime()));
 				user.setSns(rs.getString(6));
-				user.setReg_date(new Date(rs.getDate(7).getTime()));
-				
+				user.setReg_date(new Date(rs.getTimestamp(7).getTime()));
 			}
 		} catch (SQLException e) {
 			return null;
-		} finally {
-//			if(rs != null) {try { rs.close();} catch(SQLException e) {e.printStackTrace();} }
-//			if(pstmt != null) {try { pstmt.close();} catch(SQLException e) {e.printStackTrace();} }
-//			if(conn != null) {try { conn.close();} catch(SQLException e) {e.printStackTrace();} }
-			close(rs, pstmt, conn);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(conn != null){
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return user;
-		
 	}
-		
+	
+	@Override
 	public void deleteAll() throws Exception {
 		Connection conn = ds.getConnection();
-		
 		String sql = "delete from t_user";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.executeUpdate();
-				
 	}
 	
-	
+	@Override
 	public int insertUser(User user) {
-		
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt=null;
 		
-		String sql = "Insert into t_user Values (?,?,?,?,?,?,now())";
+		String sql = "insert into t_user values(?,?,?,?,?,?, now() )";
 		
 		try {
 			conn = ds.getConnection();
@@ -85,42 +104,46 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setDate(5, new java.sql.Date(user.getBirth().getTime()));
 			pstmt.setString(6, user.getSns());
-			
 			return pstmt.executeUpdate();
 			
-		} catch (SQLException e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
-		} finally {
-			close(pstmt, conn);
+		}finally {
+			close(pstmt,conn);
 		}
+				
 	}
-
+	
 	private void close(AutoCloseable...closeables) {
 		for(AutoCloseable autoCloseable : closeables) {
-			try {if (autoCloseable != null) autoCloseable.close();} catch(Exception e) {e.printStackTrace();}
+			try {
+				if(autoCloseable!=null) {
+					autoCloseable.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
 	}
+	
 	@Override
 	public int updateUser(User user) {
+		int rowCnt = FAIL;
+		String sql = "update t_user " + "set pwd=?, name=?, email=?, birth=?, sns=?, reg_date= ? "+"where id=?";
 		
-		String sql = "update t_user " +
-				"set pwd = ?, name = ?, email = ?, birth = ?, sns = ?, reg_date = ? " +
-				"where id = ? ";
-		
-		int rowCnt;
-		
-		try (
+		//try-with-resources
+		try(
 				Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
-		) {
+				) {
 			pstmt.setString(1, user.getPwd());
 			pstmt.setString(2, user.getName());
 			pstmt.setString(3, user.getEmail());
 			pstmt.setDate(4, new java.sql.Date(user.getBirth().getTime()));
 			pstmt.setString(5, user.getSns());
-			pstmt.setDate(6, new java.sql.Date(user.getBirth().getTime()));
+			pstmt.setTimestamp(6, new Timestamp(user.getReg_date().getTime()));
 			pstmt.setString(7, user.getId());
 			
 			rowCnt = pstmt.executeUpdate();
@@ -130,6 +153,41 @@ public class UserDaoImpl implements UserDao {
 			return FAIL;
 		}
 		
+		
 		return rowCnt;
 	}
-}
+	
+	
+}//class end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

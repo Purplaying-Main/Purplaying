@@ -1,4 +1,4 @@
-package kr.co.purplaying;
+package kr.co.purplaying.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

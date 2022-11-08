@@ -1,4 +1,4 @@
-package kr.co.purplaying;
+package kr.co.purplaying.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
