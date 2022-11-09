@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +18,11 @@
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h2 class="mb-3">이메일 간편가입</h2>
-        <form action="/login" class="needs-validation"> <!--novalidate-->
+        <form action="<c:url value='/user/signup'/>" class="needs-validation" method="post"> <!--novalidate-->
           <div class="row">
             <label for="email" class="form-label">Email</label>
             <div class="input-group mb-2">
-                <input type="email" class="form-control" id="email" placeholder="you@example.com" required autofocus>
+                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" required autofocus>
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증하기</button>
                 <div class="invalid-feedback">
                   Please enter a valid email address for shipping updates.
@@ -30,10 +30,10 @@
             </div>
           </div>
 
-          <div class="col-12 mt-2">
+          <div class="col-12 mt-2" onsubmit="return formCheck(this)">
             <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control mb-2" id="password" placeholder="비밀번호 입력" required>
-            <input type="password" class="form-control" id="passwordConfirm" placeholder="비밀번호 확인" required>
+            <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" required>
+            <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" required>
             <div class="invalid-feedback">
               Please enter your shipping address.
             </div>
@@ -244,9 +244,9 @@
               </div>
             </div>
           <!-- 회원가입 완료 버튼 -->
-          <div class="w-100 btn btn-primary btn-lg mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#signUpCompleteModal">회원가입</div>
+          <div class="w-100 btn btn-primary btn-lg mt-4" type="submit" data-bs-target="#signUpCompleteModal">회원가입</div>
           <!-- 회원가입 완료 모달창 -->
-          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true">
+          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true"><!-- data-bs-toggle="modal" 모달실행 -->
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -273,10 +273,6 @@
   		<%@ include file ="socialLogin.jsp" %>
 
       </div>
-
-     
-
-
 
     </div>
 
