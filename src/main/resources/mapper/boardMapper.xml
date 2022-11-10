@@ -5,35 +5,57 @@
 
 <mapper namespace="kr.co.purplaying.dao.BoardMapper">
 
-	<sql id="selectFromBoard"> <!--Board 내용 전체 select 추출-->
-		SELECT bno, title, "content", writer, view_cnt, comment_cnt, reg_date FROM T_BOARD
-	</sql>
-	
-	<select id="select" parameterType="int" resultType="BoardDto"> <!--Board select 특정 bno 추출-->
-		<include refid="selectFromBoard"/>
-		WHERE bno = #{bno}
-	</select>
-	
-	<delete id="deleteAll">	<!-- truncate(serial리셋 + Delete 데이터) -->
-		truncate table T_BOARD restart identity
-	</delete>
-	
-	<insert id="insert" parameterType="BoardDto"> <!-- Board 테이블 데이터 추가 -->
-		INSERT INTO T_BOARD (title,content,writer) VALUES (#{title},#{content}, #{writer})
-	</insert>
-	
-	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->
-		SELECT COUNT(*) from T_BOARD  
-	</select>
-	
-	<select id="selectPage" parameterType="map" resultType="BoardDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
-		<include refid="selectFromBoard"/>
-			order by REG_DATE  desc , bno desc
-			limit #{pageSize} OFFSET  #{offset}
-	</select>
-	
-	<update id="increaseViewCnt" parameterType="int"> <!--조회수 컬럼 데이터 변경(증가)-->
-		UPDATE T_BOARD set VIEW_CNT = VIEW_CNT + 1 where bno = #{bno}
+  	<sql id="selectFromBoard">
+  		SELECT bno, state, title, "content", writer,  private, reg_date
+		FROM tb_board
+  	</sql>
+  	
+  	<select id="select" parameterType="int" resultType="BoardDto">
+  		<include refid="selectFromBoard" />
+  		WHERE bno = #{bno}
+  	</select>
+  	
+  	<delete id="deleteAll">
+  		delete from tb_board
+  	</delete>
+  	
+  	<delete id="delete" parameterType="map">
+  		delete from tb_board where bno = #{bno} and writer = #{writer}
+  	</delete>
+  	
+  	<delete id="deleteForAdmin">
+  		delete from tb_board where bno = #{bno}
+  	</delete>
+  	
+  	<insert id="insert">
+  		INSERT INTO public.tb_board
+			(title, content, writer)
+		VALUES	
+			(#{title}, #{content}, #{writer})
+  	</insert>
+  	
+  	<select id="count" resultType="int">
+  		select count(*) from tb_board
+  	</select>
+  	
+  	<select id="selectPage" parameterType="map" resultType="BoardDto">
+  		<include refid="selectFromBoard" />
+		order by reg_date desc, bno desc 
+		limit #{pageSize} offset #{offset}
+  	</select>
+  	
+  	<update id="increaseViewCnt" parameterType="int">
+  		update tb_board 
+		set view_cnt = view_cnt + 1
+		where bno= #{bno }
+  	</update>
+
+	<update id="update" parameterType="BoardDto">
+		UPDATE public.tb_board
+		SET title=#{title}, content=#{content}, up_date = now() 
+		WHERE bno= #{bno } and writer = #{writer}
 	</update>
+  	
+  	
 	
 </mapper>

@@ -16,6 +16,10 @@ public interface BoardDao{
 	List<BoardDto> selectPage(Map<String, Integer> map) throws Exception;
 
 	int increaseViewCnt(int bno) throws Exception;
+
+	int delete(Integer bno, String writer) throws Exception;
+
+	int update(BoardDto boardDto) throws Exception;
 }
 
 

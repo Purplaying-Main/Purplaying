@@ -34,16 +34,14 @@
 								<!-- 제목 영역  -->
 								<div class="mt-3">
 									<h6 class="card-subtitle mb-2 text-muted">1:1 문의</h6>
-									<h5 class="card-title">문의사항 있어요</h5>
-									<small class="card-subtitle mb-2 text-muted">2022-05-26 12:27:41</small>
+									<h5 class="card-title"><input style="width: 100%;" type="text" name="title" value="${boardDto.title }" ${mode=="new" ? "" : "readonly='readonly'" }></h5>
+									<small class="card-subtitle mb-2 text-muted">${boardDto.reg_date }</small>
 								</div>
 								<hr class="my-4">
 								<!--질문 내용 영역 -->
 								<div class="px-4 py-2">
 									<p>
-									안녕하세요? <br/>
-									문의사항이 있습니다.<br/><br/>
-									서비스 개선 부탁드립니다.<br/><br/><br/>
+									<textarea style="width: 100%;" rows="20" name="content" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.content }</textarea>
 									</p>
 								</div>
 							</div>
@@ -53,6 +51,8 @@
 								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
 		      				</div>
 						</div>
+						
+						
 					</div><!-- 탭 end-->
 				</div>
 			</div><!-- 컨텐츠영역 end-->

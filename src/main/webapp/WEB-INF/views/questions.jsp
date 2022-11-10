@@ -22,7 +22,7 @@
 			    <div class="nav nav-tabs nav-justified"> <!-- 탭 menu start-->
 			      <button class="nav-link" aria-selected="false" onclick="location.href='servicecenter'">공지사항</button>
 			      <button class="nav-link active" aria-selected="true">자주 묻는 질문</button>
-			      <button class="nav-link" aria-selected="false" onclick="location.href='oneonone'">1:1 문의</button>
+			      <button class="nav-link" aria-selected="false" onclick="location.href='servicecenter/oneonone'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
 				<div class="row col-10 justify-content-center mx-auto"><!-- 탭 컨텐츠 start -->
 				        <div>

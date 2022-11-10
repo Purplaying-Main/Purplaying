@@ -6,23 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="resources/assets/css/dist/bootstrap.css"> <!-- 부트스트랩 -->
-  <link rel="stylesheet" href="resources/assets/css/owl.css"> <!-- 캐러셀(carousel) -->
-  <link rel="stylesheet" href="resources/assets/css/animate.css"> <!-- 애니메이션효과 -->
-  <link rel="stylesheet" href="resources/assets/css/main.css"> <!-- main style-->
-  <link rel="stylesheet" href="resources/assets/css/headers.css"> <!-- header-->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/dist/bootstrap.css"> <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/owl.css"> <!-- 캐러셀(carousel) -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/animate.css"> <!-- 애니메이션효과 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css"> <!-- main style-->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/headers.css"> <!-- header-->
   <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">  --><!-- header-->
   <!-- JS -->
-  <script src="resources/assets/js/bootstrap.bundle.min.js"></script> 
+  <script src="${pageContext.request.contextPath}/	rces/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
-  <script src="resources/assets/js/include.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/include.js"></script>
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
   <!-- 네이버 로그인 callback -->
   <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script type="text/javascript" src="resources/assets/js/summernote.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/summernote.js"></script>
   
   <!--summernote-->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
