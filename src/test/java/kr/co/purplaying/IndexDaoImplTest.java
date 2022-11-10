@@ -18,17 +18,16 @@ public class IndexDaoImplTest {
   @Autowired
   private IndexDao indexDao;
   
-  //@Test
+  @Test
   public void selectTest() throws Exception{
     assertTrue(indexDao != null);
     System.out.println("indexDao = " + indexDao);
   }
   
-   // @Test
+   @Test
     public void popluarFundingTest() throws Exception{
       Map map = new HashMap();
       List<IndexDto> list_p = indexDao.popluarFunding(map);
-      assertTrue(list_p.get(0).getPrdt_name().equals("조금 서툴더라도 네 인생을 응원해"));
     }
   
     
@@ -37,7 +36,6 @@ public class IndexDaoImplTest {
       Map map = new HashMap();
       List<IndexDto> list_n = indexDao.newFunding(map);
       System.out.println(list_n);
-      //assertTrue(list_n.get(2).getPrdt_name().equals("청춘 블라썸"));
     }
     
 

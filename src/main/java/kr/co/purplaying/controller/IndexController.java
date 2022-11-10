@@ -1,4 +1,4 @@
-package kr.co.purplaying;
+package kr.co.purplaying.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +21,12 @@ public class IndexController {
   @GetMapping("/")
   public String getPage(IndexDto indexDto, Model m) {
     try {
-      Map map_p = new HashMap();
-      List<IndexDto> list_p = indexDao.popluarFunding(map_p);
-      System.out.println(list_p.get(0).toString());
+      Map map = new HashMap();
+      List<IndexDto> list_p = indexDao.popluarFunding(map);
       m.addAttribute("list_p",list_p);
+      
+      List<IndexDto> list_n = indexDao.newFunding(map);
+      m.addAttribute("list_n",list_n);
       
     } catch (Exception e) {
       e.printStackTrace();

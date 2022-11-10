@@ -16,15 +16,15 @@ public class IndexDaoImpl implements IndexDao {
   private static String namespace = "kr.co.purplaying.dao.indexMapper.";
   
   @Override
-  public List<IndexDto> popluarFunding(Map map_p) throws Exception {
+  public List<IndexDto> popluarFunding(Map map) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectList(namespace+"popluarFunding", map_p);
+    return session.selectList(namespace+"popluarFunding", map);
   }
 
   @Override
-  public List<IndexDto> newFunding(Map map_n) throws Exception {
+  public List<IndexDto> newFunding(Map map) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectList(namespace+"newFunding", map_n);
+    return session.selectList(namespace+"newFunding", map);
   }
 
   @Override
@@ -32,17 +32,5 @@ public class IndexDaoImpl implements IndexDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"select", prdt_no);
   }
-
-//  @Override
-//  public IndexDto total(Integer prdt_currentTotal) throws Exception {
-//    // TODO Auto-generated method stub
-//    return session.selectOne(namespace+"total", prdt_currentTotal);
-//  }
-
-//  @Override
-//  public List<IndexDto> selectIndex(Map map) throws Exception {
-//    // TODO Auto-generated method stub
-//    return session.selectList(namespace+"selectIndex", map);
-//  }
 
 }
