@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.indexMapper">
+	<sql id="selectFromIndex">
+		SELECT prdt_id, prdt_gerne, prdt_name, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal
+		FROM tb_product;
+	</sql>
+	
+	<select id="popluarFunding" parameterType="map" resultType="IndexDto" >
+		select 
+		prdt_gerne,
+		prdt_name,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc)
+		from tb_product
+		limit 3
+	</select>
+	
+	<select id="newFunding" parameterType="map" resultType="IndexDto" >
+		select 
+		prdt_gerne,
+		prdt_name,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		prdt_opendate,
+		row_number() over(order by prdt_opendate desc)
+		from tb_product
+		order by prdt_opendate desc
+		limit 3
+	</select>
+</mapper>

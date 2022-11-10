@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->
@@ -67,6 +69,8 @@
         <div class="container">
           <h4><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
+          
+          <c:forEach var="indexDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -74,68 +78,30 @@
                 <div onclick="location.href='projectdetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
-                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genreliterature'">문학</p>
+                 <div class="card-body">         
+                  <p class="card-cate" onclick="location.href='genreliterature'">
+                  	<c:choose>
+                  		<c:when test="${indexDto.prdt_gerne eq 1 }">문학</c:when>
+                  		<c:when test="${indexDto.prdt_gerne eq 2 }">시/에세이</c:when>
+                  		<c:when test="${indexDto.prdt_gerne eq 3 }">웹툰</c:when>
+                  		<c:otherwise>장르</c:otherwise>
+                  	</c:choose>
+                  </p>
                   <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+	                  <p class="card-text"><h5>${indexDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
+                     	<strong class="text-danger">현재 달성률 ${indexDto.prdt_percent }%</strong>
+                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${indexDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+                    	<small class="text-muted text-end">${indexDto.prdt_dday}일 남음</small>
+                  	</div>          
                   <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
             </div><!-- project thumb end -->
-             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                </div>
-                <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrepoemessay'">시/에세이</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
-             <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'"  style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                </div>
-                <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 75%</strong>
-                    	<small class="text-muted">1,805,000원</small>
-                    	<small class="text-muted text-end">43일 남음</small>
-                  	</div>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
+          </c:forEach>
           </div>
          
           <h4><a href="/purplaying/newFunding">오늘의 신규 펀딩</a></h4>
