@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.NoticeMapper">
+
+	<sql id="selectFromNotice"> <!--Board 내용 전체 select 추출-->
+		SELECT notice_id, writer, notice_title, notice_context, notice_regdate, notice_category, notice_private FROM tb_notice
+	</sql>
+	
+	<select id="select" parameterType="int" resultType="NoticeDto"> <!--Board select 특정 bno 추출-->
+		<include refid="selectFromNotice"/>
+		WHERE notice_id = #{notice_id}
+	</select>
+	
+	<delete id="deleteAll">	<!-- truncate(serial리셋 + Delete 데이터) -->
+		truncate table tb_notice restart identity
+	</delete>
+	
+	<insert id="insert" parameterType="NoticeDto"> <!-- Board 테이블 데이터 추가 -->
+		INSERT INTO tb_notice (writer, notice_title, notice_context, notice_category, notice_private)
+			VALUES(#{writer}, #{notice_title}, #{notice_context}, #{notice_category}, #{notice_private});
+	</insert>
+	
+	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->
+		SELECT COUNT(*) from tb_notice  
+	</select>
+	
+	<select id="selectPage" parameterType="map" resultType="NoticeDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
+		<include refid="selectFromNotice"/>
+			order by notice_regdate desc , notice_id desc
+			limit #{pageSize} OFFSET  #{offset}
+	</select>
+	
+	<update id="increaseViewCnt" parameterType="int"> <!--조회수 컬럼 데이터 변경(증가)-->
+		UPDATE tb_notice set VIEW_CNT = VIEW_CNT + 1 where notice_id = #{notice_id}
+	</update>
+	
+</mapper>

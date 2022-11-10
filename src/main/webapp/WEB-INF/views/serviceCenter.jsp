@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,51 +43,53 @@
 				                            <th scope="col">제목</th>
 				                            <th scope="col">작성자</th>
 				                            <th scope="col">작성일</th>
+				                            <th scope="col">조회수</th>
+				                            <th scope="col">공개</th>
 				                        </tr>
 				                    </thead>
 				                    <tbody>
-				                        <tr>
-				                            <th scope="row">5</th>
-				                            <td>이벤트</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">4</th>
-				                            <td>이벤트</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">3</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">2</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">1</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
+				                    	<c:forEach var="noticeDto" items="${list}">
+				                    		<tr>
+					                            <th scope="row">${noticeDto.notice_id }</th>
+					                            <td>${noticeDto.notice_category}</td>
+					                            <td>${noticeDto.notice_title}</td>
+					                            <td>${noticeDto.writer}</td>
+					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
+				                        		<td>${noticeDto.view_cnt}</td>
+				                        		<td>${noticeDto.notice_private}</td>
+				                        	</tr>
+				                    	</c:forEach>
 				                    </tbody>
 				                </table>
 				            </div>
 				            <!-- end project-list -->
 				            <div class="pt-3 row">
-				                <!-- 검색창 -->
-				                <div class="col-1"></div>
+				                <!-- 페이지 네비게이션 -->
+				                <ul class="pagination mb-0 col-10 justify-content-center">
+				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
+											<h6 class="row text-center ">게시물이 없습니다.</h6>
+									</c:if>
+					                <!-- 게시물이 있는 경우, page nav 출력  -->
+									<c:if test="${totalCnt != null || totalCnt != 0 }">
+										<c:if test="${pr.showPrev }">
+											<li class="page-item disabled">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">Previous</a>
+						                    </li>
+										</c:if>
+										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+											<li class="page-item">
+												<a class="page-link" href="<c:url value="/notice/list?page=${i}"/>"> ${i} </a>
+											</li>
+										</c:forEach>
+										<c:if test="${pr.showNext }">
+											<li class="page-item disabled">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true">Previous</a>
+						                    </li>
+										</c:if>
+									</c:if>
+								</ul>
+								
+				              <!--   <div class="col-1"></div>
 				                <ul class="pagination mb-0 col-10 justify-content-center">
 				                    <li class="page-item disabled">
 				                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -95,7 +100,7 @@
 				                    <li class="page-item">
 				                        <a class="page-link" href="#">Next</a>
 				                    </li>
-				                </ul>
+				                </ul> -->
 								<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='noticeWrite'">작성</button>
 				            </div>
 				            <!-- end row -->
