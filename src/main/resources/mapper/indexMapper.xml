@@ -29,7 +29,7 @@
 		prdt_currenttotal, 
 		(prdt_enddate-prdt_opendate) as "prdt_dday",
 		prdt_opendate,
-		row_number() over(order by prdt_opendate desc)
+		row_number() over(order by prdt_opendate desc, prdt_id desc) <!--시작일이 같을 경우 상품 번호로 내림차순 정렬  -->
 		from tb_product
 		order by prdt_opendate desc
 		limit 3
