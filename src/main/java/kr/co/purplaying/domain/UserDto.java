@@ -3,8 +3,8 @@ package kr.co.purplaying.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class User {
-	private String id;
+public class UserDto {
+	private String user_id;
 	private String pwd;
 	private String name;
 	private String email;
@@ -13,14 +13,14 @@ public class User {
 	private Date reg_date;
 	
 	
-	public User() {
+	public UserDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public User(String id, String pwd, String name, String email, Date birth, String sns, Date reg_date) {
+	public UserDto(String user_id, String pwd, String name, String email, Date birth, String sns, Date reg_date) {
 		//super();
-		this.id = id;
+		this.user_id = user_id;
 		this.pwd = pwd;
 		this.name = name;
 		this.email = email;
@@ -35,7 +35,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(birth, email, id, name, pwd, reg_date, sns);
+		return Objects.hash(birth, email, user_id, name, pwd, reg_date, sns);
 	}
 
 
@@ -47,20 +47,20 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
-		return Objects.equals(birth, other.birth) && Objects.equals(email, other.email) && Objects.equals(id, other.id)
+		UserDto other = (UserDto) obj;
+		return Objects.equals(birth, other.birth) && Objects.equals(email, other.email) && Objects.equals(user_id, other.user_id)
 				&& Objects.equals(name, other.name) && Objects.equals(pwd, other.pwd)
 				&& Objects.equals(reg_date, other.reg_date) && Objects.equals(sns, other.sns);
 	}
 
 
-	public String getId() {
-		return id;
+	public String getUser_Id() {
+		return user_id;
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUser_Id(String User_id) {
+		this.user_id = user_id;
 	}
 
 
@@ -126,7 +126,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", birth=" + birth + ", sns="
+		return "User [user=" + user_id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", birth=" + birth + ", sns="
 				+ sns + ", reg_date=" + reg_date + "]";
 	}
 

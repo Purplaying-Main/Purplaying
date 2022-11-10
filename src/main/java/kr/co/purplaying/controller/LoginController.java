@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.purplaying.domain.User;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.dao.UserDao;
 
 @Controller
@@ -76,7 +76,7 @@ public class LoginController {
 
     private boolean loginCheck(String id, String pwd) {
 
-        User user = userDao.selectUser(id);
+        UserDto user = userDao.selectUser(id);
         if(user == null) return false;
         return user.getPwd().equals(pwd);
     }

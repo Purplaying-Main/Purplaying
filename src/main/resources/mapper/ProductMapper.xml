@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.ProductMapper">
+
+  	<insert id="bookEnroll">
+  	
+  		insert into t_product(genre_code, product_name, product_description, product_goal, product_startdate, product_enddate, product_content)
+		values(#{genre_code}, #{product_name}, #{product_description},  #{product_goal},  #{product_startdate},  #{product_enddate},  #{product_content})
+		
+		
+
+  	</insert>
+  	
+  	
+	
+	
+</mapper>

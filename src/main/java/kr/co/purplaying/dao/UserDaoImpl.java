@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.co.purplaying.domain.User;
+import kr.co.purplaying.domain.UserDto;
 
 @Repository
 public class UserDaoImpl implements UserDao {
@@ -23,14 +23,14 @@ public class UserDaoImpl implements UserDao {
 	DataSource ds;
 	
 	@Override
-	public User selectUser(String id) {
-		User user = null;
+	public UserDto selectUser(String id) {
+		UserDto user = null;
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		 
-		String sql = "select * from t_user where id = ?";
+		String sql = "select * from t_user where user_id = ?";
 		
 		try {
 			conn = ds.getConnection();
@@ -39,8 +39,8 @@ public class UserDaoImpl implements UserDao {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				user = new User();
-				user.setId(rs.getString(1));
+				user = new UserDto();
+				user.setUser_Id(rs.getString(1));
 				user.setPwd(rs.getString(2));
 				user.setName(rs.getString(3));
 				user.setEmail(rs.getString(4));
@@ -89,7 +89,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public int insertUser(User user) {
+	public int insertUser(UserDto user) {
 		Connection conn = null;
 		PreparedStatement pstmt=null;
 		
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getId());
+			pstmt.setString(1, user.getUser_Id());
 			pstmt.setString(2, user.getPwd());
 			pstmt.setString(3, user.getName());
 			pstmt.setString(4, user.getEmail());
@@ -129,7 +129,7 @@ public class UserDaoImpl implements UserDao {
 	}
 	
 	@Override
-	public int updateUser(User user) {
+	public int updateUser(UserDto user) {
 		int rowCnt = FAIL;
 		String sql = "update t_user " + "set pwd=?, name=?, email=?, birth=?, sns=?, reg_date= ? "+"where id=?";
 		
@@ -144,7 +144,7 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setDate(4, new java.sql.Date(user.getBirth().getTime()));
 			pstmt.setString(5, user.getSns());
 			pstmt.setTimestamp(6, new Timestamp(user.getReg_date().getTime()));
-			pstmt.setString(7, user.getId());
+			pstmt.setString(7, user.getUser_Id());
 			
 			rowCnt = pstmt.executeUpdate();
 			

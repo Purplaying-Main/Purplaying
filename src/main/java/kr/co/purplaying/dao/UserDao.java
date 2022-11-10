@@ -1,12 +1,12 @@
 package kr.co.purplaying.dao;
 
-import kr.co.purplaying.domain.User;
+import kr.co.purplaying.domain.UserDto;
 
 public interface UserDao {
 
-	User selectUser(String id);
+	UserDto selectUser(String user_id);
 	void deleteAll() throws Exception;
-	int insertUser(User user);
-	int updateUser(User user);
+	int insertUser(UserDto user);
+	int updateUser(UserDto user);
 
 }
