@@ -29,7 +29,7 @@
 	
 	<select id="selectPage" parameterType="map" resultType="NoticeDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
 		<include refid="selectFromNotice"/>
-			order by notice_regdate desc , notice_id desc
+			order by notice_id desc, notice_regdate desc 
 			limit #{pageSize} OFFSET  #{offset}
 	</select>
 	

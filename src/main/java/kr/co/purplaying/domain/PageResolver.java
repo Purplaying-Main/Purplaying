@@ -4,7 +4,7 @@ public class PageResolver {
 
 	private int totalCnt;				//게시물 총 갯수
 	private int pageSize = 10;			//한 페이지당 게시물 갯수
-	public final int NAV_SIZE = 10;		//page navigation size
+	public final int NAV_SIZE = 5;		//page navigation size
 	
 	private int totalPage;				//전체 페이지 갯수
 	private int page;					//현제 페이지

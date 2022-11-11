@@ -20,11 +20,15 @@ public class NoticeDaoImpleTest {
 		public void insertDummyDataTest() throws Exception{
 			noticeDao.deleteAll();
 			
-			for(int i=1; i<=100; i++) {
-				NoticeDto noticeDto = new NoticeDto("관리자", "공지사항"+i, "공지사항입니다"+i, 1, true);
-				noticeDao.insert(noticeDto);
-			}
+//			for(int i=1; i<=100; i++) {
+//				NoticeDto noticeDto = new NoticeDto("관리자", "공지사항"+i, "공지사항입니다"+i, 1, true);
+//				noticeDao.insert(noticeDto);
+//			}
 			
+			for(int i=1; i<=100; i++) {
+              NoticeDto noticeDto = new NoticeDto("admin@gmail.com", "공지사항"+i, "공지사항입니다"+i, 1, true);
+              noticeDao.insert(noticeDto);
+          }
 			
 //			for(int i=1; i<=5; i++) {
 //				BoardDto boardDto = new BoardDto("Pioneering"+i, "Ready for Action"+i, "ezen5");

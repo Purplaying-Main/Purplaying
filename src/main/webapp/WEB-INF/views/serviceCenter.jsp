@@ -23,7 +23,7 @@
 		<div class="container mb-5">
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
-			      <button class="nav-link active" aria-selected="true">공지사항</button>
+			      <button class="nav-link active" aria-selected="true" onclick="notice/list">공지사항</button>
 			      <button class="nav-link" aria-selected="false" onclick="location.href='questions'">자주 묻는 질문</button>
 			      <button class="nav-link" aria-selected="false" onclick="location.href='oneonone'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
@@ -52,8 +52,12 @@
 				                    		<tr>
 					                            <th scope="row">${noticeDto.notice_id }</th>
 					                            <td>${noticeDto.notice_category}</td>
-					                            <td>${noticeDto.notice_title}</td>
-					                            <td>${noticeDto.writer}</td>
+					                            <td>
+					                            	<a href="<c:url value="/notice/read?notice_id=${noticeDto.notice_id}&page=${page }&pageSize=${pageSize }"/>">
+					                            		${noticeDto.notice_title}
+					                            	</a>
+					                            </td>
+					                            <td>${noticeDto.writer eq 'admin@gmail.com' ? '관리자' : noticeDto.writer}</td>
 					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
 				                        		<td>${noticeDto.view_cnt}</td>
 				                        		<td>${noticeDto.notice_private}</td>
@@ -65,6 +69,7 @@
 				            <!-- end project-list -->
 				            <div class="pt-3 row">
 				                <!-- 페이지 네비게이션 -->
+				                <div class="col-1"></div>
 				                <ul class="pagination mb-0 col-10 justify-content-center">
 				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
 											<h6 class="row text-center ">게시물이 없습니다.</h6>
@@ -72,8 +77,8 @@
 					                <!-- 게시물이 있는 경우, page nav 출력  -->
 									<c:if test="${totalCnt != null || totalCnt != 0 }">
 										<c:if test="${pr.showPrev }">
-											<li class="page-item disabled">
-						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">Previous</a>
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.beginPage-1 }"/>">Previous</a>
 						                    </li>
 										</c:if>
 										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
@@ -82,8 +87,8 @@
 											</li>
 										</c:forEach>
 										<c:if test="${pr.showNext }">
-											<li class="page-item disabled">
-						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true">Previous</a>
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.endPage+1 }"/>">Next</a>
 						                    </li>
 										</c:if>
 									</c:if>

@@ -6,7 +6,7 @@ import java.util.Objects;
 public class NoticeDto{
   
 	private Integer notice_id;
-	private String writer;
+	private String writer; // user_id(email) FK
 	private String notice_title;
 	private String notice_context;
 	private Date notice_regdate;

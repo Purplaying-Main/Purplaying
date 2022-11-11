@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.NoticeService;
 
 @Controller
@@ -23,8 +25,34 @@ import kr.co.purplaying.service.NoticeService;
 public class NoticeController {
   
   @Autowired
-  NoticeService noticeService;
+  NoticeService noticeService; 
   
+
+  
+  @GetMapping("/read")
+  public String read(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
+    
+    try {
+      
+          String user_id = (String)session.getAttribute("user_id");
+          
+          NoticeDto noticeDto = noticeService.read(notice_id);
+          
+          String writer = noticeDto.getWriter();
+          System.out.println("user id: "+user_id);
+          System.out.println("writer: " + writer);
+          
+          m.addAttribute(noticeDto);
+          m.addAttribute("page", page);
+          m.addAttribute("pageSize", pageSize);
+      
+      } catch (Exception e) {
+          e.printStackTrace();
+//        예외발생 -> 목록으로 돌아가기
+          return "redirect:/notice/list";
+      }
+      return "notice";
+  }
   
   @GetMapping("/list")
   public String list(@RequestParam(defaultValue = "1") Integer page,
