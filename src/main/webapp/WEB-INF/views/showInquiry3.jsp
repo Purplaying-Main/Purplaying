@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="loginId" value="${sessionScope.id} " />
+<c:set var="loginId" value="${sessionScope.user_id } " />
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,7 +119,8 @@
 			// 서머노트 종료
 			
 			$("#listBtn").on("click", function() {
-				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}'/>";
+				//location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}'/>";
+				history.back();
 			})
 			$("#removeBtn").on("click", function() {
 				if(!confirm("정말로 삭제하시겠습니까?")) return;

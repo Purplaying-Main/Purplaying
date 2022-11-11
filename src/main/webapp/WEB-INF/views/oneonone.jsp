@@ -37,7 +37,7 @@
 					<div>
 						<div class="row justify-content-end mt-4">
 							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
-								<form action="<c:url value="/board/list" />" class="search-form" method="get"> 
+								<form action="<c:url value="/oneonone/list" />" class="search-form" method="get"> 
 								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
 					<%-- 
 														<select class="search-option" name="option">
@@ -81,7 +81,47 @@
 						<div class="pt-3 row">
 							<!-- 검색창 -->
 							<div class="col-1"></div>
-							<ul class="pagination mb-0 col-10 justify-content-center">
+		<%--  					<ul class="pagination mb-0 col-10 justify-content-center">
+				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
+											<h6 class="row text-center ">게시물이 없습니다.</h6>
+									</c:if>
+					                <!-- 게시물이 있는 경우, page nav 출력  -->
+									<c:if test="${totalCnt != null || totalCnt != 0 }">
+										<c:if test="${pr.showPrev }">
+											<li class="page-item disabled">
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">PREV</a>
+						                    </li>
+										</c:if>
+										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+											<li class="page-item">
+												<a class="page-link" href="<c:url value="/oneonone/list?page=${i}"/>"> ${i} </a>
+											</li>
+										</c:forEach>
+										<c:if test="${pr.showNext }">
+											<li class="page-item disabled">
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true" >NEXT</a>
+						                    </li>
+										</c:if>
+									</c:if>
+								</ul>  --%>
+									<ul class="pagination mb-0 col-10 justify-content-center">
+				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
+											<h6 class="row text-center ">게시물이 없습니다.</h6>
+									</c:if> 
+					                <!-- 게시물이 있는 경우, page nav 출력  -->
+									<c:if test="${totalCnt != null || totalCnt != 0 }">
+										<c:if test="${pr.showPrev }">											
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">PREV</a>
+										</c:if>
+										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">											
+												<a class="page-link" href="<c:url value="/oneonone/list?page=${i}"/>"> ${i} </a>										
+										</c:forEach>
+										<c:if test="${pr.showNext }">											
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true" >NEXT</a>						                 
+										</c:if>
+									</c:if>
+								</ul>  
+<%-- 		 					<ul class="pagination mb-0 col-10 justify-content-center">
 								<c:if test="${totalCnt == null || totalCnt == 0 }">
 									<div>게시물이 없습니다.</div>
 								</c:if>
@@ -94,10 +134,10 @@
 										<a class="page" href="<c:url value="/oneonone/list?page=${i }" />">${i }</a>
 									</c:forEach>
 									<c:if test="${pr.showNext }">
-										<a class="page" href="<c:url value="/oneonone/listpage=${pr.endPage+1 }" />">▷</a>
+										<a class="page" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }" />">▷</a>
 									</c:if>
 								</c:if>
-							</ul>
+							</ul>   --%>
 							<button type="button" class="col-1 btn btn-primary" onclick="location.href='/purplaying/inquirywrite'">작성</button>
 							<!--				<button id="writrBtn" class="btn-write" onclick="location.href='<c:url value="/board/write" />' " >
 						<i class="fa fa-pen"></i>글쓰기</button>  -->
