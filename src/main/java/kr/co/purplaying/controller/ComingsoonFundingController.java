@@ -3,36 +3,35 @@ package kr.co.purplaying.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import kr.co.purplaying.dao.IndexDao;
-import kr.co.purplaying.domain.IndexDto;
+
+import kr.co.purplaying.dao.ComingsoonFundingDao;
+import kr.co.purplaying.domain.ComingsoonFundingDto;
 
 @Controller
-public class IndexController {
+public class ComingsoonFundingController {
 
   @Autowired
-  IndexDao indexDao;
+  ComingsoonFundingDao comingsoonFundingDao;
   
-  @RequestMapping
-  @GetMapping("/")
-  public String getPage(IndexDto indexDto, Model m) {
+  @RequestMapping("/comingsoonFunding")
+  @GetMapping("/comingsoonFunding")
+  public String getPage(ComingsoonFundingDto comingsoonFundingDto, Model m ) {
+    
     try {
       Map map = new HashMap();
-      List<IndexDto> list_p = indexDao.popluarFunding(map);
-      m.addAttribute("list_p",list_p);
-      
-      List<IndexDto> list_n = indexDao.newFunding(map);
-      m.addAttribute("list_n",list_n);
-      
+      List<ComingsoonFundingDto> list_c = comingsoonFundingDao.comingsoonFunding(map);
+      m.addAttribute("list_c",list_c);
+
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
-    return "/index";
+    return "comingsoonFunding";
   }
   
 }

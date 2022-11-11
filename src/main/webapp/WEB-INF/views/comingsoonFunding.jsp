@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
+	<link rel="stylesheet" href="resources/assets/css/heart.css">
+	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
+	<script src="resources/assets/js/heart.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
-<link rel="stylesheet" href="resources/assets/css/heart.css">
-<link rel="stylesheet" href="resources/assets/css/indexHover.css">
-<script src="resources/assets/js/heart.js"></script>
 <body>
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
@@ -24,123 +27,37 @@
         <div class="container py-4"><!-- genre div start -->
           <h4>Comingsoon ! 펀딩예정</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
-                </div>
-                <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
+          	<c:forEach var="comingsoonFundingDto" items="${list_c }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
                 <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
+                     <p class="card-cate" onclick="location.href='genrewebtoon'">
+	                   	  <c:choose>
+	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 1 }">문학</c:when>
+	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 2 }">시/에세이</c:when>
+	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 3 }">웹툰</c:when>
+	                  		<c:otherwise>장르</c:otherwise>
+	                  	  </c:choose>
+                     </p>
+                  	  <div class="link-div" onclick="location.href='projectdetail'">
+	                  	<p class="card-text"><h5>${comingsoonFundingDto.prdt_name }</h5></p>
+                   	  </div>
+	                  <div class="d-flex justify-content-between align-items-end">
+                    	<small class="text-danger text-end">${comingsoonFundingDto.prdt_comingday}일 뒤 공개</small>
+                  	  </div>
                 </div>
               </div>
-            </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
-                </div>
-                <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
-          </div><!-- project row end -->
-        </div><!-- genre div end -->
-        <div class="container py-4"><!-- genre div start -->
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
-                </div>
-                <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
-                </div>
-                <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">coming soon!</text></svg>
-                </div>
-                <div class="card-body">
-                	<div class="card-cate d-flex justify-content-between">
-                  		<p onclick="location.href='genrewebtoon'">웹툰</p>
-                 	 	<strong class="text-danger">D-1</strong>
-                 	</div>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
-                   </div>
-                </div>
-              </div>
-            </div><!-- project thumb end -->
-          </div><!-- project row end -->
+             </div>
+             </c:forEach>	
+            </div><!-- project thumb end -->		
+          </div>
         </div><!-- genre div end -->
       </div>
-    </div>
-
   </section>
   
   <!--푸터 인클루드-->

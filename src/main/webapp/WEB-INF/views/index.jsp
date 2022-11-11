@@ -67,7 +67,7 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
         <div class="container">
-          <h4><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩</a></h4>
+          <h4><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
           <c:forEach var="indexDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
@@ -95,7 +95,7 @@
                     	<small class="text-muted text-end">${indexDto.prdt_dday}일 남음</small>
                   	</div>          
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -103,7 +103,7 @@
           </c:forEach>
           </div>
          
-          <h4><a href="/purplaying/newFunding">오늘의 신규 펀딩</a></h4>
+          <h4><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
           	<c:forEach var="indexDto" items="${list_n }">
             <div class="col"><!-- project thumb start -->
@@ -131,7 +131,7 @@
                     	<small class="text-muted text-end">${indexDto.prdt_dday}일 남음</small>
                   	</div>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -144,7 +144,7 @@
   </section>
 	<script>
 	/*progressbar 연동 JS*/
-	let perValue = ${indexDto.prdt_percent };
+	const perValue = ${indexDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
 	</script>
   <!--푸터 인클루드-->

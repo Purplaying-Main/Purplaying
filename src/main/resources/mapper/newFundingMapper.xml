@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.newFundingMapper">
+	<select id="newFunding" parameterType="map" resultType="newFundingDto" >
+		select 
+		prdt_gerne,
+		prdt_name,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		prdt_opendate,
+		row_number() over(order by prdt_opendate desc, prdt_id desc) <!--시작일이 같을 경우 상품 번호로 내림차순 정렬  -->
+		from tb_product
+		where <![CDATA[prdt_opendate <= current_date ]]> <!-- 오늘 이전 날짜만 추출  -->
+		order by prdt_opendate desc
+		limit 6
+	</select>
+</mapper>

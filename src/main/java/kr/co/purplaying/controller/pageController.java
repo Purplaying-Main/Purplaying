@@ -176,17 +176,23 @@ public class pageController {
         return "popularFunding";
     }
     
-    //newFunding.jsp호출
-    @RequestMapping(value="/newFunding", method=RequestMethod.GET)
-    public String newFunding() {
-        return "newFunding";
-    }
+    /*
+     * //newFunding.jsp호출
+     * 
+     * @RequestMapping(value="/newFunding", method=RequestMethod.GET)
+     * public String newFunding() {
+     * return "newFunding";
+     * }
+     */
     
-    //comingsoonFunding.jsp호출
-    @RequestMapping(value="/comingsoonFunding", method=RequestMethod.GET)
-    public String comingsoonFunding() {
-        return "comingsoonFunding";
-    }
+    /*
+     * //comingsoonFunding.jsp호출
+     * 
+     * @RequestMapping(value="/comingsoonFunding", method=RequestMethod.GET)
+     * public String comingsoonFunding() {
+     * return "comingsoonFunding";
+     * }
+     */
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //푸터연결 페이지///////////////////////////////////////////////////////////////////////////////////////
