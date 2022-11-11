@@ -11,23 +11,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class pageController {
 
   // 고객센터///////////////////////////////////////////////////////////////////////////////////////
-  
-   //serviceCenter.jsp호출
-   
-   @RequestMapping(value="/servicecenter", method=RequestMethod.GET)
-   public String serviceCenter() {
-   return "serviceCenter";
-   }
-   
 
-  /*
-   * //oneonone.jsp호출
-   * 
-   * @RequestMapping(value="/oneonone", method=RequestMethod.GET)
-   * public String oneonone() {
-   * return "oneonone";
-   * }
-   */
+  // serviceCenter.jsp호출
+
+  @RequestMapping(value = "/servicecenter", method = RequestMethod.GET)
+  public String serviceCenter() {
+    return "serviceCenter";
+  }
+
+  // oneonone.jsp호출
+
+//  @RequestMapping(value = "/oneonone", method = RequestMethod.GET)
+//  public String oneonone() {
+//    return "oneonone";
+//  }
 
   // questions.jsp호출
   @RequestMapping(value = "/questions", method = RequestMethod.GET)
@@ -35,26 +32,30 @@ public class pageController {
     return "questions";
   }
   // inquiryWrite.jsp호출
-  /*
-   * @RequestMapping(value="/inquirywrite", method=RequestMethod.GET)
-   * public String inquiryWrite() {
-   * return "inquiryWrite";
-   * }
-   * 
-   * //showInquiry.jsp호출
-   * 
-   * @RequestMapping(value="/showinquiry", method=RequestMethod.GET)
-   * public String showInquiryAnswer() {
-   * return "showInquiry";
-   * }
-   * 
-   * //showInquiry2.jsp호출
-   * 
-   * @RequestMapping(value="/showinquiry2", method=RequestMethod.GET)
-   * public String showInquiryAnswer2() {
-   * return "showInquiry2";
-   * }
-   */
+
+  @RequestMapping(value = "/inquirywrite", method = RequestMethod.GET)
+  public String inquiryWrite() {
+    return "inquiryWrite";
+  }
+
+  // showInquiry.jsp호출
+
+  @RequestMapping(value = "/showinquiry", method = RequestMethod.GET)
+  public String showInquiryAnswer() {
+    return "showInquiry";
+  }
+
+  // showInquiry2.jsp호출
+
+  @RequestMapping(value = "/showinquiry2", method = RequestMethod.GET)
+  public String showInquiryAnswer2() {
+    return "showInquiry2";
+  }
+  
+  @RequestMapping(value = "/showinquiry3", method = RequestMethod.GET)
+  public String showInquiryAnswer3() {
+    return "showInquiry3";
+  }
 
   // notice.jsp호출
   @RequestMapping(value = "/notice", method = RequestMethod.GET)

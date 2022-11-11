@@ -16,8 +16,9 @@
 		<h1 class="visually-hidden">홈</h1>
 		<!--컨텐츠 영역-->
 		<div class="row justify-content-md-center">
-        	<h2 class="col-auto my-5">고객센터</h2>
+        		<h2 class="col-auto my-5">고객센터</h2>
       	</div>
+		<div class="container mb-5">
 		<div class="container mb-5">
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->

@@ -6,54 +6,64 @@
 <mapper namespace="kr.co.purplaying.dao.BoardMapper">
 
   	<sql id="selectFromBoard">
-  		SELECT bno, state, title, "content", writer,  private, reg_date
-		FROM tb_board
+		SELECT inquiry_no, inquiry_state, user_id, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
+		FROM tb_inquiry2
   	</sql>
   	
   	<select id="select" parameterType="int" resultType="BoardDto">
   		<include refid="selectFromBoard" />
-  		WHERE bno = #{bno}
+  		WHERE inquiry_no = #{inquiry_no}
   	</select>
   	
   	<delete id="deleteAll">
-  		delete from tb_board
+  		delete from tb_inquiry2
   	</delete>
   	
   	<delete id="delete" parameterType="map">
-  		delete from tb_board where bno = #{bno} and writer = #{writer}
+  		delete from tb_inquiry2 where inquiry_no = #{inquiry_no} and user_id = #{user_id}
   	</delete>
   	
   	<delete id="deleteForAdmin">
-  		delete from tb_board where bno = #{bno}
+  		delete from tb_inquiry2 where inquiry_no = #{inquiry_no}
   	</delete>
   	
   	<insert id="insert">
-  		INSERT INTO public.tb_board
-			(title, content, writer)
+  		INSERT INTO tb_inquiry2
+			(inquiry_title, inquiry_context, user_id)
 		VALUES	
-			(#{title}, #{content}, #{writer})
+			(#{inquiry_title}, #{inquiry_context}, #{user_id})
   	</insert>
   	
   	<select id="count" resultType="int">
-  		select count(*) from tb_board
+  		select count(*) from tb_inquiry2
   	</select>
   	
   	<select id="selectPage" parameterType="map" resultType="BoardDto">
   		<include refid="selectFromBoard" />
-		order by reg_date desc, bno desc 
+		order by inquiry_regdate desc, inquiry_no desc 
 		limit #{pageSize} offset #{offset}
   	</select>
   	
-  	<update id="increaseViewCnt" parameterType="int">
-  		update tb_board 
-		set view_cnt = view_cnt + 1
-		where bno= #{bno }
-  	</update>
+   	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
+	  	select * 
+	  	from tb_inquiry2
+		where true 
+		and inquiry_title like concat('%' ,#{keyword}, '%')
+		order by inquiry_regdate desc, inquiry_no desc 
+		limit #{pageSize} offset #{offset}
+  	</select> 	
+  	
+  	  	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+		select count(*) 
+		from tb_inquiry2
+		where true 
+		and inquiry_title like concat('%' ,#{keyword}, '%')
+  	</select>
 
 	<update id="update" parameterType="BoardDto">
-		UPDATE public.tb_board
-		SET title=#{title}, content=#{content}, up_date = now() 
-		WHERE bno= #{bno } and writer = #{writer}
+		UPDATE tb_inquiry2
+		SET inquiry_title=#{inquiry_title}, inquiry_context=#{inquiry_context} 
+		WHERE inquiry_no= #{inquiry_no } and user_id = #{user_id}
 	</update>
   	
   	

@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="loginId" value="${sessionScope.id} " />
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +24,8 @@
 	  		font-family: "Noto Sans KR", sans-serif;
 	  	}
 	  	
-	  	.container {
-	  		width: 50%;
+	  	.container_b {
+	  		width: 80%;
 	  		margin: auto;
 	  	}	
 	  	
@@ -73,15 +76,22 @@
 	
 	</style>	
 <body>
+		<!--헤더 인클루드-->
+	<%@ include file="header.jsp"%>
+
+	<!--페이지 내용 시작-->
+	<section>
+		<h1 class="visually-hidden">홈</h1>
+		<!--컨텐츠 영역-->
 		<div class="row justify-content-md-center">
         	<h2 class="col-auto my-5">고객센터</h2>
       	</div>
 		<div class="container mb-5">
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
-			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='servicecenter'">공지사항</button>
-			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='questions'">자주 묻는 질문</button>
-			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='oneonone'">1:1 문의</button>
+			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
+			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
+			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonone/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
 	
 	<script type="text/javascript">
@@ -109,20 +119,20 @@
 			// 서머노트 종료
 			
 			$("#listBtn").on("click", function() {
-				location.href ="<c:url value='/servicecenter/oneonone?page=${page}&pageSize=${pageSize}' />";
+				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}'/>";
 			})
 			$("#removeBtn").on("click", function() {
 				if(!confirm("정말로 삭제하시겠습니까?")) return;
 				
 				let form = $("#form");
-				form.attr("action","<c:url value='/servicecenter/remove?page=${page}&pageSize=${pageSize}' />");
+				form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />");
 				form.attr("method","post");
 				form.submit();
 			})
 			$("#writeBtn").on("click", function() {
 
 				let form = $("#form");
-				form.attr("action","<c:url value='/servicecenter/write' />");
+				form.attr("action","<c:url value='/oneonone/write' />");
 				form.attr("method","post");
 				
 				if(formCheck()) {
@@ -132,14 +142,14 @@
 			
 			let formCheck = function() {
 				let form = document.getElementById("form")
-				if(form.title.value=="") {
+				if(form.inquiry_title.value=="") {
 					alert("제목을 입력해 주세요.")
-					form.title.focus()
+					form.inquiry_title.focus()
 					return false
 				}
-				if(form.content.value=="") {
+				if(form.inquiry_context.value=="") {
 					alert("내용을 입력해 주세요.")
-					form.content.focus()
+					form.inquiry_context.focus()
 					return false
 				}
 					return true;
@@ -147,18 +157,18 @@
 			
 			$("#modifyBtn").on("click", function() {
 				let form = $("#form")
-				let isReadonly = $("input[name=title]").attr('readonly')
+				let isReadonly = $("input[name=inquiry_title]").attr('readonly')
 				
 				// 1. 읽기 상태이면 수정상태로 변경
 				if(isReadonly=='readonly') {
 					$(".writing-header").html("게시판 수정")
-					$("input[name=title]").attr('readonly', false)
+					$("input[name=inquiry_title]").attr('readonly', false)
 					$("textarea").attr('readonly', false)
 					$("#modifyBtn").html("<i class='fa fa-pen'></i> 등록")
 					return;
 				}
 				// 2. 수정상태이면 수정된 내용을 서버로 전송
-				form.attr("action","<c:url value='/servicecenter/modify?page=${page}&pageSize=${pageSize}' />")
+				form.attr("action","<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}'/>")
 				form.attr("method","post")
 				if(formCheck()){
 					form.submit();
@@ -179,21 +189,21 @@
 		if(msg == "MOD_ERR") alert("게시물 수정에 [실패] 하였습니다. 다시 시도해 주세요.")
 	</script>
 
-	<div class="container">
+	<div class="container_b">
 		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기" }</h2>
 			<form id="form" class="frm" action="" method="post">
-				<input type="hidden" name="bno" value="${boardDto.bno }">
-				<input type="text" name="title" value="${boardDto.title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
+				<input type="hidden" name="inquiry_no" value="${boardDto.inquiry_no }">
+				<input type="text" name="inquiry_title" value="${boardDto.inquiry_title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
 				<%-- <div class="<c:if test="${mode eq 'new'}">summernote</c:if>"> --%><!-- textarea 를 div 로 변환하면 가능 -->
-				<textarea rows="20" name="content" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.content }</textarea><br/>
+				<textarea rows="20" name="inquiry_context" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.inquiry_context }</textarea><br/>
 				<!-- </div> -->
 				<c:if test="${mode eq 'new' }">
 					<button type="button" id="writeBtn" class="btn btn-wirte"><i class="fa fa-pen"></i>등록</button>
 				</c:if>
 				<c:if test="${mode ne 'new' }">
-					<button type="button" id="writeNewBtn" class="btn btn-wirte" onclick="location.href='<c:url value="/servicecenter/write" />' " ><i class="fa fa-pen"></i>글쓰기</button>
+					<button type="button" id="writeNewBtn" class="btn btn-wirte" onclick="location.href='<c:url value="/oneonone/write" />'" ><i class="fa fa-pen"></i>글쓰기</button>
 				</c:if>
-	            <c:if test="${boardDto.writer eq loginId }">
+	            <c:if test="${boardDto.user_id eq loginId }">
 	                <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i>수정</button>
 	                <button type="button" id="removeBtn" class="btn btn-modify"><i class="fa fa-trash"></i>삭제</button>
 	            </c:if>

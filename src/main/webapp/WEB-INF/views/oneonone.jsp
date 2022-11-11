@@ -27,10 +27,8 @@
 				<div class="nav nav-tabs nav-justified" id="v-pills-tab"
 					role="tablist">
 					<!-- 탭 menu start-->
-					<button class="nav-link" aria-selected="false"
-						onclick="location.href='/'">공지사항</button>
-					<button class="nav-link" aria-selected="false"
-						onclick="location.href='questions'">자주 묻는 질문</button>
+					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
+					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
 					<button class="nav-link active" aria-selected="true">1:1
 						문의</button>
 				</div>
@@ -38,16 +36,21 @@
 				<div class="row col-10 justify-content-center mx-auto">
 					<div>
 						<div class="row justify-content-end mt-4">
-							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search"
-								action="genre">
-								<input type="search" class="form-control" name="search"
-									placeholder="Search..." aria-label="Search"
-									onclick="frm.submit()">
+							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
+								<form action="<c:url value="/board/list" />" class="search-form" method="get"> 
+								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
+					<%-- 
+														<select class="search-option" name="option">
+										<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
+										<option value="T" ${pr.sc.option=='T' ? "selected" : "" }>제목</option>
+										<option value="W" ${pr.sc.option=='W' ? "selected" : "" }>작성자</option>
+									</select> --%>
+					
+					<!-- <input type="submit" class="search-button" value="검색">  -->
+							
 							</form>
 
-
-							<table
-								class="table project-table table-centered table-nowrap table-hover">
+							<table class="table project-table table-centered table-nowrap table-hover">
 								<thead class="border-3 border-bottom">
 									<tr>
 										<th scope="col">#</th>
@@ -61,14 +64,14 @@
 								<tbody>
 									<c:forEach var="boardDto" items="${list }">
 										<tr>
-											<td class="no">${boardDto.bno }</td>
-											<td class="title"><a href="<c:url value='/servicecenter/read?bno=${boardDto.bno }&page=${page }&pageSize=${pageSize }' />">
-													${boardDto.title } </a></td>
-											<td class="writer">${boardDto.writer }</td>
+											<td class="no">${boardDto.inquiry_no }</td>
+											<td class="state">${boardDto.inquiry_state }</td>
+											<td class="title"><a href="<c:url value='/oneonone/read?inquiry_no=${boardDto.inquiry_no }&page=${page }&pageSize=${pageSize }'/>">
+													${boardDto.inquiry_title } </a></td>
+											<td class="writer">${boardDto.user_id }</td>
+											<td class="private">${boardDto.inquiry_private }</td>
 
-											<td class="regdate"><fmt:formatDate	value="${boardDto.reg_date }" pattern="yyyy-MM-dd" type="date" /></td>
-
-											<td class="viewcnt">${boardDto.view_cnt }</td>
+											<td class="regdate"><fmt:formatDate	value="${boardDto.inquiry_regdate }" pattern="yyyy-MM-dd" type="date" /></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -85,22 +88,19 @@
 
 								<c:if test="${totalCnt != null || totalCnt != 0 }">
 									<c:if test="${pr.showPrev }">
-										<a class="page"
-											href="<c:url value="/servicecenter/oneonone?page=${pr.beginPage-1 }" />">◁</a>
+										<a class="page"	href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }" />">◁ </a>
 									</c:if>
-									<c:forEach var="i" begin="${pr.beginPage }"
-										end="${pr.endPage }">
-										<a class="page"
-											href="<c:url value="/servicecenter/oneonone?page=${i }" />">${i }</a>
+									<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+										<a class="page" href="<c:url value="/oneonone/list?page=${i }" />">${i }</a>
 									</c:forEach>
 									<c:if test="${pr.showNext }">
-										<a class="page"
-											href="<c:url value="/servicecenter/oneonone?page=${pr.endPage+1 }" />">▷</a>
+										<a class="page" href="<c:url value="/oneonone/listpage=${pr.endPage+1 }" />">▷</a>
 									</c:if>
 								</c:if>
 							</ul>
-							<button type="button" class="col-1 btn btn-primary"
-								onclick="location.href='inquirywrite'">작성</button>
+							<button type="button" class="col-1 btn btn-primary" onclick="location.href='/purplaying/inquirywrite'">작성</button>
+							<!--				<button id="writrBtn" class="btn-write" onclick="location.href='<c:url value="/board/write" />' " >
+						<i class="fa fa-pen"></i>글쓰기</button>  -->
 
 						</div>
 						<!-- end row -->

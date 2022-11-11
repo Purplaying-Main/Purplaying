@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
 			<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 			  <ol class="breadcrumb fs-6 mt-4">
 			    <li class="breadcrumb-item"><a href="/purplaying/servicecenter">고객센터</a></li>
-			    <li class="breadcrumb-item"><a href="/purplaying/oneonone">1:1문의</a></li>
+			    <li class="breadcrumb-item"><a href="/purplaying/oneonone/list">1:1문의</a></li>
 			    <li class="breadcrumb-item active" aria-current="page">1:1 문의하기</li>
 			  </ol>
 			</nav>

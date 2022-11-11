@@ -1,5 +1,5 @@
 package kr.co.purplaying.controller;
-/*
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.domain.BoardDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.service.BoardService;
 
 @Controller
-@RequestMapping("/board")
-public class BoardController {
+@RequestMapping(value = "/oneonone")
+public class oneononeController {
 	
 	@Autowired
 	BoardService boardService;
@@ -41,7 +42,7 @@ public class BoardController {
 			rattr.addAttribute("pageSize", pageSize);
 			rattr.addFlashAttribute("msg", "MOD_OK");
 			
-			return "redirect:/oneonone";
+			return "redirect:/oneonone/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute(boardDto);
@@ -66,7 +67,7 @@ public class BoardController {
 			}
 			
 			rattr.addFlashAttribute("msg", "WRT_OK");
-			return "redirect:/oneonone";
+			return "redirect:/oneonone/list";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,7 +108,7 @@ public class BoardController {
 		rattr.addAttribute("pageSize", pageSize);
 		rattr.addFlashAttribute("msg", msg);
 				
-		return "redirect:/oneonone";
+		return "redirect:/oneonone/list";
 	}
 	
 	
@@ -125,16 +126,15 @@ public class BoardController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "redirect:/oneonone";
+			return "redirect:/oneonone/list";
 		}
 		
 		return "showInquiry3";
 	}
 	
 	
-	@GetMapping("/oneonone")
-	public String list(@RequestParam(defaultValue = "1") Integer page, 
-					   @RequestParam(defaultValue = "10") Integer pageSize,
+	@GetMapping("/list")
+	public String list(SearchItem sc,
 						Model m,
 						HttpServletRequest request) {
 		
@@ -146,28 +146,15 @@ public class BoardController {
 //			if(page==null) page=1;
 //			if(pageSize==null) pageSize=10;
 			
-			int totalCnt = boardService.getCount();
-			m.addAttribute("totalcnt", totalCnt);
+			int totalCnt = boardService.getSearchResultCnt(sc);
+			m.addAttribute("totalCnt", totalCnt);
 			
-			PageResolver pageResolver = new PageResolver(totalCnt, page, pageSize);
-			if(page < 0 || page > pageResolver.getTotalCnt()) {
-				page = 1;
-			}
-			if (pageSize < 0 || pageSize > 50) {
-				pageSize = 10;
-			}
+			PageResolver pageResolver = new PageResolver(totalCnt, sc);
 			
-			Map map = new HashMap();
-			map.put("offset", (page-1)*pageSize);
-			map.put("pageSize", pageSize);
-			
-			List<BoardDto> list = boardService.getPage(map);
+			List<BoardDto> list = boardService.getSearchResultPage(sc);
 			m.addAttribute("list", list);
 			m.addAttribute("pr", pageResolver);
-			
-			m.addAttribute("page", page);
-			m.addAttribute("pageSize", pageSize);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -188,5 +175,3 @@ public class BoardController {
 	
 
 }
-
-*/
