@@ -1,12 +1,16 @@
 package kr.co.purplaying.dao;
 
-import kr.co.purplaying.domain.User;
+import java.util.List;
+import java.util.Map;
+
+import kr.co.heart.domain.BoardDto;
+import kr.co.purplaying.domain.UserDto;
 
 public interface UserDao {
 
-	User selectUser(String id);
-	void deleteAll() throws Exception;
-	int insertUser(User user);
-	int updateUser(User user);
-
+	UserDto selectUser(String user_id) throws Exception;
+	int deleteAll() throws Exception ;
+	int count() throws Exception;
+	int insertUser(UserDto dto) throws Exception;
+	int updatename(UserDto dto) throws Exception;
 }

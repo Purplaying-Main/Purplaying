@@ -5,6 +5,7 @@
 <head>
 	<!-- meta태그, CSS, JS, 타이틀 인클루드  -->
 	<%@ include file ="meta.jsp" %>
+	
 </head>
 
 <body>
@@ -70,11 +71,11 @@
                     <h6>이름</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
+                    <button id="modinameBtn" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
                   </div>
                 </li>
                 <li class="row">
-                  <p>이젠</p>
+                  <p>${userDto.user_name }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="nameChangeModal" tabindex="-1" aria-labelledby="nameChangeModalLabel" aria-hidden="true">
@@ -87,7 +88,7 @@
                       <div class="modal-body mx-auto">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">@</span>
-                          <input type="text" class="form-control" placeholder="변경할 이름" aria-label="Username" aria-describedby="basic-addon1">
+                          <input type="text" class="form-control" placeholder="${userDto.user_name }" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                       </div>
                       <div class="modal-footer">
@@ -141,7 +142,7 @@
                   </div> -->
                 </li>
                 <li class="row">
-                  <p>ezenac@gmail.com</p>
+                  <p>${userDto.user_id }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="introChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true">
@@ -206,7 +207,7 @@
                   </div>
                 </li>
                 <li class="row">
-                  <p>010-0000-**11</p>
+                  <p>${userDto.user_phone }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true">
@@ -489,6 +490,8 @@
       </div><!-- 탭 end-->
     </div><!-- contentsWrap end -->
   </section>
+  
+  
   
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
