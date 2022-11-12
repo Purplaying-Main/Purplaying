@@ -3,6 +3,7 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,13 @@ pageEncoding="UTF-8"%>
 <body>
 	<!--헤더 인클루드-->
 	<%@ include file="header.jsp"%>
-
+<%-- 	<script src="${pageContext.request.contextPath}/resources/assets/js/noticeBtnClick.js"></script>
+ --%>	<!-- 삭제 에러 메세지 스크립트  -->
+	<script type="text/javascript">
+		let msg = "${msg}"
+		if(msg == "WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.")
+		if(msg == "MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.")
+	</script>
 	<!--페이지 내용 시작-->
 	<section>
 		<h1 class="visually-hidden">홈</h1>
@@ -33,44 +40,30 @@ pageEncoding="UTF-8"%>
 			        <!-- tab 1 contents -->
 			        <div class="tab-pane fade show active py-5" >
 									<!-- 게시판 글 내용 -->
-									<div class="card p-5 mb-3">
-										<!-- 제목 영역  -->
-<%-- 										<c:forEach var="noticeDto" items="${list}">
-				                    		<tr>
-					                            <th scope="row">${noticeDto.notice_id }</th>
-					                            <td>${noticeDto.notice_category}</td>
-					                            <td>
-					                            	<a href="<c:url value="/notice/read?notice_id=${noticeDto.notice_id}&page=${page }&pageSize=${pageSize }"/>">
-					                            		${noticeDto.notice_title}
-					                            	</a>
-					                            </td>
-					                            <td>${noticeDto.writer}</td>
-					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
-				                        		<td>${noticeDto.view_cnt}</td>
-				                        		<td>${noticeDto.notice_private}</td>
-				                        	</tr>
-				                    	</c:forEach>--%>
-				                   
-				                    	
+									<form class="card p-5 mb-3" id="form" action="" method="post">
+										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
 											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
 											<h5 class="card-title">${noticeDto.notice_title}</h5>
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+											<small class="card-subtitle mb-2 text-muted">writer : ${noticeDto.writer} | user_id : ${sessionScope.user_id}</small>
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
 										<div class="px-4 py-2">
 											${noticeDto.notice_context}
 										</div>
-									</div>
-									<!-- 글쓰기 목록 버튼 영역 -->
-									<div class="my-3 justify-content-end">			
-										<!-- 수정권한 확인  -->
-										<c:if test="${noticeDto.writer eq sessionScope.user_id}">
-											<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
-											<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
-										</c:if>
-									</div>
+										<!-- 글쓰기 목록 버튼 영역 -->
+										<hr class="my-4">
+										<div class="mt-3 text-end">			
+											<!-- 수정권한 확인  -->
+											<c:if test="${noticeDto.writer eq sessionScope.user_id}">
+												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
+												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
+											</c:if>
+										</div>
+									</form>
+									
 									<!-- 이전글, 다음글 영역 -->
 									<div class="table project-table table-centered table-nowrap table-hover mb-4">
 										<div class="fs-6 w-90">
@@ -90,7 +83,7 @@ pageEncoding="UTF-8"%>
 									</div>
 						
 									<div class="row mx-auto col-md-4">
-										<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
+										<button type="button" id="listBtn" class="btn btn-outline-primary my-3">목록으로 돌아가기</button>		
 			       					</div>
 			        </div>
 			    </div><!-- 탭 컨텐츠 end -->
@@ -102,5 +95,26 @@ pageEncoding="UTF-8"%>
 
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	<!-- 공지사항 버튼 클릭 스크립트(listBtn, removeBtn, writeBtn) -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/notice/list?page=${page}&pageSize=${pageSize}' />";
+		})
+		
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/notice/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")
+			form.submit()
+		})
+		
+		$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/notice/write' />";	
+		})
+	})
+	</script>
 </body>
 </html>

@@ -27,30 +27,34 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public NoticeDto read(int notice_id) throws Exception {
-		NoticeDto noticeDto = noticeDao.select(notice_id);
-		//비즈니스 로직 추가
-		noticeDao.increaseViewCnt(notice_id);
-		return noticeDto;
-	}
-
-  @Override
-  public int remove(Integer notice_id, String writer) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public int write(NoticeDto noticeDto) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public int modify(NoticeDto noticeDto) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }
+	 public NoticeDto read(Integer notice_id) throws Exception {
+	   NoticeDto noticeDto = noticeDao.select(notice_id);
+	   //조회수 증가
+	   noticeDao.increaseViewCnt(notice_id);
+	   return noticeDto;
+	 }
+	    
 	
+    @Override
+    public int remove(Integer notice_id, String writer) throws Exception {
+      return noticeDao.delete(notice_id, writer);
+    }
+  
+    @Override
+    public int write(NoticeDto noticeDto) throws Exception {
+      return noticeDao.insert(noticeDto);
+    }
+  
+    @Override
+    public int modify(NoticeDto noticeDto) throws Exception {
+      return noticeDao.update(noticeDto);
+    }
+
+    @Override
+    public int privateFalse(NoticeDto noticeDto) throws Exception {
+      return noticeDao.privateFalse(noticeDto);
+    }
+
+ 
 	
 }

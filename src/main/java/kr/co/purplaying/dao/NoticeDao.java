@@ -11,11 +11,18 @@ public interface NoticeDao{
 	
 	int insert(NoticeDto dto) throws Exception;
 	int count() throws Exception;
-	int deleteAll()throws Exception;
+	int deleteAll() throws Exception;
 	
 	List<NoticeDto> selectPage(Map map) throws Exception;
 
-	int increaseViewCnt(int notice_id) throws Exception;
+	int increaseViewCnt(Integer notice_id) throws Exception;
+
+	int delete(Integer notice_id, String writer) throws Exception;
+	
+	int update(NoticeDto noticeDto) throws Exception;
+	
+	int privateFalse(NoticeDto noticeDto) throws Exception;
+
 }
 
 

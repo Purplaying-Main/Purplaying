@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
@@ -27,7 +29,36 @@ public class NoticeController {
   @Autowired
   NoticeService noticeService; 
   
-
+  @RequestMapping(value="/write", method=RequestMethod.GET)
+  public String noticeWrite() {
+      return "noticeWrite";
+  }
+  
+  @PostMapping("/remove")
+  public String remove(Integer notice_id, Integer page, Integer pageSize, 
+          RedirectAttributes rattr, HttpSession session) {
+    String writer = (String) session.getAttribute("user_id");
+    String msg = "DEL_OK";
+    
+    try {
+      int del_result = noticeService.remove(notice_id, writer);
+      System.out.println("del_result : "+ del_result);
+      if(del_result != 1)
+        throw new Exception("Delete failed.");
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      msg = "DEL_ERR";
+    }
+    
+    //삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
+    //addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
+    rattr.addAttribute("page", page);
+    rattr.addAttribute("pageSize", pageSize);
+    rattr.addFlashAttribute("msg", msg);
+    
+    return "redirect:/notice/list";
+  }
   
   @GetMapping("/read")
   public String read(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
@@ -35,17 +66,17 @@ public class NoticeController {
     try {
       
           String user_id = (String)session.getAttribute("user_id");
+          m.addAttribute(user_id);
           
           NoticeDto noticeDto = noticeService.read(notice_id);
-          
-          String writer = noticeDto.getWriter();
-          System.out.println("user id: "+user_id);
-          System.out.println("writer: " + writer);
           
           m.addAttribute(noticeDto);
           m.addAttribute("page", page);
           m.addAttribute("pageSize", pageSize);
-      
+          
+          String writer = noticeDto.getWriter();
+          m.addAttribute(writer);
+
       } catch (Exception e) {
           e.printStackTrace();
 //        예외발생 -> 목록으로 돌아가기
@@ -61,9 +92,6 @@ public class NoticeController {
                      HttpServletRequest request) {
       
       try {
-          
-//        if(page == null) page = 1;
-//        if(pageSize == null) pageSize=10;
           
           int totalCnt = noticeService.getCount();
           m.addAttribute("totalCnt", totalCnt);
@@ -90,6 +118,5 @@ public class NoticeController {
       }
       return "serviceCenter";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
-  
   
 }

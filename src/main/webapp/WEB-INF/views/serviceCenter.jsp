@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="view_cnt" value="${noticeDto.view_cnt}" />
+
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +25,7 @@
 		<div class="container mb-5">
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
-			      <button class="nav-link active" aria-selected="true" onclick="notice/list">공지사항</button>
+			      <button class="nav-link active" aria-selected="true" onclick="location.href='list'">공지사항</button>
 			      <button class="nav-link" aria-selected="false" onclick="location.href='questions'">자주 묻는 질문</button>
 			      <button class="nav-link" aria-selected="false" onclick="location.href='oneonone'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
@@ -106,7 +108,7 @@
 				                        <a class="page-link" href="#">Next</a>
 				                    </li>
 				                </ul> -->
-								<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='noticeWrite'">작성</button>
+								<button type="button" id="writeBtn" class="col-1 btn btn-primary" style="${adminWrite}" >작성</button>
 				            </div>
 				            <!-- end row -->
 				        </div>
@@ -121,5 +123,26 @@
 
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	<!-- 공지사항 버튼 클릭 스크립트(listBtn, removeBtn, writeBtn) -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/notice/list?page=${page}&pageSize=${pageSize}' />";
+		})
+		
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/notice/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")
+			form.submit()
+		})
+		
+		$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/notice/write' />";	
+		})
+	})
+	</script>
 </body>
 </html>

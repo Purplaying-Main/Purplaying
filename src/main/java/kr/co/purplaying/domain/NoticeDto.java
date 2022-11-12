@@ -16,7 +16,7 @@ public class NoticeDto{
 
 	
 	public NoticeDto() {
-		this("", "", "", 1, false);
+		this("", "", "", 1, true);
 	}
 
 
@@ -31,10 +31,9 @@ public class NoticeDto{
     
   }
 
-
   @Override
   public int hashCode() {
-    return Objects.hash(notice_category, notice_context, notice_private, notice_title, writer);
+    return Objects.hash(notice_category, notice_context, notice_id, notice_private, notice_title, writer);
   }
 
 
@@ -48,8 +47,9 @@ public class NoticeDto{
       return false;
     NoticeDto other = (NoticeDto) obj;
     return Objects.equals(notice_category, other.notice_category)
-        && Objects.equals(notice_context, other.notice_context) && notice_private == other.notice_private
-        && Objects.equals(notice_title, other.notice_title) && Objects.equals(writer, other.writer);
+        && Objects.equals(notice_context, other.notice_context) && Objects.equals(notice_id, other.notice_id)
+        && notice_private == other.notice_private && Objects.equals(notice_title, other.notice_title)
+        && Objects.equals(writer, other.writer);
   }
 
 
@@ -140,11 +140,5 @@ public class NoticeDto{
     this.view_cnt = view_cnt;
   }
 
-  
-	
-
-    
-	
-	
 	
 }
