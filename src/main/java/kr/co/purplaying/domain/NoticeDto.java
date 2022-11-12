@@ -16,7 +16,7 @@ public class NoticeDto{
 
 	
 	public NoticeDto() {
-		this("", "", "", 1, true);
+		this("", "", "", 0, true);
 	}
 
 

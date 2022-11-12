@@ -34,8 +34,9 @@
 	</delete>
 	
 	<insert id="insert" parameterType="NoticeDto"> <!-- Board 테이블 데이터 추가 -->
-		INSERT INTO tb_notice (writer, notice_title, notice_context, notice_category, notice_private)
-			VALUES(#{writer}, #{notice_title}, #{notice_context}, #{notice_category}, #{notice_private});
+		INSERT INTO tb_notice
+		(writer, notice_title, notice_context, notice_regdate, notice_category, notice_private)
+		VALUES(#{writer}, #{notice_title}, #{notice_context}, now(), #{notice_category}, #{notice_private});
 	</insert>
 	
 	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->

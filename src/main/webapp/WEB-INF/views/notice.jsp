@@ -2,13 +2,13 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<c:set var="prev_notice_id" value="${noticeDto.notice_id -1}"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-<%@ include file="meta.jsp"%>
+<%@ include file="meta4.jsp"%>
 </head>
 
 <body>
@@ -44,8 +44,8 @@ pageEncoding="UTF-8"%>
 										<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
-											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
-											<h5 class="card-title">${noticeDto.notice_title}</h5>
+											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category == 1 ? "공지사항" : noticeDto.notice_category == 2 ? "이벤트" : "기타"}</h6>
+											<h4 class="card-title">${noticeDto.notice_title}</h4>
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
 											<small class="card-subtitle mb-2 text-muted">writer : ${noticeDto.writer} | user_id : ${sessionScope.user_id}</small>
 										</div>
@@ -65,12 +65,12 @@ pageEncoding="UTF-8"%>
 										</div>
 									</form>
 									
-									<!-- 이전글, 다음글 영역 -->
+									<!-- 이전글, 다음글 영역
 									<div class="table project-table table-centered table-nowrap table-hover mb-4">
 										<div class="fs-6 w-90">
 												<ul class="row border-2 border-bottom py-2">
 													<li class="col fw-semibold">이전글</li>
-													<li class="col text-muted">${noticeDto.notice_category}</li>
+													<li class="col text-muted">${prev_notice_id}</li>
 													<li class="col-8 fw-light text-truncate">${noticeDto.notice_title}</li>
 													<li class="col text-muted"><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></li>
 												</ul>
@@ -81,7 +81,7 @@ pageEncoding="UTF-8"%>
 													<li class="col text-muted"><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></li>
 												</ul>
 										</div>
-									</div>
+									</div> -->
 						
 									<div class="row mx-auto col-md-4">
 										<button type="button" id="listBtn" class="btn btn-outline-primary my-3">목록으로 돌아가기</button>		

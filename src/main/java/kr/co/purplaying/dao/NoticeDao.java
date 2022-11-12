@@ -9,7 +9,7 @@ public interface NoticeDao{
 
 	NoticeDto select(Integer notice_id) throws Exception;
 	
-	int insert(NoticeDto dto) throws Exception;
+	int insert(NoticeDto noticeDto) throws Exception;
 	int count() throws Exception;
 	int deleteAll() throws Exception;
 	

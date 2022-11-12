@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +20,14 @@
 		<div class="w-75 mx-auto justify-contents-center">
 			<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 			  <ol class="breadcrumb fs-6 mt-4">
-			    <li class="breadcrumb-item"><a href="/purplaying/servicecenter">고객센터</a></li>
-			    <li class="breadcrumb-item"><a href="/purplaying/notice">공지사항</a></li>
+			    <li class="breadcrumb-item"><a href="/purplaying/notice/list">고객센터</a></li>
+			    <li class="breadcrumb-item"><a href="/purplaying/notice/list">공지사항</a></li>
 			    <li class="breadcrumb-item active" aria-current="page">공지사항 작성하기</li>
 			  </ol>
 			</nav>
         	<h2 class="mx-auto text-center py-3">공지사항 작성하기</h2>
       	</div>
-		<form class="w-75 mx-auto" id="form" action="" method="">
+		<form class="w-75 mx-auto" id="form" action="" method="post">
 			<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
 			<!-- 상단영역(제목,작성자,공개여부) -->
 			<table class="table project-table table-centered bg-light border-top border-2">
@@ -36,8 +35,8 @@
 				  <tr>
 				    <th scope="col">제목</th>
 				    <td scope="col" class="col-2">
-	              		<select class="form-select fs-6" id="noticeCate" name="noticeCate">
-						  	<option selected>카테고리</option>
+	              		<select class="form-select fs-6" id="notice_category" name="notice_category" value="${noticeDto.notice_category}">
+						  	<option value="0" selected>카테고리</option>
 						 	<option value="1">공지사항</option>
 						  	<option value="2">이벤트</option>
 						  	<option value="3">기타</option>
@@ -56,7 +55,7 @@
 				  <tr>
 				    <th scope="col">공개여부</th>
 				    <td colspan="2">
-  						<input class="form-check-input" name="notice_private" type="radio" value="${noticeDto.notice_private = true}"> <label>공개</label>
+  						<input class="form-check-input" name="notice_private" type="radio" value="${noticeDto.notice_private = true}" checked> <label>공개</label>
   						<input class="form-check-input" name="notice_private" type="radio" value="${noticeDto.notice_private = false}"> <label>비공개</label>
 				    </td>
 				  </tr>
@@ -64,7 +63,7 @@
 			</table>
 			<!-- 글작성 영역 summernote -->
 			<div style="height: 500px;">
-				<textarea class="summernote" placeholder="내용을 입력하세요​">${noticeDto.notice_context}</textarea>
+				<textarea class="summernote" placeholder="내용을 입력하세요​" name="notice_context">${noticeDto.notice_context}</textarea>
 			</div>
 
 				<div class="text-end my-5">
@@ -89,13 +88,12 @@
 						</div>
 					</div>
 					<!-- 작성취소 모달창 end -->
-					<!-- 작성완료 모달창 start -->
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noticeWriteFinishModal" id="writeNewBtn">게 시</button>
+					<button type="button" class="btn btn-primary" id="writeBtn">게 시</button>
 					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="noticeWriteFinishLabel">작성 완료</h5>
+									<h5 class="modal-title">작성 완료</h5>
 								</div>
 								<div class="modal-body text-center">
 									<label class="form-label">공지사항 등록완료</label>
@@ -107,7 +105,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- 작성완료 모달창 end -->
 				</div>
 		</form>
 	</section>
@@ -115,36 +112,35 @@
 	
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
-	
 	<script type="text/javascript">
 		$("#writeBtn").on("click", function() {
 			let form = $("#form");
-			form.attr("action", "<c:url value='/notice/write' />")
+			form.attr("action", "<c:url value='/notice/write/reg' />")
 			form.attr("method", "post")
 			
 			if(formCheck())
 				form.submit()					
 		})
-			
+		
 		let formCheck = function() {
 			let form = document.getElementById("form")
-			if(form.title.value=="") {
+			if(form.notice_title.value=="") {
 				alert("제목을 입력해 주세요.")
 				form.title.focus()
 				return false
 			}
-			if(form.content.value=="") {
+			if(form.notice_context.value=="") {
 				alert("내용을 입력해 주세요.")
-				form.content.focus()
+				form.notice_context.focus()
+				return false
+			}
+			if(form.notice_category.value == 0) {
+				alert("카테고리를 선택해주세요")
+				form.notice_category.focus()
 				return false
 			}	
 			return true;
 		}
-	</script>
-	<script type="text/javascript">
-		let msg = "${msg}"
-		if(msg == "WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.")
-		if(msg == "MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.")
 	</script>
 </body>
 </html>

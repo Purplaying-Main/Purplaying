@@ -24,14 +24,14 @@ public class NoticeServiceImplTest {
 		
     @Autowired
     NoticeService noticeService;
+    NoticeDto noticeDto;
     private SqlSession session;
     private static String namespace = "kr.co.purplaying.dao.NoticeMapper.";
 
 		
 		@Test
 	    public void testDelete() throws Exception {
-	        
-	        int result = noticeService.remove(94, "admin@gmail.com");
+	        int result = noticeService.write(noticeDto);
 	        System.out.println("result : " + result);
 	        
 	    }

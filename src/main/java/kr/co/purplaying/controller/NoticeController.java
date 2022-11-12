@@ -29,10 +29,36 @@ public class NoticeController {
   @Autowired
   NoticeService noticeService; 
   
+  @PostMapping("/write/reg")
+  public String write(NoticeDto noticeDto, RedirectAttributes rattr, Model m, HttpSession session) {
+      String writer = (String) session.getAttribute("user_id");
+      noticeDto.setWriter(writer);
+      
+      try {
+         int writeResult = noticeService.write(noticeDto);
+          if(writeResult != 1)
+              throw new Exception("Write failed");
+          
+          rattr.addFlashAttribute("msg", "WRT_OK");
+          return "redirect:/notice/list";
+      } catch (Exception e) {
+          e.printStackTrace();
+          m.addAttribute("mode", "new");                  //글쓰기 모드
+          m.addAttribute("noticeDto", noticeDto);           //등록하려던 내용을 보여줘야 함
+          m.addAttribute("msg", "WRT_ERR");
+          return "notice/write";
+      }
+      
+  }
+  
   
   @GetMapping("/write")
-  public String write(Model m) {
+  public String write(Model m, HttpSession session, NoticeDto noticeDto) {
+    String writer = (String) session.getAttribute("user_id");
+    noticeDto.setWriter(writer);
+    
     m.addAttribute("mode", "new");
+    
     return "noticeWrite";         // 쓰기에 사용할때는 mode=new
 }
   

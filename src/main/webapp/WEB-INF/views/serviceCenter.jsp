@@ -53,7 +53,7 @@
 				                    	<c:forEach var="noticeDto" items="${list}">
 				                    		<tr>
 					                            <th scope="row">${noticeDto.notice_id }</th>
-					                            <td>${noticeDto.notice_category}</td>
+					                            <td>${noticeDto.notice_category == 1 ? "공지사항" : noticeDto.notice_category == 2 ? "이벤트" : "기타"}</td>
 					                            <td>
 					                            	<a href="<c:url value="/notice/read?notice_id=${noticeDto.notice_id}&page=${page }&pageSize=${pageSize }"/>">
 					                            		${noticeDto.notice_title}

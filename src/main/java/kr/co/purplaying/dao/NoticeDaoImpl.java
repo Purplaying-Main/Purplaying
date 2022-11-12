@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,8 @@ public class NoticeDaoImpl implements NoticeDao{
 	}
 
 	@Override
-	public int insert(NoticeDto dto) throws Exception {
-		return session.insert(namespace+"insert", dto);
+	public int insert(NoticeDto noticeDto) throws Exception {
+		return session.insert(namespace+"insert", noticeDto);
 	}
 
 	@Override
