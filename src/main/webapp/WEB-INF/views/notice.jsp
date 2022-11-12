@@ -41,6 +41,7 @@ pageEncoding="UTF-8"%>
 			        <div class="tab-pane fade show active py-5" >
 									<!-- 게시판 글 내용 -->
 									<form class="card p-5 mb-3" id="form" action="" method="post">
+										<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
 											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
@@ -110,7 +111,14 @@ pageEncoding="UTF-8"%>
 			form.attr("method", "post")
 			form.submit()
 		})
-		
+				$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/notice/write' />")
+			form.attr("method", "post")
+			
+			if(formCheck())
+				form.submit()					
+		})
 		$("#writeBtn").on("click", function() {
 			location.href ="<c:url value='/notice/write' />";	
 		})

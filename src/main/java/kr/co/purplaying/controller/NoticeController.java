@@ -29,10 +29,12 @@ public class NoticeController {
   @Autowired
   NoticeService noticeService; 
   
-  @RequestMapping(value="/write", method=RequestMethod.GET)
-  public String noticeWrite() {
-      return "noticeWrite";
-  }
+  
+  @GetMapping("/write")
+  public String write(Model m) {
+    m.addAttribute("mode", "new");
+    return "noticeWrite";         // 쓰기에 사용할때는 mode=new
+}
   
   @PostMapping("/remove")
   public String remove(Integer notice_id, Integer page, Integer pageSize, 
