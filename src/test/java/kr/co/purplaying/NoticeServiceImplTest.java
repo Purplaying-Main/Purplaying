@@ -31,7 +31,7 @@ public class NoticeServiceImplTest {
 		
 		@Test
 	    public void testDelete() throws Exception {
-	        int result = noticeService.write(noticeDto);
+	        int result = noticeService.modify(noticeDto);
 	        System.out.println("result : " + result);
 	        
 	    }

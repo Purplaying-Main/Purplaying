@@ -22,10 +22,10 @@
 			  <ol class="breadcrumb fs-6 mt-4">
 			    <li class="breadcrumb-item"><a href="/purplaying/notice/list">고객센터</a></li>
 			    <li class="breadcrumb-item"><a href="/purplaying/notice/list">공지사항</a></li>
-			    <li class="breadcrumb-item active" aria-current="page">공지사항 작성하기</li>
+			    <li class="breadcrumb-item active" aria-current="page">공지사항 ${mode=="new" ? "작성하기" : "수정하기" }</li>
 			  </ol>
 			</nav>
-        	<h2 class="mx-auto text-center py-3">공지사항 작성하기</h2>
+        	<h2 class="mx-auto text-center py-3">공지사항 ${mode=="new" ? "작성하기" : "수정하기" }</h2>
       	</div>
 		<form class="w-75 mx-auto" id="form" action="" method="post">
 			<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">

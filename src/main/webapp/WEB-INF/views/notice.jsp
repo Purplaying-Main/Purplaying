@@ -103,6 +103,7 @@ pageEncoding="UTF-8"%>
 			location.href ="<c:url value='/notice/list?page=${page}&pageSize=${pageSize}' />";
 		})
 		
+		//remove
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
@@ -111,7 +112,9 @@ pageEncoding="UTF-8"%>
 			form.attr("method", "post")
 			form.submit()
 		})
-				$("#writeBtn").on("click", function() {
+		
+		//write
+		$("#writeBtn").on("click", function() {
 			let form = $("#form");
 			form.attr("action", "<c:url value='/notice/write' />")
 			form.attr("method", "post")
@@ -122,6 +125,14 @@ pageEncoding="UTF-8"%>
 		$("#writeBtn").on("click", function() {
 			location.href ="<c:url value='/notice/write' />";	
 		})
+		
+		//modify
+		$("#modifyBtn").on("click", function() {
+				let form = $("#form");
+				form.attr("action", "<c:url value='/notice/modify' />")
+				form.attr("method", "get")	
+				form.submit()
+			})
 	})
 	</script>
 </body>

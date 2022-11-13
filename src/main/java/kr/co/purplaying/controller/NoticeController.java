@@ -29,6 +29,57 @@ public class NoticeController {
   @Autowired
   NoticeService noticeService; 
   
+  @PostMapping("/modify")
+  public String modify(NoticeDto noticeDto, Integer page, Integer pageSize, 
+                      RedirectAttributes rattr, Model m, HttpSession session) {
+      String writer = (String) session.getAttribute("user_id");
+      noticeDto.setWriter(writer);
+      
+      try {
+          if(noticeService.modify(noticeDto) != 1)
+              throw new Exception("Modify failed");
+          
+          rattr.addAttribute("page", page);
+          rattr.addAttribute("pageSize", pageSize);
+          rattr.addFlashAttribute("msg", "MOD_OK");
+          return "redirect:/notice/list";
+      } catch(Exception e) {
+          e.printStackTrace();
+          m.addAttribute(noticeDto);
+          m.addAttribute("page", page);
+          m.addAttribute("pageSize", pageSize);
+          m.addAttribute("msg", "MOD_ERR");
+          return "notice/modify";         // 수정등록하려던 내용을 보여줌
+      }
+      
+  }
+  
+  @GetMapping("/modify")
+  public String modify(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
+    //read와 동일. notice_id를 불러와서 조회.
+    try {
+      
+          String user_id = (String)session.getAttribute("user_id");
+          m.addAttribute(user_id);
+          
+          NoticeDto noticeDto = noticeService.read(notice_id);
+          
+          m.addAttribute(noticeDto);
+          m.addAttribute("page", page);
+          m.addAttribute("pageSize", pageSize);
+          
+          String writer = noticeDto.getWriter();
+          m.addAttribute(writer);
+
+      } catch (Exception e) {
+          e.printStackTrace();
+//        예외발생 -> 목록으로 돌아가기
+          return "redirect:/notice/list";
+      }
+    
+      return "noticeWrite";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+  }
+  
   @PostMapping("/write/reg")
   public String write(NoticeDto noticeDto, RedirectAttributes rattr, Model m, HttpSession session) {
       String writer = (String) session.getAttribute("user_id");
