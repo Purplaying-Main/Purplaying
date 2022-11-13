@@ -170,11 +170,14 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //헤더연결 페이지///////////////////////////////////////////////////////////////////////////////////////
-    //popularFunding.jsp호출
-    @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
-    public String popularFunding() {
-        return "popularFunding";
-    }
+    /*
+     * //popularFunding.jsp호출
+     * 
+     * @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
+     * public String popularFunding() {
+     * return "popularFunding";
+     * }
+     */
     
     /*
      * //newFunding.jsp호출

@@ -25,7 +25,7 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album">
         <div class="container py-4"><!-- genre div start -->
-          <h4>Comingsoon ! 펀딩예정</h4>
+          <h4>Comingsoon ! 펀딩예정💖</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="comingsoonFundingDto" items="${list_c }">
             <div class="col"><!-- project thumb start -->
@@ -33,23 +33,23 @@
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
                 <div onclick="location.href='projectdetail'" style="cursor:pointer">
-                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">comingsoon!</text></svg>
                 </div>
                 <div class="card-body">
-                     <p class="card-cate" onclick="location.href='genrewebtoon'">
+	                  <div class="d-flex justify-content-between">
+                     	<p class="card-cate" onclick="location.href='genrewebtoon'">
 	                   	  <c:choose>
 	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 1 }">문학</c:when>
 	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 2 }">시/에세이</c:when>
 	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 3 }">웹툰</c:when>
 	                  		<c:otherwise>장르</c:otherwise>
 	                  	  </c:choose>
-                     </p>
+                    	 </p>
+                    	<small class="text-danger">공개까지 <b>D-${comingsoonFundingDto.prdt_comingday}</b></small>
+                  	  </div>
                   	  <div class="link-div" onclick="location.href='projectdetail'">
 	                  	<p class="card-text"><h5>${comingsoonFundingDto.prdt_name }</h5></p>
                    	  </div>
-	                  <div class="d-flex justify-content-between align-items-end">
-                    	<small class="text-danger text-end">${comingsoonFundingDto.prdt_comingday}일 뒤 공개</small>
-                  	  </div>
                 </div>
               </div>
              </div>

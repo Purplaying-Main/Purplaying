@@ -67,7 +67,7 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
         <div class="container">
-          <h4><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
+          <h4 class="mb-2"><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
           <c:forEach var="indexDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
@@ -103,7 +103,7 @@
           </c:forEach>
           </div>
          
-          <h4><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
+          <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
           	<c:forEach var="indexDto" items="${list_n }">
             <div class="col"><!-- project thumb start -->
