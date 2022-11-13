@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.purplaying.ProductMapper">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
-  	<insert id="bookEnroll">
-  	
-  		insert into t_product(genre_code, product_name, product_description, product_goal, product_startdate, product_enddate, product_content)
-		values(#{genre_code}, #{product_name}, #{product_description},  #{product_goal},  #{product_startdate},  #{product_enddate},  #{product_content})
-		
-		
+<mapper namespace="kr.co.purplaying.dao.ProductMapper">
 
-  	</insert>
-  	
-  	
+	<sql id="selectFromProduct"> <!--Product 내용 전체 select 추출-->
+		SELECT prdt_id, prdt_genre, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, user_id
+FROM public.t_product
+	</sql>
 	
+	<select id="select" parameterType="int" resultType="ProductDto"> <!--product select 특정 prdt_id 추출-->
+		<include refid="selectFromProduct"/>
+		WHERE prdt_id = #{prdt_id}
+	</select>
+
+
 	
 </mapper>

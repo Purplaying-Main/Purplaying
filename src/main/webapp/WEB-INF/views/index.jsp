@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,10 +76,10 @@
                 <div onclick="location.href='projectdetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
-                 <div class="card-body">
+                                  <div class="card-body">
                   <p class="card-cate" onclick="location.href='genreliterature'">문학</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
+                  <div class="link-div" onclick="location.href='<c:url value="/projectdetail"/>'">
+	                  <p class="card-text"><h5>테스트</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
                      	<strong class="text-danger">현재 달성률 75%</strong>
@@ -88,6 +90,7 @@
                     <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
+             
               </div>
             </div><!-- project thumb end -->
              <div class="col"><!-- project thumb start -->
@@ -99,7 +102,7 @@
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrepoemessay'">시/에세이</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='<c:url value="/projectdetail"/>'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">

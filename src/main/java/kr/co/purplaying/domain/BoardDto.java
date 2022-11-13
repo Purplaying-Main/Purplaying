@@ -13,6 +13,7 @@ public class BoardDto{
 	private int commetn_cnt;
 	private Date reg_date;
 	
+	
 	public BoardDto() {
 		this("","","");
 	}

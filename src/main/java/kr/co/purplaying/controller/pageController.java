@@ -67,11 +67,7 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //프로젝트///////////////////////////////////////////////////////////////////////////////////////
-    //projectDetail.jsp(Admin)호출
-    @RequestMapping(value="/projectdetail", method=RequestMethod.GET)
-    public String projectDetail() {
-        return "projectDetail";
-    }
+
     
     //projectregister.jsp(Admin)호출
     @RequestMapping(value="/projectregister", method=RequestMethod.GET)

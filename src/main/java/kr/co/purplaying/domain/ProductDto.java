@@ -1,145 +1,146 @@
 package kr.co.purplaying.domain;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class ProductDto {
+
+  private Integer prdt_id;
+  private Integer prdt_genre;
+  private String prdt_name;
+  private String prdt_desc;
+  private String prdt_desc_detail;
+  private Date prdt_regdate;
+  private Date prdt_opendate;
+  private Date prdt_enddate;
+  private Integer prdt_goal;
+  private Integer prdt_currenttotal;
+  private boolean prdt_open;
+  private String prdt_desc_policy;
+  private Integer user_id;
   
-  private Integer product_id;
-  private String user_id;
-  private Integer genre_code;
-  private String product_name;
-  private Date product_regdate;
-  private Date product_startdate;
-  private Date product_enddate;
-  private int product_goal;
-  private String product_content;
-  private int product_funded;
-  private int product_buycount;
   
-  public ProductDto() {
-      this("","","");  
-  }
   
-  public ProductDto(String user_id, String product_name, String product_content) {
+  public ProductDto(Integer prdt_id, Integer prdt_genre, String prdt_name, String prdt_desc, String prdt_desc_detail,
+      Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, Integer prdt_goal, Integer prdt_currenttotal,
+      boolean prdt_open, String prdt_desc_policy, Integer user_id) {
+    super();
+    this.prdt_id = prdt_id;
+    this.prdt_genre = prdt_genre;
+    this.prdt_name = prdt_name;
+    this.prdt_desc = prdt_desc;
+    this.prdt_desc_detail = prdt_desc_detail;
+    this.prdt_regdate = prdt_regdate;
+    this.prdt_opendate = prdt_opendate;
+    this.prdt_enddate = prdt_enddate;
+    this.prdt_goal = prdt_goal;
+    this.prdt_currenttotal = prdt_currenttotal;
+    this.prdt_open = prdt_open;
+    this.prdt_desc_policy = prdt_desc_policy;
     this.user_id = user_id;
-    this.product_name = product_name;
-    this.product_content = product_content;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(product_content, product_id, product_name, user_id);
+  public Integer getPrdt_id() {
+    return prdt_id;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    ProductDto other = (ProductDto) obj;
-    return Objects.equals(product_content, other.product_content) && product_id == other.product_id
-        && Objects.equals(product_name, other.product_name) && Objects.equals(user_id, other.user_id);
+  public void setPrdt_id(Integer prdt_id) {
+    this.prdt_id = prdt_id;
   }
 
-  public Integer getProduct_id() {
-    return product_id;
+  public Integer getPrdt_genre() {
+    return prdt_genre;
   }
 
-  public void setProduct_id(Integer product_id) {
-    this.product_id = product_id;
+  public void setPrdt_genre(Integer prdt_genre) {
+    this.prdt_genre = prdt_genre;
   }
 
-  public String getUser_id() {
+  public String getPrdt_name() {
+    return prdt_name;
+  }
+
+  public void setPrdt_name(String prdt_name) {
+    this.prdt_name = prdt_name;
+  }
+
+  public String getPrdt_desc() {
+    return prdt_desc;
+  }
+
+  public void setPrdt_desc(String prdt_desc) {
+    this.prdt_desc = prdt_desc;
+  }
+
+  public String getPrdt_desc_detail() {
+    return prdt_desc_detail;
+  }
+
+  public void setPrdt_desc_detail(String prdt_desc_detail) {
+    this.prdt_desc_detail = prdt_desc_detail;
+  }
+
+  public Date getPrdt_regdate() {
+    return prdt_regdate;
+  }
+
+  public void setPrdt_regdate(Date prdt_regdate) {
+    this.prdt_regdate = prdt_regdate;
+  }
+
+  public Date getPrdt_opendate() {
+    return prdt_opendate;
+  }
+
+  public void setPrdt_opendate(Date prdt_opendate) {
+    this.prdt_opendate = prdt_opendate;
+  }
+
+  public Date getPrdt_enddate() {
+    return prdt_enddate;
+  }
+
+  public void setPrdt_enddate(Date prdt_enddate) {
+    this.prdt_enddate = prdt_enddate;
+  }
+
+  public Integer getPrdt_goal() {
+    return prdt_goal;
+  }
+
+  public void setPrdt_goal(Integer prdt_goal) {
+    this.prdt_goal = prdt_goal;
+  }
+
+  public Integer getPrdt_currenttotal() {
+    return prdt_currenttotal;
+  }
+
+  public void setPrdt_currenttotal(Integer prdt_currenttotal) {
+    this.prdt_currenttotal = prdt_currenttotal;
+  }
+
+  public boolean isPrdt_open() {
+    return prdt_open;
+  }
+
+  public void setPrdt_open(boolean prdt_open) {
+    this.prdt_open = prdt_open;
+  }
+
+  public String getPrdt_desc_policy() {
+    return prdt_desc_policy;
+  }
+
+  public void setPrdt_desc_policy(String prdt_desc_policy) {
+    this.prdt_desc_policy = prdt_desc_policy;
+  }
+
+  public Integer getUser_id() {
     return user_id;
   }
 
-  public void setUser_id(String user_id) {
+  public void setUser_id(Integer user_id) {
     this.user_id = user_id;
-  }
-
-  public Integer getGenre_code() {
-    return genre_code;
-  }
-
-  public void setGenre_code(Integer genre_code) {
-    this.genre_code = genre_code;
-  }
-
-  public String getProduct_name() {
-    return product_name;
-  }
-
-  public void setProduct_name(String product_name) {
-    this.product_name = product_name;
-  }
-
-  public Date getProduct_regdate() {
-    return product_regdate;
-  }
-
-  public void setProduct_regdate(Date product_regdate) {
-    this.product_regdate = product_regdate;
-  }
-
-  public Date getProduct_startdate() {
-    return product_startdate;
-  }
-
-  public void setProduct_startdate(Date product_startdate) {
-    this.product_startdate = product_startdate;
-  }
-
-  public Date getProduct_enddate() {
-    return product_enddate;
-  }
-
-  public void setProduct_enddate(Date product_enddate) {
-    this.product_enddate = product_enddate;
-  }
-
-  public int getProduct_goal() {
-    return product_goal;
-  }
-
-  public void setProduct_goal(int product_goal) {
-    this.product_goal = product_goal;
-  }
-
-  public String getProduct_content() {
-    return product_content;
-  }
-
-  public void setProduct_content(String product_content) {
-    this.product_content = product_content;
-  }
-
-  public int getProduct_funded() {
-    return product_funded;
-  }
-
-  public void setProduct_funded(int product_funded) {
-    this.product_funded = product_funded;
-  }
-
-  public int getProduct_buycount() {
-    return product_buycount;
-  }
-
-  public void setProduct_buycount(int product_buycount) {
-    this.product_buycount = product_buycount;
-  }
-
-  @Override
-  public String toString() {
-    return "ProductDto [product_id=" + product_id + ", user_id=" + user_id + ", genre_code=" + genre_code
-        + ", product_name=" + product_name + ", product_regdate=" + product_regdate + ", product_startdate="
-        + product_startdate + ", product_enddate=" + product_enddate + ", product_goal=" + product_goal
-        + ", product_content=" + product_content + ", product_funded=" + product_funded + ", product_buycount="
-        + product_buycount + "]";
   }
   
   

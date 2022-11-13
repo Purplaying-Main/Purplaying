@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,7 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
           <div class="py-3 text-center">
-            <h4><a href="genreliterature">문학</a></h4>
+            <h4><a href="genreliterature">${productDto.prdt_genre}</a></h4>
             <h1>진행중인 펀딩명</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->

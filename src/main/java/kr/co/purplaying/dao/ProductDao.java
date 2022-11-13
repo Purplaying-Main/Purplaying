@@ -4,7 +4,8 @@ import kr.co.purplaying.domain.ProductDto;
 
 public interface ProductDao {
 
-  //상품등록
+  ProductDto select(Integer prdt_id) throws Exception;
+
   
-  public void productUp(ProductDto product);
+  
 }
