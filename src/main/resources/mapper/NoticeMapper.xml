@@ -55,7 +55,7 @@
 	
 	<update id="update" parameterType="NoticeDto">
 		UPDATE tb_notice
-		SET notice_title = #{notice_title}, notice_context = #{notice_context}, notice_regdate = now(), notice_private = #{notice_private} 
+		SET notice_title = #{notice_title}, notice_context = #{notice_context}, notice_regdate = now(), notice_category = #{notice_category}, notice_private = #{notice_private} 
 		WHERE notice_id= #{notice_id} and writer = #{writer}
 	</update>
 	

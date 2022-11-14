@@ -8,5 +8,6 @@
 		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="NoticeDto" type="kr.co.purplaying.domain.NoticeDto" />
 		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
+		<typeAlias alias="ProjectDto" type="kr.co.purplaying.domain.ProjectDto" />
 	</typeAliases>
 </configuration>
