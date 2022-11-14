@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.purplaying.dao.newFundingMapper">
 	<select id="newFunding" parameterType="map" resultType="newFundingDto" >
 		select 
-		prdt_gerne,
+		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 

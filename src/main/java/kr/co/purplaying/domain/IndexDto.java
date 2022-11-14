@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class IndexDto {
   private int prdt_id;
-  private int prdt_gerne;
+  private int prdt_genre;
   private String prdt_name;
   private Date prdt_opendate;
   private Date prdt_enddate;
@@ -19,16 +19,16 @@ public class IndexDto {
     // TODO Auto-generated constructor stub
   }
 
-  public IndexDto(int prdt_id, int prdt_gerne, String prdt_name) {
+  public IndexDto(int prdt_id, int prdt_genre, String prdt_name) {
     //super();
     this.prdt_id = prdt_id;
-    this.prdt_gerne = prdt_gerne;
+    this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(prdt_gerne, prdt_id, prdt_name);
+    return Objects.hash(prdt_genre, prdt_id, prdt_name);
   }
 
   @Override
@@ -40,7 +40,7 @@ public class IndexDto {
     if (getClass() != obj.getClass())
       return false;
     IndexDto other = (IndexDto) obj;
-    return prdt_gerne == other.prdt_gerne && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
+    return prdt_genre == other.prdt_genre && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
   }
 
   public int getPrdt_id() {
@@ -51,12 +51,12 @@ public class IndexDto {
     this.prdt_id = prdt_id;
   }
 
-  public int getPrdt_gerne() {
-    return prdt_gerne;
+  public int getPrdt_genre() {
+    return prdt_genre;
   }
 
-  public void setPrdt_gerne(int prdt_gerne) {
-    this.prdt_gerne = prdt_gerne;
+  public void setPrdt_genre(int prdt_genre) {
+    this.prdt_genre = prdt_genre;
   }
 
   public String getPrdt_name() {
@@ -113,7 +113,7 @@ public class IndexDto {
 
   @Override
   public String toString() {
-    return "IndexDto [prdt_gerne=" + prdt_gerne + ", prdt_opendate=" + prdt_opendate + ", prdt_currenttotal="
+    return "IndexDto [prdt_genre=" + prdt_genre + ", prdt_opendate=" + prdt_opendate + ", prdt_currenttotal="
         + prdt_currenttotal + ", prdt_percent=" + prdt_percent + ", prdt_dday=" + prdt_dday + "]";
   }
 

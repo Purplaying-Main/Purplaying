@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class NewFundingDto {
   private int prdt_id;
-  private int prdt_gerne;
+  private int prdt_genre;
   private String prdt_name;
   private Date prdt_opendate;
   private Date prdt_enddate;
@@ -19,16 +19,16 @@ public class NewFundingDto {
     // TODO Auto-generated constructor stub
   }
 
-  public NewFundingDto(int prdt_id, int prdt_gerne, String prdt_name) {
+  public NewFundingDto(int prdt_id, int prdt_genre, String prdt_name) {
     super();
     this.prdt_id = prdt_id;
-    this.prdt_gerne = prdt_gerne;
+    this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(prdt_gerne, prdt_id, prdt_name);
+    return Objects.hash(prdt_genre, prdt_id, prdt_name);
   }
 
   @Override
@@ -40,7 +40,7 @@ public class NewFundingDto {
     if (getClass() != obj.getClass())
       return false;
     NewFundingDto other = (NewFundingDto) obj;
-    return prdt_gerne == other.prdt_gerne && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
+    return prdt_genre == other.prdt_genre && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
   }
 
   public int getPrdt_id() {
@@ -51,12 +51,12 @@ public class NewFundingDto {
     this.prdt_id = prdt_id;
   }
 
-  public int getPrdt_gerne() {
-    return prdt_gerne;
+  public int getPrdt_genre() {
+    return prdt_genre;
   }
 
-  public void setPrdt_gerne(int prdt_gerne) {
-    this.prdt_gerne = prdt_gerne;
+  public void setPrdt_genre(int prdt_genre) {
+    this.prdt_genre = prdt_genre;
   }
 
   public String getPrdt_name() {
@@ -125,7 +125,7 @@ public class NewFundingDto {
 
   @Override
   public String toString() {
-    return "newFundingDto [prdt_gerne=" + prdt_gerne + ", prdt_name=" + prdt_name + ", prdt_percent=" + prdt_percent
+    return "newFundingDto [prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_percent=" + prdt_percent
         + ", prdt_dday=" + prdt_dday + "]";
   }
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class ComingsoonFundingDto {
   private int prdt_id;
-  private int prdt_gerne;
+  private int prdt_genre;
   private String prdt_name;
   private Date prdt_opendate;
   private int prdt_comingday;
@@ -14,10 +14,10 @@ public class ComingsoonFundingDto {
     // TODO Auto-generated constructor stub
   }
 
-  public ComingsoonFundingDto(int prdt_id, int prdt_gerne, String prdt_name) {
+  public ComingsoonFundingDto(int prdt_id, int prdt_genre, String prdt_name) {
     super();
     this.prdt_id = prdt_id;
-    this.prdt_gerne = prdt_gerne;
+    this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;
   }
 
@@ -25,7 +25,7 @@ public class ComingsoonFundingDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(prdt_gerne, prdt_id, prdt_name);
+    return Objects.hash(prdt_genre, prdt_id, prdt_name);
   }
 
   @Override
@@ -37,7 +37,7 @@ public class ComingsoonFundingDto {
     if (getClass() != obj.getClass())
       return false;
     ComingsoonFundingDto other = (ComingsoonFundingDto) obj;
-    return prdt_gerne == other.prdt_gerne && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
+    return prdt_genre == other.prdt_genre && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
   }
 
 
@@ -50,12 +50,12 @@ public class ComingsoonFundingDto {
     this.prdt_id = prdt_id;
   }
 
-  public int getPrdt_gerne() {
-    return prdt_gerne;
+  public int getPrdt_genre() {
+    return prdt_genre;
   }
 
-  public void setPrdt_gerne(int prdt_gerne) {
-    this.prdt_gerne = prdt_gerne;
+  public void setPrdt_genre(int prdt_genre) {
+    this.prdt_genre = prdt_genre;
   }
 
   public String getPrdt_name() {
@@ -84,7 +84,7 @@ public class ComingsoonFundingDto {
 
   @Override
   public String toString() {
-    return "ComingsoonFundingDto [prdt_gerne=" + prdt_gerne + ", prdt_name=" + prdt_name + ", prdt_comingday="
+    return "ComingsoonFundingDto [prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_comingday="
         + prdt_comingday + "]";
   }
   

@@ -39,9 +39,9 @@
 	                  <div class="d-flex justify-content-between">
                      	<p class="card-cate" onclick="location.href='genrewebtoon'">
 	                   	  <c:choose>
-	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 1 }">문학</c:when>
-	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 2 }">시/에세이</c:when>
-	                  		<c:when test="${comingsoonFundingDto.prdt_gerne eq 3 }">웹툰</c:when>
+	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 1 }">문학</c:when>
+	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 2 }">시/에세이</c:when>
+	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 3 }">웹툰</c:when>
 	                  		<c:otherwise>장르</c:otherwise>
 	                  	  </c:choose>
                     	 </p>

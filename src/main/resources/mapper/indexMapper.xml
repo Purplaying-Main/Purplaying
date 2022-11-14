@@ -5,13 +5,13 @@
 
 <mapper namespace="kr.co.purplaying.dao.indexMapper">
 	<sql id="selectFromIndex">
-		SELECT prdt_id, prdt_gerne, prdt_name, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal
+		SELECT prdt_id, prdt_genre, prdt_name, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal
 		FROM tb_product;
 	</sql>
 	
 	<select id="popluarFunding" parameterType="map" resultType="IndexDto" >
 		select 
-		prdt_gerne,
+		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 
@@ -23,7 +23,7 @@
 	
 	<select id="newFunding" parameterType="map" resultType="IndexDto" >
 		select 
-		prdt_gerne,
+		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 

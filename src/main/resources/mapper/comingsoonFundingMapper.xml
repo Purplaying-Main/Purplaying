@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.purplaying.dao.comingsoonFundingMapper">
 	<select id="comingsoonFunding" parameterType="map" resultType="comingsoonFundingDto" >
 	select 
-	prdt_gerne,
+	prdt_genre,
 	prdt_name,
 	prdt_opendate,
 	(prdt_opendate - current_date) as "prdt_comingday"
