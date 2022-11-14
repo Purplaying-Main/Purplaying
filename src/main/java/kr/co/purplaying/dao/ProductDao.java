@@ -1,10 +1,13 @@
 package kr.co.purplaying.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import kr.co.purplaying.domain.ProductDto;
 
 public interface ProductDao {
 
-  ProductDto select(Integer prdt_id) throws Exception;
+  List<ProductDto> product(Map map) throws Exception;
 
   
   

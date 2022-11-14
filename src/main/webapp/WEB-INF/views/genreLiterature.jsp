@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +43,7 @@
                  <div class="card-body">
                   <p class="card-cate" onclick="location.href='genreliterature'">문학</p>
                   <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>${productDto.prdt_name }</h5></p>
+	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
                      	<strong class="text-danger">현재 달성률 75%</strong>

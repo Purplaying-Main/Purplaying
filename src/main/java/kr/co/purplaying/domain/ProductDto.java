@@ -14,7 +14,7 @@ public class ProductDto {
   private Date prdt_enddate;
   private Integer prdt_goal;
   private Integer prdt_currenttotal;
-  private boolean prdt_open;
+  private Integer prdt_open;
   private String prdt_desc_policy;
   private Integer user_id;
   
@@ -22,8 +22,8 @@ public class ProductDto {
   
   public ProductDto(Integer prdt_id, Integer prdt_genre, String prdt_name, String prdt_desc, String prdt_desc_detail,
       Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, Integer prdt_goal, Integer prdt_currenttotal,
-      boolean prdt_open, String prdt_desc_policy, Integer user_id) {
-    super();
+      Integer prdt_open, String prdt_desc_policy, Integer user_id) {
+    //super();
     this.prdt_id = prdt_id;
     this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;
@@ -119,11 +119,11 @@ public class ProductDto {
     this.prdt_currenttotal = prdt_currenttotal;
   }
 
-  public boolean isPrdt_open() {
+  public Integer isPrdt_open() {
     return prdt_open;
   }
 
-  public void setPrdt_open(boolean prdt_open) {
+  public void setPrdt_open(Integer prdt_open) {
     this.prdt_open = prdt_open;
   }
 
@@ -141,6 +141,15 @@ public class ProductDto {
 
   public void setUser_id(Integer user_id) {
     this.user_id = user_id;
+  }
+
+  @Override
+  public String toString() {
+    return "ProductDto [prdt_id=" + prdt_id + ", prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_desc="
+        + prdt_desc + ", prdt_desc_detail=" + prdt_desc_detail + ", prdt_regdate=" + prdt_regdate + ", prdt_opendate="
+        + prdt_opendate + ", prdt_enddate=" + prdt_enddate + ", prdt_goal=" + prdt_goal + ", prdt_currenttotal="
+        + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", user_id="
+        + user_id + "]";
   }
   
   

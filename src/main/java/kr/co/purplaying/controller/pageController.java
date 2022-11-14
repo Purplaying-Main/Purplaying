@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class pageController {
     
+
     //고객센터///////////////////////////////////////////////////////////////////////////////////////
     //serviceCenter.jsp호출
     @RequestMapping(value="/servicecenter", method=RequestMethod.GET)
