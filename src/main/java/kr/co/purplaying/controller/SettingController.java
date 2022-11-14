@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.domain.BoardDto;
 import kr.co.purplaying.domain.PageResolver;
@@ -49,6 +50,27 @@ public class SettingController {
     }
     
     return "setting";         //로그인 한 상태, 게시판 목록 화면으로 이동
-      
   }
+  
+  @RequestMapping(value="/ModifyName", method=RequestMethod.POST)
+  public String ModifyName(UserDto userDto, RedirectAttributes rattr, Model m, HttpSession session) {
+    
+    String id = (String)session.getAttribute("user_id");
+    userDto.setUser_id(id);
+    
+    try {
+      if(settingService.modifyName(userDto) != 1)
+          throw new Exception("Modify failed");
+      
+        rattr.addFlashAttribute("msg", "MOD_OK");
+        return "redirect:/setting";
+      } catch(Exception e) {
+        e.printStackTrace();
+        m.addAttribute(userDto);
+        m.addAttribute("msg", "MOD_ERR");
+        return "setting";         // 수정등록하려던 내용을 보여줌
+      }
+    
+  }
+  
 }

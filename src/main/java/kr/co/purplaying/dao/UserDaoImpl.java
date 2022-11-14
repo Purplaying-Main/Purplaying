@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -45,12 +46,16 @@ public class UserDaoImpl implements UserDao {
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
     }
-    
+
     @Override
-    public int updatename(UserDto dto) throws Exception {
-      // TODO Auto-generated method stub
-      return session.update(namespace+"update",dto);
+    public int updateName(UserDto userDto) throws Exception {
+      
+      return session.update(namespace + "updatename", userDto);
     }
+    
+    
+    
+    
   	
 }
 

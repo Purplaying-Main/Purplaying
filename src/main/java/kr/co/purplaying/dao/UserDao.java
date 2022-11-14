@@ -12,5 +12,5 @@ public interface UserDao {
 	int deleteAll() throws Exception ;
 	int count() throws Exception;
 	int insertUser(UserDto dto) throws Exception;
-	int updatename(UserDto dto) throws Exception;
+	int updateName(UserDto userDto) throws Exception;
 }

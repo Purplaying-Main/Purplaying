@@ -25,10 +25,10 @@
 		select count(*) from tb_user
 	</select>
 	
-	<update id="update">
+	<update id="updateName" parameterType="UserDto">
 		UPDATE tb_user
 		SET user_name= #{user_name}
-		WHERE user_no= #{user_no} and user_id= #{user_id}
+		WHERE user_id= #{user_id}
 	</update>
 	
 </mapper>

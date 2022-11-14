@@ -71,7 +71,7 @@
                     <h6>이름</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <button id="modinameBtn" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
+                    <button id="namechangeBtn" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
                   </div>
                 </li>
                 <li class="row">
@@ -88,11 +88,11 @@
                       <div class="modal-body mx-auto">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">@</span>
-                          <input type="text" class="form-control" placeholder="${userDto.user_name }" aria-label="Username" aria-describedby="basic-addon1">
+                          <input id="user_Name" type="text" value="${userDto.user_name }" class="form-control" placeholder="${userDto.user_name }" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
+                        <button id="modinameBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
                       </div>
                     </div>
                   </div>
@@ -491,7 +491,32 @@
     </div><!-- contentsWrap end -->
   </section>
   
-  
+  <script type="text/javascript">
+  	$(document).ready(function() {			/* main() */
+		let formCheck = function() {
+			let user_name = document.getElementByName("user_Name")
+			if(form.user_Name.value=="") {
+				alert("이름을 입력해 주세요.")
+				form.user_Name.focus()
+				return false
+			}
+			return true;
+		}
+	
+		$("#namechangeBtn").on("click", function() {
+			let form = $("#form")
+			let isReadonly = $("input[name=title]").attr('readonly')
+		}
+		
+		$("#modinameBtn").on("click", function() {
+			form.attr("action", "<c:url value='/board/ModifyName' />")
+			form.attr("method", "post")
+			if(formCheck())
+				form.submit();
+		)
+	})
+		
+	</script>
   
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

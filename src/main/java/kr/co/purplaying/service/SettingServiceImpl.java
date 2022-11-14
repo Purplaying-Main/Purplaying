@@ -11,12 +11,18 @@ public class SettingServiceImpl implements SettingService {
   
 
   @Autowired
-  UserDao userdao;
+  UserDao userDao;
  
   @Override
   public UserDto setUser(String user_id) throws Exception {
     // TODO Auto-generated method stub
-  return userdao.selectUser(user_id);
+  return userDao.selectUser(user_id);
+  }
+
+  @Override
+  public int modifyName(UserDto userDto) throws Exception {
+    // TODO Auto-generated method stub
+    return userDao.updateName(userDto);
   }
 
 }
