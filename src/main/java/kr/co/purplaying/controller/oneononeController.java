@@ -50,7 +50,7 @@ public class oneononeController {
 			m.addAttribute("pageSize", pageSize);
 			m.addAttribute("msg", "MOD_ERR");
 											// 수정등록하려던 내용을 보여줌
-			return "showInquiry3";
+			return "showInquiry5";
 		}
 		
 	}
@@ -74,7 +74,7 @@ public class oneononeController {
 			m.addAttribute("mode", "new");
 			m.addAttribute(boardDto);		// m.addAttribute("boardDto", boardDto); "boardDto" 생략가능
 			m.addAttribute("msg", "WRT_ERR");
-			return "showInquiry3";
+			return "showInquiry5";
 		}
 
 	}
@@ -129,7 +129,7 @@ public class oneononeController {
 			return "redirect:/oneonone/list";
 		}
 		
-		return "showInquiry3";
+		return "showInquiry5";
 	}
 	
 	
@@ -139,7 +139,7 @@ public class oneononeController {
 						HttpServletRequest request) {
 		
 		if(!loginCheck(request))
-			return "redirect:/login/login?toURL="+request.getRequestURL();
+			return "redirect:/user/login?toURL="+request.getRequestURL();
 		
 		try {
 			
@@ -168,7 +168,7 @@ public class oneononeController {
 		// 1. 세션을 얻어서
 		HttpSession session = request.getSession(false);				//false 는 session 이 없어도 새로 생성하지 않음. 반환값 null
 		// 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-		return session != null && session.getAttribute("id") != null;
+		return session != null && session.getAttribute("user_id") != null;
 	}
 	
 	

@@ -38,6 +38,13 @@ public class pageController {
     return "inquiryWrite";
   }
 
+  // shownotice.jsp호출
+
+  @RequestMapping(value = "/shownotice", method = RequestMethod.GET)
+  public String shownotice() {
+    return "shownotice";
+  }
+  
   // showInquiry.jsp호출
 
   @RequestMapping(value = "/showinquiry", method = RequestMethod.GET)

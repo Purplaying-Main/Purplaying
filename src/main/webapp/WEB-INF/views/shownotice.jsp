@@ -91,7 +91,7 @@
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
 			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
 			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
-			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonone/list'">1:1 문의</button>
+			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonon	e/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
 	
 	<script type="text/javascript">
@@ -194,10 +194,10 @@
 
 	<div class="container_b">
 		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기" }</h2>
-			<form id="form" class="frm" action="" method="post">
+<%-- 			<form id="form" class="frm" action="" method="post">
 				<input type="hidden" name="inquiry_no" value="${boardDto.inquiry_no }">
 				<input type="text" name="inquiry_title" value="${boardDto.inquiry_title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
-				<%-- <div class="<c:if test="${mode eq 'new'}">summernote</c:if>"> --%><!-- textarea 를 div 로 변환하면 가능 -->
+				<div class="<c:if test="${mode eq 'new'}">summernote</c:if>"><!-- textarea 를 div 로 변환하면 가능 -->
 				<textarea rows="20" name="inquiry_context" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.inquiry_context }</textarea><br/>
 				<!-- </div> -->
 				<c:if test="${mode eq 'new' }">
@@ -214,7 +214,120 @@
 				<button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
 				
 				
-			</form>
+			</form> --%>
+			<form class="card p-5 mb-3" id="form" action="" method="post">
+										<input type="hidden" name="notice_id" value="${boardDto.inquiry_no }">
+										<!-- 제목 영역  -->			                    	
+										<div class="mt-3">
+											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
+											<h5 class="card-title">${boardDto.inquiry_title}</h5>
+											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${boardDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+											<small class="card-subtitle mb-2 text-muted">writer : ${boardDto.user_id} | user_id : ${sessionScope.user_id}</small>
+										</div>
+										<hr class="my-4">
+										<!-- 본문 영역 -->
+										<div class="px-4 py-2">
+											${boardDto.inquiry_context}
+										</div>
+										<!-- 글쓰기 목록 버튼 영역 -->
+										<hr class="my-4">
+										<div class="mt-3 text-end">			
+											<!-- 수정권한 확인  -->
+											<c:if test="${boardDto.user_id eq sessionScope.user_id}">
+												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
+												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
+											</c:if>
+										</div>
+									</form>
+									
+									
+	<!-- /////////////////////////////////////////////////////////////////////////		-->		
+	<div class="w-75 mx-auto">
+			<!-- 상단영역(제목,작성자,공개여부) -->
+			<table class="table project-table table-centered bg-light border-top border-2">
+				<tbody>
+				  <tr>
+				    <th scope="col">제목</th>
+				    <td scope="col" class="col-2">
+	              		<select class="form-select fs-6" id="noticeCate" name="noticeCate">
+						  	<option selected>카테고리</option>
+						 	<option value="1">공지사항</option>
+						  	<option value="2">이벤트</option>
+						  	<option value="3">기타</option>
+						</select>
+				    </td>
+				    <td>
+  						<input type="text" class="form-control" placeholder="제목을 입력하세요">
+				    </td>
+				  </tr>
+				  <tr>
+				    <th scope="col">작성자</th>
+				    <td colspan="2">
+  						<input type="text" class="form-control" placeholder="관리자" readonly>
+				    </td>
+				  </tr>
+				  <tr>
+				    <th scope="col">공개여부</th>
+				    <td colspan="2">
+  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>공개</label>
+  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>비공개</label>
+				    </td>
+				  </tr>
+				</tbody>
+			</table>
+			<!-- 글작성 영역 summernote -->
+			<div style="height: 500px;">
+				<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+			</div>
+
+				<div class="text-end my-5">
+					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#noticeWriteCancelModal">작성취소</button>
+					<!-- 작성취소 모달창 start -->
+					<div class="modal fade" id="noticeWriteCancelModal" tabindex="-1"
+						aria-labelledby="noticeWriteCancelModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="noticeWriteCancelModalLabel">작성 취소</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">
+									<h6 class="form-label">공지사항 작성을 취소하시겠습니까?</h6>
+									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 작성취소 모달창 end -->
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noticeWriteFinishModal">게 시</button>
+					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="noticeWriteFinishLabel">작성 완료</h5>
+								</div>
+								<div class="modal-body text-center">
+									<label class="form-label">공지사항 등록완료</label>
+									<div class="invalid-feedback">공지사항 등록이 완료되었습니다.</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	
+	
+	<!-- ///////////////////////////////////////////////////////////////////////////////   -->				
+							<!-- 목록으로 가기 -->
+							<div class="row mx-auto col-md-4">
+								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
+		      				</div>
 	</div>
 
 	<!--푸터 인클루드-->

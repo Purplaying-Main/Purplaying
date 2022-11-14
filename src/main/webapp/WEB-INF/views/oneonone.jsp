@@ -153,6 +153,33 @@
 		<!-- 컨텐츠영역 end-->
 	</section>
 	<!--페이지 내용 종료-->
+		<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
+		})
+		
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")
+			form.submit()
+		})
+				$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/oneonone/write' />")
+			form.attr("method", "post")
+			
+			if(formCheck())
+				form.submit()					
+		})
+		$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/write' />";	
+		})
+	})
+	</script>
 
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
