@@ -16,7 +16,7 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/alretOnOff.js"></script>2
+  <script src="${pageContext.request.contextPath}/resources/assets/js/alretOnOff.js"></script>
 
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>

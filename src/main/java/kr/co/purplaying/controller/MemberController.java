@@ -34,7 +34,7 @@ public class MemberController {
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {
             //2-1. 일치하지 않으면, loginForm으로 이동     
-            String msg = URLEncoder.encode("비밀번호와 비밀번호확인이 일치하지 않습니다.", "utf-8");
+            String msg = URLEncoder.encode("Id와 Password가 일치하지 않습니다.", "utf-8");
             return "redirect:/user/login?msg="+msg;
         }
         
@@ -98,27 +98,26 @@ public class MemberController {
     public String SignUp() {
       return "signup";
     }
+    
     @PostMapping("/signup")
-    public String signup(String user_id, String user_pwd, String chk_user_pwd, String user_name,String user_phone,String toURL ,HttpServletRequest request) throws Exception {
-      //1. id와 pw를 확인
-      if(!PwdCheck(user_pwd, chk_user_pwd)) {
-          //2-1. 일치하지 않으면, loginForm으로 이동     
-          String msg = URLEncoder.encode("비밀번호와 비밀번호확인이 일치하지 않습니다.", "utf-8");
-          return "redirect:/user?msg="+msg;
+    public String signup(String user_id, String user_pwd, String user_name, String user_phone,boolean agree1,boolean agree2,boolean agree3,boolean agree4, boolean agree5 ,HttpServletRequest request) throws Exception {
+
+      if(userDao.signUpUser(user_id,user_pwd,user_name,user_phone)!=1) {
+        System.out.println("실패");
       }
-      HttpSession session =  request.getSession();
+      UserDto user = userDao.searchUser_no(user_id);
+      System.out.println(user.getUser_no());
       
+      if(userDao.userCheck(user.getUser_no(),agree1,agree2,agree3,agree4,agree5)!=1) {
+        System.out.println("성공");
+      }
       
-      //4. toUrl이 있을시에는 toUrl로 이동
-      toURL = toURL==null || toURL.equals("") ? "/" : toURL;
-              
-      //일치하면 로그인 후 화면 (홈화면)으로 이동      
-      return "redirect:"+toURL;
+      return "redirect:/";
     }
     
-    private boolean PwdCheck(String user_pwd, String chk_user_pwd) {
-     
-      return user_pwd.equals(chk_user_pwd);
-  }
+    @GetMapping("leave")
+    public String Leave() {
+      return "leave";
+    }
   
 }

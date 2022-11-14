@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.net.URLDecoder" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,31 +12,36 @@
   <%@ include file ="header.jsp" %>
   <!-- 전체 동의 체크-->
   <script src="resources/assets/js/selectAll.js"></script>
+  <script src="resources/assets/js/loginValidation.js"></script>
   <!--메인 컨테이너 -->
  <section>
+ <script type="text/javascript">
+	
+ </script>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h2 class="mb-3">이메일 간편가입</h2>
+        
         <form action="<c:url value='/user/signup'/>" class="needs-validation" method="post"> <!--novalidate-->
           <div class="row">
             <label for="email" class="form-label">Email</label>
             <div class="input-group mb-2">
-                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" required autofocus>
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증하기</button>
+                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" required autofocus value="${request.param.title}">
+                <input class="btn btn-outline-secondary" type="button" id="button-addon2" value="중복체크" onclick="checkId" required>
                 <div class="invalid-feedback">
-                  Please enter a valid email address for shipping updates.
+                  아이디를 입력해주세요
                 </div>
             </div>
           </div>
 
-          <div class="col-12 mt-2" onsubmit="return formCheck(this)">
+          <div class="col-12 mt-2">
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" required>
-            <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" required>
+            <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" required><!-- onchange='func_chk_Pwd()' 값바뀌면 script실행--> 
             <div class="invalid-feedback">
-              Please enter your shipping address.
+              비밀번호를 입력해주세요
             </div>
           </div>
 
@@ -43,9 +49,9 @@
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
               <div class="invalid-feedback">
-                  Your username is required.
+                  이름을 입력해주세요
                 </div>
               </div>
             </div>
@@ -53,10 +59,13 @@
             <div class="col-12 mt-2">
               <label for="userphone" class="form-label">연락처</label>
               <div class="input-group mb-3">
-                <input type="number" class="form-control" id="userphone" placeholder="휴대폰 번호 (-없이 입력)">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
+                <input type="number" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" required>
+               	<div class="invalid-feedback">
+                  번호를 입력해주세요
+                </div>
+                <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button> -->
               </div>
-              <input type="number" class="form-control" id="userphoneConfirm" placeholder="인증번호 입력 (남은 시간 2분 58초)">
+              <!-- <input type="number" class="form-control" id="userphoneConfirm" placeholder="인증번호 입력 (남은 시간 2분 58초)"> -->
             </div>
             
             <hr class="my-4">
@@ -75,8 +84,11 @@
                   <div class="accordion-body">
                     <div class="row mb-2">
                       <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree1" name="agree">
+                        <input type="checkbox" class="form-check-input" id="agree1" name="agree1" required>
                         <label class="form-check-label" for="agree-1">만 14세 이상입니다. (* 필수)</label>
+                         <div class="invalid-feedback">
+		                  체크 해주세요
+		                </div>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree1Modal"><a href="#">내용보기</a></div>
@@ -108,8 +120,11 @@
                     
                     <div class="row mb-2">
                       <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree2" name="agree">
+                        <input type="checkbox" class="form-check-input" id="agree2" name="agree2" required>
                         <label class="form-check-label" for="agree-2">퍼플레잉 이용 약관 동의 (* 필수)</label>
+                        <div class="invalid-feedback">
+		                  체크 해주세요
+		                </div>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree2Modal"><a href="#">내용보기</a></div>
@@ -142,8 +157,11 @@
                     
                     <div class="row mb-2">
                       <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree3" name="agree">
+                        <input type="checkbox" class="form-check-input" id="agree3" name="agree3" required>
                         <label class="form-check-label" for="agree-3">개인정보 수집 및 이용 동의 (* 필수)</label>
+                        <div class="invalid-feedback">
+		                  체크 해주세요
+		                </div>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree3Modal"><a href="#">내용보기</a></div>
@@ -175,7 +193,7 @@
 
                     <div class="row mb-2">
                       <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree4" name="agree">
+                        <input type="checkbox" class="form-check-input" id="agree4" name="agree4"	>
                         <label class="form-check-label" for="agree-4">개인정보 제 3자 제공 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
@@ -208,7 +226,7 @@
 
                     <div class="row mb-2">
                       <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree5" name="agree">
+                        <input type="checkbox" class="form-check-input" id="agree5" name="agree5">
                         <label class="form-check-label" for="agree-5">마케팅 정보 수신 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
@@ -244,7 +262,7 @@
               </div>
             </div>
           <!-- 회원가입 완료 버튼 -->
-          <div class="w-100 btn btn-primary btn-lg mt-4" type="submit" data-bs-target="#signUpCompleteModal">회원가입</div>
+          <button class="w-100 btn btn-primary btn-lg mt-4" type="submit" >회원가입</button><!--data-bs-target="#signUpCompleteModal"  -->
           <!-- 회원가입 완료 모달창 -->
           <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true"><!-- data-bs-toggle="modal" 모달실행 -->
             <div class="modal-dialog">
@@ -275,8 +293,31 @@
       </div>
 
     </div>
+	<script type="text/javascript">
+	 (() => {
+	        'use strict';
 
-  </section>
+	        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+	        const forms = document.querySelectorAll('.needs-validation');
+
+	        // Loop over them and prevent submission
+	        Array.from(forms).forEach((form) => {
+	          form.addEventListener(
+	            'submit',
+	            (event) => {
+	              if (!form.checkValidity()) {
+	                event.preventDefault();
+	                event.stopPropagation();
+	              }
+
+	              form.classList.add('was-validated');
+	            },
+	            false
+	          );
+	        });
+	      })();
+	</script>
+	</section>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
  

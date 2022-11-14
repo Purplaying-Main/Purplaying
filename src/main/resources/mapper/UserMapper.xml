@@ -25,4 +25,17 @@
 		select count(*) from tb_user
 	</select>
 	
+	<insert id="insertUserInfo" parameterType="map">
+		INSERT INTO tb_user (user_id, user_pwd, user_name, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_phone})
+	</insert>
+	
+	<insert id="insertUserCheck" parameterType="map">
+		INSERT INTO tb_agreement (user_no,agree_age,agree_terms,agree_inform,agree_inform_third,agree_marketing) VALUES (#{user_no},#{agree_age},#{agree_terms},#{agree_inform},#{agree_inform_third},#{agree_marketing})
+	</insert>
+	
+	<select id="selectUser_NO" parameterType="String" resultType="UserDto">
+		SELECT USER_NO
+		from tb_user
+		where user_id = #{user_id}
+	</select>
 </mapper>
