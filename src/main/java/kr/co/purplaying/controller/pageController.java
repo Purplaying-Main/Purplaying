@@ -126,36 +126,45 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //카데고리, 검색///////////////////////////////////////////////////////////////////////////////////////
-    //genre.jsp호출
-    @RequestMapping(value="/genre", method=RequestMethod.GET)
-    public String genre() {
-        return "genre";
-    }
+    /*
+     * //genre.jsp호출
+     * 
+     * @RequestMapping(value="/genre", method=RequestMethod.GET)
+     * public String genre() {
+     * return "genre";
+     * }
+     * 
+     * //genreLiterature.jsp호출
+     * 
+     * @RequestMapping(value="/genreliterature", method=RequestMethod.GET)
+     * public String genreLiterature() {
+     * return "genreLiterature";
+     * }
+     * 
+     * //genrePoemEssay.jsp호출
+     * 
+     * @RequestMapping(value="/genrepoemessay", method=RequestMethod.GET)
+     * public String genrePoemEssay() {
+     * return "genrePoemEssay";
+     * }
+     * 
+     * //genreWebtoon.jsp호출
+     * 
+     * @RequestMapping(value="/genrewebtoon", method=RequestMethod.GET)
+     * public String genreWebtoon() {
+     * return "genreWebtoon";
+     * }
+     */
     
-    //genreLiterature.jsp호출
-    @RequestMapping(value="/genreliterature", method=RequestMethod.GET)
-    public String genreLiterature() {
-        return "genreLiterature";
-    }
     
-    //genrePoemEssay.jsp호출
-    @RequestMapping(value="/genrepoemessay", method=RequestMethod.GET)
-    public String genrePoemEssay() {
-        return "genrePoemEssay";
-    }
-    
-    //genreWebtoon.jsp호출
-    @RequestMapping(value="/genrewebtoon", method=RequestMethod.GET)
-    public String genreWebtoon() {
-        return "genreWebtoon";
-    }
-    
-    
-    //searchResult.jsp호출
-    @RequestMapping(value="/searchResult", method=RequestMethod.GET)
-    public String searchResult() {
-        return "searchResult";
-    }
+    /*
+     * //searchResult.jsp호출
+     * 
+     * @RequestMapping(value="/searchResult", method=RequestMethod.GET)
+     * public String searchResult() {
+     * return "searchResult";
+     * }
+     */
     
     //profilSearch.jsp호출
     @RequestMapping(value="/creatorSearch", method=RequestMethod.GET)

@@ -7,9 +7,11 @@
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-  <%@ include file ="meta.jsp" %>
-  <!-- 소셜 로그인(카카오, 네이버, 구글) -->
-  <script src="resources/assets/js/social.js"></script>
+ <%@ include file ="meta.jsp" %>
+ <!-- 소셜 로그인(카카오, 네이버, 구글) -->
+ <script src="resources/assets/js/social.js"></script>
+ <script src="resources/assets/js/loginValidation.js"></script>
+ 
 </head>
 <body>
   <!--헤더 인클루드-->
@@ -22,7 +24,7 @@
       <div class="row col-md-8 d-block mx-auto">
       
         <div class="form-signin w-100 m-auto">
-          <form action="<c:url value='/login/login'/>"  method="POST" onsubmit="return formCheck(this)">
+          <form action="<c:url value='/user/login'/>" method="post" onsubmit="return formCheck(this)">
             <img class="mb-4 text-center pt-4 w-25" src="resources/assets/img/purplaying_logo_kor.png" alt="퍼플레잉 로고">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
         	<div id="msg">
@@ -31,11 +33,11 @@
 				</c:if>
 			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id" value="${cookie.id.value}" autofocus>
+              <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.id.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating py-2">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="pwd">
+              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="user_pwd">
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-floating py-2">
@@ -52,12 +54,15 @@
             <p class="mt-5 mb-3 text-muted">&copy; 2022 Purplaying</p>
             
           </form>
+		
         </div>
 
         <hr class="my-4">
         
         <p class="text-center">아직 퍼플레잉 계정이 없나요? <a href="signup">회원가입</a></p>
         <h5 class="mb-3 text-center">또는 다른 방법으로 로그인</h5>
+        
+      
 		<!--소셜 로그인 인클루드-->
   		<%@ include file ="socialLogin.jsp" %>
       </div>

@@ -18,7 +18,7 @@ public class newFundingController {
   @Autowired
   NewFundingDao newFundingDao;
   
-
+  @RequestMapping("/newFunding")
   @GetMapping("/newFunding")
   public String getPage(NewFundingDto newFundingDto, Model m) {
     try {

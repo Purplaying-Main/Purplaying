@@ -19,6 +19,7 @@ public class ComingsoonFundingController {
   @Autowired
   ComingsoonFundingDao comingsoonFundingDao;
   
+  @RequestMapping("/comingsoonFunding")
   @GetMapping("/comingsoonFunding")
   public String getPage(ComingsoonFundingDto comingsoonFundingDto, Model m ) {
     

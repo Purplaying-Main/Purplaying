@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
-
-<mapper namespace="kr.co.purplaying.dao.popularFundingMapper">
-	<select id="popularFunding" parameterType="map" resultType="popularFundingDto" >
+  
+  <mapper namespace="kr.co.purplaying.dao.projectSuggestMapper">
+	<select id="projectSuggest" parameterType="map" resultType="projectSuggestDto" >
 		select 
 		prdt_genre,
 		prdt_name,
@@ -13,7 +13,7 @@
 		(prdt_enddate-prdt_opendate) as "prdt_dday",
 		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc)
 		from tb_product
-		where <![CDATA[prdt_opendate <= current_date ]]> <!-- 오늘 이전 날짜만 추출  -->		
-		limit 6
+		where <![CDATA[prdt_opendate <= current_date and current_date-7 <= prdt_opendate ]]> <!-- 오늘 이전~7일까지 인기있는 펀딩만 추출  -->		
+		limit 3
 	</select>
 </mapper>

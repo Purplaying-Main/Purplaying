@@ -37,14 +37,12 @@
                 </div>
                 <div class="card-body">
 	                  <div class="d-flex justify-content-between">
-                     	<p class="card-cate" onclick="location.href='genrewebtoon'">
-	                   	  <c:choose>
-	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 1 }">문학</c:when>
-	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 2 }">시/에세이</c:when>
-	                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 3 }">웹툰</c:when>
-	                  		<c:otherwise>장르</c:otherwise>
-	                  	  </c:choose>
-                    	 </p>
+                  	<c:choose>
+                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
+                  	</c:choose>
                     	<small class="text-danger">공개까지 <b>D-${comingsoonFundingDto.prdt_comingday}</b></small>
                   	  </div>
                   	  <div class="link-div" onclick="location.href='projectdetail'">

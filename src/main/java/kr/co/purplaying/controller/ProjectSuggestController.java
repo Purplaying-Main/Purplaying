@@ -3,32 +3,34 @@ package kr.co.purplaying.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import kr.co.purplaying.dao.PopularFundingDao;
-import kr.co.purplaying.domain.PopularFundingDto;
+
+import kr.co.purplaying.dao.ProjectSuggestDao;
+import kr.co.purplaying.domain.ProjectSuggestDto;
 
 @Controller
-public class PopularFundingController {
+public class ProjectSuggestController {
 
   @Autowired
-  PopularFundingDao popularFundingDao;
+  ProjectSuggestDao projectSuggestDao;
   
-  @RequestMapping("/popularFunding")
-  @GetMapping("/popularFunding")
-  public String getPage(PopularFundingDto popularFundingDto, Model m) {
+  @RequestMapping("/searchResult")
+  @GetMapping("/searchResult")
+  public String getpage(ProjectSuggestDto projectSuggestDto, Model m) {
+    
     try {
       Map map = new HashMap();
-      List<PopularFundingDto> list_p = popularFundingDao.popularFunding(map);
-      m.addAttribute("list_p",list_p);
+      List<ProjectSuggestDto> list_ps = projectSuggestDao.projectSuggest(map);
+      m.addAttribute("list_ps", list_ps);
       
     } catch (Exception e) {
-      e.printStackTrace();
+     e.printStackTrace();
     }
-    
-    return "popularFunding";
+    return "searchResult";
   }
 }

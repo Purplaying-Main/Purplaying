@@ -78,14 +78,12 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                  <div class="card-body">         
-                  <p class="card-cate" onclick="location.href='genreliterature'">
                   	<c:choose>
-                  		<c:when test="${indexDto.prdt_genre eq 1 }">문학</c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 2 }">시/에세이</c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 3 }">웹툰</c:when>
-                  		<c:otherwise>장르</c:otherwise>
+                  		<c:when test="${indexDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${indexDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${indexDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
-                  </p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>${indexDto.prdt_name }</h5></p>
                    </div>
@@ -114,14 +112,12 @@
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
-                  <p class="card-cate" onclick="location.href='genrewebtoon'">
-                   	<c:choose>
-                  		<c:when test="${indexDto.prdt_genre eq 1 }">문학</c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 2 }">시/에세이</c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 3 }">웹툰</c:when>
-                  		<c:otherwise>장르</c:otherwise>
+                  	<c:choose>
+                  		<c:when test="${indexDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${indexDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${indexDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
-                  </p>
                   <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>${indexDto.prdt_name }</h5></p>
                    </div>
@@ -146,6 +142,7 @@
 	/*progressbar 연동 JS*/
 	const perValue = ${indexDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
+
 	</script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

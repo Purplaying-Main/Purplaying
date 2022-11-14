@@ -18,6 +18,7 @@
 		(prdt_enddate-prdt_opendate) as "prdt_dday",
 		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc)
 		from tb_product
+		where <![CDATA[prdt_opendate <= current_date ]]> <!-- 오늘 이전 날짜만 추출  -->
 		limit 3
 	</select>
 	

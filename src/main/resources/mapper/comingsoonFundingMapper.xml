@@ -11,7 +11,7 @@
 	prdt_opendate,
 	(prdt_opendate - current_date) as "prdt_comingday"
 	from tb_product
-	where <![CDATA[prdt_opendate > current_date]]>
+	where <![CDATA[prdt_opendate > current_date]]> <!--오늘 이후 데이터만 추출  -->
 	order by prdt_comingday, prdt_id desc
 	limit 6;
 	</select>

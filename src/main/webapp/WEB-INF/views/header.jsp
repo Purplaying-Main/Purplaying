@@ -47,9 +47,9 @@
           <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
           											장르별</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/purplaying/genreliterature">문학</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genrepoemessay">시/에세이</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genrewebtoon">웹툰</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genre/literature">문학</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genre/poemessay">시/에세이</a></li>
+              <li><a class="dropdown-item" href="/purplaying/genre/webtoon">웹툰</a></li>
             </ul>
           </div>
           <div><a href="/purplaying/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>

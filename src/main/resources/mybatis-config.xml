@@ -5,11 +5,13 @@
 
 <configuration>
 	<typeAliases>
+		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
 		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="IndexDto" type="kr.co.purplaying.domain.IndexDto" />
+		<typeAlias alias="genreDto" type="kr.co.purplaying.domain.GenreDto" />
 		<typeAlias alias="newFundingDto" type="kr.co.purplaying.domain.NewFundingDto" />
-		<typeAlias alias="comingsoonFundingDto" type="kr.co.purplaying.domain.ComingsoonFundingDto" />
 		<typeAlias alias="popularFundingDto" type="kr.co.purplaying.domain.PopularFundingDto" />
-		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
+		<typeAlias alias="comingsoonFundingDto" type="kr.co.purplaying.domain.ComingsoonFundingDto" />
+		<typeAlias alias="projectSuggestDto" type="kr.co.purplaying.domain.ProjectSuggestDto" />
 	</typeAliases>
 </configuration>
