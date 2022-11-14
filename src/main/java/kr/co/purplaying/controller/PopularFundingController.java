@@ -17,7 +17,7 @@ public class PopularFundingController {
   @Autowired
   PopularFundingDao popularFundingDao;
   
-  @RequestMapping("/popularFunding")
+
   @GetMapping("/popularFunding")
   public String getPage(PopularFundingDto popularFundingDto, Model m) {
     try {

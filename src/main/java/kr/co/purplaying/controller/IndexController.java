@@ -17,7 +17,7 @@ public class IndexController {
   @Autowired
   IndexDao indexDao;
   
-  @RequestMapping
+  @RequestMapping("/")
   @GetMapping("/")
   public String getPage(IndexDto indexDto, Model m) {
     try {

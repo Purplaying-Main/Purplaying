@@ -10,6 +10,6 @@
 		<typeAlias alias="newFundingDto" type="kr.co.purplaying.domain.NewFundingDto" />
 		<typeAlias alias="comingsoonFundingDto" type="kr.co.purplaying.domain.ComingsoonFundingDto" />
 		<typeAlias alias="popularFundingDto" type="kr.co.purplaying.domain.PopularFundingDto" />
-		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.User" />
+		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
 	</typeAliases>
 </configuration>

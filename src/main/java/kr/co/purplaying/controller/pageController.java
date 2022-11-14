@@ -111,11 +111,6 @@ public class pageController {
         return "setting";
     }
     
-    //signIn.jsp호출
-    @RequestMapping(value="/login", method=RequestMethod.GET)
-    public String login() {
-        return "signIn";
-    }
     
     //signUp.jsp호출
     @RequestMapping(value="/signup", method=RequestMethod.GET)
@@ -167,35 +162,6 @@ public class pageController {
     public String profilSearch() {
         return "creatorSearch";
     }
-    /////////////////////////////////////////////////////////////////////////////////////////
-    
-    //헤더연결 페이지///////////////////////////////////////////////////////////////////////////////////////
-    /*
-     * //popularFunding.jsp호출
-     * 
-     * @RequestMapping(value="/popularFunding", method=RequestMethod.GET)
-     * public String popularFunding() {
-     * return "popularFunding";
-     * }
-     */
-    
-    /*
-     * //newFunding.jsp호출
-     * 
-     * @RequestMapping(value="/newFunding", method=RequestMethod.GET)
-     * public String newFunding() {
-     * return "newFunding";
-     * }
-     */
-    
-    /*
-     * //comingsoonFunding.jsp호출
-     * 
-     * @RequestMapping(value="/comingsoonFunding", method=RequestMethod.GET)
-     * public String comingsoonFunding() {
-     * return "comingsoonFunding";
-     * }
-     */
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //푸터연결 페이지///////////////////////////////////////////////////////////////////////////////////////
