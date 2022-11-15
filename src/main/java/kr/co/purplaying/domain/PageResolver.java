@@ -3,14 +3,10 @@ package kr.co.purplaying.domain;
 public class PageResolver {
 
     private SearchItem sc;
-  
 	private int totalCnt;				//게시물 총 갯수
-				//한 페이지당 게시물 갯수
 	public final int NAV_SIZE = 10;		//page navigation size
 	
 	private int totalPage;				//전체 페이지 갯수
-					//현제 페이지
-	
 	private int beginPage;				//화면에 보여줄 첫 페이지	
 	private int endPage;				//화면에 보여줄 마지막 페이지
 	private boolean showNext = false;	//이후를 보여줄지 여부 (endPage==totalPage 이면 showNext는 false)
@@ -51,7 +47,15 @@ public class PageResolver {
         System.out.println(showNext ? " Next" : "");
     }
 
-	@Override
+	public SearchItem getSc() {
+      return sc;
+    }
+  
+    public void setSc(SearchItem sc) {
+      this.sc = sc;
+    }
+
+  @Override
   public String toString() {
     return "PageResolver [sc=" + sc + ", totalCnt=" + totalCnt + ", totalPage=" + totalPage + ", beginPage=" + beginPage
         + ", endPage=" + endPage + ", showNext=" + showNext + ", showPrev=" + showPrev + "]";

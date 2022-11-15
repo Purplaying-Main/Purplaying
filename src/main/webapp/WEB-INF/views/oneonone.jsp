@@ -39,12 +39,16 @@
 							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
 								<form action="<c:url value="/oneonone/list" />" class="search-form" method="get"> 
 								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
-					<%-- 
-														<select class="search-option" name="option">
+		<%-- 		 				<select class="search-option" name="option">
+										<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
+									</select> --%>
+				 
+				 
+								<!--	<select class="search-option" name="option">
 										<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
 										<option value="T" ${pr.sc.option=='T' ? "selected" : "" }>제목</option>
 										<option value="W" ${pr.sc.option=='W' ? "selected" : "" }>작성자</option>
-									</select> --%>
+									</select> -->
 					
 					<!-- <input type="submit" class="search-button" value="검색">  -->
 							
@@ -62,16 +66,16 @@
 									</tr>
 								</thead>
 								<tbody>
-									<c:forEach var="boardDto" items="${list }">
+									<c:forEach var="oneononeDto" items="${list }">
 										<tr>
-											<td class="no">${boardDto.inquiry_no }</td>
-											<td class="state">${boardDto.inquiry_state }</td>
-											<td class="title"><a href="<c:url value='/oneonone/read?inquiry_no=${boardDto.inquiry_no }&page=${page }&pageSize=${pageSize }'/>">
-													${boardDto.inquiry_title } </a></td>
-											<td class="writer">${boardDto.user_id }</td>
-											<td class="private">${boardDto.inquiry_private }</td>
+											<td class="no">${oneononeDto.inquiry_no }</td>
+											<td class="state">${oneononeDto.inquiry_state }</td>
+											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }<%-- ${pr.sc.queryString}&inquiry_no=${oneononeDto.inquiry_no } --%>"/>">
+													${oneononeDto.inquiry_title } </a></td>
+											<td class="writer">${oneononeDto.user_id }</td>
+											<td class="private">${oneononeDto.inquiry_private }</td>
 
-											<td class="regdate"><fmt:formatDate	value="${boardDto.inquiry_regdate }" pattern="yyyy-MM-dd" type="date" /></td>
+											<td class="regdate"><fmt:formatDate	value="${oneononeDto.inquiry_regdate }" pattern="yyyy-MM-dd" type="date" /></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -81,15 +85,15 @@
 						<div class="pt-3 row">
 							<!-- 검색창 -->
 							<div class="col-1"></div>
-		<%--  					<ul class="pagination mb-0 col-10 justify-content-center">
+								<ul class="pagination mb-0 col-10 justify-content-center">
 				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
 											<h6 class="row text-center ">게시물이 없습니다.</h6>
 									</c:if>
 					                <!-- 게시물이 있는 경우, page nav 출력  -->
 									<c:if test="${totalCnt != null || totalCnt != 0 }">
 										<c:if test="${pr.showPrev }">
-											<li class="page-item disabled">
-						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">PREV</a>
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>">Prev</a>
 						                    </li>
 										</c:if>
 										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
@@ -98,49 +102,14 @@
 											</li>
 										</c:forEach>
 										<c:if test="${pr.showNext }">
-											<li class="page-item disabled">
-						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true" >NEXT</a>
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }"/>">Next</a>
 						                    </li>
 										</c:if>
 									</c:if>
-								</ul>  --%>
-									<ul class="pagination mb-0 col-10 justify-content-center">
-				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
-											<h6 class="row text-center ">게시물이 없습니다.</h6>
-									</c:if> 
-					                <!-- 게시물이 있는 경우, page nav 출력  -->
-									<c:if test="${totalCnt != null || totalCnt != 0 }">
-										<c:if test="${pr.showPrev }">											
-						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>" tabindex="-1" aria-disabled="true">PREV</a>
-										</c:if>
-										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">											
-												<a class="page-link" href="<c:url value="/oneonone/list?page=${i}"/>"> ${i} </a>										
-										</c:forEach>
-										<c:if test="${pr.showNext }">											
-						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }"/>" tabindex="-1" aria-disabled="true" >NEXT</a>						                 
-										</c:if>
-									</c:if>
-								</ul>  
-<%-- 		 					<ul class="pagination mb-0 col-10 justify-content-center">
-								<c:if test="${totalCnt == null || totalCnt == 0 }">
-									<div>게시물이 없습니다.</div>
-								</c:if>
-
-								<c:if test="${totalCnt != null || totalCnt != 0 }">
-									<c:if test="${pr.showPrev }">
-										<a class="page"	href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }" />">◁ </a>
-									</c:if>
-									<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-										<a class="page" href="<c:url value="/oneonone/list?page=${i }" />">${i }</a>
-									</c:forEach>
-									<c:if test="${pr.showNext }">
-										<a class="page" href="<c:url value="/oneonone/list?page=${pr.endPage+1 }" />">▷</a>
-									</c:if>
-								</c:if>
-							</ul>   --%>
-							<button type="button" class="col-1 btn btn-primary" onclick="location.href='/purplaying/inquirywrite'">작성</button>
-							<!--				<button id="writrBtn" class="btn-write" onclick="location.href='<c:url value="/board/write" />' " >
-						<i class="fa fa-pen"></i>글쓰기</button>  -->
+								</ul>
+	
+							<button type="button" id="writeBtn" class="col-1 btn btn-primary" onclick="location.href='/purplaying/inquirywrite'">작성</button>
 
 						</div>
 						<!-- end row -->
@@ -156,14 +125,14 @@
 		<script type="text/javascript">
 	$(document).ready(function() {
 		$("#listBtn").on("click", function() {
-			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
+			location.href ="<c:url value='/oneonone/list${searchItem.queryString}' />";
 		})
 		
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
 			let form = $("#form")
-			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("action","<c:url value='/oneonone/remove${searchItem.queryString}' />")
 			form.attr("method", "post")
 			form.submit()
 		})

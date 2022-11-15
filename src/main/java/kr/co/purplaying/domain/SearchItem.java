@@ -85,7 +85,9 @@ public class SearchItem {
 	}
 
 	public Integer getOffset() {
-		return (page-1) * pageSize; // offset => 변경
+	    int result = (page-1) * pageSize; // offset => 변경
+        if(result <0) {result= 0;}
+        return result;
 	}
 
 	public void setOffset(Integer offset) {

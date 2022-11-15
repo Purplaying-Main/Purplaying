@@ -126,7 +126,7 @@
 				if(!confirm("정말로 삭제하시겠습니까?")) return;
 				
 				let form = $("#form");
-				form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />");
+				form.attr("action","<c:url value='/oneonone/remove${searchItem.queryString}' />");
 				form.attr("method","post");
 				form.submit();
 			})
@@ -169,7 +169,7 @@
 					return;
 				}
 				// 2. 수정상태이면 수정된 내용을 서버로 전송
-				form.attr("action","<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}'/>")
+				form.attr("action","<c:url value='/oneonone/modify${searchItem.queryString}'/>")
 				form.attr("method","post")
 				if(formCheck()){
 					form.submit();
@@ -216,24 +216,24 @@
 				
 			</form> --%>
 			<form class="card p-5 mb-3" id="form" action="" method="post">
-										<input type="hidden" name="notice_id" value="${boardDto.inquiry_no }">
+										<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
-											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
-											<h5 class="card-title">${boardDto.inquiry_title}</h5>
-											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${boardDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
-											<small class="card-subtitle mb-2 text-muted">writer : ${boardDto.user_id} | user_id : ${sessionScope.user_id}</small>
+											<h6 class="card-subtitle mb-2 text-muted">${oneononeDto.notice_category}</h6>
+											<h5 class="card-title">${oneononeDto.inquiry_title}</h5>
+											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+											<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_id} | user_id : ${sessionScope.user_id}</small>
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
 										<div class="px-4 py-2">
-											${boardDto.inquiry_context}
+											${oneononeDto.inquiry_context}
 										</div>
 										<!-- 글쓰기 목록 버튼 영역 -->
 										<hr class="my-4">
 										<div class="mt-3 text-end">			
 											<!-- 수정권한 확인  -->
-											<c:if test="${boardDto.user_id eq sessionScope.user_id}">
+											<c:if test="${oneononeDto.user_id eq sessionScope.user_id}">
 												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
 												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
 											</c:if>

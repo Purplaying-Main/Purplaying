@@ -5,6 +5,7 @@
 
 <configuration>
 	<typeAliases>
+		<typeAlias alias="OneononeDto" type="kr.co.purplaying.domain.OneononeDto" />
 		<typeAlias alias="BoardDto"	type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />

@@ -118,18 +118,11 @@
 			});
 			// 서머노트 종료
 			
-			$("#listBtn").on("click", function() {
+/* 			$("#listBtn").on("click", function() {
 				//location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}'/>";
 				history.back();
-			})
-			$("#removeBtn").on("click", function() {
-				if(!confirm("정말로 삭제하시겠습니까?")) return;
-				
-				let form = $("#form");
-				form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />");
-				form.attr("method","post");
-				form.submit();
-			})
+			}) */
+		
 			$("#writeBtn").on("click", function() {
 
 				let form = $("#form");
@@ -169,7 +162,7 @@
 					return;
 				}
 				// 2. 수정상태이면 수정된 내용을 서버로 전송
-				form.attr("action","<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}'/>")
+				form.attr("action","<c:url value='/oneonone/modify${searchItem.queryString}'/>")
 				form.attr("method","post")
 				if(formCheck()){
 					form.submit();
@@ -194,46 +187,25 @@
 
 	<div class="container_b">
 		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기" }</h2>
-<%-- 			<form id="form" class="frm" action="" method="post">
-				<input type="hidden" name="inquiry_no" value="${boardDto.inquiry_no }">
-				<input type="text" name="inquiry_title" value="${boardDto.inquiry_title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
-				<div class="<c:if test="${mode eq 'new'}">summernote</c:if>"><!-- textarea 를 div 로 변환하면 가능 -->
-				<textarea rows="20" name="inquiry_context" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.inquiry_context }</textarea><br/>
-				<!-- </div> -->
-				<c:if test="${mode eq 'new' }">
-					<button type="button" id="writeBtn" class="btn btn-wirte"><i class="fa fa-pen"></i>등록</button>
-				</c:if>
-				<c:if test="${mode ne 'new' }">
-					<button type="button" id="writeNewBtn" class="btn btn-wirte" onclick="location.href='<c:url value="/oneonone/write" />'" ><i class="fa fa-pen"></i>글쓰기</button>
-				</c:if>
-	            <c:if test="${boardDto.user_id eq loginId }">
-	                <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i>수정</button>
-	                <button type="button" id="removeBtn" class="btn btn-modify"><i class="fa fa-trash"></i>삭제</button>
-	            </c:if>
-				
-				<button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
-				
-				
-			</form> --%>
+
 			<form class="card p-5 mb-3" id="form" action="" method="post">
-										<input type="hidden" name="notice_id" value="${boardDto.inquiry_no }">
+										<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
-											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category}</h6>
-											<h5 class="card-title">${boardDto.inquiry_title}</h5>
-											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${boardDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
-											<small class="card-subtitle mb-2 text-muted">writer : ${boardDto.user_id} | user_id : ${sessionScope.user_id}</small>
+											<h5 class="card-title">${oneononeDto.inquiry_title}</h5>
+											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+											<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_id} | user_id : ${sessionScope.user_id}</small>
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
 										<div class="px-4 py-2">
-											${boardDto.inquiry_context}
+											${oneononeDto.inquiry_context}
 										</div>
 										<!-- 글쓰기 목록 버튼 영역 -->
 										<hr class="my-4">
 										<div class="mt-3 text-end">			
 											<!-- 수정권한 확인  -->
-											<c:if test="${boardDto.user_id eq sessionScope.user_id}">
+											<c:if test="${oneononeDto.user_id eq sessionScope.user_id}">
 												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
 												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
 											</c:if>
@@ -242,11 +214,50 @@
 									<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='/purplaying/shownotice'">답변</button>
 							<!-- 목록으로 가기 -->
 							<div class="row mx-auto col-md-4">
-								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
+								<button type="button" id="listBtn" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
 		      				</div>
 	</div>
 
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/list${searchItem.queryString}' />";
+		})
+		
+		//remove
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/oneonone/remove${searchItem.queryString}' />")
+			form.attr("method", "post")
+			form.submit()
+		})
+		
+		//write
+		$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/oneonone/write' />")
+			form.attr("method", "post")
+			
+			if(formCheck())
+				form.submit()					
+		})
+		$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/write' />";	
+		})
+		
+		//modify
+		$("#modifyBtn").on("click", function() {
+				let form = $("#form");
+				form.attr("action", "<c:url value='/oneonone/modify${searchItem.queryString}' />")
+				form.attr("method", "get")	
+				form.submit()
+			})
+	})
+	</script>
 </body>
 </html>

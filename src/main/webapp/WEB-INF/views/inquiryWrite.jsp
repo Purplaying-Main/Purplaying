@@ -21,39 +21,40 @@
 			  <ol class="breadcrumb fs-6 mt-4">
 			    <li class="breadcrumb-item"><a href="/purplaying/servicecenter">고객센터</a></li>
 			    <li class="breadcrumb-item"><a href="/purplaying/oneonone/list">1:1문의</a></li>
-			    <li class="breadcrumb-item active" aria-current="page">1:1 문의하기</li>
+			    <li class="breadcrumb-item active" aria-current="page">1:1 문의하기 ${mode=="new" ? "작성하기" : "수정하기" }</li></li>
 			  </ol>
 			</nav>
-        	<h2 class="mx-auto text-center py-3">1:1 문의하기</h2>
+        	<h2 class="mx-auto text-center py-3">1:1 문의하기 ${mode=="new" ? "작성하기" : "수정하기" }</h2>
       	</div>
-		<div class="w-75 mx-auto">
+      		<form class="w-75 mx-auto" id="form" action="" method="post">
+      		<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 			<!-- 상단영역(제목,작성자,공개여부) -->
 			<table class="table project-table table-centered bg-light border-top border-2">
 				<tbody>
 				  <tr>
 				    <th scope="col">제목</th>
 				    <td>
-  						<input type="text" class="form-control" placeholder="제목을 입력하세요">
+  						<input type="text" class="form-control" placeholder="제목을 입력하세요" name="inquiry_title" value="${oneononeDto.inquiry_title}">
 				    </td>
 				  </tr>
 				  <tr>
 				    <th scope="col">작성자</th>
 				    <td>
-  						<input type="text" class="form-control" placeholder="{작성자이름}" readonly>
+  						<input type="text" class="form-control" placeholder="${oneononeDto.user_id }" readonly>
 				    </td>
 				  </tr>
 				  <tr>
 				    <th scope="col">공개여부</th>
 				    <td>
-  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>공개</label>
-  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>비공개</label>
+  						<input class="form-check-input" name="inquiry_private" type="radio" value="${oneononeDto.inquiry_private = true}" checked> <label>공개</label>
+  						<input class="form-check-input" name="inquiry_private" type="radio" value="${oneononeDto.inquiry_private = false}"> <label>비공개</label>
 				    </td>
 				  </tr>
 				</tbody>
 			</table>
 			<!-- 글작성 영역 summernote -->
 			<div style="height: 500px;">
-				<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+				<textarea class="summernote" placeholder="내용을 입력하세요​" name="inquiry_context">${oneononeDto.inquiry_context}></textarea>
 			</div>
 
 				<div class="text-end my-5">
@@ -96,11 +97,37 @@
 						</div>
 					</div>
 				</div>
-		</div>
+		</form>
 	</section>
 	<!--페이지 내용 종료-->
 	
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	
+		<script type="text/javascript">
+		$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/oneonone/write' />")
+			form.attr("method", "post")
+			
+			if(formCheck())
+				form.submit()					
+		})
+		
+		let formCheck = function() {
+			let form = document.getElementById("form")
+			if(form.inquiry_title.value=="") {
+				alert("제목을 입력해 주세요.")
+				form.title.focus()
+				return false
+			}
+			if(form.inquiry_context.value=="") {
+				alert("내용을 입력해 주세요.")
+				form.notice_context.focus()
+				return false
+			}
+			return true;
+		}
+	</script>
 </body>
 </html>
