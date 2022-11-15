@@ -15,11 +15,12 @@ public class ProductController {
 	@Autowired
 	ProductDao productDao;
 	
-	@RequestMapping("/projectdetail")
-	@GetMapping("/projectdetail")
+	@RequestMapping("/projectDetailPage")
+	@GetMapping("/projectDetailPage")
 	public String getDetail(int prdt_id, Model m) {
 
       try {
+        System.out.println(prdt_id);     
         ProductDto productDto = productDao.projectDetail(prdt_id);
         m.addAttribute(productDto);
         
@@ -27,7 +28,7 @@ public class ProductController {
       } catch (Exception e) {
           e.printStackTrace();
       }
-      return "redirect:/";
+      return "/projectDetailPage";
       
 	}
 }

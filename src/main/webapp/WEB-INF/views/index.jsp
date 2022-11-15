@@ -28,7 +28,7 @@
           <div class="carousel-caption text-start">
             <h1>물고기는 존재하지 않는다</h1>
             <p>다양한 사람들이 모여 한 권의 책을 추천합니다.</p>
-            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@
           <div class="carousel-caption text-start">
             <!-- <h1>2022 노벨문학상, 아니 에르노</h1>
             <p>Some representative placeholder content for the third slide of this carousel.</p> -->
-            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
           </div>
         </div>
       </div>
@@ -75,12 +75,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                                   <div class="card-body">
                   <p class="card-cate" onclick="location.href='genreliterature'">문학</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">                  
+                  <div class="link-div" onclick="location.href='projectDetailPage?prdt_id=1'">                  
 	                  <p class="card-text">
 	                  	 <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
@@ -100,12 +100,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrepoemessay'">시/에세이</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='projectDetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -123,12 +123,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'"  style="cursor:pointer">
+                <div onclick="location.href='projectDetail'"  style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='projectDetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -150,12 +150,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='projectDetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -173,12 +173,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='projectDetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -196,12 +196,12 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrewebtoon'">웹툰</p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='projectDetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
