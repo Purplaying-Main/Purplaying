@@ -14,7 +14,7 @@ import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.service.ProjectService;
 
 @Controller
-@RequestMapping(value="projectregister")
+@RequestMapping("/projectregister")
 public class ProjectController {
   
   @Autowired
@@ -22,21 +22,20 @@ public class ProjectController {
   
   @PostMapping("/write")
   public String write(ProjectDto projectDto, RedirectAttributes rattr, Model m, HttpSession session) {
-      String writer = (String) session.getAttribute("id");
+      String writer = (String) session.getAttribute("user_id");
       projectDto.setWriter(writer);
-      
+      System.out.println("projectDto : "+projectDto);
       try {
-          if(projectService.write(projectDto) != 1)
-              throw new Exception("Write failed");
+          if(projectService.write(projectDto) != 1) 
           
           rattr.addFlashAttribute("msg", "WRT_OK");
-          return "redirect:/mypage";
+          return "redirect:/projectRegister";
       } catch (Exception e) {
           e.printStackTrace();
           m.addAttribute("mode", "new");                  //글쓰기 모드
           m.addAttribute("projectDto", projectDto);           //등록하려던 내용을 보여줘야 함
           m.addAttribute("msg", "WRT_ERR");
-          return "projectRegister";
+          return "projectRegisterIntro";
       }
       
   }

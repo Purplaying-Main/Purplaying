@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +42,9 @@
             <div class="col-6 px-3">
               <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;">
                 <option value="selected">장르를 선택해주세요</option>
-                <option value="1">소설</option>
-                <option value="2">만화</option>
-                <option value="3">학술서</option>
+                <option value="1">문학</option>
+                <option value="2">시/에세이</option>
+                <option value="3">웹툰</option>
               </select>
             </div>
           </div>

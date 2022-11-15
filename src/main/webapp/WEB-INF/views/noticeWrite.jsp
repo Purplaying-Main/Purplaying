@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<!-- 작성취소 모달창 end -->
-					<button type="button" class="btn btn-primary" id="writeBtn">게 시</button>
+					<button type="button" class="btn btn-primary" id='${mode=="new" ? "writeBtn" : "modifyBtn" }'>게 시</button>
 					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -120,6 +120,16 @@
 			
 			if(formCheck())
 				form.submit()					
+		})
+		$("#modifyBtn").on("click", function() {
+			let form = $("form");
+			let isReadonly = $("input[name=title]").attr('readonly');
+		
+			//2.수정 상태면 수정된 내용을 서버로 전송
+			form.attr("action", "<c:url value='/board/modify?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")
+			if(formCheck())
+				form.submit();				
 		})
 		
 		let formCheck = function() {

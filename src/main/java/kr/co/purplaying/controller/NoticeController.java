@@ -143,7 +143,6 @@ public class NoticeController {
   public String read(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
     
     try {
-      
           String user_id = (String)session.getAttribute("user_id");
           m.addAttribute(user_id);
           

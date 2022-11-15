@@ -122,9 +122,6 @@ pageEncoding="UTF-8"%>
 			if(formCheck())
 				form.submit()					
 		})
-		$("#writeBtn").on("click", function() {
-			location.href ="<c:url value='/notice/write' />";	
-		})
 		
 		//modify
 		$("#modifyBtn").on("click", function() {
