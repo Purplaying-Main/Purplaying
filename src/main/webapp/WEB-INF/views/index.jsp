@@ -2,12 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+<%! int prdt_id = 1; %>
+
+ <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->
@@ -78,8 +80,9 @@
                 </div>
                                   <div class="card-body">
                   <p class="card-cate" onclick="location.href='genreliterature'">문학</p>
-                  <div class="link-div" onclick="location.href='<c:url value="/projectdetail"/>'">
-	                  <p class="card-text"><h5>테스트</h5></p>
+                  <div class="link-div" onclick="location.href='projectdetail'">                  
+	                  <p class="card-text">
+	                  	 <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
                      	<strong class="text-danger">현재 달성률 75%</strong>
@@ -102,7 +105,7 @@
                 </div>
                 <div class="card-body">
                   <p class="card-cate" onclick="location.href='genrepoemessay'">시/에세이</p>
-                  <div class="link-div" onclick="location.href='<c:url value="/projectdetail"/>'">
+                  <div class="link-div" onclick="location.href='projectdetail'">
 	                  <p class="card-text"><h5>1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">

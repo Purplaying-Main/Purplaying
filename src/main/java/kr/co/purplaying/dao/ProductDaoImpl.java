@@ -1,8 +1,5 @@
 package kr.co.purplaying.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,14 +13,15 @@ public class ProductDaoImpl implements ProductDao{
   private SqlSession session;
   private static String namespace = "kr.co.purplaying.dao.ProductMapper.";
   
-  
-  
   @Override
-  public List<ProductDto> product(Map map) throws Exception {
-    // TODO Auto-generated method stub
-    return session.selectList(namespace+"product", map);
+  public ProductDto projectDetail(int prdt_id) throws Exception { 
+    return session.selectOne(namespace+"projectDetail",prdt_id);
     
   }
+  
+ 
+  
+  
   
 
   

@@ -1,14 +1,9 @@
-package kr.co.purplaying.dao;
+package kr.co.purplaying.service;
 
 import kr.co.purplaying.domain.ProductDto;
 
-public interface ProductDao {
-
+public interface ProductService {
+	
   ProductDto projectDetail(int prdt_id) throws Exception;
-  
-  
 
-  
-  
-  
 }

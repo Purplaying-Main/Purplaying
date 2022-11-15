@@ -7,6 +7,10 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
+  	<link rel="stylesheet" href="resources/assets/css/heart.css">
+	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
+	<script src="resources/assets/js/heart.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
   <style>
   .fa-heart{
   border-radius: 0.375rem; 
@@ -18,13 +22,18 @@
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
+   
+  
+			
    <!--페이지 내용 시작-->
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
-          <div class="py-3 text-center">
+      	<form id="form" class="frm" action="" method="post">
+      		<input type="hidden" name="prdt_id" value="${productDto.prdt_id}"><br>
+      	  <div class="py-3 text-center">
             <h4><a href="genreliterature">문학</a></h4>
-            <h1>진행중인 펀딩명</h1>
+            <h1>${productDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
@@ -185,16 +194,17 @@
                 <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
                   <dl class="row">
                     <dt class="col-sm-3"><strong class="text-muted">목표금액</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">3,000,000원</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">${productDto.prdt_goal}원</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">2022.11.04 ~ 2022.01.11</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">${productDto.prdt_opendate} ~ ${productDto.prdt_enddate}</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 2022.01.12에 결제 진행</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 ${productDto.prdt_opendate +1}에 결제 진행</h6></dd>
                   </dl>
                   	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->
 		              <h4 class="mt-2">프로젝트 소개</h4>
 		              <div class="mt-2" id="projectDetailimg">
+		              		${productDto.prdt_desc_detail}
 		                  <img src="resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
@@ -385,8 +395,10 @@
                 </div>
               </div>
             </div><!-- 탭 컨텐츠 end -->
-          </div><!-- 상세페이지 하단 종료 --> 
-        </div>
+            </form>
+          </div><!-- 상세페이지 하단 종료 -->
+      	</div>
+       
     </section>
    <!--페이지 내용 종료-->
    
