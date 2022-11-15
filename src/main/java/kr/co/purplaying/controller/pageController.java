@@ -104,13 +104,13 @@
 //    public String leave() {
 //        return "leave";
 //    }
-//    
-//    //setting.jsp호출
-//    @RequestMapping(value="/setting", method=RequestMethod.GET)
-//    public String setting() {
-//        return "setting";
-//    }
-//    
+    
+//      //setting.jsp호출
+//      @RequestMapping(value="/setting", method=RequestMethod.GET)
+//      public String setting() {
+//          return "setting";
+//      }
+////    
 //    //signIn.jsp호출
 //    @RequestMapping(value="/user", method=RequestMethod.GET)
 //    public String login() {
@@ -239,7 +239,3 @@
 //
 //
 //}
-//    
-//    
-//    /////////////////////////////////////////////////////////////////////////////////////////
-//

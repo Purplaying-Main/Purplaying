@@ -14,8 +14,6 @@ public class UserDto {
   private int user_active;
   private int user_role;
   
-  
-  
   public int getUser_no() {
     return user_no;
   }

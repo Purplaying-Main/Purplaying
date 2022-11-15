@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.purplaying.dao.LeaveDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.UserDto;
 
@@ -22,12 +23,41 @@ public class MemberController {
 
     @Autowired
     UserDao userDao;
+    
+    @Autowired(required=true)
+    LeaveDao leaveDao;
   
+    //GetMapping////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/login")
     public String loginForm() {
         return "signIn";
     }
+    @GetMapping("mypage")
+    public String MyPage() {
+      return "mypage";
+    }
     
+    @GetMapping("leave")
+    public String Leave() {
+      return "leave";
+    }
+    @GetMapping("setting")
+    public String Setting() {
+      return "setting";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+    
+    @GetMapping("signup")
+    public String SignUp() {
+      return "signup";
+    }
+    
+    //PostMapping////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/login")
     public String login(String user_id, String user_pwd, boolean rememberId,String toURL ,HttpServletRequest request, HttpServletResponse response) throws Exception {
                 
@@ -63,42 +93,7 @@ public class MemberController {
         
         
     }
-    
-    public static void makeCookie(HttpServletResponse response, String user_id) {
-        Cookie cookieid = new Cookie("user_id", user_id); 
-        response.addCookie(cookieid);       
-    }
-    public static void deleteCookie(HttpServletResponse response, String user_id) {
-        Cookie cookieid = new Cookie("user_id", user_id); 
-        cookieid.setMaxAge(0);
-        response.addCookie(cookieid);   
-    }
-    
-  
-    private boolean loginCheck(String user_id, String user_pwd) throws Exception {
-      // TODO Auto-generated method stub
-      UserDto userDto = userDao.selectUser(user_id);
-      if(userDto==null) {
-          System.out.println("userDto==null");
-          return false;
-      }
-      
-      return userDto.getUser_pwd().equals(user_pwd);
-  }
-    
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
-    //
-    
-    
-    @GetMapping("signup")
-    public String SignUp() {
-      return "signup";
-    }
-    
+
     @PostMapping("/signup")
     public String signup(String user_id, String user_pwd, String user_name, String user_phone,boolean agree1,boolean agree2,boolean agree3,boolean agree4, boolean agree5 ,HttpServletRequest request) throws Exception {
 
@@ -115,9 +110,49 @@ public class MemberController {
       return "redirect:/";
     }
     
-    @GetMapping("leave")
-    public String Leave() {
-      return "leave";
+    @PostMapping("/leave")
+    public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request) throws Exception {
+      
+      HttpSession session = request.getSession();
+      UserDto user = userDao.selectUser((String)session.getAttribute("user_id"));
+      System.out.println(user);
+      
+      System.out.println(user.getUser_no());
+      System.out.println(leave_category);
+      System.out.println(leave_reason);
+      
+      if(leaveDao.insertLeaveReason(user.getUser_no(), leave_category, leave_reason)!=1) {
+        System.out.println("성공");
+      }
+      if(user.getUser_pwd().equals(user_pwd)) {
+        if(userDao.updateUserActivate(user.getUser_no())!=1) {
+          System.out.println("탈퇴성공");
+        }
+      }
+      return "redirect:/ 263";
+    }
+    
+ 
+    //일반 메서드////////////////////////////////////////////////////////////////////////////////////
+    public static void makeCookie(HttpServletResponse response, String user_id) {
+      Cookie cookieid = new Cookie("user_id", user_id); 
+      response.addCookie(cookieid);       
+    }
+    public static void deleteCookie(HttpServletResponse response, String user_id) {
+        Cookie cookieid = new Cookie("user_id", user_id); 
+        cookieid.setMaxAge(0);
+        response.addCookie(cookieid);   
     }
   
+    private boolean loginCheck(String user_id, String user_pwd) throws Exception {
+      // TODO Auto-generated method stub
+      UserDto userDto = userDao.selectUser(user_id);
+      if(userDto==null) {
+          System.out.println("userDto==null");
+          return false;
+      }
+    
+      return userDto.getUser_pwd().equals(user_pwd);
+    }
+    //////////////////////////////////////////////////////////////////////////////////////
 }

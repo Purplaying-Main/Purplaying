@@ -74,6 +74,11 @@ public class UserDaoImpl implements UserDao {
     public UserDto searchUser_no(String user_id) throws Exception {
       return session.selectOne(namespace+"selectUser_NO",user_id);
     }
+
+    @Override
+    public int updateUserActivate(int user_no) {
+      return session.update(namespace+"updateUserActivation",user_no);
+    }
   	
 }
 
