@@ -47,18 +47,18 @@
           <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
           											장르별</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/purplaying/genre/literature">문학</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genre/poemessay">시/에세이</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genre/webtoon">웹툰</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/literature">문학</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/poemessay">시/에세이</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/webtoon">웹툰</a></li>
             </ul>
           </div>
-          <div><a href="/purplaying/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
-          <div><a href="/purplaying/newFunding" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
-          <div><a href="/purplaying/comingsoonFunding" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
+          <div><a href="${pageContext.request.contextPath}/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
+          <div><a href="${pageContext.request.contextPath}/newFunding" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
+          <div><a href="${pageContext.request.contextPath}/comingsoonFunding" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="searchResult">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="${pageContext.request.contextPath}/searchResult">
           <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
         </form>
 

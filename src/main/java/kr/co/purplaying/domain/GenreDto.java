@@ -2,7 +2,6 @@ package kr.co.purplaying.domain;
 
 import java.util.Date;
 import java.util.Objects;
-
 import org.springframework.web.util.UriComponentsBuilder;
 
 public class GenreDto {
@@ -15,7 +14,7 @@ public class GenreDto {
   private int prdt_currenttotal;
   private int prdt_percent;
   private int prdt_dday;
-  private Sort sort;
+  private Order order;
   
   public GenreDto() {
     // TODO Auto-generated constructor stub
@@ -126,13 +125,13 @@ public class GenreDto {
   }
 
 
-  public Sort getSort() {
-    return sort;
+  public Order getOrder() {
+    return order;
   }
 
 
-  public void setSort(Sort sort) {
-    this.sort = sort;
+  public void setOrder(Order order) {
+    this.order = order;
   }
 
   

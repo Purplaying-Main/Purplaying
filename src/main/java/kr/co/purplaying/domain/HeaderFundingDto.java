@@ -3,7 +3,7 @@ package kr.co.purplaying.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class PopularFundingDto {
+public class HeaderFundingDto {
   private int prdt_id;
   private int prdt_genre;
   private String prdt_name;
@@ -14,13 +14,14 @@ public class PopularFundingDto {
   private int prdt_rank;
   private int prdt_percent;
   private int prdt_dday;
+  private int prdt_comingday;
   
-  public PopularFundingDto() {
+  public HeaderFundingDto() {
     // TODO Auto-generated constructor stub
   }
 
-  public PopularFundingDto(int prdt_id, int prdt_genre, String prdt_name) {
-    //super();
+  public HeaderFundingDto(int prdt_id, int prdt_genre, String prdt_name) {
+    super();
     this.prdt_id = prdt_id;
     this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;
@@ -39,7 +40,7 @@ public class PopularFundingDto {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    PopularFundingDto other = (PopularFundingDto) obj;
+    HeaderFundingDto other = (HeaderFundingDto) obj;
     return prdt_genre == other.prdt_genre && prdt_id == other.prdt_id && Objects.equals(prdt_name, other.prdt_name);
   }
 
@@ -125,9 +126,19 @@ public class PopularFundingDto {
 
   @Override
   public String toString() {
-    return "PopularFundingDto [prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_currenttotal="
-        + prdt_currenttotal + ", prdt_percent=" + prdt_percent + ", prdt_dday=" + prdt_dday + "]";
+    return "HeaderFundingDto [prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_percent=" + prdt_percent
+        + ", prdt_dday=" + prdt_dday + "]";
   }
+
+  public int getPrdt_comingday() {
+    return prdt_comingday;
+  }
+
+  public void setPrdt_comingday(int prdt_comingday) {
+    this.prdt_comingday = prdt_comingday;
+  }
+
+
   
   
 }

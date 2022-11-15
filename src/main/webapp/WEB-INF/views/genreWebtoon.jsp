@@ -25,13 +25,13 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album">
       	<div class="container d-flex justify-content-between">
-          <h2 class="ms-2">📘<b>웹툰</b></h2>
-	       <div class="dropdown">
+          <h3 class="ms-2">📘<b>웹툰</b></h3>
+	       <div class="dropdown dropdown-menu-end">
 	        <form action='<c:url value="/genre/webtoon"/>' method="get">
 	          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >정렬</button>
-	          <ul class="dropdown-menu">
-	            <li><button class="dropdown-item" name="sort" value="popular" >인기순</button></li>
-	            <li><button class="dropdown-item" name="sort" value="new">최신순</button></li>
+	          <ul class="dropdown-menu me-1">
+	            <li><button class="dropdown-item" name="order" value="popular" >인기순</button></li>
+	            <li><button class="dropdown-item" name="order" value="new">최신순</button></li>
 	          </ul>	        
 	        </form>
 	       </div>

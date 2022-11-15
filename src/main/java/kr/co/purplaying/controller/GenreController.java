@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.GenreDao;
 import kr.co.purplaying.domain.GenreDto;
-import kr.co.purplaying.domain.Sort;
+import kr.co.purplaying.domain.Order;
 @Controller
 @RequestMapping("/genre")
 public class GenreController {
@@ -22,11 +22,11 @@ public class GenreController {
   
   @RequestMapping("/literature")
   @GetMapping("/literature")
-  public String getLiterature(Sort sort, Model m) {
+  public String getLiterature(Order order, Model m) {
     try {
-      List<GenreDto> list_gl = genreDao.genreLiteratureSort(sort);
+      List<GenreDto> list_gl = genreDao.genreLiterature(order);
       m.addAttribute("list_gl",list_gl);
-      m.addAttribute("sort",sort);
+      m.addAttribute("order",order);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -36,11 +36,11 @@ public class GenreController {
   
   @RequestMapping("/poemessay")
   @GetMapping("/poemessay")
-  public String getPoemEssay (GenreDto genreDto, Model m) {
+  public String getPoemEssay (Order order, Model m) {
     try {
-      Map map = new HashMap();
-      List<GenreDto> list_gpe = genreDao.genrePoemEssay(map);
+      List<GenreDto> list_gpe = genreDao.genrePoemEssay(order);
       m.addAttribute("list_gpe",list_gpe);
+      m.addAttribute("order",order);
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -50,11 +50,11 @@ public class GenreController {
   
   @RequestMapping("/webtoon")
   @GetMapping("/webtoon")
-  public String genrWebtoon (GenreDto genreDto, Model m) {
+  public String genrWebtoon (Order order, Model m) {
     try {
-      Map map = new HashMap();
-      List<GenreDto> list_gw = genreDao.genreWebtoon(map);
+      List<GenreDto> list_gw = genreDao.genreWebtoon(order);
       m.addAttribute("list_gw",list_gw);
+      m.addAttribute("order",order);
       
     } catch (Exception e) {
       e.printStackTrace();

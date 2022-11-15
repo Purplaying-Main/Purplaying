@@ -25,9 +25,9 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album">
         <div class="container py-4"><!-- genre div start -->
-          <h4>Comingsoon ! 펀딩예정💖</h4>
+          <h3>Comingsoon ! 펀딩예정💖</h3>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          	<c:forEach var="comingsoonFundingDto" items="${list_c }">
+          	<c:forEach var="headerFundingDto" items="${list_c }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -38,15 +38,15 @@
                 <div class="card-body">
 	                  <div class="d-flex justify-content-between">
                   	<c:choose>
-                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${comingsoonFundingDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:when test="${headerFundingDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${headerFundingDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${headerFundingDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
-                    	<small class="text-danger">공개까지 <b>D-${comingsoonFundingDto.prdt_comingday}</b></small>
+                    	<small class="text-danger">공개까지 <b>D-${headerFundingDto.prdt_comingday}</b></small>
                   	  </div>
                   	  <div class="link-div" onclick="location.href='projectdetail'">
-	                  	<p class="card-text"><h5>${comingsoonFundingDto.prdt_name }</h5></p>
+	                  	<p class="card-text"><h5>${headerFundingDto.prdt_name }</h5></p>
                    	  </div>
                 </div>
               </div>
