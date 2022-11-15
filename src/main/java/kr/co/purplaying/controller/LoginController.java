@@ -67,7 +67,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         // 세션 객체에 id를 저장
         session.setAttribute("id", id);
-        
+        System.out.println(session.getAttribute("id"));
         //4.뷰이동
         toURL = toURL == null || toURL.equals("") ? "/" : toURL; 
         
