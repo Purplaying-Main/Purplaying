@@ -30,12 +30,13 @@ public class ProjectDto {
 // 
 //  }
   public ProjectDto(){
-    this("", "", "", "", null, null, 0, false, "", 0, "");
+    this(1, "", "", "", "", null, null, 0, false, "", 0, "");
   }
 
-  public ProjectDto(String writer, String prdt_title, String prdt_desc, String prdt_desc_detail, Date prdt_opendate,
+  public ProjectDto(int product_id, String writer, String prdt_title, String prdt_desc, String prdt_desc_detail, Date prdt_opendate,
       Date prdt_enddate, int prdt_goal, boolean prdt_open, String prdt_desc_policy, int prdt_cate, String  prdt_thumbnail) {
 //    super();
+    this.product_id = product_id;
     this.writer = writer;
     this.prdt_title = prdt_title;
     this.prdt_desc = prdt_desc;

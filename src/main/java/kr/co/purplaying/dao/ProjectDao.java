@@ -4,5 +4,10 @@ import kr.co.purplaying.domain.ProjectDto;
 
 public interface ProjectDao {
   
-  int insert(ProjectDto projectDto);
+  ProjectDto select(Integer product_id) throws Exception;
+
+  int insert(ProjectDto projectDto) throws Exception;
+  int update(ProjectDto projectDto) throws Exception;
+
+  
 }

@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="loginId" value="${sessionScope.id }" />
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +25,9 @@
         <h2 class="col-auto mb-5">프로젝트 기획 시작하기</h2>
       </div>
       <div class="tab-content px-5 row justify-content-center" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
-          <form class="row col-8 mb-4 text-center" id="form" action="/projectregister/update" method="post">   
-<%--           	  <input type="hidden" name="product_id" value="${projectDto.product_id }"> --%> 
-          	  <input type="hidden" name="writer" value="${projectDto.writer }"> 
+          <form class="row col-8 mb-4 text-center" id="form" action="" method="">   
+<%--               <input type="hidden" name="product_id" value="${projectDto.product_id }"> 
+ --%>         	  <input type="hidden" name="writer" value="${sessionScope.user_id}"> 
           	      
               <h5>프로젝트 시작하기 전 읽어주세요.</h5>
               <ul class="bg-light rounded p-3 text-muted text-small">
@@ -45,7 +48,7 @@
               
               <small class="card-subtitle mb-2 text-muted">
               	writer : ${projectDto.writer} | user_id : ${sessionScope.user_id}<br>
-<%--               	product_id : ${projectDto.product_id }<br> --%>
+              	product_id : ${projectDto.product_id }<br> 
               	prdt_cate : ${projectDto.prdt_cate }<br>
               	prdt_regdate : ${projectDto.prdt_regdate }<br>
               	prdt_open : ${projectDto.prdt_open }<br>
@@ -72,7 +75,7 @@
 			let form = $("#form");
 			form.attr("action", "<c:url value='/projectregister/write' />")
 			form.attr("method", "post")
-			form.submit()					
+			form.submit()
 		})
   </script>
 </body>

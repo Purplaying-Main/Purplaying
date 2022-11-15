@@ -4,6 +4,16 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
+	<sql id="selectFromBoard"> <!--tb 내용 전체 select 추출-->
+		SELECT product_id, writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail
+		FROM tb_product
+	</sql>
+	
+	<select id="select" parameterType="int" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
+		<include refid="selectFromBoard"/>
+		WHERE product_id = #{product_id}
+	</select>
+	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
 			(writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail)

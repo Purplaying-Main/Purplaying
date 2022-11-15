@@ -20,6 +20,22 @@
       <!--컨텐츠 영역-->
       <div class="row justify-content-md-center">
         <h2 class="col-auto mb-5">프로젝트 기획</h2>
+         <small class="card-subtitle mb-2 text-muted">
+              	writer : ${projectDto.writer} | user_id : ${sessionScope.user_id}<br>
+              	product_id : ${projectDto.product_id }<br> 
+              	prdt_cate : ${projectDto.prdt_cate }<br>
+              	prdt_regdate : ${projectDto.prdt_regdate }<br>
+              	prdt_open : ${projectDto.prdt_open }<br>
+              	prdt_title : ${projectDto.prdt_title }<br>
+              	prdt_thumbnail : ${projectDto.prdt_thumbnail }<br>
+              	prdt_desc : ${projectDto.prdt_desc }<br>
+              	prdt_goal : ${projectDto.prdt_goal }<br>
+              	prdt_currenttotal : ${projectDto.prdt_currenttotal }<br>
+              	prdt_opendate : ${projectDto.prdt_opendate }<br>
+              	prdt_enddate : ${projectDto.prdt_enddate }<br>
+              	prdt_desc_detail : ${projectDto.prdt_desc_detail }<br>
+              	prdt_desc_policy : ${projectDto.prdt_desc_policy }<br>
+              </small>
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
         <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist">
@@ -33,15 +49,15 @@
       </div>
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
         <!-- tab 1 contents -->
-        <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
+        <form class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
           <div class="row pb-3 border-bottom mt-4">
             <div class="col-6">
               <h5>프로젝트 카테고리</h5>
               <p>프로젝트 성격과 가장 일치하는 카테고리를 선택해주세요. 적합하지 않을 경우 운영자에 의해 조정될 수 있습니다.</p>
             </div>
             <div class="col-6 px-3">
-              <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;">
-                <option value="selected">장르를 선택해주세요</option>
+              <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;" id="prdt_cate" name="prdt_cate" value="${projectDto.prdt_cate}">
+                <option value="0" selected>장르를 선택해주세요</option>
                 <option value="1">문학</option>
                 <option value="2">시/에세이</option>
                 <option value="3">웹툰</option>
@@ -54,7 +70,7 @@
               <p>프로젝트의 주제, 책의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" placeholder="제목을 입력하세요." rows="1" style="resize: none;"></textarea>
+              <textarea class="form-control" placeholder="${projectDto.prdt_title}" rows="1" style="resize: none;"  name="prdt_title">${projectDto.prdt_title}</textarea>
               <span class="text-danger text-small">0/20</span>
             </div>
           </div>
@@ -76,15 +92,15 @@
               <p>후원자 분들이 프로젝트를 빠르게 이해할 수 있도록 명확하고 간략하게 소개해주세요</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
+              <textarea class="form-control" placeholder="${projectDto.prdt_desc}​" rows="5" style="resize: none;" name="prdt_desc"> ${projectDto.prdt_desc}</textarea>
               <span class="text-danger text-small">0/50</span>
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-            <button class="btn btn-primary me-md-2" type="button">저장하기</button>
+            <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
           </div>
-        </div>
+        </form>
 
         <!-- tab 2 contents -->
         <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
@@ -430,10 +446,41 @@
 				  lang: "ko-KR",					// 한글 설정
 				  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 		          
-			});
-		});
+			})
+		})
 	</script>
- <!--푸터 인클루드-->
+	<script type="text/javascript">
+		$("#modifyBtn").on("click", function() {
+			let form = $(".tab-pane");
+		
+			//2.수정 상태면 수정된 내용을 서버로 전송
+			form.attr("action", "<c:url value='/projectregister/modify' />")
+			form.attr("method", "post")
+/* 			if(formCheck()) */
+				form.submit();				
+		})
+		
+		let formCheck = function() {
+			let form = document.getElementById("form")
+			if(form.notice_title.value=="") {
+				alert("제목을 입력해 주세요.")
+				form.title.focus()
+				return false
+			}
+			if(form.notice_context.value=="") {
+				alert("내용을 입력해 주세요.")
+				form.notice_context.focus()
+				return false
+			}
+			if(form.notice_category.value == 0) {
+				alert("카테고리를 선택해주세요")
+				form.notice_category.focus()
+				return false
+			}	
+			return true;
+		}
+	</script>
+	<!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
 </html>

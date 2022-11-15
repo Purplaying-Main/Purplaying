@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +20,50 @@ public class ProjectController {
   
   @Autowired
   ProjectService projectService;
+
+  @PostMapping("/modify")
+  public String modify(ProjectDto projectDto,  
+                      RedirectAttributes rattr, Model m, HttpSession session) {
+      String writer = (String) session.getAttribute("user_id");
+      projectDto.setWriter(writer);
+      
+      try {
+          if(projectService.modify(projectDto) != 1)
+              throw new Exception("Modify failed");
+          
+          rattr.addFlashAttribute("msg", "MOD_OK");
+          return "redirect:/projectregister/modify";
+      } catch(Exception e) {
+          e.printStackTrace();
+          m.addAttribute(projectDto);
+          m.addAttribute("msg", "MOD_ERR");
+          return "projectRegisterPage";         // 수정등록하려던 내용을 보여줌
+      }
+      
+  }
+  
+  @GetMapping("/modify")
+  public String modify(Integer product_id, Model m, HttpSession session) {
+    //read와 동일. notice_id를 불러와서 조회.
+    try {
+      
+          String user_id = (String)session.getAttribute("user_id");
+          m.addAttribute(user_id);
+          
+          ProjectDto projectDto = projectService.read(product_id);
+          m.addAttribute(projectDto);
+          
+          String writer = projectDto.getWriter();
+          m.addAttribute(writer);
+
+      } catch (Exception e) {
+          e.printStackTrace();
+//        예외발생 -> 목록으로 돌아가기
+          return "projectRegisterPage";
+      }
+    
+      return "projectRegisterPage";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+  }
   
   @PostMapping("/write")
   public String write(ProjectDto projectDto, RedirectAttributes rattr, Model m, HttpSession session) {
@@ -29,7 +74,7 @@ public class ProjectController {
           if(projectService.write(projectDto) != 1) 
           
           rattr.addFlashAttribute("msg", "WRT_OK");
-          return "redirect:/projectRegister";
+          return "redirect:/projectregister/modify";
       } catch (Exception e) {
           e.printStackTrace();
           m.addAttribute("mode", "new");                  //글쓰기 모드
@@ -38,6 +83,12 @@ public class ProjectController {
           return "projectRegisterIntro";
       }
       
+  }
+  @GetMapping("/write")
+  public String write(Model m) {
+      m.addAttribute("mode", "new");
+      
+      return "projectRegisterIntro";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
   }
   
   
