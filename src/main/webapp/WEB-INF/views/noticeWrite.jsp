@@ -27,7 +27,7 @@
 			</nav>
         	<h2 class="mx-auto text-center py-3">공지사항 ${mode=="new" ? "작성하기" : "수정하기" }</h2>
       	</div>
-		<form class="w-75 mx-auto" id="form" action="" method="post">
+		<form class="noticeform w-75 mx-auto" id="form" action="" method="post">
 			<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
 			<!-- 상단영역(제목,작성자,공개여부) -->
 			<table class="table project-table table-centered bg-light border-top border-2">
@@ -122,10 +122,10 @@
 				form.submit()					
 		})
 		$("#modifyBtn").on("click", function() {
-			let form = $("#form");
-		
+			let form = $(".noticeform");	
+	
 			//2.수정 상태면 수정된 내용을 서버로 전송
-			form.attr("action", "<c:url value='/board/modify?page=${page}&pageSize=${pageSize}' />")
+			form.attr("action", "<c:url value='/notice/modify?page=${page}&pageSize=${pageSize}' />")
 			form.attr("method", "post")
 			if(formCheck())
 				form.submit();				
