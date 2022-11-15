@@ -13,8 +13,32 @@
 	(prdt_enddate-prdt_opendate) as "prdt_dday"
 	from tb_product
 	where prdt_genre = 1 and <![CDATA[prdt_opendate <= current_date ]]>
-	limit 6
+	order by  prdt_id desc
+   	limit 6
 	</select>
+	
+	<select id="genreLiteratureSort" parameterType="Sort" resultType="genreDto" >
+	select 
+	prdt_genre,
+	prdt_name,
+	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+	prdt_currenttotal, 
+	(prdt_enddate-prdt_opendate) as "prdt_dday"
+	from tb_product
+	where prdt_genre = 1 and <![CDATA[prdt_opendate <= current_date ]]>
+ 	<choose>
+		<when test='sort == "popular"'>
+		order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id desc
+		</when>
+		<when test='sort == "new"'>
+		order by prdt_opendate desc, prdt_id desc
+		</when>
+		<otherwise>
+		order by  prdt_id desc
+		</otherwise>
+   	</choose>
+   	limit 6
+   	</select>
 	
 	<select id="genrePoemEssay" parameterType="map" resultType="genreDto" >
 	select 
@@ -25,6 +49,7 @@
 	(prdt_enddate-prdt_opendate) as "prdt_dday"
 	from tb_product
 	where prdt_genre = 2 and <![CDATA[prdt_opendate <= current_date ]]>
+	order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id desc
 	limit 6
 	</select>
 	
@@ -37,6 +62,7 @@
 	(prdt_enddate-prdt_opendate) as "prdt_dday"
 	from tb_product
 	where prdt_genre = 3 and <![CDATA[prdt_opendate <= current_date ]]>
+	order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id desc
 	limit 6
 	</select>
 </mapper>

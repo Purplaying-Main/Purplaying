@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.GenreDao;
 import kr.co.purplaying.domain.GenreDto;
-
+import kr.co.purplaying.domain.Sort;
 @Controller
 @RequestMapping("/genre")
 public class GenreController {
@@ -22,12 +22,12 @@ public class GenreController {
   
   @RequestMapping("/literature")
   @GetMapping("/literature")
-  public String getLiterature(GenreDto genreDto, Model m) {
+  public String getLiterature(Sort sort, Model m) {
     try {
-      Map map = new HashMap();
-      List<GenreDto> list_gl = genreDao.genreLiterature(map);
+      List<GenreDto> list_gl = genreDao.genreLiteratureSort(sort);
       m.addAttribute("list_gl",list_gl);
-      
+      m.addAttribute("sort",sort);
+
     } catch (Exception e) {
       e.printStackTrace();
     }

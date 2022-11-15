@@ -3,6 +3,8 @@ package kr.co.purplaying.domain;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class GenreDto {
   private int prdt_id;
   private int prdt_genre;
@@ -13,10 +15,12 @@ public class GenreDto {
   private int prdt_currenttotal;
   private int prdt_percent;
   private int prdt_dday;
+  private Sort sort;
   
   public GenreDto() {
     // TODO Auto-generated constructor stub
   }
+  
 
   public GenreDto(int prdt_id, int prdt_genre, String prdt_name) {
     super();
@@ -114,11 +118,24 @@ public class GenreDto {
     this.prdt_dday = prdt_dday;
   }
 
+
   @Override
   public String toString() {
     return "GenreDto [prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_currenttotal="
         + prdt_currenttotal + ", prdt_percent=" + prdt_percent + ", prdt_dday=" + prdt_dday + "]";
   }
 
+
+  public Sort getSort() {
+    return sort;
+  }
+
+
+  public void setSort(Sort sort) {
+    this.sort = sort;
+  }
+
+  
+  
   
 }

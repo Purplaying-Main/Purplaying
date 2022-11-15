@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.purplaying.domain.GenreDto;
+import kr.co.purplaying.domain.Sort;
 
 @Repository
 public class GenreImpl implements GenreDao {
@@ -30,7 +31,11 @@ public class GenreImpl implements GenreDao {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"genreWebtoon", map);
   }
-  
+  @Override
+  public List<GenreDto> genreLiteratureSort(Sort sort) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"genreLiteratureSort", sort);
+  }
   
 
 }

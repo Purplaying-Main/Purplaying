@@ -24,17 +24,19 @@
       <!--컨텐츠 영역-->
       <!-- 펀딩 프로젝트 -->
       <div class="album">
-        <div class="dropdown container">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            달성률
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">최신등록순</a></li>
-            <li><a class="dropdown-item" href="#">관심많은순</a></li>
-          </ul>
-        </div>
+      	<div class="container d-flex justify-content-between">
+          <h2 class="ms-2">📗<b>시/에세이</b></h2>
+	       <div class="dropdown">
+	        <form action='<c:url value="/genre/poemessay"/>' method="get">
+	          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >정렬</button>
+	          <ul class="dropdown-menu">
+	            <li><button class="dropdown-item" name="sort" value="popular" >인기순</button></li>
+	            <li><button class="dropdown-item" name="sort" value="new">최신순</button></li>
+	          </ul>	        
+	        </form>
+	       </div>
+      	</div>
         <div class="container py-4"><!-- genre div start -->
-          <h4>시/에세이</h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="genreDto" items="${list_gpe }">        
             <div class="col"><!-- project thumb start -->
@@ -60,7 +62,7 @@
                     	<small class="text-muted text-end">${genreDto.prdt_dday}일 남음</small>
                   	</div>
                   <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: ${genreDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${genreDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>

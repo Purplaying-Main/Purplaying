@@ -9,6 +9,7 @@
 		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="IndexDto" type="kr.co.purplaying.domain.IndexDto" />
 		<typeAlias alias="genreDto" type="kr.co.purplaying.domain.GenreDto" />
+		<typeAlias alias="Sort" type="kr.co.purplaying.domain.Sort" />
 		<typeAlias alias="newFundingDto" type="kr.co.purplaying.domain.NewFundingDto" />
 		<typeAlias alias="popularFundingDto" type="kr.co.purplaying.domain.PopularFundingDto" />
 		<typeAlias alias="comingsoonFundingDto" type="kr.co.purplaying.domain.ComingsoonFundingDto" />
