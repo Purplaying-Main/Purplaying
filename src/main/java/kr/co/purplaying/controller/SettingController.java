@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.domain.AddressDto;
 import kr.co.purplaying.domain.BoardDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
 
@@ -34,16 +36,23 @@ public class SettingController {
   public String list(Model m, HttpSession session) {
     
     String id = (String)session.getAttribute("user_id");
+    System.out.println(id);
     
-    UserDto userDto;
     try {
       
-      userDto = settingService.setUser(id);
-      System.out.println("진입");
-      System.out.println(userDto);
-    
+      UserDto userDto = settingService.setUser(id);
+      System.out.println(userDto.toString());
       m.addAttribute(userDto);
-      System.out.println(m);
+
+      Integer userNo = (Integer)userDto.getUser_no();
+      System.out.println("userno = " + userNo);
+      
+      AddressDto addressDto = settingService.chooseAddress(userNo);
+      m.addAttribute(addressDto);
+      
+      SettingDto settingDto = settingService.showSetting(userNo);
+      m.addAttribute(settingDto);
+      
       
     } catch (Exception e) {
       e.printStackTrace();

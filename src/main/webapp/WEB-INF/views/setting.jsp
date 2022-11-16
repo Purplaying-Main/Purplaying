@@ -297,9 +297,9 @@
                     </div>
                   </div>
                   <div class="px-3 pt-2">
-                    <h6>받는분 : 홍길동</h6>
-                    <h6>[06541] 서울특별시  서초구 강남대로 479 3층 </h6>
-                    <h6>010-0000-0000</h6>
+                    <h6>받는분 : ${addressDto.receiver_name }</h6>
+                    <h6>[${addressDto.address_num }] ${addressDto.address } ${addressDto.address_detail } </h6>
+                    <h6>${addressDto.receiver_phonenum }</h6>
                   </div>
                 </div>
               <!-- card end -->
