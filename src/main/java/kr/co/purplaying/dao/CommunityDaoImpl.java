@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.co.purplaying.domain.BoardDto;
 import kr.co.purplaying.domain.CommunityDto;
 
 @Repository
@@ -18,27 +17,9 @@ public class CommunityDaoImpl implements CommunityDao {
     private static String namespace = "kr.co.purplaying.dao.CommunityMapper.";
 
       @Override
-      public CommunityDto select(int user_no) throws Exception {
+      public List<CommunityDto> selectAll(Integer prdt_id) throws Exception {
         // TODO Auto-generated method stub
-        return null;
-        }
-
-      @Override
-      public List<CommunityDto> selectPage(Map map) throws Exception {
-        // TODO Auto-generated method stub
-        return session.selectList(namespace+"selectPage", map);
-      }
-
-      @Override
-      public int insert(CommunityDto dto) throws Exception {
-        // TODO Auto-generated method stub
-        return session.insert(namespace+"insert", dto);
-      }
-
-      @Override
-      public int update(CommunityDto communityDto) throws Exception {
-        // TODO Auto-generated method stub
-        return session.update(namespace+"update", communityDto);
+        return session.selectList(namespace+"selectAll", prdt_id);
       }
 
 }

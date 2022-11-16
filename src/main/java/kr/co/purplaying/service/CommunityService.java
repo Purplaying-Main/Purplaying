@@ -8,6 +8,5 @@ import kr.co.purplaying.domain.CommunityDto;
 
 public interface CommunityService {
 
-  List<CommunityDto> getPage(Map map) throws Exception;
-  int write(CommunityDto communityDto) throws Exception;
+  List<CommunityDto> getList(Integer prdt_id) throws Exception;
 }

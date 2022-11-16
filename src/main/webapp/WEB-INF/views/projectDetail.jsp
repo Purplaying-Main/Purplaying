@@ -16,37 +16,26 @@
 
 <body>
 	<script type="text/javascript">
-	$(document).ready(function() {            /* main() */
-        
-        $("#creationBtn").on("click", function() {
-
-            let form = $("#form");
-            form.attr("action","<c:url value='/projectdetail/write' />");
-            form.attr("method","post");
-
-            if(formCheck()) {
-                form.submit();
-            }
-        })
-
-        let formCheck = function() {
-            let form = document.getElementById("form")
-            if(form.content.value=="") {
-                alert("내용을 입력해 주세요.")
-                form.content.focus()
-                return false
-            }
-                return true;
-    	}
-       
-    })
-	</script>
+	let chat_prdt_no = 1
 	
-	<script type="text/javascript">
-		let msg = "${msg}"
-		if(msg == "RPL_OK") alert("게시물 등록에 실패하였습니다. 다시 시도해주세요.")
-		if(msg == "RPL_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해주세요.")
-	</script>
+	let showList = function(chat_prdt_no) {
+		$.ajax({
+			type : 'GET',		//요청 메서드
+			url : '/heart/communitys?chat_prdt_no='+chat_prdt_no,		// 요청 URI
+			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
+				$("#communityList").html(result)		// result는 서버가 전송한 데이터
+			},
+			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수
+		})
+	}
+	
+	$(document).ready(function() {
+		$("v-pills-tab03").click(function() {
+			showList(chat_prdt_no)
+		})
+	})
+</script>
+	
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
@@ -318,10 +307,10 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > </p>
+                    <p> 작성자 닉네임 > ${communityDto.chat_writer }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
-                        <textarea id="form" class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${boardDto.content }</textarea>
+                        <textarea id="form" class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${communityDto.content }</textarea>
                       </div>
                       <div class=" col-2 text-start">
                        	 <button type="button" id="creationBtn" class="btn btn-primary">작 성</button>
@@ -331,16 +320,16 @@
                   </div>
 					
                   <!--댓글 시작-->
-                  <div class="row text-start">
+                  <div class="row text-start"> 	
                     <div class="col-1">
                       <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                     </div>
                     <div class="col-11">
                       <div class="border-bottom">
-                        <h6 class="my-0">후원자 아이디 ></h6>
-                        <p class="my-0 text-small">작성일 > <fmt:formatDate value="${boardDto.reg_date }" pattern="yyyy-MM-dd" type="date" /></p>
+                      	<h6 class="my-0">후원자 아이디 > ${communityDto.chat_writer }</h6>
+                        <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                       </div>
-                      <p class="mb-5" >내용 ></p>
+                      <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                       <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
@@ -348,10 +337,10 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 ></h6>
-                            <p class="my-0 text-small">작성일 ></p>
+                            <h6 class="my-0">창작자 닉네임 > ${communityDto.chat_writer }</h6>
+                            <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                           </div>
-                          <p class="mb-5" >내용 ></p>
+                          <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                         </div>
                       </div>
                       <!--답글 종료-->

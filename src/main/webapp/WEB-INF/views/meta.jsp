@@ -22,5 +22,6 @@
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
   
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   
   <title>Purplaying</title>

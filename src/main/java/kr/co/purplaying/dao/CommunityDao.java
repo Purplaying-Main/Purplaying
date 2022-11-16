@@ -8,11 +8,5 @@ import kr.co.purplaying.domain.CommunityDto;
 
 public interface CommunityDao {
 
-  CommunityDto select(int user_no) throws Exception;
-
-  List<CommunityDto> selectPage(Map map) throws Exception;
-
-  int insert(CommunityDto communityDto) throws Exception;
-  
-  int update(CommunityDto communityDto) throws Exception;
+  List<CommunityDto> selectAll(Integer prdt_id) throws Exception;
 }

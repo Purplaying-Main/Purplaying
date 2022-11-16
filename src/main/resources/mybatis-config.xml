@@ -5,7 +5,8 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="BoardDto"
-			type="kr.co.purplaying.domain.BoardDto" />
+		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
+		<typeAlias alias="CommunityDto" type="kr.co.purplaying.domain.CommunityDto" />
+		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
 	</typeAliases>
 </configuration>
