@@ -106,8 +106,8 @@
               <li class="row d-flex border rounded p-3 m-1">
                 <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
-                  <h5 class="row text-primary mt-2">${userDto.name}</h5>
-                  <h6 class="row text-muted">창작자 이메일</h6>
+                  <h5 class="row text-primary mt-2">${productDto.user_name}</h5>
+                  <h6 class="row text-muted">${productDto.user_id}</h6>
                   <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
@@ -337,7 +337,7 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 ></h6>
+                            <h6 class="my-0">${productDto.user_name} ></h6>
                             <p class="my-0 text-small">작성일 ></p>
                           </div>
                           <p class="mb-5">내용 ></p>

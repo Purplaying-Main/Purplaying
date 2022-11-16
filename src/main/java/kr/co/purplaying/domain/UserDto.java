@@ -4,134 +4,120 @@ import java.util.Date;
 import java.util.Objects;
 
 public class UserDto {
+    private int user_no;
 	private String user_id;
-	private String pwd;
-	private String name;
-	private String email;
-	private Date birth;
-	private String sns;
-	private Date reg_date;
-	
+	private String user_pwd;
+	private String user_name;
+	private String user_phone;
+	private Date user_regdate;
+	private int user_activate;
+	private int user_role;
 	
 	public UserDto() {
 		// TODO Auto-generated constructor stub
 	}
 
+	public UserDto(int user_no, String user_id, String user_pwd, String user_name, String user_phone, Date reg_date,
+      int user_activate, int user_role) {
+    //super();
+    this.user_no = user_no;
+    this.user_id = user_id;
+    this.user_pwd = user_pwd;
+    this.user_name = user_name;
+    this.user_phone = user_phone;
+    this.user_regdate = reg_date;
+    this.user_activate = user_activate;
+    this.user_role = user_role;
+  }
 
-	public UserDto(String user_id, String pwd, String name, String email, Date birth, String sns, Date reg_date) {
-		//super();
-		this.user_id = user_id;
-		this.pwd = pwd;
-		this.name = name;
-		this.email = email;
-		this.birth = birth;
-		this.sns = sns;
-		this.reg_date = reg_date;
-	}
+  @Override
+  public int hashCode() {
+    return Objects.hash(user_id, user_no, user_pwd);
+  }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    UserDto other = (UserDto) obj;
+    return Objects.equals(user_id, other.user_id) && user_no == other.user_no
+        && Objects.equals(user_pwd, other.user_pwd);
+  }
 
-	
+  public int getUser_no() {
+    return user_no;
+  }
 
+  public void setUser_no(int user_no) {
+    this.user_no = user_no;
+  }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(birth, email, user_id, name, pwd, reg_date, sns);
-	}
+  public String getUser_id() {
+    return user_id;
+  }
 
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserDto other = (UserDto) obj;
-		return Objects.equals(birth, other.birth) && Objects.equals(email, other.email) && Objects.equals(user_id, other.user_id)
-				&& Objects.equals(name, other.name) && Objects.equals(pwd, other.pwd)
-				&& Objects.equals(reg_date, other.reg_date) && Objects.equals(sns, other.sns);
-	}
+  public String getUser_pwd() {
+    return user_pwd;
+  }
 
+  public void setUser_pwd(String user_pwd) {
+    this.user_pwd = user_pwd;
+  }
 
-	public String getUser_Id() {
-		return user_id;
-	}
+  public String getUser_name() {
+    return user_name;
+  }
 
+  public void setUser_name(String user_name) {
+    this.user_name = user_name;
+  }
 
-	public void setUser_Id(String User_id) {
-		this.user_id = user_id;
-	}
+  public String getUser_phone() {
+    return user_phone;
+  }
 
+  public void setUser_phone(String user_phone) {
+    this.user_phone = user_phone;
+  }
 
-	public String getPwd() {
-		return pwd;
-	}
+  public Date getReg_date() {
+    return user_regdate;
+  }
 
+  public void setReg_date(Date reg_date) {
+    this.user_regdate = reg_date;
+  }
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
+  public int getUser_activate() {
+    return user_activate;
+  }
 
+  public void setUser_activate(int user_activate) {
+    this.user_activate = user_activate;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public int getUser_role() {
+    return user_role;
+  }
 
+  public void setUser_role(int user_role) {
+    this.user_role = user_role;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  @Override
+  public String toString() {
+    return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
+        + user_name + ", user_phone=" + user_phone + ", reg_date=" + user_regdate + ", user_activate=" + user_activate
+        + ", user_role=" + user_role + "]";
+  }
 
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	public Date getBirth() {
-		return birth;
-	}
-
-
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
-
-
-	public String getSns() {
-		return sns;
-	}
-
-
-	public void setSns(String sns) {
-		this.sns = sns;
-	}
-
-
-	public Date getReg_date() {
-		return reg_date;
-	}
-
-
-	public void setReg_date(Date reg_date) {
-		this.reg_date = reg_date;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [user=" + user_id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", birth=" + birth + ", sns="
-				+ sns + ", reg_date=" + reg_date + "]";
-	}
-
-
-
-	
 	
 }

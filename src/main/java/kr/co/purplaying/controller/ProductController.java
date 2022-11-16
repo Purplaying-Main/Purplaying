@@ -15,8 +15,8 @@ public class ProductController {
 	@Autowired
 	ProductDao productDao;
 	
-	@RequestMapping("/projectDetailPage")
-	@GetMapping("/projectDetailPage")
+	@RequestMapping("/projectDetail")
+	@GetMapping("/projectDetail")
 	public String getDetail(int prdt_id, Model m) {
 
       try {
@@ -28,7 +28,7 @@ public class ProductController {
       } catch (Exception e) {
           e.printStackTrace();
       }
-      return "/projectDetailPage";
+      return "/projectDetail";
       
 	}
 }

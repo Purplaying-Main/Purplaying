@@ -74,11 +74,11 @@ public class LoginController {
         return "redirect:" + toURL;
     }
 
-    private boolean loginCheck(String id, String pwd) {
+    private boolean loginCheck(String id, String pwd) throws Exception{
 
         UserDto user = userDao.selectUser(id);
         if(user == null) return false;
-        return user.getPwd().equals(pwd);
+        return user.getUser_pwd().equals(pwd);
     }
     
     @GetMapping("/logout")
