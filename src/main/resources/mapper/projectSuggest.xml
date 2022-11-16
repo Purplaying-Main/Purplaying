@@ -11,9 +11,9 @@
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 
 		(prdt_enddate-prdt_opendate) as "prdt_dday",
-		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc)
+		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc,prdt_id desc)
 		from tb_product
-		where <![CDATA[prdt_opendate <= current_date and current_date-7 <= prdt_opendate ]]> <!-- 오늘 이전~7일까지 인기있는 펀딩만 추출  -->		
+		where <![CDATA[current_date-7 <= prdt_opendate and prdt_opendate <= current_date]]> <!-- 최근 일주일간 인기있는 펀딩 추출  -->		
 		limit 3
 	</select>
 </mapper>

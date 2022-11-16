@@ -28,11 +28,12 @@
           <h3 class="ms-2">📕<b>문학</b></h3>
 	       <div class="dropdown me-1">
 	        <form action='<c:url value="/genre/literature"/>' method="get">
-	          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >정렬</button>
-	          <ul class="dropdown-menu dropdown-menu-end">
+	          <button class="btn btn-secondary dropdown-toggle" id="orderSelect" type="button" data-bs-toggle="dropdown" aria-expanded="false" > 정렬 </button>
+	          <ul class="dropdown-menu dropdown-menu-end text-end">
+	         	 <li><button class="dropdown-item"> 정렬 </button></li>
 	            <li><button class="dropdown-item" name="order" value="popular">인기순</button></li>
 	            <li><button class="dropdown-item" name="order" value="new" >최신순</button></li>
-	          </ul>	        
+	          </ul>      
 	        </form>
 	       </div>
       	</div>
@@ -43,7 +44,7 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='${pageContext.request.contextPath}/projectdetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                  <div class="card-body">
@@ -53,7 +54,7 @@
                   	<c:otherwise>장르</c:otherwise>
                   </c:choose>
                   </p>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='${pageContext.request.contextPath}/projectdetail'">
 	                  <p class="card-text"><h5>${genreDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -78,6 +79,23 @@
 	/*progressbar 연동 JS*/
 	const perValue = ${genreDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
+	</script>
+	<script>
+	    let orderSelect = document.getElementById("orderSelect");
+    function searchParam(key) {
+         return new URLSearchParams(location.search).get(key);
+    }
+    let order = searchParam('order');
+    switch (order){
+    case 'popular' :
+        orderSelect.innerText = '인기순';
+        break;
+    case 'new' : 
+        orderSelect.innerText = '최신순';
+        break;
+    default :
+        orderSelect.innerText = ' 정렬 ';
+    }
 	</script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
