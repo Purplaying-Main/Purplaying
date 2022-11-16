@@ -16,26 +16,18 @@
    <!--페이지 내용 시작-->
    <section>
      <h1 class="visually-hidden">HOME</h1>
-   	 <div class="contentsWrap">
+   	 <div class="contentsWrap col-10 mx-auto">
       <!--컨텐츠 영역-->
       <div class="row justify-content-md-center">
+      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+			  <ol class="breadcrumb fs-6 mt-4">
+			    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
+			    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
+			  	<li class="breadcrumb-item text-muted" id="product_id" value="${projectDto.product_id}">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
+			  </ol>
+	  </nav>
+	  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
         <h2 class="col-auto mb-5">프로젝트 기획</h2>
-<%--          <small class="card-subtitle mb-2 text-muted">
-              	writer : ${projectDto.writer} | user_id : ${sessionScope.user_id}<br>
-              	product_id : ${projectDto.product_id }<br> 
-              	prdt_cate : ${projectDto.prdt_cate }<br>
-              	prdt_regdate : ${projectDto.prdt_regdate }<br>
-              	prdt_open : ${projectDto.prdt_open }<br>
-              	prdt_title : ${projectDto.prdt_title }<br>
-              	prdt_thumbnail : ${projectDto.prdt_thumbnail }<br>
-              	prdt_desc : ${projectDto.prdt_desc }<br>
-              	prdt_goal : ${projectDto.prdt_goal }<br>
-              	prdt_currenttotal : ${projectDto.prdt_currenttotal }<br>
-              	prdt_opendate : ${projectDto.prdt_opendate }<br>
-              	prdt_enddate : ${projectDto.prdt_enddate }<br>
-              	prdt_desc_detail : ${projectDto.prdt_desc_detail }<br>
-              	prdt_desc_policy : ${projectDto.prdt_desc_policy }<br>
-              </small> --%>
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
         <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist">
@@ -70,7 +62,7 @@
               <p>프로젝트의 주제, 책의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" placeholder="${projectDto.prdt_title}" rows="1" style="resize: none;"  name="prdt_title">${projectDto.prdt_title}</textarea>
+              <textarea class="form-control" placeholder="${projectDto.prdt_title}" rows="1" style="resize: none;" id="prdt_title" name="prdt_title">${projectDto.prdt_title}</textarea>
               <span class="text-danger text-small">0/20</span>
             </div>
           </div>
@@ -98,7 +90,7 @@
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
             <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
-            <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+            <button class="btn btn-primary nextBtn" type="button" id="nextBtn0">다음단계</button>
           </div>
         </form>
 
@@ -156,8 +148,8 @@
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-            <button class="btn btn-primary me-md-2" type="button">저장하기</button>
-            <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
+            <button class="btn btn-primary nextBtn" type="button" id="nextBtn1">다음단계</button>
           </div>
         </div>
         <!-- tab 3 contents -->
@@ -264,8 +256,8 @@
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-            <button class="btn btn-primary me-md-2" type="button">저장하기</button>
-            <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
+            <button class="btn btn-primary nextBtn" type="button" id="nextBtn2">다음단계</button>
           </div>
         </div>
         <!-- tab 4 contents -->
@@ -295,8 +287,8 @@
 				</div>
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-		        <button class="btn btn-primary me-md-2" type="button">저장하기</button>
-		        <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
+            <button class="btn btn-primary nextBtn" type="button" id="nextBtn3">다음단계</button>
 		    </div>
           </div>
         </div>
@@ -360,8 +352,8 @@
             </div>
           </div>
           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-		     <button class="btn btn-primary me-md-2" type="button">저장하기</button>
-		     <button class="btn btn-primary" type="button" id="nextBtn">다음단계</button>
+		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
+            <button class="btn btn-primary nextBtn" type="button" id="nextBtn4">다음단계</button>
 		  </div>
         </div>
         <!-- tab 6 contents -->
@@ -410,7 +402,7 @@
 						</div>
 					</div>
 					<!-- 작성취소 모달창 end -->
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal">게 시</button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal" id="modifyBtnFinish">게 시</button>
 					<div class="modal fade" id="fundingWriteFinishModal" aria-labelledby="fundingWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -450,14 +442,41 @@
 		})
 	</script>
 	<script type="text/javascript">
-		$("#modifyBtn").on("click", function() {
-			let form = $(".tab-pane");
+		let prdt_cate = $("#prdt_cate").val()
+		let prdt_title = $("#prdt_title").val()
+		let product_id = $("#product_id").val()
+		var prdtData = { // Body에 첨부할 json 데이터
+                "prdt_cate":prdt_cate,
+                "prdt_title":prdt_title,
+                "product_id":product_id,
+            }
+/* 		let param = "?product_id="+product_id */
+		let modifyAll = function(product_id) {
+			$.ajax({
+				type: 'POST',
+				url: '/purplaying/projectregister/modify',
+				headers : { "content-type" : "application/json" }, 		//요청 헤더
+				dataType : 'text',		// 전송받을 데이터의 타입 
+                data: JSON.stringify(prdtData),
+				success : function() { alert("success") },
+				error : function() { alert("error") }
+			})
+		}
 		
-			//2.수정 상태면 수정된 내용을 서버로 전송
-			form.attr("action", "<c:url value='/projectregister/modify' />")
-			form.attr("method", "post")
-/* 			if(formCheck()) */
-				form.submit();				
+		$(document).ready(function() {
+			$("#modifyAllBtn").on("click", function() {
+				modifyAll(product_id)
+			})
+			
+			$("#modifyBtn").on("click", function() {
+				let form = $(".tab-pane");
+			
+				//2.수정 상태면 수정된 내용을 서버로 전송
+				form.attr("action", "<c:url value='/projectregister/modify' />")
+				form.attr("method", "post")
+	/* 			if(formCheck()) */
+					form.submit();				
+			})
 		})
 		
 		let formCheck = function() {

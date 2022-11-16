@@ -40,7 +40,7 @@ public class ProjectController {
 //        예외발생 -> 목록으로 돌아가기
           return "mypage";
       }
-      return "projectDetail";
+      return "redirect:/projectDetail";
   }
 
   @PostMapping("/modify")
@@ -54,11 +54,14 @@ public class ProjectController {
       try {
           ProjectDto projectDto2 = projectService.readRecently(writer);
           projectDto.setProduct_id(projectDto2.getProduct_id());
-          System.out.println("post modify: "+projectDto);
+//          System.out.println("post modify: "+projectDto);
+//          projectDto.setProduct_id((Integer)m.getAttribute("product_id"));
+          System.out.println("projectDto: "+projectDto);
           if(projectService.modify(projectDto) != 1)
               throw new Exception("Modify failed");
           
           rattr.addFlashAttribute("msg", "MOD_OK");
+          System.out.println("post result modify: "+projectDto);
           return "redirect:/projectregister/modify";
       } catch(Exception e) {
           e.printStackTrace();
@@ -73,10 +76,12 @@ public class ProjectController {
   public String modify(Integer product_id, Model m, HttpSession session) {
     //read와 동일. notice_id를 불러와서 조회.
     try {
-      
-//          String user_id = (String)session.getAttribute("user_id");
-//          m.addAttribute(user_id);
-//
+      String writer = (String) session.getAttribute("user_id");
+      ProjectDto projectDto = projectService.readRecently(writer);
+      projectDto.setProduct_id(projectDto.getProduct_id());
+      System.out.println("post modify: "+projectDto);
+      System.out.println("setProduct_id: "+projectDto.getProduct_id());
+      m.addAttribute("product_id",projectDto.getProduct_id());
 
       } catch (Exception e) {
           e.printStackTrace();
@@ -101,6 +106,9 @@ public class ProjectController {
           if(projectService.write(projectDto) != 1)
             throw new Exception("write failed");
           rattr.addFlashAttribute("msg", "WRT_OK");
+          
+          projectDto = projectService.readRecently(writer);
+          projectDto.setProduct_id(projectDto.getProduct_id());
           return "redirect:/projectregister/modify";
       } catch (Exception e) {
           e.printStackTrace();

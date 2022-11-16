@@ -43,26 +43,7 @@
                   <p>Q.이 프로젝트를 시작하게 된 배경이 무엇인가요?</p>
                 </li>
               </ul>
-              <button class="btn btn-primary col-6 mx-auto" type="button" id="writeBtn">시작하기</button>
-              
-              
-              <small class="card-subtitle mb-2 text-muted">
-              	writer : ${projectDto.writer} | user_id : ${sessionScope.user_id}<br>
-              	product_id : ${projectDto.product_id }<br> 
-              	prdt_cate : ${projectDto.prdt_cate }<br>
-              	prdt_regdate : ${projectDto.prdt_regdate }<br>
-              	prdt_open : ${projectDto.prdt_open }<br>
-              	prdt_title : ${projectDto.prdt_title }<br>
-              	prdt_thumbnail : ${projectDto.prdt_thumbnail }<br>
-              	prdt_desc : ${projectDto.prdt_desc }<br>
-              	prdt_goal : ${projectDto.prdt_goal }<br>
-              	prdt_currenttotal : ${projectDto.prdt_currenttotal }<br>
-              	prdt_opendate : ${projectDto.prdt_opendate }<br>
-              	prdt_enddate : ${projectDto.prdt_enddate }<br>
-              	prdt_desc_detail : ${projectDto.prdt_desc_detail }<br>
-              	prdt_desc_policy : ${projectDto.prdt_desc_policy }<br>
-              </small>
-              
+              <button class="btn btn-primary col-6 mx-auto" type="button" id="writeBtn">시작하기</button>          
           </form>
       </div><!-- 탭 컨텐츠 end -->
     </div><!-- contentsWrap end -->

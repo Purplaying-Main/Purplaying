@@ -54,6 +54,13 @@
 				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
 				</div>
               </li>
+              <li class="pb-3"><!-- 리워드 셀렉트 출 영역  -->
+              	<form class="form-floating">
+              		<!--if문써서 반복 -->
+				  <input type="text" class="form-control" id="floatingInputValue" placeholder="" value="01 선물없이 후원하기 +1000원 x 1" readonly>
+				  <label for="floatingInputValue" class="text-muted">선택한 리워드 목록</label>
+				</form>
+              </li>
               <li>
               	<div class="input-group mb-3">
               	  <span for="rewardSelectPrice" class="input-group-text">금액</span>

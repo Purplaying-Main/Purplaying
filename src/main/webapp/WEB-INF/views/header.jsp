@@ -71,7 +71,7 @@
 	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
-	            <li><a class="dropdown-item link-primary" href="/purplaying/projectregister"><strong>신규 프로젝트 올리기</strong></a></li>
+	            <li><a class="dropdown-item link-primary" href="/purplaying/projectregister/write"><strong>신규 프로젝트 올리기</strong></a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
