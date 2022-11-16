@@ -18,6 +18,10 @@ public class ProductDto {
   private int prdt_open;
   private String prdt_desc_policy;
   private int user_id;
+  private int prdt_dday;
+  private int prdt_percent;
+  private Date prdt_purchaseday;
+  private Date prdt_limitday;
   
   public ProductDto() {
     // TODO Auto-generated constructor stub
@@ -162,7 +166,41 @@ public class ProductDto {
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", user_id="
         + user_id + "]";
   }
-  
+
+
+  public final int getPrdt_dday() {
+    return prdt_dday;
+  }
+
+
+  public final void setPrdt_dday(int prdt_dday) {
+    this.prdt_dday = prdt_dday;
+  }
+
+
+  public final int getPrdt_percent() {
+    return prdt_percent;
+  }
+
+
+  public final Date getPrdt_purchaseday() {
+    return prdt_purchaseday;
+  }
+
+  public final void setPrdt_purchaseday(Date prdt_purchaseday) {
+    this.prdt_purchaseday = prdt_purchaseday;
+  }
+
+
+  public Date getPrdt_limitday() {
+    return prdt_limitday;
+  }
+
+
+  public void setPrdt_limitday(Date prdt_limitday) {
+    this.prdt_limitday = prdt_limitday;
+  }
+
 }
  
   

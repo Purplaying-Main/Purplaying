@@ -6,8 +6,25 @@
 <mapper namespace="kr.co.purplaying.dao.ProductMapper">
 	
 	<select id="projectDetail" resultType="ProductDto" >
-		select * from t_product
+		select
+		prdt_genre
+		,prdt_name
+		,prdt_desc
+		,prdt_desc_detail
+		,prdt_regdate
+		,prdt_opendate
+		,prdt_enddate
+		,prdt_goal
+		,prdt_currenttotal
+		,prdt_desc_policy
+		,user_id
+		, (prdt_enddate-prdt_opendate) as "prdt_dday"
+		, (prdt_enddate+1) as "prdt_purchaseday"
+		, (prdt_enddate-3) as "prdt_limitday"
+		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
+		from t_product
 		where prdt_id = #{prdt_id}
+		limit 1
 	</select>
 
 
