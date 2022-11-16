@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.service.ProjectService;
 
@@ -20,6 +21,27 @@ public class ProjectController {
   
   @Autowired
   ProjectService projectService;
+  
+  @GetMapping("/read")
+  public String read(Integer product_id, Integer page, Integer pageSize, Model m, HttpSession session) {
+    
+    try {
+          String user_id = (String)session.getAttribute("user_id");
+          m.addAttribute(user_id);
+          
+          ProjectDto projectDto = projectService.read(product_id);
+          m.addAttribute(projectDto);
+          
+          String writer = projectDto.getWriter();
+          m.addAttribute(writer);
+
+      } catch (Exception e) {
+          e.printStackTrace();
+//        예외발생 -> 목록으로 돌아가기
+          return "mypage";
+      }
+      return "projectDetail";
+  }
 
   @PostMapping("/modify")
   public String modify(ProjectDto projectDto,  
@@ -27,7 +49,12 @@ public class ProjectController {
       String writer = (String) session.getAttribute("user_id");
       projectDto.setWriter(writer);
       
+     
+  
       try {
+          ProjectDto projectDto2 = projectService.readRecently(writer);
+          projectDto.setProduct_id(projectDto2.getProduct_id());
+          System.out.println("post modify: "+projectDto);
           if(projectService.modify(projectDto) != 1)
               throw new Exception("Modify failed");
           
@@ -47,14 +74,9 @@ public class ProjectController {
     //read와 동일. notice_id를 불러와서 조회.
     try {
       
-          String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
-          
-          ProjectDto projectDto = projectService.read(product_id);
-          m.addAttribute(projectDto);
-          
-          String writer = projectDto.getWriter();
-          m.addAttribute(writer);
+//          String user_id = (String)session.getAttribute("user_id");
+//          m.addAttribute(user_id);
+//
 
       } catch (Exception e) {
           e.printStackTrace();
@@ -66,13 +88,18 @@ public class ProjectController {
   }
   
   @PostMapping("/write")
-  public String write(ProjectDto projectDto, RedirectAttributes rattr, Model m, HttpSession session) {
+  public String write(ProjectDto projectDto, RedirectAttributes rattr, Model m, HttpSession session, HttpServletRequest request) {
+    
+      if(!loginCheck(request)) {
+        return "redirect:/login/login?toURL=" + request.getRequestURL();
+      }
+      
       String writer = (String) session.getAttribute("user_id");
       projectDto.setWriter(writer);
       System.out.println("projectDto : "+projectDto);
       try {
-          if(projectService.write(projectDto) != 1) 
-          
+          if(projectService.write(projectDto) != 1)
+            throw new Exception("write failed");
           rattr.addFlashAttribute("msg", "WRT_OK");
           return "redirect:/projectregister/modify";
       } catch (Exception e) {

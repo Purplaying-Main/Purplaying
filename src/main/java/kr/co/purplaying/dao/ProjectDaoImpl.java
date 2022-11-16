@@ -28,4 +28,9 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.selectOne(namespace+"select",product_id);
   }
 
+  @Override
+  public ProjectDto selectRecently(String writer) throws Exception {
+    return session.selectOne(namespace+"selectRecently",writer);
+  }
+
 }

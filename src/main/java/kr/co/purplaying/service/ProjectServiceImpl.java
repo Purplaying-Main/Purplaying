@@ -32,4 +32,9 @@ public class ProjectServiceImpl implements ProjectService{
     return projectDto;
   }
 
+  @Override
+  public ProjectDto readRecently(String writer) throws Exception {
+    return projectDao.selectRecently(writer);
+  }
+
 }

@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
-  <style>
-  .fa-heart{
-  border-radius: 0.375rem; 
-  }
-  </style>
 </head>
 
 <body>
@@ -21,6 +18,7 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
           <div class="py-3 text-center">
+          <input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
             <h4><a href="genreliterature">문학</a></h4>
             <h1>진행중인 펀딩명</h1>
           </div>

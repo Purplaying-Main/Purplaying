@@ -20,7 +20,7 @@
       <!--컨텐츠 영역-->
       <div class="row justify-content-md-center">
         <h2 class="col-auto mb-5">프로젝트 기획</h2>
-         <small class="card-subtitle mb-2 text-muted">
+<%--          <small class="card-subtitle mb-2 text-muted">
               	writer : ${projectDto.writer} | user_id : ${sessionScope.user_id}<br>
               	product_id : ${projectDto.product_id }<br> 
               	prdt_cate : ${projectDto.prdt_cate }<br>
@@ -35,7 +35,7 @@
               	prdt_enddate : ${projectDto.prdt_enddate }<br>
               	prdt_desc_detail : ${projectDto.prdt_desc_detail }<br>
               	prdt_desc_policy : ${projectDto.prdt_desc_policy }<br>
-              </small>
+              </small> --%>
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
         <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist">

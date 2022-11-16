@@ -14,6 +14,12 @@
 		WHERE product_id = #{product_id}
 	</select>
 	
+	<select id="selectRecently" parameterType="map" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
+		<include refid="selectFromBoard"/>
+		WHERE writer = #{writer}
+		ORDER BY prdt_regdate DESC LIMIT 1
+	</select>
+	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
 			(writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail)
@@ -22,7 +28,7 @@
 	
 	<update id="update" parameterType="ProjectDto">
 		UPDATE tb_product
-		SET prdt_cate=#{prdt_cate}, prdt_regdate=#{prdt_regdate}, prdt_open=#{prdt_open}, prdt_title=#{prdt_title}, prdt_thumbnail=#{prdt_thumbnail}, prdt_desc=#{prdt_desc}, prdt_goal=#{prdt_goal}, prdt_currenttotal=#{prdt_currenttotal}, prdt_opendate=#{prdt_opendate}, prdt_enddate=#{prdt_enddate}, prdt_desc_detail=#{prdt_desc_detail}, prdt_desc_policy=#{prdt_desc_policy}
+		SET prdt_cate=#{prdt_cate}, prdt_open=#{prdt_open}, prdt_title=#{prdt_title}, prdt_thumbnail=#{prdt_thumbnail}, prdt_desc=#{prdt_desc}, prdt_goal=#{prdt_goal}, prdt_opendate=#{prdt_opendate}, prdt_enddate=#{prdt_enddate}, prdt_desc_detail=#{prdt_desc_detail}, prdt_desc_policy=#{prdt_desc_policy}
 		WHERE product_id= #{product_id} and writer = #{writer}
 	</update>
 </mapper>
