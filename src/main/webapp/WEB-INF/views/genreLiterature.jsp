@@ -5,6 +5,7 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
+  
 </head>
 
 <body>

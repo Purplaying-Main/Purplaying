@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import kr.co.purplaying.domain.User;
+import kr.co.purplaying.domain.UserDto;
 
 public class DBConnectionTestT1 {
   
   @Autowired
-   private User user;
+   private UserDto user;
   
   //데이터베이스 커넥션 테스트
   @Test
