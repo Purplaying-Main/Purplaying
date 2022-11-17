@@ -3,7 +3,7 @@ package kr.co.purplaying.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class ProductDto {
+public class ProductDetailDto {
 
   private int prdt_id;
   private int prdt_genre;
@@ -31,7 +31,7 @@ public class ProductDto {
   private String user_activate;
   private String user_role;
   
-  public ProductDto() {
+  public ProductDetailDto() {
     // TODO Auto-generated constructor stub
   }
 
@@ -248,13 +248,13 @@ public class ProductDto {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    ProductDto other = (ProductDto) obj;
+    ProductDetailDto other = (ProductDetailDto) obj;
     return prdt_id == other.prdt_id && prdt_user_no == other.prdt_user_no && user_no == other.user_no;
   }
 
   @Override
   public String toString() {
-    return "ProductDto [prdt_id=" + prdt_id + ", prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_desc="
+    return "ProductDetailDto [prdt_id=" + prdt_id + ", prdt_genre=" + prdt_genre + ", prdt_name=" + prdt_name + ", prdt_desc="
         + prdt_desc + ", prdt_desc_detail=" + prdt_desc_detail + ", prdt_regdate=" + prdt_regdate + ", prdt_opendate="
         + prdt_opendate + ", prdt_enddate=" + prdt_enddate + ", prdt_goal=" + prdt_goal + ", prdt_currenttotal="
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_user_no="
@@ -264,7 +264,7 @@ public class ProductDto {
         + ", user_activate=" + user_activate + ", user_role=" + user_role + "]";
   }
 
-  public ProductDto(int prdt_id, int prdt_genre, String prdt_name, String prdt_desc, String prdt_desc_detail,
+  public ProductDetailDto(int prdt_id, int prdt_genre, String prdt_name, String prdt_desc, String prdt_desc_detail,
       Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, int prdt_goal, int prdt_currenttotal, int prdt_open,
       String prdt_desc_policy, int prdt_user_no, int prdt_dday, int prdt_percent, Date prdt_purchaseday,
       Date prdt_limitday, int user_no, String user_pwd, String user_name, int user_phone, Date user_regdate,

@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import kr.co.purplaying.dao.ProductDao;
-import kr.co.purplaying.domain.ProductDto;
+import kr.co.purplaying.dao.ProductDetailDao;
+import kr.co.purplaying.domain.ProductDetailDto;
 
 @Controller
 public class ProductController {
 
 	@Autowired
-	ProductDao productDao;
+	ProductDetailDao productDetailDao;
 	
 	@RequestMapping("/projectDetail")
 	@GetMapping("/projectDetail")
@@ -21,8 +21,8 @@ public class ProductController {
 
       try {
         System.out.println(prdt_id);     
-        ProductDto productDto = productDao.projectDetail(prdt_id);
-        m.addAttribute(productDto);
+        ProductDetailDto productDetailDto = productDetailDao.projectDetail(prdt_id);
+        m.addAttribute(productDetailDto);
         
         
       } catch (Exception e) {

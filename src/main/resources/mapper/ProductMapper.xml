@@ -8,7 +8,7 @@
 
 
     
-	<select id="projectDetail" resultType="ProductDto">
+	<select id="projectDetail" resultType="ProductDetailDto">
 
 		select
 		prdt_genre
