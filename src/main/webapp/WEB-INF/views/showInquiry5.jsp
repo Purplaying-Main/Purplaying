@@ -93,89 +93,8 @@
 			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
 			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonon	e/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
+
 	
-	<script type="text/javascript">
-		$(document).ready(function() {			/* main() */
-			
-			//서머노트
-			$('.summernote').summernote({
-				height: 445,                 // 에디터 높이
-				focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-				lang: "ko-KR",					// 한글 설정
-				placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-				disableResizeEditor: true,	// 크기 조절 기능 삭제
-				toolbar: [
-				   ['fontname', ['fontname']],
-				   ['fontsize', ['fontsize']],
-				   ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				   ['color', ['forecolor','color']],
-				   ['table', ['table']],
-				   ['para', ['ul', 'ol', 'paragraph']],
-				   ['height', ['height']],
-				   ['insert',['picture','link','video']],
-				   ['view',['help']]
-				]
-			});
-			// 서머노트 종료
-			
-/* 			$("#listBtn").on("click", function() {
-				//location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}'/>";
-				history.back();
-			}) */
-		
-			$("#writeBtn").on("click", function() {
-
-				let form = $("#form");
-				form.attr("action","<c:url value='/oneonone/write' />");
-				form.attr("method","post");
-				
-				if(formCheck()) {
-					form.submit();	
-				}	
-			})
-			
-			let formCheck = function() {
-				let form = document.getElementById("form")
-				if(form.inquiry_title.value=="") {
-					alert("제목을 입력해 주세요.")
-					form.inquiry_title.focus()
-					return false
-				}
-				if(form.inquiry_context.value=="") {
-					alert("내용을 입력해 주세요.")
-					form.inquiry_context.focus()
-					return false
-				}
-					return true;
-			}
-			
-			$("#modifyBtn").on("click", function() {
-				let form = $("#form")
-				let isReadonly = $("input[name=inquiry_title]").attr('readonly')
-				
-				// 1. 읽기 상태이면 수정상태로 변경
-				if(isReadonly=='readonly') {
-					$(".writing-header").html("게시판 수정")
-					$("input[name=inquiry_title]").attr('readonly', false)
-					$("textarea").attr('readonly', false)
-					$("#modifyBtn").html("<i class='fa fa-pen'></i> 등록")
-					return;
-				}
-				// 2. 수정상태이면 수정된 내용을 서버로 전송
-				form.attr("action","<c:url value='/oneonone/modify${searchItem.queryString}'/>")
-				form.attr("method","post")
-				if(formCheck()){
-					form.submit();
-				}
-					
-			})
-		
-		
-
-		
-		})	
-		
-	</script>
 	
 	<script type="text/javascript">
 		let msg = "${msg}"
@@ -192,20 +111,21 @@
 										<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
-											<h5 class="card-title">${oneononeDto.inquiry_title}</h5>
+											<%-- <h5 class="card-title">${oneononeDto.inquiry_title}</h5> --%>
+											<input type="text" name="inquiry_title" value="${oneononeDto.inquiry_title}" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
 											<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_id} | user_id : ${sessionScope.user_id}</small>
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
-										<div class="px-4 py-2">
+										<div class="px-4 py-2"> <%-- id="content" ${mode=="new" ? "" : "readonly='readonly'" }>  --%> 
 											${oneononeDto.inquiry_context}
 										</div>
 										<!-- 글쓰기 목록 버튼 영역 -->
 										<hr class="my-4">
-										<div class="mt-3 text-end">			
+										<div class="mt-3 text-end" >
 											<!-- 수정권한 확인  -->
-											<c:if test="${oneononeDto.user_id eq sessionScope.user_id}">
+											<c:if test="${oneononeDto.user_id eq sessionScope.user_id or sessionScope.user_id eq 'admin@gmail.com'}">
 												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
 												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
 											</c:if>
@@ -214,7 +134,7 @@
 									<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='/purplaying/shownotice'">답변</button>
 							<!-- 목록으로 가기 -->
 							<div class="row mx-auto col-md-4">
-								<button type="button" id="listBtn" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
+								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
 		      				</div>
 	</div>
 
@@ -249,15 +169,70 @@
 		$("#writeBtn").on("click", function() {
 			location.href ="<c:url value='/oneonone/write' />";	
 		})
-		
+/* 		
 		//modify
 		$("#modifyBtn").on("click", function() {
 				let form = $("#form");
 				form.attr("action", "<c:url value='/oneonone/modify${searchItem.queryString}' />")
-				form.attr("method", "get")	
+				form.attr("method", "post")	
 				form.submit()
-			})
+			}) */
 	})
 	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {			/* main() */
+			
+			$("#writeBtn").on("click", function() {
+
+				let form = $("#form");
+				form.attr("action","<c:url value='/oneonone/write' />");
+				form.attr("method","post");
+				
+				if(formCheck()) {
+					form.submit();	
+				}	
+			})
+			
+			let formCheck = function() {
+				let form = document.getElementById("form")
+				if(form.inquiry_title.value=="") {
+					alert("제목을 입력해 주세요.")
+					form.inquiry_title.focus()
+					return false
+				}
+	 			if(form.inquiry_context.value=="") {
+					alert("내용을 입력해 주세요.")
+					form.inquiry_context.focus()
+					return false
+				} 
+					return true;
+			}
+			
+			$("#modifyBtn").on("click", function() {
+				let form = $("#form")
+				let isReadonly = $("input[name=inquiry_title]").attr('readonly')
+				
+				// 1. 읽기 상태이면 수정상태로 변경
+				if(isReadonly=='readonly') {
+					$(".writing-header").html("게시판 수정")
+					$("input[name=inquiry_title]").attr('readonly', false)
+					$("#content").attr('readonly', false)
+					$("#modifyBtn").html("<i class='fa fa-pen'></i> 등록")
+					return;
+				}
+				// 2. 수정상태이면 수정된 내용을 서버로 전송
+				form.attr("action","<c:url value='/oneonone/modify${searchItem.queryString}'/>")
+				form.attr("method","post")
+				if(formCheck()){
+					form.submit();
+				}
+					
+			})
+		
+		
+		})	
+		
+	</script> 
 </body>
 </html>

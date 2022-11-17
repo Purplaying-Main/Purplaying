@@ -17,12 +17,24 @@ public class OneononeDto{
 	    
 	}
 	
-	public OneononeDto(String inquiry_title, String inquiry_context, String user_id) {
-        super();
-        this.inquiry_title = inquiry_title;
-        this.inquiry_context = inquiry_context;
-        this.user_id = user_id;
-    }
+//	public OneononeDto(String inquiry_title, String inquiry_context, String user_id) {
+//        super();
+//        this.inquiry_title = inquiry_title;
+//        this.inquiry_context = inquiry_context;
+//        this.user_id = user_id;
+//    }
+
+  public OneononeDto(Integer inquiry_no, boolean inquiry_state, String user_id, String inquiry_title,
+      String inquiry_context, boolean inquiry_private, Date inquiry_regdate) {
+    super();
+    this.inquiry_no = inquiry_no;
+    this.inquiry_state = inquiry_state;
+    this.user_id = user_id;
+    this.inquiry_title = inquiry_title;
+    this.inquiry_context = inquiry_context;
+    this.inquiry_private = inquiry_private;
+    this.inquiry_regdate = inquiry_regdate;
+  }
 
   public Integer getInquiry_no() {
     return inquiry_no;

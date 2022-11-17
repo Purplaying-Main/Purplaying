@@ -219,7 +219,6 @@
 										<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
-											<h6 class="card-subtitle mb-2 text-muted">${oneononeDto.notice_category}</h6>
 											<h5 class="card-title">${oneononeDto.inquiry_title}</h5>
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
 											<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_id} | user_id : ${sessionScope.user_id}</small>
@@ -247,30 +246,9 @@
 			<table class="table project-table table-centered bg-light border-top border-2">
 				<tbody>
 				  <tr>
-				    <th scope="col">제목</th>
-				    <td scope="col" class="col-2">
-	              		<select class="form-select fs-6" id="noticeCate" name="noticeCate">
-						  	<option selected>카테고리</option>
-						 	<option value="1">공지사항</option>
-						  	<option value="2">이벤트</option>
-						  	<option value="3">기타</option>
-						</select>
-				    </td>
-				    <td>
-  						<input type="text" class="form-control" placeholder="제목을 입력하세요">
-				    </td>
-				  </tr>
-				  <tr>
 				    <th scope="col">작성자</th>
 				    <td colspan="2">
   						<input type="text" class="form-control" placeholder="관리자" readonly>
-				    </td>
-				  </tr>
-				  <tr>
-				    <th scope="col">공개여부</th>
-				    <td colspan="2">
-  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>공개</label>
-  						<input class="form-check-input" name="flexRadioDefault" type="radio"> <label>비공개</label>
 				    </td>
 				  </tr>
 				</tbody>
@@ -281,40 +259,40 @@
 			</div>
 
 				<div class="text-end my-5">
-					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#noticeWriteCancelModal">작성취소</button>
+					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ansWriteCancelModal">작성취소</button>
 					<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="noticeWriteCancelModal" tabindex="-1"
-						aria-labelledby="noticeWriteCancelModalLabel" aria-hidden="true">
+					<div class="modal fade" id="ansWriteCancelModal" tabindex="-1"
+						aria-labelledby="ansWriteCancelModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="noticeWriteCancelModalLabel">작성 취소</h5>
+									<h5 class="modal-title" id="ansWriteCancelModalLabel">작성 취소</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 								<div class="modal-body text-center">
-									<h6 class="form-label">공지사항 작성을 취소하시겠습니까?</h6>
+									<h6 class="form-label">답변 작성을 취소하시겠습니까?</h6>
 									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='oneonone/list'">확인</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- 작성취소 모달창 end -->
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#noticeWriteFinishModal">게 시</button>
-					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ansWriteFinishModal">게 시</button>
+					<div class="modal fade" id="ansWriteFinishModal" aria-labelledby="ansWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="noticeWriteFinishLabel">작성 완료</h5>
+									<h5 class="modal-title" id="ansWriteFinishLabel">작성 완료</h5>
 								</div>
 								<div class="modal-body text-center">
-									<label class="form-label">공지사항 등록완료</label>
-									<div class="invalid-feedback">공지사항 등록이 완료되었습니다.</div>
+									<label class="form-label">답변 등록완료</label>
+									<div class="invalid-feedback">답변 등록이 완료되었습니다.</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='oneonone/list'">확인</button>
 								</div>
 							</div>
 						</div>

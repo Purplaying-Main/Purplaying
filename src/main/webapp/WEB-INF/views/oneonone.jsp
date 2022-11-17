@@ -109,7 +109,7 @@
 									</c:if>
 								</ul>
 	
-							<button type="button" id="writeBtn" class="col-1 btn btn-primary" onclick="location.href='/purplaying/inquirywrite'">작성</button>
+							<button type="button" id="writeBtn" class="col-1 btn btn-primary" />작성</button>
 
 						</div>
 						<!-- end row -->
@@ -136,17 +136,16 @@
 			form.attr("method", "post")
 			form.submit()
 		})
-				$("#writeBtn").on("click", function() {
+		
+		$("#writeBtn").on("click", function() {
 			let form = $("#form");
 			form.attr("action", "<c:url value='/oneonone/write' />")
-			form.attr("method", "post")
+			//form.attr("method", "post")
 			
 			if(formCheck())
 				form.submit()					
 		})
-		$("#writeBtn").on("click", function() {
-			location.href ="<c:url value='/oneonone/write' />";	
-		})
+
 	})
 	</script>
 

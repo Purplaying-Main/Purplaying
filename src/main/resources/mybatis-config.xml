@@ -9,5 +9,6 @@
 		<typeAlias alias="BoardDto"	type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
+		<typeAlias alias="AnsDto" type="kr.co.purplaying.domain.AnsDto" />
 	</typeAliases>
 </configuration>

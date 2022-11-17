@@ -26,8 +26,8 @@ public class OneononeController {
 	OneononeService oneononeService;
 	
 	@PostMapping("/modify")
-	public String modify(OneononeDto oneononeDto, Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
-		String user_id = (String) session.getAttribute("id");
+	public String modify(OneononeDto oneononeDto, /* Integer page, Integer pageSize */SearchItem sc, RedirectAttributes rattr, Model m, HttpSession session) {
+		String user_id = (String) session.getAttribute("user_id");
 		oneononeDto.setUser_id(user_id);
 		
 		try {
@@ -35,16 +35,18 @@ public class OneononeController {
 				throw new Exception("Modify failed");
 			}
 			
-			rattr.addAttribute("page", page);
-			rattr.addAttribute("pageSize", pageSize);
+//			rattr.addAttribute("page", page);
+//			rattr.addAttribute("pageSize", pageSize);
+			rattr.addAttribute("SearchItem", sc);
 			rattr.addFlashAttribute("msg", "MOD_OK");
 			
 			return "redirect:/oneonone/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			m.addAttribute(oneononeDto);
-			m.addAttribute("page", page);
-			m.addAttribute("pageSize", pageSize);
+//			m.addAttribute("page", page);
+//			m.addAttribute("pageSize", pageSize);
+			m.addAttribute("SearchItem", sc);
 			m.addAttribute("msg", "MOD_ERR");
 											// 수정등록하려던 내용을 보여줌
 			return "showInquiry5";
@@ -71,12 +73,23 @@ public class OneononeController {
 			m.addAttribute("mode", "new");
 			m.addAttribute("oneononeDto",oneononeDto);		// m.addAttribute("boardDto", boardDto); "boardDto" 생략가능
 			m.addAttribute("msg", "WRT_ERR");
-			return "showInquiry5";
+			
+			return "showInquiry5" /*oneonone/write*/;
 		}
 
 	}
 	
+	  @GetMapping("/write")
+	  public String write(Model m, HttpSession session, OneononeDto oneononeDto) {
+	    String user_id = (String) session.getAttribute("user_id");
+	    oneononeDto.setUser_id(user_id);
+	    
+	    m.addAttribute("mode", "new");
+	    
+	    return "inquiryeWrite";         // 쓰기에 사용할때는 mode=new
+	} 
 	
+/*	
 	@RequestMapping("/write")
 	public String write(Model m) {
 		m.addAttribute("mode", "new");
@@ -84,9 +97,15 @@ public class OneononeController {
 		return "showInquiry5";					// board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode = new
 	}
 	
+	*/
+	
+	
 	@PostMapping("/remove")
 	public String remove(Integer inquiry_no, Integer page, Integer pageSize, RedirectAttributes rattr , HttpSession session) {
 		String user_id = (String) session.getAttribute("user_id");
+	//	    || String user_id = (String) session.getAttribute("admin@gmail.com");
+		
+		
 		String msg = "DEL_OK";
 		
 		try {
@@ -103,6 +122,7 @@ public class OneononeController {
 		// 	addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
 		rattr.addAttribute("page", page);
 		rattr.addAttribute("pageSize", pageSize);
+//		rattr.addAttribute("SearchItem", sc);
 		rattr.addFlashAttribute("msg", msg);
 				
 		return "redirect:/oneonone/list";
