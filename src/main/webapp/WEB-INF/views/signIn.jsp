@@ -33,7 +33,7 @@
 				</c:if>
 			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.id.value}" autofocus>
+              <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.user_id.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating py-2">
@@ -46,7 +46,7 @@
         
             <div class="checkbox mb-3">
               <label>
-                <input type="checkbox" name="rememberId" value="on" ${empty cookie.id.value ? "" : "checked" }/> 다음에도 내 정보 기억하기
+                <input type="checkbox" name="rememberId" value="on" ${empty cookie.user_id.value ? "" : "checked" }/> 다음에도 내 정보 기억하기
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>

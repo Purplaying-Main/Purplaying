@@ -65,7 +65,7 @@
         <div class="dropdown text-end">
           <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
 	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
-	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button>
+	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button><!-- goPost() -->
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,7 +81,15 @@
 	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
 	          </ul>
           </div>
-          
+        <!--   <script type="text/javascript">
+          		function goPost(){
+          			let form = document.createElement('form');
+          			form.setAttribute('method','post');
+          			form.setAttribute('action','/purplaying/user/signup');
+          			document.body.appendChild(form);
+          			form.submit();
+          		}
+          </script> -->
         </div>
       </div>
     </div>

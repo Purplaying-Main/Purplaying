@@ -9,12 +9,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.dao.LeaveDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.MemberDto;
 import kr.co.purplaying.domain.UserDto;
 
 @Controller
@@ -28,6 +33,10 @@ public class MemberController {
     LeaveDao leaveDao;
   
     //GetMapping////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("iamport")
+    public String iamport() {
+      return "iamport";
+    }
     @GetMapping("/login")
     public String loginForm() {
         return "signIn";
@@ -52,9 +61,15 @@ public class MemberController {
         return "redirect:/";
     }
     
+    //@RequestMapping(value="signuppost", method = RequestMethod.POST)
     @GetMapping("signup")
-    public String SignUp() {
+    public String SignUppost() {
       return "signup";
+    }
+    
+    @GetMapping("findaccount")
+    public String Findaccount() {
+      return "findAccount";
     }
     
     //PostMapping////////////////////////////////////////////////////////////////////////////////////
@@ -91,24 +106,24 @@ public class MemberController {
         //일치하면 로그인 후 화면 (홈화면)으로 이동      
         return "redirect:"+toURL;
         
-        
     }
-
+        
+    @ResponseBody
     @PostMapping("/signup")
-    public String signup(String user_id, String user_pwd, String user_name, String user_phone,boolean agree1,boolean agree2,boolean agree3,boolean agree4, boolean agree5 ,HttpServletRequest request) throws Exception {
-
-      if(userDao.signUpUser(user_id,user_pwd,user_name,user_phone)!=1) {
+    public void signup2(@RequestBody MemberDto memberDto ,HttpServletRequest request) throws Exception {
+      System.out.println("user_id"+memberDto.getUser_id());
+      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_phone())!=1) {
         System.out.println("실패");
       }
-      UserDto user = userDao.searchUser_no(user_id);
+      UserDto user = userDao.searchUser_no(memberDto.getUser_id());
       System.out.println(user.getUser_no());
       
-      if(userDao.userCheck(user.getUser_no(),agree1,agree2,agree3,agree4,agree5)!=1) {
+      if(userDao.userCheck(user.getUser_no(),memberDto.isAgree_age(),
+                           memberDto.isAgree_terms(),memberDto.isAgree_inform(),
+                           memberDto.isAgree_inform_third(),memberDto.isAgree_marketing())!=1) {
         System.out.println("성공");
       }
-      
-      return "redirect:/";
-    }
+   }
     
     @PostMapping("/leave")
     public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request) throws Exception {
@@ -129,7 +144,21 @@ public class MemberController {
           System.out.println("탈퇴성공");
         }
       }
-      return "redirect:/ 263";
+      return "redirect:/";
+    }
+    
+    //아이디 중복체크///////////////////////////////////////////////////////////////////////
+    @ResponseBody       
+    @PostMapping("/chkuserid")
+    public UserDto chkuserid(@RequestBody UserDto userDto) {
+      UserDto user;
+      try {
+        user = userDao.selectUser(userDto.getUser_id());
+        user.setUser_id("");
+        return user;
+      } catch (Exception e) {
+        return userDto;
+      }
     }
     
  
