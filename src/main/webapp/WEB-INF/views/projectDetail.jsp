@@ -270,21 +270,6 @@
                             <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
                             <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
                           </ul>
-                          <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
-                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
-                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
-                          </div>
-                          <div class="align-items-end" id="ModiArea1" style="display: none;">
-                            <div class="col-10">
-                              <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
-                              <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
-                              <div class="text-end">
-                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">작성</button>
-                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">취소</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         </div>
                       </div>
                     </div><!--아코디언 아이템2 종료-->

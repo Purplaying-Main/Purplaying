@@ -1,6 +1,5 @@
 package kr.co.purplaying.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
@@ -13,18 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.UserDto;
 
 @Controller
-@RequestMapping("/login")
-public class LoginController {
-    
+@RequestMapping("/user")
+public class MemberController {
+
     @Autowired
     UserDao userDao;
-
+  
     @GetMapping("/login")
     public String loginForm() {
         return "signIn";
@@ -36,8 +34,8 @@ public class LoginController {
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {
             //2-1. 일치하지 않으면, loginForm으로 이동     
-            String msg = URLEncoder.encode("id 또는 pwd가 일치하지 않습니다.", "utf-8");
-            return "redirect:/login?msg="+msg;
+            String msg = URLEncoder.encode("Id와 Password가 일치하지 않습니다.", "utf-8");
+            return "redirect:/user/login?msg="+msg;
         }
         
         if(rememberId == true) {
@@ -76,25 +74,50 @@ public class LoginController {
         response.addCookie(cookieid);   
     }
     
-
+  
     private boolean loginCheck(String user_id, String user_pwd) throws Exception {
-        // TODO Auto-generated method stub
-        UserDto userDto = userDao.selectUser(user_id);
-        if(userDto==null) {
-            System.out.println("userDto==null");
-            return false;
-        }
-        
-        return userDto.getUser_pwd().equals(user_pwd);
-    }
+      // TODO Auto-generated method stub
+      UserDto userDto = userDao.selectUser(user_id);
+      if(userDto==null) {
+          System.out.println("userDto==null");
+          return false;
+      }
+      
+      return userDto.getUser_pwd().equals(user_pwd);
+  }
     
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";
     }
+    //
     
+    
+    @GetMapping("signup")
+    public String SignUp() {
+      return "signup";
+    }
+    
+    @PostMapping("/signup")
+    public String signup(String user_id, String user_pwd, String user_name, String user_phone,boolean agree1,boolean agree2,boolean agree3,boolean agree4, boolean agree5 ,HttpServletRequest request) throws Exception {
+
+      if(userDao.signUpUser(user_id,user_pwd,user_name,user_phone)!=1) {
+        System.out.println("실패");
+      }
+      UserDto user = userDao.searchUser_no(user_id);
+      System.out.println(user.getUser_no());
+      
+      if(userDao.userCheck(user.getUser_no(),agree1,agree2,agree3,agree4,agree5)!=1) {
+        System.out.println("성공");
+      }
+      
+      return "redirect:/";
+    }
+    
+    @GetMapping("leave")
+    public String Leave() {
+      return "leave";
+    }
+  
 }
-
-
-
