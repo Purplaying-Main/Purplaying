@@ -6,7 +6,7 @@
 
 	<sql id="selectFromUser">
 		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE 
-		FROM tbs_user
+		FROM tb_user
 	</sql>
 	
 	<!-- signin -->
@@ -16,7 +16,7 @@
 	</select>
 	
 	<delete id="deleteAll">
-		truncate table Tbs_USER restart identity
+		truncate table tb_USER restart identity
 	</delete>
 	
 	<insert id="insert" parameterType="UserDto">

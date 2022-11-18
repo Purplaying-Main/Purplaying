@@ -121,11 +121,6 @@ public class pageController {
     return "leave";
   }
 
-  // setting.jsp호출
-  @RequestMapping(value = "/setting", method = RequestMethod.GET)
-  public String setting() {
-    return "setting";
-  }
 
   // signIn.jsp호출
   @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -146,65 +141,13 @@ public class pageController {
   }
   /////////////////////////////////////////////////////////////////////////////////////////
 
-  // 카데고리,
-  // 검색///////////////////////////////////////////////////////////////////////////////////////
-  // genre.jsp호출
-  @RequestMapping(value = "/genre", method = RequestMethod.GET)
-  public String genre() {
-    return "genre";
-  }
-
-  // genreLiterature.jsp호출
-  @RequestMapping(value = "/genreliterature", method = RequestMethod.GET)
-  public String genreLiterature() {
-    return "genreLiterature";
-  }
-
-  // genrePoemEssay.jsp호출
-  @RequestMapping(value = "/genrepoemessay", method = RequestMethod.GET)
-  public String genrePoemEssay() {
-    return "genrePoemEssay";
-  }
-
-  // genreWebtoon.jsp호출
-  @RequestMapping(value = "/genrewebtoon", method = RequestMethod.GET)
-  public String genreWebtoon() {
-    return "genreWebtoon";
-  }
-
-  // searchResult.jsp호출
-  @RequestMapping(value = "/searchResult", method = RequestMethod.GET)
-  public String searchResult() {
-    return "searchResult";
-  }
 
   // profilSearch.jsp호출
   @RequestMapping(value = "/creatorSearch", method = RequestMethod.GET)
   public String profilSearch() {
     return "creatorSearch";
   }
-  /////////////////////////////////////////////////////////////////////////////////////////
 
-  // 헤더연결
-  // 페이지///////////////////////////////////////////////////////////////////////////////////////
-  // popularFunding.jsp호출
-  @RequestMapping(value = "/popularFunding", method = RequestMethod.GET)
-  public String popularFunding() {
-    return "popularFunding";
-  }
-
-  // newFunding.jsp호출
-  @RequestMapping(value = "/newFunding", method = RequestMethod.GET)
-  public String newFunding() {
-    return "newFunding";
-  }
-
-  // comingsoonFunding.jsp호출
-  @RequestMapping(value = "/comingsoonFunding", method = RequestMethod.GET)
-  public String comingsoonFunding() {
-    return "comingsoonFunding";
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////
 
   // 푸터연결
   // 페이지///////////////////////////////////////////////////////////////////////////////////////
