@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class MemberController {
 
     @Autowired
     UserDao userDao;
-    
+
     @Autowired(required=true)
     LeaveDao leaveDao;
   
@@ -37,10 +38,12 @@ public class MemberController {
     public String iamport() {
       return "iamport";
     }
+
     @GetMapping("/login")
     public String loginForm() {
         return "signIn";
     }
+
     @GetMapping("mypage")
     public String MyPage() {
       return "mypage";
@@ -73,13 +76,16 @@ public class MemberController {
     }
     
     //PostMapping////////////////////////////////////////////////////////////////////////////////////
+
     @PostMapping("/login")
     public String login(String user_id, String user_pwd, boolean rememberId,String toURL ,HttpServletRequest request, HttpServletResponse response) throws Exception {
                 
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {
             //2-1. 일치하지 않으면, loginForm으로 이동     
+
             String msg = URLEncoder.encode("Id와 Password가 일치하지 않습니다.", "utf-8");
+
             return "redirect:/user/login?msg="+msg;
         }
         
@@ -106,6 +112,7 @@ public class MemberController {
         //일치하면 로그인 후 화면 (홈화면)으로 이동      
         return "redirect:"+toURL;
         
+
     }
         
     @ResponseBody
@@ -166,12 +173,15 @@ public class MemberController {
     public static void makeCookie(HttpServletResponse response, String user_id) {
       Cookie cookieid = new Cookie("user_id", user_id); 
       response.addCookie(cookieid);       
+
     }
     public static void deleteCookie(HttpServletResponse response, String user_id) {
         Cookie cookieid = new Cookie("user_id", user_id); 
         cookieid.setMaxAge(0);
         response.addCookie(cookieid);   
     }
+
+
   
     private boolean loginCheck(String user_id, String user_pwd) throws Exception {
       // TODO Auto-generated method stub
@@ -180,8 +190,45 @@ public class MemberController {
           System.out.println("userDto==null");
           return false;
       }
-    
+
+      
       return userDto.getUser_pwd().equals(user_pwd);
+  }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
-    //////////////////////////////////////////////////////////////////////////////////////
+    //
+    
+    
+    @GetMapping("signup")
+    public String SignUp() {
+      return "signup";
+    }
+    @PostMapping("/signup")
+    public String signup(String user_id, String user_pwd, String chk_user_pwd, String user_name,String user_phone,String toURL ,HttpServletRequest request) throws Exception {
+      //1. id와 pw를 확인
+      if(!PwdCheck(user_pwd, chk_user_pwd)) {
+          //2-1. 일치하지 않으면, loginForm으로 이동     
+          String msg = URLEncoder.encode("비밀번호와 비밀번호확인이 일치하지 않습니다.", "utf-8");
+          return "redirect:/user?msg="+msg;
+      }
+      HttpSession session =  request.getSession();
+      
+      
+      //4. toUrl이 있을시에는 toUrl로 이동
+      toURL = toURL==null || toURL.equals("") ? "/" : toURL;
+              
+      //일치하면 로그인 후 화면 (홈화면)으로 이동      
+      return "redirect:"+toURL;
+    }
+    
+    private boolean PwdCheck(String user_pwd, String chk_user_pwd) {
+     
+      return user_pwd.equals(chk_user_pwd);
+  }
+  
 }
+

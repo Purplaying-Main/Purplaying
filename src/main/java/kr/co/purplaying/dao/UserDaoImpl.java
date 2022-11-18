@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,6 @@ public class UserDaoImpl implements UserDao {
   
     @Override
     public UserDto selectUser(String user_id) {
-        // TODO Auto-generated method stub
         return session.selectOne(namespace+"select",user_id);
     }
   
@@ -47,6 +48,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+
+    public int updateName(UserDto userDto) throws Exception {
+      
+      return session.update(namespace + "updatename", userDto);
+    }
+    
+
     public int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception {
       Map map = new HashMap();
       map.put("user_id", user_id);
@@ -79,37 +87,6 @@ public class UserDaoImpl implements UserDao {
     public int updateUserActivate(int user_no) {
       return session.update(namespace+"updateUserActivation",user_no);
     }
+
   	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

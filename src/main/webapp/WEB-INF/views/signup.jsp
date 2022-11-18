@@ -24,7 +24,6 @@
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h2 class="mb-3">이메일 간편가입</h2>
-        
         <form class="needs-validation"  > <!--novalidate--><!-- action="<c:url value='/user/signup'/>" method="post" -->
           <div class="row">
             <label for="email" class="form-label">Email</label>
@@ -39,7 +38,7 @@
             
           </div>
 
-          <div class="col-12 mt-2">
+          <div class="col-12 mt-2" onsubmit="return formCheck(this)">
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" required>
             <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" onchange="check_pw()" required><!-- onchange='func_chk_Pwd()' 값바뀌면 script실행--> 

@@ -8,6 +8,7 @@
 		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE FROM tb_user
 	</sql>
 	
+
 	<!-- signin -->
 	<select id="select" parameterType="String" resultType="UserDto">
 		<include refid="selectFromUser" />
@@ -26,6 +27,13 @@
 		select count(*) from tb_user
 	</select>
 	
+
+	<update id="updateName" parameterType="UserDto">
+		UPDATE tb_user
+		SET user_name= #{user_name}
+		WHERE user_id= #{user_id}
+	</update>
+
 	<!-- signup -->
 	<insert id="insertUserInfo" parameterType="map">
 		INSERT INTO tb_user (user_id, user_pwd, user_name, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_phone})
@@ -55,6 +63,7 @@
 	<insert id="insertLeaveReason" parameterType="map">
 		INSERT INTO tb_leave (USER_NO,LEAVE_CATEGORY,LEAVE_REASON) VALUES (#{user_no},#{leave_category},#{leave_reason})
 	</insert>
+
 
 	
 </mapper>
