@@ -86,9 +86,9 @@ public class UserDto {
     if (getClass() != obj.getClass())
       return false;
     UserDto other = (UserDto) obj;
-
     return Objects.equals(user_id, other.user_id) && user_no == other.user_no
         && Objects.equals(user_pwd, other.user_pwd) && user_role == other.user_role;
+
   }
   @Override
   public String toString() {
@@ -99,4 +99,6 @@ public class UserDto {
   
   
   
+
 }
+

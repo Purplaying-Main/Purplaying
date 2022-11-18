@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class pageController {
 
   // 고객센터///////////////////////////////////////////////////////////////////////////////////////
-
   // serviceCenter.jsp호출
 
   @RequestMapping(value = "/servicecenter", method = RequestMethod.GET)
@@ -257,3 +256,4 @@ public class pageController {
   }
 
 }
+
