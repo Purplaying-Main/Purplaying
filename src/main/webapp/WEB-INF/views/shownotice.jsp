@@ -193,28 +193,8 @@
 	
 
 	<div class="container_b">
-		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기" }</h2>
-<%-- 			<form id="form" class="frm" action="" method="post">
-				<input type="hidden" name="inquiry_no" value="${boardDto.inquiry_no }">
-				<input type="text" name="inquiry_title" value="${boardDto.inquiry_title }" ${mode=="new" ? "" : "readonly='readonly'" }> <br/>
-				<div class="<c:if test="${mode eq 'new'}">summernote</c:if>"><!-- textarea 를 div 로 변환하면 가능 -->
-				<textarea rows="20" name="inquiry_context" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.inquiry_context }</textarea><br/>
-				<!-- </div> -->
-				<c:if test="${mode eq 'new' }">
-					<button type="button" id="writeBtn" class="btn btn-wirte"><i class="fa fa-pen"></i>등록</button>
-				</c:if>
-				<c:if test="${mode ne 'new' }">
-					<button type="button" id="writeNewBtn" class="btn btn-wirte" onclick="location.href='<c:url value="/oneonone/write" />'" ><i class="fa fa-pen"></i>글쓰기</button>
-				</c:if>
-	            <c:if test="${boardDto.user_id eq loginId }">
-	                <button type="button" id="modifyBtn" class="btn btn-modify"><i class="fa fa-edit"></i>수정</button>
-	                <button type="button" id="removeBtn" class="btn btn-modify"><i class="fa fa-trash"></i>삭제</button>
-	            </c:if>
-				
-				<button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-bars"></i>목록</button>
-				
-				
-			</form> --%>
+		<h2 class="writing-header">공지사항 답변</h2>
+<!--			<a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }>"/>"> -->
 			<form class="card p-5 mb-3" id="form" action="" method="post">
 										<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
 										<!-- 제목 영역  -->			                    	
@@ -223,7 +203,7 @@
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
 											<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_id} | user_id : ${sessionScope.user_id}</small>
 										</div>
-										<hr class="my-4">
+										<hr class="my-4">								
 										<!-- 본문 영역 -->
 										<div class="px-4 py-2">
 											${oneononeDto.inquiry_context}
@@ -232,7 +212,7 @@
 										<hr class="my-4">
 										<div class="mt-3 text-end">			
 											<!-- 수정권한 확인  -->
-											<c:if test="${oneononeDto.user_id eq sessionScope.user_id}">
+											<c:if test="${sessionScope.user_id eq 'admin@gmail.com'}">
 												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
 												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
 											</c:if>

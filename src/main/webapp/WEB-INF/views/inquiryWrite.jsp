@@ -107,7 +107,7 @@
 		<script type="text/javascript">
 		$("#writeBtn").on("click", function() {
 			let form = $("#form");
-			form.attr("action", "<c:url value='/oneonone/write' />")
+			form.attr("action", "<c:url value='/oneonone/write/reg' />")
 			form.attr("method", "post")
 			
 			if(formCheck())

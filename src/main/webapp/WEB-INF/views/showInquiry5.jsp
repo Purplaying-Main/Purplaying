@@ -118,8 +118,8 @@
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
-										<div class="px-4 py-2"> <%-- id="content" ${mode=="new" ? "" : "readonly='readonly'" }>  --%> 
-											${oneononeDto.inquiry_context}
+										<div class="px-4 py-2">
+											${oneononeDto.inquiry_context}		
 										</div>
 										<!-- 글쓰기 목록 버튼 영역 -->
 										<hr class="my-4">
@@ -144,7 +144,7 @@
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("#listBtn").on("click", function() {
-			location.href ="<c:url value='/oneonone/list${searchItem.queryString}' />";
+			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 		})
 		
 		//remove
@@ -152,7 +152,7 @@
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
 			let form = $("#form")
-			form.attr("action","<c:url value='/oneonone/remove${searchItem.queryString}' />")
+			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
 			form.attr("method", "post")
 			form.submit()
 		})
@@ -166,20 +166,37 @@
 			if(formCheck())
 				form.submit()					
 		})
-		$("#writeBtn").on("click", function() {
+<%--		$("#modifyBtn").on("click", function() {
+			let form = $("#form");
 			location.href ="<c:url value='/oneonone/write' />";	
-		})
-/* 		
-		//modify
+			form.attr("method", "get")	
+			form.submit()
+		}) --%>
+		
 		$("#modifyBtn").on("click", function() {
-				let form = $("#form");
-				form.attr("action", "<c:url value='/oneonone/modify${searchItem.queryString}' />")
-				form.attr("method", "post")	
-				form.submit()
-			}) */
+			let form = $("#form")
+			let isReadonly = $("input[name=inquiry_title]").attr('readonly')
+			
+			// 1. 읽기 상태이면 수정상태로 변경
+			if(isReadonly=='readonly') {
+				$(".writing-header").html("게시판 수정")
+				$("input[name=inquiry_title]").attr('readonly', false)
+	//			$("#content").attr('readonly', false)
+				$("#modifyBtn").html("<i class='fa fa-pen'></i> 등록")
+				return;
+			}
+			// 2. 수정상태이면 수정된 내용을 서버로 전송
+			form.attr("action","<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}'/>")
+			form.attr("method","post")
+			if(formCheck()){
+				form.submit();
+			}
+				
+		})
+
 	})
 	</script>
-	
+<%-- 	
 	<script type="text/javascript">
 		$(document).ready(function() {			/* main() */
 			
@@ -209,7 +226,7 @@
 					return true;
 			}
 			
-			$("#modifyBtn").on("click", function() {
+<%--		$("#modifyBtn").on("click", function() {
 				let form = $("#form")
 				let isReadonly = $("input[name=inquiry_title]").attr('readonly')
 				
@@ -228,11 +245,11 @@
 					form.submit();
 				}
 					
-			})
+			})  --%>
 		
 		
 		})	
 		
-	</script> 
+	</script> --%>
 </body>
 </html>

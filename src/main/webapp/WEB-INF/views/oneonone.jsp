@@ -69,11 +69,11 @@
 									<c:forEach var="oneononeDto" items="${list }">
 										<tr>
 											<td class="no">${oneononeDto.inquiry_no }</td>
-											<td class="state">${oneononeDto.inquiry_state }</td>
-											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }<%-- ${pr.sc.queryString}&inquiry_no=${oneononeDto.inquiry_no } --%>"/>">
+											<td class="state">${oneononeDto.inquiry_state == true ? "답변완료" : "답변중" }</td>
+											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
 													${oneononeDto.inquiry_title } </a></td>
 											<td class="writer">${oneononeDto.user_id }</td>
-											<td class="private">${oneononeDto.inquiry_private }</td>
+											<td class="private">${oneononeDto.inquiry_private == true ? "공개" : "비공개" }</td>
 
 											<td class="regdate"><fmt:formatDate	value="${oneononeDto.inquiry_regdate }" pattern="yyyy-MM-dd" type="date" /></td>
 										</tr>
@@ -125,25 +125,20 @@
 		<script type="text/javascript">
 	$(document).ready(function() {
 		$("#listBtn").on("click", function() {
-			location.href ="<c:url value='/oneonone/list${searchItem.queryString}' />";
+			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 		})
 		
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
 			let form = $("#form")
-			form.attr("action","<c:url value='/oneonone/remove${searchItem.queryString}' />")
+			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
 			form.attr("method", "post")
 			form.submit()
 		})
 		
 		$("#writeBtn").on("click", function() {
-			let form = $("#form");
-			form.attr("action", "<c:url value='/oneonone/write' />")
-			//form.attr("method", "post")
-			
-			if(formCheck())
-				form.submit()					
+			form.attr("action", "<c:url value='/oneonone/write' />")			
 		})
 
 	})
