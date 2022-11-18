@@ -37,8 +37,8 @@ public class UserDaoImpl implements UserDao {
     }
   
     @Override
-    public int insertUser(UserDto dto) throws Exception {
-        return session.insert(namespace+"insert",dto);
+    public int insertUser(UserDto userDto) throws Exception {
+        return session.insert(namespace+"insert",userDto);
     }
   
     @Override
@@ -74,8 +74,14 @@ public class UserDaoImpl implements UserDao {
     public UserDto searchUser_no(String user_id) throws Exception {
       return session.selectOne(namespace+"selectUser_NO",user_id);
     }
+
+    @Override
+    public int updateUserActivate(int user_no) {
+      return session.update(namespace+"updateUserActivation",user_no);
+    }
   	
 }
+
 
 
 

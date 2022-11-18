@@ -36,7 +36,7 @@
                 </p>
                 <form>
                   <div class="form-floating py-2">
-                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <input type="email" class="form-control" id="floatingInput" name="user_id" placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                   </div>
                   <div class="w-100 btn btn-lg btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#findAccountModal">이메일 확인</div>
