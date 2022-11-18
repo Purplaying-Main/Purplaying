@@ -10,5 +10,10 @@
 		<typeAlias alias="LeaveDto" type="kr.co.purplaying.domain.LeaveDto" />
 		<typeAlias alias="AgreementDto" type="kr.co.purplaying.domain.AgreementDto" />
 		<typeAlias alias="MemberDto" type="kr.co.purplaying.domain.MemberDto" />
+		<typeAlias alias="IndexDto" type="kr.co.purplaying.domain.IndexDto" />
+		<typeAlias alias="HeaderFundingDto" type="kr.co.purplaying.domain.HeaderFundingDto" />
+		<typeAlias alias="genreDto" type="kr.co.purplaying.domain.GenreDto" />
+		<typeAlias alias="Order" type="kr.co.purplaying.domain.Order" />
+		<typeAlias alias="projectSuggestDto" type="kr.co.purplaying.domain.ProjectSuggestDto" />
 	</typeAliases>
 </configuration>
