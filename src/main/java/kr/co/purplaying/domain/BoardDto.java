@@ -10,7 +10,7 @@ public class BoardDto{
 	private String content;
 	private String writer;
 	private int view_cnt;
-	private int commetn_cnt;
+	private int comment_cnt;
 	private Date reg_date;
 	
 	public BoardDto() {
@@ -81,12 +81,12 @@ public class BoardDto{
 		this.view_cnt = view_cnt;
 	}
 
-	public int getCommetn_cnt() {
-		return commetn_cnt;
+	public int getComment_cnt() {
+		return comment_cnt;
 	}
 
-	public void setCommetn_cnt(int commetn_cnt) {
-		this.commetn_cnt = commetn_cnt;
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
 	}
 
 	public Date getReg_date() {
@@ -100,7 +100,7 @@ public class BoardDto{
 	@Override
 	public String toString() {
 		return "bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", view_cnt=" + view_cnt + ", commetn_cnt=" + commetn_cnt + ", reg_date=" + reg_date;
+				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", reg_date=" + reg_date;
 	}	
 	
 	

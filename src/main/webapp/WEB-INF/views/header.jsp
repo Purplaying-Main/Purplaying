@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
 
-<c:set var="loginout" value="${sessionScope.id == null ? 'Login' : 'Logout' }"/>
-<c:set var="loginoutlink" value="${sessionScope.id == null ? '/login' : '/login/logout' }"/>
-<c:set var="loginHidden" value="${sessionScope.id == null ? '' : 'display:none' }"/>
-<c:set var="loginDisplay" value="${sessionScope.id == null ? 'display:none' : '' }"/>
-<c:set var="adminWrite" value="${sessionScope.id eq 'admin@gmail.com' ? '' : 'display:none' }"/>
+ 
+<c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
+<c:set var="loginoutlink" value="${sessionScope.user_id == null ? '/user/login' : '/user/logout' }"/>
+<c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
+<c:set var="loginDisplay" value="${sessionScope.user_id == null ? 'display:none' : '' }"/>
+<c:set var="adminWrite" value="${sessionScope.user_id eq 'admin@gmail.com' ? '' : 'display:none' }"/>
 
 	
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -34,7 +35,7 @@
   </svg>	
   
  <!--헤더 컨테이너-->
-  <h1 class="visually-hidden">Header</h1>
+ <h1 class="visually-hidden">Header</h1>
   <header class="p-3 border-bottom">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -64,7 +65,7 @@
         <div class="dropdown text-end">
           <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
 	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
-	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/signup'">Sign-up</button>
+	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button><!-- goPost() -->
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,14 +74,22 @@
 	          <ul class="dropdown-menu text-small">
 	            <li><a class="dropdown-item link-primary" href="/purplaying/projectregister"><strong>신규 프로젝트 올리기</strong></a></li>
 	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
-	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
+	            <li><a class="dropdown-item" href="/purplaying/user/mypage">마이페이지</a></li>
+	            <li><a class="dropdown-item" href="/purplaying/user/setting">설정</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/servicecenter">고객센터</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
 	          </ul>
           </div>
-          
+        <!--   <script type="text/javascript">
+          		function goPost(){
+          			let form = document.createElement('form');
+          			form.setAttribute('method','post');
+          			form.setAttribute('action','/purplaying/user/signup');
+          			document.body.appendChild(form);
+          			form.submit();
+          		}
+          </script> -->
         </div>
       </div>
     </div>
