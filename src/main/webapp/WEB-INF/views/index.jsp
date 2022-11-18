@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
+<%! int prdt_id = 1; %>
+ <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
@@ -26,7 +27,7 @@
           <div class="carousel-caption text-start">
             <h1>물고기는 존재하지 않는다</h1>
             <p>다양한 사람들이 모여 한 권의 책을 추천합니다.</p>
-            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
           </div>
         </div>
       </div>
@@ -44,7 +45,7 @@
           <div class="carousel-caption text-start">
             <!-- <h1>2022 노벨문학상, 아니 에르노</h1>
             <p>Some representative placeholder content for the third slide of this carousel.</p> -->
-            <p><a class="btn btn-outline-secondary" href="/purplaying/projectdetail">자세히보기</a></p>
+            <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
           </div>
         </div>
       </div>
@@ -74,7 +75,7 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail?prdt_id=1'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                  <div class="card-body">         
@@ -96,6 +97,7 @@
                     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
+             
               </div>
             </div><!-- project thumb end -->
           </c:forEach>
@@ -108,7 +110,7 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='projectDetail'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
