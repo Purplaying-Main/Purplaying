@@ -5,8 +5,11 @@
 
 <configuration>
 	<typeAliases>
-		<typeAlias alias="BoardDto"	type="kr.co.purplaying.domain.BoardDto" />
-		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />	
-		<typeAlias alias="ProductDto" type="kr.co.purplaying.domain.ProductDto" />			
+		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
+		<typeAlias alias="SearchResultDto" type="kr.co.purplaying.domain.SearchResultDto" />
+		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
+		<typeAlias alias="LeaveDto" type="kr.co.purplaying.domain.LeaveDto" />
+		
 	</typeAliases>
+	
 </configuration>

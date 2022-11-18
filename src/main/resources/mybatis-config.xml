@@ -6,6 +6,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
+		<typeAlias alias="SearchResultDto" type="kr.co.purplaying.domain.SearchResultDto" />
 		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
 		<typeAlias alias="LeaveDto" type="kr.co.purplaying.domain.LeaveDto" />
 		<typeAlias alias="AgreementDto" type="kr.co.purplaying.domain.AgreementDto" />
@@ -17,4 +18,5 @@
 		<typeAlias alias="projectSuggestDto" type="kr.co.purplaying.domain.ProjectSuggestDto" />
 		<typeAlias alias="ProductDetailDto" type="kr.co.purplaying.domain.ProductDetailDto" />	
 	</typeAliases>
+	
 </configuration>

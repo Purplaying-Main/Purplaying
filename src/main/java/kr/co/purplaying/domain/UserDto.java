@@ -66,10 +66,6 @@ public class UserDto {
     this("","",0);
   }
   
-  
-  public UserDto(String user_id) {
-    this(user_id,"",0);
-  }
   public UserDto(String user_id, String user_pwd, int user_role) {
     super();
     this.user_id = user_id;
