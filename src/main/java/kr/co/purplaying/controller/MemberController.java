@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,8 +74,6 @@ public class MemberController {
       return "findAccount";
     }
     
-    //PostMapping////////////////////////////////////////////////////////////////////////////////////
-
     @PostMapping("/login")
     public String login(String user_id, String user_pwd, boolean rememberId,String toURL ,HttpServletRequest request, HttpServletResponse response) throws Exception {
                 
@@ -168,20 +165,16 @@ public class MemberController {
       }
     }
     
- 
-    //일반 메서드////////////////////////////////////////////////////////////////////////////////////
     public static void makeCookie(HttpServletResponse response, String user_id) {
-      Cookie cookieid = new Cookie("user_id", user_id); 
-      response.addCookie(cookieid);       
-
+        Cookie cookieid = new Cookie("user_id", user_id); 
+        response.addCookie(cookieid);       
     }
     public static void deleteCookie(HttpServletResponse response, String user_id) {
         Cookie cookieid = new Cookie("user_id", user_id); 
         cookieid.setMaxAge(0);
         response.addCookie(cookieid);   
     }
-
-
+    
   
     private boolean loginCheck(String user_id, String user_pwd) throws Exception {
       // TODO Auto-generated method stub
@@ -190,7 +183,6 @@ public class MemberController {
           System.out.println("userDto==null");
           return false;
       }
-
       
       return userDto.getUser_pwd().equals(user_pwd);
   }
@@ -231,4 +223,3 @@ public class MemberController {
   }
   
 }
-

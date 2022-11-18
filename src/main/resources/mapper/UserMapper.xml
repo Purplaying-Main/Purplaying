@@ -5,10 +5,10 @@
 <mapper namespace="kr.co.purplaying.UserMapper">
 
 	<sql id="selectFromUser">
-		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE FROM tb_user
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE 
+		FROM tbs_user
 	</sql>
 	
-
 	<!-- signin -->
 	<select id="select" parameterType="String" resultType="UserDto">
 		<include refid="selectFromUser" />
@@ -16,7 +16,7 @@
 	</select>
 	
 	<delete id="deleteAll">
-		truncate table TB_USER restart identity
+		truncate table Tbs_USER restart identity
 	</delete>
 	
 	<insert id="insert" parameterType="UserDto">
@@ -24,10 +24,9 @@
 	</insert>
 	
 	<select id="count" resultType="int">
-		select count(*) from tb_user
+		select count(*) from tbs_user
 	</select>
 	
-
 	<update id="updateName" parameterType="UserDto">
 		UPDATE tb_user
 		SET user_name= #{user_name}
@@ -64,6 +63,4 @@
 		INSERT INTO tb_leave (USER_NO,LEAVE_CATEGORY,LEAVE_REASON) VALUES (#{user_no},#{leave_category},#{leave_reason})
 	</insert>
 
-
-	
 </mapper>

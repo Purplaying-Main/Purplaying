@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
-
- 
 <c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
 <c:set var="loginoutlink" value="${sessionScope.user_id == null ? '/user/login' : '/user/logout' }"/>
 <c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>

@@ -7,7 +7,12 @@ import kr.co.purplaying.domain.UserDto;
 
 public interface UserDao {
 
-	int updateName(UserDto userDto) throws Exception;
+	UserDto selectUser(String user_id) throws Exception;
+	int deleteAll() throws Exception;
+	int insertUser(UserDto dto) throws Exception;
+	int count() throws Exception;
+
+    int updateName(UserDto userDto) throws Exception;
     UserDto selectUser(String user_id) throws Exception;
     int deleteAll() throws Exception ;
     int count() throws Exception;
