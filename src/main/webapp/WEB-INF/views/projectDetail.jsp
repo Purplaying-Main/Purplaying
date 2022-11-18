@@ -52,8 +52,7 @@
       <div class="contentsWrap">
       	<form id="form" class="frm" action="" method="post">
       		<input type="hidden" name="prdt_id" value="${productDetailDto.prdt_id}"><br>
-      	  <div class="py-3 text-center">
-      	  
+      	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
                 	<c:when test="${productDetailDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
@@ -61,7 +60,6 @@
                  	<c:when test="${productDetailDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
             	</c:choose>
             </h4>
-
             <h1>${productDetailDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
@@ -428,7 +426,7 @@
    <!-- 페이지 URL copy JS -->
    <script src="resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->
-   <script>document.getElementById("showURL").value = window.location.pathname;</script>
+   <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
    <!-- show / hide JS -->
    <script src="resources/assets/js/showHide.js"></script> 
   <!--푸터 인클루드-->
