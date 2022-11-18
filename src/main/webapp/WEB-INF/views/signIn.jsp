@@ -10,7 +10,7 @@
  <%@ include file ="meta.jsp" %>
  <!-- 소셜 로그인(카카오, 네이버, 구글) -->
  <script src="resources/assets/js/social.js"></script>
- <!-- <script src="resources/assets/js/loginValidation.js"></script> -->
+ <script src="resources/assets/js/loginValidation.js"></script>
  
 </head>
 <body>
@@ -25,7 +25,7 @@
       
         <div class="form-signin w-100 m-auto">
           <form action="<c:url value='/user/login'/>" method="post" onsubmit="return formCheck(this)">
-            <img class="mb-4 text-center pt-4 w-25" src="resources/assets/img/purplaying_logo_kor.png" alt="퍼플레잉 로고">
+            <img class="mb-4 text-center pt-4 w-25" src="${pageContext.request.contextPath}/resources/assets/img/purplaying_logo_kor.png" alt="퍼플레잉 로고">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
         	<div id="msg">
 				<c:if test="${ not empty param.msg }">
@@ -33,7 +33,7 @@
 				</c:if>
 			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="user_id" value="${cookie.user_id.value}" autofocus>
+              <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.user_id.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating py-2">

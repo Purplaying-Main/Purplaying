@@ -12,6 +12,16 @@ public class BoardDto{
 	private boolean inquiry_private;
 	private Date inquiry_regdate;
 	
+
+	private Integer bno;
+	private String title;
+	private String content;
+	private String writer;
+	private int view_cnt;
+	private int comment_cnt;
+	private Date reg_date;
+
+	
 	
 	public BoardDto() {
 	    
@@ -80,14 +90,30 @@ public class BoardDto{
     this.inquiry_regdate = inquiry_regdate;
   }
 
-  @Override
-  public String toString() {
-    return "BoardDto [inquiry_no=" + inquiry_no + ", inquiry_state=" + inquiry_state + ", user_id=" + user_id
-        + ", inquiry_title=" + inquiry_title + ", inquiry_context=" + inquiry_context + ", inquiry_private="
-        + inquiry_private + ", inquiry_regdate=" + inquiry_regdate + "]";
-  }
-	
-	
+	public int getComment_cnt() {
+		return comment_cnt;
+	}
+
+
+
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
+	}
+
+	public Date getReg_date() {
+		return reg_date;
+	}
+
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
+	}
+
+	@Override
+	public String toString() {
+		return "bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", reg_date=" + reg_date;
+	}	
+
 	
 	
 	

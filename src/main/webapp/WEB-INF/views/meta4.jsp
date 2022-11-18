@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/headers.css"> <!-- header-->
   <!-- <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">  --><!-- header-->
   <!-- JS -->
-  <script src="${pageContext.request.contextPath}/	rces/assets/js/bootstrap.bundle.min.js"></script> 
+  <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="${pageContext.request.contextPath}/resources/assets/js/include.js"></script>
   <!-- 아이콘  -->
