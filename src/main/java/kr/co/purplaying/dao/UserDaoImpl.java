@@ -37,8 +37,8 @@ public class UserDaoImpl implements UserDao {
     }
   
     @Override
-    public int insertUser(UserDto dto) throws Exception {
-        return session.insert(namespace+"insert",dto);
+    public int insertUser(UserDto userDto) throws Exception {
+        return session.insert(namespace+"insert",userDto);
     }
   
     @Override

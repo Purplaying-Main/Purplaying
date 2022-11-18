@@ -86,11 +86,8 @@
 					</div>
 				</div>
 				<div class="container py-4">
-					<h4>
-						<a>이런 프로젝트는 어떠세요?</a>
-					</h4>
+					<h4><a>이런 프로젝트는 어떠세요?</a></h4>
 					<%@ include file="projectSuggest.jsp"%>
-
 				</div>
 			</div>
 	</section>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class pageController {
     
+
     //고객센터///////////////////////////////////////////////////////////////////////////////////////
     //serviceCenter.jsp호출
     @RequestMapping(value="/servicecenter", method=RequestMethod.GET)
@@ -67,11 +68,7 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //프로젝트///////////////////////////////////////////////////////////////////////////////////////
-    //projectDetail.jsp(Admin)호출
-    @RequestMapping(value="/projectdetail", method=RequestMethod.GET)
-    public String projectDetail() {
-        return "projectDetail";
-    }
+
     
     //projectregister.jsp(Admin)호출
     @RequestMapping(value="/projectregister", method=RequestMethod.GET)
