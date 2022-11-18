@@ -23,7 +23,7 @@
 			  <ol class="breadcrumb fs-6 mt-4">
 			    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
 			    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
-			  	<li class="breadcrumb-item text-muted" id="product_id" value="${projectDto.product_id}">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
+			  	<li class="breadcrumb-item text-muted" id="product_id" name="product_id" value="${projectDto.product_id}">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
 			  </ol>
 	  </nav>
 	  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
@@ -62,7 +62,7 @@
               <p>프로젝트의 주제, 책의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" placeholder="${projectDto.prdt_title}" rows="1" style="resize: none;" id="prdt_title" name="prdt_title">${projectDto.prdt_title}</textarea>
+              <textarea class="form-control" rows="1" style="resize: none;" id="prdt_title" name="prdt_title">${projectDto.prdt_title}</textarea>
               <span class="text-danger text-small">0/20</span>
             </div>
           </div>
@@ -442,9 +442,10 @@
 		})
 	</script>
 	<script type="text/javascript">
-		let prdt_cate = $("#prdt_cate").val()
-		let prdt_title = $("#prdt_title").val()
-		let product_id = $("#product_id").val()
+	
+		let prdt_cate = $("select[name=prdt_cate]").val()
+		let prdt_title = $("textarea[name=prdt_title]").val()
+		let product_id = $("li[name=product_id]").val()
 		var prdtData = { // Body에 첨부할 json 데이터
                 "prdt_cate":prdt_cate,
                 "prdt_title":prdt_title,
@@ -453,12 +454,14 @@
 /* 		let param = "?product_id="+product_id */
 		let modifyAll = function(product_id) {
 			$.ajax({
-				type: 'POST',
-				url: '/purplaying/projectregister/modify',
+				type: 'PATCH',
+				url: '/purplaying/project/modify,
 				headers : { "content-type" : "application/json" }, 		//요청 헤더
 				dataType : 'text',		// 전송받을 데이터의 타입 
                 data: JSON.stringify(prdtData),
-				success : function() { alert("success") },
+				success : function() { 
+					alert("success")
+				},
 				error : function() { alert("error") }
 			})
 		}
@@ -472,8 +475,8 @@
 				let form = $(".tab-pane");
 			
 				//2.수정 상태면 수정된 내용을 서버로 전송
-				form.attr("action", "<c:url value='/projectregister/modify' />")
-				form.attr("method", "post")
+				form.attr("action", "<c:url value='/project/modify' />")
+				form.attr("method", "PATCH")
 	/* 			if(formCheck()) */
 					form.submit();				
 			})

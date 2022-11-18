@@ -4,26 +4,73 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
-	<sql id="selectFromBoard"> <!--tb 내용 전체 select 추출-->
+	<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
 		SELECT product_id, writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail
 		FROM tb_product
 	</sql>
 	
+	<sql id="searchCondition">
+  		<choose>
+			<when test='option=="T"'>
+				AND prdt_title LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="W"'>
+				AND writer LIKE concat('%', #{keyword}, '%')
+			</when>
+			<otherwise>
+				AND (prdt_title LIKE concat('%', #{keyword}, '%')
+				OR prdt_desc LIKE concat('%', #{keyword}, '%'))
+			</otherwise>
+		</choose>
+  	</sql>
+  	
+  	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->
+		SELECT COUNT(*) from tb_product  
+	</select>
+  	
 	<select id="select" parameterType="int" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
-		<include refid="selectFromBoard"/>
+		<include refid="selectFromProject"/>
 		WHERE product_id = #{product_id}
 	</select>
 	
 	<select id="selectRecently" parameterType="map" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
-		<include refid="selectFromBoard"/>
+		<include refid="selectFromProject"/>
 		WHERE writer = #{writer}
 		ORDER BY prdt_regdate DESC LIMIT 1
 	</select>
+	<select id="selectAll" parameterType="int" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		where product_id = #{product_id}
+		order by prdt_regdate
+	</select>
+	
+	<select id="selectPage" parameterType="map" resultType="ProjectDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
+		<include refid="selectFromProject"/>
+			order by product_id desc, prdt_regdate desc 
+			limit #{pageSize} OFFSET  #{offset}
+	</select>
+	
+	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+  		SELECT count(*)
+		FROM tb_product
+		WHERE TRUE
+		<include refid="searchCondition" />
+  	</select>
+  	
+  	<select id="searchSelectPage" parameterType="SearchItem" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		FROM tb_product 
+		WHERE TRUE
+		<include refid="searchCondition" />
+		ORDER BY prdt_regdate DESC, product_id DESC 
+		LIMIT #{pageSize} OFFSET #{offset}
+  	</select>
+  	
 	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
-			(writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail)
-		VALUES (#{writer}, #{prdt_title}, #{prdt_desc}, #{prdt_desc_detail}, now(), #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_cate}, #{prdt_thumbnail} )
+			(writer, prdt_cate, prdt_title, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
+		VALUES (#{writer}, #{prdt_cate}, #{prdt_title}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
 	</insert>
 	
 	<update id="update" parameterType="ProjectDto">

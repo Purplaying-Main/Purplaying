@@ -197,4 +197,5 @@ public class NoticeController {
       return "serviceCenter";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
+  
 }

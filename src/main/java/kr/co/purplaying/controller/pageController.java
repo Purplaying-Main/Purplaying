@@ -93,12 +93,13 @@ public class pageController {
     /////////////////////////////////////////////////////////////////////////////////////////
     
     //회원///////////////////////////////////////////////////////////////////////////////////////
-    //mypage.jsp호출
-    @RequestMapping(value="/mypage", method=RequestMethod.GET)
-    public String mypage() {
-        return "mypage";
-    }
-    
+//    //mypage.jsp호출
+//    @RequestMapping(value="/mypage", method=RequestMethod.GET)
+//    public String mypage() {
+//      
+//        return "mypage";
+//    }
+//    
     //leave.jsp호출
     @RequestMapping(value="/leave", method=RequestMethod.GET)
     public String leave() {
