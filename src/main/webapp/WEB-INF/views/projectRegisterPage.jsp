@@ -23,7 +23,7 @@
 			  <ol class="breadcrumb fs-6 mt-4">
 			    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
 			    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
-			  	<li class="breadcrumb-item text-muted" id="product_id" name="product_id" value="${projectDto.product_id}">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
+			  	<li class="breadcrumb-item text-muted">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
 			  </ol>
 	  </nav>
 	  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
@@ -40,8 +40,9 @@
         </div>
       </div>
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
+      	<input type="hidden" name="product_id" id="product_id" value="${projectDto.product_id}">
         <!-- tab 1 contents -->
-        <form class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
+        <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
           <div class="row pb-3 border-bottom mt-4">
             <div class="col-6">
               <h5>프로젝트 카테고리</h5>
@@ -49,7 +50,7 @@
             </div>
             <div class="col-6 px-3">
               <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;" id="prdt_cate" name="prdt_cate" value="${projectDto.prdt_cate}">
-                <option value="0" selected>장르를 선택해주세요</option>
+                <option value="0">장르를 선택해주세요</option>
                 <option value="1">문학</option>
                 <option value="2">시/에세이</option>
                 <option value="3">웹툰</option>
@@ -62,7 +63,7 @@
               <p>프로젝트의 주제, 책의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" rows="1" style="resize: none;" id="prdt_title" name="prdt_title">${projectDto.prdt_title}</textarea>
+              <input class="form-control" rows="1" style="resize: none;" id="prdt_title" value="${projectDto.prdt_title}" />
               <span class="text-danger text-small">0/20</span>
             </div>
           </div>
@@ -84,7 +85,7 @@
               <p>후원자 분들이 프로젝트를 빠르게 이해할 수 있도록 명확하고 간략하게 소개해주세요</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <textarea class="form-control" placeholder="${projectDto.prdt_desc}​" rows="5" style="resize: none;" name="prdt_desc"> ${projectDto.prdt_desc}</textarea>
+              <textarea class="form-control" rows="5" style="resize: none;" id="prdt_desc"> ${projectDto.prdt_desc}</textarea>
               <span class="text-danger text-small">0/50</span>
             </div>
           </div>
@@ -92,7 +93,7 @@
             <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn0">다음단계</button>
           </div>
-        </form>
+        </div>
 
         <!-- tab 2 contents -->
         <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
@@ -364,11 +365,9 @@
               <p>아래와 같은 사항을 고려해서 작성해주세요. 진행하는 프로젝트에 해당되지 않는 항목은 삭제해주세요.</p>
               <ul class="bg-light rounded p-3 text-muted text-small">
                 <li>
-                  <p>펀딩 마감 이후에는 후원금액이 창작자에게 전달되기에 퍼플레잉을 통해 환불이 불가합니다. 환불은 창작자가 환불계좌를 받아 반환하는 방식으로만 가능하며, 어떤 경우에 환불이
-                    가능한지를 기재해주세요.</p>
+                  <p>펀딩 마감 이후에는 후원금액이 창작자에게 전달되기에 퍼플레잉을 통해 환불이 불가합니다. 환불은 창작자가 환불계좌를 받아 반환하는 방식으로만 가능하며, 어떤 경우에 환불이 가능한지를 기재해주세요.</p>
                 <li>
-                  <p>펀딩 성사 후 지연 또는 선물 전달에 문제가 발생했을 때에 어떤 식으로 대응하시겠어요? 이 프로젝트 특성상 발생할 수 있는 문제에 대한 추가적인 정책이나 약속이 있다면
-                    기재해주세요. (후원금 환불, 대체 보상 등)</p>
+                  <p>펀딩 성사 후 지연 또는 선물 전달에 문제가 발생했을 때에 어떤 식으로 대응하시겠어요? 이 프로젝트 특성상 발생할 수 있는 문제에 대한 추가적인 정책이나 약속이 있다면 기재해주세요. (후원금 환불, 대체 보상 등)</p>
                 </li>
                 <li>
                   <p>배송이 필요한 선물에 문제가 발생한 경우 교환, A/S는 어떻게 진행되나요?</p>
@@ -442,43 +441,53 @@
 		})
 	</script>
 	<script type="text/javascript">
-	
-		let prdt_cate = $("select[name=prdt_cate]").val()
-		let prdt_title = $("textarea[name=prdt_title]").val()
-		let product_id = $("li[name=product_id]").val()
-		var prdtData = { // Body에 첨부할 json 데이터
-                "prdt_cate":prdt_cate,
-                "prdt_title":prdt_title,
-                "product_id":product_id,
-            }
-/* 		let param = "?product_id="+product_id */
-		let modifyAll = function(product_id) {
-			$.ajax({
-				type: 'PATCH',
-				url: '/purplaying/project/modify,
-				headers : { "content-type" : "application/json" }, 		//요청 헤더
-				dataType : 'text',		// 전송받을 데이터의 타입 
-                data: JSON.stringify(prdtData),
-				success : function() { 
-					alert("success")
-				},
-				error : function() { alert("error") }
-			})
-		}
-		
 		$(document).ready(function() {
-			$("#modifyAllBtn").on("click", function() {
-				modifyAll(product_id)
-			})
-			
-			$("#modifyBtn").on("click", function() {
-				let form = $(".tab-pane");
-			
+/* 			$("#modifyBtn").on("click", function() {
+				let form = $(".projectform");	
+		
 				//2.수정 상태면 수정된 내용을 서버로 전송
-				form.attr("action", "<c:url value='/project/modify' />")
-				form.attr("method", "PATCH")
-	/* 			if(formCheck()) */
-					form.submit();				
+				form.attr("action", "<c:url value='/notice/modify' />")
+				form.attr("method", "post")
+				form.submit();				
+			}) */
+			
+			let viewPage = function(product_id) {
+				$.ajax({
+					type: 'GET',			//요청 메서드
+					url: '/purplaying/project/modify/'+${projectDto.product_id},		// 요청 URI
+					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
+						alert("success fin.")		// result는 서버가 전송한 데이터
+					},
+					error : function() { alert("error fin.") }	// 에러가 발생할 때, 호출될 함수 
+				})
+			}
+			
+			
+		
+		
+			$("#modifyAllBtn").on("click", function() {
+				let product_id = ${projectDto.product_id}
+				let prdt_cate = $("select[name=prdt_cate]").val()
+				let prdt_title = $("#prdt_title").val()
+				let prdt_desc = $('#prdt_desc').val()
+				
+				const prdtData = { // Body에 첨부할 json 데이터
+						product_id:product_id,
+		                prdt_cate:prdt_cate,
+		                prdt_title:prdt_title,
+		                prdt_desc:prdt_desc,
+		            }
+				alert("prdtData:"+JSON.stringify(prdtData))
+				$.ajax({
+					type: 'PATCH',
+					url: '/purplaying/project/modify/'+${projectDto.product_id},
+					headers : { "content-type" : "application/json-patch+json; charset=utf-8" }, 		//요청 헤더
+	                data: JSON.stringify(prdtData),
+					success : function() { 
+						alert("success")
+					},
+					error : function() { alert("error") }
+				})
 			})
 		})
 		

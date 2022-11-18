@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
@@ -21,7 +22,7 @@ public class ProjectDaoImpl implements ProjectDao {
   public int insert(ProjectDto projectDto) throws Exception {
     return session.insert(namespace+"insert", projectDto);
   }
-
+  
   @Override
   public int update(ProjectDto projectDto) throws Exception {
     return  session.update(namespace+"update", projectDto);

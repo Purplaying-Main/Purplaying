@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.domain.ProjectDto;
@@ -27,6 +28,7 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
+  @Transactional
   public int modify(ProjectDto projectDto) throws Exception {
     return projectDao.update(projectDto);
   }

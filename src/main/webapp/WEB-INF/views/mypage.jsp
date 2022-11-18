@@ -41,29 +41,36 @@
               
               <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
               <!-- project card start -->
-              <c:forEach var="projectDto" items="${list}">
-	              <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-	                <div class="col-auto d-none d-lg-block">
-	                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-	                </div>
-	                <div class="col p-4 d-flex flex-column position-static">
-	                  <div class="row justify-content-between mb-2">
-	                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.product_id }</p> 
-	                    <div class="col-auto">
-	                      <!-- on off btn -->
-	                      <div class="form-check form-switch">
-	                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-	                        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
-	                      </div>
-	                    </div>
-	                  </div>
-	                  <h4 class="mb-0"><button type="button" id="modifyBtn">${projectDto.prdt_title }</button></h4>
-	                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
-	                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-	                  <p class="text-muted mb-0">심사완료</a>
-	                </div>
-	              </form>
-	          </c:forEach>
+              
+	          <c:forEach var="projectDto" items="${list}">
+	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
+		              <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+		                <div class="col-auto d-none d-lg-block">
+		                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+		                </div>
+		                <div class="col p-4 d-flex flex-column position-static">
+		                  <div class="row justify-content-between mb-2">
+		                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.product_id }</p> 
+		                    <div class="col-auto">
+		                      <!-- on off btn -->
+		                      <div class="form-check form-switch">
+		                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+		                        <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+		                      </div>
+		                    </div>
+		                  </div>
+		                  <h4 class="mb-0">
+		                  	<a href='<c:url value="/project/modify/${projectDto.product_id }"/>'>
+					        	${projectDto.prdt_title}
+					        </a>
+		                  </h4>
+		                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
+		                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+		                  <p class="text-muted mb-0">심사완료</a>
+		                </div>
+		              </form>  
+		      	</c:if>
+		      </c:forEach>
 	          <!-- project card end -->
 	          
               <!-- 신규 프로젝트 작성 버튼 -->
@@ -206,7 +213,7 @@
   <%@ include file ="footer.jsp" %>
   	<script type="text/javascript">
 	$(document).ready(function() {
-		
+		//let product_id = ${projectDto.product_id}
 		//remove
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
@@ -226,14 +233,6 @@
 			if(formCheck())
 				form.submit()					
 		})
-		
-		//modify
-		$("#modifyBtn").on("click", function() {
-				let form = $("#form");
-				form.attr("action", "<c:url value='/project/modify' />")
-				form.attr("method", "get")	
-				form.submit()
-			})
 	})
 	</script>
 </body>

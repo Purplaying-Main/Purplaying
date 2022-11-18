@@ -74,8 +74,8 @@
 	</insert>
 	
 	<update id="update" parameterType="ProjectDto">
-		UPDATE tb_product
-		SET prdt_cate=#{prdt_cate}, prdt_open=#{prdt_open}, prdt_title=#{prdt_title}, prdt_thumbnail=#{prdt_thumbnail}, prdt_desc=#{prdt_desc}, prdt_goal=#{prdt_goal}, prdt_opendate=#{prdt_opendate}, prdt_enddate=#{prdt_enddate}, prdt_desc_detail=#{prdt_desc_detail}, prdt_desc_policy=#{prdt_desc_policy}
-		WHERE product_id= #{product_id} and writer = #{writer}
+		UPDATE public.tb_product
+		SET prdt_title = #{prdt_title}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_cate = #{prdt_cate}, prdt_thumbnail = #{prdt_thumbnail}
+		WHERE product_id= #{product_id} AND writer = #{writer}
 	</update>
 </mapper>

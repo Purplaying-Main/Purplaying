@@ -83,3 +83,16 @@ create table tb_product
 
 select * from tb_product ;
 truncate table tb_product restart identity;
+
+INSERT INTO tb_product 
+(writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy
+,prdt_cate, prdt_thumbnail)
+VALUES ('admin@gmail.com', '프로젝트이름0','프로젝트간단설명1', '프로젝트전체설명1', now(), now(), now(), 600000, TRUE, '프로젝트정책',1, 'image'  )
+;
+
+UPDATE public.tb_product
+SET prdt_cate=1, prdt_regdate=now(), prdt_open=false, prdt_title='프로젝트 이름 수정', prdt_thumbnail='섬네일 수정', prdt_desc='설명 수정', prdt_goal=500000, prdt_currenttotal=0, prdt_opendate=now(), prdt_enddate=now(), prdt_desc_detail='', prdt_desc_policy=''
+WHERE product_id= 3
+;
+
+TRUNCATE TABLE tb_product restart IDENTITY;

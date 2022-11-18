@@ -13,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
@@ -30,26 +32,65 @@ public class ProductController {
   
   @Autowired
   ProjectService projectService;
-
-  @PatchMapping("/modify/{product_id}")
-  public ResponseEntity<String> modify(@PathVariable Integer product_id, ProjectDto projectDto, HttpSession session, Model m){
   
+//  // mapper테스트. 수정 정상작동 (2022-11-19)
+//  @RequestMapping("/modify")
+//  public String modify(ProjectDto projectDto,  
+//                      RedirectAttributes rattr, Model m, HttpSession session) {
+//      String writer = (String) session.getAttribute("user_id");
+//      projectDto.setWriter(writer);
+//      Integer product_id = projectDto.getProduct_id();
+//      projectDto.setProduct_id(product_id);
+//      try {
+//
+//          if(projectService.modify(projectDto) != 1)
+//              throw new Exception("Modify failed");
+//          
+//          rattr.addFlashAttribute("msg", "MOD_OK");
+//          System.out.println("post result modify: "+projectDto);
+//          return "redirect:/project/modify";
+//      } catch(Exception e) {
+//          e.printStackTrace();
+//          m.addAttribute(projectDto);
+//          m.addAttribute("msg", "MOD_ERR");
+//          return "projectRegisterPage";         // 수정등록하려던 내용을 보여줌
+//      }
+//      
+//  }
+   
+  @PatchMapping("/modify/{product_id}")
+  public ResponseEntity<List<ProjectDto>> modify(@PathVariable Integer product_id,
+                                       @RequestBody ProjectDto projectDto, 
+                                       HttpSession session){
+    
+      List<ProjectDto> list = null;
+      
+      String writer = (String)session.getAttribute("user_id");
+      projectDto.setWriter(writer);
+      projectDto.setProduct_id(product_id);
+      
+      System.out.println("Patch ready modify: "+projectDto);
       try {
+        list = projectService.getList(product_id);
+        System.out.println("list: "+list);
+        
         if(projectService.modify(projectDto) != 1)
           throw new Exception("Modify failed");
         
         System.out.println("Patch result modify: "+projectDto);
-        return new ResponseEntity<String>("Modify_OK", HttpStatus.OK);
+        return new ResponseEntity<List<ProjectDto>>(list, HttpStatus.OK);
       } catch (Exception e) {
         e.printStackTrace();
-        return new ResponseEntity<String>("Modify_ERR", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<List<ProjectDto>>(HttpStatus.BAD_REQUEST);
       }
   }
   
-  @GetMapping("/modify")
-  public String read(Integer product_id, SearchItem sc, Model m, HttpSession session) {
+  
+  @GetMapping("/modify/{product_id}")
+  public String modify(@PathVariable Integer product_id,
+                                      Model m,
+                                      SearchItem sc, HttpSession session) {
       try {
-        
           String user_id = (String)session.getAttribute("user_id");
           m.addAttribute(user_id);
           
@@ -58,6 +99,7 @@ public class ProductController {
           
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
+          System.out.println("writer : "+writer);
           
       
       } catch (Exception e) {
