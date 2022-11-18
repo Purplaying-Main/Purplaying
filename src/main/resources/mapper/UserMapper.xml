@@ -4,37 +4,63 @@
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.purplaying.UserMapper">
 
-	<sql id="selectFromBoard">
-		SELECT user_no, user_id, user_pwd, user_name, user_phone, user_regdate, user_activate, user_role, img_no
-		FROM tb_user
+	<sql id="selectFromUser">
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE 
+		FROM tbs_user
 	</sql>
 	
-	<select id="select" parameterType="int" resultType="BoardDto">
-		<include refid="selectFromBoard" />
-		where user_no = #{user_no}
+	<!-- signin -->
+	<select id="select" parameterType="String" resultType="UserDto">
+		<include refid="selectFromUser" />
+		where user_id = #{user_id} and user_activate = 1
 	</select>
 	
 	<delete id="deleteAll">
-		delete from tb_user
+		truncate table Tbs_USER restart identity
 	</delete>
 	
 	<insert id="insert" parameterType="UserDto">
-		INSERT INTO tb_user
-			(user_id, user_pwd, user_name)
-		VALUES
-			(#{user_id}, #{user_pwd}, #{user_phone})
+		INSERT INTO tb_user (user_id, user_pwd, user_name, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_phone})
 	</insert>
 	
 	<select id="count" resultType="int">
-		select count(*) from t_board
+		select count(*) from tbs_user
 	</select>
 	
-	<select id="selectPage" parameterType="map" resultType="UserDto">
-		<include refid="selectFromBoard" />
-		order by reg_date desc, bno desc
-		limit #{pageSize} offset #{offset}
+	<update id="updateName" parameterType="UserDto">
+		UPDATE tb_user
+		SET user_name= #{user_name}
+		WHERE user_id= #{user_id}
+	</update>
+
+	<!-- signup -->
+	<insert id="insertUserInfo" parameterType="map">
+		INSERT INTO tb_user (user_id, user_pwd, user_name, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_phone})
+	</insert>
+	
+	<insert id="insertUserCheck" parameterType="map">
+		INSERT INTO tb_agreement (user_no,agree_age,agree_terms,agree_inform,agree_inform_third,agree_marketing) VALUES (#{user_no},#{agree_age},#{agree_terms},#{agree_inform},#{agree_inform_third},#{agree_marketing})
+	</insert>
+	
+	<select id="selectUser_NO" parameterType="String" resultType="UserDto">
+		SELECT USER_NO
+		from tb_user
+		where user_id = #{user_id}
 	</select>
 	
+	<update id="updateUserActivation" parameterType="int">
+		UPDATE tb_user SET user_activate = 0 WHERE user_no = #{user_no}
+	</update>
 	
+	<!-- leave -->
+	<select id="selectUserNo_forDelete" parameterType="String" resultType="UserDto">
+		SELECT USER_NO
+		from tb_user
+		where user_id = #{user_id}
+	</select>
 	
+	<insert id="insertLeaveReason" parameterType="map">
+		INSERT INTO tb_leave (USER_NO,LEAVE_CATEGORY,LEAVE_REASON) VALUES (#{user_no},#{leave_category},#{leave_reason})
+	</insert>
+
 </mapper>

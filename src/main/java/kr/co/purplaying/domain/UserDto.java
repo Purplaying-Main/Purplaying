@@ -14,6 +14,7 @@ public class UserDto {
   private int user_active;
   private int user_role;
   
+
   public int getUser_no() {
     return user_no;
   }
@@ -74,7 +75,7 @@ public class UserDto {
   }
   @Override
   public int hashCode() {
-    return Objects.hash(user_id, user_pwd, user_role);
+    return Objects.hash(user_id, user_no, user_pwd, user_role);
   }
   @Override
   public boolean equals(Object obj) {
@@ -85,8 +86,9 @@ public class UserDto {
     if (getClass() != obj.getClass())
       return false;
     UserDto other = (UserDto) obj;
-    return Objects.equals(user_id, other.user_id) && Objects.equals(user_pwd, other.user_pwd)
-        && user_role == other.user_role;
+    return Objects.equals(user_id, other.user_id) && user_no == other.user_no
+        && Objects.equals(user_pwd, other.user_pwd) && user_role == other.user_role;
+
   }
   @Override
   public String toString() {
@@ -97,4 +99,6 @@ public class UserDto {
   
   
   
+
 }
+

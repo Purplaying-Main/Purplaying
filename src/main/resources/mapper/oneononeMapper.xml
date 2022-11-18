@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.oneononeMapper">
+
+  	<sql id="selectFromOneonone">
+		SELECT inquiry_no, inquiry_state, user_id, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
+		FROM tb_inquiry2
+  	</sql>
+  	
+  	<select id="select" parameterType="int" resultType="OneononeDto">
+  		<include refid="selectFromOneonone" />
+  		WHERE inquiry_no = #{inquiry_no}
+  	</select>
+  	
+  	<delete id="deleteAll">
+  		delete from tb_inquiry2
+  	</delete>
+
+  	<delete id="delete" parameterType="map">
+  		delete from tb_inquiry2 
+  		where inquiry_no = #{inquiry_no} and user_id = #{user_id}
+  	</delete>
+  	
+  	<delete id="deleteForAdmin">
+  		delete from tb_inquiry2 
+  		where inquiry_no = #{inquiry_no}
+  	</delete>
+  	
+  	<insert id="insert">
+  		INSERT INTO tb_inquiry2
+			(inquiry_title, inquiry_context, user_id)
+		VALUES	
+			(#{inquiry_title}, #{inquiry_context}, #{user_id})
+  	</insert>
+  	
+  	<select id="count" resultType="int">
+  		select count(*) from tb_inquiry2
+  	</select>
+  	
+  	<select id="selectPage" parameterType="map" resultType="OneononeDto">
+  		<include refid="selectFromOneonone" />
+		order by inquiry_regdate desc, inquiry_no desc 
+		limit #{pageSize} offset #{offset}
+  	</select>
+    
+   	<select id="searchSelectPage" parameterType="SearchItem" resultType="OneononeDto">
+	  	select * 
+	  	from tb_inquiry2
+		where true 
+		and (inquiry_title LIKE concat('%',#{keyword},'%')
+		OR inquiry_context LIKE concat('%',#{keyword},'%'))
+		order by inquiry_regdate desc, inquiry_no desc 
+		limit #{pageSize} offset #{offset}
+  	</select> 	
+  	
+  	 <select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+		select count(*) 
+		from tb_inquiry2
+		where true 
+		and inquiry_title like concat('%' ,#{keyword}, '%')
+  	</select>
+
+	<update id="update" parameterType="OneononeDto">
+		UPDATE tb_inquiry2
+		SET inquiry_title=#{inquiry_title}, inquiry_context=#{inquiry_context} 
+		WHERE inquiry_no= #{inquiry_no } and user_id = #{user_id}
+	</update>
+  	
+  	
+	
+</mapper>

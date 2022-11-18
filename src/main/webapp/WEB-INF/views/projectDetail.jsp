@@ -7,6 +7,10 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
+  	<link rel="stylesheet" href="resources/assets/css/heart.css">
+	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
+	<script src="resources/assets/js/heart.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
   <style>
   .fa-heart{
   border-radius: 0.375rem; 
@@ -39,13 +43,26 @@
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
+   
+  
+			
    <!--페이지 내용 시작-->
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
-          <div class="py-3 text-center">
-            <h4><a href="genreliterature">문학</a></h4>
-            <h1>진행중인 펀딩명</h1>
+      	<form id="form" class="frm" action="" method="post">
+      		<input type="hidden" name="prdt_id" value="${productDetailDto.prdt_id}"><br>
+      	  <div class="py-3 text-center">
+      	  
+            <h4>
+            	<c:choose>
+                	<c:when test="${productDetailDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+            	</c:choose>
+            </h4>
+
+            <h1>${productDetailDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
@@ -58,10 +75,10 @@
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">
-              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">45일</h4></li>
-              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">75%</h4></li>
-              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">1,805,000원</h4></li>
-              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">170명</h4></li>
+              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${productDetailDto.prdt_dday}일</h4></li>
+              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${productDetailDto.prdt_percent}%</h4></li>
+              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${productDetailDto.prdt_currenttotal}</h4></li>
+              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">n명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
               	<div class="col-8">
@@ -110,8 +127,8 @@
               <li class="row d-flex border rounded p-3 m-1">
                 <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
-                  <h5 class="row text-primary mt-2">창작자 이름</h5>
-                  <h6 class="row text-muted">창작자 이메일</h6>
+                  <h5 class="row text-primary mt-2">${productDetailDto.user_name}</h5>
+                  <h6 class="row text-muted">${productDetailDto.user_id}</h6>
                   <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
@@ -206,16 +223,21 @@
                 <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
                   <dl class="row">
                     <dt class="col-sm-3"><strong class="text-muted">목표금액</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">3,000,000원</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info"><fmt:formatNumber value="${productDetailDto.prdt_goal }" pattern="#,###" /> 원</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">2022.11.04 ~ 2022.01.11</h6></dd>
+                    <dd class="col-sm-9">
+                    	<h6 class="text-info">
+                    		<fmt:formatDate pattern ="yyyy/MM/dd" value="${productDetailDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy/MM/dd" value="${productDetailDto.prdt_enddate}"/>
+						</h6>
+					</dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 2022.01.12에 결제 진행</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${productDetailDto.prdt_purchaseday}"/>에 결제 진행</h6></dd>
                   </dl>
                   	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->
 		              <h4 class="mt-2">프로젝트 소개</h4>
 		              <div class="mt-2" id="projectDetailimg">
+		              		${productDetailDto.prdt_desc_detail}
 		                  <img src="resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
@@ -269,21 +291,6 @@
                             <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
                             <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
                           </ul>
-                          <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
-                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
-                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
-                          </div>
-                          <div class="align-items-end" id="ModiArea1" style="display: none;">
-                            <div class="col-10">
-                              <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
-                              <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
-                              <div class="text-end">
-                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">작성</button>
-                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">취소</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         </div>
                       </div>
                     </div><!--아코디언 아이템2 종료-->
@@ -355,9 +362,9 @@
                       <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
                       <br/>
                       <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
-                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong>2022.11.21 17시</strong>에 모두
+                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${productDetailDto.prdt_purchaseday}"/> 17시</strong>에 모두
                       함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
-                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong>2022.11.18</strong> 이후로는 
+                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${productDetailDto.prdt_limitday}"/></strong> 이후로는 
                       불가합니다.</p>
                       <br/>
                     </div>
@@ -407,8 +414,10 @@
                 </div>
               </div>
             </div><!-- 탭 컨텐츠 end -->
-          </div><!-- 상세페이지 하단 종료 --> 
-        </div>
+            </form>
+          </div><!-- 상세페이지 하단 종료 -->
+      	</div>
+       
     </section>
    <!--페이지 내용 종료-->
    
