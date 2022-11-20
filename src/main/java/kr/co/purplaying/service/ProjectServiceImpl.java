@@ -34,8 +34,8 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public ProjectDto read(Integer product_id) throws Exception {
-    ProjectDto projectDto = projectDao.select(product_id);
+  public ProjectDto read(Integer prdt_id) throws Exception {
+    ProjectDto projectDto = projectDao.select(prdt_id);
     //조회수 증가
     return projectDto;
   }
@@ -62,8 +62,18 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public List<ProjectDto> getList(Integer product_id) throws Exception {
-    return projectDao.selectAll(product_id);
+  public List<ProjectDto> getList(Integer prdt_id) throws Exception {
+    return projectDao.selectAll(prdt_id);
+  }
+
+  @Override
+  public int remove(Integer prdt_id, String writer) throws Exception {
+    return projectDao.delete(prdt_id, writer);
+  }
+
+  @Override
+  public ProjectDto view(Integer prdt_id) throws Exception {
+    return projectDao.projectDetail(prdt_id);
   }
 
 

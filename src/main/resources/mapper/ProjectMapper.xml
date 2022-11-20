@@ -5,7 +5,11 @@
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
 	<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
-		SELECT product_id, writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_cate, prdt_thumbnail
+		SELECT prdt_id, writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
+		, (prdt_enddate-prdt_opendate) as "prdt_dday"
+		, (prdt_enddate+1) as "prdt_purchaseday"
+		, (prdt_enddate-3) as "prdt_limitday"
+		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
 		FROM tb_product
 	</sql>
 	
@@ -30,7 +34,7 @@
   	
 	<select id="select" parameterType="int" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
 		<include refid="selectFromProject"/>
-		WHERE product_id = #{product_id}
+		WHERE prdt_id = #{prdt_id}
 	</select>
 	
 	<select id="selectRecently" parameterType="map" resultType="ProjectDto"> <!--Board select 특정 bno 추출-->
@@ -40,13 +44,13 @@
 	</select>
 	<select id="selectAll" parameterType="int" resultType="ProjectDto">
 		<include refid="selectFromProject"/>
-		where product_id = #{product_id}
+		where prdt_id = #{prdt_id}
 		order by prdt_regdate
 	</select>
 	
 	<select id="selectPage" parameterType="map" resultType="ProjectDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
 		<include refid="selectFromProject"/>
-			order by product_id desc, prdt_regdate desc 
+			order by prdt_id desc, prdt_regdate desc 
 			limit #{pageSize} OFFSET  #{offset}
 	</select>
 	
@@ -62,20 +66,56 @@
 		FROM tb_product 
 		WHERE TRUE
 		<include refid="searchCondition" />
-		ORDER BY prdt_regdate DESC, product_id DESC 
+		ORDER BY prdt_regdate DESC, prdt_id DESC 
 		LIMIT #{pageSize} OFFSET #{offset}
   	</select>
   	
+  	<select id="projectDetail" resultType="ProjectDto">
+		select
+		prdt_genre
+		,prdt_title
+		,prdt_desc
+		,prdt_desc_detail
+		,prdt_regdate
+		,prdt_opendate
+		,prdt_enddate
+		,prdt_goal
+		,prdt_currenttotal
+		,prdt_desc_policy
+		,prdt_user_no
+		,user_no
+		,user_id
+		,user_pwd
+		,user_name
+		,user_phone
+		,user_regdate
+		,user_activate
+		,user_role
+		, (prdt_enddate-prdt_opendate) as "prdt_dday"
+		, (prdt_enddate+1) as "prdt_purchaseday"
+		, (prdt_enddate-3) as "prdt_limitday"
+		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
+		from tb_product p
+		JOIN tb_user u
+		ON p.prdt_user_no = u.user_no
+		where prdt_id = #{prdt_id}
+		limit 1
+	</select>
 	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
-			(writer, prdt_cate, prdt_title, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
-		VALUES (#{writer}, #{prdt_cate}, #{prdt_title}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
+			(writer, prdt_genre, prdt_title, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
+		VALUES (#{writer}, #{prdt_genre}, #{prdt_title}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
 	</insert>
 	
 	<update id="update" parameterType="ProjectDto">
 		UPDATE public.tb_product
-		SET prdt_title = #{prdt_title}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_cate = #{prdt_cate}, prdt_thumbnail = #{prdt_thumbnail}
-		WHERE product_id= #{product_id} AND writer = #{writer}
+		SET prdt_title = #{prdt_title}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}, prdt_thumbnail = #{prdt_thumbnail}
+		WHERE prdt_id= #{prdt_id} AND writer = #{writer}
 	</update>
+	
+	<delete id="delete" parameterType="map">
+		DELETE FROM tb_product
+		WHERE prdt_id = #{prdt_id} and writer = #{writer}		
+	</delete>
 </mapper>

@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,8 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
   @Override
-  public ProjectDto select(Integer product_id) throws Exception {
-    return session.selectOne(namespace+"select",product_id);
+  public ProjectDto select(Integer prdt_id) throws Exception {
+    return session.selectOne(namespace+"select",prdt_id);
   }
 
   @Override
@@ -59,8 +60,21 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
   @Override
-  public List<ProjectDto> selectAll(Integer product_id) throws Exception {
-    return session.selectList(namespace+"selectAll", product_id);
+  public List<ProjectDto> selectAll(Integer prdt_id) throws Exception {
+    return session.selectList(namespace+"selectAll", prdt_id);
+  }
+
+  @Override
+  public int delete(Integer prdt_id, String writer) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("writer", writer);
+    return session.delete(namespace+"delete", map);
+  }
+
+  @Override
+  public ProjectDto projectDetail(Integer prdt_id) throws Exception {
+    return session.selectOne(namespace+"projectDetail", prdt_id);
   }
 
 }

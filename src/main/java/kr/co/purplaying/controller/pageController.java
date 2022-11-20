@@ -73,11 +73,11 @@ public class pageController {
         return "projectDetail";
     }
     
-//    projectregister.jsp(Admin)호출
-    @RequestMapping(value="/projectregister", method=RequestMethod.GET)
-    public String projectRegister() {
-        return "projectRegisterIntro";
-    }
+////    projectregister.jsp(Admin)호출
+//    @RequestMapping(value="/projectregister", method=RequestMethod.GET)
+//    public String projectRegister() {
+//        return "projectRegisterIntro";
+//    }
 //    
     //payment.jsp호출
     @RequestMapping(value="/payment", method=RequestMethod.GET)

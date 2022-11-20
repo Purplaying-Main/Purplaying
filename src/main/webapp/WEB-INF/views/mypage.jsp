@@ -35,22 +35,20 @@
         
         <div class="col-10 mx-auto">
           <div class="tab-content" id="v-pills-tabContent">
-          
+          <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
             <!-- 펀딩현황 tab -->
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
-              
-              <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
-              <!-- project card start -->
-              
-	          <c:forEach var="projectDto" items="${list}">
+			  <c:forEach var="projectDto" items="${list}">
 	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
+              		<!-- project card start -->
+              		<a href='<c:url value="/project/modify/${projectDto.prdt_id }"/>'>
 		              <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 		                <div class="col-auto d-none d-lg-block">
 		                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 		                </div>
 		                <div class="col p-4 d-flex flex-column position-static">
 		                  <div class="row justify-content-between mb-2">
-		                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.product_id }</p> 
+		                    <div class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.prdt_id }</div> 
 		                    <div class="col-auto">
 		                      <!-- on off btn -->
 		                      <div class="form-check form-switch">
@@ -59,27 +57,24 @@
 		                      </div>
 		                    </div>
 		                  </div>
-		                  <h4 class="mb-0">
-		                  	<a href='<c:url value="/project/modify/${projectDto.product_id }"/>'>
-					        	${projectDto.prdt_title}
-					        </a>
-		                  </h4>
-		                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
-		                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-		                  <p class="text-muted mb-0">심사완료</a>
+		                  <h4 class="mb-0">${projectDto.prdt_title}</h4>
+		                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-0</p>
+		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
+		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
-		              </form>  
+		              </form> 
+		            </a> 
 		      	</c:if>
 		      </c:forEach>
 	          <!-- project card end -->
 	          
               <!-- 신규 프로젝트 작성 버튼 -->
               <div class="row">
-             	 <button type="button" class="mx-auto col-8 btn btn-lg btn-outline-primary" onclick="location.href='projectregister'">신규프로젝트 신청하기</button>
+             	 <button type="button" class="mx-auto col-8 btn btn-lg btn-outline-primary" onclick="location.href='project/write'">신규프로젝트 신청하기</button>
               </div>
               <hr class="mt-4 mb-2">
               
-              <h5 class="mt-4 mb-2">[userName]님이 후원중인 펀딩</h5>
+              <h5 class="mt-4 mb-2">${sessionScope.user_id}님이 후원중인 펀딩</h5>
                <!-- project card start -->
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col-auto d-none d-lg-block">
@@ -213,16 +208,7 @@
   <%@ include file ="footer.jsp" %>
   	<script type="text/javascript">
 	$(document).ready(function() {
-		//let product_id = ${projectDto.product_id}
-		//remove
-		$("#removeBtn").on("click", function() {
-			if(!confirm("정말로 삭제하시겠습니까?")) return;
-			
-			let form = $("#form")
-			form.attr("action","<c:url value='/notice/remove?page=${page}&pageSize=${pageSize}' />")
-			form.attr("method", "post")
-			form.submit()
-		})
+		//let prdt_id = ${projectDto.prdt_id}
 		
 		//write
 		$("#writeBtn").on("click", function() {

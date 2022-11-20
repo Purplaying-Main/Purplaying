@@ -11,7 +11,7 @@ public interface ProjectService {
   int getCount() throws Exception;
   List<ProjectDto> getPage(Map map) throws Exception;
 
-  ProjectDto read(Integer product_id) throws Exception;
+  ProjectDto read(Integer prdt_id) throws Exception;
   ProjectDto readRecently(String writer) throws Exception;
 
   int write(ProjectDto ProjectDto) throws Exception;
@@ -19,7 +19,10 @@ public interface ProjectService {
 
   int getSearchResultCnt(SearchItem sc) throws Exception;
   List<ProjectDto> getSearchResultPage(SearchItem sc) throws Exception;
-  List<ProjectDto> getList(Integer product_id) throws Exception;
+  List<ProjectDto> getList(Integer prdt_id) throws Exception;
+  
+  int remove(Integer prdt_id, String writer) throws Exception;
+  ProjectDto view(Integer prdt_id) throws Exception;
 
 
   

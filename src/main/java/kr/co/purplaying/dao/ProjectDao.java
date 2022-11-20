@@ -9,7 +9,7 @@ import kr.co.purplaying.domain.SearchItem;
 
 public interface ProjectDao {
   
-  ProjectDto select(Integer product_id) throws Exception;
+  ProjectDto select(Integer prdt_id) throws Exception;
   ProjectDto selectRecently(String writer) throws Exception;
   
   List<ProjectDto> selectPage(Map map) throws Exception;
@@ -19,7 +19,9 @@ public interface ProjectDao {
   int searchResultCnt(SearchItem sc) throws Exception;
   List<ProjectDto> searchSelectPage(SearchItem sc) throws Exception;
   int count()throws Exception;
-  List<ProjectDto> selectAll(Integer product_id) throws Exception;
+  List<ProjectDto> selectAll(Integer prdt_id) throws Exception;
+  int delete(Integer prdt_id, String writer) throws Exception;
+  ProjectDto projectDetail(Integer prdt_id)throws Exception;
   
 
   

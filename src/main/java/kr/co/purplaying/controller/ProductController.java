@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,33 +34,86 @@ public class ProductController {
   @Autowired
   ProjectService projectService;
   
-//  // mapper테스트. 수정 정상작동 (2022-11-19)
-//  @RequestMapping("/modify")
-//  public String modify(ProjectDto projectDto,  
-//                      RedirectAttributes rattr, Model m, HttpSession session) {
-//      String writer = (String) session.getAttribute("user_id");
-//      projectDto.setWriter(writer);
-//      Integer product_id = projectDto.getProduct_id();
-//      projectDto.setProduct_id(product_id);
-//      try {
-//
-//          if(projectService.modify(projectDto) != 1)
-//              throw new Exception("Modify failed");
-//          
-//          rattr.addFlashAttribute("msg", "MOD_OK");
-//          System.out.println("post result modify: "+projectDto);
-//          return "redirect:/project/modify";
-//      } catch(Exception e) {
-//          e.printStackTrace();
-//          m.addAttribute(projectDto);
-//          m.addAttribute("msg", "MOD_ERR");
-//          return "projectRegisterPage";         // 수정등록하려던 내용을 보여줌
-//      }
-//      
-//  }
+  //미리보기
+  @GetMapping("/view/{prdt_id}")
+  public String view(@PathVariable Integer prdt_id,
+                                      Model m,
+                                      HttpSession session) {
+        try {
+          String user_id = (String)session.getAttribute("user_id");
+          m.addAttribute(user_id);
+          
+          ProjectDto projectDto = projectService.read(prdt_id);
+          m.addAttribute(projectDto);
+          System.out.println(projectDto);
+          
+          String writer = projectDto.getWriter();
+          m.addAttribute(writer);
+      
+      } catch (Exception e) {
+          e.printStackTrace();
+          return "redirect:/mypage";
+      }
+      
+      return "projectDetail";
+  }
+  
+  //지정된 댓글을 삭제하는 메서드 
+  @DeleteMapping("/remove/{prdt_id}")
+  public ResponseEntity<String> remove(@PathVariable Integer prdt_id, HttpSession session) {
+      String writer = (String) session.getAttribute("user_id");
+      
+      try {
+          int removeResult = projectService.remove(prdt_id, writer);
+          
+          if(removeResult != 1) 
+              throw new Exception("Delete Failed");
+          
+          return new ResponseEntity<>(HttpStatus.OK);
+      } catch (Exception e) {
+          e.printStackTrace();
+          return new ResponseEntity<>("DEL_ERR", HttpStatus.BAD_REQUEST);
+      }
+  }
+  
+  @PostMapping("/write")
+  public String write(ProjectDto projectDto, Model m, 
+                      RedirectAttributes rattr, HttpSession session, HttpServletRequest request) {
+    
+      if(!loginCheck(request)) {
+        return "redirect:/login/login?toURL=" + request.getRequestURL();
+      }
+      
+      String writer = (String) session.getAttribute("user_id");
+      projectDto.setWriter(writer);
+      System.out.println("projectDto : "+projectDto);
+      try {
+          if(projectService.write(projectDto) != 1)
+            throw new Exception("write failed");
+          rattr.addFlashAttribute("msg", "WRT_OK");
+          m.addAttribute("mode", "new");
+          m.addAttribute(projectDto);
+//          projectDto = projectService.readRecently(writer);
+//          projectDto.setprdt_id(projectDto.getprdt_id());
+          return "projectRegisterPage";
+      } catch (Exception e) {
+          e.printStackTrace();
+          m.addAttribute("mode", "new");                  //글쓰기 모드
+          m.addAttribute("projectDto", projectDto);           //등록하려던 내용을 보여줘야 함
+          m.addAttribute("msg", "WRT_ERR");
+          return "projectRegisterIntro";
+      } 
+  }
+  
+  @GetMapping("/write")
+  public String write(Model m) {
+      m.addAttribute("mode", "new");
+      
+      return "projectRegisterIntro";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+  }
    
-  @PatchMapping("/modify/{product_id}")
-  public ResponseEntity<List<ProjectDto>> modify(@PathVariable Integer product_id,
+  @PatchMapping("/modify/{prdt_id}")
+  public ResponseEntity<List<ProjectDto>> modify(@PathVariable Integer prdt_id,
                                        @RequestBody ProjectDto projectDto, 
                                        HttpSession session){
     
@@ -67,17 +121,14 @@ public class ProductController {
       
       String writer = (String)session.getAttribute("user_id");
       projectDto.setWriter(writer);
-      projectDto.setProduct_id(product_id);
+      projectDto.setPrdt_id(prdt_id);
       
-      System.out.println("Patch ready modify: "+projectDto);
       try {
-        list = projectService.getList(product_id);
-        System.out.println("list: "+list);
+        list = projectService.getList(prdt_id);
         
         if(projectService.modify(projectDto) != 1)
           throw new Exception("Modify failed");
         
-        System.out.println("Patch result modify: "+projectDto);
         return new ResponseEntity<List<ProjectDto>>(list, HttpStatus.OK);
       } catch (Exception e) {
         e.printStackTrace();
@@ -86,15 +137,15 @@ public class ProductController {
   }
   
   
-  @GetMapping("/modify/{product_id}")
-  public String modify(@PathVariable Integer product_id,
+  @GetMapping("/modify/{prdt_id}")
+  public String modify(@PathVariable Integer prdt_id,
                                       Model m,
                                       SearchItem sc, HttpSession session) {
       try {
           String user_id = (String)session.getAttribute("user_id");
           m.addAttribute(user_id);
           
-          ProjectDto projectDto = projectService.read(product_id);
+          ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
           
           String writer = projectDto.getWriter();

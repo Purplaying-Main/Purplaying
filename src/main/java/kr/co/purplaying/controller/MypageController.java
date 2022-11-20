@@ -33,6 +33,8 @@ public class MypageController {
                      HttpServletRequest request, HttpSession session,
                      ProjectDto projectDto) {
     
+      if(!loginCheck(request))
+        return "redirect:/login/login?toURL="+request.getRequestURL();
       
       try {
        //session.user_id 와 작성자 비교.

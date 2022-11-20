@@ -19,15 +19,38 @@
    	 <div class="contentsWrap col-10 mx-auto">
       <!--컨텐츠 영역-->
       <div class="row justify-content-md-center">
-      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-			  <ol class="breadcrumb fs-6 mt-4">
-			    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
-			    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
-			  	<li class="breadcrumb-item text-muted">작성중인 펀딩번호 product_id : ${projectDto.product_id}</li>
-			  </ol>
-	  </nav>
-	  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
-        <h2 class="col-auto mb-5">프로젝트 기획</h2>
+	      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+				  <ol class="breadcrumb fs-6 mt-4">
+				    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
+				    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
+				  	<li class="breadcrumb-item text-muted">${mode=="new" ? "" : "작성중인 펀딩번호 prdt_id : "}${projectDto.prdt_id}</li>
+				  </ol>
+		  </nav>
+		  <a class="text-end" href="<c:url value="/project/view/${projectDto.prdt_id}"/>">미리보기(상세페이지로 이동)</a>
+		  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
+		  <button class="text-end" type="button" onclick="modifyFinish()">작성완료(마이페이지로 이동)</button>
+		  <button class="text-end" type="button" id="delBtn">프로젝트삭제</button>
+		  <button class="text-end" type="button" data-bs-toggle="modal" data-bs-target="#prjDelModal">프로젝트삭제(모달)</button>
+	      	<!-- 삭제 모달창 start -->
+			<div class="modal fade" id="prjDelModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="delModalLabel">프로젝트 삭제</h5>
+						</div>
+						<div class="modal-body text-center">
+							<label class="form-label">프로젝트를 삭제하시겠습니까?</label>
+							<div class="invalid-feedback">[확인]버튼 클릭시 작성중인 글은 저장되지 않고 삭제됩니다.(복구불가)</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+							<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="del()">확인</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 삭제 모달창 end -->  
+	      <h2 class="col-auto mb-5">프로젝트 기획</h2>
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
         <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist">
@@ -40,7 +63,7 @@
         </div>
       </div>
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
-      	<input type="hidden" name="product_id" id="product_id" value="${projectDto.product_id}">
+      	<input type="hidden" name="prdt_id" id="prdt_id" value="${projectDto.prdt_id}">
         <!-- tab 1 contents -->
         <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
           <div class="row pb-3 border-bottom mt-4">
@@ -49,8 +72,8 @@
               <p>프로젝트 성격과 가장 일치하는 카테고리를 선택해주세요. 적합하지 않을 경우 운영자에 의해 조정될 수 있습니다.</p>
             </div>
             <div class="col-6 px-3">
-              <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;" id="prdt_cate" name="prdt_cate" value="${projectDto.prdt_cate}">
-                <option value="0">장르를 선택해주세요</option>
+              <select class="form-select" aria-label="Default select example" rows="1" style="resize: none;" id="prdt_genre" name="prdt_genre" value="${projectDto.prdt_genre}">
+                <option value="0" selected="selected">장르를 선택해주세요</option>
                 <option value="1">문학</option>
                 <option value="2">시/에세이</option>
                 <option value="3">웹툰</option>
@@ -89,10 +112,10 @@
               <span class="text-danger text-small">0/50</span>
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+<!--           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
             <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn0">다음단계</button>
-          </div>
+          </div> -->
         </div>
 
         <!-- tab 2 contents -->
@@ -148,10 +171,11 @@
               <p class="text-info">예상 정산일은 YYYY년 MM월 DD일입니다.</p>
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+<!--      //저장하기, 다음단계 영역    
+		  <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
 		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn1">다음단계</button>
-          </div>
+          </div> -->
         </div>
         <!-- tab 3 contents -->
         <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
@@ -256,10 +280,10 @@
               <button class="btn btn-outline-secondary" type="button">초기화</button>
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+<!--           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
 		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn2">다음단계</button>
-          </div>
+          </div> -->
         </div>
         <!-- tab 4 contents -->
         <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
@@ -287,10 +311,10 @@
 					<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
 				</div>
             </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+ <!--            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
 		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn3">다음단계</button>
-		    </div>
+		    </div> -->
           </div>
         </div>
         <!-- tab 5 contents -->
@@ -352,10 +376,10 @@
 
             </div>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
+<!--           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
 		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
             <button class="btn btn-primary nextBtn" type="button" id="nextBtn4">다음단계</button>
-		  </div>
+		  </div> -->
         </div>
         <!-- tab 6 contents -->
         <div class="tab-pane fade" id="v-pills-tab06" role="tabpanel" aria-labelledby="v-pills-tab06-tab">
@@ -381,6 +405,8 @@
             <!-- 취소,등록버튼 영역 start -->
 				<div class="text-end my-5 border-top border-2 py-4">
 					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#fundingWriteCancelModal">작성취소</button>
+					
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal" id="modifyBtnFinish" onclick="modifyFinish()">게 시</button>
 					<!-- 작성취소 모달창 start -->
 					<div class="modal fade" id="fundingWriteCancelModal" tabindex="-1"
 						aria-labelledby="fundingWriteCancelModalLabel" aria-hidden="true">
@@ -395,13 +421,14 @@
 									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='mypage'">확인</button>
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="cancel()">확인</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- 작성취소 모달창 end -->
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal" id="modifyBtnFinish">게 시</button>
+					
+					<!-- 작성완료 모달창 start -->
 					<div class="modal fade" id="fundingWriteFinishModal" aria-labelledby="fundingWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -413,11 +440,12 @@
 									<div class="invalid-feedback">펀딩 프로젝트가 등록되었습니다.</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='mypage'">확인</button>
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="modifyFinish()">확인</button>
 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- 작성완료 모달창 end -->
 				</div>
 				<!-- 취소,등록버튼 영역 end -->
           </div>
@@ -441,50 +469,71 @@
 		})
 	</script>
 	<script type="text/javascript">
+		var link = '/purplaying/mypage'
+		function cancel(){
+			location.href = link
+		}
+		function modifyFinish() {
+				document.getElementById('modifyAllBtn').click()
+				location.href = link
+		}
+		function del() {
+			document.getElementById('delBtn').click()
+			location.href = link
+		}
 		$(document).ready(function() {
-/* 			$("#modifyBtn").on("click", function() {
-				let form = $(".projectform");	
-		
-				//2.수정 상태면 수정된 내용을 서버로 전송
-				form.attr("action", "<c:url value='/notice/modify' />")
-				form.attr("method", "post")
-				form.submit();				
+			
+			/* $("#previewBtn").on("click", function() {
+				let prdt_id = ${projectDto.prdt_id}
+				$.ajax({
+					type: 'GET',	
+					url: '/purplaying/project/view?prdt_id='+prdt_id,	
+					success: function() {
+						alert("preview success")
+						},
+					error : function() { alert("error") }
+				})
 			}) */
 			
-			let viewPage = function(product_id) {
+			$("#delBtn").on("click", function() {
+				let prdt_id = ${projectDto.prdt_id}
 				$.ajax({
-					type: 'GET',			//요청 메서드
-					url: '/purplaying/project/modify/'+${projectDto.product_id},		// 요청 URI
-					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
-						alert("success fin.")		// result는 서버가 전송한 데이터
-					},
-					error : function() { alert("error fin.") }	// 에러가 발생할 때, 호출될 함수 
+					type: 'DELETE',	
+					url: '/purplaying/project/remove/'+prdt_id,	
+					success: function() {
+						console.log("remove success")
+						location.href = link
+						},
+					error : function() { alert("error") }
 				})
-			}
+			})
 			
-			
-		
-		
+	 		$("#modifyBtnFinish").on("click", function() {
+	 			var link = '/purplaying/mypage'
+	 			document.getElementById('modifyAllBtn').click()
+	 			location.href = link
+			}) 
+	
 			$("#modifyAllBtn").on("click", function() {
-				let product_id = ${projectDto.product_id}
-				let prdt_cate = $("select[name=prdt_cate]").val()
+				let prdt_id = ${projectDto.prdt_id}
+				let prdt_genre = $("#prdt_genre").val()
 				let prdt_title = $("#prdt_title").val()
 				let prdt_desc = $('#prdt_desc').val()
 				
 				const prdtData = { // Body에 첨부할 json 데이터
-						product_id:product_id,
-		                prdt_cate:prdt_cate,
+						prdt_id:prdt_id,
+		                prdt_genre:prdt_genre,
 		                prdt_title:prdt_title,
 		                prdt_desc:prdt_desc,
 		            }
 				alert("prdtData:"+JSON.stringify(prdtData))
 				$.ajax({
 					type: 'PATCH',
-					url: '/purplaying/project/modify/'+${projectDto.product_id},
+					url: '/purplaying/project/modify/'+${projectDto.prdt_id},
 					headers : { "content-type" : "application/json-patch+json; charset=utf-8" }, 		//요청 헤더
 	                data: JSON.stringify(prdtData),
 					success : function() { 
-						alert("success")
+						console.log("modifyAll success")
 					},
 					error : function() { alert("error") }
 				})

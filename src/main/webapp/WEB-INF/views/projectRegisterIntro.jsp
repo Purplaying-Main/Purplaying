@@ -26,7 +26,7 @@
       </div>
       <div class="tab-content px-5 row justify-content-center" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
           <form class="row col-8 mb-4 text-center" id="form" action="" method="">   
-             <input type="hidden" name="product_id" value="${projectDto.product_id }"> 
+             <input type="hidden" name="prdt_id" value="${projectDto.prdt_id }"> 
          	  <input type="hidden" name="writer" value="${sessionScope.user_id}"> 
           	      
               <h5>프로젝트 시작하기 전 읽어주세요.</h5>
@@ -54,7 +54,7 @@
   <script type="text/javascript">
 		$("#writeBtn").on("click", function() {
 			let form = $("#form");
-			form.attr("action", "<c:url value='/projectregister/write' />")
+			form.attr("action", "<c:url value='/project/write' />")
 			form.attr("method", "post")
 			form.submit()
 		})
