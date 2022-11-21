@@ -49,16 +49,16 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
       	<form id="form" class="frm" action="" method="post">
-      		<input type="hidden" name="prdt_id" value="${productDto.prdt_id}"><br>
+      		<input type="hidden" name="prdt_id" value="${ProjectDto.prdt_id}"><br>
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
-                	<c:when test="${productDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
-                 	<c:when test="${productDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
-                 	<c:when test="${productDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+                	<c:when test="${ProjectDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
+                 	<c:when test="${ProjectDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${ProjectDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
             	</c:choose>
             </h4>
-            <h1>productDto.prdt_name</h1>
+            <h1>${ProjectDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
@@ -71,9 +71,9 @@
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">
-              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
-              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
-              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${projectDto.prdt_currenttotal}</h4></li>
+              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${ProjectDto.prdt_dday}일</h4></li>
+              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${ProjectDto.prdt_percent}%</h4></li>
+              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${ProjectDto.prdt_currenttotal}</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">n명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
@@ -123,8 +123,8 @@
               <li class="row d-flex border rounded p-3 m-1">
                 <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
-                  <h5 class="row text-primary mt-2">${projectDto.writer}</h5>
-                  <h6 class="row text-muted">${projectDto.user_id}</h6>
+                  <h5 class="row text-primary mt-2">${ProjectDto.writer}</h5>
+                  <h6 class="row text-muted">${ProjectDto.user_id}</h6>
                   <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
@@ -219,21 +219,21 @@
                 <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
                   <dl class="row">
                     <dt class="col-sm-3"><strong class="text-muted">목표금액</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info"><fmt:formatNumber value="${projectDto.prdt_goal }" pattern="#,###" /> 원</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info"><fmt:formatNumber value="${ProjectDto.prdt_goal }" pattern="#,###" /> 원</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
                     <dd class="col-sm-9">
                     	<h6 class="text-info">
-                    		<fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_enddate}"/>
+                    		<fmt:formatDate pattern ="yyyy/MM/dd" value="${ProjectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy/MM/dd" value="${ProjectDto.prdt_enddate}"/>
 						</h6>
 					</dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/>에 결제 진행</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${ProjectDto.prdt_purchaseday}"/>에 결제 진행</h6></dd>
                   </dl>
                   	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->
 		              <h4 class="mt-2">프로젝트 소개</h4>
 		              <div class="mt-2" id="projectDetailimg">
-		              		${projectDto.prdt_desc_detail}
+		              		${ProjectDto.prdt_desc_detail}
 		                  <img src="${pageContext.request.contextPath}/resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
@@ -357,9 +357,9 @@
                       <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
                       <br/>
                       <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
-                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/> 17시</strong>에 모두
+                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${ProjectDto.prdt_purchaseday}"/> 17시</strong>에 모두
                       함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
-                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_limitday}"/></strong> 이후로는 
+                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${ProjectDto.prdt_limitday}"/></strong> 이후로는 
                       불가합니다.</p>
                       <br/>
                     </div>
