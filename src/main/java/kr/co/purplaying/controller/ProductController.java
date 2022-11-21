@@ -49,6 +49,7 @@ public class ProductController {
           
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
+          
       
       } catch (Exception e) {
           e.printStackTrace();

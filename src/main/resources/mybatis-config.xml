@@ -18,7 +18,6 @@
 		<typeAlias alias="NoticeDto" type="kr.co.purplaying.domain.NoticeDto" />
 		<typeAlias alias="OneononeDto" type="kr.co.purplaying.domain.OneononeDto" />
 		<typeAlias alias="Order" type="kr.co.purplaying.domain.Order" />
-		<typeAlias alias="ProductDetailDto" type="kr.co.purplaying.domain.ProductDetailDto" />	
 		<typeAlias alias="ProjectDto" type="kr.co.purplaying.domain.ProjectDto" />
 		<typeAlias alias="projectSuggestDto" type="kr.co.purplaying.domain.ProjectSuggestDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />

@@ -49,16 +49,16 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
       	<form id="form" class="frm" action="" method="post">
-      		<input type="hidden" name="prdt_id" value="${productDetailDto.prdt_id}"><br>
+      		<input type="hidden" name="prdt_id" value="${productDto.prdt_id}"><br>
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
-                	<c:when test="${productDetailDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
-                 	<c:when test="${productDetailDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
-                 	<c:when test="${productDetailDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+                	<c:when test="${productDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
+                 	<c:when test="${productDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${productDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
             	</c:choose>
             </h4>
-            <h1>${productDetailDto.prdt_name}</h1>
+            <h1>productDto.prdt_name</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
