@@ -57,7 +57,7 @@
 		                      </div>
 		                    </div>
 		                  </div>
-		                  <h4 class="mb-0">${projectDto.prdt_title}</h4>
+		                  <h4 class="mb-0">${projectDto.prdt_name}</h4>
 		                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-0</p>
 		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>

@@ -25,8 +25,8 @@ public class ProjectDaoImpleTest {
 		
 		@Test
 		public void prjInsertDummyDataTest() throws Exception{
-		  ProjectDto projectDto = new ProjectDto("ezen@gmail.com", 3, "testtest", "", "", prjDate.parse("2022-11-10"), prjDate.parse("2022-11-20"), 500000, null, true,"", 0, "");
-		  projectDao.update(projectDto);
+//		  ProjectDto projectDto = new ProjectDto("ezen@gmail.com", 3, "testtest", "", "", prjDate.parse("2022-11-10"), prjDate.parse("2022-11-20"), 500000, null, true,"", 0, "");
+//		  projectDao.update(projectDto);
 			
 		}
 }

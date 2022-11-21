@@ -86,7 +86,7 @@
               <p>프로젝트의 주제, 책의 특징이 드러나는 멋진 제목을 붙여주세요.</p>
             </div>
             <div class="col-6 px-3 text-end">
-              <input class="form-control" rows="1" style="resize: none;" id="prdt_title" value="${projectDto.prdt_title}" />
+              <input class="form-control" rows="1" style="resize: none;" id="prdt_name" value="${projectDto.prdt_name}" />
               <span class="text-danger text-small">0/20</span>
             </div>
           </div>
@@ -517,13 +517,13 @@
 			$("#modifyAllBtn").on("click", function() {
 				let prdt_id = ${projectDto.prdt_id}
 				let prdt_genre = $("#prdt_genre").val()
-				let prdt_title = $("#prdt_title").val()
+				let prdt_name = $("#prdt_name").val()
 				let prdt_desc = $('#prdt_desc').val()
 				
 				const prdtData = { // Body에 첨부할 json 데이터
 						prdt_id:prdt_id,
 		                prdt_genre:prdt_genre,
-		                prdt_title:prdt_title,
+		                prdt_name:prdt_name,
 		                prdt_desc:prdt_desc,
 		            }
 				alert("prdtData:"+JSON.stringify(prdtData))

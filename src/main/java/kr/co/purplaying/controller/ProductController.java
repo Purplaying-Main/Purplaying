@@ -92,9 +92,11 @@ public class ProductController {
             throw new Exception("write failed");
           rattr.addFlashAttribute("msg", "WRT_OK");
           m.addAttribute("mode", "new");
+          
+          projectDto = projectService.readRecently(writer);
+          projectDto.setPrdt_id(projectDto.getPrdt_id());
           m.addAttribute(projectDto);
-//          projectDto = projectService.readRecently(writer);
-//          projectDto.setprdt_id(projectDto.getprdt_id());
+
           return "projectRegisterPage";
       } catch (Exception e) {
           e.printStackTrace();

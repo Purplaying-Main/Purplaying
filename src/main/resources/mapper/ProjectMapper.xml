@@ -5,7 +5,7 @@
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
 	<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
-		SELECT prdt_id, writer, prdt_title, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
+		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
 		, (prdt_enddate-prdt_opendate) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
@@ -16,13 +16,13 @@
 	<sql id="searchCondition">
   		<choose>
 			<when test='option=="T"'>
-				AND prdt_title LIKE concat('%', #{keyword}, '%')
+				AND prdt_name LIKE concat('%', #{keyword}, '%')
 			</when>
 			<when test='option=="W"'>
 				AND writer LIKE concat('%', #{keyword}, '%')
 			</when>
 			<otherwise>
-				AND (prdt_title LIKE concat('%', #{keyword}, '%')
+				AND (prdt_name LIKE concat('%', #{keyword}, '%')
 				OR prdt_desc LIKE concat('%', #{keyword}, '%'))
 			</otherwise>
 		</choose>
@@ -73,7 +73,7 @@
   	<select id="projectDetail" resultType="ProjectDto">
 		select
 		prdt_genre
-		,prdt_title
+		,prdt_name
 		,prdt_desc
 		,prdt_desc_detail
 		,prdt_regdate
@@ -104,13 +104,13 @@
 	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
-			(writer, prdt_genre, prdt_title, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
-		VALUES (#{writer}, #{prdt_genre}, #{prdt_title}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
+			(writer, prdt_genre, prdt_name, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
+		VALUES (#{writer}, #{prdt_genre}, #{prdt_name}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
 	</insert>
 	
 	<update id="update" parameterType="ProjectDto">
 		UPDATE public.tb_product
-		SET prdt_title = #{prdt_title}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}, prdt_thumbnail = #{prdt_thumbnail}
+		SET prdt_name = #{prdt_name}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}, prdt_thumbnail = #{prdt_thumbnail}
 		WHERE prdt_id= #{prdt_id} AND writer = #{writer}
 	</update>
 	

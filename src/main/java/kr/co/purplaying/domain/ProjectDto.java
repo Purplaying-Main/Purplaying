@@ -7,7 +7,7 @@ public class ProjectDto {
   
   private String writer;
   private Integer prdt_id;
-  private String  prdt_title;
+  private String  prdt_name;
   private String  prdt_desc;
   private String  prdt_desc_detail;
   private Date    prdt_regdate;
@@ -35,7 +35,7 @@ public class ProjectDto {
 
   public ProjectDto() { }
 
-  public ProjectDto(String writer, Integer prdt_id, String prdt_title, String prdt_desc, String prdt_desc_detail,
+  public ProjectDto(String writer, Integer prdt_id, String prdt_name, String prdt_desc, String prdt_desc_detail,
       Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, Integer prdt_goal, Integer prdt_currenttotal,
       boolean prdt_open, String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, int prdt_user_no,
       int prdt_dday, int prdt_percent, Date prdt_purchaseday, Date prdt_limitday, int user_no, String user_id,
@@ -43,7 +43,7 @@ public class ProjectDto {
 //    super();
     this.writer = writer;
     this.prdt_id = prdt_id;
-    this.prdt_title = prdt_title;
+    this.prdt_name = prdt_name;
     this.prdt_desc = prdt_desc;
     this.prdt_desc_detail = prdt_desc_detail;
     this.prdt_regdate = prdt_regdate;
@@ -72,7 +72,7 @@ public class ProjectDto {
 
   @Override
   public String toString() {
-    return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_title=" + prdt_title + ", prdt_desc="
+    return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
         + prdt_desc + ", prdt_desc_detail=" + prdt_desc_detail + ", prdt_regdate=" + prdt_regdate + ", prdt_opendate="
         + prdt_opendate + ", prdt_enddate=" + prdt_enddate + ", prdt_goal=" + prdt_goal + ", prdt_currenttotal="
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_genre="
@@ -87,7 +87,7 @@ public class ProjectDto {
   public int hashCode() {
     return Objects.hash(prdt_currenttotal, prdt_dday, prdt_desc, prdt_desc_detail, prdt_desc_policy, prdt_enddate,
         prdt_genre, prdt_goal, prdt_id, prdt_limitday, prdt_open, prdt_opendate, prdt_percent, prdt_purchaseday,
-        prdt_regdate, prdt_thumbnail, prdt_title, prdt_user_no, user_activate, user_id, user_name, user_no, user_phone,
+        prdt_regdate, prdt_thumbnail, prdt_name, prdt_user_no, user_activate, user_id, user_name, user_no, user_phone,
         user_pwd, user_regdate, user_role, writer);
   }
 
@@ -108,7 +108,7 @@ public class ProjectDto {
         && prdt_open == other.prdt_open && Objects.equals(prdt_opendate, other.prdt_opendate)
         && prdt_percent == other.prdt_percent && Objects.equals(prdt_purchaseday, other.prdt_purchaseday)
         && Objects.equals(prdt_regdate, other.prdt_regdate) && Objects.equals(prdt_thumbnail, other.prdt_thumbnail)
-        && Objects.equals(prdt_title, other.prdt_title) && prdt_user_no == other.prdt_user_no
+        && Objects.equals(prdt_name, other.prdt_name) && prdt_user_no == other.prdt_user_no
         && Objects.equals(user_activate, other.user_activate) && Objects.equals(user_id, other.user_id)
         && Objects.equals(user_name, other.user_name) && user_no == other.user_no && user_phone == other.user_phone
         && Objects.equals(user_pwd, other.user_pwd) && Objects.equals(user_regdate, other.user_regdate)
@@ -131,12 +131,12 @@ public class ProjectDto {
     this.prdt_id = prdt_id;
   }
 
-  public String getPrdt_title() {
-    return prdt_title;
+  public String getPrdt_name() {
+    return prdt_name;
   }
 
-  public void setPrdt_title(String prdt_title) {
-    this.prdt_title = prdt_title;
+  public void setPrdt_name(String prdt_name) {
+    this.prdt_name = prdt_name;
   }
 
   public String getPrdt_desc() {
