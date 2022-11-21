@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.NoticeMapper">
+
+	<sql id="selectFromNotice"> <!--Board 내용 전체 select 추출-->
+		SELECT notice_id, writer, notice_title, notice_context, notice_regdate, notice_category, notice_private, view_cnt FROM tb_notice
+	</sql>
+	
+	<sql id="selectFromNotice_privateTrue"> <!--Board 내용 공개글만 select 추출-->
+		SELECT notice_id, notice_category, notice_title, notice_context, writer, notice_regdate, view_cnt 
+		FROM tb_notice
+		WHERE notice_private = true
+	</sql>
+	
+	<select id="select" parameterType="int" resultType="NoticeDto"> <!--Board select 특정 bno 추출-->
+		<include refid="selectFromNotice"/>
+		WHERE notice_id = #{notice_id}
+	</select>
+	
+	<delete id="delete" parameterType="map">
+		DELETE FROM tb_notice
+		WHERE notice_id = #{notice_id} and writer = #{writer}		
+	</delete>
+	
+	<delete id="deleteForAdmin">
+		DELETE FROM tb_notice WHERE notice_id = #{notice_id}
+	</delete>	
+	
+	<delete id="deleteAll">	<!-- truncate(serial리셋 + Delete 데이터) -->
+		truncate table tb_notice restart identity
+	</delete>
+	
+	<insert id="insert" parameterType="NoticeDto"> <!-- Board 테이블 데이터 추가 -->
+		INSERT INTO tb_notice
+		(writer, notice_title, notice_context, notice_regdate, notice_category, notice_private)
+		VALUES(#{writer}, #{notice_title}, #{notice_context}, now(), #{notice_category}, #{notice_private});
+	</insert>
+	
+	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->
+		SELECT COUNT(*) from tb_notice  
+	</select>
+	
+	<select id="selectPage" parameterType="map" resultType="NoticeDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
+		<include refid="selectFromNotice_privateTrue"/>
+			order by notice_id desc, notice_regdate desc 
+			limit #{pageSize} OFFSET  #{offset}
+	</select>
+	
+	<update id="increaseViewCnt" parameterType="int"> <!--조회수 컬럼 데이터 변경(증가)-->
+		UPDATE tb_notice SET view_cnt = view_cnt + 1 where notice_id = #{notice_id}
+	</update>
+	
+	<update id="update" parameterType="NoticeDto">
+		UPDATE tb_notice
+		SET notice_title = #{notice_title}, notice_context = #{notice_context}, notice_regdate = now(), notice_category = #{notice_category}, notice_private = #{notice_private} 
+		WHERE notice_id= #{notice_id} and writer = #{writer}
+	</update>
+	
+	<update id="privateFalse" parameterType="NoticeDto"><!--컬럼 공개에서 비공개로 전환 (삭제 대체) -->
+		 UPDATE tb_notice 
+ 		 SET notice_private = FALSE 
+ 		 WHERE notice_id = #{notice_id}
+	</update>
+	
+</mapper>

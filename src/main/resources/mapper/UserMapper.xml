@@ -8,7 +8,6 @@
 		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE 
 		FROM tb_user
 	</sql>
-	
 	<!-- signin -->
 	<select id="select" parameterType="String" resultType="UserDto">
 		<include refid="selectFromUser" />
@@ -24,7 +23,7 @@
 	</insert>
 	
 	<select id="count" resultType="int">
-		select count(*) from tbs_user
+		select count(*) from tb_user
 	</select>
 	
 	<update id="updateName" parameterType="UserDto">

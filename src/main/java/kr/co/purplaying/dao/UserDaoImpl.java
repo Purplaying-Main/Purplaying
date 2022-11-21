@@ -17,8 +17,6 @@ import kr.co.purplaying.domain.UserDto;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-	
-	
     @Autowired
     private SqlSession session;
     private static String namespace = "kr.co.purplaying.UserMapper.";
@@ -102,3 +100,4 @@ public class UserDaoImpl implements UserDao {
 
   	
 }
+

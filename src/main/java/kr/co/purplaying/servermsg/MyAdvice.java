@@ -1,4 +1,4 @@
-package kr.co.purplaying.servermsg;
+ㄴpackage kr.co.purplaying.servermsg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,3 +30,4 @@ public class MyAdvice {
 //        return "error";
 //    }
 }
+

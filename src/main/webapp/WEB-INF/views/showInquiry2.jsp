@@ -51,8 +51,6 @@
 								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
 		      				</div>
 						</div>
-						
-						
 					</div><!-- 탭 end-->
 				</div>
 			</div><!-- 컨텐츠영역 end-->

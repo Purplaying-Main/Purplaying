@@ -17,11 +17,10 @@
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
   <script src="${pageContext.request.contextPath}/resources/assets/js/alretOnOff.js"></script>
-
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>	  
+  
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/fontawesome.css"> <!-- 아이콘 -->
-  
-  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   
   <title>Purplaying</title>
