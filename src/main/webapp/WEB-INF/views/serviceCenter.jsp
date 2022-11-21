@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="view_cnt" value="${noticeDto.view_cnt}" />
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +26,8 @@
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
 			      <button class="nav-link active" aria-selected="true">공지사항</button>
-			      <button class="nav-link" aria-selected="false" onclick="location.href='questions'">자주 묻는 질문</button>
-			      <button class="nav-link" aria-selected="false" onclick="location.href='oneonone'">1:1 문의</button>
+			      <button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
+			      <button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/oneonone/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
 				<div class="row col-10 justify-content-center mx-auto"><!-- 탭 컨텐츠 start -->
 				      <div class="tab-content" id="v-pills-tabContent">
@@ -40,51 +45,58 @@
 				                            <th scope="col">제목</th>
 				                            <th scope="col">작성자</th>
 				                            <th scope="col">작성일</th>
+				                            <th scope="col">조회수</th>
+				                            <th scope="col">공개</th>
 				                        </tr>
 				                    </thead>
 				                    <tbody>
-				                        <tr>
-				                            <th scope="row">5</th>
-				                            <td>이벤트</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">4</th>
-				                            <td>이벤트</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">3</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">2</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
-				                        <tr>
-				                            <th scope="row">1</th>
-				                            <td>공지사항</td>
-				                            <td><a href="/purplaying/notice">퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.퍼플레잉 오픈했습니다.</a></td>
-				                            <td>관리자</td>
-				                            <td>2022-01-11</td>
-				                        </tr>
+				                    	<c:forEach var="noticeDto" items="${list}">
+				                    		<tr>
+					                            <th scope="row">${noticeDto.notice_id }</th>
+					                            <td>${noticeDto.notice_category == 1 ? "공지사항" : noticeDto.notice_category == 2 ? "이벤트" : "기타"}</td>
+					                            <td>
+					                            	<a href="<c:url value="/notice/read?notice_id=${noticeDto.notice_id}&page=${page }&pageSize=${pageSize }"/>">
+					                            		${noticeDto.notice_title}
+					                            	</a>
+					                            </td>
+					                            <td>${noticeDto.writer eq 'admin@gmail.com' ? '관리자' : noticeDto.writer}</td>
+					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
+				                        		<td>${noticeDto.view_cnt}</td>
+				                        		<td>${noticeDto.notice_private}</td>
+				                        	</tr>
+				                    	</c:forEach>
 				                    </tbody>
 				                </table>
 				            </div>
 				            <!-- end project-list -->
 				            <div class="pt-3 row">
-				                <!-- 검색창 -->
+				                <!-- 페이지 네비게이션 -->
 				                <div class="col-1"></div>
+				                <ul class="pagination mb-0 col-10 justify-content-center">
+				                	<c:if test="${totalCnt == null || totalCnt == 0 }">
+											<h6 class="row text-center ">게시물이 없습니다.</h6>
+									</c:if>
+					                <!-- 게시물이 있는 경우, page nav 출력  -->
+									<c:if test="${totalCnt != null || totalCnt != 0 }">
+										<c:if test="${pr.showPrev }">
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.beginPage-1 }"/>">Previous</a>
+						                    </li>
+										</c:if>
+										<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+											<li class="page-item">
+												<a class="page-link" href="<c:url value="/notice/list?page=${i}"/>"> ${i} </a>
+											</li>
+										</c:forEach>
+										<c:if test="${pr.showNext }">
+											<li class="page-item">
+						                        <a class="page-link" href="<c:url value="/notice/list?page=${pr.endPage+1 }"/>">Next</a>
+						                    </li>
+										</c:if>
+									</c:if>
+								</ul>
+								
+				              <!--   <div class="col-1"></div>
 				                <ul class="pagination mb-0 col-10 justify-content-center">
 				                    <li class="page-item disabled">
 				                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
@@ -95,8 +107,8 @@
 				                    <li class="page-item">
 				                        <a class="page-link" href="#">Next</a>
 				                    </li>
-				                </ul>
-								<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='noticeWrite'">작성</button>
+				                </ul> -->
+								<button type="button" id="writeBtn" class="col-1 btn btn-primary" style="${adminWrite}" >작성</button>
 				            </div>
 				            <!-- end row -->
 				        </div>
@@ -111,5 +123,26 @@
 
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	<!-- 공지사항 버튼 클릭 스크립트(listBtn, removeBtn, writeBtn) -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/notice/list?page=${page}&pageSize=${pageSize}' />";
+		})
+		
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/notice/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")
+			form.submit()
+		})
+		
+		$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/notice/write' />";	
+		})
+	})
+	</script>
 </body>
 </html>

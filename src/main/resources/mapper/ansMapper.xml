@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.ansMapper">
+
+	<sql id="SelectAns">
+		select ans_no, admin_id , B.inquiry_no, ans_context, ans_regdate, inquiry_state, user_id, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
+		from tb_inquiryans A
+		join tb_inquiry2 B
+		on A.inquiry_no = B.inquiry_no 
+	</sql>
+  	
+  	
+	
+</mapper>

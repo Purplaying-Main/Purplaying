@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
+  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
   <style>
   .fa-heart{
   border-radius: 0.375rem; 
@@ -13,16 +17,48 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+	let chat_prdt_no = 1
+	
+	let showList = function(chat_prdt_no) {
+		$.ajax({
+			type : 'GET',		//요청 메서드
+			url : '/heart/communitys?chat_prdt_no='+chat_prdt_no,		// 요청 URI
+			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
+				$("#communityList").html(result)		// result는 서버가 전송한 데이터
+			},
+			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수
+		})
+	}
+	
+	$(document).ready(function() {
+		$("v-pills-tab03").click(function() {
+			showList(chat_prdt_no)
+		})
+	})
+</script>
+	
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
+   
+  
+			
    <!--페이지 내용 시작-->
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
-          <div class="py-3 text-center">
-            <h4><a href="genreliterature">문학</a></h4>
-            <h1>진행중인 펀딩명</h1>
+      	<form id="form" class="frm" action="" method="post">
+      		<input type="hidden" name="prdt_id" value="${productDetailDto.prdt_id}"><br>
+      	  <div class="py-3 text-center"> 	  
+            <h4>
+            	<c:choose>
+                	<c:when test="${productDetailDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+            	</c:choose>
+            </h4>
+            <h1>${productDetailDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
@@ -35,10 +71,10 @@
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">
-              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">45일</h4></li>
-              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">75%</h4></li>
-              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">1,805,000원</h4></li>
-              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">170명</h4></li>
+              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
+              <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
+              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${projectDto.prdt_currenttotal}</h4></li>
+              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">n명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
               	<div class="col-8">
@@ -87,8 +123,8 @@
               <li class="row d-flex border rounded p-3 m-1">
                 <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
-                  <h5 class="row text-primary mt-2">창작자 이름</h5>
-                  <h6 class="row text-muted">창작자 이메일</h6>
+                  <h5 class="row text-primary mt-2">${projectDto.writer}</h5>
+                  <h6 class="row text-muted">${projectDto.user_id}</h6>
                   <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
                 </div>
               </li>
@@ -183,17 +219,22 @@
                 <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
                   <dl class="row">
                     <dt class="col-sm-3"><strong class="text-muted">목표금액</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">3,000,000원</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info"><fmt:formatNumber value="${projectDto.prdt_goal }" pattern="#,###" /> 원</h6></dd>
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">2022.11.04 ~ 2022.01.11</h6></dd>
+                    <dd class="col-sm-9">
+                    	<h6 class="text-info">
+                    		<fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_enddate}"/>
+						</h6>
+					</dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 2022.01.12에 결제 진행</h6></dd>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/>에 결제 진행</h6></dd>
                   </dl>
                   	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->
 		              <h4 class="mt-2">프로젝트 소개</h4>
 		              <div class="mt-2" id="projectDetailimg">
-		                  <img src="resources/assets/img/Book1_reward.jpg">
+		              		${projectDto.prdt_desc_detail}
+		                  <img src="${pageContext.request.contextPath}/resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
                 </div>
@@ -214,6 +255,21 @@
                             <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
                             <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
                           </ul>
+                          <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
+                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
+                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
+                          </div>
+                          <div class="align-items-end" id="ModiArea1" style="display: none;">
+                            <div class="col-10">
+                              <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
+                              <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                              <div class="text-end">
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">작성</button>
+                                <button type="button" class="mt-1 btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">취소</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         </div>
                       </div>
                     </div><!--아코디언 아이템1 종료-->
@@ -235,17 +291,32 @@
                       </div>
                     </div><!--아코디언 아이템2 종료-->
                   </div>
+               	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
+                    <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
+                	  <button type="button" class="btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                    </div>
+                    <div class="align-items-end" id="writeArea2" style="display: none;">
+                      <div class="col-10">
+                        <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
+                        <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                        <div class="text-end">
+                          <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">작성</button>
+                          <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">취소</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p>작성자 닉네임 ></p>
+                    <p> 작성자 닉네임 > ${communityDto.chat_writer }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
-                        <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
+                        <textarea id="form" class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${communityDto.content }</textarea>
                       </div>
                       <div class=" col-2 text-start">
-                        <button class="btn btn-primary">작 성</button>
+                       	 <button type="button" id="creationBtn" class="btn btn-primary">작 성</button>
                       </div>
                       <hr class="mt-3">
                     </div>
@@ -257,10 +328,10 @@
                     </div>
                     <div class="col-11">
                       <div class="border-bottom">
-                        <h6 class="my-0">후원자 닉네임</h6>
-                        <p class="my-0 text-small">작성일 ></p>
+                      	<h6 class="my-0">후원자 아이디 > ${communityDto.chat_writer }</h6>
+                        <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                       </div>
-                      <p class="mb-5">내용 ></p>
+                      <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                       <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
@@ -268,10 +339,10 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 ></h6>
-                            <p class="my-0 text-small">작성일 ></p>
+                            <h6 class="my-0">창작자 닉네임 > ${communityDto.chat_writer }</h6>
+                            <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                           </div>
-                          <p class="mb-5">내용 ></p>
+                          <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                         </div>
                       </div>
                       <!--답글 종료-->
@@ -286,13 +357,15 @@
                       <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
                       <br/>
                       <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
-                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong>2022.11.21 17시</strong>에 모두
+                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/> 17시</strong>에 모두
                       함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
-                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong>2022.11.18</strong> 이후로는 
+                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_limitday}"/></strong> 이후로는 
                       불가합니다.</p>
+                      <br/>
                     </div>
                     <hr></hr>
                     <div>
+                      <br/>
                       <p class="text-muted">만일 수령한 리워드에 하자가 존재하거나 창작자가 약속한 발송시작일에 발송이 이루어지지 않은 경우 펀딩금 반환 신청이 
                       가능합니다.<br/>
                       <strong>퍼플레잉 프리오더 프로젝트는 전자상거래법의 적용을 받아,</strong> 리워드가 마음에 들지 않는 경우에도 펀딩금 반환 신청이
@@ -336,20 +409,22 @@
                 </div>
               </div>
             </div><!-- 탭 컨텐츠 end -->
-          </div><!-- 상세페이지 하단 종료 --> 
-        </div>
+          </form>
+        </div><!-- 상세페이지 하단 종료 -->
     </section>
    <!--페이지 내용 종료-->
    
    <!-- 찜하기 JS -->
-  <script src="resources/assets/js/pickBtn.js"></script> 
+   <script src="${pageContext.request.contextPath}/resources/assets/js/pickBtn.js"></script> 
    <!-- 리워드 선택 JS  -->
-   <script src="resources/assets/js/rewardSelect.js"></script> 
+   <script src="${pageContext.request.contextPath}/resources/assets/js/rewardSelect.js"></script> 
    <!-- 페이지 URL copy JS -->
-   <script src="resources/assets/js/copyURL.js"></script> 
+   <script src="${pageContext.request.contextPath}/resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->
-   <script>document.getElementById("showURL").value = window.location.pathname;</script>
- <!--푸터 인클루드-->
+   <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
+   <!-- show / hide JS -->
+   <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
+  <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>
 </html>
