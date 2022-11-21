@@ -9,7 +9,6 @@
   <%@ include file="meta.jsp"%>
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
-	<script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
   <style>
   .fa-heart{
   border-radius: 0.375rem; 

@@ -8,7 +8,6 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->

@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="resources/assets/css/heart.css">
 	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
 	<script src="resources/assets/js/heart.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->

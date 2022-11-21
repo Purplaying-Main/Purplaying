@@ -1,4 +1,4 @@
-ㄴpackage kr.co.purplaying.servermsg;
+package kr.co.purplaying.servermsg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

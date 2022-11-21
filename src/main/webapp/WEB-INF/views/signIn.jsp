@@ -33,7 +33,6 @@
 				</c:if>
 			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="user_id" value="${cookie.id.value}" autofocus>
               <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.user_id.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>

@@ -13,7 +13,6 @@
   <!-- 전체 동의 체크-->
   <script src="resources/assets/js/selectAll.js"></script>
   <script src="resources/assets/js/loginValidation.js"></script>
-  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   <!--메인 컨테이너 -->
  <section>
  <script type="text/javascript">
