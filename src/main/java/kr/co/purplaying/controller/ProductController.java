@@ -44,7 +44,7 @@ public class ProductController {
           m.addAttribute(user_id);
           
           ProjectDto projectDto = projectService.read(prdt_id);
-          m.addAttribute("ProjectDto", projectDto);
+          m.addAttribute(projectDto);
           System.out.println(projectDto);
           
           String writer = projectDto.getWriter();
