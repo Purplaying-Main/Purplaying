@@ -70,11 +70,11 @@
                     <h6>이름</h6>
                   </div>
                   <div class="col-auto px-3 text-end">
-                    <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
+                    <button id="namechangeBtn" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#nameChangeModal">변경</button>
                   </div>
                 </li>
                 <li class="row">
-                  <p>이젠</p>
+                  <p>${userDto.user_name }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="nameChangeModal" tabindex="-1" aria-labelledby="nameChangeModalLabel" aria-hidden="true">
@@ -87,11 +87,11 @@
                       <div class="modal-body mx-auto">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">@</span>
-                          <input type="text" class="form-control" placeholder="변경할 이름" aria-label="Username" aria-describedby="basic-addon1">
+                          <input id="user_Name" type="text" value="${userDto.user_name }" class="form-control" placeholder="${userDto.user_name }" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
+                        <button id="modinameBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
                       </div>
                     </div>
                   </div>
@@ -141,7 +141,7 @@
                   </div> -->
                 </li>
                 <li class="row">
-                  <p>ezenac@gmail.com</p>
+                  <p>${userDto.user_id }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="introChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true">
@@ -206,7 +206,7 @@
                   </div>
                 </li>
                 <li class="row">
-                  <p>010-0000-**11</p>
+                  <p>${userDto.user_phone }</p>
                 </li>
                 <!-- Modal -->
                 <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true">
@@ -296,9 +296,9 @@
                     </div>
                   </div>
                   <div class="px-3 pt-2">
-                    <h6>받는분 : 홍길동</h6>
-                    <h6>[06541] 서울특별시  서초구 강남대로 479 3층 </h6>
-                    <h6>010-0000-0000</h6>
+                    <h6>받는분 : ${addressDto.receiver_name }</h6>
+                    <h6>[${addressDto.address_num }] ${addressDto.address } ${addressDto.address_detail } </h6>
+                    <h6>${addressDto.receiver_phonenum }</h6>
                   </div>
                 </div>
               <!-- card end -->
@@ -489,6 +489,33 @@
       </div><!-- 탭 end-->
     </div><!-- contentsWrap end -->
   </section>
+  
+  <script type="text/javascript">
+  	$(document).ready(function() {			/* main() */
+		let formCheck = function() {
+			let user_name = document.getElementByName("user_Name")
+			if(form.user_Name.value=="") {
+				alert("이름을 입력해 주세요.")
+				form.user_Name.focus()
+				return false
+			}
+			return true;
+		}
+	
+		$("#namechangeBtn").on("click", function() {
+			let form = $("#form")
+			let isReadonly = $("input[name=title]").attr('readonly')
+		}
+		
+		$("#modinameBtn").on("click", function() {
+			form.attr("action", "<c:url value='/board/ModifyName' />")
+			form.attr("method", "post")
+			if(formCheck())
+				form.submit();
+		)
+	})
+		
+	</script>
   
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

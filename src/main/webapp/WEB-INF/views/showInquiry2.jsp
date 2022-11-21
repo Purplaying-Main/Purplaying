@@ -21,9 +21,9 @@
 		<div class="container mb-5">
 			<div class="mb-4"> <!-- 탭 start-->
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
-			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='servicecenter'">공지사항</button>
-			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='questions'">자주 묻는 질문</button>
-			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='oneonone'">1:1 문의</button>
+			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
+			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
+			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonone/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
 			    <div class="row col-10 justify-content-center mx-auto"><!-- 탭 컨텐츠 start -->
 				    <div class="tab-content" id="v-pills-tabContent">
@@ -34,16 +34,14 @@
 								<!-- 제목 영역  -->
 								<div class="mt-3">
 									<h6 class="card-subtitle mb-2 text-muted">1:1 문의</h6>
-									<h5 class="card-title">문의사항 있어요</h5>
-									<small class="card-subtitle mb-2 text-muted">2022-05-26 12:27:41</small>
+									<h5 class="card-title"><input style="width: 100%;" type="text" name="title" value="${boardDto.title }" ${mode=="new" ? "" : "readonly='readonly'" }></h5>
+									<small class="card-subtitle mb-2 text-muted">${boardDto.reg_date }</small>
 								</div>
 								<hr class="my-4">
 								<!--질문 내용 영역 -->
 								<div class="px-4 py-2">
 									<p>
-									안녕하세요? <br/>
-									문의사항이 있습니다.<br/><br/>
-									서비스 개선 부탁드립니다.<br/><br/><br/>
+									<textarea style="width: 100%;" rows="20" name="content" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.content }</textarea>
 									</p>
 								</div>
 							</div>

@@ -1,16 +1,16 @@
-//package kr.co.purplaying.servermsg;
-//
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.ControllerAdvice;
-//import org.springframework.web.bind.annotation.ExceptionHandler;
-//import org.springframework.web.bind.annotation.ResponseStatus;
-//import org.springframework.web.servlet.NoHandlerFoundException;
-//
-//@ControllerAdvice
-//public class MyAdvice {
+ㄴpackage kr.co.purplaying.servermsg;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
+@ControllerAdvice
+public class MyAdvice {
 //
 //    private Logger logger = LoggerFactory.getLogger(MyAdvice.class);
 //    
@@ -29,4 +29,5 @@
 //        m.addAttribute("msg", "권한이 없거나 존재하지 않는 페이지입니다.");
 //        return "error";
 //    }
-//}
+}
+

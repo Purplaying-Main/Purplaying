@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
- 
 <c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
 <c:set var="loginoutlink" value="${sessionScope.user_id == null ? '/user/login' : '/user/logout' }"/>
 <c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
@@ -46,25 +45,25 @@
           <div class="dropdown"><a href="#" class="nav-link dropdown-toggle px-2 link-secondary fw-bold mx-2"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
           											장르별</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/purplaying/genreliterature">문학</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genrepoemessay">시/에세이</a></li>
-              <li><a class="dropdown-item" href="/purplaying/genrewebtoon">웹툰</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/literature">문학</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/poemessay">시/에세이</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/genre/webtoon">웹툰</a></li>
             </ul>
           </div>
-          <div><a href="/purplaying/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
-          <div><a href="/purplaying/newFunding" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
-          <div><a href="/purplaying/comingsoonFunding" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
+          <div><a href="${pageContext.request.contextPath}/popularFunding" class="nav-link px-2 link-dark fw-bold mx-2">인기펀딩</a></div>
+          <div><a href="${pageContext.request.contextPath}/newFunding" class="nav-link px-2 link-dark fw-bold mx-2">신규펀딩</a></div>
+          <div><a href="${pageContext.request.contextPath}/comingsoonFunding" class="nav-link px-2 link-dark fw-bold mx-2">펀딩예정</a></div>
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="searchResult">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="${pageContext.request.contextPath}/searchResult">
           <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
           <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
 	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
-	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button>
+	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button><!-- goPost() -->
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,7 +79,15 @@
 	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
 	          </ul>
           </div>
-          
+        <!--   <script type="text/javascript">
+          		function goPost(){
+          			let form = document.createElement('form');
+          			form.setAttribute('method','post');
+          			form.setAttribute('action','/purplaying/user/signup');
+          			document.body.appendChild(form);
+          			form.submit();
+          		}
+          </script> -->
         </div>
       </div>
     </div>

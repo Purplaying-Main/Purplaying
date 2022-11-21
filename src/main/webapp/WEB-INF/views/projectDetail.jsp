@@ -10,7 +10,6 @@
   	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
 	<script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.3.js"></script>
   <style>
   .fa-heart{
   border-radius: 0.375rem; 
@@ -19,6 +18,27 @@
 </head>
 
 <body>
+	<script type="text/javascript">
+	let chat_prdt_no = 1
+	
+	let showList = function(chat_prdt_no) {
+		$.ajax({
+			type : 'GET',		//요청 메서드
+			url : '/heart/communitys?chat_prdt_no='+chat_prdt_no,		// 요청 URI
+			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
+				$("#communityList").html(result)		// result는 서버가 전송한 데이터
+			},
+			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수
+		})
+	}
+	
+	$(document).ready(function() {
+		$("v-pills-tab03").click(function() {
+			showList(chat_prdt_no)
+		})
+	})
+</script>
+	
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
@@ -30,18 +50,16 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap">
       	<form id="form" class="frm" action="" method="post">
-      		<input type="hidden" name="prdt_id" value="${projectDto.prdt_id}"><br>
-      	  <div class="py-3 text-center">
-      	  
+      		<input type="hidden" name="prdt_id" value="${productDetailDto.prdt_id}"><br>
+      	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
-                	<c:when test="${projectDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
-                 	<c:when test="${projectDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
-                 	<c:when test="${projectDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+                	<c:when test="${productDetailDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${productDetailDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
             	</c:choose>
             </h4>
-
-            <h1>${projectDto.prdt_title}</h1>
+            <h1>${productDetailDto.prdt_name}</h1>
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
@@ -293,13 +311,13 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p>작성자 닉네임 ></p>
+                    <p> 작성자 닉네임 > ${communityDto.chat_writer }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
-                        <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
+                        <textarea id="form" class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${communityDto.content }</textarea>
                       </div>
                       <div class=" col-2 text-start">
-                        <button class="btn btn-primary">작 성</button>
+                       	 <button type="button" id="creationBtn" class="btn btn-primary">작 성</button>
                       </div>
                       <hr class="mt-3">
                     </div>
@@ -311,10 +329,10 @@
                     </div>
                     <div class="col-11">
                       <div class="border-bottom">
-                        <h6 class="my-0">후원자 닉네임</h6>
-                        <p class="my-0 text-small">작성일 ></p>
+                      	<h6 class="my-0">후원자 아이디 > ${communityDto.chat_writer }</h6>
+                        <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                       </div>
-                      <p class="mb-5">내용 ></p>
+                      <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                       <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
@@ -322,10 +340,10 @@
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">${projectDto.user_name} ></h6>
-                            <p class="my-0 text-small">작성일 ></p>
+                            <h6 class="my-0">창작자 닉네임 > ${communityDto.chat_writer }</h6>
+                            <p class="my-0 text-small">작성일 > ${communityDto.chat_date }<fmt:formatDate value="${communityDto.chat_date }" pattern="yyyy년 MM월 DD일 EE요일 hh시 mm분 ss초" /></p>
                           </div>
-                          <p class="mb-5">내용 ></p>
+                          <p class="mb-5" >내용 > ${communityDto.chat_context }</p>
                         </div>
                       </div>
                       <!--답글 종료-->
@@ -404,7 +422,7 @@
    <!-- 페이지 URL copy JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->
-   <script>document.getElementById("showURL").value = window.location.pathname;</script>
+   <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
   <!--푸터 인클루드-->

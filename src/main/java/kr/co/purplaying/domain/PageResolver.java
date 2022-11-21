@@ -1,7 +1,6 @@
 package kr.co.purplaying.domain;
 
 public class PageResolver {
-    
   private SearchItem sc;
   
   private int totalCnt;               // 게시물 총 갯수

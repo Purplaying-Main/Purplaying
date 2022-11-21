@@ -1,92 +1,103 @@
 package kr.co.purplaying.domain;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class BoardDto{
+  
+	private Integer inquiry_no;
+    private boolean inquiry_state;
+    private String user_id;
+	private String inquiry_title;
+	private String inquiry_context;
+	private boolean inquiry_private;
+	private Date inquiry_regdate;
+	
 
 	private Integer bno;
 	private String title;
 	private String content;
 	private String writer;
 	private int view_cnt;
-	private int commetn_cnt;
+	private int comment_cnt;
 	private Date reg_date;
+
+	
 	
 	public BoardDto() {
-		this("","","");
+	    
+	}
+	
+	public BoardDto(String inquiry_title, String inquiry_context, String user_id) {
+        super();
+        this.inquiry_title = inquiry_title;
+        this.inquiry_context = inquiry_context;
+        this.user_id = user_id;
+    }
+
+  public Integer getInquiry_no() {
+    return inquiry_no;
+  }
+
+  public void setInquiry_no(Integer inquiry_no) {
+    this.inquiry_no = inquiry_no;
+  }
+
+  public boolean isInquiry_state() {
+    return inquiry_state;
+  }
+
+  public void setInquiry_state(boolean inquiry_state) {
+    this.inquiry_state = inquiry_state;
+  }
+
+  public String getUser_id() {
+    return user_id;
+  }
+
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
+  }
+
+  public String getInquiry_title() {
+    return inquiry_title;
+  }
+
+  public void setInquiry_title(String inquiry_title) {
+    this.inquiry_title = inquiry_title;
+  }
+
+  public String getInquiry_context() {
+    return inquiry_context;
+  }
+
+  public void setInquiry_context(String inquiry_context) {
+    this.inquiry_context = inquiry_context;
+  }
+
+  public boolean isInquiry_private() {
+    return inquiry_private;
+  }
+
+  public void setInquiry_private(boolean inquiry_private) {
+    this.inquiry_private = inquiry_private;
+  }
+
+  public Date getInquiry_regdate() {
+    return inquiry_regdate;
+  }
+
+  public void setInquiry_regdate(Date inquiry_regdate) {
+    this.inquiry_regdate = inquiry_regdate;
+  }
+
+	public int getComment_cnt() {
+		return comment_cnt;
 	}
 
-	public BoardDto(String title, String content, String writer) {
-		this.title = title;
-		this.content = content;
-		this.writer = writer;
-	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(bno, content, title, writer);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BoardDto other = (BoardDto) obj;
-		return Objects.equals(bno, other.bno) && Objects.equals(content, other.content)
-				&& Objects.equals(title, other.title) && Objects.equals(writer, other.writer);
-	}
-
-	public Integer getBno() {
-		return bno;
-	}
-
-	public void setBno(Integer bno) {
-		this.bno = bno;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-
-	public int getView_cnt() {
-		return view_cnt;
-	}
-
-	public void setView_cnt(int view_cnt) {
-		this.view_cnt = view_cnt;
-	}
-
-	public int getCommetn_cnt() {
-		return commetn_cnt;
-	}
-
-	public void setCommetn_cnt(int commetn_cnt) {
-		this.commetn_cnt = commetn_cnt;
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
 	}
 
 	public Date getReg_date() {
@@ -100,8 +111,9 @@ public class BoardDto{
 	@Override
 	public String toString() {
 		return "bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", view_cnt=" + view_cnt + ", commetn_cnt=" + commetn_cnt + ", reg_date=" + reg_date;
+				+ ", view_cnt=" + view_cnt + ", comment_cnt=" + comment_cnt + ", reg_date=" + reg_date;
 	}	
+
 	
 	
 	

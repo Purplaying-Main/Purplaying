@@ -9,11 +9,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.purplaying.dao.LeaveDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.MemberDto;
 import kr.co.purplaying.domain.UserDto;
 
 @Controller
@@ -22,10 +28,50 @@ public class MemberController {
 
     @Autowired
     UserDao userDao;
+
+    @Autowired(required=true)
+    LeaveDao leaveDao;
   
+    //GetMapping////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("iamport")
+    public String iamport() {
+      return "iamport";
+    }
+
     @GetMapping("/login")
     public String loginForm() {
         return "signIn";
+    }
+
+    @GetMapping("mypage")
+    public String MyPage() {
+      return "mypage";
+    }
+    
+    @GetMapping("leave")
+    public String Leave() {
+      return "leave";
+    }
+    @GetMapping("setting")
+    public String Setting() {
+      return "setting";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+    
+    //@RequestMapping(value="signuppost", method = RequestMethod.POST)
+    @GetMapping("signup")
+    public String SignUppost() {
+      return "signup";
+    }
+    
+    @GetMapping("findaccount")
+    public String Findaccount() {
+      return "findAccount";
     }
     
     @PostMapping("/login")
@@ -34,7 +80,9 @@ public class MemberController {
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {
             //2-1. 일치하지 않으면, loginForm으로 이동     
-            String msg = URLEncoder.encode("아이디 또는 비밀번호가 일치하지 않습니다.", "utf-8");
+
+            String msg = URLEncoder.encode("Id와 Password가 일치하지 않습니다.", "utf-8");
+
             return "redirect:/user/login?msg="+msg;
         }
         
@@ -61,7 +109,60 @@ public class MemberController {
         //일치하면 로그인 후 화면 (홈화면)으로 이동      
         return "redirect:"+toURL;
         
+
+    }
         
+    @ResponseBody
+    @PostMapping("/signup")
+    public void signup2(@RequestBody MemberDto memberDto ,HttpServletRequest request) throws Exception {
+      System.out.println("user_id"+memberDto.getUser_id());
+      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_phone())!=1) {
+        System.out.println("실패");
+      }
+      UserDto user = userDao.searchUser_no(memberDto.getUser_id());
+      System.out.println(user.getUser_no());
+      
+      if(userDao.userCheck(user.getUser_no(),memberDto.isAgree_age(),
+                           memberDto.isAgree_terms(),memberDto.isAgree_inform(),
+                           memberDto.isAgree_inform_third(),memberDto.isAgree_marketing())!=1) {
+        System.out.println("성공");
+      }
+   }
+    
+    @PostMapping("/leave")
+    public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request) throws Exception {
+      
+      HttpSession session = request.getSession();
+      UserDto user = userDao.selectUser((String)session.getAttribute("user_id"));
+      System.out.println(user);
+      
+      System.out.println(user.getUser_no());
+      System.out.println(leave_category);
+      System.out.println(leave_reason);
+      
+      if(leaveDao.insertLeaveReason(user.getUser_no(), leave_category, leave_reason)!=1) {
+        System.out.println("성공");
+      }
+      if(user.getUser_pwd().equals(user_pwd)) {
+        if(userDao.updateUserActivate(user.getUser_no())!=1) {
+          System.out.println("탈퇴성공");
+        }
+      }
+      return "redirect:/";
+    }
+    
+    //아이디 중복체크///////////////////////////////////////////////////////////////////////
+    @ResponseBody       
+    @PostMapping("/chkuserid")
+    public UserDto chkuserid(@RequestBody UserDto userDto) {
+      UserDto user;
+      try {
+        user = userDao.selectUser(userDto.getUser_id());
+        user.setUser_id("");
+        return user;
+      } catch (Exception e) {
+        return userDto;
+      }
     }
     
     public static void makeCookie(HttpServletResponse response, String user_id) {
@@ -86,35 +187,37 @@ public class MemberController {
       return userDto.getUser_pwd().equals(user_pwd);
   }
     
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
+
     //
     
     
-    @GetMapping("signup")
-    public String SignUp() {
-      return "signup";
-    }
-    @PostMapping("/signup")
-    public String signup(String user_id, String user_pwd, String chk_user_pwd, String user_name,String user_phone,String toURL ,HttpServletRequest request) throws Exception {
-      //1. id와 pw를 확인
-      if(!PwdCheck(user_pwd, chk_user_pwd)) {
-          //2-1. 일치하지 않으면, loginForm으로 이동     
-          String msg = URLEncoder.encode("아이디 또는 비밀번호가 일치하지 않습니다.", "utf-8");
-          return "redirect:/user?msg="+msg;
-      }
-      HttpSession session =  request.getSession();
-      
-      
-      //4. toUrl이 있을시에는 toUrl로 이동
-      toURL = toURL==null || toURL.equals("") ? "/" : toURL;
-              
-      //일치하면 로그인 후 화면 (홈화면)으로 이동      
-      return "redirect:"+toURL;
-    }
+    /*
+     * @GetMapping("signup")
+     * public String SignUp() {
+     * return "signup";
+     * }
+     */
+    /*
+     * @PostMapping("/signup")
+     * public String signup(String user_id, String user_pwd, String chk_user_pwd,
+     * String user_name,String user_phone,String toURL ,HttpServletRequest request)
+     * throws Exception {
+     * //1. id와 pw를 확인
+     * if(!PwdCheck(user_pwd, chk_user_pwd)) {
+     * //2-1. 일치하지 않으면, loginForm으로 이동
+     * String msg = URLEncoder.encode("비밀번호와 비밀번호확인이 일치하지 않습니다.", "utf-8");
+     * return "redirect:/user?msg="+msg;
+     * }
+     * HttpSession session = request.getSession();
+     * 
+     * 
+     * //4. toUrl이 있을시에는 toUrl로 이동
+     * toURL = toURL==null || toURL.equals("") ? "/" : toURL;
+     * 
+     * //일치하면 로그인 후 화면 (홈화면)으로 이동
+     * return "redirect:"+toURL;
+     * }
+     */
     
     private boolean PwdCheck(String user_pwd, String chk_user_pwd) {
      
