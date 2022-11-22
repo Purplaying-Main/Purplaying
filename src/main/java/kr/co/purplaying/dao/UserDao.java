@@ -16,6 +16,9 @@ public interface UserDao {
     int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception;
     int userCheck(int user_no,boolean agree1,boolean agree2,boolean agree3,boolean agree4, boolean agree5) throws Exception;
     UserDto searchUser_no(String user_id) throws Exception;
-    int updateUserActivate(int user_no);
+    int updateUserActivate(int user_no) throws Exception;
+    int findUserData(UserDto userDto) throws Exception;
+    String findUserId(UserDto userDto) throws Exception;
+    int updateUserPwd(UserDto userDto) throws Exception;
 
 }

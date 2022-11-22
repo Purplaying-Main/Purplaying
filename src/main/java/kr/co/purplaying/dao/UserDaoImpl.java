@@ -24,22 +24,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int deleteAll() throws Exception {
       return session.delete(namespace+"deleteAll");
-  }
+    }
 	
-	private void close(AutoCloseable...closeables) {
-		for(AutoCloseable autoCloseable : closeables) {
-			try {
-				if(autoCloseable!=null) {
-					autoCloseable.close();
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-    @Override
+	@Override
     public int insertUser(UserDto dto) throws Exception {
         return session.insert(namespace+"insert",dto);
     }
@@ -96,6 +83,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int updateUserActivate(int user_no) {
       return session.update(namespace+"updateUserActivation",user_no);
+    }
+
+    @Override
+    public int findUserData(UserDto userDto) throws Exception {
+      return session.selectOne(namespace+"findUserData",userDto);
+    }
+
+    @Override
+    public String findUserId(UserDto userDto) throws Exception {
+      return session.selectOne(namespace+"findUserId",userDto);
+    }
+
+    @Override
+    public int updateUserPwd(UserDto userDto) throws Exception {
+      return session.update(namespace+"updateUserPwd",userDto);
     }
 
   	
