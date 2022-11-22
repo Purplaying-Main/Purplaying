@@ -53,9 +53,9 @@
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
-                	<c:when test="${projectDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='genre/literature'">문학</a></c:when>
-                 	<c:when test="${projectDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</a></c:when>
-                 	<c:when test="${projectDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='genre/webtoon'">웹툰</a></c:when>
+                	<c:when test="${projectDto.prdt_genre eq 1 }"><a class="card-cate" onclick="location.href='/purplaying/genre/literature'">문학</a></c:when>
+                 	<c:when test="${projectDto.prdt_genre eq 2 }"><a class="card-cate" onclick="location.href='/purplaying/genre/poemessay'">시/에세이</a></c:when>
+                 	<c:when test="${projectDto.prdt_genre eq 3 }"><a class="card-cate" onclick="location.href='/purplaying/genre/webtoon'">웹툰</a></c:when>
             	</c:choose>
             </h4>
             <h1>${projectDto.prdt_name}</h1>
@@ -81,15 +81,21 @@
               		<label for="rewardSelectLabel" class="form-label">리워드 선택</label>
 	              	<select class="form-select fs-6" id="rewardSelect" name="rewardSelect">
 					  <option selected>리워드를 선택해주세요</option>
-					  <option value="1">01 선물없이 후원하기 +1000원</option>
-					  <option value="2">02 프리미엄 메탈 케이스_싱글set</option>
-					  <option value="3">03 프리미엄 메탈 케이스_싱글set</option>
-					  <option value="4">04 프리미엄 메탈 케이스_싱글set</option>
+					  <c:forEach var="rewardDto" items="${dto}">
+					  	<option value="${rewardDto.reward_id} ">${rewardDto.row_number}. ${reward_name} +${rewardDto.reward_price}원</option>
+					  </c:forEach>
 					</select>
 				</div>
+				
 				<div class="col">
               	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
 				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
+				</div>
+              </li>
+              <li>
+              	<div class="form-floating mb-3">
+				  <textarea class="form-control" placeholder="선택한 리워드 출력 영역" id="floatingTextarea" style="resize: none;" row=5 readonly></textarea>
+				  <label for="floatingTextarea">선택한 리워드 리스트</label>
 				</div>
               </li>
               <li>
@@ -146,63 +152,22 @@
 	              </h4>
 	              
               <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100">
-                <div class="col mt-2"><!-- 리워드 1 start-->
-                  <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
-                      <strong class="fw-normal">01 선물없이 후원하기 +1000원</strong>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title pricing-card-title">1000원</h5>
-                      <div class="mt-3 row px-3"><br></div>
-                      <div class="row px-3"><br></div>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(1);">이 리워드 펀딩하기</button>
-                    </div>
-                  </div>
-                </div><!-- 리워드 1 end-->
-                <div class="col mt-2"><!-- 리워드 2 start-->
-                  <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
-                      <strong class="fw-normal">02 프리미엄 메탈 케이스_싱글set</strong>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title pricing-card-title">10000원</h5>
-                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
-                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(2);">이 리워드 펀딩하기</button>
-                    </div>
-                  </div>
-                </div><!-- 리워드 2 end-->
-                <div class="col mt-2"><!-- 리워드 3 start-->
-                  <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
-                      <strong class="fw-normal">03 프리미엄 메탈 케이스_싱글set</strong>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title pricing-card-title">10000원</h5>
-                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
-                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(3);">이 리워드 펀딩하기</button>
-                    </div>
-                  </div>
-                </div><!-- 리워드 3 end-->
-                <div class="col mt-2"><!-- 리워드 4 start-->
-                  <div class="card mb-4 rounded-3 shadow-sm">
-                    <div class="card-header py-3">
-                      <strong class="my-0 fw-normal bg-info">[슈퍼 얼리버드]</strong><br>
-                      <strong class="fw-normal">04 프리미엄 메탈 케이스_싱글set</strong>
-                    </div>
-                    <div class="card-body">
-                      <h5 class="card-title pricing-card-title">10000원</h5>
-                      <span class="mt-3 row px-3">(선택)4가지 색상 중 택 1</span>
-                      <small class="text-info fs-6 row px-3">남은 수량 : 3개</small>
-                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect(4);">이 리워드 펀딩하기</button>
-                    </div>
-                  </div>
-                </div><!-- 리워드 4 end-->
-              </div>
+              	<c:forEach var="rewardDto" items="${dto}">
+	                <div class="col mt-2"><!-- 리워드 card start-->
+	                  <div class="card mb-4 rounded-3 shadow-sm">
+	                    <div class="card-header py-3">
+	                      <strong class="my-0 fw-normal bg-info">${rewardDto.reward_category == 1 ? "슈퍼얼리버드" : "얼리버드"}</strong><br>
+	                      <strong class="fw-normal">#${rewardDto.row_number} ${rewardDto.reward_name}</strong>
+	                    </div>
+	                    <div class="card-body">
+	                      <h5 class="card-title pricing-card-title">${rewardDto.reward_price}원</h5>
+	                      <div class="mt-3 row px-3"><br></div>
+	                      <div class="row px-3"><br></div>
+	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect();">이 리워드 선택하기</button>
+	                    </div>
+	                  </div>
+	                </div><!-- 리워드 card end-->
+	             </c:forEach>
             </div><!-- 리워드 end -->
             <!-- 프로젝트 작성 페이지 탭 -->
             <div class="mb-4"> <!-- 탭 메뉴 -->
@@ -223,7 +188,7 @@
                     <dt class="col-sm-3"><strong class="text-muted">펀딩기간</strong></dt>
                     <dd class="col-sm-9">
                     	<h6 class="text-info">
-                    		<fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_enddate}"/>
+                    		<fmt:formatDate pattern ="yyyy-MM-dd" value="${projectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy-MM-dd" value="${projectDto.prdt_enddate}"/>
 						</h6>
 					</dd>
                     <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
@@ -234,7 +199,6 @@
 		              <h4 class="mt-2">프로젝트 소개</h4>
 		              <div class="mt-2" id="projectDetailimg">
 		              		${projectDto.prdt_desc_detail}
-		                  <img src="${pageContext.request.contextPath}/resources/assets/img/Book1_reward.jpg">
 		              </div>
 		            </div><!-- 프로젝트 상세소개 end -->
                 </div>
@@ -313,7 +277,7 @@
                     <p> 작성자 닉네임 > ${communityDto.chat_writer }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
-                        <textarea id="form" class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${communityDto.content }</textarea>
+                        <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="content" >${communityDto.content }</textarea>
                       </div>
                       <div class=" col-2 text-start">
                        	 <button type="button" id="creationBtn" class="btn btn-primary">작 성</button>
@@ -350,63 +314,12 @@
                   </div>
                   <!--댓글 종료-->
                 </div>
-                <!-- tab 4 contents -->
+                <!-- tab 4 contents 프로젝트 정책-->
                 <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
-                  <div>
-                    <div>
-                      <h4 style="font-weight: bold;">이 프로젝트의 정보 및 정책을<br />반드시 확인하세요.</h4>
-                      <br/>
-                      <h5 style="font-weight: bold;">펀딩 취소 및 리워드 옵션 변경, 배송지 변경 안내</h5>
-                      <p class="text-muted">펀딩 결제는 예약 상태로 유지되다가, 펀딩 마감일 다음 영업일 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/> 17시</strong>에 모두
-                      함께 진행됩니다. 결제 정보 변경은 결제가 진행되기 전까지 언제나 가능합니다. 참여한 펀딩 정보 변경은 펀딩 내역에서 진행해주세요. 마감일 이후에는 
-                      펀딩에 대한 리워드 제작 및 배송이 시작되어, 취소와 더불어 배송지 및 리워드 옵션 변경은 <strong><fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_limitday}"/></strong> 이후로는 
-                      불가합니다.</p>
-                      <br/>
-                    </div>
-                    <hr></hr>
-                    <div>
-                      <br/>
-                      <p class="text-muted">만일 수령한 리워드에 하자가 존재하거나 창작자가 약속한 발송시작일에 발송이 이루어지지 않은 경우 펀딩금 반환 신청이 
-                      가능합니다.<br/>
-                      <strong>퍼플레잉 프리오더 프로젝트는 전자상거래법의 적용을 받아,</strong> 리워드가 마음에 들지 않는 경우에도 펀딩금 반환 신청이
-                      가능합니다.<br/></p>
-					  <br/>
-					  <h5 style="font-weight: bold;">펀딩금 반환 안내</h5>
-					  <p class="text-muted">펀딩 종료 후, 아래 정책에 따라 펀딩금 반환 신청을 할 수 있습니다. 펀딩금 반환은 투자자가 펀딩한 결제 건을 
-					  취소하는 방식으로 이뤄집니다.<br/>
-					  펀딩금 반환은 <a href="/purplaying/mypage" style="text-decoration: underline; color: #9E62FA; font-weight: 
-					  bold;"> 마이페이지 > 펀딩현황</a>에서 신청하실 수 있습니다.<br/></p>
-					  <br/>
-					  <h6 style="font-weight: bold;">1) 리워드가 지연될 경우</h6>
-					  <p class="text-muted"><strong>창작자가 리워드 발송 시작 예정일까지 리워드를 발송하지 않을 경우,</strong> 투자자는 펀딩금 반환 
-					  신청을 할 수 있습니다.<br/>
-					  리워드 별 발송 시작 예정일은 다를 수 있으니, <a href="/purplaying/mypage" style="text-decoration: underline; color: #AAAAAA;">
-					  마이페이지 > 펀딩현황</a>에서 펀딩한 리워드의 발송 시작 예정일을 확인하세요.<br/></p>
-					  <h6 style="font-weight: bold;">2) 리워드에 하자가 있거나 단순변심인 경우</h6>
-					  	<ul class="text-muted">
-					  	  <li>- 투자자 단순변심에 의한 교환/펀딩금 반환은 리워드 배송 완료일로부터 7일 이내에 신청할 수 있습니다. (반품 배송비 투자자 부담)</li>
-						  <li>- 다음의 경우에는 단순변심에 의한 펀딩금 반환을 신청할 수 없습니다.</li>
-						    <ul>
-						  	  <li>- 투자자의 귀책사유로 인하여 리워드가 멸실 또는 훼손된 경우</li>
-						  	  <li>- 투자자의 리워드 사용 또는 일부 소비로 인해 리워드의 가치 등이 현저히 감소한 경우</li>
-					  	  	  <li>- 시간이 지나 다시 판매하기가 곤란할 정도로 리워드의 가치가 현저히 감소한 경우</li>
-						      <li>- 복제가 가능한 리워드의 포장이 훼손된 경우</li>
-						      <li>- 투자자의 주문에 따라 개별적으로 생산되는 리워드로서 펀딩 시 반품이나 교환의 제한을 명시적으로 고지하고 투자자의 동의를 받은 
-						      경우</li>
-						      <li>- 기타 법령 및 규정에 의해 리워드의 반품이 제한되는 경우</li>
-						    </ul>
-						  <li>- 투자자는 표시 또는 광고와 상이한 리워드가 배송된 경우, 리워드의 배송완료일로부터 90일 이내 또는 해당 사실을 인지하거나 인지할 수 
-						  있었던 날로부터 30일 이내에 펀딩금 반환을 요청할 수 있습니다. (반품 배송비 창작자 부담)</li>
-					  	</ul>
-					  <br/>
-					  <h6 style="font-weight: bold;"> 기타 주의 사항</h6>
-					  <p class="text-muted" style="font-size: small;">회사는 창작자와 상호 협의 하에 프로젝트를 취소할 수 있으며, 펀딩 종료 후 
-					  프로젝트가 취소될 경우에는 펀딩금이 반환됩니다.<br/>
-					  ※ 더 자세한 사항은 <a href="/purplaying/fundingguide" style="text-decoration: underline; color: #AAAAAA;"> 펀딩금 반환 정책</a>
-					  에서 확인하세요.</p>
-                    </div>
-                  </div>
-                </div>
+	                 <div class="mt-2" id="prdt_desc_policy">
+	                  	${projectDto.prdt_desc_policy}
+			         </div>
+                </div><!-- tab 4 contents end-->
               </div>
             </div><!-- 탭 컨텐츠 end -->
           </form>
@@ -417,7 +330,17 @@
    <!-- 찜하기 JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/pickBtn.js"></script> 
    <!-- 리워드 선택 JS  -->
-   <script src="${pageContext.request.contextPath}/resources/assets/js/rewardSelect.js"></script> 
+   <script type="text/javascript">
+	   function rewardSelect(){
+	
+		    document.getElementById("rewardSelect").value = item;
+		    
+		    let ml = document.getElementById("move").offsetLeft;
+		    let mt = document.getElementById("move").offsetTop;
+		    window.scrollTo({top:mt, left: ml, behavior: "smooth"});
+		    
+		}
+   </script>
    <!-- 페이지 URL copy JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->

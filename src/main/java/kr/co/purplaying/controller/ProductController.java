@@ -24,8 +24,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.service.ProjectService;
+import kr.co.purplaying.service.RewardService;
 
 @Controller
 @RequestMapping("/project")
@@ -33,6 +35,9 @@ public class ProductController {
   
   @Autowired
   ProjectService projectService;
+  
+  @Autowired
+  RewardService rewardService;
   
   //미리보기
   @GetMapping("/view/{prdt_id}")
@@ -46,6 +51,11 @@ public class ProductController {
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
           System.out.println(projectDto);
+          
+          List<RewardDto> list = rewardService.selectReward(1);
+          
+          System.out.println(list);    
+          m.addAttribute("dto",list);
           
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
@@ -151,10 +161,13 @@ public class ProductController {
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
           
+          List<RewardDto> list = rewardService.selectReward(1);
+          
+          System.out.println(list);    
+          m.addAttribute("dto",list);
+          
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
-          System.out.println("writer : "+writer);
-          
       
       } catch (Exception e) {
           e.printStackTrace();

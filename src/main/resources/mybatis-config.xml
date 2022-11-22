@@ -24,5 +24,6 @@
 		<typeAlias alias="SearchResultDto" type="kr.co.purplaying.domain.SearchResultDto" />
 		<typeAlias alias="SettingDto" type="kr.co.purplaying.domain.SettingDto" />
 		<typeAlias alias="UserDto" type="kr.co.purplaying.domain.UserDto" />
+		<typeAlias alias="RewardDto" type="kr.co.purplaying.domain.RewardDto" />
 	</typeAliases>
 </configuration>

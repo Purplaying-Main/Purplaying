@@ -19,37 +19,39 @@
    	 <div class="contentsWrap col-10 mx-auto">
       <!--컨텐츠 영역-->
       <div class="row justify-content-md-center">
-	      <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+	      <nav class="row justify-content-start" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 				  <ol class="breadcrumb fs-6 mt-4">
 				    <li class="breadcrumb-item"><a href="/purplaying/mypage">마이페이지 </a></li>
 				    <li class="breadcrumb-item active" aria-current="page">프로젝트 기획 ${mode=="new" ? "작성하기" : "수정하기" }</li>
 				  	<li class="breadcrumb-item text-muted">${mode=="new" ? "" : "작성중인 펀딩번호 prdt_id : "}${projectDto.prdt_id}</li>
 				  </ol>
 		  </nav>
-		  <a class="text-end" href="<c:url value="/project/view/${projectDto.prdt_id}"/>">미리보기(상세페이지로 이동)</a>
-		  <button class="text-end" type="button" id="modifyAllBtn">작성중인 내용 저장</button>
-		  <button class="text-end" type="button" onclick="modifyFinish()">작성완료(마이페이지로 이동)</button>
-		  <button class="text-end" type="button" id="delBtn">프로젝트삭제</button>
-		  <button class="text-end" type="button" data-bs-toggle="modal" data-bs-target="#prjDelModal">프로젝트삭제(모달)</button>
-	      	<!-- 삭제 모달창 start -->
-			<div class="modal fade" id="prjDelModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="delModalLabel">프로젝트 삭제</h5>
-						</div>
-						<div class="modal-body text-center">
-							<label class="form-label">프로젝트를 삭제하시겠습니까?</label>
-							<div class="invalid-feedback">[확인]버튼 클릭시 작성중인 글은 저장되지 않고 삭제됩니다.(복구불가)</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">닫기</button>
-							<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="del()">확인</button>
+		  <div class="row justify-content-end">
+		  	<div class="btn-group col-4" role="group" aria-label="register-controll-btn"><!-- 컨트롤 버튼그룹 start-->  
+			  <button class="btn btn-outline-primary btn-sm" type="button" id="previewBtn">미리보기</button>
+			  <button class="btn btn-outline-primary btn-sm" type="button" id="modifyAllBtn">저장</button>
+			  <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#prjDelModal">삭제</button>
+			  <button class="btn btn-primary btn-sm" type="button" onclick="modifyFinish()">등록</button>
+		  	</div><!-- 컨트롤 버튼그룹 end -->  
+		  	<!-- 삭제 모달창 start -->
+				<div class="modal fade" id="prjDelModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="delModalLabel">프로젝트 삭제</h5>
+							</div>
+							<div class="modal-body text-center">
+								<label class="form-label">프로젝트를 삭제하시겠습니까?</label>
+								<div class="invalid-feedback">[확인]버튼 클릭시 작성중인 글은 저장되지 않고 삭제됩니다.(복구불가)</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">닫기</button>
+								<button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="delBtn">확인</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<!-- 삭제 모달창 end -->  
+				</div><!-- 삭제 모달창 end -->  
+		  </div>
 	      <h2 class="col-auto mb-5">프로젝트 기획</h2>
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
@@ -132,7 +134,7 @@
               </ul>
             </div>
             <div class="col-6 px-3">
-              <textarea class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요." rows="1" style="resize: none;"></textarea>
+              <textarea class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요." rows="1" style="resize: none;" id="prdt_goal">${projectDto.prdt_goal }</textarea>
               <h6 class="px-2">목표 금액 달성시 예상 수령액</h6>
               <h5 class="text-primary text-end">720,000원</h5>
               <hr class="px-3">
@@ -158,11 +160,11 @@
             <div class="col-6 px-3">
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">시작일</h6>
-                <div class="col-8"><input class="form-control" type="date" name="startday"></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_opendate" value="${projectDto.prdt_opendate}"></div>
               </div>
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">종료일</h6>
-                <div class="col-8"><input class="form-control" type="date" name="endday"></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" value="${projectDto.prdt_enddate}"></div>
               </div>
               <p class="text-end text-info">펀딩 기간 XX일</p>
               <h6>후원자 결제 종료</h6>
@@ -179,111 +181,7 @@
         </div>
         <!-- tab 3 contents -->
         <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
-          <div class="row pb-3 mt-4">
-            <div class="col-4">
-              <div class="card mb-3"><!--reward start-->
-                <div class="card-header d-flex">
-                  <div class="col-8 text-start">리워드 #01</div>
-                  <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">1,000원</h5>
-                  <p class="card-text">리워드 없이 </p>
-                </div>
-                <div class="card-footer text-muted">
-                  수량 00개
-                </div>
-              </div><!--reward end-->
-              <div class="card mb-3"><!--reward start-->
-                <div class="card-header d-flex">
-                  <div class="col-8 text-start">리워드 #02</div>
-                  <div class="d-md-flex text-end">
-                    <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#rewardModiModal">M</button>
-                    <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#rewardDelModal">D</button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">12,000원</h5>
-                  <p class="card-text">책 1권 + 뱃지1개 </p>
-                </div>
-                <div class="card-footer text-muted">
-                  수량 00개
-                </div>
-              </div><!--reward end-->
-              
-              <!-- 리워드 수정 modal start -->
-              <div class="modal fade" id="rewardModiModal" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                      <h5 class="fw-bold mb-0">리워드 수정</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-5 pt-0">
-                      <form class="">
-                          <h5>리워드 금액</h5>
-			              <p>배송이 필요한 선물을 배송비를 포함해주세요.</p>
-			              <textarea class="form-control mt-2" placeholder="1000원 이상의 금액을 입력하세요" rows="1" style="resize: none;"></textarea>
-			              <hr class="mb-4">
-			              <h5>리워드 설명</h5>
-			              <textarea class="form-control mt-2" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
-			              <hr class="mb-4">
-			              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
-			              <textarea class="form-control mt-2" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 저장</button>
-                      </form>
-                    </div><!-- modal body -->
-                  </div>
-                </div>
-              </div> <!-- Modal end-->
-               <!-- 리워드 삭제 modal start -->
-              <div class="modal fade" id="rewardDelModal" tabindex="-1" aria-labelledby="rewardDelModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                      <h5 class="fw-bold mb-0">리워드 삭제</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-5 pt-0">
-                      <form class="">
-                        <div class="form-floating mb-3">
-                          <h4>리워드를 삭제 하시겠습니까?</h4>
-                          <p>삭제된 리워드는 복구되지 않습니다.</p>
-                        </div>
-                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">리워드 삭제</button>
-                      </form>
-                    </div><!-- modal body -->
-                  </div>
-                </div>
-              </div> <!-- Modal end-->
-              
-            </div>
-            <div class="col-8 px-3">
-              <h5>리워드 만들기</h5>
-              <p>리워드는 후원자에게 프로젝트의 가치를 전달하는 수단입니다. 다양한 금액대로 여러 개의 리워드를 만들어주세요. 펀딩 성공률이 높아지고, 더 많은 후원 금액을 모금할 수 있어요.</p>
-              <hr class="mb-4">
-              <h5>리워드 금액</h5>
-              <p>배송이 필요한 선물을 배송비를 포함해주세요.</p>
-              <textarea class="form-control mt-2" placeholder="1000원 이상의 금액을 입력하세요" rows="1" style="resize: none;"></textarea>
-              <hr class="mb-4">
-              <h5>리워드 설명</h5>
-              <textarea class="form-control mt-2" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
-              <hr class="mb-4">
-              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
-              <textarea class="form-control mt-2" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-              <button class="btn btn-outline-primary me-md-2" type="button">추가하기</button>
-              <button class="btn btn-outline-secondary" type="button">초기화</button>
-            </div>
-          </div>
-<!--           <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
-		     <button class="btn btn-primary me-md-2" type="button" id="modifyBtn">저장하기</button>
-            <button class="btn btn-primary nextBtn" type="button" id="nextBtn2">다음단계</button>
-          </div> -->
+         <%@ include file ="reward.jsp" %>
         </div>
         <!-- tab 4 contents -->
         <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
@@ -308,7 +206,7 @@
             <div class="col-8">
               <!-- 글작성 영역 summernote -->
 				<div>
-					<textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+					<textarea class="summernote" placeholder="내용을 입력하세요​" id="prdt_desc_detail">${projectDto.prdt_desc_detail}</textarea>
 				</div>
             </div>
  <!--            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4 border-top border-2 py-4">
@@ -400,54 +298,8 @@
             </div>
             <div class="col-8">
               <!-- 글작성 영역 summernote -->
-			  <textarea class="summernote" placeholder="내용을 입력하세요​"></textarea>
+			  <textarea class="summernote" placeholder="내용을 입력하세요​" id="prdt_desc_policy">${projectDto.prdt_desc_policy}</textarea>
             </div>
-            <!-- 취소,등록버튼 영역 start -->
-				<div class="text-end my-5 border-top border-2 py-4">
-					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#fundingWriteCancelModal">작성취소</button>
-					
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#fundingWriteFinishModal" id="modifyBtnFinish" onclick="modifyFinish()">게 시</button>
-					<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="fundingWriteCancelModal" tabindex="-1"
-						aria-labelledby="fundingWriteCancelModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="fundingWriteCancelModalLabel">작성 취소</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body text-center">
-									<h6 class="form-label">펀딩 프로젝트 등록을 취소하시겠습니까?</h6>
-									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="cancel()">확인</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 작성취소 모달창 end -->
-					
-					<!-- 작성완료 모달창 start -->
-					<div class="modal fade" id="fundingWriteFinishModal" aria-labelledby="fundingWriteFinishModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="fundingWriteFinishLabel">작성 완료</h5>
-								</div>
-								<div class="modal-body text-center">
-									<label class="form-label">펀딩 프로젝트 등록완료</label>
-									<div class="invalid-feedback">펀딩 프로젝트가 등록되었습니다.</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="modifyFinish()">확인</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 작성완료 모달창 end -->
-				</div>
-				<!-- 취소,등록버튼 영역 end -->
           </div>
         </div><!-- tab 6 contents end -->
       </div><!-- 탭 컨텐츠 end -->
@@ -477,23 +329,22 @@
 				document.getElementById('modifyAllBtn').click()
 				location.href = link
 		}
-		function del() {
-			document.getElementById('delBtn').click()
-			location.href = link
-		}
 		$(document).ready(function() {
 			
-			/* $("#previewBtn").on("click", function() {
+			$("#previewBtn").on("click", function() {
+				document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
+				
 				let prdt_id = ${projectDto.prdt_id}
 				$.ajax({
 					type: 'GET',	
-					url: '/purplaying/project/view?prdt_id='+prdt_id,	
+					url: '/purplaying/project/view/'+prdt_id,	
 					success: function() {
-						alert("preview success")
+						alert("작성중인 내용 저장완료. 미리보기페이지로 이동합니다.")
+						location.href = '/purplaying/project/view/'+prdt_id
 						},
 					error : function() { alert("error") }
 				})
-			}) */
+			})
 			
 			$("#delBtn").on("click", function() {
 				let prdt_id = ${projectDto.prdt_id}
@@ -501,35 +352,39 @@
 					type: 'DELETE',	
 					url: '/purplaying/project/remove/'+prdt_id,	
 					success: function() {
-						console.log("remove success")
+						console.log("프로젝트가 삭제되었습니다. 마이페이지로 이동합니다.")
 						location.href = link
 						},
 					error : function() { alert("error") }
 				})
 			})
-			
-	 		$("#modifyBtnFinish").on("click", function() {
-	 			var link = '/purplaying/mypage'
-	 			document.getElementById('modifyAllBtn').click()
-	 			location.href = link
-			}) 
 	
 			$("#modifyAllBtn").on("click", function() {
 				let prdt_id = ${projectDto.prdt_id}
 				let prdt_genre = $("#prdt_genre").val()
 				let prdt_name = $("#prdt_name").val()
 				let prdt_desc = $('#prdt_desc').val()
+				let prdt_desc_detail = $('#prdt_desc_detail').val()
+				let prdt_opendate = $('#prdt_opendate').val()
+				let prdt_enddate = $('#prdt_enddate').val()
+				let prdt_goal = $('#prdt_goal').val()
+				let prdt_desc_policy = $('#prdt_desc_policy').val()
 				
 				const prdtData = { // Body에 첨부할 json 데이터
 						prdt_id:prdt_id,
 		                prdt_genre:prdt_genre,
 		                prdt_name:prdt_name,
 		                prdt_desc:prdt_desc,
+		                prdt_desc_detail:prdt_desc_detail,
+		                prdt_opendate:prdt_opendate,
+		                prdt_enddate:prdt_enddate,
+		                prdt_goal:prdt_goal,
+		                prdt_desc_policy:prdt_desc_policy,
 		            }
 				alert("prdtData:"+JSON.stringify(prdtData))
 				$.ajax({
 					type: 'PATCH',
-					url: '/purplaying/project/modify/'+${projectDto.prdt_id},
+					url: '/purplaying/project/modify/'+prdt_id,
 					headers : { "content-type" : "application/json-patch+json; charset=utf-8" }, 		//요청 헤더
 	                data: JSON.stringify(prdtData),
 					success : function() { 
