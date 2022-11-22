@@ -1,7 +1,6 @@
 package kr.co.purplaying.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +14,21 @@ public class SearchResultDaoImpl implements SearchResultDao{
   @Autowired
   private SqlSession session;
   private static String namespace = "kr.co.heart.dao.searchResultMapper.";
-  
+
   
   @Override
-  public List<SearchResultDto> searchResult(Map map) throws Exception {
+  public List<SearchResultDto> getGoodsList(SearchResultDto sr) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectList(namespace+"searchResult", map);
+    return session.selectList(namespace+"getGoodsList", sr);
+  }
+  @Override
+  public int goodsGetTotal(SearchResultDto sr) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"goodsGetTotal", sr);
+  }
+  
+  
+
   }
 
 
-
-
-  
-  
-
-
-
-
-
-
-
-}

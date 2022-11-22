@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.SettingMapper">
+
+	<sql id="selectFromBoard"> <!--Board 내용 전체 select 추출-->
+		SELECT setting_no, msg_agree, update_agree, favor_agree, marketing_agree, user_introduce, user_no
+		FROM tb_setting
+	</sql>
+	
+	<select id="selectSetting" parameterType="int" resultType="SettingDto">
+		<include refid="selectFromBoard" />
+		where user_no = #{user_no}
+	</select>
+	
+	
+
+</mapper>

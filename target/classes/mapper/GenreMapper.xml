@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+  <mapper namespace="kr.co.purplaying.dao.genreMapper">
+  	<sql id="orderOption">
+  	 	<choose>
+		<when test='order == "popular"'>
+		order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id desc
+		</when>
+		<when test='order == "new"'>
+		order by prdt_opendate desc, prdt_id desc
+		</when>
+		<otherwise>
+		order by  prdt_id desc
+		</otherwise>
+   	</choose>
+  	</sql>
+	
+	<select id="genreLiterature" parameterType="Order" resultType="ProjectDto" >
+	select 
+	prdt_genre,
+	prdt_name,
+	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+	prdt_currenttotal, 
+	(prdt_enddate-prdt_opendate) as "prdt_dday"
+	from tb_product
+	where prdt_genre = 1 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+	<include refid="orderOption"/>
+   	limit 6
+   	</select>
+	
+	<select id="genrePoemEssay" parameterType="Order" resultType="ProjectDto" >
+	select 
+	prdt_genre,
+	prdt_name,
+	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+	prdt_currenttotal, 
+	(prdt_enddate-prdt_opendate) as "prdt_dday"
+	from tb_product
+	where prdt_genre = 2 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+	<include refid="orderOption"/>
+	limit 6
+	</select>
+	
+	<select id="genreWebtoon" parameterType="Order" resultType="ProjectDto" >
+	select 
+	prdt_genre,
+	prdt_name,
+	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+	prdt_currenttotal, 
+	(prdt_enddate-prdt_opendate) as "prdt_dday"
+	from tb_product
+	where prdt_genre = 3 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+	<include refid="orderOption"/>
+	limit 6
+	</select>
+</mapper>
+  
+  
