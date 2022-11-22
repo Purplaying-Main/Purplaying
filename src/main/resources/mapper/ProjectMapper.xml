@@ -118,4 +118,6 @@
 		DELETE FROM tb_product
 		WHERE prdt_id = #{prdt_id} and writer = #{writer}		
 	</delete>
+	
+
 </mapper>

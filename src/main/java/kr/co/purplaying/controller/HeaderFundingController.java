@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.purplaying.dao.HeaderFundingDao;
 import kr.co.purplaying.domain.IndexDto;
+import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.HeaderFundingDto;
 
 @Controller
@@ -21,10 +22,10 @@ public class HeaderFundingController {
   
   @RequestMapping("/popularFunding")
   @GetMapping("/popularFunding")
-  public String popularFunding(HeaderFundingDto headerFundingDto, Model m) {
+  public String popularFunding(ProjectDto projectDto, Model m) {
     try {
       Map map = new HashMap();
-      List<HeaderFundingDto> list_p = headerFundingDao.popularFunding(map);
+      List<ProjectDto> list_p = headerFundingDao.popularFunding(map);
       m.addAttribute("list_p",list_p);
       
     } catch (Exception e) {
@@ -36,10 +37,10 @@ public class HeaderFundingController {
   
   @RequestMapping("/newFunding")
   @GetMapping("/newFunding")
-  public String newFunding(HeaderFundingDto headerFundingDto, Model m) {
+  public String newFunding(ProjectDto projectDto, Model m) {
     try {
       Map map = new HashMap();
-      List<HeaderFundingDto> list_n = headerFundingDao.newFunding(map);
+      List<ProjectDto> list_n = headerFundingDao.newFunding(map);
       m.addAttribute("list_n",list_n);
       
     } catch (Exception e) {
@@ -52,11 +53,11 @@ public class HeaderFundingController {
   
   @RequestMapping("/comingsoonFunding")
   @GetMapping("/comingsoonFunding")
-  public String getPage(HeaderFundingDto headerFundingDto, Model m ) {
+  public String getPage(ProjectDto projectDto, Model m ) {
     
     try {
       Map map = new HashMap();
-      List<HeaderFundingDto> list_c = headerFundingDao.comingsoonFunding(map);
+      List<ProjectDto> list_c = headerFundingDao.comingsoonFunding(map);
       m.addAttribute("list_c",list_c);
 
     } catch (Exception e) {

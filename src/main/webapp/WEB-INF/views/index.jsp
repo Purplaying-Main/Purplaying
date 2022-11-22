@@ -69,7 +69,7 @@
         <div class="container">
           <h4 class="mb-2"><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
-          <c:forEach var="indexDto" items="${list_p }">
+          <c:forEach var="ProjectDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -79,21 +79,21 @@
                 </div>
                  <div class="card-body">         
                   	<c:choose>
-                  		<c:when test="${indexDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
                   <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>${indexDto.prdt_name }</h5></p>
+	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 ${indexDto.prdt_percent }%</strong>
-                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${indexDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
-                    	<small class="text-muted text-end">${indexDto.prdt_dday}일 남음</small>
+                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
+                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
                   	</div>          
                   <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
              
@@ -104,7 +104,7 @@
          
           <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
-          	<c:forEach var="indexDto" items="${list_n }">
+          	<c:forEach var="ProjectDto" items="${list_n }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -114,21 +114,21 @@
                 </div>
                 <div class="card-body">
                   	<c:choose>
-                  		<c:when test="${indexDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${indexDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
                   <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>${indexDto.prdt_name }</h5></p>
+	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 ${indexDto.prdt_percent }%</strong>
-                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${indexDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
-                    	<small class="text-muted text-end">${indexDto.prdt_dday}일 남음</small>
+                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
+                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
                   	</div>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${indexDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -141,7 +141,7 @@
   </section>
 	<script>
 	/*progressbar 연동 JS*/
-	const perValue = ${indexDto.prdt_percent };
+	const perValue = ${ProjectDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
 
 	</script>

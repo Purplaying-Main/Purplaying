@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
 <mapper namespace="kr.co.purplaying.dao.headerFundingMapper">
-	<select id="popularFunding" parameterType="map" resultType="HeaderFundingDto" >
+	<select id="popularFunding" parameterType="map" resultType="ProjectDto" >
 		select 
 		prdt_genre,
 		prdt_name,
@@ -17,7 +17,7 @@
 		limit 6
 	</select>
 
-	<select id="newFunding" parameterType="map" resultType="HeaderFundingDto" >
+	<select id="newFunding" parameterType="map" resultType="ProjectDto" >
 		select 
 		prdt_genre,
 		prdt_name,
@@ -31,7 +31,7 @@
 		limit 6
 	</select>
 	
-	<select id="comingsoonFunding" parameterType="map" resultType="HeaderFundingDto" >
+	<select id="comingsoonFunding" parameterType="map" resultType="ProjectDto" >
 		select 
 		prdt_genre,
 		prdt_name,

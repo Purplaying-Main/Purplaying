@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.ProjectSuggestDao;
+import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.ProjectSuggestDto;
 
 @Controller
@@ -21,11 +22,11 @@ public class ProjectSuggestController {
   
   @RequestMapping("/searchResult")
   @GetMapping("/searchResult")
-  public String getpage(ProjectSuggestDto projectSuggestDto, Model m) {
+  public String getpage(ProjectDto projectDto, Model m) {
     
     try {
       Map map = new HashMap();
-      List<ProjectSuggestDto> list_ps = projectSuggestDao.projectSuggest(map);
+      List<ProjectDto> list_ps = projectSuggestDao.projectSuggest(map);
       m.addAttribute("list_ps", list_ps);
       
     } catch (Exception e) {

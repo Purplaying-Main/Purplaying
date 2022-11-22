@@ -26,7 +26,7 @@
 		<div class="container py-4"><!-- genre div start -->
           <h3>지금 달성률이 높은 펀딩🔥</h3>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          	<c:forEach var="headerFundingDto" items="${list_p }">
+          	<c:forEach var="ProjectDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -36,21 +36,21 @@
                 </div>
                 <div class="card-body">
                   	<c:choose>
-                  		<c:when test="${headerFundingDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${headerFundingDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${headerFundingDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
                   <div class="link-div" onclick="location.href='projectdetail'">
-	                  <p class="card-text"><h5>${headerFundingDto.prdt_name }</h5></p>
+	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 ${headerFundingDto.prdt_percent }%</strong>
-                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${headerFundingDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
-                    	<small class="text-muted text-end">${headerFundingDto.prdt_dday}일 남음</small>
+                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
+                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
                   	</div>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${headerFundingDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -64,7 +64,7 @@
   </section>
   	<script>
 	/*progressbar 연동 JS*/
-	const perValue = ${headerFundingDto.prdt_percent };
+	const perValue = ${ProjectDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
 	</script>
   <!--푸터 인클루드-->

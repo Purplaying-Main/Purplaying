@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.GenreDao;
-import kr.co.purplaying.domain.GenreDto;
 import kr.co.purplaying.domain.Order;
+import kr.co.purplaying.domain.ProjectDto;
 @Controller
 @RequestMapping("/genre")
 public class GenreController {
@@ -24,7 +24,7 @@ public class GenreController {
   @GetMapping("/literature")
   public String getLiterature(Order order, Model m) {
     try {
-      List<GenreDto> list_gl = genreDao.genreLiterature(order);
+      List<ProjectDto> list_gl = genreDao.genreLiterature(order);
       m.addAttribute("list_gl",list_gl);
       m.addAttribute("order",order);
 
@@ -38,7 +38,7 @@ public class GenreController {
   @GetMapping("/poemessay")
   public String getPoemEssay (Order order, Model m) {
     try {
-      List<GenreDto> list_gpe = genreDao.genrePoemEssay(order);
+      List<ProjectDto> list_gpe = genreDao.genrePoemEssay(order);
       m.addAttribute("list_gpe",list_gpe);
       m.addAttribute("order",order);
       
@@ -52,7 +52,7 @@ public class GenreController {
   @GetMapping("/webtoon")
   public String genrWebtoon (Order order, Model m) {
     try {
-      List<GenreDto> list_gw = genreDao.genreWebtoon(order);
+      List<ProjectDto> list_gw = genreDao.genreWebtoon(order);
       m.addAttribute("list_gw",list_gw);
       m.addAttribute("order",order);
       

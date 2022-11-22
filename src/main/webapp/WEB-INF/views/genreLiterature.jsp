@@ -38,7 +38,7 @@
       	</div>
         <div class="container py-4"><!-- genre div start -->
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          	<c:forEach var="genreDto" items="${list_gl }">        
+          	<c:forEach var="ProjectDto" items="${list_gl }">        
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -49,20 +49,20 @@
                  <div class="card-body">
                   <p class="card-cate" onclick="location.href='literature'">
                   <c:choose>
-                  	<c:when test="${ genreDto.prdt_genre eq 1}">문학</c:when>
+                  	<c:when test="${ ProjectDto.prdt_genre eq 1}">문학</c:when>
                   	<c:otherwise>장르</c:otherwise>
                   </c:choose>
                   </p>
                   <div class="link-div" onclick="location.href='${pageContext.request.contextPath}/projectdetail'">
-	                  <p class="card-text"><h5>${genreDto.prdt_name }</h5></p>
+	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 ${genreDto.prdt_percent }%</strong>
-                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${genreDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
-                    	<small class="text-muted text-end">${genreDto.prdt_dday}일 남음</small>
+                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
+                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
                   	</div>
                   <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${genreDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -76,7 +76,7 @@
   </section>
   	<script>
 	/*progressbar 연동 JS*/
-	const perValue = ${genreDto.prdt_percent };
+	const perValue = ${ProjectDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
 	</script>
 	<script>

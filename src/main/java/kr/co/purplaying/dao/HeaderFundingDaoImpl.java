@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import kr.co.purplaying.domain.HeaderFundingDto;
+import kr.co.purplaying.domain.ProjectDto;
 
 @Repository
 public class HeaderFundingDaoImpl implements HeaderFundingDao {
@@ -15,19 +16,19 @@ public class HeaderFundingDaoImpl implements HeaderFundingDao {
   private static String namespace = "kr.co.purplaying.dao.headerFundingMapper.";
   
   @Override
-  public List<HeaderFundingDto> popularFunding(Map map) throws Exception {
+  public List<ProjectDto> popularFunding(Map map) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"popularFunding", map);
   }
   
   @Override
-  public List<HeaderFundingDto> newFunding(Map map) throws Exception {
+  public List<ProjectDto> newFunding(Map map) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"newFunding", map);
   }
   
   @Override
-  public List<HeaderFundingDto> comingsoonFunding(Map map) throws Exception {
+  public List<ProjectDto> comingsoonFunding(Map map) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"comingsoonFunding", map);
   }

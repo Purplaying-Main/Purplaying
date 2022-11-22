@@ -3,9 +3,10 @@ package kr.co.purplaying.dao;
 import java.util.List;
 import java.util.Map;
 import kr.co.purplaying.domain.HeaderFundingDto;
+import kr.co.purplaying.domain.ProjectDto;
 
 public interface HeaderFundingDao {
-  List<HeaderFundingDto> popularFunding(Map map) throws Exception;
-  List<HeaderFundingDto> newFunding(Map map) throws Exception;
-  List<HeaderFundingDto> comingsoonFunding(Map map) throws Exception;
+  List<ProjectDto> popularFunding(Map map) throws Exception;
+  List<ProjectDto> newFunding(Map map) throws Exception;
+  List<ProjectDto> comingsoonFunding(Map map) throws Exception;
 }

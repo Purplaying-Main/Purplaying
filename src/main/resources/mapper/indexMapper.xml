@@ -9,7 +9,7 @@
 		FROM tb_product;
 	</sql>
 	
-	<select id="popluarFunding" parameterType="map" resultType="IndexDto" >
+		<select id="popluarFunding" parameterType="map" resultType="ProjectDto" >
 		select 
 		prdt_genre,
 		prdt_name,
@@ -22,7 +22,7 @@
 		limit 3
 	</select>
 	
-	<select id="newFunding" parameterType="map" resultType="IndexDto" >
+	<select id="newFunding" parameterType="map" resultType="ProjectDto" >
 		select 
 		prdt_genre,
 		prdt_name,

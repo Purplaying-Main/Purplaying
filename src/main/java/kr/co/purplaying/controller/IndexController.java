@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.purplaying.dao.IndexDao;
-import kr.co.purplaying.domain.IndexDto;
+import kr.co.purplaying.domain.ProjectDto;
 
 @Controller
 public class IndexController {
@@ -19,13 +19,13 @@ public class IndexController {
   
   @RequestMapping("/")
   @GetMapping("/")
-  public String getPage(IndexDto indexDto, Model m) {
+  public String getPage(ProjectDto projectDto, Model m) {
     try {
       Map map = new HashMap();
-      List<IndexDto> list_p = indexDao.popluarFunding(map);
+      List<ProjectDto> list_p = indexDao.popluarFunding(map);
       m.addAttribute("list_p",list_p);
       
-      List<IndexDto> list_n = indexDao.newFunding(map);
+      List<ProjectDto> list_n = indexDao.newFunding(map);
       m.addAttribute("list_n",list_n);
       
     } catch (Exception e) {
