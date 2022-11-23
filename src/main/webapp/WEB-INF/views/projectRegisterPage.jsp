@@ -66,6 +66,7 @@
       </div>
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
       	<input type="hidden" name="prdt_id" id="prdt_id" value="${projectDto.prdt_id}">
+      	<input type="hidden" name="prdt_genre_db" id="prdt_genre_db" value="${projectDto.prdt_genre}">
         <!-- tab 1 contents -->
         <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
           <div class="row pb-3 border-bottom mt-4">
@@ -134,21 +135,21 @@
               </ul>
             </div>
             <div class="col-6 px-3">
-              <textarea class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요." rows="1" style="resize: none;" id="prdt_goal">${projectDto.prdt_goal }</textarea>
+              <input class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요."  id="prdt_goal" onchange="calculate()" value="${projectDto.prdt_goal }"/>
               <h6 class="px-2">목표 금액 달성시 예상 수령액</h6>
-              <h5 class="text-primary text-end">720,000원</h5>
+              <h5 class="text-primary text-end" id="goal_price">720,000원</h5>
               <hr class="px-3">
               <div class="row text-muted">
                 <p class="col-8 text-start">총 수수료</p>
-                <p class="col-4 text-end">000,000원</p>
+                <p class="col-4 text-end" id="total_commission">000,000원</p>
               </div>
               <div class="row text-muted">
                 <p class="col-8 text-start">결제 대행 수수료<span class="text-small">(총 결제액의 3% + VAT)</span></p>
-                <p class="col-4 text-end">000,000원</p>
+                <p class="col-4 text-end" id="agencies_commission">000,000원</p>
               </div>
               <div class="row text-muted">
                 <p class="col-8 text-start">플랫폼 수수료<span class="text-small">(총 모금액의 5% + VAT)</span></p>
-                <p class="col-4 text-end">000,000원</p>
+                <p class="col-4 text-end" id="platform_commission">000,000원</p>
               </div>
             </div>
           </div>
@@ -160,17 +161,17 @@
             <div class="col-6 px-3">
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">시작일</h6>
-                <div class="col-8"><input class="form-control" type="date" id="prdt_opendate" value="${projectDto.prdt_opendate}"></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_opendate"  value="${projectDto.prdt_opendate}"/></div>
               </div>
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">종료일</h6>
-                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" value="${projectDto.prdt_enddate}"></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" onchange="calDate()" value="${projectDto.prdt_enddate}"/></div>
               </div>
-              <p class="text-end text-info">펀딩 기간 XX일</p>
+              <p class="text-end text-info" id="punding_date_range">펀딩 기간 XX일</p>
               <h6>후원자 결제 종료</h6>
               <p class="text-small bg-light rounded p-3 text-muted">프로젝트 성공 시 펀딩 종료 다음 날 후원금이 결제됩니다.​ 단, 후원자의 사정으로 결제가 이루어지지 않은 경우는 제외합니다.​</p>
               <h6>정산일</h6>
-              <p class="text-info">예상 정산일은 YYYY년 MM월 DD일입니다.</p>
+              <p class="text-info" id="adjust_date">예상 정산일은 YYYY년 MM월 DD일입니다.</p>
             </div>
           </div>
 <!--      //저장하기, 다음단계 영역    
@@ -308,6 +309,7 @@
    <!--페이지 내용 종료-->
     <script>
 		$(document).ready(function() {
+			$('#prdt_genre').val($('#prdt_genre_db').val());
 			//여기 아래 부분
 			$('.summernote').summernote({
 				  //height: 445,                 // 에디터 높이
@@ -316,11 +318,54 @@
 				  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 				  lang: "ko-KR",					// 한글 설정
 				  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-		          
 			})
 		})
 	</script>
 	<script type="text/javascript">
+		function dateFormat(date) {
+	        let month = date.getMonth() + 1;
+	        let day = date.getDate();
+	
+	        month = month >= 10 ? month : '0' + month;
+	        day = day >= 10 ? day : '0' + day;
+	     
+	
+	        return date.getFullYear() + '-' + month + '-' + day;
+		}
+		
+		function calDate(){
+			let openDate = $('#prdt_opendate').val()
+			let endDate = $('#prdt_enddate').val()
+			let finishDate = new Date(endDate);
+			let tomorrow_end_Date = new Date(finishDate.setDate(finishDate.getDate()+1));
+			
+			$.ajax({
+				type: 'GET',	
+				url: '/purplaying/project/calDate/'+openDate+"/"+endDate,//year+month+day,	
+				success: function(result) {
+					alert(result)
+					$('#punding_date_range').html("펀딩 기간 "+result+"일");
+					$('#adjust_date').html("예상 정산일은 "+dateFormat(tomorrow_end_Date)+"입니다.");
+				},
+				error : function() { alert("error") }
+			})
+		}
+		function calculate(){
+			$.ajax({
+				type: 'GET',	
+				url: '/purplaying/project/calculate/'+$('#prdt_goal').val(),	
+				success: function(result) {
+					alert(result)
+					//$('#goal_price').val(result);
+					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#agencies_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#platform_commission').html(result[2].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#total_commission').html(result[3].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+				},
+				error : function() { alert("error") }
+			})
+		}	
+	
 		var link = '/purplaying/mypage'
 		function cancel(){
 			location.href = link
@@ -329,8 +374,7 @@
 				document.getElementById('modifyAllBtn').click()
 				location.href = link
 		}
-		$(document).ready(function() {
-			
+		$(document).ready(function() {			
 			$("#previewBtn").on("click", function() {
 				document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
 				
