@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.ProjectSuggestDto;
+
 @Repository
 public class ProjectSuggestDaoImpl implements ProjectSuggestDao {
   @Autowired

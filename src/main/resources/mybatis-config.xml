@@ -10,16 +10,13 @@
 		<typeAlias alias="AnsDto" type="kr.co.purplaying.domain.AnsDto" />
 		<typeAlias alias="BoardDto" type="kr.co.purplaying.domain.BoardDto" />
 		<typeAlias alias="CommunityDto" type="kr.co.purplaying.domain.CommunityDto" />
-		<typeAlias alias="HeaderFundingDto" type="kr.co.purplaying.domain.HeaderFundingDto" />
 		<typeAlias alias="genreDto" type="kr.co.purplaying.domain.GenreDto" />
-		<typeAlias alias="IndexDto" type="kr.co.purplaying.domain.IndexDto" />
 		<typeAlias alias="LeaveDto" type="kr.co.purplaying.domain.LeaveDto" />
 		<typeAlias alias="MemberDto" type="kr.co.purplaying.domain.MemberDto" />
 		<typeAlias alias="NoticeDto" type="kr.co.purplaying.domain.NoticeDto" />
 		<typeAlias alias="OneononeDto" type="kr.co.purplaying.domain.OneononeDto" />
 		<typeAlias alias="Order" type="kr.co.purplaying.domain.Order" />
 		<typeAlias alias="ProjectDto" type="kr.co.purplaying.domain.ProjectDto" />
-		<typeAlias alias="projectSuggestDto" type="kr.co.purplaying.domain.ProjectSuggestDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 		<typeAlias alias="SearchResultDto" type="kr.co.purplaying.domain.SearchResultDto" />
 		<typeAlias alias="SettingDto" type="kr.co.purplaying.domain.SettingDto" />

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.ProjectSuggestDao;
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.ProjectSuggestDto;
 
 @Controller
 public class ProjectSuggestController {
