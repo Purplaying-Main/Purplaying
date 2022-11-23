@@ -47,43 +47,6 @@ public class ProductController {
   @Autowired
   RewardService rewardService;
   
-
-  //프로젝트 대표이미지 업로드
-  @RequestMapping("/modify/file/upload")
-  public @ResponseBody String fileUpload(MultipartFile[] uploadFile, Model m, int prdt_id){
-    System.out.println("upload file ajax post....");
-    String uploadFolder ="D:\\2022purplaying\\Purplaying\\src\\main\\webapp\\resources\\assets\\img\\upload";
-    
-    for (MultipartFile multipartFile : uploadFile) {
-      
-      String uploadFileName = multipartFile.getOriginalFilename();
-      long uploadFileSize = multipartFile.getSize();
-      
-      
-      try {
-        
-        imgToDB(uploadFolder, uploadFileName, uploadFileSize, prdt_id);
-        System.out.println("only file name: "+ uploadFileName);
-        File saveFile = new File(uploadFolder, uploadFileName);
-        
-        multipartFile.transferTo(saveFile);
-        return "<img src='/purplaying/resources/assets/img/upload/"+uploadFileName+"'>";
-      } catch (Exception e) {
-        e.printStackTrace();
-        return null;
-      }
-      
-    }//for
-    
-    return null;
-  }
-  
-  private void imgToDB(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
-    if( projectService.insertFile(uploadFolder, uploadFileName, uploadFileSize, prdt_id) != 1) {
-      System.out.println("insertFile ERR");
-    }
-  }
-
   //미리보기
   @GetMapping("/view/{prdt_id}")
   public String view(@PathVariable Integer prdt_id,

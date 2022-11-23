@@ -35,7 +35,6 @@
 			
 		<!-- file upload -->
 		<multipart-config>
-			<location>C://purplaying_file</location>
 	        <max-file-size>209715200</max-file-size><!-- 업로드되는 파일의 최대 크기 1MB * 20 -->
 	        <max-request-size>209715200</max-request-size><!-- 한 번에 올릴 수 있는 최대 크기 -->
 	        <file-size-threshold>209715200</file-size-threshold><!-- 특정 사이즈의 메모리 사용 -->

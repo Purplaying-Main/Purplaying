@@ -365,8 +365,9 @@
 				},
 				error : function() { alert("error") }
 			})
-		}	
-	
+		}
+		
+
 		var link = '/purplaying/mypage'
 		function cancel(){
 			location.href = link
@@ -375,30 +376,60 @@
 				document.getElementById('modifyAllBtn').click()
 				location.href = link
 		}
+		
+		/* 파일 확장자, 크기 처리 */
+		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
+		var maxSize = 5242880 //5MB
+		function checkExtension(fileName, fileSize) {
+			if(fileSize >= maxSize){
+				alert("파일 사이즈 초과")
+				return false
+			}
+			if(regex.test(fileName)){
+				alert("해당 확장자의 파일은 업로드할 수 없습니다. ")
+				return false
+			}
+			return true
+		}
+		
+		let prdt_id = ${projectDto.prdt_id}
+		
+		/* let toHtml = function(img_thumb) {
+			let tmp = '<div class="w-100">'
+			img_thumb.forEach(function() {
+				tmp += '<img src="' + uploadFolder
+				tmp += '/' + uploadFileName
+				tmp += '">'
+			})
+			return tmp += '</div>'
+		} */
+		
 		$(document).ready(function() {	
 			$("#fileAddBtn").on("click", function() {
-				var formData = new FormData();
-				var inputFile = $("#projectImg");
-				var files = inputFile[0].files;
-				
-				let prdt_id = ${projectDto.prdt_id}
-				
-				console.log(files);
-				
+				var formData = new FormData()
+				var inputFile = $("#projectImg")
+				var files = inputFile[0].files
+				console.log(files)
+
 				for (var i=0; i<files.length; i++){
+					if(!checkExtension(files[i].name, files[i].size)){
+						return false
+					}
 					formData.append("uploadFile", files[i]);
 					formData.append("prdt_id", prdt_id);
 				}
+				
 				$.ajax({
 					type: 'POST',	
-					url: '/purplaying/project/modify/file/upload',
+					url: '/purplaying/file/upload',
 					enctype: "multpart/form-data",
 					data : formData,
 					processData: false,
 				    contentType: false,
+				    dataType:'json',
 					success: function(result) {
-						alert(result)
-						$("#projectImg_preview").html(result)
+						console.log(result)
+						/* $("#projectImg_preview").html(toHtml(result)) */
 						},
 					error : function() { alert("error") }
 				}) 

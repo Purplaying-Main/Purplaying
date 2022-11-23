@@ -80,7 +80,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 #item01 { background: url('../img/PSD_08.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
-.carousel-project { height: 41.5rem;}
+.carousel-project { height: 39rem;}
 #projectCarousel01 { background: url('../img/carousel01.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #projectCarousel02 { background: url('../img/carousel02.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #projectCarousel03 { background: url('../img/carousel03.jpg') center; background-repeat : no-repeat; background-size : cover; width: 100%;}

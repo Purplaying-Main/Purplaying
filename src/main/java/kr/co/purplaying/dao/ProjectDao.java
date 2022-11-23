@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface ProjectDao {
   List<ProjectDto> selectAll(Integer prdt_id) throws Exception;
   int delete(Integer prdt_id, String writer) throws Exception;
   ProjectDto projectDetail(Integer prdt_id) throws Exception;
-  int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception;
+  int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception;
   
 
   

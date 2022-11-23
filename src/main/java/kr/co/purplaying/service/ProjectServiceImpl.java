@@ -1,5 +1,6 @@
 package kr.co.purplaying.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +78,8 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
-    return projectDao.insertFile(uploadFolder, uploadFileName, uploadFileSize, prdt_id);
+  public int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+    return projectDao.insertFile(uploadPath, uploadFileName, uploadFileSize, prdt_id);
   }
 
 

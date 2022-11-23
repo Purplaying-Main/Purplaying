@@ -47,7 +47,7 @@
    <!--페이지 내용 시작-->
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
-      <div class="contentsWrap">
+      <div class="contentsWrap col-10 mx-auto">
       	<form id="form" class="frm" action="" method="post">
       		<input type="hidden" name="prdt_id" value="${projectDto.prdt_id}"><br>
       	  <div class="py-3 text-center"> 	  
@@ -70,7 +70,7 @@
               </div>
             </div>
             <!--thumbnail end-->
-            <ul class="col-md-4" id="move">
+            <ul class="col-md-4">
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${projectDto.prdt_currenttotal}</h4></li>
@@ -125,13 +125,13 @@
                   </div> <!-- Modal end-->
                 <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='servicecenter'" value="&#xf059 문의하기">
               </div>
-              <hr class="my-4">
-              <li class="row d-flex border rounded p-3 m-1">
-                <div class="col-4"><img src="https://picsum.photos/90" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
+              <hr class="my-2">
+              <li class="row d-flex p-2 m-1">
+                <div class="col-3"><img src="https://picsum.photos/46" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
                 <div class="col">
-                  <h5 class="row text-primary mt-2">${projectDto.writer}</h5>
-                  <h6 class="row text-muted">${projectDto.user_id}</h6>
-                  <h6 class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
+                  <h6 class="row text-muted">${projectDto.writer}</h6>
+                  <small class="row text-muted">${projectDto.user_id}</small>
+                  <small class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
             </ul>

@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,9 +79,9 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
   @Override
-  public int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+  public int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
     Map map = new HashMap();
-    map.put("file_location", uploadFolder);
+    map.put("file_location", uploadPath);
     map.put("file_name", uploadFileName);
     map.put("file_size", uploadFileSize);
     map.put("prdt_id", prdt_id);

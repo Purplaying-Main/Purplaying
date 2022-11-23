@@ -1,5 +1,6 @@
 package kr.co.purplaying.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ public interface ProjectService {
   int remove(Integer prdt_id, String writer) throws Exception;
   ProjectDto view(Integer prdt_id) throws Exception;
   
-  int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id)  throws Exception;
+  int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id)  throws Exception;
 
 
   
