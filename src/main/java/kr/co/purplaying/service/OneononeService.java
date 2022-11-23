@@ -10,8 +10,9 @@ public interface OneononeService {
 	
 	List<OneononeDto> getPage(Map map) throws Exception;
 	int getCount() throws Exception;
-	OneononeDto read(int inquiry_no) throws Exception;
-	int remove(Integer inquiry_no, String user_id) throws Exception;
+	OneononeDto read(Integer inquiry_no) throws Exception;
+	OneononeDto readans(Integer inquiry_no) throws Exception;
+	int remove(Integer inquiry_no, String writer) throws Exception;
     int write(OneononeDto oneononeDto) throws Exception;
     int modify(OneononeDto oneononeDto) throws Exception;
     

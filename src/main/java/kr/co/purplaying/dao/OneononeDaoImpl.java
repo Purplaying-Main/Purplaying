@@ -16,7 +16,7 @@ public class OneononeDaoImpl implements OneononeDao{
 
 	@Autowired
 	private SqlSession session;
-	private static String namespace = "kr.co.purplaying.dao.oneononeMapper.";
+	private static String namespace = "kr.co.purplaying.dao.OneononeMapper.";
 	
 	@Override
 	public OneononeDto select(Integer inquiry_no) throws Exception{
@@ -24,8 +24,8 @@ public class OneononeDaoImpl implements OneononeDao{
 	}
 
 	@Override
-	public int insert(OneononeDto dto) throws Exception {
-		return session.insert(namespace+"insert",dto);
+	public int insert(OneononeDto OneononeDto) throws Exception {
+		return session.insert(namespace+"insert",OneononeDto);
 	}
 
 	@Override
@@ -39,15 +39,15 @@ public class OneononeDaoImpl implements OneononeDao{
 	}
 
 	@Override
-	public List<OneononeDto> selectPage(Map<String, Integer> map) throws Exception {
+	public List<OneononeDto> selectPage(Map map) throws Exception {
 		return session.selectList(namespace+"selectPage",map);
 	}
 
     @Override
-    public int delete(Integer inquiry_no, String user_id) throws Exception {
+    public int delete(Integer inquiry_no, String writer) throws Exception {
         Map map = new HashMap();
         map.put("inquiry_no", inquiry_no);
-        map.put("user_id", user_id);
+        map.put("writer", writer);
         return session.delete(namespace + "delete", map);
     }
     
@@ -68,6 +68,25 @@ public class OneononeDaoImpl implements OneononeDao{
     public List<OneononeDto> searchSelectPage(SearchItem sc) throws Exception {
         
         return session.selectList(namespace + "searchSelectPage", sc);
+    }
+
+    @Override
+    public int privateFalse(OneononeDto oneononeDto) throws Exception {
+      return session.update(namespace+"privateFalse", oneononeDto);
+    }
+
+    @Override
+    public int updateAnsCnt(Integer inquiry_no, Integer inquiry_state) throws Exception {
+      Map map = new HashMap();
+      map.put("inquiry_state", inquiry_state);
+      map.put("inquiry_no", inquiry_no);
+      return session.update(namespace+"updateAnsCnt", map);
+    }
+
+    @Override
+    public OneononeDto selectAns(Integer inquiry_no) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectOne(namespace +"selectAns", inquiry_no);
     }
 
 }

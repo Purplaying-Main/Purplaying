@@ -3,15 +3,78 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
-<mapper namespace="kr.co.purplaying.dao.ansMapper">
+<mapper namespace="kr.co.purplaying.dao.AnsMapper">
 
-	<sql id="SelectAns">
-		select ans_no, admin_id , B.inquiry_no, ans_context, ans_regdate, inquiry_state, user_id, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
-		from tb_inquiryans A
-		join tb_inquiry2 B
-		on A.inquiry_no = B.inquiry_no 
+
+	<sql id="SelectFromAns">
+			select A.inquiry_no, inquiry_state, writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate, ans_no, ans_state, admin_id, ans_context, ans_regdate
+			from tb_inquiry A
+			left outer join tb_inquiry_ans B
+			on A.inquiry_no = B.inquiry_no
+			WHERE A.inquiry_no = #{inquiry_no}
 	</sql>
+		
+	<sql id="SelectAns">
+		select ans_no, ans_state, admin_id , inquiry_no, ans_context, ans_regdate
+		from tb_inquiry_ans
+	</sql>
+	
+	<select id="selectAll" parameterType="int" resultType="AnsDto">
+		select ans_no, ans_state, admin_id , inquiry_no, ans_context, ans_regdate
+		where inquiry_no = #{inquiry_no}
+		order ans_regdate , ans_no
+	</select>
+	
+	 <select id="select" parameterType="int" resultType="AnsDto">
+  		<include refid="SelectFromAns" />
+  		WHERE A.inquiry_no = #{inquiry_no}
+  	</select>
   	
+  	<select id="selectAnsData" parameterType="int" resultType="AnsDto">
+  		select ans_no, ans_state, admin_id , ans_context, ans_regdate
+  		from tb_inquiry_ans
+  		where inquiry_no = #{inquiry_no}
+  	</select>
   	
+  	<insert id="insertAns" parameterType="AnsDto">
+  		INSERT INTO tb_inquiry_ans 
+ 			(ans_state, inquiry_no, ans_context, admin_id, ans_regdate)
+		VALUES
+			(1, #{inquiry_no}, #{ans_context}, #{admin_id}, now())
+  	</insert>
+  	
+ 	<delete id="deleteAll" parameterType="int" >
+ 		DELETE FROM tb_inquiry_ans
+		WHERE inquiry_no = #{inquiry_no}
+ 	</delete>
+ 
+ 	<delete id="delete" parameterType="map" >
+ 		delete from tb_inquiry_ans 
+ 		set inquiry_state = #{inquiry_state}
+		where ans_no = #{ans_no} and admin_id = #{admin_id}
+ 	</delete>
+ 
+ 	<insert id="insert" parameterType="AnsDto">
+ 		INSERT INTO tb_inquiry_ans 
+ 			(ans_no, ans_state,inquiry_no, ans_context, admin_id, ans_regdate)
+		VALUES
+			(#{ans_no}, #{ans_state},#{inquiry_no}, #{ans_context}, #{admin_id}, now())
+ 	</insert>
+ 
+ 	<update id="update" parameterType="AnsDto">
+ 		update  tb_inquiry_ans
+		set ans_context = #{ans_context}, ans_regdate = now()
+		where ans_no = #{ans_no} and ans_context = #{ans_context}
+ 	</update>
+ 
+ 
+ 
+	<update id="privateFalse" parameterType="AnsDto"><!--컬럼 공개에서 비공개로 전환 (삭제 대체) -->
+		 UPDATE tb_inquiry_ans 
+ 		 SET inquiry_private = FALSE 
+ 		 WHERE inquiry_no =  #{inquiry_no}
+	</update>
+  	
+
 	
 </mapper>

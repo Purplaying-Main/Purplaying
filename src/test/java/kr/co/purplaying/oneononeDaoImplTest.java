@@ -22,16 +22,12 @@ public class oneononeDaoImplTest {
 		
 		for(int i=1; i<= 122; i++) {
 			
-		    OneononeDto oneononeDto = new OneononeDto(i, false, "purpl"+i, "yyy"+i, "ezen@gmail.com", false, null);
+		    OneononeDto oneononeDto = new OneononeDto(i, 0, "ezen@gmail.com", "purpl"+i, "yyy"+i, false, null, null);
 			oneononeDao.insert(oneononeDto);
 			
 		}
 		
 	}
-
-
-
-
 
 
 }

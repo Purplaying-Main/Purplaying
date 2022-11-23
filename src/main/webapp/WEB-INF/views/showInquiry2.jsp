@@ -1,15 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="prev_notice_id" value="${noticeDto.notice_id -1}"/>
+<c:set var="adminAns" value="${sessionScope.ans_state == 0 ? 'display:none':'' }" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
-<%@ include file="meta.jsp"%>
+<%@ include file="meta4.jsp"%>
 </head>
-
+	
 <body>
-	<!--헤더 인클루드-->
+		<!--헤더 인클루드-->
 	<%@ include file="header.jsp"%>
+	
+	<script type="text/javascript">
+		let msg = "${msg}"
+		if(msg == "WRT_ERR") alert("게시물 등록에 [실패] 하였습니다. 다시 시도해 주세요.")
+		if(msg == "MOD_ERR") alert("게시물 수정에 [실패] 하였습니다. 다시 시도해 주세요.")
+	</script>
 
 	<!--페이지 내용 시작-->
 	<section>
@@ -23,42 +33,169 @@
 			    <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist"> <!-- 탭 menu start-->
 			      <button class="nav-link" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
 			      <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
-			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonone/list'">1:1 문의</button>
+			      <button class="nav-link active" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="true" onclick="location.href='/purplaying/oneonon	e/list'">1:1 문의</button>
 			    </div><!-- 탭 menu end-->
+
 			    <div class="row col-10 justify-content-center mx-auto"><!-- 탭 컨텐츠 start -->
-				    <div class="tab-content" id="v-pills-tabContent">
-				        <!-- tab 1 contents -->
-				        <div class="tab-pane fade show active py-5" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
-							<!-- 게시판 글 내용 -->
-							<div class="card p-5 mb-3">
-								<!-- 제목 영역  -->
+			      <div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-pane fade show active py-5" >
+						<h2 class="writing-header">일대일 문의</h2>				
+							<form class="card p-5 mb-3" id="form" action="" method="post">
+								<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
+								<!-- 제목 영역  -->			                    	
 								<div class="mt-3">
-									<h6 class="card-subtitle mb-2 text-muted">1:1 문의</h6>
-									<h5 class="card-title"><input style="width: 100%;" type="text" name="title" value="${boardDto.title }" ${mode=="new" ? "" : "readonly='readonly'" }></h5>
-									<small class="card-subtitle mb-2 text-muted">${boardDto.reg_date }</small>
+									<h4 class="card-title">${oneononeDto.inquiry_title}</h4>
+									<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+									<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id}</small>
 								</div>
 								<hr class="my-4">
-								<!--질문 내용 영역 -->
+								<!-- 본문 영역 -->
 								<div class="px-4 py-2">
-									<p>
-									<textarea style="width: 100%;" rows="20" name="content" ${mode=="new" ? "" : "readonly='readonly'" }>${boardDto.content }</textarea>
-									</p>
+									${oneononeDto.inquiry_context}		
 								</div>
-							</div>
-								<button type="button" class="col-1 btn btn-primary" style="${adminWrite}" onclick="location.href='noticeWrite'">답변</button>
-							<!-- 목록으로 가기 -->
-							<div class="row mx-auto col-md-4">
-								<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>		
-		      				</div>
-						</div>
-					</div><!-- 탭 end-->
+								<!-- 글쓰기 목록 버튼 영역 -->
+								<hr class="my-4">
+								<div class="mt-3 text-end" >
+									<!-- 수정권한 확인  -->
+									<c:if test="${oneononeDto.writer eq sessionScope.user_id or sessionScope.user_id eq 'admin@gmail.com'}">
+										<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
+										<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
+									</c:if>
+								</div>
+							</form>
+							
+								<button type="button" id="ansBtn" class="col-1 btn btn-primary" style="${adminWrite}" class="btn btn-info btn-sm">답변</button>
+								<input type="hidden" name="inquiry_no" value="${ansState}">
+								<div style="${ansState ? '' :'display:none'}">
+									<form class="card p-5 mb-3" id="form" action="" method="post">
+									<input type="hidden" id= "inquiry_no" name="inquiry_no" value="${oneononeDto.inquiry_no }">
+									<input type="hidden" name="ans_no" value="${ansDto.ans_no }">
+									<!-- 답변 영역  -->			                    	
+									<div class="mt-3">
+										<h4 class="card-title">${oneononeDto.inquiry_title}</h4>						
+										<small class="card-subtitle mb-2 text-muted" name="ans"><fmt:formatDate value="${ansDto.ans_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
+										<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id}</small>
+									</div>
+									<hr class="my-4">
+									<!-- 본문 영역 -->
+									<div class="px-4 py-2">
+										${ansDto.ans_context}		
+									</div>
+									<!-- 글쓰기 목록 버튼 영역 -->
+									<hr class="my-4">
+									<div class="mt-3 text-end" >
+										<!-- 수정권한 확인  -->
+										<c:if test="${sessionScope.user_id eq 'admin@gmail.com'}">
+											<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
+											<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
+										</c:if>
+								</div>
+								</form>
+							
+								</div>
+						<!-- 목록으로 가기 -->
+								<div class="row mx-auto col-md-4">
+									<button type="button" class="btn btn-outline-primary my-3" onclick="history.back(-1)">목록으로 돌아가기</button>	
+							<!--  	<button type="button" id="listBtn" class="btn btn-outline-primary my-3" >목록으로 돌아가기</button>	-->	
+				   				</div>
+				   				<div class="modal fade" id="ansModal" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                      <h5 class="fw-bold mb-0">답변 작성하기</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                      <form class="">
+                          <h5>질문 내용</h5>
+			              <div>${oneononeDto.inquiry_context}</div>
+			              <hr class="mb-4">
+			              <h5>문의 답변</h5>
+			              <textarea class="form-control mt-2 summernote" id="ansWriteContext">${ansDto.ans_context}</textarea>		             
+                        <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" id="ansComplete" type="button">답변 저장</button>
+                      </form>
+                    </div><!-- modal body -->
+                  </div>
+                </div>
+              </div> <!-- Modal end-->
+			
+					</div>
 				</div>
-			</div><!-- 컨텐츠영역 end-->
+			</div>
 		</div>
-	</section>
-	<!--페이지 내용 종료-->
+	</div>
 
+</section>
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#listBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
+		})
+		
+		//remove
+		$("#removeBtn").on("click", function() {
+			if(!confirm("정말로 삭제하시겠습니까?")) return;
+			
+			let form = $("#form")
+			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
+			form.attr("method", "post")  
+			
+			form.submit()
+		})
+		
+		//write
+		$("#writeBtn").on("click", function() {
+			let form = $("#form");
+			form.attr("action", "<c:url value='/oneonone/write' />")
+			form.attr("method", "post")
+			
+			if(formCheck())
+				form.submit()					
+		})
+		
+		//writeans
+		$("#ansBtn").on("click", function() {
+			$('#ansModal').modal("show");		
+		})
+		//ansComplete
+		$("#ansComplete").on("click", function() {
+			let ansData = {ans_context:$('#ansWriteContext').val(),inquiry_no:$('#inquiry_no').val()}
+			$.ajax({
+	            type : 'post',										// 요청 메서드
+	            url : '/purplaying/oneonone/write/ans',								// 요청 URI
+	            headers : { "content-type" : "application/json" }, 	// 요청 헤더	//생략가능
+	            dataType : 'text',									// 서버에서 전송받을 데이터타입
+	            data : JSON.stringify(ansData),						// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
+	            success : function(result) {						// 서버로부터 응답이 도착하면 호출될 함수 { 정상적으로 요청, 응답 시 처리 }
+	            	$('#ansModal').modal("hide")
+	            	location.reload();
+				},													
+	            error : function() {alert("error")}					// 에ꁰ가 발생했을 떄, 호출될 함수 { 오류 발생 시 처리 }
+			})
+				
+		})
+		
+		
+		//modify
+		$("#modifyBtn").on("click", function() {
+				let form = $("#form");
+				form.attr("action", "<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}' />")
+				form.attr("method", "get")
+				
+				form.submit()
+			})
+	})
+	
+
+	
+	
+	<!-- ajax -->
+	
+	
+	</script>
+
 </body>
 </html>
