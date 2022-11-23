@@ -21,7 +21,8 @@ public interface ProjectDao {
   int count()throws Exception;
   List<ProjectDto> selectAll(Integer prdt_id) throws Exception;
   int delete(Integer prdt_id, String writer) throws Exception;
-  ProjectDto projectDetail(Integer prdt_id)throws Exception;
+  ProjectDto projectDetail(Integer prdt_id) throws Exception;
+  int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception;
   
 
   

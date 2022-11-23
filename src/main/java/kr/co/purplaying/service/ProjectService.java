@@ -23,6 +23,8 @@ public interface ProjectService {
   
   int remove(Integer prdt_id, String writer) throws Exception;
   ProjectDto view(Integer prdt_id) throws Exception;
+  
+  int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id)  throws Exception;
 
 
   

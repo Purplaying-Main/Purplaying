@@ -77,4 +77,15 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.selectOne(namespace+"projectDetail", prdt_id);
   }
 
+  @Override
+  public int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+    Map map = new HashMap();
+    map.put("file_location", uploadFolder);
+    map.put("file_name", uploadFileName);
+    map.put("file_size", uploadFileSize);
+    map.put("prdt_id", prdt_id);
+    
+    return session.insert(namespace+"insertFile", map);
+  }
+
 }

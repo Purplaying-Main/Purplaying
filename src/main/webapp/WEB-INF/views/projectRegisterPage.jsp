@@ -56,12 +56,12 @@
       </div>
       <div class="mb-4"> <!-- 탭 메뉴 -->
         <div class="nav nav-tabs nav-justified" id="v-pills-tab" role="tablist">
-          <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">기본정보</button>
-          <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">펀딩계획</button>
-          <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">리워드 구성</button>
-          <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">프로젝트 계획</button>
-          <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab05" type="button" role="tab" aria-controls="v-pills-tab05" aria-selected="false">창작자 정보</button>
-          <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab06" type="button" role="tab" aria-controls="v-pills-tab06" aria-selected="false">신뢰와 안전</button>
+          <button class="nav-link active" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">기본정보</button>
+          <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">펀딩계획</button>
+          <button class="nav-link" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">리워드 구성</button>
+          <button class="nav-link" id="v-pills-04-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">프로젝트 계획</button>
+          <button class="nav-link" id="v-pills-05-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab05" type="button" role="tab" aria-controls="v-pills-tab05" aria-selected="false">창작자 정보</button>
+          <button class="nav-link" id="v-pills-06-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab06" type="button" role="tab" aria-controls="v-pills-tab06" aria-selected="false">신뢰와 안전</button>
         </div>
       </div>
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
@@ -99,10 +99,11 @@
               <p>후원자들이 프로젝트의 내용을 쉽게 파악하고 좋은 인상을 받을 수 있도록 이미지 가이드라인을 따라 주세요.</p>
             </div>
             <div class="col-6 px-3">
-              <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+              <div id="project_img_div" class="input-group mb-3">
+                <input type="file" class="form-control" name="projectImg" id="projectImg" multiple />
+                <button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
               </div>
+              <div class="bg-light p-2" id="projectImg_preview" style="height:300px;"></div>
             </div>
           </div>
           <div class="row pb-3 mt-4">
@@ -374,7 +375,35 @@
 				document.getElementById('modifyAllBtn').click()
 				location.href = link
 		}
-		$(document).ready(function() {			
+		$(document).ready(function() {	
+			$("#fileAddBtn").on("click", function() {
+				var formData = new FormData();
+				var inputFile = $("#projectImg");
+				var files = inputFile[0].files;
+				
+				let prdt_id = ${projectDto.prdt_id}
+				
+				console.log(files);
+				
+				for (var i=0; i<files.length; i++){
+					formData.append("uploadFile", files[i]);
+					formData.append("prdt_id", prdt_id);
+				}
+				$.ajax({
+					type: 'POST',	
+					url: '/purplaying/project/modify/file/upload',
+					enctype: "multpart/form-data",
+					data : formData,
+					processData: false,
+				    contentType: false,
+					success: function(result) {
+						alert(result)
+						$("#projectImg_preview").html(result)
+						},
+					error : function() { alert("error") }
+				}) 
+			})
+			
 			$("#previewBtn").on("click", function() {
 				document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
 				

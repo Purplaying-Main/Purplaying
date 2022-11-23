@@ -102,10 +102,26 @@
 		limit 1
 	</select>
 	
+	<select id="selectFileList" parameterType="int" resultType="hashMap">
+		SELECT file_id,
+		org_file_name,
+		ROUND(file_size/1024,1) AS file_size
+		FROM tb_file
+		WHERE prdt_id = #{prdt_id}
+		AND file_state = 'F'
+		ORDER BY file_id ASC
+	</select>
+	
 	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
 			(writer, prdt_genre, prdt_name, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
 		VALUES (#{writer}, #{prdt_genre}, #{prdt_name}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
+	</insert>
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO tb_file
+			(file_name, file_location, file_size, file_regdate, prdt_id)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{prdt_id});
 	</insert>
 	
 	<update id="update" parameterType="ProjectDto">

@@ -76,5 +76,10 @@ public class ProjectServiceImpl implements ProjectService{
     return projectDao.projectDetail(prdt_id);
   }
 
+  @Override
+  public int insertFile(String uploadFolder, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+    return projectDao.insertFile(uploadFolder, uploadFileName, uploadFileSize, prdt_id);
+  }
+
 
 }

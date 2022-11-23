@@ -27,9 +27,10 @@ public class RewardController {
   Model m= null;
 
   @GetMapping("/reward")
-  public String reward(Model m) {
+  @ResponseBody
+  public String reward(Model m, @RequestBody int prdt_id) {
     try {
-      List<RewardDto> list = rewardService.selectReward(1);
+      List<RewardDto> list = rewardService.selectReward(prdt_id);
       
       System.out.println(list);    
       m.addAttribute("dto",list);
