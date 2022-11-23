@@ -20,6 +20,7 @@
 	
 	<select id="genreLiterature" parameterType="Order" resultType="ProjectDto" >
 	select 
+	prdt_id,
 	prdt_genre,
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
@@ -33,6 +34,7 @@
 	
 	<select id="genrePoemEssay" parameterType="Order" resultType="ProjectDto" >
 	select 
+	prdt_id,
 	prdt_genre,
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
@@ -46,6 +48,7 @@
 	
 	<select id="genreWebtoon" parameterType="Order" resultType="ProjectDto" >
 	select 
+	prdt_id,
 	prdt_genre,
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",

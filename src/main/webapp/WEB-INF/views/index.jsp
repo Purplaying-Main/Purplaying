@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%! int prdt_id = 1; %>
  <!DOCTYPE html>
 <html>
 <head>
@@ -68,13 +67,13 @@
       <div class="album py-5">
         <div class="container">
           <h4 class="mb-2"><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">         
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">           
           <c:forEach var="ProjectDto" items="${list_p }">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectDetail/${ProjectDto.prdt_id}'" style="cursor:pointer">
+                <div onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                  <div class="card-body">         
@@ -84,7 +83,7 @@
                   		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
-                  <div class="link-div" onclick="location.href='projectDetail/${ProjectDto.prdt_id}'">
+                  <div class="link-div" onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'">
 	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -99,7 +98,7 @@
              
               </div>
             </div><!-- project thumb end -->
-          </c:forEach>
+          </c:forEach> 
           </div>
          
           <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
@@ -109,7 +108,7 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='projectDetail'" style="cursor:pointer">
+                <div onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                 <div class="card-body">
@@ -119,7 +118,7 @@
                   		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
                   		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
                   	</c:choose>
-                  <div class="link-div" onclick="location.href='projectdetail'">
+                  <div class="link-div" onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'">
 	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">
@@ -143,7 +142,6 @@
 	/*progressbar 연동 JS*/
 	const perValue = ${ProjectDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
-
 	</script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

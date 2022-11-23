@@ -43,7 +43,7 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='${pageContext.request.contextPath}/projectdetail'" style="cursor:pointer">
+                <div onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'" style="cursor:pointer">
                 <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                 </div>
                  <div class="card-body">
@@ -53,7 +53,7 @@
                   	<c:otherwise>장르</c:otherwise>
                   </c:choose>
                   </p>
-                  <div class="link-div" onclick="location.href='${pageContext.request.contextPath}/projectdetail'">
+                  <div class="link-div" onclick="location.href='/purplaying/project/view/${ProjectDto.prdt_id}'">
 	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    </div>
 	                  <div class="d-flex justify-content-between align-items-center">

@@ -6,6 +6,7 @@
 <mapper namespace="kr.co.purplaying.dao.headerFundingMapper">
 	<select id="popularFunding" parameterType="map" resultType="ProjectDto" >
 		select 
+		prdt_id,
 		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
@@ -19,6 +20,7 @@
 
 	<select id="newFunding" parameterType="map" resultType="ProjectDto" >
 		select 
+		prdt_id,
 		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
@@ -33,6 +35,7 @@
 	
 	<select id="comingsoonFunding" parameterType="map" resultType="ProjectDto" >
 		select 
+		prdt_id,
 		prdt_genre,
 		prdt_name,
 		prdt_opendate,

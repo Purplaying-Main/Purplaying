@@ -11,6 +11,7 @@
 	
 		<select id="popluarFunding" parameterType="map" resultType="ProjectDto" >
 		select 
+		prdt_id,
 		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
@@ -24,6 +25,7 @@
 	
 	<select id="newFunding" parameterType="map" resultType="ProjectDto" >
 		select 
+		prdt_id,
 		prdt_genre,
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
