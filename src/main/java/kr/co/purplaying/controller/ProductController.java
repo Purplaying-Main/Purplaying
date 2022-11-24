@@ -76,6 +76,31 @@ public class ProductController {
       
       return "projectDetail";
   }
+  
+  @GetMapping("/{prdt_id}") //펀딩 디테일 페이지 (로그인 유무 상관없음)
+  public String view(@PathVariable Integer prdt_id, Model m) {
+        try {
+          ProjectDto projectDto = projectService.read(prdt_id);
+          m.addAttribute(projectDto);
+          System.out.println(projectDto);
+          
+          List<RewardDto> list = rewardService.selectReward(prdt_id);
+          
+          System.out.println(list);    
+          m.addAttribute("dto",list);
+          
+          String writer = projectDto.getWriter();
+          m.addAttribute(writer);
+          
+      
+      } catch (Exception e) {
+          e.printStackTrace();
+          
+      }
+      
+      return "projectDetail";
+  }
+  
   @GetMapping("/calculate/{prdt_goal}")
   public @ResponseBody String[] calculate(@PathVariable Integer prdt_goal) {
       System.out.println(prdt_goal);

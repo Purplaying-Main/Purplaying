@@ -20,5 +20,5 @@ public interface UserDao {
     int findUserData(UserDto userDto) throws Exception;
     String findUserId(UserDto userDto) throws Exception;
     int updateUserPwd(UserDto userDto) throws Exception;
-
+    UserDto getPaymentUserInfo(String user_name)  throws Exception;
 }

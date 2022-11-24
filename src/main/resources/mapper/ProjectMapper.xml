@@ -135,5 +135,9 @@
 		WHERE prdt_id = #{prdt_id} and writer = #{writer}		
 	</delete>
 	
+	<select id="getPaymentProjectInfo" parameterType="int" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		WHERE prdt_id = #{prdt_id}
+	</select>
 
 </mapper>

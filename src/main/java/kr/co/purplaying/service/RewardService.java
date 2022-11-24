@@ -15,6 +15,6 @@ public interface RewardService {
   int updateReward(RewardDto rewardDto) throws Exception;
 
   int deleteReward(int reward_id) throws Exception;
-  
+  RewardDto readPayment(Integer prdt_id) throws Exception;
 
 }

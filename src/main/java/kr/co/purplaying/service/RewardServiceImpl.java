@@ -39,6 +39,12 @@ public class RewardServiceImpl implements RewardService {
   public int deleteReward(int reward_id) throws Exception {
     return rewardDao.deleteReward(reward_id);
   }
+
+  @Override
+  public RewardDto readPayment(Integer prdt_id) throws Exception {
+    RewardDto rewardDto = rewardDao.getPaymentRewardInfo(prdt_id);
+    return rewardDto;
+  }
   
   
 

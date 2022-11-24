@@ -82,5 +82,11 @@ public class ProjectServiceImpl implements ProjectService{
     return projectDao.insertFile(uploadPath, uploadFileName, uploadFileSize, prdt_id);
   }
 
+  @Override
+  public ProjectDto readPayment(Integer prdt_id) {
+    ProjectDto projectDto = projectDao.getPaymentProjectInfo(prdt_id);
+    return projectDto;
+  }
+
 
 }

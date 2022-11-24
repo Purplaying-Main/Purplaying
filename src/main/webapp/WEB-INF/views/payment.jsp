@@ -28,12 +28,19 @@
             </div>
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
-                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">창작자명</span></p> 
-                <h4 class="fw-bold mb-2">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
+                <p class="col-6 mb-2"><span id="dt_caterory">
+                <c:choose>
+                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
+                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
+                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
+                <c:otherwise>장르</c:otherwise>
+                </c:choose></span>
+                <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
+                <h4 class="fw-bold mb-2">${projectDto.prdt_name}</h4>
                 <p>
-                <span class="text-danger" id="dt_fundingMoney">1,234,567원</span>
-                <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 123%</span>
-                <span class="text-danger" id="dt_dDay">종료 D-10</span>
+                <span class="text-danger" id="dt_fundingMoney">${projectDto.prdt_currenttotal }원</span>
+                <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 ${projectDto.prdt_percent}%</span>
+                <span class="text-danger" id="dt_dDay">종료 D-${projectDto.prdt_dday}</span>
               </p>
               </div>
             </div>
@@ -50,11 +57,11 @@
             </div>
             <div class="d-flex justify-content-between mx-1">
               <p class="form-label fw-bold">리워드 가격</p>
-              <p class="form-label"><span id="dt_price">20,000</span>원</p>
+              <p class="form-label"><span id="dt_price">${rewardDto.reward_price}</span>원</p>
             </div>
             <div class="d-flex justify-content-between mx-1">
               <p class="form-label fw-bold">리워드 구성품</p>
-              <p class="form-label" id="dt_rewardItem">구성품1, 구성품2</p>
+              <p class="form-label" id="dt_rewardItem">${rewardDto.reward_desc }</p>
             </div>
         </div>
 
@@ -65,7 +72,7 @@
           <div class="d-flex justify-content-between mx-1">
               <div>
                 <p class="form-label fw-bold">연락처</p>
-                <p class="form-label" id="dt_phoneNM">010-2023-0111</p>
+                <p class="form-label" id="dt_phoneNM">${userDto.user_phone}</p>
                 <br>
                 <p class="form-label fw-bold">이메일</p>
                 <p class="form-label" id="dt_email">purplaying@email.com</p>
@@ -127,7 +134,7 @@
                       </div>
                     </div>
                 </div> <!-- Modal end-->
-            <input type="checkbox" class="form-check-input ms-2" id="dt_sameChk">
+            <input type="checkbox" class="form-check-input ms-2" id="dt_sameChk" onclick="same()">
             <label class="form-check-label-sm ms-2" for="dt_sameChk">후원자 정보와 동일</label>
           	</div>
           </div>
@@ -330,5 +337,12 @@
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
   <script src="resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
+  <script>
+  		let user_name = '<c:out value='${projectDto.user_name}'/>';
+  		let name = document.getElementById("dt_recieverName");
+  	function same(){
+  		name.value = user_name;
+  	}
+  </script>
 </body>
 </html>

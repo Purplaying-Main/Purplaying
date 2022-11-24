@@ -89,4 +89,10 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.insert(namespace+"insertFile", map);
   }
 
+  @Override
+  public ProjectDto getPaymentProjectInfo(Integer prdt_id) {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
+  }
+
 }

@@ -82,7 +82,7 @@
 	              	<select class="form-select fs-6" id="rewardSelect" name="rewardSelect">
 					  <option selected>리워드를 선택해주세요</option>
 					  <c:forEach var="rewardDto" items="${dto}">
-					  	<option value="${rewardDto.reward_id} ">${rewardDto.row_number}. ${reward_name} +${rewardDto.reward_price}원</option>
+					  	<option value="${rewardDto.reward_id} ">${rewardDto.row_number}. ${rewardDto.reward_name} +${rewardDto.reward_price}원</option>
 					  </c:forEach>
 					</select>
 				</div>
@@ -104,7 +104,7 @@
 				  <input type="number" class="form-control" id="rewardSelectPrice" placeholder="1000" readonly>
 				</div>
               </li>
-              <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='payment'">펀딩하기</button></li>
+              <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='${pageContext.request.contextPath}/payment/${prdt_id}'">펀딩하기</button></li>
               <div class="row px-2 justify-content-between">
               	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
@@ -160,9 +160,9 @@
 	                      <strong class="fw-normal">#${rewardDto.row_number} ${rewardDto.reward_name}</strong>
 	                    </div>
 	                    <div class="card-body">
-	                      <h5 class="card-title pricing-card-title">${rewardDto.reward_price}원</h5>
-	                      <div class="mt-3 row px-3"><br></div>
-	                      <div class="row px-3"><br></div>
+	                      <h5 class="card-title pricing-card-title d-flex justify-content-between"><span>${rewardDto.reward_desc }</span><span>${rewardDto.reward_price}원</span></h5>
+	                      <div class="mt-3 text-info text-end">남은 수량 ${rewardDto.reward_stock }</div>
+	                      <div class="px-3"><br></div>
 	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect();">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>

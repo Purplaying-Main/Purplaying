@@ -42,4 +42,9 @@ public class RewardDaoImpl implements RewardDao {
     return session.delete(namespace+"deleteReward",reward_id);
   }
 
+  @Override
+  public RewardDto getPaymentRewardInfo(Integer prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"getPaymentRewardInfo", prdt_id);
+  }
 }

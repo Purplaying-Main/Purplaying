@@ -24,6 +24,7 @@ public interface ProjectDao {
   int delete(Integer prdt_id, String writer) throws Exception;
   ProjectDto projectDetail(Integer prdt_id) throws Exception;
   int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception;
+  ProjectDto getPaymentProjectInfo(Integer prdt_id);
   
 
   

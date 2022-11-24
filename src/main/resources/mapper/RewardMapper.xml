@@ -33,6 +33,12 @@
 		where reward_id = #{reward_id}
 	</delete>
 	
+	<select id="getPaymentRewardInfo" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE prdt_id = #{prdt_id}
+		order by reward_id
+		limit 1
+	</select>
 	
 
 </mapper>

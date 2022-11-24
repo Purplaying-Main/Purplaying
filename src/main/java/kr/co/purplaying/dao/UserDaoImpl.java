@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSession;
@@ -100,6 +101,12 @@ public class UserDaoImpl implements UserDao {
       return session.update(namespace+"updateUserPwd",userDto);
     }
 
-  	
+    @Override
+    public UserDto getPaymentUserInfo(String user_name) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectOne(namespace+"getPaymentUserInfo", user_name);
+    }
+
+    
 }
 
