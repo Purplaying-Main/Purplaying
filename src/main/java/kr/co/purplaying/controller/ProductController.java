@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -105,37 +106,14 @@ public class ProductController {
   public @ResponseBody String[] calculate(@PathVariable Integer prdt_goal) {
       System.out.println(prdt_goal);
       
-      int agencies_commission = (prdt_goal/100*3)+(prdt_goal/100*3/100*10);
-      int platform_commission = (prdt_goal/100*5)+(prdt_goal/100*5/100*10);
-      int result = prdt_goal - (agencies_commission+platform_commission);
-      String[] result_price = {String.valueOf(result),String.valueOf(agencies_commission),String.valueOf(platform_commission),String.valueOf(agencies_commission+platform_commission)};
-      System.out.println(platform_commission);
-      
-      return result_price;
+      return calculatePrice(prdt_goal);
   }
   
   @GetMapping("/calDate/{openDate}/{endDate}")//{year}{month}{day}
   public @ResponseBody int calDate(@PathVariable String openDate, @PathVariable String endDate ) {
-   
-      SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+ 
       // date1, date2 두 날짜를 parse()를 통해 Date형으로 변환.
-      try {
-        Date StartDate = format.parse(openDate);
-        Date finishDate = format.parse(endDate);
-        
-        long calDate = StartDate.getTime() - finishDate.getTime(); 
-        
-        long calDateDays = calDate / ( 24*60*60*1000); 
-
-        calDateDays = Math.abs(calDateDays);
-        
-        System.out.println(calDateDays+"일");
-        return (int)calDateDays;
-      } catch (ParseException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-        return 0;
-      }
+      return calculateDate(openDate,endDate);
   }
   
   
@@ -221,14 +199,32 @@ public class ProductController {
   
   
   @GetMapping("/modify/{prdt_id}")
-  public String modify(@PathVariable Integer prdt_id,
-                                      Model m,
-                                      SearchItem sc, HttpSession session) {
-      try {
+  public String modify(@PathVariable Integer prdt_id, Model m, SearchItem sc, HttpSession session) {
+    try {
           String user_id = (String)session.getAttribute("user_id");
           m.addAttribute(user_id);
           
           ProjectDto projectDto = projectService.read(prdt_id);
+          
+          //가격 계산
+          String[] result_price = calculatePrice(projectDto.getPrdt_goal());
+          
+          //날짜계산
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          String openDate =format.format(projectDto.getPrdt_opendate());
+          String endDate =format.format(projectDto.getPrdt_enddate());
+          
+          //정산일 계산
+          final Calendar cal = Calendar.getInstance();
+          cal.setTime(projectDto.getPrdt_enddate());
+          cal.add(Calendar.DATE,1);
+          String finishDate = format.format(cal.getTime());
+          
+          m.addAttribute("finishDate",finishDate);
+          m.addAttribute("result_price", result_price);
+          m.addAttribute("calDate",calculateDate(openDate,endDate));
+          m.addAttribute("openDate", openDate);
+          m.addAttribute("endDate", endDate);
           m.addAttribute(projectDto);
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
@@ -238,14 +234,42 @@ public class ProductController {
           
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
-      
+  
       } catch (Exception e) {
           e.printStackTrace();
-//        예외발생 -> 목록으로 돌아가기
+    //    예외발생 -> 목록으로 돌아가기
           return "mypage";
       }
+  
+    return "projectRegisterPage";
+  }
+  
+  private String[] calculatePrice(int prdt_goal) {
+    int agencies_commission = (prdt_goal/100*3)+(prdt_goal/100*3/100*10);
+    int platform_commission = (prdt_goal/100*5)+(prdt_goal/100*5/100*10);
+    int result = prdt_goal - (agencies_commission+platform_commission);
+    String[] result_price = {String.valueOf(result),String.valueOf(agencies_commission+platform_commission),String.valueOf(agencies_commission),String.valueOf(platform_commission)};
+    System.out.println(platform_commission);
+    return result_price;
+  }
+  private int calculateDate(String openDate , String endDate) {
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    try {
+      Date StartDate = format.parse(openDate);
+      Date finishDate = format.parse(endDate);
       
-      return "projectRegisterPage";
+      long calDate = finishDate.getTime() - StartDate.getTime(); 
+      long calDateDays = calDate / (24*60*60*1000); 
+
+      calDateDays = Math.abs(calDateDays);
+      
+      System.out.println(calDateDays+"일");
+      return (int)calDateDays;
+    } catch (ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return 0;
+    }
   }
   
   private boolean loginCheck(HttpServletRequest request) {

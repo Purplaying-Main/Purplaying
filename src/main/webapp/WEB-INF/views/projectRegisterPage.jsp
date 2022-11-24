@@ -138,19 +138,19 @@
             <div class="col-6 px-3">
               <input class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요."  id="prdt_goal" onchange="calculate()" value="${projectDto.prdt_goal }"/>
               <h6 class="px-2">목표 금액 달성시 예상 수령액</h6>
-              <h5 class="text-primary text-end" id="goal_price">720,000원</h5>
+              <h5 class="text-primary text-end" id="goal_price">${result_price[0]}원</h5>
               <hr class="px-3">
               <div class="row text-muted">
                 <p class="col-8 text-start">총 수수료</p>
-                <p class="col-4 text-end" id="total_commission">000,000원</p>
+                <p class="col-4 text-end" id="total_commission">${result_price[1]}원</p>
               </div>
               <div class="row text-muted">
                 <p class="col-8 text-start">결제 대행 수수료<span class="text-small">(총 결제액의 3% + VAT)</span></p>
-                <p class="col-4 text-end" id="agencies_commission">000,000원</p>
+                <p class="col-4 text-end" id="agencies_commission">${result_price[2]}원</p>
               </div>
               <div class="row text-muted">
                 <p class="col-8 text-start">플랫폼 수수료<span class="text-small">(총 모금액의 5% + VAT)</span></p>
-                <p class="col-4 text-end" id="platform_commission">000,000원</p>
+                <p class="col-4 text-end" id="platform_commission">${result_price[3]}원</p>
               </div>
             </div>
           </div>
@@ -162,17 +162,17 @@
             <div class="col-6 px-3">
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">시작일</h6>
-                <div class="col-8"><input class="form-control" type="date" id="prdt_opendate"  value="${projectDto.prdt_opendate}"/></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_opendate"  value="${openDate}"/></div>
               </div>
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">종료일</h6>
-                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" onchange="calDate()" value="${projectDto.prdt_enddate}"/></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" onchange="calDate()" value="${endDate}"/></div>
               </div>
-              <p class="text-end text-info" id="punding_date_range">펀딩 기간 XX일</p>
+              <p class="text-end text-info" id="punding_date_range">펀딩 기간 ${calDate}일</p>
               <h6>후원자 결제 종료</h6>
               <p class="text-small bg-light rounded p-3 text-muted">프로젝트 성공 시 펀딩 종료 다음 날 후원금이 결제됩니다.​ 단, 후원자의 사정으로 결제가 이루어지지 않은 경우는 제외합니다.​</p>
               <h6>정산일</h6>
-              <p class="text-info" id="adjust_date">예상 정산일은 YYYY년 MM월 DD일입니다.</p>
+              <p class="text-info" id="adjust_date">예상 정산일은 ${finishDate}일입니다.</p>
             </div>
           </div>
 <!--      //저장하기, 다음단계 영역    
@@ -359,9 +359,10 @@
 					alert(result)
 					//$('#goal_price').val(result);
 					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#agencies_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#platform_commission').html(result[2].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#total_commission').html(result[3].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#total_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#agencies_commission').html(result[2].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#platform_commission').html(result[3].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					
 				},
 				error : function() { alert("error") }
 			})
