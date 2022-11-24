@@ -19,7 +19,7 @@ import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.ProjectService;
 import kr.co.purplaying.service.RewardService;
-import kr.co.purplaying.service.UserService;
+import kr.co.purplaying.service.SettingService;
 
 @Controller
 public class PaymentController {
@@ -29,7 +29,8 @@ public class PaymentController {
   @Autowired
   RewardService rewardService;
   
-
+  @Autowired
+  SettingService settingService;
   
   @RequestMapping("/payment/{prdt_id}")
   @GetMapping("/payment/{prdt_id}")
@@ -40,12 +41,14 @@ public class PaymentController {
     
     try {
       String user_id = (String)session.getAttribute("user_id");
-      m.addAttribute("user_id",user_id);
-      System.out.println(user_id);
+      UserDto userDto = settingService.setUser(user_id);
+      System.out.println(userDto.toString());
+      m.addAttribute(userDto);
       
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto",projectDto);
       System.out.println(projectDto);
+      
       RewardDto rewardDto = rewardService.readPayment(prdt_id);
       m.addAttribute("rewardDto",rewardDto);
       System.out.println(rewardDto);

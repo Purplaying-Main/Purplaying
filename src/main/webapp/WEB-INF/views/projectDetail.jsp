@@ -13,6 +13,9 @@
   .fa-heart{
   border-radius: 0.375rem; 
   }
+  #selectRewardBox {
+  display: none;
+  }
   </style>
 </head>
 
@@ -70,38 +73,47 @@
               </div>
             </div>
             <!--thumbnail end-->
-            <ul class="col-md-4">
+            <ul class="col-md-4" id="move">
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${projectDto.prdt_currenttotal}</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">n명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
-              	<div class="col-8">
+              	<div class="col">
               		<label for="rewardSelectLabel" class="form-label">리워드 선택</label>
-	              	<select class="form-select fs-6" id="rewardSelect" name="rewardSelect">
-					  <option selected>리워드를 선택해주세요</option>
+	              	<select  id="addReward" class="form-select fs-6" name="rewardSelect">
+	              	  <option selected disabled>리워드를 선택해주세요</option>
 					  <c:forEach var="rewardDto" items="${dto}">
 					  	<option value="${rewardDto.reward_id} ">${rewardDto.row_number}. ${rewardDto.reward_name} +${rewardDto.reward_price}원</option>
 					  </c:forEach>
 					</select>
 				</div>
 				
-				<div class="col">
+<!-- 				<div class="col">
               	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
 				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
-				</div>
+				</div> -->
               </li>
               <li>
               	<div class="form-floating mb-3">
-				  <textarea class="form-control" placeholder="선택한 리워드 출력 영역" id="floatingTextarea" style="resize: none;" row=5 readonly></textarea>
-				  <label for="floatingTextarea">선택한 리워드 리스트</label>
+              		<div id="selectRewardBox">
+              			<div>
+              				<div class="d-flex justify-content-between">
+              					<span id="selectedRewardName"></span>
+              					<span id="selectedRewardPrice"></span>
+              				</div>
+              				<div class="row text-end"><spanp>수량 </span><input type="number" class="col-1 text-end" id="rewardCnt" value="1" placeholder="1" min="1"></div>
+              			</div>
+              		</div>
+<!-- 				  <textarea class="form-control" placeholder="선택한 리워드 출력 영역" id="floatingTextarea" style="resize: none;" row=5 readonly></textarea>
+				  <label for="floatingTextarea">선택한 리워드 리스트</label> -->
 				</div>
               </li>
               <li>
               	<div class="input-group mb-3">
-              	  <span for="rewardSelectPrice" class="input-group-text">금액</span>
-				  <input type="number" class="form-control" id="rewardSelectPrice" placeholder="1000" readonly>
+              	  <span for="rewardSelectPrice" class="input-group-text">총 금액</span>
+				  <input type="text" class="form-control text-end" id="rewardTotalPrice" value="0" placeholder="1000" readonly>
 				</div>
               </li>
               <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='${pageContext.request.contextPath}/payment/${prdt_id}'">펀딩하기</button></li>
@@ -123,7 +135,7 @@
                       </div>
                     </div>
                   </div> <!-- Modal end-->
-                <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='servicecenter'" value="&#xf059 문의하기">
+                <input type="button" class="col mx-1 btn fa-1x fa-question-circle far" style="color: rgb(156, 102, 255);" onclick="location.href='${pageContext.request.contextPath}/oneonone/list'" value="&#xf059 문의하기">
               </div>
               <hr class="my-2">
               <li class="row d-flex p-2 m-1">
@@ -131,7 +143,7 @@
                 <div class="col">
                   <h6 class="row text-muted">${projectDto.writer}</h6>
                   <small class="row text-muted">${projectDto.user_id}</small>
-                  <small class="row" onclick="location.href='creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
+                  <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
             </ul>
@@ -163,7 +175,7 @@
 	                      <h5 class="card-title pricing-card-title d-flex justify-content-between"><span>${rewardDto.reward_desc }</span><span>${rewardDto.reward_price}원</span></h5>
 	                      <div class="mt-3 text-info text-end">남은 수량 ${rewardDto.reward_stock }</div>
 	                      <div class="px-3"><br></div>
-	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="rewardSelect();">이 리워드 선택하기</button>
+	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>
 	                </div><!-- 리워드 card end-->
@@ -330,15 +342,13 @@
    <!-- 찜하기 JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/pickBtn.js"></script> 
    <!-- 리워드 선택 JS  -->
-   <script type="text/javascript">
-	   function rewardSelect(){
-	
-		    document.getElementById("rewardSelect").value = item;
-		    
-		    let ml = document.getElementById("move").offsetLeft;
-		    let mt = document.getElementById("move").offsetTop;
+   <script>
+	   function jumpUp(){
+	   		//const rewardNum = ${rewardDto.row_number};
+		   // document.getElementById("addReward").value = rewardNum;
+			let ml = document.getElementById("move").offsetLeft;
+			let mt = document.getElementById("move").offsetTop;
 		    window.scrollTo({top:mt, left: ml, behavior: "smooth"});
-		    
 		}
    </script>
    <!-- 페이지 URL copy JS -->
@@ -347,6 +357,27 @@
    <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
+   <script>
+	$(document).ready(function(){
+   	let selectedRewardName = document.getElementById("selectedRewardName");
+   	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
+		$("#addReward").change(function(){
+			document.getElementById("selectRewardBox").style.display = 'block';
+			let getOption =  $("#addReward option:checked").text();
+			let [name, price] = getOption.split(/[원,+]/,2);
+			selectedRewardName.innerText = name;
+			selectedRewardPrice.innerText = price +"원";
+			let rewardTotalPrice = document.getElementById("rewardTotalPrice");
+			let rewardCnt = document.getElementById("rewardCnt").value;
+			rewardTotalPrice.value = price * rewardCnt;
+			$("#rewardCnt").change(function(){
+				let rewardTotalPrice = document.getElementById("rewardTotalPrice");
+				let rewardCnt = document.getElementById("rewardCnt").value;
+				rewardTotalPrice.value = price * rewardCnt;
+			});
+		});
+	});
+   </script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

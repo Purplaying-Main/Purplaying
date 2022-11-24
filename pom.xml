@@ -20,12 +20,6 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.14.1</version>
 		</dependency>
-		<!-- image thumbnail view https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.dataformat</groupId>
-		    <artifactId>jackson-dataformat-xml</artifactId>
-		    <version>2.14.1</version>
-		</dependency>
 		<!-- image thumbnail https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
 		<dependency>
 		    <groupId>net.coobird</groupId>
@@ -68,12 +62,6 @@
 		    <artifactId>mail</artifactId>
 		    <version>1.4.7</version>
 		</dependency>	
-		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.14.0</version>
-        </dependency>
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

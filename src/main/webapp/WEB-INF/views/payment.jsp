@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,10 +40,10 @@
                 <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
                 <h4 class="fw-bold mb-2">${projectDto.prdt_name}</h4>
                 <p>
-                <span class="text-danger" id="dt_fundingMoney">${projectDto.prdt_currenttotal }원</span>
+                <span class="text-danger" id="dt_fundingMoney"><fmt:formatNumber type="number" maxFractionDigits="3" value="${projectDto.prdt_currenttotal }"/>원</span>
                 <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 ${projectDto.prdt_percent}%</span>
                 <span class="text-danger" id="dt_dDay">종료 D-${projectDto.prdt_dday}</span>
-              </p>
+              	</p>
               </div>
             </div>
           </div>
@@ -53,15 +55,15 @@
           <hr>
             <div class="d-flex justify-content-between mx-1">
               <p class="form-label fw-bold">리워드 패키지</p>
-              <p class="form-label">[<span id="dt_rewardName">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</span>]</p>
-            </div>
-            <div class="d-flex justify-content-between mx-1">
-              <p class="form-label fw-bold">리워드 가격</p>
-              <p class="form-label"><span id="dt_price">${rewardDto.reward_price}</span>원</p>
+              <p class="form-label">${rewardDto.row_number}. ${rewardDto.reward_name}</p>
             </div>
             <div class="d-flex justify-content-between mx-1">
               <p class="form-label fw-bold">리워드 구성품</p>
               <p class="form-label" id="dt_rewardItem">${rewardDto.reward_desc }</p>
+            </div>
+            <div class="d-flex justify-content-between mx-1">
+              <p class="form-label fw-bold">리워드 가격</p>
+              <p class="form-label"><span id="dt_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
             </div>
         </div>
 
@@ -75,7 +77,7 @@
                 <p class="form-label" id="dt_phoneNM">${userDto.user_phone}</p>
                 <br>
                 <p class="form-label fw-bold">이메일</p>
-                <p class="form-label" id="dt_email">purplaying@email.com</p>
+                <p class="form-label" id="dt_email">${userDto.user_id}</p>
               </div>
               <div class=" py-3 my-4">
                 <p class="text-left px-3 py-2">등록된 회원 정보로
@@ -140,11 +142,11 @@
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">수령인</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_recieverName" maxlength="7" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_recieverName"  value="" maxlength="7" required></div>
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">연락처</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" maxlength="12" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber"   maxlength="12" required></div>
           </div>
           <div class="mb-2">
             <div class="d-flex justify-content-between mx-1 mb-1">
@@ -260,7 +262,7 @@
           <hr>
           <div class="d-flex justify-content-between mx-2">
             <p class="form-label fw-bold">후원 금액</p>
-            <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
+            <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
           </div>
           <div>           
           <div class="d-flex justify-content-between mx-2">
@@ -325,7 +327,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-8 text-center">
-             <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong>2023.01.12</strong></span> 에 자동으로 결제됩니다.</p>
+             <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p>
              <a class="btn btn-primary fs-3 w-50 my-3" href="paymentcompleted">후원하기</a>
             </div>
           </div> 
@@ -338,10 +340,11 @@
   <%@ include file ="footer.jsp" %>
   <script src="resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
   <script>
-  		let user_name = '<c:out value='${projectDto.user_name}'/>';
-  		let name = document.getElementById("dt_recieverName");
   	function same(){
-  		name.value = user_name;
+  		let user_name = "${userDto.user_name}";
+  		document.getElementById("dt_recieverName").value = user_name ;
+  		let user_phone = "${userDto.user_phone}";
+  		document.getElementById("dt_phoneNumber").value = user_phone ;
   	}
   </script>
 </body>

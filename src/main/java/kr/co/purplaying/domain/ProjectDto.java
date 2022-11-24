@@ -70,6 +70,7 @@ public class ProjectDto {
     this.user_role = user_role;
   }
 
+
   @Override
   public String toString() {
     return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
@@ -78,9 +79,7 @@ public class ProjectDto {
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_genre="
         + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_user_no=" + prdt_user_no + ", prdt_dday="
         + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday=" + prdt_purchaseday + ", prdt_limitday="
-        + prdt_limitday + ", user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
-        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
-        + user_activate + ", user_role=" + user_role + "]";
+        + prdt_limitday + "]";
   }
 
   @Override
