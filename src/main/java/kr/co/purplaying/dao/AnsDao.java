@@ -23,6 +23,10 @@ public interface AnsDao {
   AnsDto selectAnsData(Integer inquiry_no) throws Exception;
 
   int insertAns(AnsDto ansDto) throws Exception;
+
+  int deleteAns(Integer ans_no, String admin_id) throws Exception;
+
+  int modifyAns(AnsDto ansDto)throws Exception;
  
 
 }

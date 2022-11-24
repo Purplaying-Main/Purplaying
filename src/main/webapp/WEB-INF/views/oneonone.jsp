@@ -59,7 +59,7 @@
 									<c:forEach var="oneononeDto" items="${list }">
 										<tr>
 											<td class="no">${oneononeDto.inquiry_no }</td>
-											<td class="state">${oneononeDto.inquiry_state == 0 ? "답변중" : "답변완료" }</td>
+											<td class="state">${oneononeDto.inquiry_state eq 0 ? "답변중" : "답변완료" }</td>
 											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
 													${oneononeDto.inquiry_title } </a></td>
 											<td class="writer">${oneononeDto.writer }</td>

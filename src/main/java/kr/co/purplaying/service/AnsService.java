@@ -27,5 +27,9 @@ public interface AnsService {
 
     int insertAns(AnsDto ansDto) throws Exception;
 
+    int removeAns(Integer ans_no, Integer inquiry_no, String admin_id)throws Exception;
+
+    int modifyAns(AnsDto ansDto)throws Exception;
+
     
 }

@@ -127,7 +127,7 @@
   	
   	<update id="updateAnsCnt" parameterType="map">
   		update tb_inquiry
-		set ans_state = #{ans_state}
+		set inquiry_state = #{inquiry_state}
 		where inquiry_no = #{inquiry_no }
   	</update>
 

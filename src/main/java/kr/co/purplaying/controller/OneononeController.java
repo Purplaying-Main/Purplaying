@@ -1,6 +1,5 @@
 package kr.co.purplaying.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,6 +95,24 @@ public class OneononeController {
       return "inquiryWrite";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
   }
   
+  @PostMapping("/modify/ans")
+  public void modifyAns(OneononeDto oneononeDto, AnsDto ansDto, Integer page, Integer pageSize, 
+                      RedirectAttributes rattr, Model m, HttpSession session) {
+      String admin = (String) session.getAttribute("user_id");
+      ansDto.setAdmin_id(admin);
+      
+      try {
+        if(ansService.modifyAns(ansDto)!=1) {
+          System.out.println("실패");
+        }
+        } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace(); 
+      }
+    }
+      
+  
+  
   
   @PostMapping("/write/reg")
   public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, HttpSession session) {
@@ -127,10 +149,11 @@ public class OneononeController {
   
   @PostMapping("/write/ans")
   @ResponseBody
-  public void writeans(@RequestBody AnsDto ansDto, HttpSession session) {
+  public void writeans(@RequestBody AnsDto ansDto,Integer inquiry_no, HttpSession session) {
 
     String admin = (String) session.getAttribute("user_id");
     ansDto.setAdmin_id(admin);
+//    ansDto.setInquiry_no(inquiry_no);
     System.out.println(ansDto);
     
     try {
@@ -142,10 +165,59 @@ public class OneononeController {
       e.printStackTrace(); 
     }
   }
-  
 
+  // 답변 수정 기능
+  /*
+     @views.route('/update-note', methods=['PUT'])
+    def update_note():
+    # PUT : 메모 수정
+    if request.method == "PUT":
+        note = request.get_json()
+        note_id = note.get('noteId')
+        title = note.get('title')
+        content = note.get('content')
+
+        select_note = Note.query.get(note_id)
+        if select_note:
+            if select_note.user_id == current_user.id : 
+                select_note.title = title
+                select_note.content = content
+                db.session.commit()
+
+        return jsonify({})
+   
+   */
   
-  
+  //답변 삭제 기능
+  @PostMapping("/remove/ans")
+  public String removeAns(Integer ans_no,Integer inquiry_no,String admin_id, Integer page, Integer pageSize, 
+          RedirectAttributes rattr, HttpSession session) {
+    
+    String admin = (String) session.getAttribute("user_id");
+//    ansDto.setAdmin_id(admin);
+    String msg = "DEL_OK";
+    
+    try {
+      int rowCnt = ansService.removeAns(ans_no,inquiry_no,admin_id);
+      
+//      int del_result = ansService.removeans(ans_no, admin);
+      if(rowCnt != 1)
+        throw new Exception("Delete failed.");
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      msg = "DEL_ERR";
+    }
+    
+    //삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
+    //addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
+    rattr.addAttribute("page", page);
+    rattr.addAttribute("pageSize", pageSize);
+    rattr.addFlashAttribute("msg", msg);
+    
+    return "redirect:/oneonone/list";
+  }
+ 
   
   @PostMapping("/remove")
   public String remove(Integer inquiry_no, Integer page, Integer pageSize, 

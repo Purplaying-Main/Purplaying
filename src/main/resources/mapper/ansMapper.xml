@@ -38,9 +38,9 @@
   	
   	<insert id="insertAns" parameterType="AnsDto">
   		INSERT INTO tb_inquiry_ans 
- 			(ans_state, inquiry_no, ans_context, admin_id, ans_regdate)
+ 			( ans_state, inquiry_no, ans_context, admin_id, ans_regdate)
 		VALUES
-			(1, #{inquiry_no}, #{ans_context}, #{admin_id}, now())
+			( 1, #{inquiry_no}, #{ans_context}, #{admin_id}, now())
   	</insert>
   	
  	<delete id="deleteAll" parameterType="int" >
@@ -53,7 +53,13 @@
  		set inquiry_state = #{inquiry_state}
 		where ans_no = #{ans_no} and admin_id = #{admin_id}
  	</delete>
- 
+ 	
+ 	<delete id="deleteAns" parameterType="map">
+ 		delete from tb_inquiry_ans
+		where ans_no = #{ans_no} and admin_id = #{admin_id}
+ 	</delete>
+ 	
+ 	
  	<insert id="insert" parameterType="AnsDto">
  		INSERT INTO tb_inquiry_ans 
  			(ans_no, ans_state,inquiry_no, ans_context, admin_id, ans_regdate)
@@ -66,7 +72,12 @@
 		set ans_context = #{ans_context}, ans_regdate = now()
 		where ans_no = #{ans_no} and ans_context = #{ans_context}
  	</update>
- 
+ 	
+ 	<update id="modifyAns" parameterType="AnsDto">
+ 		update  tb_inquiry_ans
+		set ans_context = #{ans_context}, ans_regdate = now()
+		where ans_state = #{ans_state} and ans_context = #{ans_context}
+ 	</update>
  
  
 	<update id="privateFalse" parameterType="AnsDto"><!--컬럼 공개에서 비공개로 전환 (삭제 대체) -->

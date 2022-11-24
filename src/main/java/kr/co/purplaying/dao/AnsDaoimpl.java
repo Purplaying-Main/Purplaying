@@ -65,5 +65,18 @@ public class AnsDaoimpl implements AnsDao {
     // TODO Auto-generated method stub
     return session.update(namespace +"insertAns", ansDto);
   }
+
+  @Override
+  public int deleteAns(Integer ans_no, String admin_id) throws Exception {
+    Map map = new HashMap();
+    map.put("ans_no", ans_no);
+    map.put("admin_id", admin_id);
+    return session.delete(namespace +"deleteAns", map);
+  }
+  @Override
+  public int modifyAns(AnsDto ansDto) throws Exception {
+    // TODO Auto-generated method stub
+    return session.update(namespace + "modifyAns", ansDto);
+  }
   
 }

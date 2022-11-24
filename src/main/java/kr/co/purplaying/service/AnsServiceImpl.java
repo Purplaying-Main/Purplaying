@@ -76,9 +76,29 @@ public class AnsServiceImpl implements AnsService{
 
 
   @Override
+  @Transactional(rollbackFor = Exception.class)
   public int insertAns(AnsDto ansDto) throws Exception {
-    // TODO Auto-generated method stub
+    oneononeDao.updateAnsCnt(ansDto.getInquiry_no(), 1);
     return ansDao.insertAns(ansDto);
+  }
+
+  @Override
+  @Transactional(rollbackFor = Exception.class)
+  public int removeAns(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception {
+    int rowCnt = oneononeDao.updateAnsCnt(inquiry_no, -1);
+    System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
+            
+    rowCnt = ansDao.deleteAns(ans_no, admin_id);
+    System.out.println("rowCont = " + rowCnt);
+    
+    return rowCnt;
+  }
+
+
+  @Override
+  public int modifyAns(AnsDto ansDto) throws Exception {
+   
+    return ansDao.modifyAns(ansDto);
   }
 
 
