@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
 
 public interface ProjectService {
   int getCount() throws Exception;
@@ -15,7 +16,7 @@ public interface ProjectService {
   ProjectDto read(Integer prdt_id) throws Exception;
   ProjectDto readRecently(String writer) throws Exception;
 
-  int write(ProjectDto ProjectDto) throws Exception;
+  int write(String writer) throws Exception;
   int modify(ProjectDto ProjectDto) throws Exception;
 
   int getSearchResultCnt(SearchItem sc) throws Exception;
@@ -27,6 +28,8 @@ public interface ProjectService {
   
   int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id)  throws Exception;
   ProjectDto readPayment(Integer prdt_id);
+  int insertUpdate(UpdateDto updateDto) throws Exception;
+  List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
 
 
   

@@ -309,8 +309,28 @@
 			}
 		}
 		$(document).ready(function(){
-		
-
+			function parseXML (data) {
+			    var xml, tmp;
+			    if (!data || typeof data !== "string") {
+			        return null;
+			    }
+			    try {
+			        if (window.DOMParser) { // Standard
+			            tmp = new DOMParser();
+			            xml = tmp.parseFromString(data, "text/xml");
+			        } else { // IE
+			            xml = new ActiveXObject("Microsoft.XMLDOM");
+			            xml.async = "false";
+			            xml.loadXML(data);
+			        }
+			    } catch(e) {
+			        xml = undefined;
+			    }
+			    if (!xml || !xml.documentElement || xml.getElementsByTagName("parsererror").length) {
+			        throw new Error("Invalid XML: " + data);
+			    }
+			    return xml;
+			}
 			$('#check_id').click(function(){
 				let val = document.getElementById("email").value;
 				let user_id = {user_id: val};
@@ -319,6 +339,7 @@
 					$("#check_id_msg").show().html(' 아이디를 입력해주세요').css("color","red");
 				}else{
 					alert("the request is sent");
+					alert(JSON.stringify(user_id));
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/chkuserid',                                                                                
@@ -326,7 +347,11 @@
 						dataType : 'text',
 						data : JSON.stringify(user_id),
 						success:function(result){
+							alert(result)
+							/* result = parseXML(result)
+							alert(result) */
 							user_id_check = JSON.parse(result);
+							alert(user_id_check)
 							if(user_id_check.user_id==null || user_id_check.user_id == ""){
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");

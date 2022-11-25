@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ejb.access.EjbAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
 import kr.co.purplaying.service.ProjectService;
 import kr.co.purplaying.service.RewardService;
 
@@ -78,6 +80,7 @@ public class ProductController {
       return "projectDetail";
   }
   
+ 
   @GetMapping("/{prdt_id}") //펀딩 디테일 페이지 (로그인 유무 상관없음)
   public String view(@PathVariable Integer prdt_id, Model m) {
         try {
@@ -86,6 +89,17 @@ public class ProductController {
           System.out.println(projectDto);
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
+          List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
+
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          for(int i = 0; i<list_update.size(); i++) {
+            list_update.get(i).setUpdate_regdate_string(list_update.get(i).getUpdate_regdate());
+          }
+        
+        
+          System.out.println(list_update);
+          
+          m.addAttribute("list_update",list_update);
           
           System.out.println(list);    
           m.addAttribute("dto",list);
@@ -143,18 +157,31 @@ public class ProductController {
         return "redirect:/login/login?toURL=" + request.getRequestURL();
       }
       
+      
+      
       String writer = (String) session.getAttribute("user_id");
       projectDto.setWriter(writer);
       System.out.println("projectDto : "+projectDto);
       try {
-          if(projectService.write(projectDto) != 1)
+          if(projectService.write(projectDto.getWriter()) != 1)
             throw new Exception("write failed");
           rattr.addFlashAttribute("msg", "WRT_OK");
           m.addAttribute("mode", "new");
           
           projectDto = projectService.readRecently(writer);
           projectDto.setPrdt_id(projectDto.getPrdt_id());
+          System.out.println(projectDto);
+          
           m.addAttribute(projectDto);
+          
+          UpdateDto updateDto = new UpdateDto();
+          updateDto.setPrdt_id(projectDto.getPrdt_id());
+          updateDto.setUser_id(writer);
+          updateDto.setUpdate_title("프로젝트 시작");
+          updateDto.setUpdate_desc("프로젝트시작");
+          if(projectService.insertUpdate(updateDto)!=1) {
+            throw new Exception("InsertUpdate ERR");
+          }
 
           return "projectRegisterPage";
       } catch (Exception e) {
@@ -242,6 +269,21 @@ public class ProductController {
       }
   
     return "projectRegisterPage";
+  }
+  
+  @PostMapping("/writeUpdate")
+  @ResponseBody
+  public List<UpdateDto> writeUpdate(@RequestBody UpdateDto updateDto, HttpSession session) {
+    updateDto.setUser_id((String)session.getAttribute("user_id"));
+    System.out.println(updateDto);
+    try {
+      projectService.insertUpdate(updateDto);
+      List<UpdateDto> list_update = projectService.selectUpdate(updateDto.getPrdt_id());
+      return list_update;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
   
   private String[] calculatePrice(int prdt_goal) {

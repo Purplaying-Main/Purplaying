@@ -11,9 +11,9 @@
 	       			<c:forEach var="rewardDto" items="${dto}">
 		       			<div class="card mb-3"><!--reward start-->
 			                <div class="card-header">
-				               <div style="display:none;">${rewardDto.reward_id}</div>
-				               <div class="d-md-flex text-end">
-				               		<button class="btn btn-outline-primary btn-sm me-md-2" type="button" onclick="reward_mod_btn()">M</button>
+				               <%-- <div style="display:none;">${rewardDto.reward_id}</div> --%>
+				               <div class="d-md-flex text-end" >
+				               		<button class="btn btn-outline-primary btn-sm me-md-2" data-reward_id='${rewardDto.reward_id}' type="button" onclick="reward_mod_btn()">M</button>
 				               		<button class="btn btn-outline-danger btn-sm" type="button" onclick="reward_remove_btn()">D</button>
 				               </div>
 	                    	</div>
@@ -128,6 +128,7 @@
 		function reward_remove_btn(){
 			eventTarget = event.target;
 			let reward_id = eventTarget.parentNode.previousElementSibling.innerHTML	//클릭한 버튼의 reward_id가져오기
+			alert(reward_id)
 			$('#rewardDelModal').modal("show");
 			$('#deleteRewardModi').click(function(){
 				$.ajax({
@@ -150,7 +151,8 @@
 		
 		function reward_mod_btn() {
 			eventTarget = event.target;
-			let reward_id = eventTarget.parentNode.previousElementSibling.innerHTML	//클릭한 버튼의 reward_id가져오기
+			let reward_id = $(this).attr("data-reward");	//클릭한 버튼의 reward_id가져오기
+			alert(reward_id)
 			$.ajax({
 				type:'post',	//통신방식 (get,post)
 				url: '/purplaying/pr/findmodireward',                                                                                
@@ -241,14 +243,19 @@
 		});
 		let toHtml = function(rewards){
 			let tmp = "";
+			let catergory_name="";
 			rewards.forEach(function(reward){
+				if(reward.reward_category == 1) {
+					catergory_name = '슈퍼얼리버드';
+				} else{
+					catergory_name = '얼리버드';
+				}
 				tmp += '<div class="card mb-3"><div class="card-header">';
-				tmp += '<div style="display:none;">'+reward.reward_id+'</div>';
 				tmp += '<div class="d-md-flex text-end">';
-				tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" type="button" onclick="reward_mod_btn()">M</button>';
+				tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" data-reward-id='+reward.reward_id+' type="button" onclick="reward_mod_btn()">M</button>';
 				tmp += '<button class="btn btn-outline-danger btn-sm" type="button" onclick="reward_remove_btn()">D</button>';
 				tmp += '</div></div>';
-				tmp += '<div class="card-body"><span class="my-0 fw-normal bg-info">'+ reward.reward_category +'</span>';	
+				tmp += '<div class="card-body"><span class="my-0 fw-normal bg-info">'+ catergory_name+'</span>';	
 				tmp += '<span>리워드 #'+reward.row_number+'</span><br/>';
 				tmp += '<h5 class="card-title mt-1">'+reward.reward_name+'</h5>';
 				tmp += '<h5 class="card-title text-primary">'+reward.reward_price+'원</h5>';

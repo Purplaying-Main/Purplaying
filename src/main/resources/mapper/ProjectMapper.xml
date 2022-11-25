@@ -112,10 +112,10 @@
 		ORDER BY file_id ASC
 	</select>
 	
-	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
+	<insert id="insert" parameterType="String"> <!-- Board 테이블 데이터 추가 -->
 		INSERT INTO tb_product
-			(writer, prdt_genre, prdt_name, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
-		VALUES (#{writer}, #{prdt_genre}, #{prdt_name}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
+			(writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal)
+		VALUES (#{writer}, now(), now(),  false , 500000 )
 	</insert>
 	
 	<insert id="insertFile" parameterType="map">
@@ -138,6 +138,20 @@
 	<select id="getPaymentProjectInfo" parameterType="int" resultType="ProjectDto">
 		<include refid="selectFromProject"/>
 		WHERE prdt_id = #{prdt_id}
+	</select>
+	
+	
+	<!-- updateDto -->
+	<insert id="insertUpdate" parameterType="UpdateDto">
+		insert into tb_update
+		(update_regdate, update_title, update_desc, user_id, prdt_id)
+		values (now(), #{update_title}, #{update_desc}, #{user_id}, #{prdt_id})	
+	</insert>
+	
+	<select id="selectUpdate" parameterType="int" resultType="UpdateDto">
+		select (row_number() over()), * from tb_update
+		where prdt_id = #{prdt_id}
+		order by update_regdate
 	</select>
 
 </mapper>

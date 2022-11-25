@@ -52,7 +52,7 @@
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
       	<form id="form" class="frm" action="" method="post">
-      		<input type="hidden" name="prdt_id" value="${projectDto.prdt_id}"><br>
+      		<input type="hidden" name="prdt_id" id="prdt_id" value="${projectDto.prdt_id}"><br>
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
@@ -217,24 +217,22 @@
                 <!-- tab 2 contents -->
                 <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
                   <div class="accordion accordion-flush" id="accordionFlushExample"><!--아코디언 시작-->
+                    <c:forEach var="updateDto" items="${list_update}">
                     <div class="accordion-item"><!--아코디언 아이템1 시작-->
                       
-                      <h5 class="accordion-header" id="flush-heading1">
-                        <button class="accordion-button collapsed link-primary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="ture" aria-controls="flush-collapseOne">
-                          2022-10-12
+                      <h5 class="accordion-header" id="flush-heading-${updateDto.row_number}">
+                        <button class="accordion-button collapsed link-primary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-${updateDto.row_number}" aria-expanded="ture" aria-controls="flush-collapseOne">
+                        	${updateDto.update_regdate_string}
                         </button>
                       </h5>
                       
-                      <div id="flush-collapse1" class="accordion-collapse collapse text-start" aria-labelledby="flush-heading1" data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapse-${updateDto.row_number}" class="accordion-collapse collapse text-start" aria-labelledby="flush-heading-${updateDto.row_number}" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
                           <ul class="row container">
-                            <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
-                            <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
+                            <li id=""><h5>${updateDto.update_title}</h5></li>
+                            <li id=""><p>${updateDto.update_desc}</p></li>
                           </ul>
                           <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
-                          <div class="pt-3 text-end" id="ModiBtn1" style="display: block;">
-                	        <button type="button" class="btn btn-primary" onclick="showHide('ModiArea1'); showHide('ModiBtn1');">업데이트 내역 추가하기</button>
-                          </div>
                           <div class="align-items-end" id="ModiArea1" style="display: none;">
                             <div class="col-10">
                               <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
@@ -249,23 +247,7 @@
                         </div>
                       </div>
                     </div><!--아코디언 아이템1 종료-->
-                    <div class="accordion-item"><!--아코디언 아이템2 시작-->
-                      
-                      <h5 class="accordion-header" id="flush-heading2">
-                        <button class="accordion-button collapsed link-primary" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapseOne">
-                          2022-10-11
-                        </button>
-                      </h5>
-                      
-                      <div id="flush-collapse2" class="accordion-collapse collapse text-start" aria-labelledby="flush-heading2" data-bs-parent="#accordionFlushExample">
-                        <div class="accordion-body">
-                          <ul class="row container">
-                            <li id=""><h5>[2차 사은품 추가 지급 및 D세트 추가 안내]</h5></li>
-                            <li id=""><p>안녕하세요! 매일매일 새로운 재미 네이버웹툰입니다! 눈 깜짝할 사이에 달성해버린 5,000%에 다시 한 번 감사의 인사를 드립니다.</p></li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div><!--아코디언 아이템2 종료-->
+                   </c:forEach>
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
@@ -273,10 +255,10 @@
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">
-                        <input type="text" class="form-control" placeholder="업데이트 제목 작성​" rows="5">
-                        <textarea class="form-control mt-1" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
+                        <input type="text" class="form-control" id="updateTitle" placeholder="업데이트 제목 작성​" rows="5">
+                        <textarea class="form-control mt-1" id="updateDesc" placeholder="업데이트 내용 작성​" rows="5" style="resize: none;"></textarea>
                         <div class="text-end">
-                          <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">작성</button>
+                          <button type="button" class="mt-1 btn btn-primary" onclick="writeUpdate()">작성</button>
                           <button type="button" class="mt-1 btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">취소</button>
                         </div>
                       </div>
@@ -358,7 +340,32 @@
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
    <script>
+	   function writeUpdate(){
+		   let updateTitle = $('#updateTitle').val();
+		   let updateDesc = $('#updateDesc').val();
+		   let prdt_id = $('#prdt_id').val();
+		   alert(updateTitle);
+		   alert(updateDesc);
+		   alert(prdt_id);
+		   
+		   let updateData = {update_title:updateTitle,update_desc:updateDesc,prdt_id:prdt_id};
+		   $.ajax({
+				type:'post',	
+				url: '/purplaying/project/writeUpdate',                                                                                
+				headers:{"content-type" : "application/json"},
+				dataType : 'text',
+				data : JSON.stringify(updateData),
+				success:function(result){
+					showHide('writeArea2'); 
+					showHide('writeBtn2');
+				},
+				error : function(){
+					alert("error");
+				}					
+			});
+	   };
 	$(document).ready(function(){
+		
    	let selectedRewardName = document.getElementById("selectedRewardName");
    	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		$("#addReward").change(function(){

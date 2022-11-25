@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
 
 public interface ProjectDao {
   
@@ -15,7 +16,7 @@ public interface ProjectDao {
   
   List<ProjectDto> selectPage(Map map) throws Exception;
 
-  int insert(ProjectDto projectDto) throws Exception;
+  int insert(String writer) throws Exception;
   int update(ProjectDto projectDto) throws Exception;
   int searchResultCnt(SearchItem sc) throws Exception;
   List<ProjectDto> searchSelectPage(SearchItem sc) throws Exception;
@@ -25,6 +26,8 @@ public interface ProjectDao {
   ProjectDto projectDetail(Integer prdt_id) throws Exception;
   int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception;
   ProjectDto getPaymentProjectInfo(Integer prdt_id);
+  int insertUpdate(UpdateDto updateDto) throws Exception;
+  List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
   
 
   

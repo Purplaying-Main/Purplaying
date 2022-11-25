@@ -136,7 +136,7 @@
               </ul>
             </div>
             <div class="col-6 px-3">
-              <input class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요."  id="prdt_goal" onchange="calculate()" value="${projectDto.prdt_goal }"/>
+              <input class="form-control mb-4" placeholder="50만원 이상의 금액을 입력해주세요."  id="prdt_goal" onchange="calculate()" value="${projectDto.prdt_goal ne null or projectDto.prdt_goal ne '' ? projectDto.prdt_goal : 0}" />
               <h6 class="px-2">목표 금액 달성시 예상 수령액</h6>
               <h5 class="text-primary text-end" id="goal_price">${result_price[0]}원</h5>
               <hr class="px-3">
@@ -352,11 +352,19 @@
 			})
 		}
 		function calculate(){
+			if($('#prdt_goal').val()==null){
+				let prdt_goal = 0;
+			}
+			else{
+				let prdt_goal = $('#prdt_goal').val()
+			}
+			
+			alert(typeof(prdt_goal))
 			$.ajax({
 				type: 'GET',	
-				url: '/purplaying/project/calculate/'+$('#prdt_goal').val(),	
+				url: '/purplaying/project/calculate/'+prdt_goal,	
 				success: function(result) {
-					alert(result)
+					alert("price :"+result)
 					//$('#goal_price').val(result);
 					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 					$('#total_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");

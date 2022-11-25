@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -24,8 +25,8 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public int write(ProjectDto projectDto) throws Exception {
-    return projectDao.insert(projectDto);
+  public int write(String writer) throws Exception {
+    return projectDao.insert(writer);
   }
 
   @Override
@@ -86,6 +87,16 @@ public class ProjectServiceImpl implements ProjectService{
   public ProjectDto readPayment(Integer prdt_id) {
     ProjectDto projectDto = projectDao.getPaymentProjectInfo(prdt_id);
     return projectDto;
+  }
+
+  @Override
+  public int insertUpdate(UpdateDto updateDto) throws Exception {
+    return projectDao.insertUpdate(updateDto);
+  }
+
+  @Override
+  public List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception {
+    return projectDao.selectUpdate(prdt_id);
   }
 
 

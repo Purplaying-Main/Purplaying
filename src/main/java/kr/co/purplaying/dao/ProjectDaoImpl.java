@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
 
 @Repository
 public class ProjectDaoImpl implements ProjectDao {
@@ -21,8 +22,8 @@ public class ProjectDaoImpl implements ProjectDao {
   private static String namespace = "kr.co.purplaying.dao.ProjectMapper.";
   
   @Override
-  public int insert(ProjectDto projectDto) throws Exception {
-    return session.insert(namespace+"insert", projectDto);
+  public int insert(String writer) throws Exception {
+    return session.insert(namespace+"insert", writer);
   }
   
   @Override
@@ -93,6 +94,16 @@ public class ProjectDaoImpl implements ProjectDao {
   public ProjectDto getPaymentProjectInfo(Integer prdt_id) {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
+  }
+
+  @Override
+  public int insertUpdate(UpdateDto updateDto) throws Exception {
+    return session.insert(namespace+"insertUpdate",updateDto);
+  }
+
+  @Override
+  public List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception {
+    return session.selectList(namespace+"selectUpdate", prdt_id);
   }
 
 }
