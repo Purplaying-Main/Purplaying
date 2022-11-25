@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+ <mapper namespace="kr.co.purplaying.dao.PaymentMapper">
+ 	<sql id="selectAll">
+ 	SELECT 
+ 	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
+ 	prdt_id, 
+ 	user_no, 
+ 	delivery_id, delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, delivery_charge
+	FROM tb_payment
+	limit 1
+ 	</sql>
+ 	
+ 	<select id="select" parameterType="map" resultType="PaymentDto">
+ 		<include refid="selectAll"/>
+ 	</select>
+ 	
+ 	<insert id="insert" parameterType="PaymentDto">
+ 	INSERT INTO tb_payment
+	(pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo)
+	VALUES(now(), #{pay_cardnum},#{pay_carddate}, #{pay_cvc}, #{pay_pwd}, #{pay_total}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo})
+ 	</insert>
+ 	
+ 	<select id="getPaymentInfo" parameterType="int" resultType="PaymentDto">
+ 		<include refid="selectAll"/>
+ 	</select>
+ </mapper>

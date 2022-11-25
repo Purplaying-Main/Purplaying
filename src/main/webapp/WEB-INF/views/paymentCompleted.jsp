@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +36,17 @@
               </div>
               <div class="col px-4 d-flex flex-column position-static">
                 <div class ="text-end pt-1">
-                  <p>예약번호 : <span id=dt_reserveNum>1234567</span></p>
+                  <p>예약번호 : <span id=dt_reserveNum>${pmtDto.pay_no}</span></p>
                 </div>
-                <p class="col-6 mb-2"><span id="dt_caterory">카테고리명</span><span class="ms-2" id="dt_creator">창작자명</span></p> 
-                <h4 class="fw-bold">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
+                <p class="col-6 mb-2"><span id="dt_caterory">
+                 <c:choose>
+	                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
+	                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
+	                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
+	                <c:otherwise>장르</c:otherwise>
+                </c:choose></span>
+                <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
+                <h4 class="fw-bold">${projectDto.prdt_name}</h4>
               </div>
             </div>
           </div>
@@ -53,16 +62,16 @@
                 <div class="card-body">
                   <div class="row justify-content-between">
                     <p class="form-label fw-bold">리워드 패키지</p>
-                    <p class="form-label">[<span id="dt_rewardName">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</span>]</p>
-                  </div>
-                  <div class="d-flex justify-content-between mx-1">
-                    <p class="form-label fw-bold">리워드 가격</p>
-                    <p class="form-label"><span id="dt_price">20,000</span>원</p>
+                    <p class="form-label">${rewardDto.row_number}. ${rewardDto.reward_name}</p>
                   </div>
                   <div class="d-flex justify-content-between mx-1">
                     <p class="form-label fw-bold">리워드 구성품</p>
-                    <p class="form-label"><span id="dt_rewardItem">구성품1, 구성품2</span></p>
+                    <p class="form-label"><span id="dt_rewardItem">${rewardDto.reward_desc }</span></p>
                   </div> 
+                  <div class="d-flex justify-content-between mx-1">
+                    <p class="form-label fw-bold">리워드 가격</p>
+                    <p class="form-label"><span id="dt_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -72,8 +81,8 @@
               <div class="card">
                 <h5 class="card-header">후원자 정보</h5>
                 <div class="card-body" style="line-height: 3.47;">
-                    <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">010-2023-0111</span></p>
-                    <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">purplaying@email.com</span></p>
+                    <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">${userDto.user_phone}</span></p>
+                    <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">${userDto.user_id}</span></p>
                 </div>
               </div>
             </div>
@@ -87,19 +96,19 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">수령인</p>
-                    <p class="form-label" id="dt_recieverName">한승훈</p>
+                    <p class="form-label" id="dt_recieverName">${param.delivery_reciever }</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">연락처</p>
-                    <p class="form-label" id="dt_phoneNumber">010-2023-0111</p>
+                    <p class="form-label" id="dt_phoneNumber">${param.delivery_phone }</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">주소</p>
-                    <p class="form-label" id="dt_address">서울특별시 서초구 강남대로 479 3층</p>
+                    <p class="form-label" id="dt_address">[${param.delivery_postcode }]${param.delivery_address } ${param.delivery_addressdetail}</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">배송요청사항</p>
-                    <p class="form-label" id="dt_deliveryMemo">부재 시 연락주세요</p>
+                    <p class="form-label" id="dt_deliveryMemo">${param.delivery_memo }</p>
                   </div>
                 </div>
               </div>
@@ -116,15 +125,15 @@
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
-                    <p class="form-label"><span id="dt_fundingPrice">20,000</span>원</p>
+                    <p class="form-label"><span id="dt_fundingPrice">${paymentDto.pay_total }</span>원</p>
                   </div>
                   <div class="d-flex justify-content-between">
                       <p class="form-label fw-bold">배송비</p>
-                      <p class="form-label"><span>3,000원</span></p>
+                      <p class="form-label"><span>${paymentDto.delivery_charge }</span></p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
-                    <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
+                    <p class="form-label"><span id="dt_totalPrice">${paymentDto.pay_total }</span>원</p>
                   </div>
                 </div>
               </div>
@@ -137,8 +146,8 @@
 
         <!--하단 영역-->
         <div class="d-flex justify-content-end mb-2">
-          <a class="btn btn-primary" href="mypage">펀딩내역확인</a>
-          <a class="btn btn-secondary ms-2" href="/purplaying/">메인으로</a>
+          <a class="btn btn-primary" href="${pageContext.request.contextPath}/mypage">펀딩내역확인</a>
+          <a class="btn btn-secondary ms-2" href="${pageContext.request.contextPath}/">메인으로</a>
         </div>
 
       </div><!--컨텐츠 영역-->

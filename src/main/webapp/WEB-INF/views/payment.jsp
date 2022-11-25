@@ -86,6 +86,7 @@
           </div>
         </div>
 
+		<form class="paymentForm" id="form" action="" method="">
         <!-- 배송 정보 -->
         <div class="mb-4">
           <h5>배송정보</h5>
@@ -142,30 +143,30 @@
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">수령인</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_recieverName"  value="" maxlength="7" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_recieverName" name="delivery_reciever"  value="${paymentDto.delivery_reciever }" maxlength="7" required></div>
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">연락처</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber"   maxlength="12" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" name="delivery_phone" value="${paymentDto.delivery_phone }" value="${paymentDto.delivery_phone }"  maxlength="12" required></div>
           </div>
           <div class="mb-2">
             <div class="d-flex justify-content-between mx-1 mb-1">
               <p class="form-label fw-bold">주소</p>
             <!--JavaScript -->
               <div class="d-flex justify-content-end">
-                <div class="col-4"><input type="text" class="form-control form-control-sm ps-1" id="address_num" placeholder="우편번호" readonly></div>
+                <div class="col-4"><input type="text" class="form-control form-control-sm ps-1" id="address_num" name="delivery_postcode" placeholder="우편번호" value="${paymentDto.delivery_postcode }" readonly></div>
                 <input type="button" class="btn btn-primary btn-sm ms-1" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
               </div>
             </div>
             <div class="d-flex justify-content-end mx-1 mb-1">
-                <div class="col-2"><input type="text" class="form-control form-control-sm col-2 ps-1" id="address" placeholder="기본주소" required readonly></div>
-                <div class="col-3 ps-1"><input type="text" class="form-control form-control-sm" id="address_detail" placeholder="상세주소" maxlength="50"></div>
+                <div class="col-2"><input type="text" class="form-control form-control-sm col-2 ps-1" id="address" name="delivery_address" value="${paymentDto.delivery_address }" placeholder="기본주소" required readonly></div>
+                <div class="col-3 ps-1"><input type="text" class="form-control form-control-sm" id="address_detail" name="delivery_addressdetail" value="${paymentDto.delivery_addressdetail}" placeholder="상세주소" maxlength="50"></div>
             </div>
           </div>
           <!--JavaScript 종료 --> 
           <div class="d-flex justify-content-between mx-1">
             <p class="form-label fw-bold">배송 요청사항</p>
-            <div class="col-7 text-end"><input type="text" class="form-control form-control-sm" id="dt_deliveryMemo" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
+            <div class="col-7 text-end"><input type="text" class="form-control form-control-sm" id="dt_deliveryMemo" name="delivery_memo" value="${paymentDto.delivery_memo }" placeholder="배송시 요청 사항을 작성하세요." maxlength="50"></div>
           </div>
         </div>
 
@@ -232,7 +233,7 @@
                 <div class="d-flex mb-2">
                   <label class="form-label">카드번호</label>
                   <div class=" d-flex col-8 ms-2">
-                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" maxlength="4" required>
+                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" name="pay_cardnum" value="${paymentDto.pay_cardnum }" maxlength="4" required>
                     <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber2" maxlength="4" required>
                     <input type="password" class="form-control form-control-sm ms-1" id="dt_cardNumber3" maxlength="4" required>
                     <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber4" maxlength="4" required>
@@ -241,16 +242,16 @@
                 <div class="d-flex">
                   <div class="d-flex mb-2">  
                     <label class="form-label">유효기간</label>
-                    <div class="col-5"><input type="text" class="form-control form-control-sm ms-2" id="dt_validDate" maxlength="4" placeholder="MMYY" required></div>
+                    <div class="col-5"><input type="text" class="form-control form-control-sm ms-2" id="dt_validDate" name="pay_carddate" value="${paymentDto.pay_carddate }"  maxlength="4" placeholder="MMYY" required></div>
                   </div>
                   <div class="d-flex mb-2">
                     <label class="form-label">카드 비밀번호</label>
-                    <div class="col-4"><input type="text" class="form-control form-control-sm ms-2" id="dt_cardPwd" maxlength="2" placeholder="앞 2자리" required></div>
+                    <div class="col-4"><input type="text" class="form-control form-control-sm ms-2" id="dt_cardPwd" name="pay_pwd" value="${paymentDto.pay_pwd }" maxlength="2" placeholder="앞 2자리" required></div>
                   </div>
                 </div>
                 <div class="d-flex mb-2">
                   <label class="form-label">CVC</label>
-                  <div class="col-2"><input type="text" class="form-control form-control-sm ms-2" id="dt_userBirth" maxlength="3"required></div>
+                  <div class="col-2"><input type="text" class="form-control form-control-sm ms-2" id="dt_userBirth" name="pay_cvc" value="${paymentDto.pay_cvc }" maxlength="3"required></div>
                 </div>
             </div>
           </div>
@@ -283,6 +284,8 @@
             <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
           </div>
         </div>
+		</form>
+		
 
         <!-- 펀딩 유의 사항 -->
         <div class="my-3"> 
@@ -328,7 +331,8 @@
           <div class="row justify-content-center">
             <div class="col-8 text-center">
              <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p>
-             <a class="btn btn-primary fs-3 w-50 my-3" href="${pageContext.request.contextPath}/paymentCompleted">후원하기</a>
+            <%--  <button type="button" class="btn btn-primary fs-3 w-50 my-3" href="${pageContext.request.contextPath}/paymentCompleted/${prdt_id}">후원하기</button> --%>
+             <button type="button" class="btn btn-primary fs-3 w-50 my-3" id="doFundingBtn">후원하기</button>
             </div>
           </div> 
         </div>
@@ -338,7 +342,7 @@
   </section>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
-  <script src="resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
+  <script src="${pageContext.request.contextPath}/resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
   <script>
   	function same(){
   		let user_name = "${userDto.user_name}";
@@ -346,6 +350,33 @@
   		let user_phone = "${userDto.user_phone}";
   		document.getElementById("dt_phoneNumber").value = user_phone ;
   	}
+  </script>
+  <script>
+  	$("#doFundingBtn").on("click",function(){
+  		console.log("실행");
+  		let form = $(".paymentForm");
+  		
+		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")
+		form.attr("method", "post")
+		
+		if(formCheck())
+			form.submit()	
+  	})
+  	
+		let formCheck = function() {
+		let form = document.getElementById("form")
+		if(form.delivery_reciever.value=="") {
+			alert("수령인을 입력해 주세요.")
+			return false
+		}
+		if(form.delivery_phone.value=="") {
+			alert("연락처를 입력해 주세요.")
+			return false
+		}
+		console.log("입력 성공");
+		return true;
+	}
+			
   </script>
 </body>
 </html>
