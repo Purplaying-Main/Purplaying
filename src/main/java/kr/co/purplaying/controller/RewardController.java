@@ -41,14 +41,15 @@ public class RewardController {
     return "reward";
   }
     
-  @PostMapping("/deletereward")
+  @PostMapping("/deletereward/{prdt_id}")
   @ResponseBody
-  public List<RewardDto> findreward(@RequestBody int prdt_id, @RequestBody RewardDto rewardDto ) {
+  public List<RewardDto> delreward(@PathVariable int prdt_id, @RequestBody RewardDto rewardDto ) {
     System.out.println("ri= "+ rewardDto.getReward_id());
     try {
       if(rewardService.deleteReward(rewardDto.getReward_id()) != 1) {
         throw new Exception("Delete Failed");
       }
+      rewardDto.setReward_id(0);
       List<RewardDto> dto = rewardService.selectReward(prdt_id);
       return dto;
     } catch (Exception e) {

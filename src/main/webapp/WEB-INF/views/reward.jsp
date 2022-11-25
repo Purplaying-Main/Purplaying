@@ -5,6 +5,7 @@
 	<div class="row pb-3 mt-4">
             <%-- <div class="<c:if test='${empty reward_list }'>col-4</c:if>"> --%>
        	<div class="col-4" >
+       		<div id="BtnGroup" >
        		<div id="rewardCard">
        			<!-- 추가하기전 수정시 아이템확인후 출력 -->
        			<div id="rewardCardBefore" >
@@ -12,9 +13,10 @@
 		       			<div class="card mb-3"><!--reward start-->
 			                <div class="card-header">
 				               <%-- <div style="display:none;">${rewardDto.reward_id}</div> --%>
-				               <div class="d-md-flex text-end" >
-				               		<button class="btn btn-outline-primary btn-sm me-md-2" data-reward_id='${rewardDto.reward_id}' type="button" onclick="reward_mod_btn()">M</button>
-				               		<button class="btn btn-outline-danger btn-sm" type="button" onclick="reward_remove_btn()">D</button>
+				               
+				               <div class="d-md-flex text-end">
+				               		<button class="btn btn-outline-primary btn-sm me-md-2 modBtn" data-reward-id="${rewardDto.reward_id}" type="button" >M</button>
+				               		<button class="btn btn-outline-danger btn-sm delBtn" data-reward-id="${rewardDto.reward_id}" type="button" >D</button>
 				               </div>
 	                    	</div>
 			                <div class="card-body">
@@ -29,6 +31,7 @@
 			                </div>
 		            	</div>
 		            </c:forEach>
+       			</div>
        			</div>
        		</div>
 
@@ -125,89 +128,88 @@
           </div>
 	
 	<script type="text/javascript">
-		function reward_remove_btn(){
-			eventTarget = event.target;
-			let reward_id = eventTarget.parentNode.previousElementSibling.innerHTML	//클릭한 버튼의 reward_id가져오기
-			alert(reward_id)
-			$('#rewardDelModal').modal("show");
-			$('#deleteRewardModi').click(function(){
+		
+		$(document).ready(function(){
+			$('#BtnGroup').on("click",".delBtn",function(){
+				let reward_id = $(this).attr("data-reward-id")	//클릭한 버튼의 reward_id가져오기
+				alert(reward_id)
+				$('#rewardDelModal').modal("show");
+				$('#deleteRewardModi').click(function(){
+					$.ajax({
+						type:'post',	//통신방식 (get,post)
+						url: '/purplaying/pr/deletereward/'+prdt_id,                                                                                
+						headers:{"content-type" : "application/json"},
+						dataType : 'text',
+						data : JSON.stringify({reward_id:reward_id}),
+						success:function(result){
+							alert(result);
+							$('#rewardDelModal').modal("hide");
+							$("#BtnGroup").html(toHtml(JSON.parse(result)));
+						},
+						error : function(){
+							alert("print error");
+						}					
+					});
+				});
+			});
+			//$('#BtnGroup').on("click","#rewardModBtn",function(){
+			$('#BtnGroup').on("click",".modBtn",function(){
+				let reward_id = $(this).attr("data-reward-id")	//클릭한 버튼의 reward_id가져오기
+				alert(reward_id)
 				$.ajax({
 					type:'post',	//통신방식 (get,post)
-					url: '/purplaying/pr/deletereward',                                                                                
+					url: '/purplaying/pr/findmodireward',                                                                                
 					headers:{"content-type" : "application/json"},
 					dataType : 'text',
 					data : JSON.stringify({reward_id:reward_id}),
 					success:function(result){
-						alert(result);
-						$('#rewardDelModal').modal("hide");
-						$("#rewardCard").html(toHtml(JSON.parse(result)));
-					},
-					error : function(){
-						alert("print error");
-					}					
-				});
-			});
-		}
-		
-		function reward_mod_btn() {
-			eventTarget = event.target;
-			let reward_id = $(this).attr("data-reward");	//클릭한 버튼의 reward_id가져오기
-			alert(reward_id)
-			$.ajax({
-				type:'post',	//통신방식 (get,post)
-				url: '/purplaying/pr/findmodireward',                                                                                
-				headers:{"content-type" : "application/json"},
-				dataType : 'text',
-				data : JSON.stringify({reward_id:reward_id}),
-				success:function(result){
-					reward2 = JSON.parse(result);
-					$("#reward_modi_name").val(reward2.reward_name);
-					$("#reward_modi_price").val(reward2.reward_price);
-					$("#reward_modi_desc").val(reward2.reward_desc);
-					$("#reward_modi_stock").val(reward2.reward_stock);
-					$("#reward_modi_category").val(reward2.reward_category);
-					$('#rewardModiModal').modal("show");
-					$("#prdt_id").val();
-				},
-				error : function(){
-					alert("error");
-				}					
-			});
-			
-			$('#saveRewardModi').click(function(){
-				let reward_modi_name = $("#reward_modi_name").val();
-				let reward_modi_price = $("#reward_modi_price").val();
-				let reward_modi_desc = $("#reward_modi_desc").val();
-				let reward_modi_stock = $("#reward_modi_stock").val();
-				let reward_modi_category = $("#reward_modi_category").val();
-				let prdt_id = $("#prdt_id").val();
-				let modi_reward = {
-						reward_id:reward_id,
-						reward_name:reward_modi_name,
-						reward_price:reward_modi_price,
-						reward_desc:reward_modi_desc,
-						reward_stock:reward_modi_stock,
-						reward_category:reward_modi_category,
-						prdt_id:prdt_id,
-						};
-				$.ajax({
-					type:'post',	//통신방식 (get,post)
-					url: '/purplaying/pr/modireward',                                                                                
-					headers:{"content-type" : "application/json"},
-					dataType : 'text',
-					data : JSON.stringify(modi_reward),
-					success:function(result){
-						$('#rewardModiModal').modal("hide");
-						$("#rewardCard").html(toHtml(JSON.parse(result)));
+						reward2 = JSON.parse(result);
+						$("#reward_modi_name").val(reward2.reward_name);
+						$("#reward_modi_price").val(reward2.reward_price);
+						$("#reward_modi_desc").val(reward2.reward_desc);
+						$("#reward_modi_stock").val(reward2.reward_stock);
+						$("#reward_modi_category").val(reward2.reward_category);
+						$('#rewardModiModal').modal("show");
+						$("#prdt_id").val();
 					},
 					error : function(){
 						alert("error");
 					}					
 				});
+				
+				$('#saveRewardModi').click(function(){
+					let reward_modi_name = $("#reward_modi_name").val();
+					let reward_modi_price = $("#reward_modi_price").val();
+					let reward_modi_desc = $("#reward_modi_desc").val();
+					let reward_modi_stock = $("#reward_modi_stock").val();
+					let reward_modi_category = $("#reward_modi_category").val();
+					let prdt_id = $("#prdt_id").val();
+					let modi_reward = {
+							reward_id:reward_id,
+							reward_name:reward_modi_name,
+							reward_price:reward_modi_price,
+							reward_desc:reward_modi_desc,
+							reward_stock:reward_modi_stock,
+							reward_category:reward_modi_category,
+							prdt_id:prdt_id,
+							};
+					$.ajax({
+						type:'post',	//통신방식 (get,post)
+						url: '/purplaying/pr/modireward',                                                                                
+						headers:{"content-type" : "application/json"},
+						dataType : 'text',
+						data : JSON.stringify(modi_reward),
+						success:function(result){
+							$('#rewardModiModal').modal("hide");
+							$("#BtnGroup").html(toHtml(JSON.parse(result)));
+						},
+						error : function(){
+							alert("error");
+						}					
+					});
+				});
 			});
-		};
-		
-		$(document).ready(function(){
+			
 			$('#add_reward').click(function(){
 				let reward_name = $("#reward_name").val();
 				let reward_price = $("#reward_price").val();
@@ -228,7 +230,7 @@
 						let select_item = $("#reward_category option:selected").val();
 						$("#reward_category").val(select_item);
 						$("#rewardCardBefore").html(style="display:none;");
-						$("#rewardCard").html(toHtml(JSON.parse(result)));
+						$("#BtnGroup").html(toHtml(JSON.parse(result)));
 						$("#reward_name").val("");
 						$("#reward_price").val("");
 						$("#reward_desc").val("");
@@ -241,6 +243,7 @@
 				});
 			});
 		});
+			
 		let toHtml = function(rewards){
 			let tmp = "";
 			let catergory_name="";
@@ -252,8 +255,8 @@
 				}
 				tmp += '<div class="card mb-3"><div class="card-header">';
 				tmp += '<div class="d-md-flex text-end">';
-				tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" data-reward-id='+reward.reward_id+' type="button" onclick="reward_mod_btn()">M</button>';
-				tmp += '<button class="btn btn-outline-danger btn-sm" type="button" onclick="reward_remove_btn()">D</button>';
+				tmp += '<button class="btn btn-outline-primary btn-sm me-md-2 modBtn" data-reward-id="'+reward.reward_id+'" type="button">M</button>';
+				tmp += '<button class="btn btn-outline-danger btn-sm delBtn" data-reward-id=' + reward.reward_id + ' type="button">D</button>';
 				tmp += '</div></div>';
 				tmp += '<div class="card-body"><span class="my-0 fw-normal bg-info">'+ catergory_name+'</span>';	
 				tmp += '<span>리워드 #'+reward.row_number+'</span><br/>';

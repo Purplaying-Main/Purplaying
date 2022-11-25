@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="default_thumbnail" value="${projectDto.prdt_thumbnail == null ? '' : 'display:none' }"/>
-<c:set var="display_thumbnail" value="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }"/>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +87,7 @@
 	              	<select  id="addReward" class="form-select fs-6" name="rewardSelect">
 	              	  <option selected disabled>리워드를 선택해주세요</option>
 					  <c:forEach var="rewardDto" items="${dto}">
-					  	<option value="${rewardDto.reward_id} ">${rewardDto.row_number}. ${rewardDto.reward_name} +${rewardDto.reward_price}원</option>
+					  	<option value="${rewardDto.reward_id}">${rewardDto.row_number}. ${rewardDto.reward_name} +${rewardDto.reward_price}원</option>
 					  </c:forEach>
 					</select>
 				</div>
@@ -103,13 +100,7 @@
               <li>
               	<div class="form-floating mb-3">
               		<div id="selectRewardBox">
-              			<div>
-              				<div class="d-flex justify-content-between">
-              					<span id="selectedRewardName"></span>
-              					<span id="selectedRewardPrice"></span>
-              				</div>
-              				<div class="row text-end"><spanp>수량 </span><input type="number" class="col-1 text-end" id="rewardCnt" value="1" placeholder="1" min="1"></div>
-              			</div>
+              			
               		</div>
 <!-- 				  <textarea class="form-control" placeholder="선택한 리워드 출력 영역" id="floatingTextarea" style="resize: none;" row=5 readonly></textarea>
 				  <label for="floatingTextarea">선택한 리워드 리스트</label> -->
@@ -256,7 +247,7 @@
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
-                	  <button type="button" class="btn btn-primary" onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                	  <button type="button" class="btn btn-primary" <c:if test="${sessionScope.user_id ne projectDto.writer}">style="display:none;"</c:if> onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">
@@ -373,15 +364,14 @@
 		
    	let selectedRewardName = document.getElementById("selectedRewardName");
    	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
+   	
 		$("#addReward").change(function(){
 			document.getElementById("selectRewardBox").style.display = 'block';
-			let getOption =  $("#addReward option:checked").text();
-			let [name, price] = getOption.split(/[원,+]/,2);
-			selectedRewardName.innerText = name;
-			selectedRewardPrice.innerText = price +"원";
-			let rewardTotalPrice = document.getElementById("rewardTotalPrice");
-			let rewardCnt = document.getElementById("rewardCnt").value;
-			rewardTotalPrice.value = price * rewardCnt;
+			let list = selectToHtml($('#selectRewardBox').html())
+			$('#selectRewardBox').html(list)
+			let price_won = $("#addReward option:checked").text().split('+')[1];
+			price = price_won.split('원')[0];
+			
 			$("#rewardCnt").change(function(){
 				let rewardTotalPrice = document.getElementById("rewardTotalPrice");
 				let rewardCnt = document.getElementById("rewardCnt").value;
@@ -389,6 +379,23 @@
 			});
 		});
 	});
+	function selectToHtml(tmp){
+		let getOption =  $("#addReward option:checked").text();
+		let name = getOption.split('+')[0];
+		let num = name.split('.')[0];
+		let price_won = getOption.split('+')[1];
+		price = price_won.split('원')[0];
+		
+		let temp = tmp		
+		temp += "<div>";
+		temp += '<div class="d-flex justify-content-between">'
+		temp += '<span id="selectedRewardName="'+num+'" ">'+name+'</span>'
+		temp += '<span id="selectedRewardPrice= "'+num+'" ">'+price_won+'</span>'
+		temp +='</div>'
+		temp +=	'<div class="row text-end"><span>수량 <input type="number" class="col-1 text-end" id="rewardCnt" value="1" placeholder="1" min="1"/> </span></div>'
+		temp += "</div>";
+		return temp;
+	}
    </script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
