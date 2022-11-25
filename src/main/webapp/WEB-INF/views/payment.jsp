@@ -328,7 +328,7 @@
           <div class="row justify-content-center">
             <div class="col-8 text-center">
              <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p>
-             <a class="btn btn-primary fs-3 w-50 my-3" href="paymentcompleted">후원하기</a>
+             <a class="btn btn-primary fs-3 w-50 my-3" href="${pageContext.request.contextPath}/paymentCompleted">후원하기</a>
             </div>
           </div> 
         </div>

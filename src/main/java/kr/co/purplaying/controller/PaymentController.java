@@ -62,6 +62,21 @@ public class PaymentController {
     return "payment";
   }
 
+  @GetMapping("/paymentCompleted")
+  public String paymentCompleted(Model m,Integer prdt_id) {
+    try {
+
+      ProjectDto projectDto = projectService.readPayment(prdt_id);
+      m.addAttribute("projectDto",projectDto);
+      System.out.println(projectDto);    
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      
+    }
+    return "paymentCompleted";
+  }
+  
   private boolean loginCheck(HttpServletRequest request) {
     // 1. 세션을 얻어서
     HttpSession session = request.getSession(false);        // false는 session이 없어도 새로 생성하지 않음. 반환값  null
