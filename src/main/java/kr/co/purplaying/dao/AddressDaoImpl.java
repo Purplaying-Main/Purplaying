@@ -1,6 +1,7 @@
 package kr.co.purplaying.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,9 @@ public class AddressDaoImpl implements AddressDao {
   private static String namespace = "kr.co.purplaying.AddressMapper.";
   
   @Override                     // address_id로 출력 확인후 변경
-  public AddressDto selectAddress(Integer user_no) throws Exception {
+  public Map<String, Object> selectAddress(String user_id) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectOne(namespace + "selectAddress", user_no);
+    return session.selectOne(namespace + "selectAddress", user_id);
   }
 
   @Override
@@ -40,7 +41,7 @@ public class AddressDaoImpl implements AddressDao {
   }
 
   @Override
-  public List<AddressDto> AddressList(Integer user_no) throws Exception {
+  public List<Map<String, Object>> AddressList(Integer user_no) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace + "AddressList", user_no);
   }

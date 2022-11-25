@@ -1,13 +1,13 @@
 package kr.co.purplaying.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.AddressDao;
 import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
-import kr.co.purplaying.domain.AddressDto;
-import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 
 @Service
@@ -38,21 +38,21 @@ public class SettingServiceImpl implements SettingService {
   }
 
   @Override
-  public SettingDto showSetting(Integer user_no) throws Exception {
+  public Map<String, Object> showSetting(String user_id) throws Exception {
     // TODO Auto-generated method stub
-    return settingDao.selectSetting(user_no);
+    return settingDao.selectSettingJoinUser(user_id);
   }
 
   @Override
-  public int modifyIntro(SettingDto settingDto) throws Exception {
+  public int modifyIntro(Map<String, Object> map) throws Exception {
     // TODO Auto-generated method stub
-    return settingDao.update(settingDto);
+    return settingDao.updateIntro(map);
   }
 
-  @Override                     // address_id로 출력 확인후 변경
-  public AddressDto chooseAddress(Integer user_no) throws Exception {
-    // TODO Auto-generated method stub
-    return addressDao.selectAddress(user_no);
+  @Override
+  public Map<String, Object> chooseAddress(String user_id) throws Exception {
+    System.out.println(user_id);
+    return addressDao.selectAddress(user_id);
   }
 
 }
