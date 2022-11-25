@@ -10,17 +10,24 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.service.FileService;
 import kr.co.purplaying.service.ProjectService;
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -30,6 +37,35 @@ public class UploadController {
   
   @Autowired
   ProjectService projectService;
+  
+  @Autowired
+  FileService fileService;
+  
+  @GetMapping("/display")
+  @ResponseBody
+  public ResponseEntity<byte[]> getFile(String file_name , Integer prdt_id, Model m ) throws Exception {
+    
+//    AttachFileDto attachFileDto = fileService.read(prdt_id);
+//    m.addAttribute("attachFileDto", attachFileDto);
+//    System.out.println("attachFileDto: "+attachFileDto);
+    
+    System.out.println("fileName : "+file_name);
+    
+    File file = new File("C:\\purplaying_file\\"+file_name);
+    System.out.println("file: "+file);
+    
+    ResponseEntity<byte[]> result = null;
+    
+    try {
+      
+      HttpHeaders header = new HttpHeaders();
+      header.add("Content-Type", Files.probeContentType(file.toPath()));
+      result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
   
   //이미지 파일 판단
   private boolean checkImageType(File file) {
@@ -60,7 +96,7 @@ public class UploadController {
     List<AttachFileDto> list = new ArrayList<>();
     
     System.out.println("upload file ajax post....");
-    String uploadFolder ="/Users/heera15mac/git/Purplaying/src/main/webapp/resources/assets/img/upload";
+    String uploadFolder ="C:\\purplaying_file";
     
     String uploadFolderPath = getFolder();
   
@@ -71,13 +107,20 @@ public class UploadController {
     if(uploadPath.exists() == false) {
       uploadPath.mkdirs();
     }
- 
+    
+    List<AttachFileDto> thumblist = new ArrayList();
+    
     for (MultipartFile multipartFile : uploadFile) { 
       
       AttachFileDto attachFileDto = new AttachFileDto();
       String uploadFileName = multipartFile.getOriginalFilename();
       System.out.println("only file name: "+ uploadFileName);
+      
+      // 파일 경로, 이름 저장
       attachFileDto.setFile_name(uploadFileName);
+      attachFileDto.setFile_location(uploadFolderPath);
+
+      
       
 //      파일명 중복방지 uuid
       UUID uuid = UUID.randomUUID();
@@ -91,11 +134,11 @@ public class UploadController {
         attachFileDto.setUploadPath(uploadFolderPath);
         
         //원본 이미지 DB저장
-        /*
-         * long uploadFileSize = multipartFile.getSize();
-         * imgToDB(uploadPath, uploadFileName, uploadFileSize, prdt_id);
-         */
         
+         long uploadFileSize = multipartFile.getSize();
+         imgToDB(uploadFolderPath, uploadFileName, uploadFileSize, prdt_id);
+         
+         
         //썸네일 생성
         if(checkImageType(saveFile)) {
           attachFileDto.setImage(true);
@@ -103,11 +146,11 @@ public class UploadController {
           FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
           Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 230, 195); //width, height
           //썸네 이미지 DB저장
-          /*
-           * long uploadFileSize_tumb = multipartFile.getSize();
-           * String uploadFileName_tumb = "s_"+uploadFileName;
-           * imgToDB(uploadPath, uploadFileName_tumb, uploadFileSize_tumb, prdt_id);
-           */
+        
+          long uploadFileSize_tumb = multipartFile.getSize();
+          String uploadFileName_tumb = "s_"+uploadFileName;
+          imgToDB(uploadFolderPath, uploadFileName_tumb, uploadFileSize_tumb, prdt_id);
+          
           
           thumbnail.close();
         }
@@ -121,8 +164,8 @@ public class UploadController {
     return new ResponseEntity<>(list,HttpStatus.OK);
   }
   
-  private void imgToDB(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
-    if( projectService.insertFile(uploadPath, uploadFileName, uploadFileSize, prdt_id) != 1) {
+  private void imgToDB(String uploadFolderPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+    if( fileService.insertFile(uploadFolderPath, uploadFileName, uploadFileSize, prdt_id) != 1) {
       System.out.println("insertFile ERR");
     }
   }

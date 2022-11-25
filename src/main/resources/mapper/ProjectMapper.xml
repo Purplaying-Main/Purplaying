@@ -4,8 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
-	<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
-		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
+		<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
+		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail, prdt_img
 		, (prdt_enddate-prdt_opendate) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
@@ -102,31 +102,19 @@
 		limit 1
 	</select>
 	
-	<select id="selectFileList" parameterType="int" resultType="hashMap">
-		SELECT file_id,
-		org_file_name,
-		ROUND(file_size/1024,1) AS file_size
-		FROM tb_file
-		WHERE prdt_id = #{prdt_id}
-		AND file_state = 'F'
-		ORDER BY file_id ASC
-	</select>
-	
 	<insert id="insert" parameterType="String"> <!-- Board 테이블 데이터 추가 -->
-		INSERT INTO tb_product
-			(writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal)
-		VALUES (#{writer}, now(), now(),  false , 500000 )
-	</insert>
-	
-	<insert id="insertFile" parameterType="map">
-		INSERT INTO tb_file
-			(file_name, file_location, file_size, file_regdate, prdt_id)
-		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{prdt_id});
-	</insert>
+        INSERT INTO tb_product
+            (writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal)
+        VALUES (#{writer}, now(), now(),  false , 500000 )
+    </insert>
 	
 	<update id="update" parameterType="ProjectDto">
 		UPDATE public.tb_product
-		SET prdt_name = #{prdt_name}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}, prdt_thumbnail = #{prdt_thumbnail}
+		SET prdt_name = #{prdt_name}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}
+			, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}
+			, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}
+			, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}
+			, prdt_thumbnail = #{prdt_thumbnail}, prdt_img = #{prdt_img}
 		WHERE prdt_id= #{prdt_id} AND writer = #{writer}
 	</update>
 	

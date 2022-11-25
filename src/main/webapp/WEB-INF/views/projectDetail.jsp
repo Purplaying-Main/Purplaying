@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="default_thumbnail" value="${projectDto.prdt_thumbnail == null ? '' : 'display:none' }"/>
+<c:set var="display_thumbnail" value="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,12 +68,14 @@
           </div>
           <div class="row mb-2"> <!-- 상세페이지 상단 start-->
             <!--thumbnail start-->
-            <div id="projectCarousel" class="carousel slide col-md-8" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-project active" id="projectCarousel01">
-                  <div class="container"></div>
-                </div>
-              </div>
+            <div class="col" id="projectCarousel">
+	            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+				  <div class="carousel-inner">
+				    <div class="carousel-item carousel-detail active">
+				      <img style="${display_thumbnail}" src="${projectDto.prdt_img}" class="d-block w-100" id="prdt_img">
+				    </div>
+				  </div>
+				</div>
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">

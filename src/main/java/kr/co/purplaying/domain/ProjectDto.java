@@ -19,6 +19,7 @@ public class ProjectDto {
   private String  prdt_desc_policy;
   private Integer     prdt_genre;
   private String  prdt_thumbnail;
+  private String  prdt_img;
   private int prdt_user_no;
   private int prdt_dday;
   private int prdt_percent;
@@ -37,7 +38,7 @@ public class ProjectDto {
 
   public ProjectDto(String writer, Integer prdt_id, String prdt_name, String prdt_desc, String prdt_desc_detail,
       Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, Integer prdt_goal, Integer prdt_currenttotal,
-      boolean prdt_open, String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, int prdt_user_no,
+      boolean prdt_open, String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, String prdt_img, int prdt_user_no,
       int prdt_dday, int prdt_percent, Date prdt_purchaseday, Date prdt_limitday, int user_no, String user_id,
       String user_pwd, String user_name, int user_phone, Date user_regdate, String user_activate, String user_role) {
 //    super();
@@ -55,6 +56,7 @@ public class ProjectDto {
     this.prdt_desc_policy = prdt_desc_policy;
     this.prdt_genre = prdt_genre;
     this.prdt_thumbnail = prdt_thumbnail;
+    this.prdt_img = prdt_img;    
     this.prdt_user_no = prdt_user_no;
     this.prdt_dday = prdt_dday;
     this.prdt_percent = prdt_percent;
@@ -77,43 +79,14 @@ public class ProjectDto {
         + prdt_desc + ", prdt_desc_detail=" + prdt_desc_detail + ", prdt_regdate=" + prdt_regdate + ", prdt_opendate="
         + prdt_opendate + ", prdt_enddate=" + prdt_enddate + ", prdt_goal=" + prdt_goal + ", prdt_currenttotal="
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_genre="
-        + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_user_no=" + prdt_user_no + ", prdt_dday="
-        + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday=" + prdt_purchaseday + ", prdt_limitday="
-        + prdt_limitday + "]";
+        + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_img=" + prdt_img + ", prdt_user_no="
+        + prdt_user_no + ", prdt_dday=" + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday="
+        + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", user_id=" + user_id
+        + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone=" + user_phone + ", user_regdate="
+        + user_regdate + ", user_activate=" + user_activate + ", user_role=" + user_role + "]";
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(prdt_currenttotal, prdt_dday, prdt_desc, prdt_desc_detail, prdt_desc_policy, prdt_enddate,
-        prdt_genre, prdt_goal, prdt_id, prdt_limitday, prdt_open, prdt_opendate, prdt_percent, prdt_purchaseday,
-        prdt_regdate, prdt_thumbnail, prdt_name, prdt_user_no, user_activate, user_id, user_name, user_no, user_phone,
-        user_pwd, user_regdate, user_role, writer);
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    ProjectDto other = (ProjectDto) obj;
-    return Objects.equals(prdt_currenttotal, other.prdt_currenttotal) && prdt_dday == other.prdt_dday
-        && Objects.equals(prdt_desc, other.prdt_desc) && Objects.equals(prdt_desc_detail, other.prdt_desc_detail)
-        && Objects.equals(prdt_desc_policy, other.prdt_desc_policy) && Objects.equals(prdt_enddate, other.prdt_enddate)
-        && Objects.equals(prdt_genre, other.prdt_genre) && Objects.equals(prdt_goal, other.prdt_goal)
-        && Objects.equals(prdt_id, other.prdt_id) && Objects.equals(prdt_limitday, other.prdt_limitday)
-        && prdt_open == other.prdt_open && Objects.equals(prdt_opendate, other.prdt_opendate)
-        && prdt_percent == other.prdt_percent && Objects.equals(prdt_purchaseday, other.prdt_purchaseday)
-        && Objects.equals(prdt_regdate, other.prdt_regdate) && Objects.equals(prdt_thumbnail, other.prdt_thumbnail)
-        && Objects.equals(prdt_name, other.prdt_name) && prdt_user_no == other.prdt_user_no
-        && Objects.equals(user_activate, other.user_activate) && Objects.equals(user_id, other.user_id)
-        && Objects.equals(user_name, other.user_name) && user_no == other.user_no && user_phone == other.user_phone
-        && Objects.equals(user_pwd, other.user_pwd) && Objects.equals(user_regdate, other.user_regdate)
-        && Objects.equals(user_role, other.user_role) && Objects.equals(writer, other.writer);
-  }
-
+ 
   public String getWriter() {
     return writer;
   }
@@ -224,6 +197,14 @@ public class ProjectDto {
 
   public void setPrdt_thumbnail(String prdt_thumbnail) {
     this.prdt_thumbnail = prdt_thumbnail;
+  }
+  
+  public String getPrdt_img() {
+    return prdt_img;
+  }
+
+  public void setPrdt_img(String prdt_img) {
+    this.prdt_img = prdt_img;
   }
 
   public int getPrdt_user_no() {

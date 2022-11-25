@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +68,9 @@
       <div class="tab-content px-5" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
       	<input type="hidden" name="prdt_id" id="prdt_id" value="${projectDto.prdt_id}">
       	<input type="hidden" name="prdt_genre_db" id="prdt_genre_db" value="${projectDto.prdt_genre}">
+      	<input type="hidden" name="prdt_thumbnail_db" id="prdt_thumbnail_db" value="${projectDto.prdt_thumbnail}">
+      	<input type="hidden" name="prdt_img" id="prdt_img" value="${projectDto.prdt_img}">
+      	
         <!-- tab 1 contents -->
         <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" action="/projectregister/modify" method="post">
           <div class="row pb-3 border-bottom mt-4">
@@ -90,7 +94,7 @@
             </div>
             <div class="col-6 px-3 text-end">
               <input class="form-control" rows="1" style="resize: none;" id="prdt_name" value="${projectDto.prdt_name}" />
-              <span class="text-danger text-small">0/20</span>
+              <span class="text-danger text-small">20자 제한</span>
             </div>
           </div>
           <div class="row pb-3 border-bottom mt-4">
@@ -99,11 +103,13 @@
               <p>후원자들이 프로젝트의 내용을 쉽게 파악하고 좋은 인상을 받을 수 있도록 이미지 가이드라인을 따라 주세요.</p>
             </div>
             <div class="col-6 px-3">
-              <div id="project_img_div" class="input-group mb-3">
-                <input type="file" class="form-control" name="projectImg" id="projectImg" multiple />
+              <div class="input-group mb-3">
+                <input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
                 <button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
               </div>
-              <div class="bg-light p-2" id="projectImg_preview" style="height:300px;"></div>
+              <div class="bg-light p-2" id="uploadResult" style="height:260px;">
+              	<img width="100%" height="240px" id="prdt_thumbnail" name="prdt_thumbnail" src="" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">
+              </div>
             </div>
           </div>
           <div class="row pb-3 mt-4">
@@ -311,6 +317,7 @@
     <script>
 		$(document).ready(function() {
 			$('#prdt_genre').val($('#prdt_genre_db').val());
+			$('#prdt_thumbnail').attr("src",$('#prdt_thumbnail_db').val())
 			//여기 아래 부분
 			$('.summernote').summernote({
 				  //height: 445,                 // 에디터 높이
@@ -342,7 +349,10 @@
 			
 			$.ajax({
 				type: 'GET',	
-				url: '/purplaying/project/calDate/'+openDate+"/"+endDate,//year+month+day,	
+				url: '/purplaying/project/calDate/'+openDate+"/"+endDate,//year+month+day,
+				processData: false,
+			    contentType: false,
+			    dataType:'json',
 				success: function(result) {
 					alert(result)
 					$('#punding_date_range').html("펀딩 기간 "+result+"일");
@@ -353,16 +363,19 @@
 		}
 		function calculate(){
 			if($('#prdt_goal').val()==null){
-				let prdt_goal = 0;
+				var prdt_goal = 0;
 			}
 			else{
-				let prdt_goal = $('#prdt_goal').val()
+				var prdt_goal = $('#prdt_goal').val()
 			}
 			
 			alert(typeof(prdt_goal))
 			$.ajax({
 				type: 'GET',	
-				url: '/purplaying/project/calculate/'+prdt_goal,	
+				url: '/purplaying/project/calculate/'+prdt_goal,
+				processData: false,
+			    contentType: false,
+			    dataType:'json',
 				success: function(result) {
 					alert("price :"+result)
 					//$('#goal_price').val(result);
@@ -386,15 +399,41 @@
 				location.href = link
 		}
 		
+		/* 이미지 미리보기(섬네일 출력) */
+		var uploadResult = $("#uploadResult");
+			/* 첨부파일 파일명 인코딩 처리 */
+			function showUploadedFile(uploadResultArr) {
+				var str= "";
+				var fileCallPath = "";
+				var none="";
+				let prdt_id = ${projectDto.prdt_id}
+				
+				$(uploadResultArr).each(function (i, obj) {
+					// 이미지가 아닌 파일일때, 파일아이콘 출력
+					if(!obj.image){
+						/* <i class='fa-light fa-file'>"+obj.file_name+"</li> */
+						str = "";
+					}else{
+						// 이미지일때 썸네일 출력
+						str = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.file_name);
+						// 원본 파일 경로 저장
+						fileCallPath = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+"/"+obj.uuid+"_"+obj.file_name);
+					}
+				})
+				/* uploadResult.append(str); */
+				$("#prdt_thumbnail").attr("style", none);
+				$("#prdt_thumbnail").attr("src", str);
+				$("#prdt_img").attr("value", fileCallPath);
+			}
 		/* 파일 확장자, 크기 처리 */
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
 		var maxSize = 5242880 //5MB
-		function checkExtension(fileName, fileSize) {
+		function checkExtension(file_name, fileSize) {
 			if(fileSize >= maxSize){
 				alert("파일 사이즈 초과")
 				return false
 			}
-			if(regex.test(fileName)){
+			if(regex.test(file_name)){
 				alert("해당 확장자의 파일은 업로드할 수 없습니다. ")
 				return false
 			}
@@ -403,20 +442,11 @@
 		
 		let prdt_id = ${projectDto.prdt_id}
 		
-		/* let toHtml = function(img_thumb) {
-			let tmp = '<div class="w-100">'
-			img_thumb.forEach(function() {
-				tmp += '<img src="' + uploadFolder
-				tmp += '/' + uploadFileName
-				tmp += '">'
-			})
-			return tmp += '</div>'
-		} */
-		
 		$(document).ready(function() {	
+			/* 파일 업로드 */
 			$("#fileAddBtn").on("click", function() {
 				var formData = new FormData()
-				var inputFile = $("#projectImg")
+				var inputFile = $("#file_id")
 				var files = inputFile[0].files
 				console.log(files)
 
@@ -438,7 +468,8 @@
 				    dataType:'json',
 					success: function(result) {
 						console.log(result)
-						/* $("#projectImg_preview").html(toHtml(result)) */
+						showUploadedFile(result)
+					
 						},
 					error : function() { alert("error") }
 				}) 
@@ -474,7 +505,6 @@
 	
 			$("#modifyAllBtn").on("click", function() {
 				let prdt_id = ${projectDto.prdt_id}
-				let prdt_genre = $("#prdt_genre").val()
 				let prdt_name = $("#prdt_name").val()
 				let prdt_desc = $('#prdt_desc').val()
 				let prdt_desc_detail = $('#prdt_desc_detail').val()
@@ -482,10 +512,15 @@
 				let prdt_enddate = $('#prdt_enddate').val()
 				let prdt_goal = $('#prdt_goal').val()
 				let prdt_desc_policy = $('#prdt_desc_policy').val()
+				let prdt_genre = $("#prdt_genre").val()
+				let prdt_thumbnail = $("#prdt_thumbnail").attr("src")
+				let prdt_img = $("#prdt_img").val()
+				
+				console.log(prdt_thumbnail)
 				
 				const prdtData = { // Body에 첨부할 json 데이터
 						prdt_id:prdt_id,
-		                prdt_genre:prdt_genre,
+						prdt_genre:prdt_genre,
 		                prdt_name:prdt_name,
 		                prdt_desc:prdt_desc,
 		                prdt_desc_detail:prdt_desc_detail,
@@ -493,6 +528,8 @@
 		                prdt_enddate:prdt_enddate,
 		                prdt_goal:prdt_goal,
 		                prdt_desc_policy:prdt_desc_policy,
+		                prdt_thumbnail:prdt_thumbnail,
+		                prdt_img:prdt_img,
 		            }
 				alert("prdtData:"+JSON.stringify(prdtData))
 				$.ajax({
