@@ -64,11 +64,13 @@ public class UserDto {
     this.user_role = user_role;
   }
   public UserDto() {
-    this("","",0);
+    this(0,"","",0);
   }
   
-  public UserDto(String user_id, String user_pwd, int user_role) {
+  
+  public UserDto(int user_no, String user_id, String user_pwd, int user_role) {
     super();
+    this.user_no = user_no;
     this.user_id = user_id;
     this.user_pwd = user_pwd;
     this.user_role = user_role;
@@ -92,11 +94,11 @@ public class UserDto {
   }
   @Override
   public String toString() {
-    return "UserDto [user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone="
-        + user_phone + ", user_regdate=" + user_regdate + ", user_active=" + user_active + ", user_role=" + user_role
-        + "]";
+    return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
+        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_active=" + user_active
+        + ", user_role=" + user_role + "]";
   }
-  
+
   
   
 }

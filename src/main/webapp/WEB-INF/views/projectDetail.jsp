@@ -79,7 +79,7 @@
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary">${projectDto.prdt_currenttotal}</h4></li>
-              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">n명</h4></li>
+              <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">${projectDto.prdt_buyercnt}명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
               	<div class="col">

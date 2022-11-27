@@ -27,7 +27,7 @@ public interface ProjectService {
   ProjectDto view(Integer prdt_id) throws Exception;
   
   int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id)  throws Exception;
-  ProjectDto readPayment(Integer prdt_id);
+  ProjectDto readPayment(Integer prdt_id) throws Exception;
   int insertUpdate(UpdateDto updateDto) throws Exception;
   List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
 

@@ -1,5 +1,6 @@
 package kr.co.purplaying.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.PaymentDao;
+import kr.co.purplaying.dao.ProjectDao;
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.RewardDto;
@@ -42,7 +45,13 @@ public class PaymentController {
   
   @Autowired
   PaymentService paymentService;
-
+  
+  @Autowired
+  ProjectDao projectDao;
+  
+  @Autowired
+  UserDao userDao;
+  
   @RequestMapping("/payment/{prdt_id}")
   @GetMapping("/payment/{prdt_id}")
   public String payment(@PathVariable("prdt_id") Integer prdt_id, HttpServletRequest request, HttpSession session,
@@ -74,35 +83,42 @@ public class PaymentController {
 
   @RequestMapping("/paymentCompleted/{prdt_id}")
   @PostMapping("/paymentCompleted/{prdt_id}")
-  public String paymentCompleted(PaymentDto paymentDto, String delivery_reciever,String delivery_phone,int delivery_postcode,String delivery_address,String delivery_addressdetail,String delivery_memo,@PathVariable("prdt_id") Integer prdt_id,
-      RedirectAttributes rattr, HttpSession session, Model m) {
+  public String paymentCompleted(Integer pay_no, Date pay_time, PaymentDto paymentDto, String delivery_reciever,String delivery_phone,int delivery_postcode,String delivery_address,String delivery_addressdetail,String delivery_memo,@PathVariable("prdt_id") Integer prdt_id,
+     HttpSession session, Model m) {
     try {
-      m.addAttribute("delivery_reciever",delivery_reciever);
-      m.addAttribute("delivery_phone",delivery_phone);
-      m.addAttribute("delivery_postcode",delivery_postcode);
-      m.addAttribute("delivery_address",delivery_address);
-      m.addAttribute("delivery_addressdetail", delivery_addressdetail);
-      m.addAttribute("delivery_memo",delivery_memo);
-      int writeResult = paymentService.wrtie(paymentDto);
-      System.out.println("paymentService"+paymentService.readPayment(prdt_id));
-      PaymentDto pmtDto = paymentService.readPayment(prdt_id);
-      m.addAttribute("pmtDto",pmtDto);
-      //int pay_no = paymentDto.getPay_no();
-      //m.addAttribute("pay_no",pay_no);
-      
       
         String user_id = (String)session.getAttribute("user_id");
         UserDto userDto = settingService.setUser(user_id);
-        System.out.println(userDto.toString());
-        m.addAttribute(userDto);
+        m.addAttribute("userDto",userDto);
         
-       ProjectDto projectDto = projectService.readPayment(prdt_id);
+        ProjectDto projectDto = projectService.readPayment(prdt_id);
         m.addAttribute("projectDto",projectDto);
-        System.out.println(projectDto);
+        System.out.println(projectDto);       
         
         RewardDto rewardDto = rewardService.readPayment(prdt_id);
         m.addAttribute("rewardDto",rewardDto);
         System.out.println(rewardDto);
+        
+        paymentDto.setUser_no(userDto.getUser_no());
+        
+        System.out.println(paymentDto);
+        m.addAttribute("delivery_reciever",delivery_reciever);
+        m.addAttribute("delivery_reciever",delivery_reciever);
+        m.addAttribute("delivery_phone",delivery_phone);
+        m.addAttribute("delivery_postcode",delivery_postcode);
+        m.addAttribute("delivery_address",delivery_address);
+        m.addAttribute("delivery_addressdetail", delivery_addressdetail);
+        m.addAttribute("delivery_memo",delivery_memo);
+      
+        paymentService.wrtie(paymentDto);
+        projectDao.plusBuyerCnt(prdt_id);
+
+        Map map = new HashMap();
+        map.put("user_no", userDto.getUser_no());
+        map.put("prdt_id", prdt_id);
+        List<PaymentDto> pay = paymentDao.paymentCompleted(map);
+        m.addAttribute("pay",pay);
+      
         return "paymentCompleted";
 
     } catch (Exception e) {
@@ -110,39 +126,10 @@ public class PaymentController {
       return "/";
     }
     
+
     
   }
-
-  /*
-   * @PostMapping("/paymentCompleted/{prdt_id}")
-   * public String paymentCompleted(@PathVariable("prdt_id")Integer
-   * prdt_id,HttpSession session, Model m) {
-   * try {
-   * String user_id = (String)session.getAttribute("user_id");
-   * UserDto userDto = settingService.setUser(user_id);
-   * System.out.println(userDto.toString());
-   * m.addAttribute(userDto);
-   * 
-   * PaymentDto paymentDto = paymentService.readPayment(prdt_id);
-   * System.out.println(paymentDto);
-   * m.addAttribute("paymentDto",paymentDto);
-   * 
-   * ProjectDto projectDto = projectService.readPayment(prdt_id);
-   * m.addAttribute("projectDto",projectDto);
-   * System.out.println(projectDto);
-   * 
-   * RewardDto rewardDto = rewardService.readPayment(prdt_id);
-   * m.addAttribute("rewardDto",rewardDto);
-   * System.out.println(rewardDto);
-   * 
-   * } catch (Exception e) {
-   * e.printStackTrace();
-   * 
-   * }
-   * return "paymentCompleted";
-   * }
-   */
-
+  
   private boolean loginCheck(HttpServletRequest request) {
     // 1. 세션을 얻어서
     HttpSession session = request.getSession(false); // false는 session이 없어도 새로 생성하지 않음. 반환값 null

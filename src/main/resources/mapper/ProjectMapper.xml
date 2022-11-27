@@ -10,6 +10,7 @@
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
+		,  prdt_buyercnt
 		FROM tb_product
 	</sql>
 	
@@ -141,5 +142,15 @@
 		where prdt_id = #{prdt_id}
 		order by update_regdate
 	</select>
+	
+	<select id="fundinging" parameterType="map" resultType="ProjectDto" >
+ 		select prdt_id, prdt_name, prdt_content 
+ 	</select>
 
+ <!-- 펀딩하기 클릭시 해당 펀딩구매수 증가 쿼리문 -->
+	 <update id="plusBuyerCnt" parameterType="int">
+ 		update tb_product
+ 		set prdt_buyercnt = prdt_buyercnt +1
+ 		where prdt_id = #{prdt_id}
+ 	</update>
 </mapper>

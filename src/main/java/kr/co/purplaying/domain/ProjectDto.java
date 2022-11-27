@@ -33,6 +33,7 @@ public class ProjectDto {
   private Date user_regdate;
   private String user_activate;
   private String user_role;
+  private int prdt_buyercnt;
 
   public ProjectDto() { }
 
@@ -73,6 +74,9 @@ public class ProjectDto {
   }
 
 
+ 
+
+ 
   @Override
   public String toString() {
     return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
@@ -81,12 +85,10 @@ public class ProjectDto {
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_genre="
         + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_img=" + prdt_img + ", prdt_user_no="
         + prdt_user_no + ", prdt_dday=" + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday="
-        + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", user_id=" + user_id
-        + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone=" + user_phone + ", user_regdate="
-        + user_regdate + ", user_activate=" + user_activate + ", user_role=" + user_role + "]";
+        + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", prdt_buyercnt="
+        + prdt_buyercnt + "]";
   }
 
- 
   public String getWriter() {
     return writer;
   }
@@ -309,6 +311,14 @@ public class ProjectDto {
 
   public void setUser_role(String user_role) {
     this.user_role = user_role;
+  }
+
+  public int getPrdt_buyercnt() {
+    return prdt_buyercnt;
+  }
+
+  public void setPrdt_buyercnt(int prdt_buyercnt) {
+    this.prdt_buyercnt = prdt_buyercnt;
   }
   
   

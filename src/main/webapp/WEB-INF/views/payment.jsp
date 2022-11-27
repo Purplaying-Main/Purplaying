@@ -284,7 +284,7 @@
             <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
           </div>
         </div>
-		</form>
+		
 		
 
         <!-- 펀딩 유의 사항 -->
@@ -328,6 +328,7 @@
               </div>
             </div>
           </div>
+          </form>
           <div class="row justify-content-center">
             <div class="col-8 text-center">
              <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p>
@@ -365,6 +366,7 @@
   	
 		let formCheck = function() {
 		let form = document.getElementById("form")
+		
 		if(form.delivery_reciever.value=="") {
 			alert("수령인을 입력해 주세요.")
 			return false
@@ -373,6 +375,37 @@
 			alert("연락처를 입력해 주세요.")
 			return false
 		}
+		if(form.delivery_reciever.value=="") {
+			alert("수령인을 입력해 주세요.")
+			return false
+		}
+		
+		if(form.delivery_postcode.value=="") {
+			alert("우편번호를 입력해 주세요.")
+			return false
+		}
+		
+		if(form.delivery_address.value=="") {
+			alert("주소를 입력해 주세요.")
+			return false
+		}
+		
+		if(form.pay_carddate.value==0) {
+			alert("카드 유효기간을 입력해 주세요.")
+			return false
+		}
+		
+		
+		if(form.pay_cvc.value==0) {
+			alert("카드 cvc를 입력해 주세요.")
+			return false
+		}
+		
+		if(form.pay_pwd.value==0) {
+			alert("카드 비밀번호를 입력해 주세요.")
+			return false
+		}
+		
 		console.log("입력 성공");
 		return true;
 	}

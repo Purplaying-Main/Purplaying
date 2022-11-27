@@ -85,14 +85,14 @@
                 </div>
                 <div class="col p-4 d-flex flex-column position-static">
                   <div class="row justify-content-between mb-2">
-                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 00XXAA11</p> 
+                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 {myfundingDto.prdt_id}</p> 
                     <div class="col-auto">
-                      <a href="paymentcompleted">결제내역 상세보기</a>
+                      <a href="${pageContext.request.contextPath}/paymentcompleted/${myfundingDto.pay_no}">결제내역 상세보기</a>
                     </div>
                   </div>
-                  <h4 class="mb-0"><a href="projectdetail">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</a></h4>
-                  <div class="mb-1 text-danger">현재 달성률 00% 종료 D-0</div>
-                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                  <h4 class="mb-0"><a href="projectdetail">{myfundingDto.prdt_name}</a></h4>
+                  <div class="mb-1 text-danger">현재 달성률 {myfundingDto.prdt_percent}% 종료 D-{myfundingDto.prdt_dday}</div>
+                  <p class="card-text mb-2">{myfundingDto.prdt_desc}</p>
                   
                 </div>
               </div>

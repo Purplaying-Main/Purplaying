@@ -84,7 +84,7 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public ProjectDto readPayment(Integer prdt_id) {
+  public ProjectDto readPayment(Integer prdt_id) throws Exception {
     ProjectDto projectDto = projectDao.getPaymentProjectInfo(prdt_id);
     return projectDto;
   }

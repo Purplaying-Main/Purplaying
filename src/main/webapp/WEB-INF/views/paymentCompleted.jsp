@@ -36,7 +36,7 @@
               </div>
               <div class="col px-4 d-flex flex-column position-static">
                 <div class ="text-end pt-1">
-                  <p>예약번호 : <span id=dt_reserveNum>${pmtDto.pay_no}</span></p>
+                  <p>예약번호 : <span id=dt_reserveNum><c:forEach var="paymentDto" items="${pay }" >${paymentDto.pay_no }</span></p>
                 </div>
                 <p class="col-6 mb-2"><span id="dt_caterory">
                  <c:choose>
@@ -121,7 +121,7 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 방법</p>
-                    <p class="form-label">간편 결제</p>
+                    <p class="form-label">카드 결제</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
@@ -129,7 +129,7 @@
                   </div>
                   <div class="d-flex justify-content-between">
                       <p class="form-label fw-bold">배송비</p>
-                      <p class="form-label"><span>${paymentDto.delivery_charge }</span></p>
+                      <p class="form-label"><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.delivery_charge}"/></span>원</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
@@ -139,6 +139,7 @@
               </div>
             </div>
             </div>
+            </c:forEach>
 
           </div><!--사분할 종료-->
 

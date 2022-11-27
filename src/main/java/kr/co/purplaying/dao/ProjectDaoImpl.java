@@ -105,5 +105,11 @@ public class ProjectDaoImpl implements ProjectDao {
   public List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception {
     return session.selectList(namespace+"selectUpdate", prdt_id);
   }
+  
+  @Override
+  public int plusBuyerCnt(int prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.update(namespace+"plusBuyerCnt", prdt_id);
+  }
 
 }

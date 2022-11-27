@@ -8,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.purplaying.domain.PaymentDto;
+import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.UserDto;
 
 @Repository
 public class PaymentDaoImpl implements PaymentDao {
   @Autowired
   private SqlSession session;
   private static String namespace = "kr.co.purplaying.dao.PaymentMapper.";
+  UserDto userDto;
+  ProjectDto projectDto;
+  ProjectDao projectDao;
   
   @Override
   public List<PaymentDto> select(Map map) throws Exception {
@@ -23,7 +28,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
   @Override
   public int insert(PaymentDto paymentDto) throws Exception {
-    // TODO Auto-generated method stub
+    
     return session.insert(namespace+"insert", paymentDto);
   }
 
@@ -32,5 +37,12 @@ public class PaymentDaoImpl implements PaymentDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"getPaymentInfo", pay_no);
   }
+
+  @Override
+  public List<PaymentDto> paymentCompleted(Map map) throws Exception {
+    return session.selectList(namespace+"paymentCompleted", map);
+  }
+
+
 
 }
