@@ -1,0 +1,275 @@
+--VER - 2022.11.27
+--tb_abc순 정렬
+--tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
+--- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
+
+------------------------- account 테이블 -------------------------
+DROP TABLE if exists tb_account;
+CREATE TABLE tb_account (
+	account_no serial4 NOT NULL,
+	account_type int4 NOT NULL DEFAULT 1,
+	account_bank varchar(100) NOT NULL,
+	account_bank_no numeric NOT NULL,
+	account_bank_nm varchar(100) NOT NULL,
+	user_no int4 NOT NULL,
+	CONSTRAINT tb_account_pkey PRIMARY KEY (account_no)
+);
+
+------------------------- address 테이블 -------------------------
+DROP TABLE if exists tb_address;
+CREATE TABLE tb_address (
+	address_id serial4 NOT NULL,
+	address_name varchar(100) NULL,
+	address varchar(100) NOT NULL,
+	address_detail varchar(100) NOT NULL,
+	receiver_name varchar(100) NOT NULL,
+	receiver_phonenum varchar(100) NOT NULL,
+	default_address bool NULL,
+	user_no int4 NOT NULL,
+	address_num bpchar(5) NOT NULL,
+	CONSTRAINT tb_address_pkey PRIMARY KEY (address_id)
+);
+
+------------------------- agreement 테이블 -------------------------
+DROP TABLE if exists tb_agreement;
+CREATE TABLE tb_agreement (
+	agree_no serial4 NOT NULL,
+	agree_age bool NOT NULL DEFAULT false,
+	agree_terms bool NOT NULL DEFAULT false,
+	agree_inform bool NOT NULL DEFAULT false,
+	agree_inform_third bool NOT NULL DEFAULT false,
+	agree_marketing bool NOT NULL DEFAULT false,
+	user_no int4 NOT NULL,
+	CONSTRAINT tb_agreement_pkey PRIMARY KEY (agree_no)
+);
+
+------------------------- chat_service 테이블 -------------------------
+DROP TABLE if exists tb_chat_service;
+CREATE TABLE tb_chat_service (
+	chat_no serial4 NOT NULL,
+	chat_serial_no int4 NULL,
+	chat_context text NULL,
+	chat_date timestamp NULL,
+	chat_type int4 NOT NULL DEFAULT 1,
+	prdt_id int4 NOT NULL,
+	pay_no int4 NOT NULL,
+	CONSTRAINT tb_chat_service_pkey PRIMARY KEY (chat_no)
+);
+
+------------------------- deliverycharge 테이블 -------------------------
+DROP TABLE if exists tb_deliverycharge;
+CREATE TABLE tb_deliverycharge (
+	location_no serial4 NOT NULL,
+	location_nm varchar(100) NOT NULL,
+	location_price int4 NOT NULL,
+	CONSTRAINT tb_deliverycharge_pkey PRIMARY KEY (location_no)
+);
+
+------------------------- file 테이블 -------------------------
+DROP TABLE if exists tb_file;
+CREATE TABLE tb_file (
+	file_id serial4 NOT NULL,
+	file_name varchar(200) NOT NULL,
+	file_location text NULL,
+	file_size numeric NULL,
+	file_regdate timestamp NOT NULL DEFAULT now(),
+	file_state varchar(1) NOT NULL DEFAULT 'F'::character varying,
+	prdt_id int4 NOT NULL,
+	CONSTRAINT tb_file_pkey PRIMARY KEY (file_id)
+);
+
+------------------------- image 테이블 -------------------------
+DROP TABLE if exists tb_image;
+CREATE TABLE tb_image (
+	img_no numeric NOT NULL,
+	img_type bpchar(1) NOT NULL,
+	img_path varchar(200) NOT NULL,
+	img_nm varchar(200) NOT NULL,
+	CONSTRAINT tb_image_pkey PRIMARY KEY (img_no)
+);
+
+------------------------- inquiry 테이블 -------------------------
+DROP TABLE if exists tb_inquiry;
+CREATE TABLE tb_inquiry (
+	inquiry_no serial4 NOT NULL,
+	inquiry_state int4 NOT NULL DEFAULT 0,
+	writer varchar(100) NOT NULL,
+	inquiry_title varchar(30) NOT NULL,
+	inquiry_context text NULL,
+	inquiry_private bool NOT NULL DEFAULT false,
+	inquiry_regdate date NULL DEFAULT CURRENT_TIMESTAMP,
+	img_no int4 NOT NULL,
+	user_no int4 NOT NULL,
+	CONSTRAINT tb_inquiry_pkey PRIMARY KEY (inquiry_no)
+);
+
+------------------------- inquiry_ans 테이블 -------------------------
+DROP TABLE if exists tb_inquiry_ans;
+CREATE TABLE tb_inquiry_ans (
+	ans_no serial4 NOT NULL,
+	ans_state int4 NOT NULL,
+	admin_id varchar(100) NOT NULL,
+	ans_context text NULL,
+	ans_regdate date NULL DEFAULT CURRENT_TIMESTAMP,
+	inquiry_no int4 NOT NULL,
+	CONSTRAINT tb_inquiry_ans_pkey PRIMARY KEY (ans_no)
+);
+
+------------------------- leave 테이블 -------------------------
+DROP TABLE if exists tb_leave;
+CREATE TABLE tb_leave (
+	leave_no numeric NOT NULL,
+	leave_category int4 NOT NULL,
+	leave_reason text NULL,
+	user_no int4 NOT NULL,
+	CONSTRAINT tb_leave_pkey PRIMARY KEY (leave_no)
+);
+
+------------------------- mypage 테이블 -------------------------
+DROP TABLE if exists tb_mypage;
+CREATE TABLE tb_mypage (
+	user_no int4 NOT NULL,
+	prdt_id int4 NOT NULL,
+	product_like bool NULL DEFAULT false,
+	CONSTRAINT tb_mypage_pkey PRIMARY KEY (user_no)
+);
+
+------------------------- notice 테이블 -------------------------
+DROP TABLE if exists tb_notice;
+CREATE TABLE tb_notice (
+	notice_id serial4 NOT NULL,
+	writer varchar(100) NOT NULL,
+	notice_title varchar(200) NOT NULL,
+	notice_context text NULL,
+	notice_regdate timestamp NULL,
+	notice_category int4 NOT NULL DEFAULT 1,
+	notice_private bool NOT NULL DEFAULT false,
+	view_cnt int4 NULL DEFAULT 0,
+	CONSTRAINT tb_notice_pkey PRIMARY KEY (notice_id)
+);
+
+------------------------- payment 테이블 -------------------------
+DROP TABLE if exists tb_payment;
+CREATE TABLE tb_payment (
+	pay_no serial4 NOT NULL,
+	pay_time timestamp NULL DEFAULT now(),
+	pay_cardnum int4 NOT NULL,
+	pay_carddate int4 NOT NULL,
+	pay_cvc int4 NOT NULL,
+	pay_pwd int4 NOT NULL,
+	pay_total numeric NOT NULL,
+	prdt_id int4,
+	user_no int4,
+	delivery_reciever varchar(100) NOT NULL,
+	delivery_phone varchar(100) NOT NULL,
+	delivery_postcode varchar(100) NOT NULL,
+	delivery_address varchar(500) NOT NULL,
+	delivery_addressdetail varchar(500) NOT NULL,
+	delivery_memo varchar(1000) NOT NULL,
+	delivery_charge numeric,
+	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
+);
+
+------------------------- product 테이블 -------------------------
+DROP TABLE if exists tb_product;
+CREATE TABLE tb_product (
+	prdt_id serial4 NOT NULL,
+	prdt_name varchar(30),
+	prdt_desc varchar(2000),
+	prdt_desc_detail text,
+	prdt_regdate timestamp DEFAULT now(),
+	prdt_opendate date,
+	prdt_enddate date,
+	prdt_goal numeric,
+	prdt_currenttotal numeric,
+	prdt_open bool,
+	prdt_desc_policy text,
+	writer varchar(100),
+	prdt_genre int4,
+	prdt_thumbnail text,
+	prdt_img text,
+	prdt_dday numeric,
+	prdt_percent numeric,
+	prdt_purchaseday date,
+	prdt_limitday date,
+	user_id varchar(100),
+	img_no int4,
+	CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
+);
+
+------------------------- reward 테이블 -------------------------
+DROP TABLE if exists tb_reward;
+CREATE TABLE tb_reward (
+	reward_id serial4 NOT NULL,
+	reward_name varchar(100) NOT NULL,
+	reward_desc text NOT NULL,
+	reward_price numeric NULL DEFAULT 1000,
+	reward_stock int4 NULL,
+	reward_category int4 NOT NULL DEFAULT 0,
+	prdt_id int4 NOT NULL,
+	CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
+);
+
+------------------------- setting 테이블 -------------------------
+DROP TABLE if exists tb_setting;
+CREATE TABLE tb_setting (
+	setting_no serial4 NOT NULL,
+	msg_agree bool NOT NULL DEFAULT false,
+	update_agree bool NOT NULL DEFAULT false,
+	favor_agree bool NOT NULL DEFAULT false,
+	marketing_agree bool NOT NULL DEFAULT false,
+	user_introduce text NULL,
+	user_no int4 NOT NULL,
+	CONSTRAINT tb_setting_pkey PRIMARY KEY (setting_no)
+);
+
+------------------------- update 테이블 -------------------------
+DROP TABLE if exists tb_update;
+CREATE TABLE tb_update (
+	update_id serial4 NOT NULL,
+	update_regdate timestamp NOT NULL DEFAULT now(),
+	update_title varchar(30) NOT NULL,
+	update_desc text NOT NULL,
+	user_id varchar(100) NOT NULL,
+	prdt_id int4 NOT NULL,
+	CONSTRAINT tb_update_pkey PRIMARY KEY (update_id)
+);
+
+------------------------- user 테이블 -------------------------
+DROP TABLE if exists tb_user;
+CREATE TABLE tb_user (
+	user_no serial4 NOT NULL,
+	user_id varchar(100) NOT NULL,
+	user_pwd varchar(100) NOT NULL,
+	user_name varchar(100) NOT NULL,
+	user_phone varchar(100) NOT NULL DEFAULT '010-0000-0000'::character varying,
+	user_regdate timestamp NULL DEFAULT now(),
+	user_activate int4 NOT NULL DEFAULT 1,
+	user_role int4 NOT NULL DEFAULT 0,
+	img_no int4,
+	CONSTRAINT constraintname UNIQUE (user_id),
+	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
+);
+
+------------------------- FK 생성 -------------------------
+ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_chat_service ADD CONSTRAINT pay_no FOREIGN KEY (pay_no) REFERENCES tb_payment(pay_no) ON DELETE CASCADE;
+ALTER TABLE tb_chat_service ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_file ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_inquiry ADD CONSTRAINT tb_inquiry_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
+ALTER TABLE tb_inquiry ADD CONSTRAINT tb_inquiry_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_inquiry_ans ADD CONSTRAINT tb_inquiry_ans_inquiry_no_fkey FOREIGN KEY (inquiry_no) REFERENCES tb_inquiry(inquiry_no) ON DELETE CASCADE;
+ALTER TABLE tb_leave ADD CONSTRAINT tb_leave_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_mypage ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_mypage ADD CONSTRAINT tb_mypage_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_notice ADD CONSTRAINT user_id FOREIGN KEY (writer) REFERENCES tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_payment ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_payment ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_product ADD CONSTRAINT tb_product_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
+ALTER TABLE tb_product ADD CONSTRAINT tb_product_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_reward ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_user ADD CONSTRAINT tb_user_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
