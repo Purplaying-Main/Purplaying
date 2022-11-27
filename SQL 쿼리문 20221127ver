@@ -164,8 +164,8 @@ CREATE TABLE tb_payment (
 	delivery_phone varchar(100) NOT NULL,
 	delivery_postcode varchar(100) NOT NULL,
 	delivery_address varchar(500) NOT NULL,
-	delivery_addressdetail varchar(500) NOT NULL,
-	delivery_memo varchar(1000) NOT NULL,
+	delivery_addressdetail varchar(500),
+	delivery_memo varchar(1000),
 	delivery_charge numeric,
 	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
 );
@@ -192,6 +192,7 @@ CREATE TABLE tb_product (
 	prdt_percent numeric,
 	prdt_purchaseday date,
 	prdt_limitday date,
+	prdt_buyercnt int default 0,
 	user_id varchar(100),
 	img_no int4,
 	CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
@@ -273,3 +274,6 @@ ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_user ADD CONSTRAINT tb_user_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
+
+------------------------- 시리얼 초기화 -------------------------
+-- truncate table tb_ restart identity;
