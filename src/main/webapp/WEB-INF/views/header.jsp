@@ -57,7 +57,7 @@
 
         <!-- 검색창 -->
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="${pageContext.request.contextPath}/searchResult">
-          <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
+          <input type="text" class="form-control" name="keyword" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">

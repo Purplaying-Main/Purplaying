@@ -17,39 +17,43 @@
 	</sql>
 	
 	
- 	<sql id="criteria">
- 		<choose>
-		    <when test="keyword != null">
-				where (prdt_name like concat ('%', #{keyword}, '%'))
-		    </when>
+	<sql id="searchCondition">
+  		<choose>
+			<when test='option=="T"'>
+				AND prdt_name LIKE concat('%', #{keyword}, '%')
+			</when>
+			<when test='option=="W"'>
+				AND writer LIKE concat('%', #{keyword}, '%')
+			</when>
+			<otherwise>
+				AND (prdt_name LIKE concat('%', #{keyword}, '%')
+				OR prdt_desc LIKE concat('%', #{keyword}, '%'))
+			</otherwise>
 		</choose>
-	</sql>
+  	</sql>
 	
-<!-- 	<select id="getGoodsList" resultType="SearchResultDto">	
-		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
-		, (prdt_enddate-prdt_opendate) as "prdt_dday"
-		, (prdt_enddate+1) as "prdt_purchaseday"
-		, (prdt_enddate-3) as "prdt_limitday"
-		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
-		FROM tb_product
-		<include refid="criteria"></include>
-		where prdt_id = #{prdt_id}
-		limit #{skip}, #{amount}	
-	
-	</select> -->
-	
-	
-	
-	<select id="getGoodsList" resultType="int">
 
-  		select count(*) from tb_product
-  		
-		<include refid="criteria"></include>
-		
+<!-- 	<select id="searchResult" parameterType="map" resultType="ProjectDto" >
+		<include refid="selectFromBoard"/>
+		where <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> 오픈일 ~ 종료일에 있는 펀딩만 추출 		
+		limit 6
+	</select> -->
+
+
+	<select id="searchcount" parameterType="SearchItem" resultType="int">
+		select count(*) 
+		FROM tb_product
+		WHERE TRUE
+		<include refid="searchCondition" />		
 	</select>
 
-	
-	
+  	<select id="searchSelectPage" parameterType="SearchItem" resultType="ProjectDto">
+		<include refid="selectFromBoard"/>
+		WHERE TRUE
+		<include refid="searchCondition" />
+		ORDER BY prdt_regdate DESC, prdt_id DESC 
+		limit 10 offset #{offset}	
+  	</select>
 	
 
 	

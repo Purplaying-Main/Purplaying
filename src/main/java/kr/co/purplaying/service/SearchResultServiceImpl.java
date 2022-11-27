@@ -1,40 +1,47 @@
 package kr.co.purplaying.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.SearchResultDao;
-import kr.co.purplaying.dao.UserDao;
-import kr.co.purplaying.domain.SearchResultDto;
+import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.SearchItem;
 
 @Service
 public class SearchResultServiceImpl implements SearchResultService {
 
   
-  UserDao userDao;
+
   
   @Autowired
   SearchResultDao searchResultDao;
   
-  public SearchResultServiceImpl(UserDao userDao, SearchResultDao searchResultDao) {
-    //super();
-    this.userDao = userDao;
-    this.searchResultDao = searchResultDao;
+
+  @Override
+  public List<ProjectDto> searchResult(Map map) throws Exception {
+    // TODO Auto-generated method stub
+    return searchResultDao.searchResult(map);
   }
 
   @Override
-  public List<SearchResultDto> getGoodsList(SearchResultDto sr) throws Exception {
+  public List<ProjectDto> getSearchResultPage(SearchItem sc) throws Exception {
     // TODO Auto-generated method stub
-    return searchResultDao.getGoodsList(sr);
+    return searchResultDao.searchSelectPage(sc);
   }
 
   @Override
-  public int goodsGetTotal(SearchResultDto sr) throws Exception {
+  public int getsearchcount(SearchItem sc) throws Exception {
     // TODO Auto-generated method stub
-    return searchResultDao.goodsGetTotal(sr);
+    return searchResultDao.searchcount(sc);
   }
+
+
+
+
+
 
   
 
