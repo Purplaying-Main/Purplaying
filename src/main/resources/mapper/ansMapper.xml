@@ -76,7 +76,7 @@
  	<update id="modifyAns" parameterType="AnsDto">
  		update  tb_inquiry_ans
 		set ans_context = #{ans_context}, ans_regdate = now()
-		where ans_state = #{ans_state} and ans_context = #{ans_context}
+		where ans_no = #{ans_no} and admin_id = #{admin_id} and inquiry_no = #{inquiry_no}
  	</update>
  
  

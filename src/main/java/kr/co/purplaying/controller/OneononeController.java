@@ -1,5 +1,6 @@
 package kr.co.purplaying.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,294 +30,297 @@ import kr.co.purplaying.service.AnsService;
 import kr.co.purplaying.service.OneononeService;
 
 @Controller
-@RequestMapping(value="/oneonone")
+@RequestMapping(value = "/oneonone")
 public class OneononeController {
-  
+
   @Autowired
-  OneononeService oneononeService; 
-  
+  OneononeService oneononeService;
+
   @Autowired
   AnsService ansService;
-  
+
   @PostMapping("/modify")
-  public String modify(Integer inquiry_no,String inquiry_title, String inquiry_context,boolean inquiry_private, Integer page, Integer pageSize, 
-                      RedirectAttributes rattr, Model m, HttpSession session) {
-      String writer = (String) session.getAttribute("user_id");
-      OneononeDto oneononeDto = new OneononeDto();
-      oneononeDto.setWriter(writer);
-      oneononeDto.setInquiry_no(inquiry_no);
-      oneononeDto.setInquiry_title(inquiry_title);
-      oneononeDto.setInquiry_context(inquiry_context);
-      oneononeDto.setInquiry_private(inquiry_private);
-      System.out.println(oneononeDto);
-      try {
-          if(oneononeService.modify(oneononeDto) != 1)
-              throw new Exception("Modify failed");
-          
-          rattr.addAttribute("page", page);
-          rattr.addAttribute("pageSize", pageSize);
-          rattr.addFlashAttribute("msg", "MOD_OK");
-          return "redirect:/oneonone/list";
-      } catch(Exception e) {
-          e.printStackTrace();
-          m.addAttribute(oneononeDto);
-          m.addAttribute("page", page);
-          m.addAttribute("pageSize", pageSize);
-          m.addAttribute("msg", "MOD_ERR");
-          return "oneonone/modify";         // 수정등록하려던 내용을 보여줌
-      }
-      
+  public String modify(Integer inquiry_no, String inquiry_title, String inquiry_context, boolean inquiry_private,
+      Integer page, Integer pageSize,
+      RedirectAttributes rattr, Model m, HttpSession session) {
+    String writer = (String) session.getAttribute("user_id");
+    OneononeDto oneononeDto = new OneononeDto();
+    oneononeDto.setWriter(writer);
+    oneononeDto.setInquiry_no(inquiry_no);
+    oneononeDto.setInquiry_title(inquiry_title);
+    oneononeDto.setInquiry_context(inquiry_context);
+    oneononeDto.setInquiry_private(inquiry_private);
+    System.out.println(oneononeDto);
+    try {
+      if (oneononeService.modify(oneononeDto) != 1)
+        throw new Exception("Modify failed");
+
+      rattr.addAttribute("page", page);
+      rattr.addAttribute("pageSize", pageSize);
+      rattr.addFlashAttribute("msg", "MOD_OK");
+      return "redirect:/oneonone/list";
+    } catch (Exception e) {
+      e.printStackTrace();
+      m.addAttribute(oneononeDto);
+      m.addAttribute("page", page);
+      m.addAttribute("pageSize", pageSize);
+      m.addAttribute("msg", "MOD_ERR");
+      return "oneonone/modify"; // 수정등록하려던 내용을 보여줌
+    }
+
   }
-  
+
   @GetMapping("/modify")
   public String modify(Integer inquiry_no, Integer page, Integer pageSize, Model m, HttpSession session) {
-    //read와 동일. inquiry_no를 불러와서 조회.
+    // read와 동일. inquiry_no를 불러와서 조회.
     try {
-      
-          String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
-          
-          OneononeDto oneononeDto = oneononeService.read(inquiry_no);
-          
-          m.addAttribute(oneononeDto);
-          m.addAttribute("page", page);
-          m.addAttribute("pageSize", pageSize);
-          
-          String writer = oneononeDto.getWriter();
-          m.addAttribute(writer);
 
-      } catch (Exception e) {
-          e.printStackTrace();
+      String user_id = (String) session.getAttribute("user_id");
+      m.addAttribute(user_id);
+
+      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
+
+      m.addAttribute(oneononeDto);
+      m.addAttribute("page", page);
+      m.addAttribute("pageSize", pageSize);
+
+      String writer = oneononeDto.getWriter();
+      m.addAttribute(writer);
+
+    } catch (Exception e) {
+      e.printStackTrace();
 //        예외발생 -> 목록으로 돌아가기
-          return "redirect:/oneonone/list";
-      }
+      return "redirect:/oneonone/list";
+    }
+
+    return "inquiryWrite"; // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+  }
+
+  @PostMapping("/modify/ans")
+  @ResponseBody
+  public void modifyAns(
+      @RequestBody AnsDto ansDto, Integer ans_no, Integer ans_state, String admin_id, String ans_context,
+      Integer inquiry_no, Date ans_regdate,  Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
     
-      return "inquiryWrite";         // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+    String admin = (String) session.getAttribute("user_id");
+
+    System.out.println(ansDto);
+
+    try {
+      if (ansService.modifyAns(ansDto) != 1) {
+        System.out.println("실패");
+      }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
   
-  @PostMapping("/modify/ans")
-  public void modifyAns(OneononeDto oneononeDto, AnsDto ansDto, Integer page, Integer pageSize, 
-                      RedirectAttributes rattr, Model m, HttpSession session) {
-      String admin = (String) session.getAttribute("user_id");
-      ansDto.setAdmin_id(admin);
-      
-      try {
-        if(ansService.modifyAns(ansDto)!=1) {
-          System.out.println("실패");
-        }
-        } catch (Exception e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace(); 
+  
+  
+  /*
+  @PostMapping(value="/modify/ans", produces = "application/json" )
+  public void modifyAns(@RequestBody AnsDto ansDto, Integer inquiry_no, Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
+    
+    String admin_id = (String) session.getAttribute("user_id");
+    
+    System.out.println(ansDto);
+    
+    try {
+      System.out.println(ansDto);
+      if (ansService.modifyAns(ansDto) != 1) {
+        System.out.println("실패");
       }
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
-      
+    
+  }
+  */
   
   
   
   @PostMapping("/write/reg")
   public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, HttpSession session) {
-      String writer = (String) session.getAttribute("user_id");
-      oneononeDto.setWriter(writer);
-      
-      try {
-         int writeResult = oneononeService.write(oneononeDto);
-          if(writeResult != 1)
-              throw new Exception("Write failed");
-          
-          rattr.addFlashAttribute("msg", "WRT_OK");
-          return "redirect:/oneonone/list";
-      } catch (Exception e) {
-          e.printStackTrace();
-          m.addAttribute("mode", "new");                  //글쓰기 모드
-          m.addAttribute("oneononeDto", oneononeDto);           //등록하려던 내용을 보여줘야 함
-          m.addAttribute("msg", "WRT_ERR");
-          return "oneonone/write";
-      }
-      
+    String writer = (String) session.getAttribute("user_id");
+    oneononeDto.setWriter(writer);
+
+    try {
+      int writeResult = oneononeService.write(oneononeDto);
+      if (writeResult != 1)
+        throw new Exception("Write failed");
+
+      rattr.addFlashAttribute("msg", "WRT_OK");
+      return "redirect:/oneonone/list";
+    } catch (Exception e) {
+      e.printStackTrace();
+      m.addAttribute("mode", "new"); // 글쓰기 모드
+      m.addAttribute("oneononeDto", oneononeDto); // 등록하려던 내용을 보여줘야 함
+      m.addAttribute("msg", "WRT_ERR");
+      return "oneonone/write";
+    }
+
   }
-  
-  
+
   @GetMapping("/write")
   public String write(Model m, HttpSession session, OneononeDto oneononeDto) {
     String writer = (String) session.getAttribute("user_id");
     oneononeDto.setWriter(writer);
-    
+
     m.addAttribute("mode", "new");
-    
-    return "inquiryWrite";         // 쓰기에 사용할때는 mode=new
-}
-  
+
+    return "inquiryWrite"; // 쓰기에 사용할때는 mode=new
+  }
+
   @PostMapping("/write/ans")
   @ResponseBody
-  public void writeans(@RequestBody AnsDto ansDto,Integer inquiry_no, HttpSession session) {
+  public void writeans(@RequestBody AnsDto ansDto, Integer inquiry_no, HttpSession session) {
 
     String admin = (String) session.getAttribute("user_id");
     ansDto.setAdmin_id(admin);
 //    ansDto.setInquiry_no(inquiry_no);
     System.out.println(ansDto);
-    
+
     try {
-      if(ansService.insertAns(ansDto)!=1) {
+      if (ansService.insertAns(ansDto) != 1) {
         System.out.println("실패");
       }
-      } catch (Exception e) {
+    } catch (Exception e) {
       // TODO Auto-generated catch block
-      e.printStackTrace(); 
+      e.printStackTrace();
     }
   }
 
-  // 답변 수정 기능
-  /*
-     @views.route('/update-note', methods=['PUT'])
-    def update_note():
-    # PUT : 메모 수정
-    if request.method == "PUT":
-        note = request.get_json()
-        note_id = note.get('noteId')
-        title = note.get('title')
-        content = note.get('content')
-
-        select_note = Note.query.get(note_id)
-        if select_note:
-            if select_note.user_id == current_user.id : 
-                select_note.title = title
-                select_note.content = content
-                db.session.commit()
-
-        return jsonify({})
-   
-   */
-  
-  //답변 삭제 기능
+  // 답변 삭제 기능
   @PostMapping("/remove/ans")
-  public String removeAns(Integer ans_no,Integer inquiry_no,String admin_id, Integer page, Integer pageSize, 
-          RedirectAttributes rattr, HttpSession session) {
-    
+  public String removeAns(Integer ans_no, Integer inquiry_no, String admin_id, Integer page, Integer pageSize,
+      RedirectAttributes rattr, HttpSession session) {
+
     String admin = (String) session.getAttribute("user_id");
 //    ansDto.setAdmin_id(admin);
     String msg = "DEL_OK";
+    System.out.println(msg);
     
+
     try {
-      int rowCnt = ansService.removeAns(ans_no,inquiry_no,admin_id);
-      
+      System.out.println(ans_no);
+      System.out.println(admin_id);
+      int del_ans = ansService.removeAns(ans_no, inquiry_no, admin_id);
+      System.out.println("del_ans : " + del_ans);
 //      int del_result = ansService.removeans(ans_no, admin);
-      if(rowCnt != 1)
+      if (del_ans != 1)
         throw new Exception("Delete failed.");
-      
+
     } catch (Exception e) {
       e.printStackTrace();
       msg = "DEL_ERR";
     }
-    
-    //삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
-    //addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
+
+    // 삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
+    // addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
     rattr.addAttribute("page", page);
     rattr.addAttribute("pageSize", pageSize);
     rattr.addFlashAttribute("msg", msg);
-    
+
     return "redirect:/oneonone/list";
   }
- 
-  
+
   @PostMapping("/remove")
-  public String remove(Integer inquiry_no, Integer page, Integer pageSize, 
-          RedirectAttributes rattr, HttpSession session) {
-    
+  public String remove(Integer inquiry_no, Integer page, Integer pageSize,
+      RedirectAttributes rattr, HttpSession session) {
+
     String writer = (String) session.getAttribute("user_id");
     String msg = "DEL_OK";
-    
+
     try {
       int del_result = oneononeService.remove(inquiry_no, writer);
-      System.out.println("del_result : "+ del_result);
-      if(del_result != 1)
+      System.out.println("del_result : " + del_result);
+      if (del_result != 1)
         throw new Exception("Delete failed.");
-      
+
     } catch (Exception e) {
       e.printStackTrace();
       msg = "DEL_ERR";
     }
-    
-    //삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
-    //addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
+
+    // 삭제 후 메시지가 한번만 나와야 함. Model이 아닌 RedirectAttributes에 저장하면 메시지가 한번만 나옴.
+    // addFlashAttribute() : 한번 저장하고 없어지는 것임. 세션에 잠깐 저장했다가 한번 쓰고 지워버림. 세션에도 부담이 덜함.
     rattr.addAttribute("page", page);
     rattr.addAttribute("pageSize", pageSize);
     rattr.addFlashAttribute("msg", msg);
-    
+
     return "redirect:/oneonone/list";
   }
-  
+
   @GetMapping("/read")
   public String read(Integer inquiry_no, Integer page, Integer pageSize, Model m, HttpSession session) {
-    
+
     try {
-          String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
-          
-          AnsDto ansDto = ansService.selectAnsData(inquiry_no);
-          if (ansDto == null) {
-            m.addAttribute("ansState",false);
-          }else {
-            m.addAttribute("ansDto", ansDto);
-            m.addAttribute("ansState",true);
-          }
-          System.out.println(ansDto);
-          
+      String user_id = (String) session.getAttribute("user_id");
+      m.addAttribute(user_id);
 
-          OneononeDto oneononeDto = oneononeService.read(inquiry_no);
-          System.out.println(oneononeDto);
-          oneononeDto.getAnsDto();
-
-          
-          m.addAttribute("oneononeDto",oneononeDto);
-          m.addAttribute("page", page);
-          m.addAttribute("pageSize", pageSize);
-          
-          String writer = oneononeDto.getWriter();
-          m.addAttribute(writer);
-
-      } catch (Exception e) {
-          e.printStackTrace();
-//        예외발생 -> 목록으로 돌아가기
-          return "redirect:/oneonone/list";
+      AnsDto ansDto = ansService.selectAnsData(inquiry_no);
+      if (ansDto == null) {
+        m.addAttribute("ansState", false);
+      } else {
+        m.addAttribute("ansDto", ansDto);
+        m.addAttribute("ansState", true);
       }
-    
-    
-      return "showInquiry2";
+//--          System.out.println(ansDto);
+
+      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
+//--         System.out.println(oneononeDto);
+      oneononeDto.getAnsDto();
+
+      m.addAttribute("oneononeDto", oneononeDto);
+      m.addAttribute("page", page);
+      m.addAttribute("pageSize", pageSize);
+
+      String writer = oneononeDto.getWriter();
+      m.addAttribute(writer);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+//        예외발생 -> 목록으로 돌아가기
+      return "redirect:/oneonone/list";
+    }
+
+    return "showInquiry2";
   }
-  
-  
+
   @GetMapping("/list")
   public String list(@RequestParam(defaultValue = "1") Integer page,
-                     @RequestParam(defaultValue = "10") Integer pageSize,
-                     Model m,
-                     HttpServletRequest request) {
-      
-      try {
-          
-          int totalCnt = oneononeService.getCount();
-          m.addAttribute("totalCnt", totalCnt);
-          
-          PageResolver pageResolver = new PageResolver(totalCnt, page, pageSize);
-          if(page < 0 || page > pageResolver.getTotalCnt())
-              page = 1;
-          if(pageSize < 0 || page > 50)
-              pageSize = 10;
-          
-          Map map = new HashMap();
-          map.put("offset", (page-1)*pageSize);
-          map.put("pageSize", pageSize);
-          
-          List<OneononeDto> list = oneononeService.getPage(map);
-          m.addAttribute("list", list);
-          m.addAttribute("pr", pageResolver);
-          
-          m.addAttribute("page", page);
-          m.addAttribute("pageSize", pageSize);
-          
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
-      return "oneonone";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
+      @RequestParam(defaultValue = "10") Integer pageSize,
+      Model m,
+      HttpServletRequest request) {
+
+    try {
+
+      int totalCnt = oneononeService.getCount();
+      m.addAttribute("totalCnt", totalCnt);
+
+      PageResolver pageResolver = new PageResolver(totalCnt, page, pageSize);
+      if (page < 0 || page > pageResolver.getTotalCnt())
+        page = 1;
+      if (pageSize < 0 || page > 50)
+        pageSize = 10;
+
+      Map map = new HashMap();
+      map.put("offset", (page - 1) * pageSize);
+      map.put("pageSize", pageSize);
+
+      List<OneononeDto> list = oneononeService.getPage(map);
+      m.addAttribute("list", list);
+      m.addAttribute("pr", pageResolver);
+
+      m.addAttribute("page", page);
+      m.addAttribute("pageSize", pageSize);
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return "oneonone"; // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
-  
+
 }

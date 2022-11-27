@@ -12,7 +12,7 @@ public interface AnsDao {
   int deleteAll(Integer inquiry_no) throws Exception;
 
   List<AnsDto> selectAll(Integer inquiry_no) throws Exception;
-  int delete(Integer ans_no, String admin_id) throws Exception;
+//  int delete(Integer ans_no, String admin_id) throws Exception;
 
   int insert(AnsDto ansDto)throws Exception;
 

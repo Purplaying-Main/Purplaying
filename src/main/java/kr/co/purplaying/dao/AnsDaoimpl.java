@@ -22,11 +22,13 @@ public class AnsDaoimpl implements AnsDao {
     // TODO Auto-generated method stub
     return session.delete(namespace + "deleteAll", inquiry_no);
   }
+  
   @Override
   public List<AnsDto> selectAll(Integer inquiry_no) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace + "selectAll", inquiry_no);
   }
+  /*
   @Override
   public int delete(Integer ans_no, String admin_id) throws Exception {
       Map map = new HashMap();
@@ -34,6 +36,7 @@ public class AnsDaoimpl implements AnsDao {
       map.put("admin_id", admin_id);
       return session.delete(namespace + "delete", map);
   }
+  */
   @Override
   public int insert(AnsDto ansDto) throws Exception {
     // TODO Auto-generated method stub
@@ -63,7 +66,7 @@ public class AnsDaoimpl implements AnsDao {
   @Override
   public int insertAns(AnsDto ansDto) throws Exception {
     // TODO Auto-generated method stub
-    return session.update(namespace +"insertAns", ansDto);
+    return session.insert(namespace +"insertAns", ansDto);
   }
 
   @Override
@@ -71,8 +74,10 @@ public class AnsDaoimpl implements AnsDao {
     Map map = new HashMap();
     map.put("ans_no", ans_no);
     map.put("admin_id", admin_id);
+    System.out.println(ans_no+admin_id+map);
     return session.delete(namespace +"deleteAns", map);
   }
+  
   @Override
   public int modifyAns(AnsDto ansDto) throws Exception {
     // TODO Auto-generated method stub

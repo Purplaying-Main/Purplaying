@@ -31,7 +31,7 @@ public class AnsServiceImpl implements AnsService{
     return ansDao.selectAll(inquiry_no);
   }
 
-
+/*
   @Override
   @Transactional(rollbackFor = Exception.class)
   public int remove(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception {
@@ -43,7 +43,7 @@ public class AnsServiceImpl implements AnsService{
     
     return rowCnt;
   }
-
+*/
 
   @Override
   @Transactional(rollbackFor = Exception.class)
@@ -67,6 +67,7 @@ public class AnsServiceImpl implements AnsService{
     return ansDto;
   }
 
+  
 
   @Override
   public AnsDto selectAnsData(Integer inquiry_no) throws Exception {
@@ -85,19 +86,20 @@ public class AnsServiceImpl implements AnsService{
   @Override
   @Transactional(rollbackFor = Exception.class)
   public int removeAns(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception {
-    int rowCnt = oneononeDao.updateAnsCnt(inquiry_no, -1);
+    int rowCnt = oneononeDao.updateAnsCnt(inquiry_no, 0);
     System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
-            
+    
     rowCnt = ansDao.deleteAns(ans_no, admin_id);
-    System.out.println("rowCont = " + rowCnt);
+    System.out.println("rowCnt = " + rowCnt);
     
     return rowCnt;
   }
 
 
   @Override
+  //@Transactional(rollbackFor = Exception.class)
   public int modifyAns(AnsDto ansDto) throws Exception {
-   
+    
     return ansDao.modifyAns(ansDto);
   }
 

@@ -15,7 +15,7 @@ public interface AnsService {
     
     List<AnsDto> getList(Integer inquiry_no) throws Exception;
 
-    int remove(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception;
+ //   int remove(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception;
 
     int write(AnsDto ansDto)throws Exception;
 
