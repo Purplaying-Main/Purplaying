@@ -122,7 +122,7 @@
 					<%@ include file="projectSuggest.jsp"%>
 				</div>
 			</div>
-\\
+
 	</section>
 
 

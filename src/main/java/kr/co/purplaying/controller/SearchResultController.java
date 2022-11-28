@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.purplaying.dao.ProjectSuggestDao;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
@@ -22,9 +23,12 @@ public class SearchResultController {
   @Autowired
   SearchResultService searchResultService;
   
+  @Autowired
+  ProjectSuggestDao projectSuggestDao;
+  
   @RequestMapping("/searchResult")
   @GetMapping("/searchResult")
-  public String searchResult(SearchItem sc,  Model m) {
+  public String searchResult(SearchItem sc, ProjectDto projectDto,  Model m) {
         
      
         try {
@@ -39,6 +43,9 @@ public class SearchResultController {
 
           PageResolver pageResolver = new PageResolver(totalCnt, sc);
           m.addAttribute("pr", pageResolver);
+          
+          List<ProjectDto> list_ps = projectSuggestDao.projectSuggest(map);
+          m.addAttribute("list_ps", list_ps);
           
         } catch (Exception e) {
           e.printStackTrace();
