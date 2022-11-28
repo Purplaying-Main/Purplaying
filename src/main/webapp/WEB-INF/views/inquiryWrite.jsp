@@ -41,7 +41,7 @@
 					<tr>
 						<th scope="col">제목</th>
 						<td><input type="text" class="form-control"
-							placeholder="제목을 입력하세요" name="inquiry_title"
+							placeholder="제목을 입력하세요" id="inquiry_title" name="inquiry_title"
 							value="${oneononeDto.inquiry_title}"></td>
 					</tr>
 					<tr>
@@ -62,7 +62,7 @@
 			</table>
 			<!-- 글작성 영역 summernote -->
 			<div style="height: 500px;">
-				<textarea class="summernote" placeholder="내용을 입력하세요​"
+				<textarea class="summernote" placeholder="내용을 입력하세요​" id="inquiry_context"
 					name="inquiry_context">${oneononeDto.inquiry_context}</textarea>
 			</div>
 				<div class="text-end my-5">
@@ -115,40 +115,49 @@
 			$("#cancelwriteBtn").click(function(){
 				$('#inquiryWriteCancelModal').modal("show");
 			});
+					
 			
 			$("#listBtn").on("click", function() {
 				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 			})
+			
 			
 			$("#writeBtn").on("click", function() {
 				let form = $("#form");
 				form.attr("action", "<c:url value='/oneonone/write/reg' />")
 				form.attr("method", "post")
 				
-				$('#inquiryWriteFinishModal').modal("show");
-				
-				if(formCheck())
-					form.submit()					
+				if(formCheck()) {
+					$('#inquiryWriteFinishModal').modal("show").click(function(){
+					$('#writeComplete').modal("hide")
+					form.submit();	
+					})
+				}	
+					
 			})
+			
+			
 			$("#modifyBtn").on("click", function() {
 				let form = $(".oneononeform");	
 		
 				//2.수정 상태면 수정된 내용을 서버로 전송
 				form.attr("action", "<c:url value='/oneonone/modify' />")
 				form.attr("method", "post")
-				
-				$('#inquiryWriteFinishModal').modal("show");
-				
-				if(formCheck())
-					form.submit();				
+					
+				if(formCheck()) {
+					form.submit();	
+				}	
 			})
 				
+//					$('#inquiryWriteFinishModal').modal("show");		
+//					$('#writeComplete').modal("hide")
+
 			
 			let formCheck = function() {
 				let form = document.getElementById("form")
 				if(form.inquiry_title.value=="") {
 					alert("제목을 입력해 주세요.")
-					form.title.focus()
+					form.inquiry_title.focus()
 					return false
 				}
 				if(form.inquiry_context.value=="") {
@@ -156,11 +165,9 @@
 					form.inquiry_context.focus()
 					return false
 				}
-
+	
 				return true;
 			}
-			
-			
 			
 		
 	</script>
