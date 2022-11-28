@@ -19,8 +19,11 @@ public class ProjectSuggestController {
   @Autowired
   ProjectSuggestDao projectSuggestDao;
   
-  @RequestMapping("/searchResult")
-  @GetMapping("/searchResult")
+  /*
+   * @RequestMapping("/searchResult")
+   * 
+   * @GetMapping("/searchResult")
+   */
   public String getpage(ProjectDto projectDto, Model m) {
     
     try {
