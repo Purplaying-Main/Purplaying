@@ -107,6 +107,10 @@ public class UserDaoImpl implements UserDao {
       return session.selectOne(namespace+"getPaymentUserInfo", user_name);
     }
 
+    @Override
+    public int modifyProfile(Map<String, Object> map) throws Exception {
+      return session.update(namespace+"modifyProfile",map);
+    }
     
 }
 

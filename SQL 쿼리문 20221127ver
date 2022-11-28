@@ -1,4 +1,4 @@
---VER - 2022.11.27
+--VER - 2022.11.28
 --tb_abc순 정렬
 --tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
@@ -247,6 +247,7 @@ CREATE TABLE tb_user (
 	user_regdate timestamp NULL DEFAULT now(),
 	user_activate int4 NOT NULL DEFAULT 1,
 	user_role int4 NOT NULL DEFAULT 0,
+	user_profile TEXT,
 	img_no int4,
 	CONSTRAINT constraintname UNIQUE (user_id),
 	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
@@ -274,6 +275,13 @@ ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_user ADD CONSTRAINT tb_user_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
+ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 
 ------------------------- 시리얼 초기화 -------------------------
 -- truncate table tb_ restart identity;
+-- 컬럼명 변경
+--ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
+--컬럼 삭제
+--ALTER TABLE [테이블명] DROP COLUMN [기존컬럼명];
+--컬럼 not null 제거
+--ALTER TABLE [테이블명] ALTER COLUMN [기존컬럼명] DROP NOT NULL;

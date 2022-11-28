@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="loginId" value="${sessionScope.id}" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -101,7 +103,8 @@
                                     <li class="row w-25">
                                         <img
                                             class="img-thumbnail"
-                                            src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg"
+                                            id = "user_profile_db"
+                                            src="${userDto.user_profile }"
                                         />
                                     </li>
                                     <!-- Modal -->
@@ -117,9 +120,9 @@
                                                         aria-label="Close"
                                                     ></button>
                                                 </div>
-                                                <div class="modal-body"><%@ include file = "imageUpload.jsp"%></div>
+                                                <div class="modal-body"><%@ include file = "profileUpload.jsp"%></div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                                    <button type="button" id="modifyUserBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
                                                         확인
                                                     </button>
                                                 </div>

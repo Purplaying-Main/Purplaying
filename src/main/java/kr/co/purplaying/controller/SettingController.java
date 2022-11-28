@@ -57,6 +57,21 @@ public class SettingController {
     return "setting";         //로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
+  @RequestMapping(value="/setting/profile/{user_no}", method = RequestMethod.PATCH)
+  public ResponseEntity<String> modifyProfile(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session) {
+    map.put("user_no", user_no);
+    
+    try {
+        if(settingService.modifyProfile(map) != 1)
+            throw new Exception("Update failed");
+        return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
+    }catch(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<String>("MOD_ERR",HttpStatus.BAD_REQUEST);
+    }
+  }
+  
+  
   @RequestMapping(value="/setting/name/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyName(@PathVariable int user_no, @RequestBody UserDto userDto , HttpSession session) {
     String id = (String)session.getAttribute("user_id");

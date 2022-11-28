@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.purplaying.UserMapper">
 
 	<sql id="selectFromUser">
-		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE 
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE
 		FROM tb_user
 	</sql>
 	<!-- signin -->
@@ -80,4 +80,10 @@
 		where user_id = #{user_id} and user_activate = 1
 		limit 1
 	</select>
+	
+	<update id="modifyProfile" parameterType="map">
+		UPDATE tb_user
+		SET user_profile= #{user_profile}
+		WHERE user_no= #{user_no}
+	</update>
 </mapper>

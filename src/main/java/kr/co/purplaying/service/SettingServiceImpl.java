@@ -55,4 +55,9 @@ public class SettingServiceImpl implements SettingService {
     return addressDao.selectAddress(user_id);
   }
 
+  @Override
+  public int modifyProfile(Map<String, Object> map) throws Exception {
+    return userDao.modifyProfile(map);
+  }
+
 }

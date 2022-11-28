@@ -32,4 +32,9 @@ public class FileServiceImpl implements FileService {
     return attachFileDao.selectFileList(map);
   }
 
+  @Override
+  public int insertUserProfile(String uploadFolderPath, String uploadFileName, long uploadFileSize, int user_no) throws Exception {
+    return attachFileDao.insertUserProfile(uploadFolderPath, uploadFileName, uploadFileSize, user_no);
+  }
+
 }

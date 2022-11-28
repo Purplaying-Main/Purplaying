@@ -67,7 +67,7 @@
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+	            <img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
 	            <li><a class="dropdown-item link-primary" href="/purplaying/project/write"><strong>신규 프로젝트 올리기</strong></a></li>

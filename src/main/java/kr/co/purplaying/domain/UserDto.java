@@ -13,6 +13,7 @@ public class UserDto {
   private Date user_regdate;
   private int user_active;
   private int user_role;
+  private String user_profile;
   
 
   public int getUser_no() {
@@ -63,6 +64,14 @@ public class UserDto {
   public void setUser_role(int user_role) {
     this.user_role = user_role;
   }
+  public String getUser_profile() {
+    return user_profile;
+  }
+  public void setUser_profile(String user_profile) {
+    this.user_profile = user_profile;
+  }
+  
+  
   public UserDto() {
     this(0,"","",0);
   }

@@ -28,5 +28,12 @@
 		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{prdt_id});
 	</insert>
 	<!-- 첨부파일 mapper end -->
+	
+	<!-- 프로필이미지 mapper start -->
+	<insert id="insertUserProfile" parameterType="map">
+		INSERT INTO tb_file
+			(file_name, file_location, file_size, file_regdate, user_no)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{user_no});
+	</insert>
 
 </mapper>
