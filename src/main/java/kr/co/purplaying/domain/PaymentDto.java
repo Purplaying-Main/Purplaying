@@ -6,7 +6,7 @@ import java.util.Objects;
 public class PaymentDto {
  private Integer pay_no;
  private Date pay_time;
- private int pay_cardnum;
+ private String pay_cardnum;
  private int pay_carddate;
  private int pay_cvc;
  private int pay_pwd;
@@ -20,15 +20,27 @@ public class PaymentDto {
  private String delivery_addressdetail;
  private String delivery_memo;
  private int delivery_charge;
+ private String  prdt_name;
+ private String  prdt_desc;
+ private Date    prdt_enddate;
+ private int prdt_percent;
+ private String prdt_thumbnail;
+ ProjectDto projectDto;
+ 
+ 
+ 
  
 public PaymentDto() {
   // TODO Auto-generated constructor stub
 }
 
-public PaymentDto(Integer pay_no, Date pay_time, int pay_cardnum, int pay_carddate, int pay_cvc, int pay_pwd,
+
+
+public PaymentDto(Integer pay_no, Date pay_time, String pay_cardnum, int pay_carddate, int pay_cvc, int pay_pwd,
     int pay_total, int prdt_id, int user_no, String delivery_reciever, String delivery_phone, String delivery_postcode,
-    String delivery_address, String delivery_addressdetail, String delivery_memo, int delivery_charge) {
-  super();
+    String delivery_address, String delivery_addressdetail, String delivery_memo, int delivery_charge, String prdt_name,
+    String prdt_desc, Date prdt_enddate, int prdt_percent, ProjectDto projectDto,String prdt_thumbnail) {
+  //super();
   this.pay_no = pay_no;
   this.pay_time = pay_time;
   this.pay_cardnum = pay_cardnum;
@@ -45,7 +57,15 @@ public PaymentDto(Integer pay_no, Date pay_time, int pay_cardnum, int pay_cardda
   this.delivery_addressdetail = delivery_addressdetail;
   this.delivery_memo = delivery_memo;
   this.delivery_charge = delivery_charge;
+  this.prdt_name = prdt_name;
+  this.prdt_desc = prdt_desc;
+  this.prdt_enddate = prdt_enddate;
+  this.prdt_percent = prdt_percent;
+  this.projectDto = projectDto;
+  this.setPrdt_thumbnail(prdt_thumbnail);
 }
+
+
 
 public Integer getPay_no() {
   return pay_no;
@@ -63,11 +83,11 @@ public void setPay_time(Date pay_time) {
   this.pay_time = pay_time;
 }
 
-public int getPay_cardnum() {
+public String getPay_cardnum() {
   return pay_cardnum;
 }
 
-public void setPay_cardnum(int pay_cardnum) {
+public void setPay_cardnum(String pay_cardnum) {
   this.pay_cardnum = pay_cardnum;
 }
 
@@ -200,6 +220,50 @@ public boolean equals(Object obj) {
     return false;
   PaymentDto other = (PaymentDto) obj;
   return Objects.equals(pay_no, other.pay_no) && prdt_id == other.prdt_id && user_no == other.user_no;
+}
+
+public String getPrdt_name() {
+  return projectDto.getPrdt_name();
+}
+
+public void setPrdt_name(String prdt_name) {
+  this.prdt_name = projectDto.getPrdt_name();
+}
+
+public String getPrdt_desc() {
+  return projectDto.getPrdt_desc();
+}
+
+public void setPrdt_desc(String prdt_desc) {
+  this.prdt_desc = projectDto.getPrdt_desc();
+}
+
+public Date getPrdt_enddate() {
+  return projectDto.getPrdt_enddate();
+}
+
+public void setPrdt_enddate(Date prdt_enddate) {
+  this.prdt_enddate = projectDto.getPrdt_enddate();
+}
+
+public int getPrdt_percent() {
+  return projectDto.getPrdt_percent();
+}
+
+public void setPrdt_percent(int prdt_percent) {
+  this.prdt_percent = projectDto.getPrdt_percent();
+}
+
+
+
+public String getPrdt_thumbnail() {
+  return projectDto.getPrdt_thumbnail();
+}
+
+
+
+public void setPrdt_thumbnail(String prdt_thumbnail) {
+  this.prdt_thumbnail = projectDto.getPrdt_thumbnail();
 }
 
 

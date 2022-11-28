@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.service.ProjectService;
@@ -25,13 +27,16 @@ public class MypageController {
   
   @Autowired
   ProjectService projectService;
+  
+  @Autowired
+  PaymentDao paymentDao;
 
   @GetMapping("/mypage")
   public String list(@RequestParam(defaultValue = "1") Integer page,
                      @RequestParam(defaultValue = "10") Integer pageSize,
                      Model m,
                      HttpServletRequest request, HttpSession session,
-                     ProjectDto projectDto) {
+                     ProjectDto projectDto, PaymentDto paymentDto) {
     
       if(!loginCheck(request))
         return "redirect:/login/login?toURL="+request.getRequestURL();
@@ -62,6 +67,9 @@ public class MypageController {
       
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
+      
+      List<PaymentDto> myfunding = paymentDao.myfunding(map);
+      m.addAttribute("myfunding", myfunding);
       
       
       } catch (Exception e) {

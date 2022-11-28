@@ -31,10 +31,10 @@
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
-                <div onclick="location.href='#'" style="cursor:pointer">
+                <div onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;" style="cursor:pointer">
                 <img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
                 		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">
-                		</div>
+                </div>
                 <div class="card-body">
 	                  <div class="d-flex justify-content-between">
                   	<c:choose>
@@ -45,7 +45,7 @@
                   	</c:choose>
                     	<small class="text-danger">공개까지 <b>D-${ProjectDto.prdt_comingday}</b></small>
                   	  </div>
-                  	  <div class="link-div" onclick="location.href='#'">
+                  	  <div class="link-div" onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;">
 	                  	<p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
                    	  </div>
                 </div>
@@ -60,5 +60,6 @@
   
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
+  
 </body>
 </html>

@@ -34,6 +34,7 @@ public class ProjectDto {
   private String user_activate;
   private String user_role;
   private int prdt_buyercnt;
+  private int prdt_comingday;
 
   public ProjectDto() { }
 
@@ -319,6 +320,14 @@ public class ProjectDto {
 
   public void setPrdt_buyercnt(int prdt_buyercnt) {
     this.prdt_buyercnt = prdt_buyercnt;
+  }
+
+  public int getPrdt_comingday() {
+    return prdt_comingday;
+  }
+
+  public void setPrdt_comingday(int prdt_comingday) {
+    this.prdt_comingday = prdt_comingday;
   }
   
   

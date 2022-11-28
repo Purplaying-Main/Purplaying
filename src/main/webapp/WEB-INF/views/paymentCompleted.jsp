@@ -31,22 +31,25 @@
           <div class="mb-2">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col-auto d-none d-lg-block">
-                <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                  <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                 <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
+                		src="${projectDto.prdt_thumbnail}" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">
               </div>
               <div class="col px-4 d-flex flex-column position-static">
-                <div class ="text-end pt-1">
-                  <p>예약번호 : <span id=dt_reserveNum><c:forEach var="paymentDto" items="${pay }" >${paymentDto.pay_no }</span></p>
+              	<br>
+                <div class ="d-flex justify-content-between pt-1 lh-lg">
+	                <div class="col-6 mb-2">
+	                 <c:choose>
+		                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
+		                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
+		                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
+		                <c:otherwise>장르</c:otherwise>
+	                </c:choose>
+	                <span class="ms-2" id="dt_creator">${projectDto.writer}</span>
+	                </div> 
+                  <div>예약번호 : <c:forEach var="paymentDto" items="${pay }" >${paymentDto.pay_no }</div>
                 </div>
-                <p class="col-6 mb-2"><span id="dt_caterory">
-                 <c:choose>
-	                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
-	                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
-	                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
-	                <c:otherwise>장르</c:otherwise>
-                </c:choose></span>
-                <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
-                <h4 class="fw-bold">${projectDto.prdt_name}</h4>
+                <h4 class="fw-bold lh-lg">${projectDto.prdt_name}</h4>
+                <br>
               </div>
             </div>
           </div>
@@ -120,10 +123,6 @@
                 <h5 class="card-header">결제 정보</h5>
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">결제 방법</p>
-                    <p class="form-label">카드 결제</p>
-                  </div>
-                  <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
                     <p class="form-label"><span id="dt_fundingPrice">${paymentDto.pay_total }</span>원</p>
                   </div>
@@ -134,6 +133,10 @@
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 금액</p>
                     <p class="form-label"><span id="dt_totalPrice">${paymentDto.pay_total }</span>원</p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">결제 예정일</p>
+                    <p class="form-label"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
                   </div>
                 </div>
               </div>

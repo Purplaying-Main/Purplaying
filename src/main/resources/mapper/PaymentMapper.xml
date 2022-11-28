@@ -40,4 +40,11 @@
  	limit 1
  	</select>
  	
+ 	
+ 	<select id="myfunding" parameterType="map" resultType="PaymentDto">
+ 	select
+ 	pay_no, prdt_id, prdt_percent, prdt_dday, prdt_desc, prdt_name, user_no, prdt_thumbnail
+ 	from tb_payment
+ 	where user_no = #{user_no}
+ 	</select>
  </mapper>

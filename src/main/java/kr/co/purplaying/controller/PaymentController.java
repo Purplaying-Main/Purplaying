@@ -48,7 +48,6 @@ public class PaymentController {
   
   @Autowired
   ProjectDao projectDao;
-  
   @Autowired
   UserDao userDao;
   
@@ -69,6 +68,7 @@ public class PaymentController {
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto", projectDto);
       System.out.println(projectDto);
+
 
       RewardDto rewardDto = rewardService.readPayment(prdt_id);
       m.addAttribute("rewardDto", rewardDto);
@@ -93,7 +93,7 @@ public class PaymentController {
         
         ProjectDto projectDto = projectService.readPayment(prdt_id);
         m.addAttribute("projectDto",projectDto);
-        System.out.println(projectDto);       
+        System.out.println(projectDto);      
         
         RewardDto rewardDto = rewardService.readPayment(prdt_id);
         m.addAttribute("rewardDto",rewardDto);

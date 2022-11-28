@@ -25,8 +25,8 @@
         <div class="mb-4">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col-auto d-none d-lg-block">
-              <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+              <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
+                		src="${projectDto.prdt_thumbnail}" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">
             </div>
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
@@ -147,7 +147,7 @@
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">연락처</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" name="delivery_phone" value="${paymentDto.delivery_phone }" value="${paymentDto.delivery_phone }"  maxlength="12" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" name="delivery_phone"  value="${paymentDto.delivery_phone }"  maxlength="12" required></div>
           </div>
           <div class="mb-2">
             <div class="d-flex justify-content-between mx-1 mb-1">
@@ -233,9 +233,10 @@
                 <div class="d-flex mb-2">
                   <label class="form-label">카드번호</label>
                   <div class=" d-flex col-8 ms-2">
-                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" name="pay_cardnum" value="${paymentDto.pay_cardnum }" maxlength="4" required>
-                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber2" maxlength="4" required>
-                    <input type="password" class="form-control form-control-sm ms-1" id="dt_cardNumber3" maxlength="4" required>
+                    <input type="hidden" id="dt_cardNumber" name="pay_cardnum"  value="${paymentDto.pay_cardnum }">
+                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" maxlength="4" required>
+                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber2"  maxlength="4" required>
+                    <input type="password" class="form-control form-control-sm ms-1" id="dt_cardNumber3"  maxlength="4" required>
                     <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber4" maxlength="4" required>
                   </div>
                 </div>
@@ -268,7 +269,7 @@
           <div>           
           <div class="d-flex justify-content-between mx-2">
               <p class="form-label fw-bold">배송비</p>
-              <p class="form-label"><span id="dt_totalDiscount">3,000원</span></p>
+              <p class="form-label"><span id="dt_totalDiscount">${paymentDto.delivery_charge}</span></p>
           </div>
             <!--쿠폰 & 포인트 주석처리<div class="d-flex justify-content-between me-1 ms-3">
               <p class="form-label">쿠폰 사용</p>
@@ -281,7 +282,7 @@
           </div> -->
           <div class="d-flex justify-content-between pt-2 mx-2">
             <p class="form-label fw-bold">결제 금액</p>
-            <p class="form-label"><span id="dt_totalPrice">23,000</span>원</p>
+            <p class="form-label"><span id="dt_totalPrice">${rewardDto.reward_price + paymentDto.delivery_charge}</span>원</p>
           </div>
         </div>
 		
@@ -298,7 +299,7 @@
             </p>    
             <div>
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="chk1" name="agree" required>
+                <input type="checkbox" class="form-check-input" id="chk1" name="agree1" required>
                 <label class="form-check-label" for="chk1">개인정보 제 3자 제공 동의</label>
                 <a data-bs-toggle="modal" data-bs-target="#agree4Modal" href="#">내용보기</a>
                   <!-- Modal -->
@@ -323,7 +324,7 @@
                 </div> <!-- Modal end-->
               </div>
               <div class="form-check">
-                <input class="form-check-input" id="chk2" type="checkbox" name="agree" required>
+                <input class="form-check-input" id="chk2" type="checkbox" name="agree2" required>
                 <label class="form-check-label" for="chk2">유의 사항 확인</label>
               </div>
             </div>
@@ -333,7 +334,7 @@
             <div class="col-8 text-center">
              <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p>
             <%--  <button type="button" class="btn btn-primary fs-3 w-50 my-3" href="${pageContext.request.contextPath}/paymentCompleted/${prdt_id}">후원하기</button> --%>
-             <button type="button" class="btn btn-primary fs-3 w-50 my-3" id="doFundingBtn">후원하기</button>
+             <button type="button" class="btn btn-primary fs-3 w-50 my-3" id="doPaymentBtn">후원하기</button>
             </div>
           </div> 
         </div>
@@ -345,16 +346,52 @@
   <%@ include file ="footer.jsp" %>
   <script src="${pageContext.request.contextPath}/resources/assets/js/addressSearch.js"></script> <!-- 주소찾기 JS -->
   <script>
-  	function same(){
+   	function same(){
   		let user_name = "${userDto.user_name}";
   		document.getElementById("dt_recieverName").value = user_name ;
   		let user_phone = "${userDto.user_phone}";
   		document.getElementById("dt_phoneNumber").value = user_phone ;
-  	}
+   	}
+  		
+
+  	
+/*   	$(document).ready(function(){
+  	  		let user_name = "${userDto.user_name}";
+  	  		let user_phone = "${userDto.user_phone}";
+  	  $('#dt_sameChk').click(function(){
+  	    $('#dt_recieverName').toggle('fast',function(){ 	    	
+  	  	    if($('#dt_sameChk').is(":checked") == true){
+  	  	  		document.getElementById("dt_recieverName").value = user_name ;
+
+  	  	  		}
+  	  	    else{
+  	  	  		document.getElementById("dt_recieverName").value = "";
+  	  	    }
+  	    });
+  	    
+  	    
+  	    $('#dt_phoneNumber').toggle('fast',function(){
+  	  	    if($('#dt_sameChk').is(":checked") == true){
+  	  	  		document.getElementById("dt_phoneNumber").value = user_phone ;
+  	  	  		}
+  	  	    else{
+  	  	  		document.getElementById("dt_phoneNumber").value = "" ;
+  	  	    }
+  	    });
+  	    
+  	  });
+  	}); */
   </script>
   <script>
-  	$("#doFundingBtn").on("click",function(){
+  	$("#doPaymentBtn").on("click",function(){
   		console.log("실행");
+  		let dt_cardNumber1 = document.getElementById("dt_cardNumber1").value;
+  		let dt_cardNumber2 = document.getElementById("dt_cardNumber2").value;
+  		let dt_cardNumber3 = document.getElementById("dt_cardNumber3").value;
+  		let dt_cardNumber4 = document.getElementById("dt_cardNumber4").value;
+  		let cardNum = dt_cardNumber1+dt_cardNumber2+dt_cardNumber3+dt_cardNumber4
+  		document.getElementById("dt_cardNumber").value = cardNum;
+  		
   		let form = $(".paymentForm");
   		
 		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")
@@ -390,6 +427,12 @@
 			return false
 		}
 		
+		if(form.pay_cardnum.value =="") {
+			alert("카드번호를 확인해 주세요.")
+			return false
+		}
+		
+		
 		if(form.pay_carddate.value==0) {
 			alert("카드 유효기간을 입력해 주세요.")
 			return false
@@ -403,6 +446,16 @@
 		
 		if(form.pay_pwd.value==0) {
 			alert("카드 비밀번호를 입력해 주세요.")
+			return false
+		}
+		
+		if($("#chk1").is(":checked") == false ) {
+			alert("개인정보 제 3자 제공에 동의해주세요")
+			return false
+		}
+		
+		if($("#chk2").is(":checked") == false ) {
+			alert("유의 사항을 확인해주세요")
 			return false
 		}
 		
