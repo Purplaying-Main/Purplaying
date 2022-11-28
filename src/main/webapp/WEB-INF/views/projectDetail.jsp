@@ -336,6 +336,7 @@
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
    <script>
+   	let arr = [];
 	   function writeUpdate(){
 		   let updateTitle = $('#updateTitle').val();
 		   let updateDesc = $('#updateDesc').val();
@@ -368,18 +369,48 @@
    	
 		$("#addReward").change(function(){
 			document.getElementById("selectRewardBox").style.display = 'block';
-			let list = selectToHtml($('#selectRewardBox').html())
-			$('#selectRewardBox').html(list)
-			let price_won = $("#addReward option:checked").text().split('+')[1];
-			price = price_won.split('원')[0];
+			let reward_num = $('#addReward option:selected').html().split(".");
 			
-			$("#rewardCnt").change(function(){
-				let rewardTotalPrice = document.getElementById("rewardTotalPrice");
-				let rewardCnt = document.getElementById("rewardCnt").value;
-				rewardTotalPrice.value = price * rewardCnt;
-			});
+			if(!arr.includes(reward_num[0])){
+				arr.push(reward_num[0]);
+				let list = selectToHtml($('#selectRewardBox').html())
+				$('#selectRewardBox').html(list)
+			}
 		});
 	});
+	function calRewardPrice(){
+		eventTarget = event.target;
+		//let price = eventTarget.parentNode.parentElement.previousElementSibling.lastElementChild.innerHTML
+		
+		let rewardTotalPrice = document.getElementById("rewardTotalPrice").value;
+	
+		
+		var reward_length = $("input[name='reward_cnt']").length;
+		
+		let result_price = 0;
+		var arr_reward=  new Array(reward_length);
+		for(var i=0; i<reward_length; i++){
+			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
+			let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
+			result_price = result_price + Number(price[0])*reward_cnt
+			
+		}
+		//
+		$("#rewardTotalPrice").val(result_price);
+		
+		
+	}
+	function del_reward(){
+		eventTarget = event.target;
+		let getOption = eventTarget.previousElementSibling.previousElementSibling.innerHTML
+		let num = getOption.split('.')[0];
+		arr = arr.filter(function(item){
+			return item != num;
+		})
+		let filtered = arr.filter((element) => element !== num);
+		eventTarget.parentNode.parentElement.remove();
+		
+	}
 	function selectToHtml(tmp){
 		let getOption =  $("#addReward option:checked").text();
 		let name = getOption.split('+')[0];
@@ -387,13 +418,13 @@
 		let price_won = getOption.split('+')[1];
 		price = price_won.split('원')[0];
 		
-		let temp = tmp		
+		let temp = tmp;
 		temp += "<div>";
 		temp += '<div class="d-flex justify-content-between">'
-		temp += '<span id="selectedRewardName="'+num+'" ">'+name+'</span>'
-		temp += '<span id="selectedRewardPrice= "'+num+'" ">'+price_won+'</span>'
+		temp += '<span id="selectedRewardName-'+num+'">'+name+'</span>'
+		temp += '<span id="selectedRewardPrice-'+num+'">'+price_won+'</span><input type="button" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/>'
 		temp +='</div>'
-		temp +=	'<div class="row text-end"><span>수량 <input type="number" class="col-1 text-end" id="rewardCnt" value="1" placeholder="1" min="1"/> </span></div>'
+		temp +=	'<div class="row text-end"><span>수량 <input type="number" class="col-1 text-end" name="reward_cnt" value="1" placeholder="1" min="1" onchange="calRewardPrice()"/> </span></div>'
 		temp += "</div>";
 		return temp;
 	}
