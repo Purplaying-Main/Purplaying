@@ -112,7 +112,7 @@
 				  <input type="text" class="form-control text-end" id="rewardTotalPrice" value="0" placeholder="1000" readonly>
 				</div>
               </li>
-              <li><button type="button" class="btn btn-primary container btn-lg mb-3" onclick="location.href='${pageContext.request.contextPath}/payment/${prdt_id}'">펀딩하기</button></li>
+              <li><input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="펀딩하기"/></li>
               <div class="row px-2 justify-content-between">
               	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
@@ -337,13 +337,12 @@
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
    <script>
    	let arr = [];
+   	let reward_amount=0;
+   
 	   function writeUpdate(){
 		   let updateTitle = $('#updateTitle').val();
 		   let updateDesc = $('#updateDesc').val();
 		   let prdt_id = $('#prdt_id').val();
-		   alert(updateTitle);
-		   alert(updateDesc);
-		   alert(prdt_id);
 		   
 		   let updateData = {update_title:updateTitle,update_desc:updateDesc,prdt_id:prdt_id};
 		   $.ajax({
@@ -375,29 +374,54 @@
 				arr.push(reward_num[0]);
 				let list = selectToHtml($('#selectRewardBox').html())
 				$('#selectRewardBox').html(list)
+				
+				let result_price = 0;
+				var reward_length = $("input[name='reward_cnt']").length;
+				var arr_reward=  new Array(reward_length);
+				for(var i=0; i<reward_length; i++){
+					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
+					let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
+					result_price = result_price + Number(price[0])*reward_cnt
+				}
+				$("#rewardTotalPrice").val(result_price);
 			}
 		});
 	});
+	/* $('#doFundingBtn').click(function(){
+   		let form = $('#form');
+		form.attr("action","<c:url value='payment/"+$("#prdt_id").val()+"'></c:url>");
+		form.attr("method","get");
+		form.attr("result_price",$("#rewardTotalPrice").val())
+		var reward_length = $("input[name='reward_cnt']").length;
+		var arr_reward=  new Array(reward_length);
+		for(var i=0; i<reward_length; i++){
+			form.attr("reward_name"+[i],$("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(0)').html())
+			form.attr("reward_price"+[i],$("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html())
+			form.attr("reward_cnt"+[i],$("input[name='reward_cnt']").eq(i).val())
+		}
+		form.attr("prdt_id",$("#prdt_id").val())
+		form.submit();
+  
+   	}) */
+   		
 	function calRewardPrice(){
 		eventTarget = event.target;
 		//let price = eventTarget.parentNode.parentElement.previousElementSibling.lastElementChild.innerHTML
 		
 		let rewardTotalPrice = document.getElementById("rewardTotalPrice").value;
-	
-		
 		var reward_length = $("input[name='reward_cnt']").length;
+		
 		
 		let result_price = 0;
 		var arr_reward=  new Array(reward_length);
 		for(var i=0; i<reward_length; i++){
 			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
-			let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
-			result_price = result_price + Number(price[0])*reward_cnt
-			
+			let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+			result_price = result_price + Number(price[0])*reward_cnt;
+			reward_amount = reward_amount+1;
 		}
 		//
 		$("#rewardTotalPrice").val(result_price);
-		
 		
 	}
 	function del_reward(){
@@ -409,6 +433,19 @@
 		})
 		let filtered = arr.filter((element) => element !== num);
 		eventTarget.parentNode.parentElement.remove();
+		
+		let rewardTotalPrice = document.getElementById("rewardTotalPrice").value;
+		var reward_length = $("input[name='reward_cnt']").length;
+		
+		let result_price = 0;
+		var arr_reward=  new Array(reward_length);
+		for(var i=0; i<reward_length; i++){
+			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
+			let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
+			result_price = result_price + Number(price[0])*reward_cnt
+		}
+		//
+		$("#rewardTotalPrice").val(result_price);
 		
 	}
 	function selectToHtml(tmp){

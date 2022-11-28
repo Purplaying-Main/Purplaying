@@ -153,7 +153,7 @@ DROP TABLE if exists tb_payment;
 CREATE TABLE tb_payment (
 	pay_no serial4 NOT NULL,
 	pay_time timestamp NULL DEFAULT now(),
-	pay_cardnum varchar(300) NOT NULL,
+	pay_cardnum int4 NOT NULL,
 	pay_carddate int4 NOT NULL,
 	pay_cvc int4 NOT NULL,
 	pay_pwd int4 NOT NULL,
@@ -178,9 +178,9 @@ CREATE TABLE tb_product (
 	prdt_desc varchar(2000),
 	prdt_desc_detail text,
 	prdt_regdate timestamp DEFAULT now(),
-	prdt_opendate date DEFAULT now(),
-	prdt_enddate date DEFAULT now(),
-	prdt_goal numeric DEFAULT 500000,
+	prdt_opendate date,
+	prdt_enddate date,
+	prdt_goal numeric,
 	prdt_currenttotal numeric,
 	prdt_open bool,
 	prdt_desc_policy text,
@@ -252,6 +252,20 @@ CREATE TABLE tb_user (
 	img_no int4,
 	CONSTRAINT constraintname UNIQUE (user_id),
 	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
+);
+
+------------------------- mainfile 테이블 -------------------------
+
+drop table if exists tb_mainfile;
+CREATE TABLE tb_mainfile
+(
+    mainfile_id serial,
+    mainfile_name VARCHAR(200) NOT NULL,
+    mainfile_location tet, 
+    mainfile_size NUMERIC,
+    mainfile_regdate timestamp DEFAULT now() NOT NULL, 
+    mainfile_state VARCHAR(1) DEFAULT 'F' NOT NULL,
+    PRIMARY KEY(mainfile_id)
 );
 
 ------------------------- FK 생성 -------------------------
