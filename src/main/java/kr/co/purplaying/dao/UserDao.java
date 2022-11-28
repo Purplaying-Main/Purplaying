@@ -3,6 +3,8 @@ package kr.co.purplaying.dao;
 import java.util.List;
 import java.util.Map;
 import kr.co.purplaying.domain.BoardDto;
+import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.SearchItem2;
 import kr.co.purplaying.domain.UserDto;
 
 public interface UserDao {
@@ -24,4 +26,8 @@ public interface UserDao {
     int modifyProfile(Map<String, Object> map) throws Exception;
     List<UserDto> adminSelect() throws Exception;
     int updateRole(UserDto userDto) throws Exception;
+    
+    //검색기능추가
+    int searchuser(SearchItem2 sc2) throws Exception;
+    List<UserDto> searchUserPage(SearchItem2 sc2) throws Exception;
 }

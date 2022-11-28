@@ -1,19 +1,14 @@
 package kr.co.purplaying.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import kr.co.purplaying.domain.SearchItem2;
 import kr.co.purplaying.domain.UserDto;
 
 @Repository
@@ -123,6 +118,20 @@ public class UserDaoImpl implements UserDao {
       return session.update(namespace+"updateRole",userDto);
     }
 
+    
+    //검색기능
+    @Override
+    public int searchuser(SearchItem2 sc2) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectOne(namespace+"searchuser", sc2);
+    }
+
+    @Override
+    public List<UserDto> searchUserPage(SearchItem2 sc2) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectList(namespace+"searchUserPage", sc2);
+    }
+    //검색기능
 
 }
 

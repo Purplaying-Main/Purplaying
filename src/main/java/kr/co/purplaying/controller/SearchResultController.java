@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.ProjectSuggestDao;
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.PageResolver2;
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.SearchItem2;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SearchResultService;
 
 @Controller
@@ -26,23 +29,32 @@ public class SearchResultController {
   @Autowired
   ProjectSuggestDao projectSuggestDao;
   
+  @Autowired
+  UserDao userDao;
+  
   @RequestMapping("/searchResult")
   @GetMapping("/searchResult")
-  public String searchResult(SearchItem sc, ProjectDto projectDto,  Model m) {
+  public String searchResult(SearchItem2 sc2, ProjectDto projectDto,  Model m) {
         
      
         try {
           Map map = new HashMap();
 
           
-          List<ProjectDto> searchResult = searchResultService.getSearchResultPage(sc);
+          List<ProjectDto> searchResult = searchResultService.getSearchResultPage(sc2);
           m.addAttribute("keyword", searchResult);
           
-          int totalCnt = searchResultService.getsearchcount(sc);
-          m.addAttribute("count", totalCnt);
+          List<UserDto> searchUser = userDao.searchUserPage(sc2);
+          m.addAttribute("U_keyword", searchUser);
+          
+          int totalCnt = searchResultService.getsearchcount(sc2);
+          m.addAttribute("prdt_count", totalCnt);
+          
+          int userCount = userDao.searchuser(sc2);
+          m.addAttribute("user_count", userCount);
 
-          PageResolver pageResolver = new PageResolver(totalCnt, sc);
-          m.addAttribute("pr", pageResolver);
+          PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+          m.addAttribute("pr2", pageResolver2);
           
           List<ProjectDto> list_ps = projectSuggestDao.projectSuggest(map);
           m.addAttribute("list_ps", list_ps);

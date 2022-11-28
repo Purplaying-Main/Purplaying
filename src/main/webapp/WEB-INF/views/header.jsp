@@ -56,7 +56,7 @@
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="${pageContext.request.contextPath}/searchResult">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" id="form" action="${pageContext.request.contextPath}/searchResult">
           <input type="text" class="form-control" name="keyword" placeholder="Search..." aria-label="Search">
         </form>
 
@@ -88,6 +88,24 @@
           			form.submit();
           		}
           </script> -->
+      
+<script type="text/javascript">
+
+
+		
+		let formCheck = function() {
+			let form = document.getElementById("form")
+			if(form.keyword.value=="" || form.keyword.value==null) {
+				alert("검색어를 입력해주세요")
+				form.keyword.focus()
+				return false
+			}
+	
+			return true;
+		}
+	</script>
+		
+          
         </div>
       </div>
     </div>

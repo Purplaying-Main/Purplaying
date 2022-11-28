@@ -99,4 +99,21 @@
 		SET user_profile= #{user_profile}
 		WHERE user_no= #{user_no}
 	</update>
+	
+	<!--검색 기능  -->	
+	<select id="searchuser" parameterType="SearchItem" resultType="int">
+		select count(*) 
+		FROM tb_user
+		WHERE TRUE
+		AND user_name LIKE concat('%', #{keyword}, '%')	
+	</select>
+	
+	<select id="searchUserPage" parameterType="SearchItem" resultType="ProjectDto">
+		<include refid="selectFromUser"/>
+		WHERE TRUE
+		AND user_name LIKE concat('%', #{keyword}, '%')
+		order by user_role desc, user_no
+		limit 6 offset #{offset}
+  	</select>
+	
 </mapper>

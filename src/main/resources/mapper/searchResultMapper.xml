@@ -16,8 +16,8 @@
 		FROM tb_product
 	</sql>
 	
-	
-	<sql id="searchCondition">
+
+<!-- 	<sql id="searchCondition">
   		<choose>
 			<when test='option=="T"'>
 				AND prdt_name LIKE concat('%', #{keyword}, '%')
@@ -30,7 +30,7 @@
 				OR prdt_desc LIKE concat('%', #{keyword}, '%'))
 			</otherwise>
 		</choose>
-  	</sql>
+  	</sql> -->
 	
 
 <!-- 	<select id="searchResult" parameterType="map" resultType="ProjectDto" >
@@ -40,19 +40,19 @@
 	</select> -->
 
 
-	<select id="searchcount" parameterType="SearchItem" resultType="int">
+	<select id="searchcount" parameterType="SearchItem2" resultType="int">
 		select count(*) 
 		FROM tb_product
 		WHERE TRUE
-		<include refid="searchCondition" />		
+		AND prdt_name LIKE concat('%', #{keyword}, '%')	
 	</select>
 
-  	<select id="searchSelectPage" parameterType="SearchItem" resultType="ProjectDto">
+  	<select id="searchSelectPage" parameterType="SearchItem2" resultType="ProjectDto">
 		<include refid="selectFromBoard"/>
 		WHERE TRUE
-		<include refid="searchCondition" />
+		AND prdt_name LIKE concat('%', #{keyword}, '%')
 		ORDER BY prdt_regdate DESC, prdt_id DESC 
-		limit 10 offset #{offset}	
+		limit 6 offset #{offset}	
   	</select>
 	
 

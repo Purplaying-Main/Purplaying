@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.SearchResultDao;
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.SearchItem2;
 
 @Service
 public class SearchResultServiceImpl implements SearchResultService {
@@ -27,16 +27,18 @@ public class SearchResultServiceImpl implements SearchResultService {
   }
 
   @Override
-  public List<ProjectDto> getSearchResultPage(SearchItem sc) throws Exception {
+  public List<ProjectDto> getSearchResultPage(SearchItem2 sc2) throws Exception {
     // TODO Auto-generated method stub
-    return searchResultDao.searchSelectPage(sc);
+    return searchResultDao.searchSelectPage(sc2);
   }
 
   @Override
-  public int getsearchcount(SearchItem sc) throws Exception {
+  public int getsearchcount(SearchItem2 sc2) throws Exception {
     // TODO Auto-generated method stub
-    return searchResultDao.searchcount(sc);
+    return searchResultDao.searchcount(sc2);
   }
+
+
 
 
 
