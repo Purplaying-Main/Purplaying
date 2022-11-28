@@ -154,11 +154,6 @@
  		where prdt_id = #{prdt_id}
  	</update>
  	
- 	<select id="selectUpdate" parameterType="int" resultType="UpdateDto">
-		select (row_number() over()), * from tb_update
-		where prdt_id = #{prdt_id}
-		order by update_regdate desc
-	</select>
 	
 	<!-- admin -->
 	<select id="selectProject" resultType="ProjectDto">

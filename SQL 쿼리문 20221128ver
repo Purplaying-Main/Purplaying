@@ -1,4 +1,4 @@
---VER - 2022.11.28
+--VER - 2022.11.28 11:27 수정
 --tb_abc순 정렬
 --tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
@@ -195,6 +195,7 @@ CREATE TABLE tb_product (
 	prdt_buyercnt int default 0,
 	user_id varchar(100),
 	img_no int4,
+	update_regdate timestamp NOT NULL DEFAULT now(),
 	CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
 );
 
@@ -277,7 +278,7 @@ ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb
 ALTER TABLE tb_user ADD CONSTRAINT tb_user_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 
-------------------------- 시리얼 초기화 -------------------------
+--시리얼 초기화 
 -- truncate table tb_ restart identity;
 -- 컬럼명 변경
 --ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
