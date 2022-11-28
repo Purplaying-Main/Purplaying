@@ -28,10 +28,9 @@
 				<div class="nav nav-tabs nav-justified" id="v-pills-tab"
 					role="tablist">
 					<!-- 탭 menu start-->
-					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
+					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/notice/list'">공지사항</button>
 					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
-					<button class="nav-link active" aria-selected="true">1:1
-						문의</button>
+					<button class="nav-link active" aria-selected="true">1:1문의</button>
 				</div>
 				<!-- 탭 menu end-->
 				<div class="row col-10 justify-content-center mx-auto">
