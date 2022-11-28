@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.purplaying.domain.NoticeDto;
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
@@ -32,7 +33,7 @@ public interface ProjectDao {
   int plusBuyerCnt(int prdt_id) throws Exception;
   List<UserDto> selectProject() throws Exception;
   int deleteProject(Integer prdt_id) throws Exception;
-  
+  List<ProjectDto> myfunding(int user_no) throws Exception;
 
   
 }

@@ -11,15 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.purplaying.dao.PaymentDao;
-import kr.co.purplaying.domain.NoticeDto;
+import kr.co.purplaying.dao.ProjectDao;
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.PageResolver;
-import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.service.ProjectService;
 
 @Controller
@@ -29,14 +26,17 @@ public class MypageController {
   ProjectService projectService;
   
   @Autowired
-  PaymentDao paymentDao;
+  UserDao userDao;
+  
+  @Autowired
+  ProjectDao projectDao;
 
   @GetMapping("/mypage")
   public String list(@RequestParam(defaultValue = "1") Integer page,
                      @RequestParam(defaultValue = "10") Integer pageSize,
                      Model m,
                      HttpServletRequest request, HttpSession session,
-                     ProjectDto projectDto, PaymentDto paymentDto) {
+                     ProjectDto projectDto) {
     
       if(!loginCheck(request))
         return "redirect:/login/login?toURL="+request.getRequestURL();
@@ -68,7 +68,8 @@ public class MypageController {
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
       
-      List<PaymentDto> myfunding = paymentDao.myfunding(map);
+      int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
+      List<ProjectDto> myfunding = projectDao.myfunding(user_no);
       m.addAttribute("myfunding", myfunding);
       
       

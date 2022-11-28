@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
@@ -122,5 +123,10 @@ public class ProjectDaoImpl implements ProjectDao {
   @Override
   public int deleteProject(Integer prdt_id) throws Exception {
     return session.delete(namespace+"deleteProject",prdt_id);
+  }
+  
+  @Override
+  public List<ProjectDto> myfunding(int user_no) throws Exception {
+    return session.selectList(namespace+"myfunding", user_no);
   }
 }

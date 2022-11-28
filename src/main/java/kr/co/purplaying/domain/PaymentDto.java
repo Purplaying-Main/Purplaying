@@ -20,15 +20,6 @@ public class PaymentDto {
  private String delivery_addressdetail;
  private String delivery_memo;
  private int delivery_charge;
- private String  prdt_name;
- private String  prdt_desc;
- private Date    prdt_enddate;
- private int prdt_percent;
- private String prdt_thumbnail;
- ProjectDto projectDto;
- 
- 
- 
  
 public PaymentDto() {
   // TODO Auto-generated constructor stub
@@ -36,10 +27,10 @@ public PaymentDto() {
 
 
 
+
 public PaymentDto(Integer pay_no, Date pay_time, String pay_cardnum, int pay_carddate, int pay_cvc, int pay_pwd,
     int pay_total, int prdt_id, int user_no, String delivery_reciever, String delivery_phone, String delivery_postcode,
-    String delivery_address, String delivery_addressdetail, String delivery_memo, int delivery_charge, String prdt_name,
-    String prdt_desc, Date prdt_enddate, int prdt_percent, ProjectDto projectDto,String prdt_thumbnail) {
+    String delivery_address, String delivery_addressdetail, String delivery_memo, int delivery_charge) {
   //super();
   this.pay_no = pay_no;
   this.pay_time = pay_time;
@@ -57,143 +48,10 @@ public PaymentDto(Integer pay_no, Date pay_time, String pay_cardnum, int pay_car
   this.delivery_addressdetail = delivery_addressdetail;
   this.delivery_memo = delivery_memo;
   this.delivery_charge = delivery_charge;
-  this.prdt_name = prdt_name;
-  this.prdt_desc = prdt_desc;
-  this.prdt_enddate = prdt_enddate;
-  this.prdt_percent = prdt_percent;
-  this.projectDto = projectDto;
-  this.setPrdt_thumbnail(prdt_thumbnail);
 }
 
 
 
-public Integer getPay_no() {
-  return pay_no;
-}
-
-public void setPay_no(Integer pay_no) {
-  this.pay_no = pay_no;
-}
-
-public Date getPay_time() {
-  return pay_time;
-}
-
-public void setPay_time(Date pay_time) {
-  this.pay_time = pay_time;
-}
-
-public String getPay_cardnum() {
-  return pay_cardnum;
-}
-
-public void setPay_cardnum(String pay_cardnum) {
-  this.pay_cardnum = pay_cardnum;
-}
-
-public int getPay_carddate() {
-  return pay_carddate;
-}
-
-public void setPay_carddate(int pay_carddate) {
-  this.pay_carddate = pay_carddate;
-}
-
-public int getPay_cvc() {
-  return pay_cvc;
-}
-
-public void setPay_cvc(int pay_cvc) {
-  this.pay_cvc = pay_cvc;
-}
-
-public int getPay_pwd() {
-  return pay_pwd;
-}
-
-public void setPay_pwd(int pay_pwd) {
-  this.pay_pwd = pay_pwd;
-}
-
-public int getPay_total() {
-  return pay_total;
-}
-
-public void setPay_total(int pay_total) {
-  this.pay_total = pay_total;
-}
-
-public int getPrdt_id() {
-  return prdt_id;
-}
-
-public void setPrdt_id(int prdt_id) {
-  this.prdt_id = prdt_id;
-}
-
-public int getUser_no() {
-  return user_no;
-}
-
-public void setUser_no(int user_no) {
-  this.user_no = user_no;
-}
-
-public String getDelivery_reciever() {
-  return delivery_reciever;
-}
-
-public void setDelivery_reciever(String delivery_reciever) {
-  this.delivery_reciever = delivery_reciever;
-}
-
-public String getDelivery_phone() {
-  return delivery_phone;
-}
-
-public void setDelivery_phone(String delivery_phone) {
-  this.delivery_phone = delivery_phone;
-}
-
-public String getDelivery_postcode() {
-  return delivery_postcode;
-}
-
-public void setDelivery_postcode(String delivery_postcode) {
-  this.delivery_postcode = delivery_postcode;
-}
-
-public String getDelivery_address() {
-  return delivery_address;
-}
-
-public void setDelivery_address(String delivery_address) {
-  this.delivery_address = delivery_address;
-}
-
-public String getDelivery_addressdetail() {
-  return delivery_addressdetail;
-}
-
-public void setDelivery_addressdetail(String delivery_addressdetail) {
-  this.delivery_addressdetail = delivery_addressdetail;
-}
-
-public String getDelivery_memo() {
-  return delivery_memo;
-}
-
-public void setDelivery_memo(String delivery_memo) {
-  this.delivery_memo = delivery_memo;
-}
-
-public int getDelivery_charge() {
-  return delivery_charge;
-}
-
-public void setDelivery_charge(int delivery_charge) {
-  this.delivery_charge = delivery_charge;
-}
 
 @Override
 public String toString() {
@@ -205,10 +63,14 @@ public String toString() {
       + delivery_charge + "]";
 }
 
+
+
+
 @Override
 public int hashCode() {
   return Objects.hash(pay_no, prdt_id, user_no);
 }
+
 
 @Override
 public boolean equals(Object obj) {
@@ -222,52 +84,197 @@ public boolean equals(Object obj) {
   return Objects.equals(pay_no, other.pay_no) && prdt_id == other.prdt_id && user_no == other.user_no;
 }
 
-public String getPrdt_name() {
-  return projectDto.getPrdt_name();
-}
 
-public void setPrdt_name(String prdt_name) {
-  this.prdt_name = projectDto.getPrdt_name();
-}
 
-public String getPrdt_desc() {
-  return projectDto.getPrdt_desc();
-}
-
-public void setPrdt_desc(String prdt_desc) {
-  this.prdt_desc = projectDto.getPrdt_desc();
-}
-
-public Date getPrdt_enddate() {
-  return projectDto.getPrdt_enddate();
-}
-
-public void setPrdt_enddate(Date prdt_enddate) {
-  this.prdt_enddate = projectDto.getPrdt_enddate();
-}
-
-public int getPrdt_percent() {
-  return projectDto.getPrdt_percent();
-}
-
-public void setPrdt_percent(int prdt_percent) {
-  this.prdt_percent = projectDto.getPrdt_percent();
+public Integer getPay_no() {
+  return pay_no;
 }
 
 
 
-public String getPrdt_thumbnail() {
-  return projectDto.getPrdt_thumbnail();
+public void setPay_no(Integer pay_no) {
+  this.pay_no = pay_no;
 }
 
 
 
-public void setPrdt_thumbnail(String prdt_thumbnail) {
-  this.prdt_thumbnail = projectDto.getPrdt_thumbnail();
+public Date getPay_time() {
+  return pay_time;
 }
 
 
 
+public void setPay_time(Date pay_time) {
+  this.pay_time = pay_time;
+}
 
- 
+
+
+public String getPay_cardnum() {
+  return pay_cardnum;
+}
+
+
+
+public void setPay_cardnum(String pay_cardnum) {
+  this.pay_cardnum = pay_cardnum;
+}
+
+
+
+public int getPay_carddate() {
+  return pay_carddate;
+}
+
+
+
+public void setPay_carddate(int pay_carddate) {
+  this.pay_carddate = pay_carddate;
+}
+
+
+
+public int getPay_cvc() {
+  return pay_cvc;
+}
+
+
+
+public void setPay_cvc(int pay_cvc) {
+  this.pay_cvc = pay_cvc;
+}
+
+
+
+public int getPay_pwd() {
+  return pay_pwd;
+}
+
+
+
+public void setPay_pwd(int pay_pwd) {
+  this.pay_pwd = pay_pwd;
+}
+
+
+
+public int getPay_total() {
+  return pay_total;
+}
+
+
+
+public void setPay_total(int pay_total) {
+  this.pay_total = pay_total;
+}
+
+
+
+public int getPrdt_id() {
+  return prdt_id;
+}
+
+
+
+public void setPrdt_id(int prdt_id) {
+  this.prdt_id = prdt_id;
+}
+
+
+
+public int getUser_no() {
+  return user_no;
+}
+
+
+
+public void setUser_no(int user_no) {
+  this.user_no = user_no;
+}
+
+
+
+public String getDelivery_reciever() {
+  return delivery_reciever;
+}
+
+
+
+public void setDelivery_reciever(String delivery_reciever) {
+  this.delivery_reciever = delivery_reciever;
+}
+
+
+
+public String getDelivery_phone() {
+  return delivery_phone;
+}
+
+
+
+public void setDelivery_phone(String delivery_phone) {
+  this.delivery_phone = delivery_phone;
+}
+
+
+
+public String getDelivery_postcode() {
+  return delivery_postcode;
+}
+
+
+
+public void setDelivery_postcode(String delivery_postcode) {
+  this.delivery_postcode = delivery_postcode;
+}
+
+
+
+public String getDelivery_address() {
+  return delivery_address;
+}
+
+
+
+public void setDelivery_address(String delivery_address) {
+  this.delivery_address = delivery_address;
+}
+
+
+
+public String getDelivery_addressdetail() {
+  return delivery_addressdetail;
+}
+
+
+
+public void setDelivery_addressdetail(String delivery_addressdetail) {
+  this.delivery_addressdetail = delivery_addressdetail;
+}
+
+
+
+public String getDelivery_memo() {
+  return delivery_memo;
+}
+
+
+
+public void setDelivery_memo(String delivery_memo) {
+  this.delivery_memo = delivery_memo;
+}
+
+
+
+public int getDelivery_charge() {
+  return delivery_charge;
+}
+
+
+
+public void setDelivery_charge(int delivery_charge) {
+  this.delivery_charge = delivery_charge;
+}
+
+
 }

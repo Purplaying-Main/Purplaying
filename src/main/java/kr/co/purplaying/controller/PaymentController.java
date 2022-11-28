@@ -81,7 +81,7 @@ public class PaymentController {
     return "payment";
   }
 
-  @RequestMapping("/paymentCompleted/{prdt_id}")
+
   @PostMapping("/paymentCompleted/{prdt_id}")
   public String paymentCompleted(Integer pay_no, Date pay_time, PaymentDto paymentDto, String delivery_reciever,String delivery_phone,int delivery_postcode,String delivery_address,String delivery_addressdetail,String delivery_memo,@PathVariable("prdt_id") Integer prdt_id,
      HttpSession session, Model m) {
@@ -111,7 +111,7 @@ public class PaymentController {
         m.addAttribute("delivery_memo",delivery_memo);
       
         paymentService.wrtie(paymentDto);
-        projectDao.plusBuyerCnt(prdt_id);
+        projectDao.plusBuyerCnt(prdt_id);  
 
         Map map = new HashMap();
         map.put("user_no", userDto.getUser_no());
@@ -130,10 +130,45 @@ public class PaymentController {
     
   }
   
+  
   private boolean loginCheck(HttpServletRequest request) {
     // 1. 세션을 얻어서
     HttpSession session = request.getSession(false); // false는 session이 없어도 새로 생성하지 않음. 반환값 null
     // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
     return session != null && session.getAttribute("user_id") != null;
+  }
+  
+  @RequestMapping("/paymentCompleted/{pay_no}")
+  @GetMapping("/paymentCompleted/{pay_no}")
+  public String paymentCompleted(HttpServletRequest request, @PathVariable("pay_no") Integer pay_no, Model m,Integer prdt_id,HttpSession session, PaymentDto paymentDto) {
+    try {
+      String user_id = (String)session.getAttribute("user_id");
+      UserDto userDto = settingService.setUser(user_id);
+      m.addAttribute("userDto",userDto);
+      String path = request.getServletPath();
+      String[] num = path.toString().split("paymentCompleted/");
+      pay_no = Integer.parseInt(num[1]);
+      paymentDto = paymentDao.getPaymentInfo(pay_no);
+      m.addAttribute("paymentDto",paymentDto);
+      
+      prdt_id = paymentDao.getPaymentInfo(pay_no).getPrdt_id();
+      ProjectDto projectDto = projectService.readPayment(prdt_id);
+      m.addAttribute("projectDto",projectDto);
+          
+      
+      RewardDto rewardDto = rewardService.readPayment(prdt_id);
+      m.addAttribute("rewardDto",rewardDto);
+      System.out.println(userDto);
+      System.out.println(paymentDto);
+      System.out.println(projectDto);  
+      System.out.println(rewardDto);
+      
+      return "paymentCompletedView";
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "mypage";
+    }
+    
   }
 }

@@ -35,6 +35,7 @@ public class ProjectDto {
   private String user_role;
   private int prdt_buyercnt;
   private int prdt_comingday;
+  private int pay_no;
 
   public ProjectDto() { }
 
@@ -328,6 +329,14 @@ public class ProjectDto {
 
   public void setPrdt_comingday(int prdt_comingday) {
     this.prdt_comingday = prdt_comingday;
+  }
+
+  public int getPay_no() {
+    return pay_no;
+  }
+
+  public void setPay_no(int pay_no) {
+    this.pay_no = pay_no;
   }
   
   

@@ -79,24 +79,24 @@
               
               <h5 class="mt-4 mb-2">${sessionScope.user_id}님이 후원중인 펀딩</h5>
                <!-- project card start -->
+              <c:forEach var="projectDto" items="${myfunding }">
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-              <for:each var="paymentDto" items="myfunding">
-                <div class="col-auto d-none d-lg-block">
-		             <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail" src="${projectDto.prdt_thumbnail}" style="${paymentDto.prdt_thumbnail == null ? 'display:none' : '' }" >                  
+                 <div class="col-auto d-none d-lg-block">
+		             <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail" src="${projectDto.prdt_thumbnail}" style="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }" >                  
 		         </div>
                 <div class="col p-4 d-flex flex-column position-static">
                   <div class="row justify-content-between mb-2">
-                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 {paymentDto.prdt_id}</p> 
+                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.prdt_id}</p> 
                     <div class="col-auto">
-                      <a href="${pageContext.request.contextPath}/paymentcompleted/${paymentDto.pay_no}">결제내역 상세보기</a>
+                      <a href="${pageContext.request.contextPath}/paymentCompleted/${projectDto.pay_no}">결제내역 상세보기</a>
                     </div>
                   </div>
-                  <h4 class="mb-0 lh-lg"><a href="projectdetail">{paymentDto.prdt_name}</a></h4>
-                  <div class="mb-1 text-danger lh-lg">현재 달성률 {paymentDto.prdt_percent}% 종료 D-{paymentDto.prdt_dday}</div>
-                  <p class="card-text mb-2">{paymentDto.prdt_desc}</p>
+                  <h4 class="mb-0 lh-lg"><a href="${pageContext.request.contextPath}/project/${projectDto.prdt_id}">${projectDto.prdt_name}</a></h4>
+                  <div class="mb-1 text-danger lh-lg">현재 달성률 ${projectDto.prdt_percent}% 종료 D-${projectDto.prdt_dday}</div>
+                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
                 </div>
-                </for:each>
               </div>
+                </c:forEach>
               <!-- project card end -->
               <div class="my-4"></div>
             </div>
