@@ -179,6 +179,26 @@ public class ProductController {
           updateDto.setUser_id(writer);
           updateDto.setUpdate_title("프로젝트 시작");
           updateDto.setUpdate_desc("프로젝트시작");
+          
+          String[] result_price = calculatePrice(projectDto.getPrdt_goal());
+          
+          //날짜계산
+          SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+          String openDate =format.format(projectDto.getPrdt_opendate());
+          String endDate =format.format(projectDto.getPrdt_enddate());
+          
+          //정산일 계산
+          final Calendar cal = Calendar.getInstance();
+          cal.setTime(projectDto.getPrdt_enddate());
+          cal.add(Calendar.DATE,1);
+          String finishDate = format.format(cal.getTime());
+          
+          m.addAttribute("finishDate",finishDate);
+          m.addAttribute("result_price", result_price);
+          m.addAttribute("calDate",calculateDate(openDate,endDate));
+          m.addAttribute("openDate", openDate);
+          m.addAttribute("endDate", endDate);
+          
           if(projectService.insertUpdate(updateDto)!=1) {
             throw new Exception("InsertUpdate ERR");
           }
