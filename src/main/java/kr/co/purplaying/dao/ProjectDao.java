@@ -8,6 +8,7 @@ import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 
 public interface ProjectDao {
   
@@ -29,6 +30,8 @@ public interface ProjectDao {
   int insertUpdate(UpdateDto updateDto) throws Exception;
   List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
   int plusBuyerCnt(int prdt_id) throws Exception;
+  List<UserDto> selectProject() throws Exception;
+  int deleteProject(Integer prdt_id) throws Exception;
   
 
   

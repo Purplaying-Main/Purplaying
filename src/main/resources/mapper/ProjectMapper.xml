@@ -153,4 +153,20 @@
  		set prdt_buyercnt = prdt_buyercnt +1
  		where prdt_id = #{prdt_id}
  	</update>
+ 	
+ 	<select id="selectUpdate" parameterType="int" resultType="UpdateDto">
+		select (row_number() over()), * from tb_update
+		where prdt_id = #{prdt_id}
+		order by update_regdate desc
+	</select>
+	
+	<!-- admin -->
+	<select id="selectProject" resultType="ProjectDto">
+		select prdt_id, prdt_name, writer,prdt_opendate,prdt_enddate,prdt_goal,prdt_currenttotal from tb_product
+		order by prdt_regdate desc
+	</select>
+	<delete id="deleteProject" parameterType="int">
+		delete from tb_product
+		where prdt_id = #{prdt_id}
+	</delete>
 </mapper>

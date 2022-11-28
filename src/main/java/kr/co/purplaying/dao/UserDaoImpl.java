@@ -112,5 +112,17 @@ public class UserDaoImpl implements UserDao {
       return session.update(namespace+"modifyProfile",map);
     }
     
+
+    @Override
+    public List<UserDto> adminSelect() throws Exception {
+      return session.selectList(namespace+"adminSelect");
+    }
+
+    @Override
+    public int updateRole(UserDto userDto) throws Exception {
+      return session.update(namespace+"updateRole",userDto);
+    }
+
+
 }
 

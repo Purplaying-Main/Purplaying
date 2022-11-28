@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 
 @Repository
 public class ProjectDaoImpl implements ProjectDao {
@@ -112,4 +113,14 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.update(namespace+"plusBuyerCnt", prdt_id);
   }
 
+  @Override
+  public List<UserDto> selectProject() throws Exception {
+    return session.selectList(namespace+"selectProject");
+  }
+  
+
+  @Override
+  public int deleteProject(Integer prdt_id) throws Exception {
+    return session.delete(namespace+"deleteProject",prdt_id);
+  }
 }

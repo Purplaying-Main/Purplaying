@@ -22,4 +22,6 @@ public interface UserDao {
     int updateUserPwd(UserDto userDto) throws Exception;
     UserDto getPaymentUserInfo(String user_name) throws Exception;
     int modifyProfile(Map<String, Object> map) throws Exception;
+    List<UserDto> adminSelect() throws Exception;
+    int updateRole(UserDto userDto) throws Exception;
 }

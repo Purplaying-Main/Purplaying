@@ -36,4 +36,9 @@
 		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{user_no});
 	</insert>
 
+	<insert id="insertMainFile" parameterType="map">
+		INSERT INTO tb_mainfile
+			(mainfile_name, mainfile_location, mainfile_size, mainfile_regdate)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now());
+	</insert>
 </mapper>

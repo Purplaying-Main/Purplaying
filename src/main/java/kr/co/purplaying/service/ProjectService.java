@@ -8,6 +8,7 @@ import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 
 public interface ProjectService {
   int getCount() throws Exception;
@@ -30,6 +31,8 @@ public interface ProjectService {
   ProjectDto readPayment(Integer prdt_id) throws Exception;
   int insertUpdate(UpdateDto updateDto) throws Exception;
   List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
+  List<UserDto> selectProject() throws Exception;
+  int deleteProject(Integer prdt_id) throws Exception;
 
 
   

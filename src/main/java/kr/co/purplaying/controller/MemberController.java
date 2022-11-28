@@ -1,6 +1,7 @@
 package kr.co.purplaying.controller;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -172,10 +173,22 @@ public class MemberController {
             deleteCookie(response, user_id);
         }
         
+        UserDto userDto = userDao.selectUser(user_id);
+        
+        
         //3. 세션 객체 얻어오기.
         HttpSession session =  request.getSession();
         //세션 객체에 id를 저장
+        
+//        ArrayList<String> list = null;
+//        list.add(user_id);
+//        list.add(String.valueOf(userDto.getUser_role()));
+        
         session.setAttribute("user_id", user_id);
+        //session.setAttribute("user_id", list);
+       
+    
+        System.out.println(session.getAttribute("user_role"));
         System.out.println(session.getAttribute(toURL));
         
         //4. toUrl이 있을시에는 toUrl로 이동
@@ -254,6 +267,8 @@ public class MemberController {
     private boolean loginCheck(String user_id, String user_pwd) throws Exception {
       // TODO Auto-generated method stub
       UserDto userDto = userDao.selectUser(user_id);
+      
+      System.out.println(userDto);
       if(userDto==null) {
           System.out.println("userDto==null");
           return false;

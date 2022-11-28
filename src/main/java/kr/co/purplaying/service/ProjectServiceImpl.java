@@ -12,6 +12,7 @@ import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -99,5 +100,13 @@ public class ProjectServiceImpl implements ProjectService{
     return projectDao.selectUpdate(prdt_id);
   }
 
+  @Override
+  public List<UserDto> selectProject() throws Exception {
+    return projectDao.selectProject();
+  }
 
+  @Override
+  public int deleteProject(Integer prdt_id) throws Exception {
+    return projectDao.deleteProject(prdt_id);
+  }
 }

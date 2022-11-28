@@ -344,6 +344,7 @@
 		function calDate(){
 			let openDate = $('#prdt_opendate').val()
 			let endDate = $('#prdt_enddate').val()
+			alert(typeof(openDate))
 			let finishDate = new Date(endDate);
 			let tomorrow_end_Date = new Date(finishDate.setDate(finishDate.getDate()+1));
 			

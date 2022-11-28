@@ -36,5 +36,8 @@ public class FileServiceImpl implements FileService {
   public int insertUserProfile(String uploadFolderPath, String uploadFileName, long uploadFileSize, int user_no) throws Exception {
     return attachFileDao.insertUserProfile(uploadFolderPath, uploadFileName, uploadFileSize, user_no);
   }
-
+  @Override
+  public int insertMainFile(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception {
+    return attachFileDao.insertMainFile(uploadFolderPath, uploadFileName, uploadFileSize);
+  }
 }

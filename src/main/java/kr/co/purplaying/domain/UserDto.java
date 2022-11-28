@@ -11,7 +11,7 @@ public class UserDto {
   private String user_name;
   private String user_phone;
   private Date user_regdate;
-  private int user_active;
+  private int user_activate;
   private int user_role;
   private String user_profile;
   
@@ -52,11 +52,11 @@ public class UserDto {
   public void setUser_regdate(Date user_regdate) {
     this.user_regdate = user_regdate;
   }
-  public int getUser_active() {
-    return user_active;
+  public int getUser_activate() {
+    return user_activate;
   }
-  public void setUser_active(int user_active) {
-    this.user_active = user_active;
+  public void setUser_activate(int user_activate) {
+    this.user_activate = user_activate;
   }
   public int getUser_role() {
     return user_role;
@@ -103,9 +103,9 @@ public class UserDto {
   }
   @Override
   public String toString() {
-    return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
-        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_active=" + user_active
-        + ", user_role=" + user_role + "]";
+    return "UserDto [user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone="
+        + user_phone + ", user_regdate=" + user_regdate + ", user_activate=" + user_activate + ", user_role=" + user_role
+        + "]";
   }
 
   

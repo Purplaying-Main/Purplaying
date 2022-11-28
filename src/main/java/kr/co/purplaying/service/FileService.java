@@ -13,5 +13,5 @@ public interface FileService {
   List<AttachFileDto> getPage(Map map) throws Exception;
   
   int insertUserProfile(String uploadFolderPath, String uploadFileName, long uploadFileSize, int user_no) throws Exception;
-
+  int insertMainFile(String uploadPath, String uploadFileName, long uploadFileSize) throws Exception;
 }

@@ -14,6 +14,12 @@
 		where user_id = #{user_id} and user_activate = 1
 	</select>
 	
+	<select id="adminSelect" parameterType="map">
+		<include refid="selectFromUser" />
+		where user_activate = 1
+		order by user_role desc, user_no
+	</select>
+	
 	<delete id="deleteAll">
 		truncate table tb_USER restart identity
 	</delete>
@@ -30,6 +36,13 @@
 		UPDATE tb_user
 		SET user_name= #{user_name}
 		WHERE user_id= #{user_id}
+	</update>
+	
+	
+	<update id="updateRole" parameterType="UserDto">
+		UPDATE tb_user
+		SET user_role= #{user_role}
+		WHERE user_no= #{user_no}
 	</update>
 	
 	<update id="updateUserPwd" parameterType="UserDto">

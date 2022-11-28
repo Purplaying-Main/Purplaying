@@ -354,6 +354,7 @@
 				success:function(result){
 					showHide('writeArea2'); 
 					showHide('writeBtn2');
+					location.reload();
 				},
 				error : function(){
 					alert("error");

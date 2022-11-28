@@ -48,4 +48,13 @@ public class AttachFileDaoImpl implements AttachFileDao {
     return session.insert(namespace+"insertUserProfile", map);
   }
   
+  @Override
+  public int insertMainFile(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception {
+    Map map = new HashMap();
+    map.put("file_location", uploadFolderPath);
+    map.put("file_name", uploadFileName);
+    map.put("file_size", uploadFileSize);
+    
+    return session.insert(namespace+"insertMainFile", map);
+  }
 }
