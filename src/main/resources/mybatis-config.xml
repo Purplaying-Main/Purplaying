@@ -12,7 +12,6 @@
 		<typeAlias alias="CommunityDto" type="kr.co.purplaying.domain.CommunityDto" />
 		<typeAlias alias="genreDto" type="kr.co.purplaying.domain.GenreDto" />
 		<typeAlias alias="LeaveDto" type="kr.co.purplaying.domain.LeaveDto" />
-		<typeAlias alias="ReplyDto" type="kr.co.purplaying.domain.ReplyDto" />
 		<typeAlias alias="MemberDto" type="kr.co.purplaying.domain.MemberDto" />
 		<typeAlias alias="NoticeDto" type="kr.co.purplaying.domain.NoticeDto" />
 		<typeAlias alias="OneononeDto" type="kr.co.purplaying.domain.OneononeDto" />
@@ -28,6 +27,6 @@
 		<typeAlias alias="UpdateDto" type="kr.co.purplaying.domain.UpdateDto" />
 		<typeAlias alias="AttachFileDto" type="kr.co.purplaying.domain.AttachFileDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
-		
+		<typeAlias alias="ReplyDto" type="kr.co.purplaying.domain.ReplyDto" />
 	</typeAliases>
 </configuration>
