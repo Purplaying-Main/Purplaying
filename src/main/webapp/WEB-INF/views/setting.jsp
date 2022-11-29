@@ -30,52 +30,16 @@
                     <!-- 탭 start-->
                     <div class="nav nav-tabs nav-justified mb-4" id="v-pills-tab" role="tablist">
                         <!-- 탭 menu start-->
-                        <button
-                            class="nav-link active"
-                            id="v-pills-01-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#v-pills-tab01"
-                            type="button"
-                            role="tab"
-                            aria-controls="v-pills-tab01"
-                            aria-selected="true"
-                        >
+                        <button class="nav-link active" id="v-pills-01-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true" >
                             프로필
                         </button>
-                        <button
-                            class="nav-link"
-                            id="v-pills-02-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#v-pills-tab02"
-                            type="button"
-                            role="tab"
-                            aria-controls="v-pills-tab02"
-                            aria-selected="false"
-                        >
+                        <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" >
                             계정
                         </button>
-                        <button
-                            class="nav-link"
-                            id="v-pills-03-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#v-pills-tab03"
-                            type="button"
-                            role="tab"
-                            aria-controls="v-pills-tab03"
-                            aria-selected="false"
-                        >
+                        <button class="nav-link" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false" >
                             배송지
                         </button>
-                        <button
-                            class="nav-link"
-                            id="v-pills-04-tab"
-                            data-bs-toggle="pill"
-                            data-bs-target="#v-pills-tab04"
-                            type="button"
-                            role="tab"
-                            aria-controls="v-pills-tab04"
-                            aria-selected="false"
-                        >
+                        <button class="nav-link" id="v-pills-04-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false" >
                             수신여부
                         </button>
                     </div>
@@ -91,44 +55,14 @@
                                             <h6>프로필 사진</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button
-                                                class="btn btn-outline-primary"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#profileChangeModal"
-                                            >
+                                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#profileChangeModal" >
                                                 변경
                                             </button>
                                         </div>
                                     </li>
                                     <li class="row w-25">
-                                        <img
-                                            class="img-thumbnail"
-                                            id = "user_profile_db"
-                                            src="${userDto.user_profile }"
-                                        />
+                                        <img class="img-thumbnail" id = "user_profile_db" src="${userDto.user_profile }" />
                                     </li>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="profileChangeModalLabel">프로필 사진 변경</h5>
-                                                    <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    ></button>
-                                                </div>
-                                                <div class="modal-body"><%@ include file = "profileUpload.jsp"%></div>
-                                                <div class="modal-footer">
-                                                    <button type="button" id="modifyUserBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
-                                                        확인
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </ul>
                                 <ul class="border-bottom py-3" id="NameArea">
                                     <li class="row justify-content-between">
@@ -161,6 +95,23 @@
                                     </li>
                                     
                                 </ul>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="profileChangeModalLabel">프로필 사진 변경</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body"><%@ include file = "profileUpload.jsp"%></div>
+                                        <div class="modal-footer">
+                                            <button type="button" id="modifyUserBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                                확인
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- NameChangeModal -->
                             <div class="modal fade" id="nameChangeModal" tabindex="-1" aria-labelledby="nameChangeModalLabel" aria-hidden="true" >
@@ -220,7 +171,7 @@
                                         <p>${userDto.user_id }</p>
                                     </li>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="introChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
+                                    <div class="modal fade" id="EmailChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -253,28 +204,7 @@
                                     <li class="row">
                                         <p>******</p>
                                     </li>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="introChangeModalLabel">비밀번호 변경</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <label for="password" class="form-label">비밀번호</label>
-                                                    <input type="password" class="form-control mb-2" id="password" placeholder="비밀번호 입력" required />
-                                                    <input type="password" class="form-control" id="passwordConfirm" placeholder="비밀번호 확인" required />
-                                                    <div class="invalid-feedback">Please enter your shipping address.</div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
-                                                        확인
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </ul>
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
@@ -373,6 +303,28 @@
                                     </li>
                                 </ul>
                             </div>
+                            <!-- PwdChangeModal -->
+                            <div class="modal fade" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="introChangeModalLabel">비밀번호 변경</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="password" class="form-label">비밀번호</label>
+                                            <input type="password" class="form-control mb-2" id="password" placeholder="비밀번호 입력" required />
+                                            <input type="password" class="form-control" id="passwordConfirm" placeholder="비밀번호 확인" required />
+                                            <div class="invalid-feedback">Please enter your shipping address.</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                                확인
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- tab 3 contents -->
                             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                                 <div class="row justify-content-between">
@@ -421,20 +373,10 @@
                                     <div class="border-bottom justify-content-between d-md-flex py-2">
                                         <h6 class="col-auto text-info">배송지 #2</h6>
                                         <div class="col-auto d-md-flex px-3">
-                                            <button
-                                                class="btn btn-outline-primary btn-sm me-md-2"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addressModiModal"
-                                            >
+                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal" >
                                                 M
                                             </button>
-                                            <button
-                                                class="btn btn-outline-danger btn-sm me-md-2"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addressDelModal"
-                                            >
+                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal" >
                                                 D
                                             </button>
                                         </div>
@@ -695,7 +637,7 @@
 
         <script type="text/javascript">
         	
-			$("#NameArea").click("#namechangeBtn", function() {
+	        $("#namechangeBtn").click(function() {
 				let user_no = $("#user_no").val()
 	  			let user_name = $("p", $(this).children().children().prev()).text()
 	  			
@@ -727,7 +669,7 @@
 	  			})
 	  		})
 	  		
-	  		$("#IntroArea").click("#introchangeBtn", function() {
+	  		$("#introchangeBtn").click(function() {
 				let user_no = $("#user_no").val()
 	  			let user_introduce = $("p", $(this).children().children().prev()).text()
 	  			
@@ -742,7 +684,35 @@
 	  			let user_introduce = $("#user_Introduce").val()
 	  			
 	  			if(user_introduce.trim() == '') { 
-	  				let user_introduce = $("#user_Introduce").val("안녕하세요.")
+	  				let user_introduce = $("#user_introduce").val("안녕하세요.")
+				}
+	  			
+	  			$.ajax({
+	  				type : 'PATCH',
+	  				url : '/purplaying/setting/intro/'+user_no,
+	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+					$("#introChangeModal").modal("hide")
+					},
+	  				error : function() {alert("error")}
+	  			})
+	  		})
+	  		
+	  		$("#pwdchangeBtn").click(function() {
+				let user_no = $("#user_no").val()
+	
+	  			$("#modpwdBtn").attr("user-no", user_no)
+	  			$("#pwdChangeModal").modal("show")
+	  			
+	  		})
+	  		
+	  		$("#modpwdBtn").click(function() {
+				let user_no = $("#user_no").val()
+	  			let user_introduce = $("#user_Introduce").val()
+	  			
+	  			if($("#password").val() != $("#passwordConfirm").val()) { 
+	  				
 				}
 	  			
 	  			$.ajax({
