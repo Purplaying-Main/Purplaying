@@ -31,7 +31,7 @@
 			</nav>
 			<h2 class="mx-auto text-center py-3">1:1 문의하기 ${mode=="new" ? "작성하기" : "수정하기" }</h2>
 		</div>
-		<form class="oneononeform w-75 mx-auto" id="form" action=""	method="post">
+		<form class="oneononeform w-75 mx-auto" id="oneononeform" action=""	method="post">
 			<input type="hidden" name="inquiry_no"
 				value="${oneononeDto.inquiry_no }">
 			<!-- 상단영역(제목,작성자,공개여부) -->
@@ -123,7 +123,7 @@
 			
 			
 			$("#writeBtn").on("click", function() {
-				let form = $("#form");
+				let form = $("#oneononeform");
 				form.attr("action", "<c:url value='/oneonone/write/reg' />")
 				form.attr("method", "post")
 				
@@ -132,13 +132,15 @@
 					$('#writeComplete').modal("hide")
 					form.submit();	
 					})
-				}	
+				}
 					
-			})
+				})
+					
+			
 			
 			
 			$("#modifyBtn").on("click", function() {
-				let form = $(".oneononeform");	
+				let form = $("#oneononeform");	
 		
 				//2.수정 상태면 수정된 내용을 서버로 전송
 				form.attr("action", "<c:url value='/oneonone/modify' />")
@@ -154,7 +156,7 @@
 
 			
 			let formCheck = function() {
-				let form = document.getElementById("form")
+				let form = document.getElementById("oneononeform")
 				if(form.inquiry_title.value=="") {
 					alert("제목을 입력해 주세요.")
 					form.inquiry_title.focus()
