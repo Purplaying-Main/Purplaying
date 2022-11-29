@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.SearchItem;
 
 public interface AttachFileDao {
 // 프로젝트
@@ -16,4 +17,6 @@ public interface AttachFileDao {
   int insertUserProfile(String uploadFolderPath, String uploadFileName, long uploadFileSize, int user_no) throws Exception;
 
   int insertMainFile(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception;
+  int searchResultCnt(SearchItem sc) throws Exception;
+  List<AttachFileDto> selectFileListforAdmin(SearchItem sc) throws Exception;
 }

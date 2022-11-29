@@ -26,5 +26,6 @@
 		<typeAlias alias="RewardDto" type="kr.co.purplaying.domain.RewardDto" />
 		<typeAlias alias="UpdateDto" type="kr.co.purplaying.domain.UpdateDto" />
 		<typeAlias alias="AttachFileDto" type="kr.co.purplaying.domain.AttachFileDto" />
+		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 	</typeAliases>
 </configuration>

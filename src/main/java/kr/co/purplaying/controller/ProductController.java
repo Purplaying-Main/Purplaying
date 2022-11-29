@@ -82,11 +82,10 @@ public class ProductController {
   
  
   @GetMapping("/{prdt_id}") //펀딩 디테일 페이지 (로그인 유무 상관없음)
-  public String view(@PathVariable Integer prdt_id, Model m) {
+  public String view(@PathVariable Integer prdt_id, Model m ) {
         try {
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
-          System.out.println(projectDto);
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
@@ -95,15 +94,16 @@ public class ProductController {
           for(int i = 0; i<list_update.size(); i++) {
             list_update.get(i).setUpdate_regdate_string(list_update.get(i).getUpdate_regdate());
           }
-        
-        
-          System.out.println(list_update);
+//          HttpServletRequest request;
+//          HttpSession session =  request.getSession();
+//          System.out.println("user_role :"+session.getAttribute("user_role"));
+//          System.out.println("user_id :"+session.getAttribute("user_id"));
+//          System.out.println(session.getAttribute("user_id").equals(projectDto.getWriter()));
+//          System.out.println(session.getAttribute("user_role").equals(1));
           
-          m.addAttribute("list_update",list_update);
-          
-          System.out.println(list);    
+          m.addAttribute("list_update",list_update);     
           m.addAttribute("dto",list);
-          
+   
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
           

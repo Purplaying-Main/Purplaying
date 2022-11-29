@@ -115,8 +115,8 @@ public class ProjectDaoImpl implements ProjectDao {
   }
 
   @Override
-  public List<UserDto> selectProject() throws Exception {
-    return session.selectList(namespace+"selectProject");
+  public List<ProjectDto> selectProject(SearchItem sc) throws Exception {
+    return session.selectList(namespace+"selectProject",sc);
   }
   
 

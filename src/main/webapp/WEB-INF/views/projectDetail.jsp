@@ -247,7 +247,7 @@
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
-                	  <button type="button" class="btn btn-primary" <c:if test="${sessionScope.user_id ne projectDto.writer}">style="display:none;"</c:if> onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                	  <button type="button" class="btn btn-primary" ${sessionScope.user_id eq projectDto.writer ? '': sessionScope.user_role eq '1' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">

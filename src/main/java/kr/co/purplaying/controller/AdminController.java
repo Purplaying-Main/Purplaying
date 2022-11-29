@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.FileService;
 import kr.co.purplaying.service.ProjectService;
@@ -48,33 +51,89 @@ public class AdminController {
   @Autowired
   FileService fileService;
   
-  @GetMapping("/list")
-  public String AdminList(Model m, HttpSession session ) {
+  @GetMapping("/userlist")
+  public String AdminUserList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
+    if(!session.getAttribute("user_role").equals(1)) {
+      return null;
+    }
+    
     try {
-      List<UserDto> list = userDao.adminSelect();
-      List<UserDto> projectList =projectService.selectProject();
+      System.out.println(sc);
+      int totalCnt = userDao.getSearchResultCnt(sc);
+      
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+
+      m.addAttribute("totalCnt", totalCnt);
+      m.addAttribute("pr", pageResolver);
+
+      List<UserDto> list = userDao.adminSelect(sc);
       System.out.println(list);
       m.addAttribute("UserList",list);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return "adminuserlist";
+  }
+  
+  @GetMapping("/projectlist")
+  public String AdminProjectList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
+    if(!session.getAttribute("user_role").equals(1)) {
+      return null;
+    }
+    try {
+      System.out.println(sc);
+      int totalCnt = projectService.getSearchResultCnt(sc);
+      
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+
+      m.addAttribute("totalCnt", totalCnt);
+      m.addAttribute("pr", pageResolver);
+
+      List<ProjectDto> projectList =projectService.selectProject(sc);
       m.addAttribute("projectList",projectList);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
     
-    return "admin";
+    return "adminprojectlist";
   }
-  
+  @GetMapping("/bannerlist")
+  public String AdminBannerList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
+    if(!session.getAttribute("user_role").equals(1)) {
+      return null;
+    }
+    try {
+      System.out.println(sc);
+      int totalCnt = fileService.getSearchResultCnt(sc);
+      
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+
+      m.addAttribute("totalCnt", totalCnt);
+      m.addAttribute("pr", pageResolver);
+
+      List<AttachFileDto> bannerList =fileService.selectFileListforAdmin(sc);
+      m.addAttribute("bannerList",bannerList);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return "adminbannerlist";
+  }
+   
   @PostMapping("/listUser")
   @ResponseBody
-  public List<UserDto> AdminUserList(@RequestBody UserDto userDto, Model m, HttpSession session ) {
+  public List<UserDto> AdminUserList(SearchItem sc, @RequestBody UserDto userDto, Model m, HttpSession session ) {
    
-    List<UserDto> list;
     try {
       if(userDao.updateRole(userDto) != 1) {
         System.out.println("권한 업데이트 실패");
       }
-      list = userDao.adminSelect();
-      System.out.println(list.get(0).getUser_regdate());
+      List<UserDto> list = userDao.adminSelect(sc);
+      
       return list;
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -85,15 +144,12 @@ public class AdminController {
   
   @PostMapping("/listProject")
   @ResponseBody
-  public List<UserDto> AdminProjectList(@RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
-   
-    List<UserDto> list;
-    
+  public List<ProjectDto> AdminProjectList(SearchItem sc, @RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
     try {
       if(projectService.deleteProject(projectDto.getPrdt_id())!=1) {
         System.out.println("프로젝트 삭제 실패");
       }
-      List<UserDto> projectList =projectService.selectProject();
+      List<ProjectDto> projectList =projectService.selectProject(sc);
       return projectList;
     } catch (Exception e) {
       e.printStackTrace();
@@ -101,6 +157,7 @@ public class AdminController {
     }
   }
   
+  //upload////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   @GetMapping("/displayAdmin")
   @ResponseBody
   public ResponseEntity<byte[]> getFile(String file_name , Integer prdt_id, Model m ) throws Exception {
@@ -156,7 +213,7 @@ public class AdminController {
     List<AttachFileDto> list = new ArrayList<>();
     
     System.out.println("upload file ajax post....");
-    String uploadFolder ="C:\\purplaying_file\\admin";
+    String uploadFolder ="C:\\purplaying_file\\Banner";
     
     String uploadFolderPath = getFolder();
   

@@ -177,7 +177,7 @@ public class MemberController {
         
         
         //3. 세션 객체 얻어오기.
-        HttpSession session =  request.getSession();
+        HttpSession session = request.getSession();
         //세션 객체에 id를 저장
         
 //        ArrayList<String> list = null;
@@ -185,11 +185,10 @@ public class MemberController {
 //        list.add(String.valueOf(userDto.getUser_role()));
         
         session.setAttribute("user_id", user_id);
-        //session.setAttribute("user_id", list);
+        session.setAttribute("user_role", userDto.getUser_role());
        
-    
-        System.out.println(session.getAttribute("user_role"));
-        System.out.println(session.getAttribute(toURL));
+        System.out.println("user_role :"+session.getAttribute("user_role"));
+        System.out.println("user_id :"+session.getAttribute("user_id"));
         
         //4. toUrl이 있을시에는 toUrl로 이동
         toURL = toURL==null || toURL.equals("") ? "/" : toURL;

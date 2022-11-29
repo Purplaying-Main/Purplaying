@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.AttachFileDao;
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.SearchItem;
 
 @Service
 public class FileServiceImpl implements FileService {
@@ -39,5 +40,15 @@ public class FileServiceImpl implements FileService {
   @Override
   public int insertMainFile(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception {
     return attachFileDao.insertMainFile(uploadFolderPath, uploadFileName, uploadFileSize);
+  }
+
+  @Override
+  public int getSearchResultCnt(SearchItem sc) throws Exception {
+    return attachFileDao.searchResultCnt(sc);
+  }
+
+  @Override
+  public List<AttachFileDto> selectFileListforAdmin(SearchItem sc) throws Exception {
+    return attachFileDao.selectFileListforAdmin(sc);
   }
 }

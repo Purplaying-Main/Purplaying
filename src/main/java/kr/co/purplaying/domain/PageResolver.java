@@ -41,8 +41,6 @@ public class PageResolver {
       this.showNext = endPage != totalPage;
   }
 
-
-
   public void print() {
       System.out.println("page = "+ sc.getPage());
       System.out.print(showPrev ? "PREV " : "");

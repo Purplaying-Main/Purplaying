@@ -14,10 +14,12 @@
 		where user_id = #{user_id} and user_activate = 1
 	</select>
 	
-	<select id="adminSelect" parameterType="map">
+	<select id="adminSelect" parameterType="SearchItem" resultType="UserDto">
 		<include refid="selectFromUser" />
 		where user_activate = 1
+		AND user_name LIKE concat('%', #{keyword}, '%')
 		order by user_role desc, user_no
+		limit #{pageSize} OFFSET #{offset}
 	</select>
 	
 	<delete id="deleteAll">
@@ -38,6 +40,11 @@
 		WHERE user_id= #{user_id}
 	</update>
 	
+	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+		SELECT COUNT(*) from tb_user  
+		where true 
+		AND user_id like concat('%',#{keyword},'%')
+	</select>
 	
 	<update id="updateRole" parameterType="UserDto">
 		UPDATE tb_user

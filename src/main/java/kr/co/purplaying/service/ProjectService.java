@@ -31,7 +31,7 @@ public interface ProjectService {
   ProjectDto readPayment(Integer prdt_id) throws Exception;
   int insertUpdate(UpdateDto updateDto) throws Exception;
   List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
-  List<UserDto> selectProject() throws Exception;
+  List<ProjectDto> selectProject(SearchItem sc) throws Exception;
   int deleteProject(Integer prdt_id) throws Exception;
 
 

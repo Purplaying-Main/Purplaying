@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.SearchItem;
 
 @Repository
 public class AttachFileDaoImpl implements AttachFileDao {
@@ -56,5 +57,15 @@ public class AttachFileDaoImpl implements AttachFileDao {
     map.put("file_size", uploadFileSize);
     
     return session.insert(namespace+"insertMainFile", map);
+  }
+
+  @Override
+  public int searchResultCnt(SearchItem sc) throws Exception {
+    return session.selectOne(namespace+"searchResultCnt", sc);
+  }
+
+  @Override
+  public List<AttachFileDto> selectFileListforAdmin(SearchItem sc) throws Exception {
+    return session.selectList(namespace+"selectFileListforAdmin",sc);
   }
 }

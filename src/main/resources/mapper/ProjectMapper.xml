@@ -140,7 +140,7 @@
 	<select id="selectUpdate" parameterType="int" resultType="UpdateDto">
 		select (row_number() over()), * from tb_update
 		where prdt_id = #{prdt_id}
-		order by update_regdate
+		order by update_regdate desc
 	</select>
 	
 	<select id="fundinging" parameterType="map" resultType="ProjectDto" >
@@ -156,14 +156,20 @@
  	
 	
 	<!-- admin -->
-	<select id="selectProject" resultType="ProjectDto">
-		select prdt_id, prdt_name, writer,prdt_opendate,prdt_enddate,prdt_goal,prdt_currenttotal from tb_product
+	<select id="selectProject" parameterType="SearchItem" resultType="ProjectDto">
+		select prdt_id, prdt_name, writer,prdt_opendate,prdt_enddate,prdt_goal,prdt_currenttotal 
+		from tb_product
+		where prdt_name LIKE concat('%', #{keyword}, '%')
 		order by prdt_regdate desc
+		limit #{pageSize} OFFSET #{offset}
 	</select>
+	
 	<delete id="deleteProject" parameterType="int">
 		delete from tb_product
 		where prdt_id = #{prdt_id}
 	</delete>
+	
+	
 	
 	<!-- 마이페이지에서 후원한 펀딩 보이게 하는 쿼리문 -->
 	<resultMap type="ProjectDto" id="ProjectDto">

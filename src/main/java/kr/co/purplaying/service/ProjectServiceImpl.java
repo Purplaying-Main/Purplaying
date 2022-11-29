@@ -101,8 +101,8 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public List<UserDto> selectProject() throws Exception {
-    return projectDao.selectProject();
+  public List<ProjectDto> selectProject(SearchItem sc) throws Exception {
+    return projectDao.selectProject(sc);
   }
 
   @Override

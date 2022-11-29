@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.SearchItem2;
 import kr.co.purplaying.domain.UserDto;
 
@@ -109,8 +110,8 @@ public class UserDaoImpl implements UserDao {
     
 
     @Override
-    public List<UserDto> adminSelect() throws Exception {
-      return session.selectList(namespace+"adminSelect");
+    public List<UserDto> adminSelect(SearchItem sc) throws Exception {
+      return session.selectList(namespace+"adminSelect",sc);
     }
 
     @Override
@@ -132,6 +133,11 @@ public class UserDaoImpl implements UserDao {
       return session.selectList(namespace+"searchUserPage", sc2);
     }
     //검색기능
+
+    @Override
+    public int getSearchResultCnt(SearchItem sc) throws Exception {
+      return session.selectOne(namespace +"searchResultCnt", sc);
+    }
 
 }
 

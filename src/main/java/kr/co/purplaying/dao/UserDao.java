@@ -24,10 +24,11 @@ public interface UserDao {
     int updateUserPwd(UserDto userDto) throws Exception;
     UserDto getPaymentUserInfo(String user_name) throws Exception;
     int modifyProfile(Map<String, Object> map) throws Exception;
-    List<UserDto> adminSelect() throws Exception;
+    List<UserDto> adminSelect(SearchItem sc) throws Exception;
     int updateRole(UserDto userDto) throws Exception;
     
     //검색기능추가
     int searchuser(SearchItem2 sc2) throws Exception;
     List<UserDto> searchUserPage(SearchItem2 sc2) throws Exception;
+    int getSearchResultCnt(SearchItem sc) throws Exception;
 }
