@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
 			        <!-- tab 1 contents -->
 			        <div class="tab-pane fade show active py-5" >
 									<!-- 게시판 글 내용 -->
-									<form class="card p-5 mb-3" id="form" action="" method="post">
+									<form class="card p-5 mb-3" id="notice_form" action="" method="post">
 										<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
@@ -107,7 +107,7 @@ pageEncoding="UTF-8"%>
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
-			let form = $("#form")
+			let form = $("#notice_form")
 			form.attr("action","<c:url value='/notice/remove?page=${page}&pageSize=${pageSize}' />")
 			form.attr("method", "post")
 			form.submit()
@@ -115,7 +115,7 @@ pageEncoding="UTF-8"%>
 		
 		//write
 		$("#writeBtn").on("click", function() {
-			let form = $("#form");
+			let form = $("#notice_form");
 			form.attr("action", "<c:url value='/notice/write' />")
 			form.attr("method", "post")
 			
@@ -125,7 +125,7 @@ pageEncoding="UTF-8"%>
 		
 		//modify
 		$("#modifyBtn").on("click", function() {
-				let form = $("#form");
+				let form = $("#notice_form");
 				form.attr("action", "<c:url value='/notice/modify' />")
 				form.attr("method", "get")	
 				form.submit()

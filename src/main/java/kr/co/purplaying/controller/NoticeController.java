@@ -58,13 +58,13 @@ public class NoticeController {
   public String modify(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
     //read와 동일. notice_id를 불러와서 조회.
     try {
-      
+          System.out.println("notice_id: "+notice_id);
+          NoticeDto noticeDto = noticeService.read(notice_id);
+          m.addAttribute(noticeDto);
+          
           String user_id = (String)session.getAttribute("user_id");
           m.addAttribute(user_id);
-          
-          NoticeDto noticeDto = noticeService.read(notice_id);
-          
-          m.addAttribute(noticeDto);
+
           m.addAttribute("page", page);
           m.addAttribute("pageSize", pageSize);
           
