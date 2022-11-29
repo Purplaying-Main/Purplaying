@@ -746,7 +746,7 @@
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
 	        	$("#password").on("input", function(){
-	        		if($(this).val() == passwordConfirm && $(this).val() != "" && $("#passwordConfirm").val() != "") {
+	        		if($(this).val() == passwordConfirm$("#passwordConfirm").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
 	        		}
 	        		else {
@@ -754,7 +754,7 @@
 	        		}
 	        	})
 	        	$("#passwordConfirm").on("input", function(){
-	        		if($(this).val() == $("#password").val() && $(this).val() != "" && $("#passwordConfirm").val() != "") {
+	        		if($(this).val() == $("#password").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
 	        		}
 	        		else {
