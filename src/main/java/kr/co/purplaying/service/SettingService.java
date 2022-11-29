@@ -14,5 +14,6 @@ public interface SettingService {
   int modifyIntro(Map<String, Object> map) throws Exception;
   Map<String, Object> chooseAddress(String user_id) throws Exception;   // address_id로 출력 확인후 변경
   int modifyProfile(Map<String, Object> map) throws Exception;
+  int modifyPwd(UserDto userDto) throws Exception;
   
 }

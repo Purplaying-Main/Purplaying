@@ -103,4 +103,19 @@ public class SettingController {
     }
   }
   
+  @RequestMapping(value="/setting/pwd/{user_no}", method = RequestMethod.PATCH)
+  public ResponseEntity<String> modifyPwd(@PathVariable int user_no, @RequestBody UserDto userDto , HttpSession session) {
+    String id = (String)session.getAttribute("user_id");
+    userDto.setUser_id(id);
+    
+    try {
+        if(settingService.modifyPwd(userDto) != 1)
+            throw new Exception("Update failed");
+        return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
+    }catch(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<String>("MOD_ERR",HttpStatus.BAD_REQUEST);
+    }
+  }
+  
 }

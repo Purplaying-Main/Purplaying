@@ -196,7 +196,7 @@
                                             <h6>비밀번호</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#pwdChangeModal">
+                                            <button id="pwdchangeBtn" class="btn btn-outline-primary" type="button">
                                                 변경
                                             </button>
                                         </div>
@@ -318,7 +318,7 @@
                                             <div class="invalid-feedback">Please enter your shipping address.</div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                            <button id="modpwdBtn"type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">
                                                 확인
                                             </button>
                                         </div>
@@ -684,7 +684,7 @@
 	  			let user_introduce = $("#user_Introduce").val()
 	  			
 	  			if(user_introduce.trim() == '') { 
-	  				let user_introduce = $("#user_introduce").val("안녕하세요.")
+	  				let user_introduce = $("#user_introduce").text("안녕하세요.")
 				}
 	  			
 	  			$.ajax({
@@ -693,7 +693,7 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-					$("#introChangeModal").modal("hide")
+						$("#introChangeModal").modal("hide")
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -704,24 +704,23 @@
 	
 	  			$("#modpwdBtn").attr("user-no", user_no)
 	  			$("#pwdChangeModal").modal("show")
-	  			
+
 	  		})
 	  		
 	  		$("#modpwdBtn").click(function() {
 				let user_no = $("#user_no").val()
-	  			let user_introduce = $("#user_Introduce").val()
+	  			let user_pwd = $("#password").val()
+	  			let pwdcheck = $("#passwordConfirm").val()
+				
 	  			
-	  			if($("#password").val() != $("#passwordConfirm").val()) { 
-	  				
-				}
 	  			
 	  			$.ajax({
 	  				type : 'PATCH',
-	  				url : '/purplaying/setting/intro/'+user_no,
+	  				url : '/purplaying/setting/pwd/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					data : JSON.stringify({user_pwd:user_pwd}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-					$("#introChangeModal").modal("hide")
+						$("#pwdChangeModal").modal("hide")
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -742,7 +741,29 @@
 				});
 				return tmp;
 			}
-        </script>
+	        
+	        $(document).ready(function(){
+	        	$("#modpwdBtn").attr("disabled", "disabled")
+	        	
+	        	$("#password").on("input", function(){
+	        		if($(this).val() == passwordConfirm && $(this).val() != "" && $("#passwordConfirm").val() != "") {
+	        			$("#modpwdBtn").removeAttr("disabled")
+	        		}
+	        		else {
+	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        		}
+	        	})
+	        	$("#passwordConfirm").on("input", function(){
+	        		if($(this).val() == $("#password").val() && $(this).val() != "" && $("#passwordConfirm").val() != "") {
+	        			$("#modpwdBtn").removeAttr("disabled")
+	        		}
+	        		else {
+	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        		}
+	        	})
+	        })
+	        	
+	        </script>
 
         <!--푸터 인클루드-->
         <%@ include file ="footer.jsp" %>

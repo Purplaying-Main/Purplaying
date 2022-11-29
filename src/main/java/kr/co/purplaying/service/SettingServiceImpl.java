@@ -60,4 +60,10 @@ public class SettingServiceImpl implements SettingService {
     return userDao.modifyProfile(map);
   }
 
+  @Override
+  public int modifyPwd(UserDto userDto) throws Exception {
+    // TODO Auto-generated method stub
+    return userDao.updateUserPwd(userDto);
+  }
+
 }
