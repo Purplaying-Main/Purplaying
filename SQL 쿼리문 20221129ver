@@ -1,4 +1,4 @@
---VER - 2022.11.28 11:27 수정
+--VER - 2022.11.29 14:30 수정
 --tb_abc순 정렬
 --tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
@@ -55,6 +55,18 @@ CREATE TABLE tb_chat_service (
 	pay_no int4 NOT NULL,
 	CONSTRAINT tb_chat_service_pkey PRIMARY KEY (chat_no)
 );
+------------------------- community comment 테이블 -------------------------
+DROP TABLE IF EXISTS tb_chat_service;
+CREATE TABLE IF NOT EXISTS tb_chat_service(
+    chat_no serial PRIMARY KEY,
+       prdt_id int not null,
+    chat_writer varchar(30) not null,
+    chat_context varchar(3000),
+    chat_date date default now(),
+    user_no int not null,
+    FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE cascade,
+    FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade
+    );
 
 ------------------------- deliverycharge 테이블 -------------------------
 DROP TABLE if exists tb_deliverycharge;
@@ -199,9 +211,24 @@ CREATE TABLE tb_product (
 	CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
 );
 
+------------------------- reply 테이블 -------------------------
+DROP TABLE IF EXISTS tb_reply;
+CREATE TABLE IF NOT EXISTS tb_reply(
+    rno serial PRIMARY KEY,
+    prdt_id int, --fk
+    chat_no int, --fk
+    chat_writer varchar(30) not null,
+    chat_context varchar(3000),
+    chat_date date default now(),
+    user_no int, --fk
+    FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE cascade,
+    FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade,
+    FOREIGN KEY(chat_no) REFERENCES tb_chat_service(chat_no) ON DELETE cascade
+    );
+    
 ------------------------- reward 테이블 -------------------------
 DROP TABLE if exists tb_reward;
-CREATE TABLE tb_reward (
+CREATE TABLE public.tb_reward (
 	reward_id serial4 NOT NULL,
 	reward_name varchar(100) NOT NULL,
 	reward_desc text NOT NULL,
@@ -209,6 +236,8 @@ CREATE TABLE tb_reward (
 	reward_stock int4 NULL,
 	reward_category int4 NOT NULL DEFAULT 0,
 	prdt_id int4 NOT NULL,
+	reward_cnt int4 NULL,
+	user_no int4 NULL,
 	CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
 );
 
@@ -240,18 +269,16 @@ CREATE TABLE tb_update (
 ------------------------- user 테이블 -------------------------
 DROP TABLE if exists tb_user;
 CREATE TABLE tb_user (
-	user_no serial4 NOT NULL,
-	user_id varchar(100) NOT NULL,
-	user_pwd varchar(100) NOT NULL,
-	user_name varchar(100) NOT NULL,
-	user_phone varchar(100) NOT NULL DEFAULT '010-0000-0000'::character varying,
-	user_regdate timestamp NULL DEFAULT now(),
-	user_activate int4 NOT NULL DEFAULT 1,
-	user_role int4 NOT NULL DEFAULT 0,
-	user_profile TEXT,
-	img_no int4,
-	CONSTRAINT constraintname UNIQUE (user_id),
-	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
+    user_no serial4 NOT NULL,
+    user_id varchar(100) NOT NULL,
+    user_pwd varchar(100) NOT NULL,
+    user_name varchar(100) NOT NULL,
+    user_phone varchar(100) NOT NULL DEFAULT '010-0000-0000'::character varying,
+    user_regdate timestamp NULL DEFAULT now(),
+    user_activate int4 NOT NULL DEFAULT 1,
+    user_role int4 NOT NULL DEFAULT 0,
+    CONSTRAINT constraintname UNIQUE (user_id),
+    CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
 
 ------------------------- bannerfile 테이블 -------------------------
@@ -267,7 +294,6 @@ CREATE TABLE tb_bannerfile
 ------------------------- FK 생성 -------------------------
 ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
-ALTER TABLE tb_chat_service ADD CONSTRAINT pay_no FOREIGN KEY (pay_no) REFERENCES tb_payment(pay_no) ON DELETE CASCADE;
 ALTER TABLE tb_chat_service ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_inquiry ADD CONSTRAINT tb_inquiry_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
@@ -282,11 +308,10 @@ ALTER TABLE tb_payment ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES t
 ALTER TABLE tb_product ADD CONSTRAINT tb_product_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
 ALTER TABLE tb_product ADD CONSTRAINT tb_product_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_reward ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_reward ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
-ALTER TABLE tb_user ADD CONSTRAINT tb_user_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
-ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 
 --시리얼 초기화 
 -- truncate table tb_ restart identity;
