@@ -1,5 +1,6 @@
 package kr.co.purplaying.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,9 @@ public class SettingServiceImpl implements SettingService {
   }
 
   @Override
-  public Map<String, Object> chooseAddress(String user_id) throws Exception {
-    System.out.println(user_id);
-    return addressDao.selectAddress(user_id);
+  public Map<String, Object> chooseAddress(Integer address_id) throws Exception {
+    System.out.println(address_id);
+    return addressDao.selectAddress(address_id);
   }
 
   @Override
@@ -71,6 +72,12 @@ public class SettingServiceImpl implements SettingService {
   public int addressAdd(AddressDto addressDto) throws Exception {
     // TODO Auto-generated method stub
     return addressDao.insert(addressDto);
+  }
+
+  @Override
+  public List<AddressDto> getList(int user_no) throws Exception {
+    // TODO Auto-generated method stub
+    return addressDao.selectAll(user_no);
   }
 
 }

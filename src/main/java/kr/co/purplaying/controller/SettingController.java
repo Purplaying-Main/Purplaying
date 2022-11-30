@@ -1,6 +1,6 @@
 package kr.co.purplaying.controller;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,16 +10,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
-import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
 
@@ -38,15 +38,11 @@ public class SettingController {
   public String list(Model m, HttpSession session) {
     
     String id = (String)session.getAttribute("user_id");
-    System.out.println(id);
     
     try {
       
       UserDto userDto = settingService.setUser(id);
       m.addAttribute(userDto);
-      
-      Map<String, Object> addressMap = settingService.chooseAddress(id);
-      m.addAttribute("addressMap", addressMap);
       
       Map<String, Object> settingMap = settingService.showSetting(id);
       m.addAttribute("settingMap", settingMap);
@@ -133,5 +129,24 @@ public class SettingController {
         e.printStackTrace();
         return new ResponseEntity<String>("MOD_ERR",HttpStatus.BAD_REQUEST);
     }
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="/setting/addresslist/{user_no}", method = RequestMethod.POST)
+  public ResponseEntity<List<AddressDto>> list(@PathVariable int user_no) {     
+      List<AddressDto> addresslist = null;
+      System.out.println("리스트함수 호출");
+      
+      try {
+        addresslist = settingService.getList(user_no);
+          
+          System.out.println("list = " + addresslist);
+          return new ResponseEntity<List<AddressDto>>(addresslist, HttpStatus.OK);       //200
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+          return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);    //400
+      }
+      
   }
 }

@@ -10,14 +10,20 @@
 		from tb_address a, tb_user u
 	</sql>
 	
-	<select id="AddressList" parameterType="int" resultType="map">
+	<select id="Address" parameterType="int" resultType="map">
 		<include refid="selectFromBoard" />
-		where u.user_no = #{user_no}
+		where a.user_no = #{user_no}
 	</select>
 	
-	<select id="selectAddress" parameterType="String" resultType="map">
+	<select id="AddressList" parameterType="int" resultType="AddressDto">
+		SELECT address_id, address_name, address_num, address, address_detail, receiver_name, receiver_phonenum, default_address, user_no
+		FROM tb_address
+		where user_no = #{user_no}
+	</select>
+	
+	<select id="selectAddress" parameterType="int" resultType="map">
 		<include refid="selectFromBoard" />
-		where a.user_no = u.user_no and u.user_id = #{user_id}
+		where a.user_no = u.user_no and address_id = #{address_id}
 	</select>
 	
 	<delete id="deleteAddress" parameterType="int">

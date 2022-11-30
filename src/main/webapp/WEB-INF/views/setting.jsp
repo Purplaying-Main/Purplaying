@@ -36,7 +36,7 @@
                         <button class="nav-link" id="v-pills-02-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false" >
                             계정
                         </button>
-                        <button class="nav-link" id="v-pills-03-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false" >
+                        <button class="nav-link" id="v-pills-03-tab" name="addressListTab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false" >
                             배송지
                         </button>
                         <button class="nav-link" id="v-pills-04-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false" >
@@ -338,7 +338,9 @@
                                     </div>
                                 </div>
                                 <!-- card start -->
-                                <div class="row border rounded w-75 mx-1">
+                                <div id="addressList">
+                                </div>
+                                <%-- <div class="row border rounded w-75 mx-1">
                                     <div class="border-bottom justify-content-between d-md-flex py-2">
                                         <h6 class="col-auto text-info">기본 배송지</h6>
                                         <div class="col-auto d-md-flex px-3">
@@ -377,7 +379,7 @@
                                         <h6>[06541] 서울특별시 서초구 강남대로 479 3층</h6>
                                         <h6>010-0000-0000</h6>
                                     </div>
-                                </div>
+                                </div> --%>
                                 <!-- card end -->
                                 <!-- 배송지 추가 modal start -->
                                 <div
@@ -651,71 +653,70 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_pwd:user_pwd}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						
 						$("#pwdChangeModal").modal("hide")
+						
 					},
 	  				error : function() {alert("error")}
 	  			})
 	  		})
 	  		
-	  		$("#regaddressBtn").click(function() {
-				let user_no = $("#user_no").val()
-	
-	  			$("#modpwdBtn").attr("user-no", user_no)
-	  			$("#addressRegModal").modal("show")
-	  		})
 	  		
-	  		$("#addressRegBtn").click(function() {
-				let user_no = $("#user_no").val()
-	  			let address_name = $("#address_name").val()
-				let receiver_name = $("#receiver_name").val()
-				let address_num = $("#address_num").val()
-				let address = $("#address").val()
-				let address_detail = $("#address_detail").val()
-				let receiver_phonenum = $("#receiver_phonenum").val()
-				let default_address = $("#default_address").val()
-				
-				if($("#default_address").is(":checked")) {
-					default_address = true
-				}
-				else {
-					default_address = false
-				}
-	  			
-	  			$.ajax({
-	  				type : 'POST',
-	  				url : '/purplaying/setting/address/'+user_no,
-	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-					data : JSON.stringify({address_name:address_name,
-										   receiver_name:receiver_name,
-										   address_num:address_num,
-										   address:address,
-										   address_detail:address_detail,
-										   receiver_phonenum:receiver_phonenum,
-										   default_address:default_address}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
-					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-						$("#addressRegModal").modal("hide")
-					},
-	  				error : function() {alert("error")}
-	  			})
-	  		})
         	
-            let toHtml = function(addresses) {
-				let tmp = "";
-				addresses.forEach(function(address){
-					tmp += '<div class="row border rounded w-75 mx-1">';
-					tmp += '<input id="address_id" type="hidden" value="' + address.address_id + '" />';
-                    tmp += '<div class="border-bottom justify-content-between d-md-flex py-2">'
-                    tmp += '<h6 class="col-auto text-info">' + address.address_name + '</h6>'
-                    tmp += '<div class="col-auto d-md-flex px-3">'
-                    tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" type="button">M</button>'
-                    tmp += '<button class="btn btn-outline-danger btn-sm me-md-2" type="button">D</button>'
-                    tmp += '</div></div><div class="px-3 pt-2"><h6>받는분 : ' + address.receiver_name + '</h6><h6>[' + address.address_num + '] '
-                    tmp += address.address + address.address_detail + '</h6><h6>' + address.receiver_phonenum + '</h6></div></div>'
-				});
-				return tmp;
-			}
+            
 	        
 	        $(document).ready(function(){
+	        	
+	        	let user_no = $("#user_no").val();
+	        	
+	        	$("#v-pills-03-tab").click(function(){
+		  			let user_no = $("#user_no").val()
+		  			showList(user_no)
+		  		})
+	        	
+	        	$("#regaddressBtn").click(function() {
+					let user_no = $("#user_no").val()
+		
+		  			$("#modpwdBtn").attr("user-no", user_no)
+		  			$("#addressRegModal").modal("show")
+		  		})
+		  		
+		  		$("#addressRegBtn").click(function() {
+					let user_no = $("#user_no").val()
+		  			let address_name = $("#address_name").val()
+					let receiver_name = $("#receiver_name").val()
+					let address_num = $("#address_num").val()
+					let address = $("#address").val()
+					let address_detail = $("#address_detail").val()
+					let receiver_phonenum = $("#receiver_phonenum").val()
+					let default_address = $("#default_address").val()
+					
+					if($("#default_address").is(":checked")) {
+						default_address = true
+					}
+					else {
+						default_address = false
+					}
+		  			
+		  			$.ajax({
+		  				type : 'POST',
+		  				url : '/purplaying/setting/address/'+user_no,
+		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+						data : JSON.stringify({address_name:address_name,
+											   receiver_name:receiver_name,
+											   address_num:address_num,
+											   address:address,
+											   address_detail:address_detail,
+											   receiver_phonenum:receiver_phonenum,
+											   default_address:default_address}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							showList(user_no)
+							$("#addressRegModal").modal("hide")
+						},
+		  				error : function() {alert("error")}
+		  			})
+		  		})
+	        	
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
 	        	$("#password").on("input", function(){
@@ -726,6 +727,7 @@
 	        			$("#modpwdBtn").attr("disabled", "disabled")
 	        		}
 	        	})
+	        	
 	        	$("#passwordConfirm").on("input", function(){
 	        		if($(this).val() == $("#password").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
@@ -734,8 +736,36 @@
 	        			$("#modpwdBtn").attr("disabled", "disabled")
 	        		}
 	        	})
-	        })
 	        	
+	        	let showList = function(user_no) {
+		        	$.ajax({
+		        		type: 'POST',			//요청 메서드
+						url: '/purplaying/setting/addresslist/'+user_no,		// 요청 URI
+						success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
+							$("#addressList").html(toHtml(result))		// result는 서버가 전송한 데이터
+						},
+						error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수 
+		        	})
+		        }
+	        	
+	        	let toHtml = function(addresses) {
+					let tmp = "";
+					addresses.forEach(function(address){
+						tmp += '<div class="row border rounded w-75 mx-1 mb-4">'
+						tmp += '<input id="address_id" type="hidden" value="' + address.address_id + '" />'
+	                    tmp += '<div class="border-bottom justify-content-between d-md-flex py-2">'
+	                    tmp += '<h6 class="col-auto text-info">' + address.address_name + '</h6>'
+	                    tmp += '<div class="col-auto d-md-flex px-3">'
+	                    tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" data-address-id="' + address.address_id + '" type="button">M</button>'
+	                    tmp += '<button class="btn btn-outline-danger btn-sm me-md-2" data-address-id="' + address.address_id + '" type="button">D</button>'
+	                    tmp += '</div></div><div class="px-3 pt-2"><h6>받는분 : ' + address.receiver_name + '</h6><h6>[' + address.address_num + '] '
+	                    tmp += address.address + ' ' + address.address_detail + '</h6><h6>' + address.receiver_phonenum + '</h6></div></div>'
+					});
+					return tmp;
+				}
+	        	
+	        })
+	        
 	        </script>
 
         <!--푸터 인클루드-->

@@ -12,7 +12,7 @@ public class AddressDto {
   private String receiver_phonenum;
   private String receiver_name;
   private boolean default_address;
-  private Integer user_no;
+  private int user_no;
   
   public AddressDto() {
     this(0, "", "", "", "", "", "", false, 0);
