@@ -17,24 +17,24 @@
   	<div class="container">
     	<div class="my-4"> <!-- 탭 메뉴 -->
     		<form id="searchUserform" action="<c:url value="/admin/userlist"></c:url>" method="get" class="justify-content-end d-flex">
-	  			<input name="keyword" id="searchUser" type="text" value="${param.keyword }"/>
+	  			<input class="form-control w-25 mb-4" name="keyword" id="searchUser" type="text" value="${param.keyword }"/>
         	</form>
-        	<div id="user_list" class="justify-content-center d-flex">
-	        	<table>
-	        	<tr>
-					<th class="user_no">번호</th>
-					<th class="user_id">아이디</th>
-					<th class="user_name">이름</th>
-					<th class="user_phone">전화번호</th>
-					<th class="user_regdate">등록일</th>
-					<th class="user_active">활성화/비활성화</th>
-					<th class="user_role">권한</th>
-					<th class="user_role_select">권한 선택</th>
-					<th class="user_role"></th>
+        	<div id="user_list" class="row mx-auto col-10">
+	        	<table class="table table-hover">
+	        	<tr class="table-Secondary">
+					<th class="user_no" scope="col">번호</th>
+					<th class="user_id" scope="col">아이디</th>
+					<th class="user_name" scope="col">이름</th>
+					<th class="user_phone" scope="col">전화번호</th>
+					<th class="user_regdate" scope="col">등록일</th>
+					<th class="user_active" scope="col">활성화/비활성화</th>
+					<th class="user_role" scope="col">권한</th>
+					<th class="user_role_select" scope="col">권한 선택</th>
+					<th class="user_role" scope="col"></th>
 				</tr>
 	        	<c:forEach var="MemberDto" items="${UserList}">
 					<tr>
-						<td name="user_no-${MemberDto.user_no}">${MemberDto.user_no}</td>
+						<th scope="row" name="user_no-${MemberDto.user_no}">${MemberDto.user_no}</th>
 						<td name="user_id-${MemberDto.user_no}">${MemberDto.user_id}</td>
 						<td name="user_name-${MemberDto.user_no}">${MemberDto.user_name}</td>
 						<td name="user_phone-${MemberDto.user_no}">${MemberDto.user_phone}</td>

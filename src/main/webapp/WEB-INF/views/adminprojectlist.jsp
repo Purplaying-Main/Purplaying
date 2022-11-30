@@ -17,23 +17,23 @@
   		<div class="container">
     		<div class="my-4"> <!-- 탭 메뉴 -->
         		<form id="searchproductform" action="<c:url value="/admin/projectlist"></c:url>" method="get" class="justify-content-end d-flex">
-        			<input id="searchproduct" name ="keyword" type="text" value="${param.keyword}"/>
+        			<input class="form-control w-25 mb-4" id="searchproduct" name ="keyword" type="text" value="${param.keyword}"/>
         		</form>
-        		<div id="product_list" class="justify-content-center d-flex">
-	        		<table>
+        		<div id="product_list" class="row mx-auto col-10">
+	        		<table class="table table-hover">
 			        	<tr>
-							<th class="prdt_id">번호</th>
-							<th class="prdt_name">제목</th>
-							<th class="prdt_writer">작성자</th>
-							<th class="prdt_opendate">오픈일</th>
-							<th class="prdt_enddate">종료일</th>
-							<th class="prdt_goal">목표금액</th>
-							<th class="prdt_currenttotal">현재금액</th>
-							<th class="prdt_save"></th>
+							<th class="prdt_id" scope="col">번호</th>
+							<th class="prdt_name" scope="col">제목</th>
+							<th class="prdt_writer" scope="col">작성자</th>
+							<th class="prdt_opendate" scope="col">오픈일</th>
+							<th class="prdt_enddate" scope="col">종료일</th>
+							<th class="prdt_goal" scope="col">목표금액</th>
+							<th class="prdt_currenttotal" scope="col">현재금액</th>
+							<th class="prdt_save" scope="col"></th>
 						</tr>
 			        	<c:forEach var="projectDto" items="${projectList}">
 							<tr>
-								<td name="prdt_id-${projectDto.prdt_id}">${projectDto.prdt_id}</td>
+								<th scope="row" name="prdt_id-${projectDto.prdt_id}">${projectDto.prdt_id}</th>
 								<td name="prdt_name-${projectDto.prdt_id}"><a href="${pageContext.request.contextPath}/project/${projectDto.prdt_id}">${projectDto.prdt_name}</a></td>
 								<td name="prdt_writer-${projectDto.prdt_id}">${projectDto.writer}</td>
 								<td name="prdt_opendate-${projectDto.prdt_id}"><fmt:formatDate value="${projectDto.prdt_opendate}" pattern="yyyy-MM-dd" type="date" /></td>

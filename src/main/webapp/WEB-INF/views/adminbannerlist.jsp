@@ -16,22 +16,22 @@
   <section>
   <div class="container">
     <div class="my-4"> <!-- 탭 메뉴 -->
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 w-50 mx-auto">
                 <input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
                 <button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
               </div>
-              <h5>배너 적용중인 이미지</h5>
-              <div id="Banner_img_list" class="justify-content-center d-flex">
-		        <table>
+              <h5 class="mb-2">배너 적용중인 이미지</h5>
+              <div id="Banner_img_list" class="row mx-auto col-10">
+		        <table class="table table-hover">
 		        	<tr>
-						<th class="bannerfile_id">번호</th>
-						<th class="bannerfile_name">이미지 이름</th>
-						<th class="bannerfile_regdate">등록 날짜</th>
-						<th class="bannerfile_save"></th>
+						<th class="bannerfile_id" scope="col">번호</th>
+						<th class="bannerfile_name" scope="col">이미지 이름</th>
+						<th class="bannerfile_regdate" scope="col">등록 날짜</th>
+						<th class="bannerfile_save" scope="col"></th>
 					</tr>
 		        	<c:forEach var="bannerfileDto" items="${bannerfileList}">
 						<tr>
-							<td name="bannerfile_id">${bannerfileDto.bannerfile_id}</td>
+							<th name="bannerfile_id" scope="row">${bannerfileDto.bannerfile_id}</th>
 							<td name="bannerfile_name">${bannerfileDto.bannerfile_file}</td>
 							<td name="bannerfile_regdate"><fmt:formatDate value="${bannerfileDto.bannerfile_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
 							<td name="bannerfile_save-${bannerfileDto.bannerfile_id}">
@@ -42,20 +42,20 @@
 					</c:forEach>
 				</table>
 			</div>
-              <hr>
+              <hr class="my-4">
               <h5>프로젝트 썸네일 이미지</h5>
-        	<div id="Banner_list" class="justify-content-center d-flex">
-		        <table>
+        	<div id="Banner_list" class="row mx-auto col-10">
+		        <table class="table table-hover">
 		        	<tr>
-						<th class="file_id">번호</th>
-						<th class="file_name">이미지 이름</th>
-						<th class="file_location">이미지 경로</th>
-						<th class="file_regdate">등록 날짜</th>
-						<th class="file_save"></th>
+						<th class="file_id" scope="col">번호</th>
+						<th class="file_name" scope="col">이미지 이름</th>
+						<th class="file_location" scope="col">이미지 경로</th>
+						<th class="file_regdate" scope="col">등록 날짜</th>
+						<th class="file_save" scope="col"></th>
 					</tr>
 		        	<c:forEach var="fileDto" items="${bannerList}">
 						<tr>
-							<td name="file_id">${fileDto.file_id}</td>
+							<th name="file_id" scope="row">${fileDto.file_id}</th>
 							<td name="file_name"><a href="${pageContext.request.contextPath}/project/${fileDto.prdt_id}">${fileDto.file_name}</a></td>
 							<td name="file_location">${fileDto.file_location}</td>
 							<td name="file_regdate"><fmt:formatDate value="${fileDto.file_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
