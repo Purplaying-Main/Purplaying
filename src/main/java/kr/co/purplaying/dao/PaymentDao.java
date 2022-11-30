@@ -10,5 +10,6 @@ public interface PaymentDao {
   int insert(PaymentDto paymentDto) throws Exception;
   PaymentDto getPaymentInfo(int pay_no) throws Exception;
   List<PaymentDto> paymentCompleted(Map map) throws Exception;
-  
+  PaymentDto getPaymentReceipt(int pay_no) throws Exception;
+
 }

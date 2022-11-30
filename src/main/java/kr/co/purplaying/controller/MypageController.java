@@ -68,6 +68,7 @@ public class MypageController {
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
       
+      //후원한 펀딩 보여주는 부분
       int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
       List<ProjectDto> myfunding = projectDao.myfunding(user_no);
       m.addAttribute("myfunding", myfunding);

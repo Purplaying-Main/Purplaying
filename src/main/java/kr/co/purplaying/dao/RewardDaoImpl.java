@@ -1,6 +1,8 @@
 package kr.co.purplaying.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -46,5 +48,21 @@ public class RewardDaoImpl implements RewardDao {
   public RewardDto getPaymentRewardInfo(Integer prdt_id) throws Exception {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"getPaymentRewardInfo", prdt_id);
+  }
+
+  @Override
+  public List<RewardDto> selectedRewardPayment(int no_arr, int cnt_arr) throws Exception {
+    Map map = new HashMap();
+    map.put("reward_id", no_arr);
+    map.put("reward_cnt", cnt_arr);
+    return session.selectList(namespace+"selectedRewardPayment",map);
+  }
+
+  @Override
+  public int insertSelectReward(int no_arr, int cnt_arr) throws Exception {
+    Map map = new HashMap();
+    map.put("reward_id", no_arr);
+    map.put("reward_cnt", cnt_arr);
+    return session.update(namespace+"insertSelectReward", map);
   }
 }

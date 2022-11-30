@@ -11,6 +11,7 @@
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
 		,  prdt_buyercnt
+		,  (prdt_opendate - current_date) as "prdt_comingday"
 		FROM tb_product
 	</sql>
 	

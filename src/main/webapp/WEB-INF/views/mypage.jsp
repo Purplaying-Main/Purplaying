@@ -5,6 +5,9 @@
 <c:set var="loginId" value="${sessionScope.id}" />
 <c:set var="default_thumbnail" value="${projectDto.prdt_thumbnail == null ? '' : 'display:none' }"/>
 <c:set var="display_thumbnail" value="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }"/>
+<c:set var="today" value="<%=new java.util.Date()%>"/>
+<fmt:formatDate var="now" value="${today }" type="date"  pattern="yyyy-MM-dd"/>
+
 
 <!DOCTYPE html>
 <html>
@@ -51,7 +54,14 @@
 		                </div>
 		                <div class="col p-4 d-flex flex-column position-static">
 		                  <div class="row justify-content-between mb-2">
-		                    <div class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.prdt_id }</div> 
+		                    <div class="col-auto me-auto text-primary">
+		                    <c:choose>
+		                    	<c:when test="${projectDto.prdt_comingday > 0 }">펀딩 예정</c:when>
+		                    	<c:when test="${projectDto.prdt_dday >= 0}">펀딩 중</c:when>
+		                    	<c:when test="${projectDto.prdt_comingday < 0 }">펀딩 종료</c:when>
+		                    	<c:otherwise>펀딩상태</c:otherwise>
+		                    </c:choose> | 펀딩번호 ${projectDto.prdt_id }
+		                    </div> 
 		                    <div class="col-auto">
 		                      <!-- on off btn -->
 		                      <div class="form-check form-switch">
@@ -61,7 +71,7 @@
 		                    </div>
 		                  </div>
 		                  <h4 class="mb-0">${projectDto.prdt_name}</h4>
-		                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-0</p>
+		                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-${projectDto.prdt_dday}</p>
 		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
@@ -86,13 +96,19 @@
 		         </div>
                 <div class="col p-4 d-flex flex-column position-static">
                   <div class="row justify-content-between mb-2">
-                    <p class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.prdt_id}</p> 
+                    <p class="col-auto me-auto text-primary">		                    
+                    		<c:choose>
+		                    	<c:when test="${projectDto.prdt_comingday > 0 }">펀딩 예정</c:when>
+		                    	<c:when test="${projectDto.prdt_dday >= 0}">펀딩 중</c:when>
+		                    	<c:when test="${projectDto.prdt_comingday < 0 }">펀딩 종료</c:when>
+		                    	<c:otherwise>펀딩상태</c:otherwise>
+		                    </c:choose> | 펀딩번호 ${projectDto.prdt_id}</p> 
                     <div class="col-auto">
                       <a href="${pageContext.request.contextPath}/paymentCompleted/${projectDto.pay_no}">결제내역 상세보기</a>
                     </div>
                   </div>
-                  <h4 class="mb-0 lh-lg"><a href="${pageContext.request.contextPath}/project/${projectDto.prdt_id}">${projectDto.prdt_name}</a></h4>
-                  <div class="mb-1 text-danger lh-lg">현재 달성률 ${projectDto.prdt_percent}% 종료 D-${projectDto.prdt_dday}</div>
+                  <h4 class="mb-0"><a href="${pageContext.request.contextPath}/project/${projectDto.prdt_id}">${projectDto.prdt_name}</a></h4>
+                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 종료 D-${projectDto.prdt_dday}</p>
                   <p class="card-text mb-2">${projectDto.prdt_desc}</p>
                 </div>
               </div>

@@ -19,6 +19,7 @@ public class PaymentDaoImpl implements PaymentDao {
   UserDto userDto;
   ProjectDto projectDto;
   ProjectDao projectDao;
+  PaymentDto paymentDto;
   
   @Override
   public List<PaymentDto> select(Map map) throws Exception {
@@ -34,13 +35,19 @@ public class PaymentDaoImpl implements PaymentDao {
 
   @Override
   public PaymentDto getPaymentInfo(int pay_no) throws Exception {
-    // TODO Auto-generated method stub
+     
     return session.selectOne(namespace+"getPaymentInfo", pay_no);
   }
 
   @Override
   public List<PaymentDto> paymentCompleted(Map map) throws Exception {
     return session.selectList(namespace+"paymentCompleted", map);
+  }
+
+  @Override
+  public PaymentDto getPaymentReceipt(int pay_no) throws Exception {
+      
+    return session.selectOne(namespace+"getPaymentReceipt", pay_no);
   }
 
 

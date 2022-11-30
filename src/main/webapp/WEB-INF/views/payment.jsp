@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,18 +54,37 @@
         <div class="mb-4">
           <h5>리워드 정보</h5>
           <hr>
-            <div class="d-flex justify-content-between mx-1">
-              <p class="form-label fw-bold">리워드 패키지</p>
-              <p class="form-label">${rewardDto.row_number}. ${rewardDto.reward_name}</p>
-            </div>
-            <div class="d-flex justify-content-between mx-1">
-              <p class="form-label fw-bold">리워드 구성품</p>
-              <p class="form-label" id="dt_rewardItem">${rewardDto.reward_desc }</p>
-            </div>
-            <div class="d-flex justify-content-between mx-1">
-              <p class="form-label fw-bold">리워드 가격</p>
-              <p class="form-label"><span id="dt_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
-            </div>
+          	<div>
+          <c:forEach var="reward" items="${reward }" varStatus="status">
+          	<div>
+          	   <div class="d-flex justify-content-between mx-1">
+          	   <div class="form-label  fw-bold">
+              	<c:choose>
+              		<c:when test="${status.count%4 eq 1 }">리워드 번호 </c:when>
+              		<c:when test="${status.count%4 eq 2 }">리워드 패키지</c:when>
+              		<c:when test="${status.count%4 eq 3 }">리워드 수량</c:when>
+					<c:when test="${status.count%4 eq 0}">리워드 가격<hr>
+					</c:when>              		
+              	</c:choose>
+          	   </div>
+              <div class="form-label">
+              		<c:choose>
+              			<c:when test="${status.count%4 eq 0}">
+              			<c:set var="price" value="${fn:split(reward,'원-')[0] }"/>
+              			<fmt:parseNumber var="i" integerOnly="true"  type="number" value="${price}" />
+              			<fmt:formatNumber type="number" maxFractionDigits="3" value="${i }"/>원
+              			</c:when>
+              			<c:otherwise>${reward }</c:otherwise>
+              		</c:choose>
+              </div> 
+              </div>
+          	</div>
+            </c:forEach>
+            <div class="d-flex justify-content-between mx-1 my-1">
+            <p class="form-label fw-bold">후원 금액</p>
+            <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${param.rewardTotalPrice}"/></span>원</p>
+          </div>
+ 			</div>
         </div>
 
         <!-- 후원자 정보 -->
@@ -86,7 +106,7 @@
           </div>
         </div>
 
-		<form class="paymentForm" id="form" action="" method="">
+		<form class="paymentForm" id="paymentform" action="" method="">
         <!-- 배송 정보 -->
         <div class="mb-4">
           <h5>배송정보</h5>
@@ -261,16 +281,16 @@
         
         <!-- 결제 금액 계산 -->
         <div class="mb-4">
-          <hr>
+<%--           <hr>
           <div class="d-flex justify-content-between mx-2">
             <p class="form-label fw-bold">후원 금액</p>
             <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
           </div>
-          <div>           
-          <div class="d-flex justify-content-between mx-2">
+          <div>   --%>         
+<%--           <div class="d-flex justify-content-between mx-2">
               <p class="form-label fw-bold">배송비</p>
               <p class="form-label"><span id="dt_totalDiscount">${paymentDto.delivery_charge}</span></p>
-          </div>
+          </div> --%>
             <!--쿠폰 & 포인트 주석처리<div class="d-flex justify-content-between me-1 ms-3">
               <p class="form-label">쿠폰 사용</p>
               <p class="form-label"><span id="dt_usedCoupon">-1,000원 [축! 신규 가입 쿠폰]</span></p>
@@ -280,10 +300,10 @@
               <p class="form-label"><span id="dt_usedCoupon">-1,000원 [1,000포인트 사용]</span></p>
             </div>
           </div> -->
-          <div class="d-flex justify-content-between pt-2 mx-2">
+<%--           <div class="d-flex justify-content-between pt-2 mx-2">
             <p class="form-label fw-bold">결제 금액</p>
             <p class="form-label"><span id="dt_totalPrice">${rewardDto.reward_price + paymentDto.delivery_charge}</span>원</p>
-          </div>
+          </div> --%>
         </div>
 		
 		
@@ -401,8 +421,8 @@
 			form.submit()	
   	})
   	
-		let formCheck = function() {
-		let form = document.getElementById("form")
+		formCheck = function() {
+		let form = document.getElementById("paymentform")
 		
 		if(form.delivery_reciever.value=="") {
 			alert("수령인을 입력해 주세요.")

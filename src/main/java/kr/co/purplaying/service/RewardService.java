@@ -16,5 +16,7 @@ public interface RewardService {
 
   int deleteReward(int reward_id) throws Exception;
   RewardDto readPayment(Integer prdt_id) throws Exception;
+  List<RewardDto> setReward(int no_arr, int cnt_arr) throws Exception;
+  
 
 }

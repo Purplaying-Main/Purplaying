@@ -1,6 +1,7 @@
 package kr.co.purplaying.domain;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
 
 public class PaymentDto {
@@ -20,7 +21,7 @@ public class PaymentDto {
  private String delivery_addressdetail;
  private String delivery_memo;
  private int delivery_charge;
- 
+
 public PaymentDto() {
   // TODO Auto-generated constructor stub
 }
@@ -275,6 +276,11 @@ public int getDelivery_charge() {
 public void setDelivery_charge(int delivery_charge) {
   this.delivery_charge = delivery_charge;
 }
+
+
+
+
+
 
 
 }

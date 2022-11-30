@@ -1,6 +1,8 @@
 package kr.co.purplaying.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,12 @@ public class RewardServiceImpl implements RewardService {
   public RewardDto readPayment(Integer prdt_id) throws Exception {
     RewardDto rewardDto = rewardDao.getPaymentRewardInfo(prdt_id);
     return rewardDto;
+  }
+
+  @Override
+  public List<RewardDto> setReward(int no_arr, int cnt_arr) throws Exception {
+
+    return rewardDao.selectedRewardPayment(no_arr,cnt_arr);
   }
   
   

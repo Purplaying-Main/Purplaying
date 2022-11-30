@@ -17,5 +17,8 @@ public interface RewardDao {
   int deleteReward(int reward_id) throws Exception;
   
   RewardDto getPaymentRewardInfo(Integer prdt_id) throws Exception;
-
+  
+  List<RewardDto> selectedRewardPayment(int no_arr, int cnt_arr) throws Exception;
+  
+  int insertSelectReward(int no_arr,int cnt_arr) throws Exception;
 }

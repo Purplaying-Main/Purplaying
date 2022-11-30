@@ -51,8 +51,6 @@
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
-      	<form id="form" class="frm" action="" method="post">
-      		<input type="hidden" name="prdt_id" id="prdt_id" value="${projectDto.prdt_id}"><br>
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
@@ -98,19 +96,19 @@
 				</div> -->
               </li>
               <li>
+                <form class="selectedRewardForm" id="selectedRewardForm" action="" method="">
               	<div class="form-floating mb-3">
               		<div id="selectRewardBox">
               			
               		</div>
-<!-- 				  <textarea class="form-control" placeholder="선택한 리워드 출력 영역" id="floatingTextarea" style="resize: none;" row=5 readonly></textarea>
-				  <label for="floatingTextarea">선택한 리워드 리스트</label> -->
 				</div>
               </li>
               <li>
               	<div class="input-group mb-3">
               	  <span for="rewardSelectPrice" class="input-group-text">총 금액</span>
-				  <input type="text" class="form-control text-end" id="rewardTotalPrice" value="0" placeholder="1000" readonly>
+				  <input type="text" class="form-control text-end" id="rewardTotalPrice" name="rewardTotalPrice" value="0" placeholder="1000" readonly>
 				</div>
+            </form>
               </li>
               <li><input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="펀딩하기"/></li>
               <div class="row px-2 justify-content-between">
@@ -322,8 +320,6 @@
    <!-- 리워드 선택 JS  -->
    <script>
 	   function jumpUp(){
-	   		//const rewardNum = ${rewardDto.row_number};
-		   // document.getElementById("addReward").value = rewardNum;
 			let ml = document.getElementById("move").offsetLeft;
 			let mt = document.getElementById("move").offsetTop;
 		    window.scrollTo({top:mt, left: ml, behavior: "smooth"});
@@ -379,35 +375,45 @@
 				var reward_length = $("input[name='reward_cnt']").length;
 				var arr_reward=  new Array(reward_length);
 				for(var i=0; i<reward_length; i++){
-					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
-					let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
-					result_price = result_price + Number(price[0])*reward_cnt
+					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+					let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+					result_price = result_price + Number(price[0])*reward_cnt;
 				}
 				$("#rewardTotalPrice").val(result_price);
 			}
 		});
 	});
-	/* $('#doFundingBtn').click(function(){
-   		let form = $('#form');
-		form.attr("action","<c:url value='payment/"+$("#prdt_id").val()+"'></c:url>");
+    $('#doFundingBtn').click(function(){
+		console.log("펀딩하기 버튼 클릭");
+   		let form = $('#selectedRewardForm');
+		form.attr("action","<c:url value='/payment/${prdt_id}' />");
 		form.attr("method","get");
-		form.attr("result_price",$("#rewardTotalPrice").val())
-		var reward_length = $("input[name='reward_cnt']").length;
-		var arr_reward=  new Array(reward_length);
-		for(var i=0; i<reward_length; i++){
-			form.attr("reward_name"+[i],$("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(0)').html())
-			form.attr("reward_price"+[i],$("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html())
-			form.attr("reward_cnt"+[i],$("input[name='reward_cnt']").eq(i).val())
+		
+		if(formCheck())
+			form.submit()	
+
+   	}) 
+   	
+   	formCheck = function() {
+		let form = document.getElementById("selectRewardBox")
+		
+		if(form.innerText == "" ) {
+			alert("리워드를 선택해주세요.")
+			return false
 		}
-		form.attr("prdt_id",$("#prdt_id").val())
-		form.submit();
-  
-   	}) */
+		
+		if(form.style.display != "block" ) {
+			alert("리워드를 선택해주세요.")
+			return false
+		}
+		
+		console.log("입력 성공");
+		return true;
+	}
+		
    		
 	function calRewardPrice(){
-		eventTarget = event.target;
-		//let price = eventTarget.parentNode.parentElement.previousElementSibling.lastElementChild.innerHTML
-		
+		eventTarget = event.target;		
 		let rewardTotalPrice = document.getElementById("rewardTotalPrice").value;
 		var reward_length = $("input[name='reward_cnt']").length;
 		
@@ -415,7 +421,7 @@
 		let result_price = 0;
 		var arr_reward=  new Array(reward_length);
 		for(var i=0; i<reward_length; i++){
-			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
+            let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
 			let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
 			result_price = result_price + Number(price[0])*reward_cnt;
 			reward_amount = reward_amount+1;
@@ -440,9 +446,9 @@
 		let result_price = 0;
 		var arr_reward=  new Array(reward_length);
 		for(var i=0; i<reward_length; i++){
-			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').html().split("원")
-			let reward_cnt = $("input[name='reward_cnt']").eq(i).val()
-			result_price = result_price + Number(price[0])*reward_cnt
+			let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+			let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+			result_price = result_price + Number(price[0])*reward_cnt;
 		}
 		//
 		$("#rewardTotalPrice").val(result_price);
@@ -458,13 +464,14 @@
 		let temp = tmp;
 		temp += "<div>";
 		temp += '<div class="d-flex justify-content-between">'
-		temp += '<span id="selectedRewardName-'+num+'">'+name+'</span>'
-		temp += '<span id="selectedRewardPrice-'+num+'">'+price_won+'</span><input type="button" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/>'
+		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardName-'+num+'"><input type="hidden" value="'+num+'" name="no"><input type="hidden" value="'+name+'" name="nm">'+name+'</span>'
+		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardPrice-'+num+'"><input type="hidden" value="'+price_won+'" name="pr" >'+price_won+'</span><input type="button" class="btn text-danger fw-bold btn-sm" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/>'
 		temp +='</div>'
-		temp +=	'<div class="row text-end"><span>수량 <input type="number" class="col-1 text-end" name="reward_cnt" value="1" placeholder="1" min="1" onchange="calRewardPrice()"/> </span></div>'
+		temp +=	'<div class="d-flex justify-content-end col"><span class="align-self-center col-1" style="margin-bottom: 0px;">수량 </span><span class="col-2"><input type="number" class="text-center form-control form-control-sm" name="reward_cnt" value="1" id="selectedRewardCnt-'+num+'" placeholder="1" min="1" onchange="calRewardPrice()"/></span></div>'
 		temp += "</div>";
 		return temp;
 	}
+	</script>
 	<!-- 커뮤티니 댓글 기능 -->
 	
    	<script type="text/javascript">

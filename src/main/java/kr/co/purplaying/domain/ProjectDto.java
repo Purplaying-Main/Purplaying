@@ -14,16 +14,16 @@ public class ProjectDto {
   private Date    prdt_opendate;
   private Date    prdt_enddate;
   private Integer     prdt_goal;
-  private Integer     prdt_currenttotal;
+  private Integer     prdt_currenttotal; //현재모금액
   private boolean prdt_open;
   private String  prdt_desc_policy;
   private Integer     prdt_genre;
   private String  prdt_thumbnail;
   private String  prdt_img;
   private int prdt_user_no;
-  private int prdt_dday;
-  private int prdt_percent;
-  private Date prdt_purchaseday;
+  private int prdt_dday; //종료일까지 D-DAY
+  private int prdt_percent; //현재달성률
+  private Date prdt_purchaseday; //결제예정일
   private Date prdt_limitday;
   private int user_no;
   private String user_id;
@@ -33,9 +33,9 @@ public class ProjectDto {
   private Date user_regdate;
   private String user_activate;
   private String user_role;
-  private int prdt_buyercnt;
-  private int prdt_comingday;
-  private int pay_no;
+  private int prdt_buyercnt; //구매자 수
+  private int prdt_comingday;  //공개까지 남은 날짜
+  private int pay_no; //결제번호 (FK)
 
   public ProjectDto() { }
 
@@ -88,7 +88,7 @@ public class ProjectDto {
         + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_img=" + prdt_img + ", prdt_user_no="
         + prdt_user_no + ", prdt_dday=" + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday="
         + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", prdt_buyercnt="
-        + prdt_buyercnt + "]";
+        + prdt_buyercnt + "prdt_comingday=" + prdt_comingday+ "]";
   }
 
   public String getWriter() {

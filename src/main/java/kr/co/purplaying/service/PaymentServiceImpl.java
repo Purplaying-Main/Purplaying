@@ -23,4 +23,10 @@ public class PaymentServiceImpl implements PaymentService {
     return paymentDao.insert(paymentDto);
   }
 
+  @Override
+  public PaymentDto setPay_no(int pay_no) throws Exception {
+    PaymentDto paymentDto = paymentDao.getPaymentReceipt(pay_no);
+    return paymentDto;
+  }
+
 }

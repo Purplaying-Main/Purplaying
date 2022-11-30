@@ -40,5 +40,14 @@
 		limit 1
 	</select>
 	
+	<select id="selectedRewardPayment" parameterType="map"  resultType="RewardDto">
+		select reward_id, reward_name, reward_desc, reward_price, prdt_id, reward_cnt
+		from tb_reward
+		where (reward_id=#{reward_id} or reward_id=#{reward_id}) and prdt_id = #{prdt_id }
+	</select>
+	
+	<update id="insertSelectReward" parameterType="map">
+		update into tb_reward  set reward_id=#{no_arr}, reward_cnt=#{cnt_arr}
+	</update>
 
 </mapper>

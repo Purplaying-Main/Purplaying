@@ -40,4 +40,14 @@
  	limit 1
  	</select>
  	
+ 	<select id="getPaymentReceipt" parameterType="int" resultType="PaymentDto">
+ 	SELECT 
+ 	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
+ 	prdt_id, 
+ 	user_no, 
+ 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, delivery_charge
+	FROM tb_payment
+	where pay_no = #{pay_no}
+ 	</select>
+ 	
  </mapper>
