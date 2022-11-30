@@ -17,17 +17,33 @@ public class CommunityServiceImpl implements CommunityService {
 
   @Autowired
   public CommunityServiceImpl(CommunityDao communityDao, BoardDao boardDao) {
-    //super();
+    // super();
     this.communityDao = communityDao;
     this.boardDao = boardDao;
   }
 
-
   @Override
-  public List<CommunityDto> getList(Integer prdt_id) throws Exception {
+  public List<CommunityDto> getList(int prdt_id) throws Exception {
     // TODO Auto-generated method stub
     return communityDao.selectAll(prdt_id);
   }
 
+  @Override
+  public int insertChat(CommunityDto communityDto) throws Exception {
+    // TODO Auto-generated method stub
+    return communityDao.insertChat(communityDto);
+  }
+
+  @Override
+  public int modify(CommunityDto communityDto) throws Exception {
+    // TODO Auto-generated method stub
+    return communityDao.update(communityDto);
+  }
+
+  @Override
+  public int remove(int chat_no) throws Exception {
+    // TODO Auto-generated method stub
+    return communityDao.delete(chat_no);
+  }
 
 }

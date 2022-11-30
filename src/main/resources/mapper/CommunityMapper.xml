@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+<mapper namespace="kr.co.purplaying.dao.CommunityMapper">
+	
+	<select id="selectAll" parameterType="int" resultType="CommunityDto"> 
+		SELECT chat_no, prdt_id, chat_writer, chat_context, chat_date, user_no
+		FROM tb_chat_service
+		where prdt_id = #{prdt_id}
+		order by chat_date
+	</select>
+	
+	<delete id="deleteAll" parameterType="int">
+		delete from tb_chat_service
+		where prdt_id = #{prdt_id}
+	</delete>
+	
+	<delete id="delete" parameterType="map">
+		DELETE FROM tb_chat_service
+		WHERE chat_no = #{chat_no} and chat_writer = 'ezen'
+	</delete>
+	
+	<insert id="insertChat" parameterType="CommunityDto">
+		INSERT INTO tb_chat_service
+			(prdt_id, chat_writer, chat_context, user_no)
+		VALUES
+			(#{prdt_id}, 'ezen', #{chat_context});
+	</insert>
+	
+	<update id="update" parameterType="CommunityDto">
+		update tb_chat_service 
+		set chat_context = #{chat_context}
+		where chat_no = #{chat_no} and chat_writer = 'ezen'
+	</update>
+	
+</mapper>

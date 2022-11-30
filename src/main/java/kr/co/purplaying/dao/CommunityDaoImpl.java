@@ -1,7 +1,6 @@
 package kr.co.purplaying.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,27 @@ public class CommunityDaoImpl implements CommunityDao {
     private static String namespace = "kr.co.purplaying.dao.CommunityMapper.";
 
       @Override
-      public List<CommunityDto> selectAll(Integer prdt_id) throws Exception {
+      public List<CommunityDto> selectAll(int prdt_id) throws Exception {
         // TODO Auto-generated method stub
         return session.selectList(namespace+"selectAll", prdt_id);
+      }
+
+      @Override
+      public int insertChat(CommunityDto communityDto) throws Exception {
+        // TODO Auto-generated method stub
+        return session.insert(namespace+"insertChat", communityDto);
+      }
+
+      @Override
+      public int update(CommunityDto communityDto) throws Exception {
+        // TODO Auto-generated method stub
+        return session.update(namespace+"update", communityDto);
+      }
+
+      @Override
+      public int delete(int chat_no) throws Exception {
+        // TODO Auto-generated method stub
+        return session.delete(namespace+"delete", chat_no);
       }
 
 }
