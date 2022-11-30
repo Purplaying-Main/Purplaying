@@ -5,7 +5,7 @@
   
 <mapper namespace="kr.co.purplaying.dao.CommunityMapper">
 	
-	<select id="selectAll" parameterType="int" resultType="CommunityDto"> 
+	<select id="selectCommunity" parameterType="int" resultType="CommunityDto"> 
 		SELECT chat_no, prdt_id, chat_writer, chat_context, chat_date, user_no
 		FROM tb_chat_service
 		where prdt_id = #{prdt_id}
@@ -26,7 +26,7 @@
 		INSERT INTO tb_chat_service
 			(prdt_id, chat_writer, chat_context, user_no)
 		VALUES
-			(#{prdt_id}, 'ezen', #{chat_context});
+			(#{prdt_id}, #{chat_writer}, #{chat_context}, #{user_no);
 	</insert>
 	
 	<update id="update" parameterType="CommunityDto">

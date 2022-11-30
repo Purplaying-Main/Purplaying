@@ -5,7 +5,7 @@
   
 <mapper namespace="kr.co.purplaying.dao.ReplyMapper">
 
-	<select id="selectAll" parameterType="int" resultType="ReplyDto">
+	<select id="selectReply" parameterType="int" resultType="ReplyDto">
 		SELECT rno, prdt_id, chat_no, chat_writer, chat_context, chat_date, user_no
 		FROM tb_reply
 	</select>

@@ -24,7 +24,7 @@
 
 <body>
 	<script type="text/javascript">
-	let chat_prdt_no = 1
+	let chat_prdt_no = ${prdt_no}
 	
 	let showList = function(chat_prdt_no) {
 		$.ajax({
@@ -162,7 +162,7 @@
 					  </ul>
 				  	</div>
 	              </h4>
-	              
+	                            	
               <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100">
               	<c:forEach var="rewardDto" items="${dto}">
 	                <div class="col mt-2"><!-- 리워드 card start-->
@@ -268,7 +268,7 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.chat_writer }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
                         <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="chat_context" ></textarea>
@@ -285,25 +285,31 @@
                       <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                     </div>
                     <div class="col-11">
+                    <c:forEach var="communityDto" items="${list_community}">
                       <div class="border-bottom">
-                      	<h6 class="my-0">후원자 아이디 > </h6>
-                        <p class="my-0 text-small">작성일 >  </p>
+                      	<h6 class="my-0">후원자 아이디 > ${communityDto.chat_writer }</h6>
+                        <p class="my-0 text-small">작성일 > ${communityDto.chat_date}  </p>
                       </div>
-                      <p class="mb-5" >내용 > </p>
+                      <p class="mb-5" >내용 > ${communityDto.chat_context}</p>
+                                                </c:forEach>
+                      
                       <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
                           <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                         </div>
                         <div class="col-11">
+						<c:forEach var="replyDto" items="${list_reply}">                        
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 >}</h6>
-                            <p class="my-0 text-small">작성일 ></p>
+                            <h6 class="my-0">창작자 닉네임 > ${replyDto.chat_writer }</h6>
+                            <p class="my-0 text-small">작성일 > ${replyDto.chat_date }</p>
                           </div>
                           <p class="mb-5" >내용 ></p>
+                          </c:forEach>
                         </div>
                       </div>
                       <!--답글 종료-->
+                    
                     </div>
                   </div>
                   <!--댓글 종료-->
@@ -516,7 +522,7 @@
 	<!-- 커뮤티니 댓글 기능 -->
 	
    	<script type="text/javascript">
-	let prdt_id = 1
+	let prdt_id = ${prdt_id}
 
 	let showList = function(prdt_id) {
 		$.ajax({
@@ -532,7 +538,7 @@
 	}
 	$(document).ready(function() {
 		
-		let prdt_id = 1
+		let prdt_id = ${prdt_id}
 		showList(prdt_id)
 
 		$("#modBtn").click(function() {

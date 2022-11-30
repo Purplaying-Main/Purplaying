@@ -8,7 +8,7 @@ public class ReplyDto {
   private int rno;
   private int prdt_id;
   private int chat_no;
-  private String writer;
+  private String chat_writer;
   private String chat_context;
   private Date chat_date;
   private int user_no;
@@ -41,12 +41,12 @@ public class ReplyDto {
     this.chat_no = chat_no;
   }
 
-  public String getWriter() {
-    return writer;
+  public String getChat_writer() {
+    return chat_writer;
   }
 
-  public void setWriter(String writer) {
-    this.writer = writer;
+  public void setChat_writer(String chat_writer) {
+    this.chat_writer = chat_writer;
   }
 
   public String getChat_context() {
@@ -75,7 +75,7 @@ public class ReplyDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(chat_context, chat_date, chat_no, prdt_id, rno, user_no, writer);
+    return Objects.hash(chat_context, chat_date, chat_no, prdt_id, rno, user_no, chat_writer);
   }
 
   @Override
@@ -89,12 +89,12 @@ public class ReplyDto {
     ReplyDto other = (ReplyDto) obj;
     return Objects.equals(chat_context, other.chat_context) && Objects.equals(chat_date, other.chat_date)
         && chat_no == other.chat_no && prdt_id == other.prdt_id && rno == other.rno && user_no == other.user_no
-        && Objects.equals(writer, other.writer);
+        && Objects.equals(chat_writer, other.chat_writer);
   }
 
   @Override
   public String toString() {
-    return "ReplyDto [rno=" + rno + ", prdt_id=" + prdt_id + ", chat_no=" + chat_no + ", writer=" + writer
+    return "ReplyDto [rno=" + rno + ", prdt_id=" + prdt_id + ", chat_no=" + chat_no + ", writer=" + chat_writer
         + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + "]";
   }
 

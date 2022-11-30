@@ -11,6 +11,15 @@ public class CommunityDto {
   private String chat_context;
   private Date chat_date;
   private int user_no;
+  private int chat_type;
+
+  public int getChat_type() {
+    return chat_type;
+  }
+
+  public void setChat_type(int chat_type) {
+    this.chat_type = chat_type;
+  }
 
   public CommunityDto() {
     // TODO Auto-generated constructor stub

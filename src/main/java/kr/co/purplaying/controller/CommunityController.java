@@ -4,36 +4,42 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.domain.CommunityDto;
+import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.service.CommunityService;
+import kr.co.purplaying.service.RewardService;
 
 @Controller
-@RequestMapping("/projec                            tdetail")
+@RequestMapping("comu")
 public class CommunityController {
 
   @Autowired
   CommunityService communityService;
+  Model m= null;
 
-  @GetMapping("/communitys")
+  @GetMapping("/community")
   @ResponseBody
-  public List<CommunityDto> list(int prdt_id) {
-    List<CommunityDto> list = null;
-
+  public String reward(Model m, @RequestBody int prdt_id) {
     try {
-      list = communityService.getList(prdt_id);
-
-      System.out.println("list = " + list);
+      List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
+      
+      System.out.println(list_community);    
+      m.addAttribute("list_community",list_community);
     } catch (Exception e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
-
-    return list;
-    
-    }
+    return "community";
+  }
+   
 
 }
 
