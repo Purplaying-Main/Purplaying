@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="writerOnly" value="${sessionScope.user_id eq projectDto.writer ? '' : 'display:none' }"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,6 +143,9 @@
                   <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch?=id'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
+   			  <li class="row d-flex p-2">
+	             <button class="btn btn-outline-primary" style="${writerOnly}">후원내역 다운로드</button>
+	          </li>
             </ul>
           </div><!-- 상세페이지 상단 end -->
           <div class="row mb-2"><!-- 상세페이지 하단 start-->
