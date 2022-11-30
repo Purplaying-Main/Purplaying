@@ -170,6 +170,11 @@
 		where prdt_id = #{prdt_id}
 	</delete>
 	
+	<select id="selectProjectlikelist" parameterType="int" resultType="ProjectDto">
+		select * from tb_product
+		where prdt_id = #{prdt_id}
+		order by prdt_id desc
+	</select>
 	
 	
 	<!-- 마이페이지에서 후원한 펀딩 보이게 하는 쿼리문 -->

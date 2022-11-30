@@ -9,13 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -167,7 +163,7 @@ public class OneononeController {
   public String write(Model m, HttpSession session, OneononeDto oneononeDto) {
     String writer = (String) session.getAttribute("user_id");
     oneononeDto.setWriter(writer);
-
+    System.out.println(oneononeDto);
     m.addAttribute("mode", "new");
 
     return "inquiryWrite"; // 쓰기에 사용할때는 mode=new
@@ -294,7 +290,10 @@ public class OneononeController {
       @RequestParam(defaultValue = "10") Integer pageSize,
       Model m,
       HttpServletRequest request) {
-
+    
+    if (!loginCheck(request)) {
+      return "redirect:/user/login?toURL=/oneonone/list";
+    }
     try {
 
       int totalCnt = oneononeService.getCount();
@@ -322,5 +321,13 @@ public class OneononeController {
     }
     return "oneonone"; // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
+  
+  private boolean loginCheck(HttpServletRequest request) {
+    // 1. 세션을 얻어서
+    HttpSession session = request.getSession(false);                //false 는 session 이 없어도 새로 생성하지 않음. 반환값 null
+    // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
+    return session != null && session.getAttribute("user_id") != null;
+}
+  
 
 }

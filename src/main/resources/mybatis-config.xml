@@ -29,5 +29,6 @@
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 		<typeAlias alias="ReplyDto" type="kr.co.purplaying.domain.ReplyDto" />
 		<typeAlias alias="BannerFileDto" type="kr.co.purplaying.domain.BannerFileDto" />
+		<typeAlias alias="LikeDto" type="kr.co.purplaying.domain.LikeDto" />
 	</typeAliases>
 </configuration>

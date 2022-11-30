@@ -1,4 +1,4 @@
---VER - 2022.11.29 14:30 수정
+--VER - 2022.11.30 17:00 수정
 --tb_abc순 정렬
 --tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
@@ -110,8 +110,6 @@ CREATE TABLE tb_inquiry (
 	inquiry_context text NULL,
 	inquiry_private bool NOT NULL DEFAULT false,
 	inquiry_regdate date NULL DEFAULT CURRENT_TIMESTAMP,
-	img_no int4 NOT NULL,
-	user_no int4 NOT NULL,
 	CONSTRAINT tb_inquiry_pkey PRIMARY KEY (inquiry_no)
 );
 
@@ -297,8 +295,6 @@ ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_chat_service ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
-ALTER TABLE tb_inquiry ADD CONSTRAINT tb_inquiry_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
-ALTER TABLE tb_inquiry ADD CONSTRAINT tb_inquiry_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_inquiry_ans ADD CONSTRAINT tb_inquiry_ans_inquiry_no_fkey FOREIGN KEY (inquiry_no) REFERENCES tb_inquiry(inquiry_no) ON DELETE CASCADE;
 ALTER TABLE tb_leave ADD CONSTRAINT tb_leave_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_mypage ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
