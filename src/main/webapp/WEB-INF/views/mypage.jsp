@@ -120,42 +120,35 @@
             <!-- 관심 tab -->
             <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
               <!-- project card start-->
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-220 position-relative">
-                <div class="col-auto d-none d-lg-block">
-                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                </div>
-                <div class="col p-4 d-flex flex-column position-static">
-                  <div class="row justify-content-between mb-2">
-                    <small class="col-auto justify-content-start text-primary">펀딩예정 | 펀딩번호 00XXAA11</small> 
-                    <div class="col-auto justify-content-end form-check form-switch">
-                       <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>                   	
-					</div>
-                  </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
-                  <div class="mb-1 text-danger">현재 달성률 00%</div>
-                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-              </div>
-              <!-- project card end -->
-              
-              <!-- project card start-->
-              <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-220 position-relative">
-                <div class="col-auto d-none d-lg-block">
-                  <svg class="bd-placeholder-img" width="230" height="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-                </div>
-                <div class="col p-4 d-flex flex-column position-static">
-                  <div class="row justify-content-between mb-2">
-                    <p class="col-auto me-auto text-primary">펀딩예정 | 펀딩번호 00XXAA11</p> 
-                    <div class="col-auto justify-content-end">
-                       <i class="fa-regular fa-bell far alretBtn text-muted fs-6" onclick="alretBtn()">알림 OFF</i>
-                    </div>
-                  </div>
-                  <h4 class="mb-0">1999년 감성으로 찾아온 '세기말 풋사과 보습학원'</h4>
-                  <div class="mb-1 text-danger">현재 달성률 00%</div>
-                  <p class="card-text mb-2">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                </div>
-              </div>
-              <!-- project card end -->
+              <c:forEach var="projectDto" items="${list_like}">
+	              
+             		<!-- project card start -->
+           		
+	              <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+	                <div class="col-auto d-none d-lg-block">
+	                	<img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
+	                		src="${projectDto.prdt_thumbnail}" style="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }" >  
+	                </div>
+	                <div class="col p-4 d-flex flex-column position-static">
+	                  <div class="row justify-content-between mb-2">
+	                    <div class="col-auto me-auto text-primary">펀딩중 | 펀딩번호 ${projectDto.prdt_id }</div> 
+	                    <div class="col-auto">
+	                      <!-- on off btn -->
+	                     <div class="col-auto justify-content-end">
+	                       <i class="fa-regular fa-bell fas active alretBtn text-info fs-6" onclick="alretBtn()">알림 ON</i>
+	                    </div>
+	                    </div>
+	                  </div>
+	                  <a class="mb-0" href="<c:url value="/project/${projectDto.prdt_id }"/>"><h4>${projectDto.prdt_name}</h4></a>
+	                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-0</p>
+	                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
+	                  <p class="text-muted mb-0">심사완료</p>
+	                </div>
+	              </form> 
+	            
+		      	
+		      </c:forEach>
+              <!-- project card end -->		
               
               <!-- 알림신청 버튼 : 알림 확인 모달창 -->
               <!-- <div class="modal fade" id="NotifyRequestModal" tabindex="-1" aria-labelledby="NotifyRequestModalLabel" aria-hidden="true">
