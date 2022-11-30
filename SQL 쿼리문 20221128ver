@@ -254,20 +254,16 @@ CREATE TABLE tb_user (
 	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
 
-------------------------- mainfile 테이블 -------------------------
-
-drop table if exists tb_mainfile;
-CREATE TABLE tb_mainfile
+------------------------- bannerfile 테이블 -------------------------
+drop table if exists tb_bannerfile;
+CREATE TABLE tb_bannerfile
 (
-    mainfile_id serial,
-    mainfile_name VARCHAR(200) NOT NULL,
-    mainfile_location tet, 
-    mainfile_size NUMERIC,
-    mainfile_regdate timestamp DEFAULT now() NOT NULL, 
-    mainfile_state VARCHAR(1) DEFAULT 'F' NOT NULL,
-    PRIMARY KEY(mainfile_id)
+    bannerfile_id serial,
+    bannerfile_file text,
+    bannerfile_prdt_id int,
+    bannerfile_regdate timestamp DEFAULT now() NOT NULL, 
+    PRIMARY KEY(bannerfile_id)
 );
-
 ------------------------- FK 생성 -------------------------
 ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
