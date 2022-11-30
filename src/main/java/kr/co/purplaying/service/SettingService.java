@@ -13,10 +13,11 @@ public interface SettingService {
   Map<String, Object> showSetting(String user_id) throws Exception;
   int modifyName(UserDto userDto) throws Exception;
   int modifyIntro(Map<String, Object> map) throws Exception;
-  Map<String, Object> chooseAddress(Integer address_id) throws Exception;   // address_id로 출력 확인후 변경
+  AddressDto chooseAddress(Integer address_id) throws Exception;   // address_id로 출력 확인후 변경
   int modifyProfile(Map<String, Object> map) throws Exception;
   int modifyPwd(UserDto userDto) throws Exception;
   int addressAdd(AddressDto addressDto) throws Exception;
   List<AddressDto> getList(int user_no) throws Exception;
+  int modifyAddress(AddressDto addressDto) throws Exception;
   
 }

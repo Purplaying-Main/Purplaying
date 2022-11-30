@@ -47,8 +47,13 @@ public class AddressDto {
         && Objects.equals(address_num, other.address_num) && user_no == other.user_no;
   }
   
-  
-  
+  @Override
+  public String toString() {
+    return "AddressDto [address_id=" + address_id + ", address_name=" + address_name + ", address_num=" + address_num
+        + ", address=" + address + ", address_detail=" + address_detail + ", receiver_phonenum=" + receiver_phonenum
+        + ", receiver_name=" + receiver_name + ", default_address=" + default_address + ", user_no=" + user_no + "]";
+  }
+
   public Integer getAddress_id() {
     return address_id;
   }

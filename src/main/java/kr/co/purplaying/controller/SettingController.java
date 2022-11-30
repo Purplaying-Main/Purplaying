@@ -10,9 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +36,7 @@ public class SettingController {
   public String list(Model m, HttpSession session) {
     
     String id = (String)session.getAttribute("user_id");
+    System.out.println(id);
     
     try {
       
@@ -46,7 +45,6 @@ public class SettingController {
       
       Map<String, Object> settingMap = settingService.showSetting(id);
       m.addAttribute("settingMap", settingMap);
-      
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -134,14 +132,14 @@ public class SettingController {
   @ResponseBody
   @RequestMapping(value="/setting/addresslist/{user_no}", method = RequestMethod.POST)
   public ResponseEntity<List<AddressDto>> list(@PathVariable int user_no) {     
-      List<AddressDto> addresslist = null;
+      List<AddressDto> list = null;
       System.out.println("리스트함수 호출");
       
       try {
-        addresslist = settingService.getList(user_no);
+        list = settingService.getList(user_no);
           
-          System.out.println("list = " + addresslist);
-          return new ResponseEntity<List<AddressDto>>(addresslist, HttpStatus.OK);       //200
+        System.out.println("list = " + list);
+        return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
           
       } catch (Exception e) {
           e.printStackTrace();
@@ -149,4 +147,32 @@ public class SettingController {
       }
       
   }
+  
+  @ResponseBody
+  @RequestMapping(value="/setting/stmodaddress", method = RequestMethod.POST)
+  public AddressDto stmodaddress(@RequestBody AddressDto addressDto) {
+    System.out.println("수정 전 addressDto = " + addressDto);
+    try {
+      AddressDto dto = settingService.chooseAddress(addressDto.getAddress_id());
+      return dto;
+    }catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+    
+  }
+  
+  
+  @RequestMapping(value="/setting/endmodaddress", method = RequestMethod.PATCH)
+  public ResponseEntity<AddressDto> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
+    try {
+      if(settingService.modifyAddress(addressDto) != 1)
+          throw new Exception("Update failed");
+      return new ResponseEntity<AddressDto>(HttpStatus.OK);
+    }catch(Exception e) {
+      e.printStackTrace();
+      return new ResponseEntity<AddressDto>(HttpStatus.BAD_REQUEST);
+    }
+  }
+  
 }

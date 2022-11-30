@@ -7,7 +7,7 @@ import kr.co.purplaying.domain.AddressDto;
 
 public interface AddressDao {
 
-  Map<String, Object> selectAddress(Integer address_id) throws Exception;
+  AddressDto selectAddress(Integer address_id) throws Exception;
   int delete(Integer address_id) throws Exception;
   int update(AddressDto addressDto) throws Exception;
   int insert(AddressDto addressDto) throws Exception;

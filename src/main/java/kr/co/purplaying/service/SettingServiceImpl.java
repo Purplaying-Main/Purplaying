@@ -52,7 +52,7 @@ public class SettingServiceImpl implements SettingService {
   }
 
   @Override
-  public Map<String, Object> chooseAddress(Integer address_id) throws Exception {
+  public AddressDto chooseAddress(Integer address_id) throws Exception {
     System.out.println(address_id);
     return addressDao.selectAddress(address_id);
   }
@@ -78,6 +78,12 @@ public class SettingServiceImpl implements SettingService {
   public List<AddressDto> getList(int user_no) throws Exception {
     // TODO Auto-generated method stub
     return addressDao.selectAll(user_no);
+  }
+
+  @Override
+  public int modifyAddress(AddressDto addressDto) throws Exception {
+    // TODO Auto-generated method stub
+    return addressDao.update(addressDto);
   }
 
 }
