@@ -1,5 +1,6 @@
 package kr.co.purplaying.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
 
 @Controller
@@ -31,6 +34,9 @@ public class MypageController {
   @Autowired
   ProjectDao projectDao;
 
+   @Autowired
+  LikeService likeService;
+  
   @GetMapping("/mypage")
   public String list(@RequestParam(defaultValue = "1") Integer page,
                      @RequestParam(defaultValue = "10") Integer pageSize,
@@ -60,6 +66,16 @@ public class MypageController {
       map.put("offset", (page-1)*pageSize);
       map.put("pageSize", pageSize);
       
+      List<LikeDto> list_like_project = likeService.selectByUserId(user_id);
+      List<ProjectDto> list_like = new ArrayList<ProjectDto>();
+      
+      
+      System.out.println("list_like"+list_like_project);
+      for(int i = 0; i<list_like_project.size(); i++) {
+        list_like.add(projectService.selectProjectlikelist(list_like_project.get(i).getPrdt_id()));
+      }
+      m.addAttribute("list_like",list_like);   
+        
       List<ProjectDto> list = projectService.getPage(map);
       m.addAttribute("list", list);
       System.out.println("list : "+ list);
