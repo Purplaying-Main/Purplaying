@@ -4,12 +4,13 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
-	<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
-		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
+		<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
+		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail, prdt_img
 		, (prdt_enddate-prdt_opendate) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
+		,  prdt_buyercnt
 		FROM tb_product
 	</sql>
 	
@@ -102,15 +103,19 @@
 		limit 1
 	</select>
 	
-	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
-		INSERT INTO tb_product
-			(writer, prdt_genre, prdt_name, prdt_desc, prdt_desc_detail, prdt_opendate, prdt_enddate, prdt_goal, prdt_open, prdt_desc_policy, prdt_thumbnail)
-		VALUES (#{writer}, #{prdt_genre}, #{prdt_name}, #{prdt_desc}, #{prdt_desc_detail}, #{prdt_opendate}, #{prdt_enddate}, #{prdt_goal}, #{prdt_open}, #{prdt_desc_policy}, #{prdt_thumbnail} )
-	</insert>
+	<insert id="insert" parameterType="String"> <!-- Board 테이블 데이터 추가 -->
+        INSERT INTO tb_product
+            (writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal)
+        VALUES (#{writer}, now(), now(),  false , 500000 )
+    </insert>
 	
 	<update id="update" parameterType="ProjectDto">
 		UPDATE public.tb_product
-		SET prdt_name = #{prdt_name}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}, prdt_thumbnail = #{prdt_thumbnail}
+		SET prdt_name = #{prdt_name}, prdt_desc = #{prdt_desc}, prdt_desc_detail = #{prdt_desc_detail}
+			, prdt_regdate = now(), prdt_opendate = #{prdt_opendate}, prdt_enddate = #{prdt_enddate}
+			, prdt_goal = #{prdt_goal}, prdt_currenttotal = #{prdt_currenttotal}, prdt_open = #{prdt_open}
+			, prdt_desc_policy = #{prdt_desc_policy}, prdt_genre = #{prdt_genre}
+			, prdt_thumbnail = #{prdt_thumbnail}, prdt_img = #{prdt_img}
 		WHERE prdt_id= #{prdt_id} AND writer = #{writer}
 	</update>
 	
@@ -119,5 +124,84 @@
 		WHERE prdt_id = #{prdt_id} and writer = #{writer}		
 	</delete>
 	
+	<select id="getPaymentProjectInfo" parameterType="int" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		WHERE prdt_id = #{prdt_id}
+	</select>
+	
+	
+	<!-- updateDto -->
+	<insert id="insertUpdate" parameterType="UpdateDto">
+		insert into tb_update
+		(update_regdate, update_title, update_desc, user_id, prdt_id)
+		values (now(), #{update_title}, #{update_desc}, #{user_id}, #{prdt_id})	
+	</insert>
+	
+	<select id="selectUpdate" parameterType="int" resultType="UpdateDto">
+		select (row_number() over()), * from tb_update
+		where prdt_id = #{prdt_id}
+		order by update_regdate desc
+	</select>
+	
+	<select id="fundinging" parameterType="map" resultType="ProjectDto" >
+ 		select prdt_id, prdt_name, prdt_content 
+ 	</select>
 
+ <!-- 펀딩하기 클릭시 해당 펀딩구매수 증가 쿼리문 -->
+	 <update id="plusBuyerCnt" parameterType="int">
+ 		update tb_product
+ 		set prdt_buyercnt = prdt_buyercnt +1
+ 		where prdt_id = #{prdt_id}
+ 	</update>
+ 	
+	
+	<!-- admin -->
+	<select id="selectProject" parameterType="SearchItem" resultType="ProjectDto">
+		select prdt_id, prdt_name, writer,prdt_opendate,prdt_enddate,prdt_goal,prdt_currenttotal 
+		from tb_product
+		where prdt_name LIKE concat('%', #{keyword}, '%')
+		order by prdt_regdate desc
+		limit #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<delete id="deleteProject" parameterType="int">
+		delete from tb_product
+		where prdt_id = #{prdt_id}
+	</delete>
+	
+	
+	
+	<!-- 마이페이지에서 후원한 펀딩 보이게 하는 쿼리문 -->
+	<resultMap type="ProjectDto" id="ProjectDto">
+ 		 	<result column="prdt_id" property="prdt_id"/>
+	 		 <result column="prdt_currenttotal" property="prdt_currenttotal"/>
+	 		 <result column="prdt_goal" property="prdt_goal"/>
+	 		 <result column="prdt_dday" property="prdt_dday"/>
+	 		 <result column="prdt_percent" property="prdt_percent"/>
+	 		 <result column="prdt_opendate" property="prdt_opendate"/>
+	 		 <result column="prdt_enddate" property="prdt_enddate"/>
+	 		 <result column="prdt_desc" property="prdt_desc"/>
+	 		 <result column="prdt_name" property="prdt_name"/>
+	 		 <result column="prdt_thumbnail" property="prdt_thumbnail"/>
+ 		<association property="PaymentDto" javaType="PaymentDto">
+	 		 <result column="pay_no" property="pay_no"/>
+ 		 	<result column="prdt_id" property="prdt_id"/>
+ 		 	<result column="user_no" property="user_no"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<select id="myfunding" parameterType="int" resultType="ProjectDto">
+ 	select
+ 	tb_payment.pay_no, 
+ 	tb_payment.user_no, 
+ 	tb_product.prdt_id, 
+ 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+ 	(prdt_enddate-prdt_opendate) as "prdt_dday",  
+ 	tb_product.prdt_desc, 
+ 	tb_product.prdt_name, 
+ 	tb_product.prdt_thumbnail
+	from tb_product left join tb_payment
+	on tb_product.prdt_id = tb_payment.prdt_id
+	where tb_payment.user_no = #{user_no}
+ 	</select>
 </mapper>

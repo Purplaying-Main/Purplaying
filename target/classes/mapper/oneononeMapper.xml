@@ -3,11 +3,51 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
 
-<mapper namespace="kr.co.purplaying.dao.oneononeMapper">
+<mapper namespace="kr.co.purplaying.dao.OneononeMapper">
+
+	<resultMap type="OneononeDto" id="OneononeDto">
+		<result column="inquiry_no" property="inquiry_no" />
+		<result column="inquiry_state" property="inquiry_state" />
+		<result column="writer" property="writer" />
+		<result column="inquiry_title" property="inquiry_title" />
+		<result column="inquiry_context" property="inquiry_context" />
+		<result column="inquiry_private" property="inquiry_private" />
+		<result column="inquiry_regdate" property="inquiry_regdate" />
+		<collection property="ansDto" resultMap="AnsDto" />
+	</resultMap>
+
+	<resultMap type="AnsDto" id="ansDto">
+		<result column="ans_no" property="ans_no" />
+		<result column="ans_state" property="ans_state" />
+		<result column="admin_id" property="admin_id" />
+		<result column="ans_context" property="ans_context" />
+		<result column="ans_regdate" property="ans_regdate" />
+	</resultMap>
+	
+	<sql id="selectAllOneonone">
+			select A.inquiry_no, inquiry_state, writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate, ans_no, ans_state, admin_id, ans_context, ans_regdate
+			from tb_inquiry A
+			left outer join tb_inquiry_ans B
+			on A.inquiry_no = B.inquiry_no
+			WHERE A.inquiry_no = #{inquiry_no}
+	</sql>
+	
+	<sql id="SelectAns">
+		select ans_no, ans_state, admin_id , inquiry_no, ans_context, ans_regdate
+		from tb_inquiry_ans
+	</sql>
+	
+	<select id="selectAns" parameterType="map" resultMap="OneononeDto" >
+			select A.inquiry_no, inquiry_state, writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate, ans_no, ans_state, admin_id, ans_context, ans_regdate
+			from tb_inquiry A
+			left outer join tb_inquiry_ans B
+			on A.inquiry_no = B.inquiry_no
+			WHERE A.inquiry_no = #{inquiry_no}
+	</select>
 
   	<sql id="selectFromOneonone">
-		SELECT inquiry_no, inquiry_state, user_id, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
-		FROM tb_inquiry2
+		SELECT inquiry_no, inquiry_state, writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate
+		FROM tb_inquiry
   	</sql>
   	
   	<select id="select" parameterType="int" resultType="OneononeDto">
@@ -16,39 +56,43 @@
   	</select>
   	
   	<delete id="deleteAll">
-  		delete from tb_inquiry2
+  		truncate table tb_inquiry restart identity
   	</delete>
 
   	<delete id="delete" parameterType="map">
-  		delete from tb_inquiry2 
-  		where inquiry_no = #{inquiry_no} and user_id = #{user_id}
+  		delete from tb_inquiry
+  		where inquiry_no = #{inquiry_no} and writer = #{writer}
   	</delete>
   	
   	<delete id="deleteForAdmin">
-  		delete from tb_inquiry2 
+  		delete from tb_inquiry
   		where inquiry_no = #{inquiry_no}
   	</delete>
   	
-  	<insert id="insert">
-  		INSERT INTO tb_inquiry2
-			(inquiry_title, inquiry_context, user_id)
+  	<insert id="insert" parameterType="OneononeDto">
+  		INSERT INTO tb_inquiry
+			(writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate)
 		VALUES	
-			(#{inquiry_title}, #{inquiry_context}, #{user_id})
+			(#{writer}, #{inquiry_title}, #{inquiry_context}, #{inquiry_private}, CURRENT_TIMESTAMP)
   	</insert>
-  	
+
   	<select id="count" resultType="int">
-  		select count(*) from tb_inquiry2
+  		select count(*) from tb_inquiry
   	</select>
-  	
+   	
   	<select id="selectPage" parameterType="map" resultType="OneononeDto">
-  		<include refid="selectFromOneonone" />
+ 		<include refid="selectFromOneonone" />
+ <!--	<include refid="SelectAns" /> 
+  		<include refid="selectFromOneonone" />	
+		<include refid="selectAllOneonone" />		--> 
 		order by inquiry_regdate desc, inquiry_no desc 
 		limit #{pageSize} offset #{offset}
   	</select>
+
     
    	<select id="searchSelectPage" parameterType="SearchItem" resultType="OneononeDto">
 	  	select * 
-	  	from tb_inquiry2
+	  	from tb_inquiry
 		where true 
 		and (inquiry_title LIKE concat('%',#{keyword},'%')
 		OR inquiry_context LIKE concat('%',#{keyword},'%'))
@@ -58,17 +102,34 @@
   	
   	 <select id="searchResultCnt" parameterType="SearchItem" resultType="int">
 		select count(*) 
-		from tb_inquiry2
+		from tb_inquiry
 		where true 
 		and inquiry_title like concat('%' ,#{keyword}, '%')
   	</select>
 
 	<update id="update" parameterType="OneononeDto">
-		UPDATE tb_inquiry2
-		SET inquiry_title=#{inquiry_title}, inquiry_context=#{inquiry_context} 
-		WHERE inquiry_no= #{inquiry_no } and user_id = #{user_id}
+		UPDATE public.tb_inquiry
+		SET writer=#{writer}, inquiry_title=#{inquiry_title}, inquiry_context=#{inquiry_context}, inquiry_private=#{inquiry_private}, inquiry_regdate = now()
+		WHERE inquiry_no= #{inquiry_no} and writer = #{writer}
 	</update>
   	
+	<sql id="selectFromOneonone_privateTrue"> <!--Board 내용 공개글만 select 추출-->
+		SELECT inquiry_no, inquiry_state, writer, inquiry_title, inquiry_context, inquiry_private, inquiry_regdate 
+		FROM tb_inquiry
+		WHERE inquiry_private = true
+	</sql>
+
+	<update id="privateFalse" parameterType="OneononeDto"><!--컬럼 공개에서 비공개로 전환 (삭제 대체) -->
+		 UPDATE tb_inquiry 
+ 		 SET inquiry_private = FALSE 
+ 		 WHERE inquiry_no =  #{inquiry_no}
+	</update>
   	
+  	<update id="updateAnsCnt" parameterType="map">
+  		update tb_inquiry
+		set inquiry_state = #{inquiry_state}
+		where inquiry_no = #{inquiry_no }
+  	</update>
+
 	
 </mapper>
