@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,7 +113,7 @@
               </li>
               <li><input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="펀딩하기"/></li>
               <div class="row px-2 justify-content-between">
-              	<input type="button" class="col mx-1 btn fa-1x fa-heart far" style="color: rgb(156, 102, 255);" onclick="pickBtn()" value="&#xf004 찜하기">
+              	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
                   <!-- 공유하기 Modal -->
                   <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
@@ -331,7 +332,7 @@
    <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
-   <script>
+   <script type="text/javascript">
    	let arr = [];
    	let reward_amount=0;
    
@@ -471,6 +472,41 @@
 		temp += "</div>";
 		return temp;
 	}
+
+	function pickBtn() {
+		   let _buttonI = event.target;
+
+		   if (_buttonI.classList.contains("far")) {
+		      $.ajax({
+					type : 'post',				//요청 메서드
+					url : '/purplaying/like/addlike',				//요청 URI
+					headers :	{ "content-type" : "application/json"},				//요청 헤더
+					data : JSON.stringify({prdt_id:$('#prdt_id').val()}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
+						_buttonI.classList.add("fas");
+				      	_buttonI.classList.add("active");
+				      	_buttonI.setAttribute("style","color: red;");	//활성시 색 변경
+				     	_buttonI.classList.remove("far");
+			     	},
+			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+				})
+		   } else {
+		      $.ajax({
+					type : 'post',				//요청 메서드
+					url : '/purplaying/like/removelike',				//요청 URI
+					headers :	{ "content-type" : "application/json"},				//요청 헤더
+					data : JSON.stringify({prdt_id:$('#prdt_id').val()}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
+						  _buttonI.classList.remove("fas");
+					      _buttonI.classList.remove("active");
+					      _buttonI.setAttribute("style","color: rgb(156, 102, 255);"); //비활성시 원래 색으로
+					      _buttonI.classList.add("far");
+			     	},
+			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+				})
+		   }
+		}	   
+	   
 	</script>
 	<!-- 커뮤티니 댓글 기능 -->
 	
