@@ -28,5 +28,6 @@
 		<typeAlias alias="AttachFileDto" type="kr.co.purplaying.domain.AttachFileDto" />
 		<typeAlias alias="SearchItem" type="kr.co.purplaying.domain.SearchItem" />
 		<typeAlias alias="ReplyDto" type="kr.co.purplaying.domain.ReplyDto" />
+		<typeAlias alias="BannerFileDto" type="kr.co.purplaying.domain.BannerFileDto" />
 	</typeAliases>
 </configuration>

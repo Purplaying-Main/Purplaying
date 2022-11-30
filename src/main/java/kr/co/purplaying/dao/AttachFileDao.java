@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.BannerFileDto;
+import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
 
 public interface AttachFileDao {
@@ -16,7 +18,10 @@ public interface AttachFileDao {
 //  프로필
   int insertUserProfile(String uploadFolderPath, String uploadFileName, long uploadFileSize, int user_no) throws Exception;
 
-  int insertMainFile(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception;
   int searchResultCnt(SearchItem sc) throws Exception;
   List<AttachFileDto> selectFileListforAdmin(SearchItem sc) throws Exception;
+  ProjectDto findprojectImg(Integer prdt_id) throws Exception;
+  int insertBannerFile(ProjectDto projectDto)throws Exception;
+  List<BannerFileDto> selectBannerList() throws Exception;
+ 
 }

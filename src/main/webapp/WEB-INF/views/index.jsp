@@ -20,9 +20,10 @@
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
-      <div class="carousel-item active" id="item02">
+    <c:forEach var="bannerimg" items="${bannerList}" varStatus="status">
+      <div class="carousel-item ${status.index == 0 ? 'active' : ''}" id="item${status.index}">
         <div class="container">
-         <img src="" class="d-block w-100">
+         <img src="${bannerimg.bannerfile_file }" class="d-block w-100">
           <div class="carousel-caption text-start">
             <h1>물고기는 존재하지 않는다</h1>
             <p>다양한 사람들이 모여 한 권의 책을 추천합니다.</p>
@@ -30,7 +31,8 @@
           </div>
         </div>
       </div>
-      <div class="carousel-item"  id="item01">
+     </c:forEach>
+      <!-- <div class="carousel-item"  id="item01">
         <div class="container">
           <div class="carousel-caption text-start">
             <h1>화제의 번역서 원서로 읽기</h1>
@@ -42,13 +44,13 @@
       <div class="carousel-item" id="item03">
         <div class="container">
           <div class="carousel-caption text-start">
-            <!-- <h1>2022 노벨문학상, 아니 에르노</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p> -->
+            <h1>2022 노벨문학상, 아니 에르노</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
             <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>

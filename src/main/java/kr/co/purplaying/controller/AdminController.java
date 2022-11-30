@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AttachFileDto;
+import kr.co.purplaying.domain.BannerFileDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
@@ -106,6 +107,7 @@ public class AdminController {
       return null;
     }
     try {
+      List<BannerFileDto> bannerfileList = fileService.selectBannerList();
       System.out.println(sc);
       int totalCnt = fileService.getSearchResultCnt(sc);
       
@@ -116,6 +118,7 @@ public class AdminController {
 
       List<AttachFileDto> bannerList =fileService.selectFileListforAdmin(sc);
       m.addAttribute("bannerList",bannerList);
+      m.addAttribute("bannerfileList",bannerfileList);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -123,7 +126,29 @@ public class AdminController {
     
     return "adminbannerlist";
   }
-   
+  @PostMapping("/bannerimg")
+  @ResponseBody
+  public List<BannerFileDto> AdminBannerList(@RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
+    try {
+      System.out.println(projectDto);
+      int prdt_id = projectDto.getPrdt_id();
+      
+      projectDto = fileService.findprojectImg(prdt_id);
+      System.out.println(projectDto);
+      
+      projectDto.setPrdt_id(prdt_id);
+      if(fileService.insertBannerFile(projectDto)!= 1) {
+        System.out.println("배너 저장 실패");
+      }
+      List<BannerFileDto> bannerlist = fileService.selectBannerList();
+      return bannerlist;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
   @PostMapping("/listUser")
   @ResponseBody
   public List<UserDto> AdminUserList(SearchItem sc, @RequestBody UserDto userDto, Model m, HttpSession session ) {
@@ -203,88 +228,6 @@ public class AdminController {
     String str = sdf.format(date);
     
     return str.replace("-", File.separator);
-  }
-  
-  //admin 카로셀 이미지 업로드
-  @PostMapping(value = "/adminUpload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-  @ResponseBody
-  public ResponseEntity<List<AttachFileDto>> fileUpload(MultipartFile[] uploadFile, Model m){
-    
-    List<AttachFileDto> list = new ArrayList<>();
-    
-    System.out.println("upload file ajax post....");
-    String uploadFolder ="C:\\purplaying_file\\Banner";
-    
-    String uploadFolderPath = getFolder();
-  
-    //make folder(yyyy/MM/dd)
-    File uploadPath = new File(uploadFolder, uploadFolderPath);
-    System.out.println("upload path: "+uploadPath);
-    
-    if(uploadPath.exists() == false) {
-      uploadPath.mkdirs();
-    }
-    
-    List<AttachFileDto> thumblist = new ArrayList();
-    
-    for (MultipartFile multipartFile : uploadFile) { 
-      
-      AttachFileDto attachFileDto = new AttachFileDto();
-      String uploadFileName = multipartFile.getOriginalFilename();
-      System.out.println("only file name: "+ uploadFileName);
-      
-      // 파일 경로, 이름 저장
-      attachFileDto.setFile_name(uploadFileName);
-      attachFileDto.setFile_location(uploadFolderPath);
-
-      
-      
-//        파일명 중복방지 uuid
-      UUID uuid = UUID.randomUUID();
-      uploadFileName = uuid.toString() + "_" + uploadFileName;
-
-      try {
-        File saveFile = new File(uploadPath, uploadFileName);
-        multipartFile.transferTo(saveFile);
-        
-        attachFileDto.setUuid(uuid.toString());
-        attachFileDto.setUploadPath(uploadFolderPath);
-        
-        //원본 이미지 DB저장
-        
-         long uploadFileSize = multipartFile.getSize();
-         imgToDB(uploadFolderPath, uploadFileName, uploadFileSize);
-         
-         
-        //썸네일 생성
-        if(checkImageType(saveFile)) {
-          attachFileDto.setImage(true);
-          
-          FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
-          Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 230, 195); //width, height
-          //썸네 이미지 DB저장
-        
-          long uploadFileSize_tumb = multipartFile.getSize();
-          String uploadFileName_tumb = "s_"+uploadFileName;
-          imgToDB(uploadFolderPath, uploadFileName_tumb, uploadFileSize_tumb);
-          
-          
-          thumbnail.close();
-        }
-        // add to List
-        list.add(attachFileDto);
-        
-      } catch (Exception e) {
-        e.printStackTrace();
-      }  
-    }//for
-    return new ResponseEntity<>(list,HttpStatus.OK);
-  }
-  
-  private void imgToDB(String uploadFolderPath, String uploadFileName, long uploadFileSize) throws Exception {
-    if( fileService.insertMainFile(uploadFolderPath, uploadFileName, uploadFileSize) != 1) {
-      System.out.println("insertFile ERR");
-    }
   }
 
 }

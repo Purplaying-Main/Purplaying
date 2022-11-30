@@ -17,7 +17,13 @@ $(document).ready(function() {
 			    ['height', ['height']],
 			    ['insert',['picture','link','video']],
 			    ['view',['help']]
-			  ]
+			  ],
+		maximumImageFileSize: 500*1024, // 500 KB
+    	callbacks:{
+        	onImageUploadError: function(msg){
+          	console.log(msg + ' (1 MB)');
+        }
+    }
 			
 	});
 });   

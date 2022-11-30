@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.purplaying.dao.IndexDao;
+import kr.co.purplaying.domain.BannerFileDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.UserDto;
+import kr.co.purplaying.service.FileService;
 import kr.co.purplaying.service.SettingService;
 
 @Controller
@@ -24,6 +26,9 @@ public class IndexController {
   
   @Autowired
   SettingService settingService;
+  
+  @Autowired
+  FileService fileSevice;
   
   @RequestMapping("/")
   @GetMapping("/")
@@ -38,6 +43,11 @@ public class IndexController {
       
       Map map = new HashMap();
       List<ProjectDto> list_p = indexDao.popluarFunding(map);
+      
+      
+      List<BannerFileDto> bannerList = fileSevice.selectBannerList();
+      m.addAttribute("bannerList",bannerList);
+      
       m.addAttribute("list_p",list_p);
       
       List<ProjectDto> list_n = indexDao.newFunding(map);

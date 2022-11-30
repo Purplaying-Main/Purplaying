@@ -20,9 +20,31 @@
                 <input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
                 <button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
               </div>
+              <h5>배너 적용중인 이미지</h5>
+              <div id="Banner_img_list" class="justify-content-center d-flex">
+		        <table>
+		        	<tr>
+						<th class="bannerfile_id">번호</th>
+						<th class="bannerfile_name">이미지 이름</th>
+						<th class="bannerfile_regdate">등록 날짜</th>
+						<th class="bannerfile_save"></th>
+					</tr>
+		        	<c:forEach var="bannerfileDto" items="${bannerfileList}">
+						<tr>
+							<td name="bannerfile_id">${bannerfileDto.bannerfile_id}</td>
+							<td name="bannerfile_name">${bannerfileDto.bannerfile_file}</td>
+							<td name="bannerfile_regdate"><fmt:formatDate value="${bannerfileDto.bannerfile_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
+							<td name="bannerfile_save-${bannerfileDto.bannerfile_id}">
+								<input type="hidden" value="${bannerfileDto.banner_prdt_id}">
+								<button type="button" onclick="setBanner()">설정하기</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
               <hr>
+              <h5>프로젝트 썸네일 이미지</h5>
         	<div id="Banner_list" class="justify-content-center d-flex">
-        		<h5>프로젝트 썸네일 이미지</h5>
 		        <table>
 		        	<tr>
 						<th class="file_id">번호</th>
@@ -38,7 +60,8 @@
 							<td name="file_location">${fileDto.file_location}</td>
 							<td name="file_regdate"><fmt:formatDate value="${fileDto.file_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
 							<td name="fileDto_save-${fileDto.file_id}">
-								<button type="button">설정하기</button>
+								<input type="hidden" value="${fileDto.prdt_id}">
+								<button type="button" onclick="setBanner()">설정하기</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -68,7 +91,25 @@
   
   <script type="text/javascript">
   /* 파일 업로드 */
-  	
+  	function setBanner(){
+  		eventTarget = event.target;
+  		let prdt_id = eventTarget.previousElementSibling.value;
+  		let prdt_data = {prdt_id:prdt_id};
+  		$.ajax({
+			type:'post',	//통신방식 (get,post)
+			url: '/purplaying/admin/bannerimg',                                                                                
+			headers:{"content-type" : "application/json"},
+			dataType : 'text',
+			data : JSON.stringify(prdt_data),
+			success:function(result){
+				alert(result)
+				$('#Banner_img_list').html(toHtmlBannerList(JSON.parse(result)))
+			},
+			error : function(){
+				alert("error");
+			}					
+		});
+ 	}
   	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
 	var maxSize = 5242880 //5MB
 	function checkExtension(file_name, fileSize) {
@@ -81,38 +122,27 @@
 			return false
 		}
 		return true
-	}
-  
-	$("#fileAddBtn").on("click", function() {
-		var formData = new FormData()
-		var inputFile = $("#file_id")
-		var files = inputFile[0].files
-		console.log(files)
-
-		for (var i=0; i<files.length; i++){
-			if(!checkExtension(files[i].name, files[i].size)){
-				return false
-			}
-			formData.append("uploadFile", files[i]);
-			//formData.append("prdt_id", prdt_id);
-		}
-		
-		$.ajax({
-			type: 'POST',	
-			url: '/purplaying/admin/adminUpload',
-			enctype: "multpart/form-data",
-			data : formData,
-			processData: false,
-		    contentType: false,
-		    dataType:'json',
-			success: function(result) {
-				console.log(result)
-				//showUploadedFile(result)
-			
-				},
-			error : function() { alert("error") }
-		}) 
-	})
+	}	
+  	let toHtmlBannerList = function(list){
+  		let tmp = "<table><tr><th class='bannerfile_id'>번호</th><th class='bannerfile_name'>이미지 이름</th>";
+  	 	tmp += "<th class='bannerfile_regdate'>등록 날짜</th>";
+  		tmp += "<th class='bannerfile_save'></th></tr>";
+  		  		
+		list.forEach(function(list_item){
+			tmp += '<tr>'
+			tmp += '<td name="bannerfile_id">'+list_item.bannerfile_id+'</td>';
+			tmp += '<td name="bannerfile_name">'+list_item.bannerfile_file+'</td>';
+			tmp += '<td name="bannerfile_regdate">'+toStringByFormatting(list_item.bannerfile_regdate)+'</td>';
+			tmp += '<td name="bannerfile_save-'+list_item.bannerfile_id+'">';
+			tmp += '<input type="hidden" value="'+list_item.banner_prdt_id+'">';
+			tmp += '<button type="button" onclick="setBanner()">설정하기</button>';
+			tmp	+='</td>';
+			tmp += '</tr>';
+		});
+		tmp += "</table>";
+		return tmp;
+	}	
+	
  	function toStringByFormatting(source,delimiter = '-'){
  		let date_source = new Date(source);
 	    let month = date_source.getMonth() + 1;

@@ -34,12 +34,6 @@
 			(file_name, file_location, file_size, file_regdate, user_no)
 		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{user_no});
 	</insert>
-
-	<insert id="insertbannerFile" parameterType="map">
-		INSERT INTO tb_bannerfile
-			(bannerfile_name, bannerfile_location, bannerfile_size, bannerfile_regdate)
-		VALUES(#{file_name}, #{file_location}, #{file_size}, now());
-	</insert>
 	
 	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
   		SELECT count(*)
@@ -47,6 +41,26 @@
 		WHERE TRUE
 		AND file_name LIKE concat('%', #{keyword}, '%')
   	</select>
+  	
+  	<select id="fileforAdmin" parameterType="int" resultType="ProjectDto">
+  		SELECT prdt_img
+		FROM tb_product
+		WHERE prdt_id = #{prdt_id}
+		limit 1
+  	</select>
+  	
+  	<select id="selectBannerList" resultType="BannerFileDto">
+  		SELECT *
+		FROM tb_bannerFile
+		order by bannerfile_regdate desc
+		limit 3
+  	</select>
+  	
+  	<insert id="insertBannerFile" parameterType="ProjectDto">
+		INSERT INTO tb_bannerfile
+			(bannerfile_file, bannerfile_prdt_id, bannerfile_regdate)
+		VALUES(#{prdt_img}, #{prdt_id}, now());
+	</insert>
   	
   	<select id="selectFileListforAdmin" parameterType="SearchItem" resultType="AttachFileDto">
   		SELECT  file_id, file_name, file_location, file_regdate, prdt_id
