@@ -36,7 +36,6 @@
 							<td name="bannerfile_regdate"><fmt:formatDate value="${bannerfileDto.bannerfile_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
 							<td name="bannerfile_save-${bannerfileDto.bannerfile_id}">
 								<input type="hidden" value="${bannerfileDto.banner_prdt_id}">
-								<button type="button" onclick="setBanner()">설정하기</button>
 							</td>
 						</tr>
 					</c:forEach>

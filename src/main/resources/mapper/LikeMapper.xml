@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.dao.LikeMapper">
+
+	<sql id="selectAll">
+		select * 
+		from tb_like
+	</sql>
+	
+	<insert id="insertLike" parameterType="LikeDto">
+		INSERT INTO tb_like
+			(like_regdate, user_id, prdt_id)
+		VALUES(now(), #{user_id}, #{prdt_id});
+	</insert>
+	
+	<delete id="deleteLike" parameterType="LikeDto">
+		delete from tb_like
+		where user_id = #{user_id} and prdt_id = #{prdt_id}
+	</delete>
+	
+	<select id="selectLikelist" parameterType="String" resultType="int">
+		select prdt_id
+		from tb_like
+		where user_id = #{user_id}
+	</select>
+
+
+	<select id="selectByUserId" parameterType="String" resultType="LikeDto">
+		<include refid="selectAll"/>
+		where user_id = #{user_id}
+	</select>
+	
+</mapper>

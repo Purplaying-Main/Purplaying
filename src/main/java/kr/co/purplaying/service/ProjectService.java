@@ -33,6 +33,7 @@ public interface ProjectService {
   List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception;
   List<ProjectDto> selectProject(SearchItem sc) throws Exception;
   int deleteProject(Integer prdt_id) throws Exception;
+  ProjectDto selectProjectlikelist(int prdt_id) throws Exception;
 
 
   

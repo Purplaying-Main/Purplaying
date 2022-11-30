@@ -129,4 +129,10 @@ public class ProjectDaoImpl implements ProjectDao {
   public List<ProjectDto> myfunding(int user_no) throws Exception {
     return session.selectList(namespace+"myfunding", user_no);
   }
+
+  @Override
+  public ProjectDto selectProjectlikelist(int prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"selectProjectlikelist",prdt_id);
+  }
 }

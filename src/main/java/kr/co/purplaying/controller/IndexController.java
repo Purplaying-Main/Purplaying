@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import kr.co.purplaying.dao.IndexDao;
 import kr.co.purplaying.domain.BannerFileDto;
+import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.FileService;
+import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.SettingService;
 
 @Controller
@@ -29,6 +31,9 @@ public class IndexController {
   
   @Autowired
   FileService fileSevice;
+  
+  @Autowired
+  LikeService likeService;
   
   @RequestMapping("/")
   @GetMapping("/")
@@ -45,14 +50,24 @@ public class IndexController {
       List<ProjectDto> list_p = indexDao.popluarFunding(map);
       
       
+      
       List<BannerFileDto> bannerList = fileSevice.selectBannerList();
       m.addAttribute("bannerList",bannerList);
       
       m.addAttribute("list_p",list_p);
+     
       
       List<ProjectDto> list_n = indexDao.newFunding(map);
       m.addAttribute("list_n",list_n);
-      
+      if(id!=null) {
+        boolean likecheck = false;
+        List<Integer> Likelist = likeService.selectLikelist(id);
+        System.out.println(Likelist);
+     
+   
+        m.addAttribute("Likelist",Likelist);
+        
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }

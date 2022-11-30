@@ -37,6 +37,7 @@ import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
 import kr.co.purplaying.service.RewardService;
 
@@ -49,6 +50,9 @@ public class ProductController {
   
   @Autowired
   RewardService rewardService;
+  
+  @Autowired
+  LikeService likeService;
   
   //미리보기
   @GetMapping("/view/{prdt_id}")
@@ -82,7 +86,8 @@ public class ProductController {
   
  
   @GetMapping("/{prdt_id}") //펀딩 디테일 페이지 (로그인 유무 상관없음)
-  public String view(@PathVariable Integer prdt_id, Model m ) {
+  public String viewproduct(@PathVariable Integer prdt_id, Model m ,HttpSession session) {
+        String user_id = (String) session.getAttribute("user_id");
         try {
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
@@ -100,6 +105,16 @@ public class ProductController {
 //          System.out.println("user_id :"+session.getAttribute("user_id"));
 //          System.out.println(session.getAttribute("user_id").equals(projectDto.getWriter()));
 //          System.out.println(session.getAttribute("user_role").equals(1));
+          
+          if(user_id!=null) {
+            boolean likecheck = false;
+            List<Integer> Likelist = likeService.selectLikelist(user_id);
+            System.out.println(Likelist);
+         
+       
+            m.addAttribute("Likelist",Likelist);
+            
+          }
           
           m.addAttribute("list_update",list_update);     
           m.addAttribute("dto",list);

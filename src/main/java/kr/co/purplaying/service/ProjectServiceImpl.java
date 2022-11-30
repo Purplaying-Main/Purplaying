@@ -109,4 +109,10 @@ public class ProjectServiceImpl implements ProjectService{
   public int deleteProject(Integer prdt_id) throws Exception {
     return projectDao.deleteProject(prdt_id);
   }
+
+  @Override
+  public ProjectDto selectProjectlikelist(int prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return projectDao.selectProjectlikelist(prdt_id);
+  }
 }

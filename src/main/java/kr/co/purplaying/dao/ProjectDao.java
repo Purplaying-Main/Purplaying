@@ -34,6 +34,7 @@ public interface ProjectDao {
   List<ProjectDto> selectProject(SearchItem sc) throws Exception;
   int deleteProject(Integer prdt_id) throws Exception;
   List<ProjectDto> myfunding(int user_no) throws Exception;
+  ProjectDto selectProjectlikelist(int prdt_id) throws Exception;
 
   
 }
