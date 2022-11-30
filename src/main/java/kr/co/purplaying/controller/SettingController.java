@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.AddressDto;
 import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
@@ -118,4 +120,18 @@ public class SettingController {
     }
   }
   
+  @ResponseBody
+  @RequestMapping(value="/setting/address/{user_no}", method = RequestMethod.POST)
+  public ResponseEntity<String> addAddress(@PathVariable int user_no, @RequestBody AddressDto addressDto , HttpSession session) {
+    addressDto.setUser_no(user_no);
+    
+    try {
+        if(settingService.addressAdd(addressDto) != 1)
+            throw new Exception("add address failed");
+        return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
+    }catch(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<String>("MOD_ERR",HttpStatus.BAD_REQUEST);
+    }
+  }
 }

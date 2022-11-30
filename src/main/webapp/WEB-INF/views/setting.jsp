@@ -332,7 +332,7 @@
                                         <h6>등록된 배송지</h6>
                                     </div>
                                     <div class="col-auto px-3 text-end">
-                                        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addressRegModal">
+                                        <button id="regaddressBtn"class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addressRegModal">
                                             배송지 추가
                                         </button>
                                     </div>
@@ -343,19 +343,10 @@
                                         <h6 class="col-auto text-info">기본 배송지</h6>
                                         <div class="col-auto d-md-flex px-3">
                                             <!-- 수정 -->
-                                            <button
-                                                class="btn btn-outline-primary btn-sm me-md-2"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addressModiModal" >
+                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button">
                                                 M
                                             </button>
-                                            <button
-                                                class="btn btn-outline-danger btn-sm me-md-2"
-                                                type="button"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addressDelModal"
-                                            >
+                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button">
                                                 D
                                             </button>
                                         </div>
@@ -373,10 +364,10 @@
                                     <div class="border-bottom justify-content-between d-md-flex py-2">
                                         <h6 class="col-auto text-info">배송지 #2</h6>
                                         <div class="col-auto d-md-flex px-3">
-                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressModiModal" >
+                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button">
                                                 M
                                             </button>
-                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button" data-bs-toggle="modal" data-bs-target="#addressDelModal" >
+                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button">
                                                 D
                                             </button>
                                         </div>
@@ -390,12 +381,7 @@
                                 <!-- card end -->
                                 <!-- 배송지 추가 modal start -->
                                 <div
-                                    class="modal fade"
-                                    id="addressRegModal"
-                                    tabindex="-1"
-                                    aria-labelledby="addressRegModalLabel"
-                                    aria-hidden="true"
-                                >
+                                    class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -405,62 +391,34 @@
                                             <div class="modal-body p-5 pt-0">
                                                 <form class="">
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="address_name" name="username" />
+                                                        <input type="text" class="form-control rounded-3" id="address_name" name="address_name" />
                                                         <label for="label_username">배송지 이름</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="receiver_name" name="username" />
+                                                        <input type="text" class="form-control rounded-3" id="receiver_name" name="receiver_name" />
                                                         <label for="label_username">수령인</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control rounded-3"
-                                                            id="address_num"
-                                                            name="address_num"
-                                                            readonly
-                                                        />
+                                                        <input type="text" class="form-control rounded-3" id="address_num" name="address_num" readonly />
                                                         <label for="label_address">우편번호</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control rounded-3"
-                                                            id="address"
-                                                            name="address"
-                                                            readonly
-                                                        />
+                                                        <input type="text" class="form-control rounded-3" id="address" name="address" readonly />
                                                         <label for="label_address">배송지 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control rounded-3"
-                                                            id="address_detail"
-                                                            name="address_detail"
-                                                        />
+                                                        <input type="text" class="form-control rounded-3" id="address_detail" name="address_detail" />
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="userphone" name="userphone" />
+                                                        <input type="text" class="form-control rounded-3" id="receiver_phonenum" name="receiver_phonenum" />
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
-                                                        <input
-                                                            class="form-check-input"
-                                                            type="checkbox"
-                                                            id="defaultAddressReg"
-                                                            value=""
-                                                            aria-label="..."
-                                                        />
+                                                        <input class="form-check-input" type="checkbox" id="default_address" name="default_address" aria-label="..." />
                                                         기본배송지로 등록
                                                     </div>
-                                                    <button
-                                                        class="w-100 my-3 btn btn-lg rounded-3 btn-primary"
-                                                        type="button"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    >
+                                                    <button id="addressRegBtn" class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button">
                                                         배송지 저장
                                                     </button>
                                                 </form>
@@ -472,13 +430,7 @@
                                 <!-- Modal end-->
 
                                 <!-- 배송지 수정 modal start -->
-                                <div
-                                    class="modal fade"
-                                    id="addressModiModal"
-                                    tabindex="-1"
-                                    aria-labelledby="addressModiModalLabel"
-                                    aria-hidden="true"
-                                >
+                                <div class="modal fade" id="addressModiModal" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -496,12 +448,7 @@
                                                         <label for="label_username">수령인</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control rounded-3"
-                                                            id="address_num"
-                                                            name="address_num"
-                                                        />
+                                                        <input type="text" class="form-control rounded-3" id="address_num" name="address_num" />
                                                         <label for="label_address">우편번호</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
@@ -509,12 +456,7 @@
                                                         <label for="label_address">배송지 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input
-                                                            type="text"
-                                                            class="form-control rounded-3"
-                                                            id="address_detail"
-                                                            name="address_detail"
-                                                        />
+                                                        <input type="text" class="form-control rounded-3" id="address_detail" name="address_detail" />
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
@@ -522,21 +464,10 @@
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
-                                                        <input
-                                                            class="form-check-input"
-                                                            type="checkbox"
-                                                            id="defaultAddressReg"
-                                                            value=""
-                                                            aria-label="..."
-                                                        />
+                                                        <input class="form-check-input" type="checkbox" id="default_address" name="default_address" aria-label="..." />
                                                         기본배송지로 등록
                                                     </div>
-                                                    <button
-                                                        class="w-100 my-3 btn btn-lg rounded-3 btn-primary"
-                                                        type="button"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    >
+                                                    <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close" >
                                                         배송지 저장
                                                     </button>
                                                 </form>
@@ -721,6 +652,48 @@
 					data : JSON.stringify({user_pwd:user_pwd}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 						$("#pwdChangeModal").modal("hide")
+					},
+	  				error : function() {alert("error")}
+	  			})
+	  		})
+	  		
+	  		$("#regaddressBtn").click(function() {
+				let user_no = $("#user_no").val()
+	
+	  			$("#modpwdBtn").attr("user-no", user_no)
+	  			$("#addressRegModal").modal("show")
+	  		})
+	  		
+	  		$("#addressRegBtn").click(function() {
+				let user_no = $("#user_no").val()
+	  			let address_name = $("#address_name").val()
+				let receiver_name = $("#receiver_name").val()
+				let address_num = $("#address_num").val()
+				let address = $("#address").val()
+				let address_detail = $("#address_detail").val()
+				let receiver_phonenum = $("#receiver_phonenum").val()
+				let default_address = $("#default_address").val()
+				
+				if($("#default_address").is(":checked")) {
+					default_address = true
+				}
+				else {
+					default_address = false
+				}
+	  			
+	  			$.ajax({
+	  				type : 'POST',
+	  				url : '/purplaying/setting/address/'+user_no,
+	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+					data : JSON.stringify({address_name:address_name,
+										   receiver_name:receiver_name,
+										   address_num:address_num,
+										   address:address,
+										   address_detail:address_detail,
+										   receiver_phonenum:receiver_phonenum,
+										   default_address:default_address}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						$("#addressRegModal").modal("hide")
 					},
 	  				error : function() {alert("error")}
 	  			})

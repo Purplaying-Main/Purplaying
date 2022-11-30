@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.purplaying.dao.AddressDao;
 import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.AddressDto;
 import kr.co.purplaying.domain.UserDto;
 
 @Service
@@ -64,6 +65,12 @@ public class SettingServiceImpl implements SettingService {
   public int modifyPwd(UserDto userDto) throws Exception {
     // TODO Auto-generated method stub
     return userDao.updateUserPwd(userDto);
+  }
+
+  @Override
+  public int addressAdd(AddressDto addressDto) throws Exception {
+    // TODO Auto-generated method stub
+    return addressDao.insert(addressDto);
   }
 
 }
