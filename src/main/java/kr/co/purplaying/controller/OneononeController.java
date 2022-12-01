@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AnsDto;
 import kr.co.purplaying.domain.OneononeDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.AnsService;
 import kr.co.purplaying.service.OneononeService;
 
@@ -34,6 +36,9 @@ public class OneononeController {
 
   @Autowired
   AnsService ansService;
+  
+  @Autowired
+  UserDao userDao;
 
   @PostMapping("/modify")
   public String modify(Integer inquiry_no, String inquiry_title, String inquiry_context, boolean inquiry_private,
@@ -250,29 +255,38 @@ public class OneononeController {
   }
 
   @GetMapping("/read")
-  public String read(Integer inquiry_no, Integer page, Integer pageSize, Model m, HttpSession session) {
-
+  public String read(Integer inquiry_no, boolean user_role , Integer page, Integer pageSize, Model m, HttpSession session) {
+   
     try {
       String user_id = (String) session.getAttribute("user_id");
       m.addAttribute(user_id);
-
+      
+      UserDto userDto = userDao.selectUser(user_id);
+      m.addAttribute("user_role",user_role);
+      System.out.println(userDto);
       AnsDto ansDto = ansService.selectAnsData(inquiry_no);
       if (ansDto == null) {
         m.addAttribute("ansState", false);
+        m.addAttribute("user_role",user_role);
       } else {
         m.addAttribute("ansDto", ansDto);
         m.addAttribute("ansState", true);
+        m.addAttribute("user_role",user_role);
       }
 //--          System.out.println(ansDto);
 
       OneononeDto oneononeDto = oneononeService.read(inquiry_no);
 //--         System.out.println(oneononeDto);
+      System.out.println(oneononeDto);
       oneononeDto.getAnsDto();
 
       m.addAttribute("oneononeDto", oneononeDto);
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
-
+      m.addAttribute("inquiry_private",oneononeDto.isInquiry_private());
+      session.setAttribute("inquiry_private", oneononeDto.isInquiry_private());
+      session.getAttribute("inquiry_private");
+      System.out.println(session.getAttribute("inquiry_private"));
       String writer = oneononeDto.getWriter();
       m.addAttribute(writer);
 
@@ -290,10 +304,11 @@ public class OneononeController {
       @RequestParam(defaultValue = "10") Integer pageSize,
       Model m,
       HttpServletRequest request) {
-    
+
     if (!loginCheck(request)) {
       return "redirect:/user/login?toURL=/oneonone/list";
     }
+    
     try {
 
       int totalCnt = oneononeService.getCount();

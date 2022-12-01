@@ -13,15 +13,16 @@ public class OneononeDto{
     private boolean inquiry_private;
     private Date inquiry_regdate;
     private AnsDto ansDto;
+    private UserDto userDto;
     
     
-    public OneononeDto() {
-      // TODO Auto-generated constructor stub
-    }
+   public OneononeDto() {
+    // TODO Auto-generated constructor stub
+  }
 
 
   public OneononeDto(Integer inquiry_no, Integer inquiry_state, String writer, String inquiry_title,
-      String inquiry_context, boolean inquiry_private, Date inquiry_regdate, AnsDto ansDto) {
+      String inquiry_context, boolean inquiry_private, Date inquiry_regdate, AnsDto ansDto, UserDto userDto) {
     super();
     this.inquiry_no = inquiry_no;
     this.inquiry_state = inquiry_state;
@@ -31,6 +32,7 @@ public class OneononeDto{
     this.inquiry_private = inquiry_private;
     this.inquiry_regdate = inquiry_regdate;
     this.ansDto = ansDto;
+    this.userDto = userDto;
   }
 
 
@@ -114,10 +116,20 @@ public class OneononeDto{
   }
 
 
+  public UserDto getUserDto() {
+    return userDto;
+  }
+
+
+  public void setUserDto(UserDto userDto) {
+    this.userDto = userDto;
+  }
+
+
   @Override
   public int hashCode() {
     return Objects.hash(ansDto, inquiry_context, inquiry_no, inquiry_private, inquiry_regdate, inquiry_state,
-        inquiry_title, writer);
+        inquiry_title, userDto, writer);
   }
 
 
@@ -133,7 +145,8 @@ public class OneononeDto{
     return Objects.equals(ansDto, other.ansDto) && Objects.equals(inquiry_context, other.inquiry_context)
         && Objects.equals(inquiry_no, other.inquiry_no) && inquiry_private == other.inquiry_private
         && Objects.equals(inquiry_regdate, other.inquiry_regdate) && Objects.equals(inquiry_state, other.inquiry_state)
-        && Objects.equals(inquiry_title, other.inquiry_title) && Objects.equals(writer, other.writer);
+        && Objects.equals(inquiry_title, other.inquiry_title) && Objects.equals(userDto, other.userDto)
+        && Objects.equals(writer, other.writer);
   }
 
 
@@ -141,11 +154,10 @@ public class OneononeDto{
   public String toString() {
     return "OneononeDto [inquiry_no=" + inquiry_no + ", inquiry_state=" + inquiry_state + ", writer=" + writer
         + ", inquiry_title=" + inquiry_title + ", inquiry_context=" + inquiry_context + ", inquiry_private="
-        + inquiry_private + ", inquiry_regdate=" + inquiry_regdate + ", ansDto=" + ansDto + "]";
+        + inquiry_private + ", inquiry_regdate=" + inquiry_regdate + ", ansDto=" + ansDto + ", userDto=" + userDto
+        + "]";
   }
-    
-    
-  
+
   
     
 }
