@@ -43,23 +43,11 @@ CREATE TABLE tb_agreement (
 	CONSTRAINT tb_agreement_pkey PRIMARY KEY (agree_no)
 );
 
-------------------------- chat_service 테이블 -------------------------
-DROP TABLE if exists tb_chat_service;
-CREATE TABLE tb_chat_service (
-	chat_no serial4 NOT NULL,
-	chat_serial_no int4 NULL,
-	chat_context text NULL,
-	chat_date timestamp NULL,
-	chat_type int4 NOT NULL DEFAULT 1,
-	prdt_id int4 NOT NULL,
-	pay_no int4 NOT NULL,
-	CONSTRAINT tb_chat_service_pkey PRIMARY KEY (chat_no)
-);
-------------------------- community comment 테이블 -------------------------
+--------------------------- chat_service 테이블 -------------------------
 DROP TABLE IF EXISTS tb_chat_service;
 CREATE TABLE IF NOT EXISTS tb_chat_service(
     chat_no serial PRIMARY KEY,
-       prdt_id int not null,
+	prdt_id int not null,
     chat_writer varchar(30) not null,
     chat_context varchar(3000),
     chat_date date default now(),
@@ -213,12 +201,12 @@ CREATE TABLE tb_product (
 DROP TABLE IF EXISTS tb_reply;
 CREATE TABLE IF NOT EXISTS tb_reply(
     rno serial PRIMARY KEY,
-    prdt_id int, --fk
-    chat_no int, --fk
+	prdt_id int,
+    chat_no int,
     chat_writer varchar(30) not null,
     chat_context varchar(3000),
     chat_date date default now(),
-    user_no int, --fk
+    user_no int,
     FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE cascade,
     FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade,
     FOREIGN KEY(chat_no) REFERENCES tb_chat_service(chat_no) ON DELETE cascade
