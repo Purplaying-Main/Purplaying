@@ -127,13 +127,16 @@ public class PaymentController {
             paymentService.write(paymentDto);
           }
           
+          System.out.println("총"+Integer.parseInt(pay_total));
         Map map = new HashMap();
         map.put("user_no", userDto.getUser_no());
         map.put("prdt_id", prdt_id);
         List<PaymentDto> pay = paymentDao.paymentCompleted(map);
         m.addAttribute("pay",pay);
-        List<RewardDto> rewardDto = rewardDao.userSelectedReward(prdt_id, userDto.getUser_no());
+        List<RewardDto> rewardDto = rewardDao.userSelectedReward(prdt_id, userDto.getUser_no(),Integer.parseInt(pay_total));
         m.addAttribute("rewardDto",rewardDto);
+        
+        m.addAttribute("pay_total",Integer.parseInt(pay_total));
         System.out.println(userDto+"\n"+projectDto+"\n"+paymentDto+"\n"+rewardDto);
 
         return "paymentCompleted";

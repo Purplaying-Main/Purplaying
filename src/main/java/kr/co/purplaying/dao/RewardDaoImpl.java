@@ -68,10 +68,11 @@ public class RewardDaoImpl implements RewardDao {
   }
   
   @Override
-  public List<RewardDto> userSelectedReward(int prdt_id, int user_no) throws Exception {
+  public List<RewardDto> userSelectedReward(int prdt_id, int user_no, int pay_total) throws Exception {
     Map map = new HashMap();
     map.put("prdt_id", prdt_id);
     map.put("user_no", user_no);
+    map.put("pay_total", pay_total);
     return session.selectList(namespace+"userSelectedReward", map);
   }
 }

@@ -209,18 +209,19 @@
  		</association>
  	</resultMap>
  	
- 	<select id="myfunding" parameterType="int" resultType="ProjectDto">
- 	select
- 	tb_payment.pay_no, 
- 	tb_payment.user_no, 
- 	tb_product.prdt_id, 
- 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
- 	(prdt_enddate-prdt_opendate) as "prdt_dday",  
+ 	 <select id="myfunding" parameterType="int" resultType="ProjectDto">
+select
+	dense_rank() over  (order by tb_product.prdt_id desc), 
+	tb_product.prdt_id, 
+	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+	(prdt_enddate-prdt_opendate) as "prdt_dday",
  	tb_product.prdt_desc, 
  	tb_product.prdt_name, 
  	tb_product.prdt_thumbnail
-	from tb_product left join tb_payment
-	on tb_product.prdt_id = tb_payment.prdt_id
-	where tb_payment.user_no = #{user_no}
+from tb_product inner join
+tb_payment
+on tb_payment.prdt_id = tb_product.prdt_id
+where tb_payment.user_no = #{user_no}
+group by tb_product.prdt_id
  	</select>
 </mapper>

@@ -23,6 +23,6 @@ public interface RewardDao {
   
   int insertSelectReward(int no_arr,int cnt_arr) throws Exception;
 
-  List<RewardDto> userSelectedReward(int prdt_id,int user_no) throws Exception;
+  List<RewardDto> userSelectedReward(int prdt_id,int user_no,int pay_total) throws Exception;
 
 }

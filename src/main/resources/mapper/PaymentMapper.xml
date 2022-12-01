@@ -36,7 +36,7 @@
  	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo
 	FROM tb_payment
  	where prdt_id = #{prdt_id} and user_no = #{user_no}
- 	order by pay_time desc
+ 	order by pay_no
  	limit 1
  	</select>
  	

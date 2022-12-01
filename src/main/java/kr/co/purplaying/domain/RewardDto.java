@@ -14,6 +14,8 @@ public class RewardDto {
   private int reward_cnt;
   private int user_no;
   private int pay_no;
+  private int reward_user_cnt;
+  PaymentDto paymentDto;
   
   public RewardDto() {
   }
@@ -138,6 +140,20 @@ public class RewardDto {
 
   public void setPay_no(int pay_no) {
     this.pay_no = pay_no;
+  }
+
+
+
+
+  public int getReward_user_cnt() {
+    return reward_user_cnt;
+  }
+
+
+
+
+  public void setReward_user_cnt(int reward_user_cnt) {
+    this.reward_user_cnt = reward_user_cnt;
   }
   
   

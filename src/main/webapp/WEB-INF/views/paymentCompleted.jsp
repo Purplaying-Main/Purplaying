@@ -67,11 +67,11 @@
                   <div class="card-body">
                   <div class="d-flex justify-content-between mx-1">
                     <p class="form-label fw-bold">No. 패키지</p>
-                    <p class="form-label">${rewardDto.reward_id}. ${rewardDto.reward_name}</p>
+                    <p class="form-label">${rewardDto.row_number}. ${rewardDto.reward_name}</p>
                   </div>
                   <div class="d-flex justify-content-between mx-1">
                     <p class="form-label fw-bold">수량</p>
-                    <p class="form-label"><span id="dt_rewardItem">${rewardDto.reward_cnt }</span></p>
+                    <p class="form-label"><span id="dt_rewardItem">${rewardDto.reward_user_cnt }</span></p>
                   </div> 
                   <div class="d-flex justify-content-between mx-1">
                     <p class="form-label fw-bold">가격</p>

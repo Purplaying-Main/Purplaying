@@ -17,7 +17,7 @@
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-        <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h3>
+        <h3 class="text-center py-2 mb-2 fw-bold">결제 정보</h3>
 
         <!--상단 영역-->
         <div class="mb-2">
@@ -85,6 +85,31 @@
             <div class="d-flex">
             <div class="col-6">
               <div class="card">
+                <h5 class="card-header">결제 정보</h5>
+                <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">이메일</p>
+                    <p class="form-label"><span id="dt_email">${userDto.user_id}</span></p>
+                </div>
+				<div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">연락처</p>
+                    <p class="form-label"><span id="dt_phoneNM">${userDto.user_phone}</span></p>
+                </div>
+
+                  <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">후원 금액</p>
+                    <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.pay_total}"/></span>원</p>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">결제 예정일</p>
+                    <p class="form-label"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
+                  </div>
+                </div>
+              </div>
+            </div>            
+            
+            <div class="col-6">
+              <div class="card">
                 <h5 class="card-header">배송 정보</h5>
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
@@ -107,31 +132,8 @@
               </div>
             </div>
   
-            <!--결제정보-->
-            <div class="col-6">
-              <div class="card">
-                <h5 class="card-header">결제 정보</h5>
-                <div class="card-body">
-				<div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">연락처</p>
-                    <p class="form-label"><span id="dt_phoneNM">${userDto.user_phone}</span></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">이메일</p>
-                    <p class="form-label"><span id="dt_email">${userDto.user_id}</span></p>
-                </div>
 
-                  <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">후원 금액</p>
-                    <p class="form-label"><span id="dt_totalPrice">${paymentDto.pay_total }</span>원</p>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">결제 예정일</p>
-                    <p class="form-label"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
             </div>
          
 

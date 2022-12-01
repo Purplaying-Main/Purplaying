@@ -171,7 +171,7 @@
           </div>
           <div class="d-flex justify-content-between mx-1 mb-1">
             <p class="form-label fw-bold">연락처</p>
-            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" name="delivery_phone"  value="${paymentDto.delivery_phone }"  maxlength="12" required></div>
+            <div class="col-2"><input type="text" class="form-control form-control-sm" id="dt_phoneNumber" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="delivery_phone"  value="${paymentDto.delivery_phone }"  maxlength="12" required></div>
           </div>
           <div class="mb-2">
             <div class="d-flex justify-content-between mx-1 mb-1">
@@ -258,25 +258,25 @@
                   <label class="form-label">카드번호</label>
                   <div class=" d-flex col-8 ms-2">
                     <input type="hidden" id="dt_cardNumber" name="pay_cardnum"  value="${paymentDto.pay_cardnum }">
-                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" maxlength="4" required>
-                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber2"  maxlength="4" required>
-                    <input type="password" class="form-control form-control-sm ms-1" id="dt_cardNumber3"  maxlength="4" required>
-                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber4" maxlength="4" required>
+                    <input type="text" class="form-control form-control-sm" id="dt_cardNumber1" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" required>
+                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber2"  onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" required>
+                    <input type="password" class="form-control form-control-sm ms-1" id="dt_cardNumber3" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"  maxlength="4" required>
+                    <input type="text" class="form-control form-control-sm ms-1" id="dt_cardNumber4" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="4" required>
                   </div>
                 </div>
                 <div class="d-flex">
                   <div class="d-flex mb-2">  
                     <label class="form-label">유효기간</label>
-                    <div class="col-5"><input type="text" class="form-control form-control-sm ms-2" id="dt_validDate" name="pay_carddate" value="${paymentDto.pay_carddate }"  maxlength="4" placeholder="MMYY" required></div>
+                    <div class="col-5"><input type="text" class="form-control form-control-sm ms-2" id="dt_validDate" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="pay_carddate" value="${paymentDto.pay_carddate }"  maxlength="4" placeholder="MMYY" required></div>
                   </div>
                   <div class="d-flex mb-2">
                     <label class="form-label">카드 비밀번호</label>
-                    <div class="col-4"><input type="text" class="form-control form-control-sm ms-2" id="dt_cardPwd" name="pay_pwd" value="${paymentDto.pay_pwd }" maxlength="2" placeholder="앞 2자리" required></div>
+                    <div class="col-4"><input type="text" class="form-control form-control-sm ms-2" id="dt_cardPwd" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="pay_pwd" value="${paymentDto.pay_pwd }" maxlength="2" placeholder="앞 2자리" required></div>
                   </div>
                 </div>
                 <div class="d-flex mb-2">
                   <label class="form-label">CVC</label>
-                  <div class="col-2"><input type="text" class="form-control form-control-sm ms-2" id="dt_userBirth" name="pay_cvc" value="${paymentDto.pay_cvc }" maxlength="3"required></div>
+                  <div class="col-2"><input type="text" class="form-control form-control-sm ms-2" id="dt_userBirth" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" name="pay_cvc" value="${paymentDto.pay_cvc }" maxlength="3"required></div>
                 </div>
             </div>
           </div>
@@ -391,6 +391,7 @@
   		
   		let rn = [];
   	    let rc = [];
+
   	    let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)); //후원금액
   	  	document.getElementById("pay_total").value = total;
   	    
