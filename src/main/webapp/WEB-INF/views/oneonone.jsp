@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
+<c:set var="readAuthority" value="${sessionScope.inquiry_private == false ? '':'display:none' }" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,13 +38,15 @@
 				<div class="row col-10 justify-content-center mx-auto">
 					<div class="tab-content" id="v-pills-tabContent">
 						<!-- tab 1 contents -->
-						<div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
+						<div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" >
+						<input type="hidden" name=user_role value="${sessionScope.user_role}">
+						<input type="hidden" name=inquiry_private value="${sessionScope.inquiry_private}">
 						<div class="row justify-content-end mt-4">
 							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
 						<%--	<form action="<c:url value="/oneonone/list" />" class="search-form" method="get">  --%>
 								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
 							</form>
-
+							
 							<table class="table project-table table-centered table-nowrap table-hover">
 								<thead class="border-3 border-bottom">
 									<tr>
@@ -69,6 +73,7 @@
 									</c:forEach>
 								</tbody>
 							</table>
+
 						</div>
 						<!-- end project-list -->
 						<div class="pt-3 row">

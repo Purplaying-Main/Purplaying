@@ -7,7 +7,7 @@
 <c:set var="loginoutlink" value="${sessionScope.user_id == null ? '/user/login' : '/user/logout' }"/>
 <c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
 <c:set var="loginDisplay" value="${sessionScope.user_id == null ? 'display:none' : '' }"/>
-<c:set var="adminWrite" value="${sessionScope.user_id eq 'admin@gmail.com' ? '' : 'display:none' }"/>
+<c:set var="adminWrite" value="${sessionScope.user_role eq '1' ? '' : 'display:none' }"/>
 
 	
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
