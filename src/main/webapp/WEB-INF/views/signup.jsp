@@ -79,7 +79,7 @@
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                     <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="agreeAll" name="agree" onclick="selectAll(this)"> 
+                      <input type="checkbox" class="form-check-input" id="agreeAll" name="agree"> 
                       <label class="form-check-label" for="agree-14">전체동의  <i class="fa fa-exclamation-circle" id="check_check_msg" style="display:none"></i></label>
                     </div>
                   </button>
@@ -87,8 +87,8 @@
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                   <div class="accordion-body">
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree1" name="agree1" required>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree1" name="agree1" required>
                         <label class="form-check-label" for="agree-1">만 14세 이상입니다. (* 필수)</label>
                          <div class="invalid-feedback">
 		                  체크 해주세요
@@ -123,8 +123,8 @@
                     </div>
                     
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree2" name="agree2" required>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree2" name="agree2" required>
                         <label class="form-check-label" for="agree-2">퍼플레잉 이용 약관 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
@@ -160,8 +160,8 @@
                     </div>
                     
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree3" name="agree3" required>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree3" name="agree3" required>
                         <label class="form-check-label" for="agree-3">개인정보 수집 및 이용 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
@@ -196,8 +196,8 @@
                     </div>
 
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree4" name="agree4"	>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree4" name="agree4">
                         <label class="form-check-label" for="agree-4">개인정보 제 3자 제공 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
@@ -229,8 +229,8 @@
                     </div>
 
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree5" name="agree5">
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree5" name="agree5">
                         <label class="form-check-label" for="agree-5">마케팅 정보 수신 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
@@ -299,6 +299,28 @@
 
     </div>
 	<script type="text/javascript">
+		/* 전체동의 */
+		$('#agreeAll').on('click', function(){
+			var checked = $(this).is(':checked');
+		    if(checked) {
+		    	$(".agreeCheck").prop('checked', true);
+		    } else {
+		    	$(".agreeCheck").prop('checked', false);
+		    }
+		})
+		/* 전체동의 후 하나라도 체크안되어있으면 전체동의 체크 풀림 */
+		$('.agreeCheck').on('click', function(){
+			var chkGroup = $('.check-group')
+			var chkGroup_cnt = chkGroup.length
+		    checked_cnt = $('.check-group .agreeCheck:checked').length
+		    
+		    if (checked_cnt < chkGroup_cnt) {
+		    	$('#agreeAll').prop('checked', false);
+		    } else if (checked_cnt == chkGroup_cnt) {
+		   		$('#agreeAll').prop('checked', true);
+		    }
+		})
+	
 		function check_pw(){
 			var pw = document.getElementById('password').value;
 			if(document.getElementById('password').value == document.getElementById('passwordConfirm').value && document.getElementById('password').value != null ){
