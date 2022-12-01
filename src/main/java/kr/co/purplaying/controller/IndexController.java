@@ -52,6 +52,8 @@ public class IndexController {
       
       
       List<BannerFileDto> bannerList = fileSevice.selectBannerList();
+      
+      System.out.println(bannerList);
       m.addAttribute("bannerList",bannerList);
       
       m.addAttribute("list_p",list_p);

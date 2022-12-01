@@ -35,7 +35,7 @@
 							<td name="bannerfile_name">${bannerfileDto.bannerfile_file}</td>
 							<td name="bannerfile_regdate"><fmt:formatDate value="${bannerfileDto.bannerfile_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
 							<td name="bannerfile_save-${bannerfileDto.bannerfile_id}">
-								<input type="hidden" value="${bannerfileDto.banner_prdt_id}">
+								<input type="hidden" value="${bannerfileDto.bannerfile_prdt_id}">
 							</td>
 						</tr>
 					</c:forEach>

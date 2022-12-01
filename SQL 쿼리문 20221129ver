@@ -278,6 +278,20 @@ CREATE TABLE tb_bannerfile
     bannerfile_regdate timestamp DEFAULT now() NOT NULL, 
     PRIMARY KEY(bannerfile_id)
 );
+
+---------------------------좋아요 테이블---------------------------
+
+drop table if exists tb_like;
+create table tb_like(
+    like_id serial,
+    like_regdate Date
+    ,
+    user_id varchar(100),
+    prdt_id int
+);
+
+ALTER TABLE tb_like ADD CONSTRAINT tb_like_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_like ADD CONSTRAINT tb_like_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ------------------------- FK 생성 -------------------------
 ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
