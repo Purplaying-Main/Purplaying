@@ -50,6 +50,12 @@
 		order by prdt_regdate
 	</select>
 	
+	<select id="getListByWriter" parameterType="String" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		where user_id = #{user_id}
+		order by prdt_regdate
+	</select>
+	
 	<select id="selectPage" parameterType="map" resultType="ProjectDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
 		<include refid="selectFromProject"/>
 			order by prdt_id desc, prdt_regdate desc 

@@ -7,12 +7,14 @@
 	
 	
 	
-	<sql id="selectFromBoard">
-		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail
+	<sql id="selectFromBoard"> <!--tb 내용 전체 select 추출-->
+		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail, prdt_img
 		, (prdt_enddate-prdt_opendate) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
+		,  prdt_buyercnt
+		,  (prdt_opendate - current_date) as "prdt_comingday"
 		FROM tb_product
 	</sql>
 	

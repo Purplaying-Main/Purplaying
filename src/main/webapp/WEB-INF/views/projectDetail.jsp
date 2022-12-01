@@ -141,7 +141,7 @@
                 <div class="col"> 
                   <h6 class="row text-muted">${projectDto.writer}</h6>
                   <small class="row text-muted">${projectDto.user_id}</small>
-                  <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch?id=${projectDto.writer}'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
+                  <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${projectDto.writer}/'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
    			  <li class="row d-flex p-2">

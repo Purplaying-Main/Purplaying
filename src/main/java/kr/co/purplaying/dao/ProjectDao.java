@@ -36,5 +36,5 @@ public interface ProjectDao {
   List<ProjectDto> myfunding(int user_no) throws Exception;
   ProjectDto selectProjectlikelist(int prdt_id) throws Exception;
   int plusBuyerPrice(int prdt_id,int pay_total,int prdt_currenttotal) throws Exception;
-  
+  List<ProjectDto> getListByWriter(String user_id) throws Exception;
 }

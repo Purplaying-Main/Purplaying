@@ -144,4 +144,9 @@ public class ProjectDaoImpl implements ProjectDao {
     map.put("pay_total",prdt_currenttotal );
     return session.update(namespace+"plusBuyerPrice",map);
   }
+  
+  @Override
+  public List<ProjectDto> getListByWriter(String user_id) throws Exception {
+    return session.selectList(namespace+"getListByWriter", user_id);
+  }
 }

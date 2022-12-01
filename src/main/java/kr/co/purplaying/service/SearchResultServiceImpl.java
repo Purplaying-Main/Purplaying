@@ -21,9 +21,9 @@ public class SearchResultServiceImpl implements SearchResultService {
   
 
   @Override
-  public List<ProjectDto> searchResult(Map map) throws Exception {
+  public List<ProjectDto> getPage(Map map) throws Exception {
     // TODO Auto-generated method stub
-    return searchResultDao.searchResult(map);
+    return searchResultDao.selectPage(map);
   }
 
   @Override
@@ -37,6 +37,11 @@ public class SearchResultServiceImpl implements SearchResultService {
     // TODO Auto-generated method stub
     return searchResultDao.searchcount(sc2);
   }
+
+
+
+
+
 
 
 

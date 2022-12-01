@@ -115,4 +115,10 @@ public class ProjectServiceImpl implements ProjectService{
     // TODO Auto-generated method stub
     return projectDao.selectProjectlikelist(prdt_id);
   }
+  
+  @Override
+  public List<ProjectDto> getListByWriter(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return projectDao.getListByWriter(user_id);
+  }
 }

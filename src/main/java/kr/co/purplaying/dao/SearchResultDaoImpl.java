@@ -19,9 +19,9 @@ public class SearchResultDaoImpl implements SearchResultDao{
   
   
   @Override
-  public List<ProjectDto> searchResult(Map map) throws Exception {
+  public List<ProjectDto> selectPage(Map map) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectList(namespace+"searchResult", map);
+    return session.selectList(namespace+"selectPage", map);
   }
   @Override
   public List<ProjectDto> searchSelectPage(SearchItem2 sc2) throws Exception {
@@ -34,6 +34,8 @@ public class SearchResultDaoImpl implements SearchResultDao{
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"searchcount", sc2);
   }
+
+
 
   
 
