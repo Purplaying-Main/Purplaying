@@ -143,7 +143,7 @@
       </div>
     </div>
   </section>
-	<script>
+  <script type="text/javascript">
 	/*progressbar 연동 JS*/
 	const perValue = ${ProjectDto.prdt_percent };
 	if(perValue >= 100) {perValue = 100;}
