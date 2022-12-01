@@ -67,27 +67,7 @@
 			</div>
 
 				<div class="text-end my-5">
-					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#noticeWriteCancelModal">작성취소</button>
-					<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="noticeWriteCancelModal" tabindex="-1"
-						aria-labelledby="noticeWriteCancelModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="noticeWriteCancelModalLabel">작성 취소</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-								<div class="modal-body text-center">
-									<h6 class="form-label">공지사항 작성을 취소하시겠습니까?</h6>
-									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='servicecenter'">확인</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 작성취소 모달창 end -->
+					<label class="btn btn-outline-danger" id="noticeWriteCancelBtn">작성취소</label>
 					<button type="button" class="btn btn-primary" id='${mode=="new" ? "writeBtn" : "modifyBtn" }'>게 시</button>
 					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -106,6 +86,26 @@
 						</div>
 					</div>
 				</div>
+				<!-- 작성취소 모달창 start -->
+					<div class="modal fade" id="noticeWriteCancel" tabindex="-1"
+						aria-labelledby="noticeWriteCancelLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="noticeWriteCancelLabel">작성 취소</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body text-center">
+									<h6 class="form-label">공지사항 작성을 취소하시겠습니까?</h6>
+									<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/purplaying/notice/list'">확인</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- 작성취소 모달창 end -->
 		</form>
 	</section>
 	<!--페이지 내용 종료-->
@@ -113,6 +113,10 @@
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
 	<script type="text/javascript">
+		$("#noticeWriteCancelBtn").on("click", function() {
+			$('#noticeWriteCancel').modal('show')
+		})
+		
 		$("#writeBtn").on("click", function() {
 			let form = $("#form");
 			form.attr("action", "<c:url value='/notice/write/reg' />")
