@@ -26,7 +26,7 @@
 	            <p class="lead text-center">
 	              서비스 이용에 불편함이 있으신가요?
 	            </p>
-	            <a href="/purplaying/oneonone" class="w-100 btn btn-outline-primary btn-lg">1:1 문의</a>
+	            <a href="/purplaying/oneonone/list" class="w-100 btn btn-outline-primary btn-lg">1:1 문의</a>
 	
 	            <hr class="my-4">
 	

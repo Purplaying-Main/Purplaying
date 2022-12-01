@@ -295,7 +295,7 @@
                                             <h6>회원탈퇴</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button class="btn btn-outline-primary" onclick="location.href='leave'">탈퇴</button>
+                                            <button class="btn btn-outline-primary" onclick="location.href='user/leave'">탈퇴</button>
                                         </div>
                                     </li>
                                     <li class="row">
