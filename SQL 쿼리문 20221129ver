@@ -74,8 +74,8 @@ CREATE TABLE tb_file (
 	file_size numeric NULL,
 	file_regdate timestamp NOT NULL DEFAULT now(),
 	file_state varchar(1) NOT NULL DEFAULT 'F'::character varying,
-	prdt_id int4 NOT NULL,
-	user_no int4 NOT NULL,
+	prdt_id int4,
+	user_no int4,
 	CONSTRAINT tb_file_pkey PRIMARY KEY (file_id)
 );
 

@@ -42,7 +42,7 @@ public class SettingController {
     try {
      
       UserDto userDto = settingService.setUser(id);
-      m.addAttribute(userDto);
+      session.putValue("userDto",userDto);
       
       SettingDto settingDto = settingService.selectUserCheck(userDto.getUser_no());
       m.addAttribute("settingDto",settingDto);
@@ -60,8 +60,13 @@ public class SettingController {
   @RequestMapping(value="/setting/profile/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyProfile(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session) {
     map.put("user_no", user_no);
+    String id = (String)session.getAttribute("user_id");
     
     try {
+//    프로필 변경시 유저정보(userDto) 세션에 저장
+      UserDto userDto = settingService.setUser(id);
+      session.putValue("userDto", userDto);
+      
         if(settingService.modifyProfile(map) != 1)
             throw new Exception("Update failed");
         return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
