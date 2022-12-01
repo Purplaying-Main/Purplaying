@@ -141,7 +141,7 @@
 					dataType : 'text',
 					data : JSON.stringify(find_data),
 					success:function(result){
-						alert(result);
+						//alert(result);
 						if(result == null || result == ""){
 							$('#xfindAccountModal').modal("show");
 						}
@@ -166,7 +166,7 @@
 					dataType : 'text',
 					data : JSON.stringify(find_pwd),
 					success:function(result){
-						alert(result);
+						//alert(result);
 						if(domain == "gmail"){
 							$('#linkToEmail').attr("href", "http://google.com");
 						}else if(domain == "naver"){

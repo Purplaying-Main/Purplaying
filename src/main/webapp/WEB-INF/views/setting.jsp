@@ -657,7 +657,7 @@
 		  		
 		  		$('#addressList').on("click","#addModBtn",function(){
 					let address_id = $(this).attr("data-address-id")
-					alert(address_id)
+					//alert(address_id)
 					
 		  			$.ajax({
 						type:'POST',	//통신방식 (get,post)
@@ -731,14 +731,14 @@
 		  		
 		  		$('#addressList').on("click","#addDelBtn",function(){
 					let address_id = $(this).attr("data-address-id")
-					alert(address_id)
+					//alert(address_id)
 					$("#addressDelModal").modal("show")
 					$("#addressDelBtn").attr("data-address-id", address_id)
 		  		})
 		  		
 		  		$("#addressDelBtn").click(function() {
 		  			let address_id = $(this).attr("data-address-id")
-		  			alert(address_id)
+		  			//alert(address_id)
 		  			
 		  			$.ajax({
 		  				type : 'DELETE',

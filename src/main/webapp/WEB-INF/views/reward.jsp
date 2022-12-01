@@ -132,7 +132,7 @@
 		$(document).ready(function(){
 			$('#BtnGroup').on("click",".delBtn",function(){
 				let reward_id = $(this).attr("data-reward-id")	//클릭한 버튼의 reward_id가져오기
-				alert(reward_id)
+				//alert(reward_id)
 				$('#rewardDelModal').modal("show");
 				$('#deleteRewardModi').click(function(){
 					$.ajax({
@@ -142,7 +142,7 @@
 						dataType : 'text',
 						data : JSON.stringify({reward_id:reward_id}),
 						success:function(result){
-							alert(result);
+							//alert(result);
 							$('#rewardDelModal').modal("hide");
 							$("#BtnGroup").html(toHtml(JSON.parse(result)));
 						},
@@ -155,7 +155,7 @@
 			//$('#BtnGroup').on("click","#rewardModBtn",function(){
 			$('#BtnGroup').on("click",".modBtn",function(){
 				let reward_id = $(this).attr("data-reward-id")	//클릭한 버튼의 reward_id가져오기
-				alert(reward_id)
+				//alert(reward_id)
 				$.ajax({
 					type:'post',	//통신방식 (get,post)
 					url: '/purplaying/pr/findmodireward',                                                                                
@@ -225,7 +225,7 @@
 					dataType : 'text',
 					data : JSON.stringify(reward),
 					success:function(result){
-						alert(result);
+						//alert(result);
 						$('#reward_category option[value=0]').prop('selected', 'selected').change();
 						let select_item = $("#reward_category option:selected").val();
 						$("#reward_category").val(select_item);

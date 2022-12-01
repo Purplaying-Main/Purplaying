@@ -101,7 +101,6 @@
 			dataType : 'text',
 			data : JSON.stringify(prdt_data),
 			success:function(result){
-				alert(result)
 				$('#Banner_img_list').html(toHtmlBannerList(JSON.parse(result)))
 			},
 			error : function(){

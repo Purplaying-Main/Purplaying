@@ -344,7 +344,7 @@
 		function calDate(){
 			let openDate = $('#prdt_opendate').val()
 			let endDate = $('#prdt_enddate').val()
-			alert(typeof(openDate))
+			//alert(typeof(openDate))
 			let finishDate = new Date(endDate);
 			let tomorrow_end_Date = new Date(finishDate.setDate(finishDate.getDate()+1));
 			
@@ -355,7 +355,7 @@
 			    contentType: false,
 			    dataType:'json',
 				success: function(result) {
-					alert(result)
+					//alert(result)
 					$('#punding_date_range').html("펀딩 기간 "+result+"일");
 					$('#adjust_date').html("예상 정산일은 "+dateFormat(tomorrow_end_Date)+"입니다.");
 				},
@@ -370,7 +370,7 @@
 				var prdt_goal = $('#prdt_goal').val()
 			}
 			
-			alert(typeof(prdt_goal))
+			//alert(typeof(prdt_goal))
 			$.ajax({
 				type: 'GET',	
 				url: '/purplaying/project/calculate/'+prdt_goal,
@@ -378,7 +378,7 @@
 			    contentType: false,
 			    dataType:'json',
 				success: function(result) {
-					alert("price :"+result)
+					//alert("price :"+result)
 					//$('#goal_price').val(result);
 					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 					$('#total_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");

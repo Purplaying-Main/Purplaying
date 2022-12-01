@@ -360,8 +360,8 @@
 				if(val==null || val==""){
 					$("#check_id_msg").show().html(' 아이디를 입력해주세요').css("color","red");
 				}else{
-					alert("the request is sent");
-					alert(JSON.stringify(user_id));
+					//alert("the request is sent");
+					//alert(JSON.stringify(user_id));
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/chkuserid',                                                                                
@@ -369,7 +369,7 @@
 						dataType : 'text',
 						data : JSON.stringify(user_id),
 						success:function(result){
-							alert(result)
+							//alert(result)
 							/* result = parseXML(result)
 							alert(result) */
 							user_id_check = JSON.parse(result);

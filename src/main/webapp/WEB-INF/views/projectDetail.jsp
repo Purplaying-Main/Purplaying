@@ -370,7 +370,7 @@
 		   eventTarget = event.target;
 		   let eventTargetTitle = eventTarget.parentElement.previousElementSibling.lastElementChild.innerHTML
 		   let eventTargetPrice = eventTarget.parentElement.firstElementChild.lastElementChild.innerHTML
-		   alert(eventTargetTitle+'+'+eventTargetPrice);
+		   //alert(eventTargetTitle+'+'+eventTargetPrice);
 		   let reward_number = eventTargetTitle.split('.')
 		  // $('#addReward option:eq('+reward_number+')').prop('selected',true);		
 		   $('#addReward').val(reward_number).prop('selected',true);	
@@ -463,7 +463,7 @@
 	function del_reward(){
 		eventTarget = event.target;
 		let num = eventTarget.parentElement.firstElementChild.firstElementChild.value
-		alert(num)
+		//alert(num)
 		arr = arr.filter(function(item){
 			return item != num;
 		})

@@ -8,7 +8,7 @@ function clickBtntest() {
 			       prdt_id = _buttonI.nextElementSibling.onclick.toString()
 				   prdt_id = prdt_id.substring(prdt_id.lastIndexOf('/')+1).split("'");
 				   prdt_id = prdt_id[0]
-				   alert(prdt_id)
+				   //alert(prdt_id)
 				   $.ajax({
 						type : 'post',				//요청 메서드
 						url : '/purplaying/like/addlike',				//요청 URI
@@ -28,7 +28,7 @@ function clickBtntest() {
 			      prdt_id = _buttonI.nextElementSibling.onclick.toString()
 				  prdt_id = prdt_id.substring(prdt_id.lastIndexOf('/')+1).split("'");
 				  prdt_id = prdt_id[0]
-				  alert(prdt_id)
+				  //alert(prdt_id)
 			      $.ajax({
 						type : 'post',				//요청 메서드
 						url : '/purplaying/like/removelike',				//요청 URI
@@ -49,7 +49,7 @@ function clickBtntest() {
 				   prdt_id = _buttonI.parentElement.nextElementSibling.onclick.toString()
 				   prdt_id = prdt_id.substring(prdt_id.lastIndexOf('/')+1).split("'");
 				   prdt_id = prdt_id[0]
-				   alert(prdt_id)
+				   //alert(prdt_id)
 				   $.ajax({
 						type : 'post',				//요청 메서드
 						url : '/purplaying/like/addlike',				//요청 URI
@@ -68,7 +68,7 @@ function clickBtntest() {
 			      prdt_id = _buttonI.parentElement.nextElementSibling.onclick.toString()
 				  prdt_id = prdt_id.substring(prdt_id.lastIndexOf('/')+1).split("'");
 				  prdt_id = prdt_id[0]
-				  alert(prdt_id)
+				  //alert(prdt_id)
 			      $.ajax({
 						type : 'post',				//요청 메서드
 						url : '/purplaying/like/removelike',				//요청 URI

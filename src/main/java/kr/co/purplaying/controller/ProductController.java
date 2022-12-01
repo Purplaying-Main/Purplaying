@@ -209,8 +209,6 @@ public class ProductController {
           projectDto.setPrdt_id(projectDto.getPrdt_id());
           System.out.println(projectDto);
           
-          m.addAttribute(projectDto);
-          
           UpdateDto updateDto = new UpdateDto();
           updateDto.setPrdt_id(projectDto.getPrdt_id());
           updateDto.setUser_id(writer);
@@ -230,6 +228,7 @@ public class ProductController {
           cal.add(Calendar.DATE,1);
           String finishDate = format.format(cal.getTime());
           
+          m.addAttribute(projectDto);
           m.addAttribute("finishDate",finishDate);
           m.addAttribute("result_price", result_price);
           m.addAttribute("calDate",calculateDate(openDate,endDate));

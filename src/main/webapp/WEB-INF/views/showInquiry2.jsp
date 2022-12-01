@@ -232,7 +232,7 @@
 		//ansComplete
 		$("#ansComplete").on("click", function() {
 			let ansData = {ans_context:$('#ansWriteContext').val(),inquiry_no:$('#inquiry_no').val()}
-			alert($('#ansWriteContext').val())
+			//alert($('#ansWriteContext').val())
 			$.ajax({
 	            type : 'post',										// 요청 메서드
 	            url : '/purplaying/oneonone/write/ans',								// 요청 URI

@@ -99,7 +99,7 @@
 					user_profile:user_profile,
 	            }
 	            
-			alert("userData:"+JSON.stringify(userData))
+			//alert("userData:"+JSON.stringify(userData))
 			
 			$.ajax({
 				type: 'PATCH',
