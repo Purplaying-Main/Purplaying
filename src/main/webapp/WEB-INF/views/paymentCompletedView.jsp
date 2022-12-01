@@ -59,7 +59,7 @@
 
             <!--리워드 정보-->
             <div class="d-flex mb-2">
-            <div class="col-6">
+            <div class="col-12">
               <div class="card">
                 <h5 class="card-header">리워드 정보</h5>
                 <div class="card-body">
@@ -78,18 +78,8 @@
                 </div>
               </div>
             </div>
+            </div>
             
-            <!-- 후원자 정보-->
-            <div class="col-6">
-              <div class="card">
-                <h5 class="card-header">후원자 정보</h5>
-                <div class="card-body" style="line-height: 3.47;">
-                    <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">${userDto.user_phone}</span></p>
-                    <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">${userDto.user_id}</span></p>
-                </div>
-              </div>
-            </div>
-            </div>
   
             <!--배송 정보-->
             <div class="d-flex">
@@ -122,16 +112,17 @@
               <div class="card">
                 <h5 class="card-header">결제 정보</h5>
                 <div class="card-body">
+				<div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">연락처</p>
+                    <p class="form-label"><span id="dt_phoneNM">${userDto.user_phone}</span></p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">이메일</p>
+                    <p class="form-label"><span id="dt_email">${userDto.user_id}</span></p>
+                </div>
+
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
-                    <p class="form-label"><span id="dt_fundingPrice">${paymentDto.pay_total }</span>원</p>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                      <p class="form-label fw-bold">배송비</p>
-                      <p class="form-label"><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.delivery_charge}"/></span>원</p>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">결제 금액</p>
                     <p class="form-label"><span id="dt_totalPrice">${paymentDto.pay_total }</span>원</p>
                   </div>
                   <div class="d-flex justify-content-between">
@@ -142,7 +133,7 @@
               </div>
             </div>
             </div>
-           
+         
 
           </div><!--사분할 종료-->
 

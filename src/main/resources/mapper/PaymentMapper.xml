@@ -20,8 +20,8 @@
  	
  	<insert id="insert" parameterType="PaymentDto">
  	INSERT INTO tb_payment
-	(pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total,prdt_id, user_no, delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo)
-	VALUES(now(), #{pay_cardnum},#{pay_carddate}, #{pay_cvc}, #{pay_pwd}, #{pay_total},#{prdt_id}, #{user_no}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo})
+	(pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total,prdt_id, user_no, delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, reward_id, reward_user_cnt )
+	VALUES(now(), #{pay_cardnum},#{pay_carddate}, #{pay_cvc}, #{pay_pwd}, #{pay_total},#{prdt_id}, #{user_no}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo}, #{reward_id},#{reward_user_cnt})
  	</insert>
  	
  	<select id="getPaymentInfo" parameterType="int" resultType="PaymentDto">
@@ -33,7 +33,7 @@
  	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
  	prdt_id, 
  	user_no, 
- 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, delivery_charge
+ 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo
 	FROM tb_payment
  	where prdt_id = #{prdt_id} and user_no = #{user_no}
  	order by pay_time desc
@@ -49,5 +49,5 @@
 	FROM tb_payment
 	where pay_no = #{pay_no}
  	</select>
- 	
+ 		
  </mapper>

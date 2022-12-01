@@ -13,16 +13,17 @@ public class RewardDto {
   private int prdt_id;
   private int reward_cnt;
   private int user_no;
+  private int pay_no;
   
   public RewardDto() {
   }
 
 
 
-  
+
   public RewardDto(int row_number, int reward_id, String reward_name, String reward_desc, int reward_price,
-      int reward_stock, int reward_category, int prdt_id, int reward_cnt, int user_no) {
-    super();
+      int reward_stock, int reward_category, int prdt_id, int reward_cnt, int user_no, int pay_no) {
+   // super();
     this.row_number = row_number;
     this.reward_id = reward_id;
     this.reward_name = reward_name;
@@ -33,8 +34,8 @@ public class RewardDto {
     this.prdt_id = prdt_id;
     this.reward_cnt = reward_cnt;
     this.user_no = user_no;
+    this.pay_no = pay_no;
   }
-
 
 
 
@@ -123,6 +124,20 @@ public class RewardDto {
 
   public void setUser_no(int user_no) {
     this.user_no = user_no;
+  }
+
+
+
+
+  public int getPay_no() {
+    return pay_no;
+  }
+
+
+
+
+  public void setPay_no(int pay_no) {
+    this.pay_no = pay_no;
   }
   
   

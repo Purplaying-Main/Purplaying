@@ -101,42 +101,41 @@ public class PaymentController {
 
 
   @PostMapping("/paymentCompleted/{prdt_id}")
-  public String paymentCompleted(Integer pay_no, Date pay_time, PaymentDto paymentDto, String delivery_reciever,String delivery_phone,int delivery_postcode,String delivery_address,String delivery_addressdetail,String delivery_memo,@PathVariable("prdt_id") Integer prdt_id,
-     HttpSession session, Model m) {
+  public String paymentCompleted(Integer pay_no, Date pay_time, PaymentDto paymentDto,@PathVariable("prdt_id") Integer prdt_id,
+     HttpSession session, Model m, String rewardid, String rewardcnt, String pay_total,ProjectDto projectDto) {
     try {
       
         String user_id = (String)session.getAttribute("user_id");
         UserDto userDto = settingService.setUser(user_id);
         m.addAttribute("userDto",userDto);
-        
-        ProjectDto projectDto = projectService.readPayment(prdt_id);
-        m.addAttribute("projectDto",projectDto);
-        System.out.println(projectDto);      
-        
-        RewardDto rewardDto = rewardService.readPayment(prdt_id);
-        m.addAttribute("rewardDto",rewardDto);
-        System.out.println(rewardDto);
-        
+        projectDto = projectService.readPayment(prdt_id);
+
         paymentDto.setUser_no(userDto.getUser_no());
         
-        System.out.println(paymentDto);
-        m.addAttribute("delivery_reciever",delivery_reciever);
-        m.addAttribute("delivery_reciever",delivery_reciever);
-        m.addAttribute("delivery_phone",delivery_phone);
-        m.addAttribute("delivery_postcode",delivery_postcode);
-        m.addAttribute("delivery_address",delivery_address);
-        m.addAttribute("delivery_addressdetail", delivery_addressdetail);
-        m.addAttribute("delivery_memo",delivery_memo);
-      
-        paymentService.wrtie(paymentDto);
+       
         projectDao.plusBuyerCnt(prdt_id);  
+        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.getPrdt_currenttotal());
+        m.addAttribute("projectDto",projectDto); 
+        System.out.println(rewardid);
+        System.out.println(rewardcnt);
+        String[] arr = rewardcnt.split(",");
+        int length = arr.length;
+          for(int i=1; i<= length; i+=4) {
+            paymentDto.setReward_id(Integer.parseInt(rewardid.split(",")[i]));    //넘어온 리워드 번호
+            paymentDto.setReward_user_cnt(Integer.parseInt(rewardcnt.split(",")[i]));   //넘어온 리워드 수량
 
+            paymentService.write(paymentDto);
+          }
+          
         Map map = new HashMap();
         map.put("user_no", userDto.getUser_no());
         map.put("prdt_id", prdt_id);
         List<PaymentDto> pay = paymentDao.paymentCompleted(map);
         m.addAttribute("pay",pay);
-      
+        List<RewardDto> rewardDto = rewardDao.userSelectedReward(prdt_id, userDto.getUser_no());
+        m.addAttribute("rewardDto",rewardDto);
+        System.out.println(userDto+"\n"+projectDto+"\n"+paymentDto+"\n"+rewardDto);
+
         return "paymentCompleted";
 
     } catch (Exception e) {
@@ -144,7 +143,6 @@ public class PaymentController {
       return "/";
     }
     
-
     
   }
   

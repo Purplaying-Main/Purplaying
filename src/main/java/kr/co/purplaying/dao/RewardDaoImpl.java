@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.RewardDto;
 
 @Repository
@@ -64,5 +65,13 @@ public class RewardDaoImpl implements RewardDao {
     map.put("reward_id", no_arr);
     map.put("reward_cnt", cnt_arr);
     return session.update(namespace+"insertSelectReward", map);
+  }
+  
+  @Override
+  public List<RewardDto> userSelectedReward(int prdt_id, int user_no) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("user_no", user_no);
+    return session.selectList(namespace+"userSelectedReward", map);
   }
 }

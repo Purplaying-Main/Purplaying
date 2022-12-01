@@ -18,7 +18,7 @@ public class PaymentServiceImpl implements PaymentService {
   }
 
   @Override
-  public int wrtie(PaymentDto paymentDto) throws Exception {
+  public int write(PaymentDto paymentDto) throws Exception {
     // TODO Auto-generated method stub
     return paymentDao.insert(paymentDto);
   }

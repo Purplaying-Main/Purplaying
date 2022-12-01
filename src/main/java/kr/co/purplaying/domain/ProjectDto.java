@@ -13,8 +13,8 @@ public class ProjectDto {
   private Date    prdt_regdate;
   private Date    prdt_opendate;
   private Date    prdt_enddate;
-  private Integer     prdt_goal;
-  private Integer     prdt_currenttotal; //현재모금액
+  private int     prdt_goal;
+  private int     prdt_currenttotal; //현재모금액
   private boolean prdt_open;
   private String  prdt_desc_policy;
   private Integer     prdt_genre;
@@ -39,12 +39,17 @@ public class ProjectDto {
 
   public ProjectDto() { }
 
+
+
+
+
   public ProjectDto(String writer, Integer prdt_id, String prdt_name, String prdt_desc, String prdt_desc_detail,
-      Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, Integer prdt_goal, Integer prdt_currenttotal,
-      boolean prdt_open, String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, String prdt_img, int prdt_user_no,
+      Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, int prdt_goal, int prdt_currenttotal, boolean prdt_open,
+      String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, String prdt_img, int prdt_user_no,
       int prdt_dday, int prdt_percent, Date prdt_purchaseday, Date prdt_limitday, int user_no, String user_id,
-      String user_pwd, String user_name, int user_phone, Date user_regdate, String user_activate, String user_role) {
-//    super();
+      String user_pwd, String user_name, int user_phone, Date user_regdate, String user_activate, String user_role,
+      int prdt_buyercnt, int prdt_comingday, int pay_no) {
+    //super();
     this.writer = writer;
     this.prdt_id = prdt_id;
     this.prdt_name = prdt_name;
@@ -59,7 +64,7 @@ public class ProjectDto {
     this.prdt_desc_policy = prdt_desc_policy;
     this.prdt_genre = prdt_genre;
     this.prdt_thumbnail = prdt_thumbnail;
-    this.prdt_img = prdt_img;    
+    this.prdt_img = prdt_img;
     this.prdt_user_no = prdt_user_no;
     this.prdt_dday = prdt_dday;
     this.prdt_percent = prdt_percent;
@@ -73,12 +78,14 @@ public class ProjectDto {
     this.user_regdate = user_regdate;
     this.user_activate = user_activate;
     this.user_role = user_role;
+    this.prdt_buyercnt = prdt_buyercnt;
+    this.prdt_comingday = prdt_comingday;
+    this.pay_no = pay_no;
   }
 
 
- 
 
- 
+
   @Override
   public String toString() {
     return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
@@ -88,8 +95,9 @@ public class ProjectDto {
         + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_img=" + prdt_img + ", prdt_user_no="
         + prdt_user_no + ", prdt_dday=" + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday="
         + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", prdt_buyercnt="
-        + prdt_buyercnt + "prdt_comingday=" + prdt_comingday+ "]";
+        + prdt_buyercnt + ", prdt_comingday=" + prdt_comingday + "]";
   }
+
 
   public String getWriter() {
     return writer;
@@ -155,7 +163,7 @@ public class ProjectDto {
     this.prdt_enddate = prdt_enddate;
   }
 
-  public Integer getPrdt_goal() {
+  public int getPrdt_goal() {
     return prdt_goal;
   }
 
@@ -163,7 +171,7 @@ public class ProjectDto {
     this.prdt_goal = prdt_goal;
   }
 
-  public Integer getPrdt_currenttotal() {
+  public int getPrdt_currenttotal() {
     return prdt_currenttotal;
   }
 
@@ -338,6 +346,8 @@ public class ProjectDto {
   public void setPay_no(int pay_no) {
     this.pay_no = pay_no;
   }
+
+
   
   
 }
