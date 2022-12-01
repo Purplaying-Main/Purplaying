@@ -166,6 +166,8 @@ CREATE TABLE tb_payment (
 	delivery_addressdetail varchar(500),
 	delivery_memo varchar(1000),
 	delivery_charge numeric,
+	reward_user_cnt int4 NULL,
+	reward_id int4 NULL,
 	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
 );
 
