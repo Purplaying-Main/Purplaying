@@ -41,9 +41,9 @@
         
         <div class="col-10 mx-auto">
           <div class="tab-content" id="v-pills-tabContent">
-          <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
             <!-- 펀딩현황 tab -->
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
+              <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
 			  <c:if test="${fn:length(list) > 0}">
 			  <c:forEach var="projectDto" items="${list}">
 	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
@@ -122,6 +122,7 @@
             
             <!-- 관심 tab -->
             <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
+              <h5 class="my-2">${sessionScope.user_id}님이 찜한 펀딩</h5>
               <!-- project card start-->
               <c:forEach var="projectDto" items="${list_like}">
 	              
