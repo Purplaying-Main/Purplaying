@@ -101,7 +101,7 @@
 										<small class="card-subtitle mb-2 text-muted" name="ans"><fmt:formatDate
 												value="${ansDto.ans_regdate}" pattern="yyyy-MM-dd" type="date" /></small> 
 												<small class="card-subtitle mb-2 text-muted">
-												writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id} | user_role : ${UserDto.user_role } </small>
+												writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id} | user_role : ${sessionScope.user_role } </small>
 									</div>
 									<hr class="my-4">
 									<!-- 본문 영역 -->
