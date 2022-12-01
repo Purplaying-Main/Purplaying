@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="loginId" value="${sessionScope.id}" />
 <c:set var="default_thumbnail" value="${projectDto.prdt_thumbnail == null ? '' : 'display:none' }"/>
 <c:set var="display_thumbnail" value="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }"/>
@@ -43,6 +44,7 @@
           <h5 class="my-2">${sessionScope.user_id}님이 창작중인 펀딩</h5>
             <!-- 펀딩현황 tab -->
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
+			  <c:if test="${fn:length(list) > 0}">
 			  <c:forEach var="projectDto" items="${list}">
 	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
               		<!-- project card start -->
@@ -79,6 +81,7 @@
 		            </a> 
 		      	</c:if>
 		      </c:forEach>
+		      </c:if>
 	          <!-- project card end -->
 	          
               <!-- 신규 프로젝트 작성 버튼 -->

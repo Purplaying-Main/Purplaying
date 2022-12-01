@@ -74,10 +74,14 @@ public class MypageController {
       for(int i = 0; i<list_like_project.size(); i++) {
         list_like.add(projectService.selectProjectlikelist(list_like_project.get(i).getPrdt_id()));
       }
+      
       m.addAttribute("list_like",list_like);   
         
       List<ProjectDto> list = projectService.getPage(map);
+      
+     
       m.addAttribute("list", list);
+      
       System.out.println("list : "+ list);
       m.addAttribute("pr", pageResolver);
       

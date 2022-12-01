@@ -54,6 +54,7 @@
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
+      <input type="hidden" id="prdt_id" value="${projectDto.prdt_id}" />
       	  <div class="py-3 text-center"> 	  
             <h4>
             	<c:choose>
@@ -136,8 +137,8 @@
               </div>
               <hr class="my-2">
               <li class="row d-flex p-2 m-1">
-                <div class="col-3"><img src="https://picsum.photos/46" class="img-thumbnail rounded-circle" alt="유저 프로필"></div>
-                <div class="col">
+                <div class="col-3"><img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle"></div>
+                <div class="col"> 
                   <h6 class="row text-muted">${projectDto.writer}</h6>
                   <small class="row text-muted">${projectDto.user_id}</small>
                   <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch?id=${projectDto.writer}'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
@@ -296,7 +297,7 @@
                       <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
-                          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
+                           <img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle">
                         </div>
                         <div class="col-11">
 						<c:forEach var="replyDto" items="${list_reply}">                        

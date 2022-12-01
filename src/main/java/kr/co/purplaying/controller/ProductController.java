@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.CommunityDto;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
@@ -39,6 +40,7 @@ import kr.co.purplaying.domain.ReplyDto;
 import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.CommunityService;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
@@ -57,6 +59,9 @@ public class ProductController {
   
   @Autowired
   ReplyService replyService;
+  
+  @Autowired
+  UserDao userDao;
   
   @Autowired
   CommunityService communityService;
@@ -106,6 +111,8 @@ public class ProductController {
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
           List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
           List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
+          UserDto userDto = userDao.selectUser(projectDto.getWriter());
+          m.addAttribute(userDto);
 
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
           for(int i = 0; i<list_update.size(); i++) {
@@ -325,6 +332,7 @@ public class ProductController {
   public List<UpdateDto> writeUpdate(@RequestBody UpdateDto updateDto, HttpSession session) {
     updateDto.setUser_id((String)session.getAttribute("user_id"));
     System.out.println(updateDto);
+   
     try {
       projectService.insertUpdate(updateDto);
       List<UpdateDto> list_update = projectService.selectUpdate(updateDto.getPrdt_id());
