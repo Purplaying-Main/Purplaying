@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int updateName(UserDto userDto) throws Exception {
       
-      return session.update(namespace + "updatename", userDto);
+      return session.update(namespace + "updateName", userDto);
     }
     
 
