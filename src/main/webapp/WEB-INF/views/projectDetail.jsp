@@ -169,15 +169,17 @@
 	                <div class="col mt-2"><!-- 리워드 card start-->
 	                  <div class="card mb-4 rounded-3 shadow-sm">
 	                    <div class="card-header py-3">
-	                      <strong class="my-0 fw-normal bg-info">${rewardDto.reward_category == 1 ? "슈퍼얼리버드" : "얼리버드"}</strong><br>
-	                      <strong class="fw-normal">${rewardDto.row_number}. ${rewardDto.reward_name}</strong>
+	                      <span class="my-0 fw-normal bg-info">${rewardDto.reward_category == 1 ? "슈퍼얼리버드" : "얼리버드"}</span>
+			              <span>리워드 #${rewardDto.row_number}</span><br/>
 	                    </div>
 	                    <div class="card-body">
-	                      <h5 class="card-title pricing-card-title d-flex justify-content-between"><span>${rewardDto.reward_desc }</span><span>${rewardDto.reward_price}원</span></h5>
-	                      <div class="mt-3 text-info text-end">남은 수량 ${rewardDto.reward_stock }</div>
-	                      <div class="px-3"><br></div>
-	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
-	                    </div>
+			                  <h5 class="card-title mt-1">${rewardDto.reward_name}</h5>
+			                  <h5 class="card-title text-primary">${rewardDto.reward_price}원</h5>
+			                  <p class="card-text">${rewardDto.reward_desc}</p>
+			             </div>
+			             <div class="card-footer text-muted">
+			                남은 수량 ${rewardDto.reward_stock}개
+			             </div>
 	                  </div>
 	                </div><!-- 리워드 card end-->
 	             </c:forEach>
