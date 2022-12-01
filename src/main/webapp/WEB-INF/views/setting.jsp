@@ -442,34 +442,34 @@
                                             <div class="modal-body p-5 pt-0">
                                                 <form class="">
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="username" name="username" />
+                                                        <input type="text" class="form-control rounded-3" id="Modaddress_name" name="address_name" />
                                                         <label for="label_username">배송지 이름</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="username" name="username" />
+                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_name" name="receiver_name" />
                                                         <label for="label_username">수령인</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="address_num" name="address_num" />
+                                                        <input type="text" class="form-control rounded-3 " id="Modaddress_num" name="address_num" />
                                                         <label for="label_address">우편번호</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="address" name="address" />
+                                                        <input type="text" class="form-control rounded-3 " id="Modaddress" name="address" />
                                                         <label for="label_address">배송지 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="address_detail" name="address_detail" />
+                                                        <input type="text" class="form-control rounded-3 " id="Modaddress_detail" name="address_detail" />
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="userphone" name="userphone" />
+                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_phonenum" name="receiver_phonenum" />
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
-                                                        <input class="form-check-input" type="checkbox" id="default_address" name="default_address" aria-label="..." />
+                                                        <input class="form-check-input" type="checkbox" id="Moddefault_address" name="default_address" aria-label="..." />
                                                         기본배송지로 등록
                                                     </div>
-                                                    <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close" >
+                                                    <button id="addressModBtn" class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close" >
                                                         배송지 저장
                                                     </button>
                                                 </form>
@@ -670,7 +670,7 @@
 	        	let user_no = $("#user_no").val();
 	        	
 	        	$("#v-pills-03-tab").click(function(){
-		  			let user_no = $("#user_no").val()
+	        		let user_no = $("#user_no").val()
 		  			showList(user_no)
 		  		})
 	        	
@@ -716,6 +716,79 @@
 		  				error : function() {alert("error")}
 		  			})
 		  		})
+		  		
+		  		$('#addressList').on("click",".addmodBtn",function(){
+					let address_id = $(this).attr("data-address-id")
+					
+		  			$.ajax({
+						type:'POST',	//통신방식 (get,post)
+						url: '/purplaying/setting/stmodaddress',                                                                                
+						headers:{"content-type" : "application/json"},
+						dataType : 'text',
+						data : JSON.stringify({address_id:address_id}),
+						success:function(result){
+							address = JSON.parse(result)
+				  			$("#Modaddress_name").val(address.address_name)
+							$("#Modreceiver_name").val(address.receiver_name)
+							$("#Modaddress_num").val(address.address_num)
+							$("#Modaddress").val(address.address)
+							$("#Modaddress_detail").val(address.address_detail)
+							$("#Modreceiver_phonenum").val(address.receiver_phonenum)
+							if (address.default_address == true) {
+								$("#Moddefault_address").attr("checked","checked")
+							}
+							else {
+								$("#Moddefault_address").removeAttr("checked")
+							}
+							$("#addressModiModal").modal("show")
+							$("#addressModBtn").attr("data-address-id", address_id)
+						},
+						error : function(){
+							alert("error");
+						}
+			  		})
+		  		})
+		  		
+		  		$("#addressModBtn").click(function() {
+		  			let address_id = $(this).attr("data-address-id")
+		  			let address_name = $("#Modaddress_name").val()
+					let receiver_name = $("#Modreceiver_name").val()
+					let address_num = $("#Modaddress_num").val()
+					let address = $("#Modaddress").val()
+					let address_detail = $("#Modaddress_detail").val()
+					let receiver_phonenum = $("#Modreceiver_phonenum").val()
+					let default_address = $("#Moddefault_address").val()
+					
+					if($("#Moddefault_address").is(":checked")) {
+						default_address = true
+					}
+					else {
+						default_address = false
+					}
+		  			
+		  			let mod_address = {
+		  					address_id:address_id,
+							address_name:address_name,
+							receiver_name:receiver_name,
+							address_num:address_num,
+							address:address,
+							address_detail:address_detail,
+							receiver_phonenum:receiver_phonenum,
+							default_address:default_address
+		  			}
+		  			
+		  			$.ajax({
+		  				type : 'PATCH',
+		  				url : '/purplaying/setting/endmodaddress',
+		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+						data : JSON.stringify(mod_address),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							showList(user_no)
+							$("#addressModiModal").modal("hide")
+						},
+		  				error : function() {alert("error")}
+		  			})
+		  		})
 	        	
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
@@ -756,8 +829,8 @@
 	                    tmp += '<div class="border-bottom justify-content-between d-md-flex py-2">'
 	                    tmp += '<h6 class="col-auto text-info">' + address.address_name + '</h6>'
 	                    tmp += '<div class="col-auto d-md-flex px-3">'
-	                    tmp += '<button class="btn btn-outline-primary btn-sm me-md-2" data-address-id="' + address.address_id + '" type="button">M</button>'
-	                    tmp += '<button class="btn btn-outline-danger btn-sm me-md-2" data-address-id="' + address.address_id + '" type="button">D</button>'
+	                    tmp += '<button class="btn btn-outline-primary btn-sm me-md-2 addmodBtn" data-address-id="' + address.address_id + '" type="button">M</button>'
+	                    tmp += '<button class="btn btn-outline-danger btn-sm me-md-2 delmodBtn" data-address-id="' + address.address_id + '" type="button">D</button>'
 	                    tmp += '</div></div><div class="px-3 pt-2"><h6>받는분 : ' + address.receiver_name + '</h6><h6>[' + address.address_num + '] '
 	                    tmp += address.address + ' ' + address.address_detail + '</h6><h6>' + address.receiver_phonenum + '</h6></div></div>'
 					});

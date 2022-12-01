@@ -21,9 +21,15 @@
 		where user_no = #{user_no}
 	</select>
 	
-	<select id="selectAddress" parameterType="int" resultType="map">
+	<select id="select" parameterType="int" resultType="map">
 		<include refid="selectFromBoard" />
 		where a.user_no = u.user_no and address_id = #{address_id}
+	</select>
+	
+	<select id="selectAddress" parameterType="int" resultType="AddressDto">
+		SELECT address_id, address_name, address_num, address, address_detail, receiver_name, receiver_phonenum, default_address, user_no
+		FROM tb_address
+		where address_id = #{address_id}
 	</select>
 	
 	<delete id="deleteAddress" parameterType="int">

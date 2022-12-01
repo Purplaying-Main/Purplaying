@@ -17,7 +17,7 @@ public class AddressDaoImpl implements AddressDao {
   private static String namespace = "kr.co.purplaying.AddressMapper.";
   
   @Override                     // address_id로 출력 확인후 변경
-  public Map<String, Object> selectAddress(Integer address_id) throws Exception {
+  public AddressDto selectAddress(Integer address_id) throws Exception {
     // TODO Auto-generated method stub
     return session.selectOne(namespace + "selectAddress", address_id);
   }
