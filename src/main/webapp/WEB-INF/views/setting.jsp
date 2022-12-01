@@ -70,7 +70,7 @@
                                             <h6>이름</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button id="namechangeBtn" class="btn btn-outline-primary" type="button">
+                                            <button id="namechangeBtn" class="btn btn-outline-primary" type="button" data-name="${userDto.user_name }">
                                                 변경
                                             </button>
                                         </div>
@@ -85,7 +85,7 @@
                                             <h6>소개</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button id="introchangeBtn"class="btn btn-outline-primary" type="button">
+                                            <button id="introchangeBtn"class="btn btn-outline-primary" type="button" data-introduce="${settingMap.user_introduce }">
                                                 변경
                                             </button>
                                         </div>
@@ -362,11 +362,11 @@
                                                         <label for="label_username">수령인</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3 " id="Modaddress_num" name="address_num" />
+                                                        <input type="text" class="form-control rounded-3 " id="Modaddress_num" name="address_num" readonly/>
                                                         <label for="label_address">우편번호</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3 " id="Modaddress" name="address" />
+                                                        <input type="text" class="form-control rounded-3 " id="Modaddress" name="address" readonly/>
                                                         <label for="label_address">배송지 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
@@ -484,12 +484,23 @@
         	
 	        $("#namechangeBtn").click(function() {
 				let user_no = $("#user_no").val()
-	  			let user_name = $("p", $(this).children().children().prev()).text()
-	  			
-	  			$("#user_Name").val(user_name)
-	  			$("#modnameBtn").attr("user-no", user_no)
-	  			$("#nameChangeModal").modal("show")
-	  			
+					
+	  			$.ajax({
+					type:'POST',	//통신방식 (get,post)
+					url: '/purplaying/setting/stmodname',
+					headers:{"content-type" : "application/json"},
+					data : JSON.stringify({user_no:user_no}),
+					dataType : 'text',
+					success:function(result){
+						user = JSON.parse(result)
+						$("#user_Name").val(user.user_name)
+			  			$("#modnameBtn").attr("user-no", user_no)
+			  			$("#nameChangeModal").modal("show")
+					},
+					error : function(){
+						alert("error");
+					}
+		  		})
 	  		})
 	  		
 	  		$("#modnameBtn").click(function() {
@@ -640,6 +651,7 @@
 		  				type : 'POST',
 		  				url : '/purplaying/setting/address/'+user_no,
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+		  				dataType : 'text',
 						data : JSON.stringify({address_name:address_name,
 											   receiver_name:receiver_name,
 											   address_num:address_num,
@@ -648,8 +660,16 @@
 											   receiver_phonenum:receiver_phonenum,
 											   default_address:default_address}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							showList(user_no)
+							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressRegModal").modal("hide")
+							$("#user_no").val("")
+				  			$("#address_name").val("")
+							$("#receiver_name").val("")
+							$("#address_num").val("")
+							$("#address").val("")
+							$("#address_detail").val("")
+							$("#receiver_phonenum").val("")
+							$("#default_address").val("")
 						},
 		  				error : function() {alert("error")}
 		  			})
@@ -722,8 +742,16 @@
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						data : JSON.stringify(mod_address),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							showList(user_no)
-							$("#addressModiModal").modal("hide")
+							$("#ModaddressList").html(toHtml(JSON.parse(result)));
+							$("#ModaddressModiModal").modal("hide")
+							$("#Moduser_no").val("")
+				  			$("#Modaddress_name").val("")
+							$("#Modreceiver_name").val("")
+							$("#Modaddress_num").val("")
+							$("#Modaddress").val("")
+							$("#Modaddress_detail").val("")
+							$("#Modreceiver_phonenum").val("")
+							$("#Moddefault_address").val("")
 						},
 		  				error : function() {alert("error")}
 		  			})

@@ -38,16 +38,12 @@ public class UserDaoImpl implements UserDao {
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
     }
-	
-	
-
 
     @Override
     public int updateName(UserDto userDto) throws Exception {
       
       return session.update(namespace + "updateName", userDto);
     }
-    
 
     public int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception {
       Map map = new HashMap();
