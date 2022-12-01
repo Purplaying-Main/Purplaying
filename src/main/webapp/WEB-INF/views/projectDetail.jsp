@@ -170,6 +170,7 @@
 	                  <div class="card mb-4 rounded-3 shadow-sm">
 	                    <div class="card-header py-3">
 	                      <strong class="my-0 fw-normal bg-info">${rewardDto.reward_category == 1 ? "슈퍼얼리버드" : "얼리버드"}</strong><br>
+	                      <input type="hidden" id="reward_id" value="${rewardDto.reward_id }"/>
 	                      <strong class="fw-normal">${rewardDto.row_number}. ${rewardDto.reward_name}</strong>
 	                    </div>
 	                    <div class="card-body">
@@ -371,7 +372,7 @@
 		   let eventTargetTitle = eventTarget.parentElement.previousElementSibling.lastElementChild.innerHTML
 		   let eventTargetPrice = eventTarget.parentElement.firstElementChild.lastElementChild.innerHTML
 		   //alert(eventTargetTitle+'+'+eventTargetPrice);
-		   let reward_number = eventTargetTitle.split('.')
+		   let reward_number = eventTarget.parentElement.parentElement.firstElementChild.lastElementChild.previousElementSibling.value
 		  // $('#addReward option:eq('+reward_number+')').prop('selected',true);		
 		   $('#addReward').val(reward_number).prop('selected',true);	
 		   
@@ -395,8 +396,8 @@
    	
 		$("#addReward").change(function(){
 			document.getElementById("selectRewardBox").style.display = 'block';
-			let reward_num = $('#addReward option:selected').html().split(".");
-			
+			let reward_num = $('#addReward option:selected').val();
+			//alert(reward_num)
 			if(!arr.includes(reward_num[0])){
 				arr.push(reward_num[0]);
 				let list = selectToHtml($('#selectRewardBox').html())
@@ -462,7 +463,7 @@
 	}
 	function del_reward(){
 		eventTarget = event.target;
-		let num = eventTarget.parentElement.firstElementChild.firstElementChild.value
+		let num = eventTarget.nextElementSibling.value
 		//alert(num)
 		arr = arr.filter(function(item){
 			return item != num;
@@ -485,37 +486,20 @@
 		$("#rewardTotalPrice").val(result_price); */
 		
 	}
-	function selectToHtmlfromReward(tmp){
-		let getOption = tmp;
-		let name = getOption.split('+')[0];
-		let num = name.split('.')[0];
-		let price_won = getOption.split('+')[1];
-		price = price_won.split('원')[0];
-		
-		let temp = "";
-		
-		temp += "<div>";
-		temp += '<div class="d-flex justify-content-between">'
-		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardName-'+num+'"><input type="hidden" value="'+num+'" name="no"><input type="hidden" value="'+name+'" name="nm">'+name+'</span>'
-		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardPrice-'+num+'"><input type="hidden" value="'+price_won+'" name="pr" >'+price_won+'</span><input type="button" class="btn text-danger fw-bold btn-sm" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/>'
-		temp +='</div>'
-		temp +=	'<div class="d-flex justify-content-end col"><span class="align-self-center col-1" style="margin-bottom: 0px;">수량 </span><span class="col-2"><input type="number" class="text-center form-control form-control-sm" name="reward_cnt" value="1" id="selectedRewardCnt-'+num+'" placeholder="1" min="1" onchange="calRewardPrice()"/></span></div>'
-		temp += "</div>";
-		return temp;
-	}
 	
 	function selectToHtml(tmp){
 		let getOption =  $("#addReward option:checked").text();
 		let name = getOption.split('+')[0];
 		let num = name.split('.')[0];
 		let price_won = getOption.split('+')[1];
+		let reward_value =  $("#addReward option:checked").val();
 		price = price_won.split('원')[0];
 		
 		let temp = tmp;
 		temp += "<div>";
 		temp += '<div class="d-flex justify-content-between">'
 		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardName-'+num+'"><input type="hidden" value="'+num+'" name="no"><input type="hidden" value="'+name+'" name="nm">'+name+'</span>'
-		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardPrice-'+num+'"><input type="hidden" value="'+price_won+'" name="pr" >'+price_won+'</span><input type="button" class="btn text-danger fw-bold btn-sm" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/>'
+		temp += '<span class="align-self-center" style="margin-bottom: 0px;" id="selectedRewardPrice-'+num+'"><input type="hidden" value="'+price_won+'" name="pr" >'+price_won+'</span><input type="button" class="btn text-danger fw-bold btn-sm" id="del_rewardBtn-'+num+'" onclick="del_reward()" value="X"/><input type="hidden" id="reward_id" value="'+reward_value+'">'
 		temp +='</div>'
 		temp +=	'<div class="d-flex justify-content-end col"><span class="align-self-center col-1" style="margin-bottom: 0px;">수량 </span><span class="col-2"><input type="number" class="text-center form-control form-control-sm" name="reward_cnt" value="1" id="selectedRewardCnt-'+num+'" placeholder="1" min="1" onchange="calRewardPrice()"/></span></div>'
 		temp += "</div>";
