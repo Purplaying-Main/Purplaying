@@ -49,20 +49,30 @@
 				</div>
 				<div class="paging-container">
 				<div class="justify-content-center d-flex" id="paging_project">
+				 <!-- 페이지 네비게이션 -->
+				 <div class="col-1"></div>
+				 <ul class="pagination mb-0 col-10 justify-content-center">
 					<c:if test="${totalCnt == null}">
 						<div> 게시물이 없습니다.</div>
 					</c:if>
 					<c:if test="${totalCnt != null || totalCnt != 0 }">
 						<c:if test="${pr.showPrev }">
-							<a class="page" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(pr.beginPage-1) }" />"> &lt; </a>
+							<li class="page-item">
+								<a class="page-link" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(pr.beginPage-1) }" />">Previous</a>
+							</li>
 						</c:if>
 						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-							<a class="page <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(i)}" />">${i }</a>
+							<li class="page-item">
+								<a class="page-link <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(i)}" />">${i }</a>
+							</li>
 						</c:forEach>
 						<c:if test="${pr.showNext }">
-							<a class="page" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(pr.endPage+1) }" />"> &gt; </a>
+							<li class="page-item">
+								<a class="page-link" href="<c:url value="/admin/projectlist${pr.sc.getQueryString(pr.endPage+1) }" />">Next</a>
+							</li>
 						</c:if>						
 					</c:if>
+				  </ul>
 				</div>
 			</div>
         	</div>
