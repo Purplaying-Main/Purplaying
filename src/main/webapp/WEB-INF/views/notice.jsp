@@ -58,7 +58,7 @@ pageEncoding="UTF-8"%>
 										<hr class="my-4">
 										<div class="mt-3 text-end">			
 											<!-- 수정권한 확인  -->
-											<c:if test="${noticeDto.writer eq sessionScope.user_id}">
+											<c:if test="${sessionScope.user_role eq '1'}">
 												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
 												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
 											</c:if>
