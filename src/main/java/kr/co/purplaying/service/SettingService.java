@@ -19,5 +19,7 @@ public interface SettingService {
   int addressAdd(AddressDto addressDto) throws Exception;
   List<AddressDto> getList(int user_no) throws Exception;
   int modifyAddress(AddressDto addressDto) throws Exception;
+  int insertcheckbox(int user_no, boolean agree_marketing) throws Exception;
+  SettingDto selectUserCheck(int user_no) throws Exception;
   
 }

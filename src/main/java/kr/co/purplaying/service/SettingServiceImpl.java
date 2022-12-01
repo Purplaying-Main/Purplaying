@@ -10,6 +10,7 @@ import kr.co.purplaying.dao.AddressDao;
 import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
+import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 
 @Service
@@ -84,6 +85,17 @@ public class SettingServiceImpl implements SettingService {
   public int modifyAddress(AddressDto addressDto) throws Exception {
     // TODO Auto-generated method stub
     return addressDao.update(addressDto);
+  }
+
+  @Override
+  public int insertcheckbox(int user_no,boolean agree_marketing) throws Exception {
+    return settingDao.insertcheckbox(user_no,agree_marketing);
+  }
+
+  @Override
+  public SettingDto selectUserCheck(int user_no) throws Exception {
+    // TODO Auto-generated method stub
+    return settingDao.selectUserCheck(user_no);
   }
 
 }

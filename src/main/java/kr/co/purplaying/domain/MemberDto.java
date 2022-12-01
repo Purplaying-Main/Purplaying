@@ -51,6 +51,18 @@ public class MemberDto {
     
   }
   
+  public MemberDto( String user_id, String user_pwd, String user_name, String user_phone, boolean agree_age, boolean agree_terms, boolean agree_inform,
+      boolean agree_inform_third, boolean agree_marketing) {
+    this.user_id = user_id;
+    this.user_pwd = user_pwd;
+    this.user_name = user_name;
+    this.user_phone = user_phone;
+    this.agree_age = agree_age;
+    this.agree_terms = agree_terms;
+    this.agree_inform = agree_inform;
+    this.agree_inform_third = agree_inform_third;
+    this.agree_marketing = agree_marketing;
+  }
 
   public MemberDto(int user_no, String user_id, String user_pwd, String user_name, String user_phone, boolean agree_age, boolean agree_terms, boolean agree_inform,
       boolean agree_inform_third, boolean agree_marketing) {

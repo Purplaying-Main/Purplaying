@@ -10,5 +10,7 @@ public interface SettingDao {
   int updateIntro(Map<String, Object> map) throws Exception;
   int insert(SettingDto settingDto) throws Exception;
   int update(SettingDto settingDto) throws Exception;
+  int insertcheckbox(int user_no,boolean agree_marketing) throws Exception;
+  SettingDto selectUserCheck(int user_no) throws Exception;
   
 }

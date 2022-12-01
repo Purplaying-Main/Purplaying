@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ import kr.co.purplaying.dao.LeaveDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.MemberDto;
 import kr.co.purplaying.domain.UserDto;
+import kr.co.purplaying.service.SettingService;
 
 @Controller
 @RequestMapping("/user")
@@ -31,6 +33,9 @@ public class MemberController {
 
     @Autowired
     UserDao userDao;
+    
+    @Autowired
+    SettingService settingService;
 
     @Autowired(required=true)
     LeaveDao leaveDao;
@@ -201,7 +206,8 @@ public class MemberController {
         
     @ResponseBody
     @PostMapping("/signup")
-    public void signup2(@RequestBody MemberDto memberDto ,HttpServletRequest request) throws Exception {
+    public void signup2(@RequestBody MemberDto memberDto, Model m ,HttpServletRequest request) throws Exception {
+      System.out.println(memberDto);
       System.out.println("user_id"+memberDto.getUser_id());
       if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_phone())!=1) {
         System.out.println("실패");
@@ -214,6 +220,11 @@ public class MemberController {
                            memberDto.isAgree_inform_third(),memberDto.isAgree_marketing())!=1) {
         System.out.println("성공");
       }
+      System.out.println("marketing"+memberDto.isAgree_marketing());
+      if(settingService.insertcheckbox(user.getUser_no(),memberDto.isAgree_marketing())!=1) {
+        System.out.println("마케팅 insert 실패");
+      }
+      
    }
     
     @PostMapping("/leave")

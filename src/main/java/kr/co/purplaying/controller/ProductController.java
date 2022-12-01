@@ -94,7 +94,6 @@ public class ProductController {
       
       return "projectDetail";
   }
-  
  
   @GetMapping("/{prdt_id}") //펀딩 디테일 페이지 (로그인 유무 상관없음)
   public String viewproduct(@PathVariable Integer prdt_id, Model m ,HttpSession session) {

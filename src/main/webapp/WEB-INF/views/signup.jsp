@@ -405,13 +405,12 @@
 							user_name : document.getElementById("user_name").value,
 							user_phone : document.getElementById("user_phone").value,
 							user_name : document.getElementById("user_name").value,
-							Agree_age : document.getElementById("agree1").value,
-							Agree_terms : document.getElementById("agree2").value,
-							Agree_inform : document.getElementById("agree3").value,
-							Agree_inform_third : document.getElementById("agree4").value,
-							Agree_marketing : document.getElementById("agree5").value
+							agree_age : $('#agree1').is(":checked"),
+							agree_terms : $('#agree2').is(":checked"),
+							agree_inform : $('#agree3').is(":checked"),
+							agree_inform_third : $('#agree4').is(":checked"),
+							agree_marketing : $('#agree5').is(":checked")
 					} 
-					
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/signup',                                                                                

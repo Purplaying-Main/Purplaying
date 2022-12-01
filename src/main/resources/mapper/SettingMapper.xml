@@ -20,5 +20,16 @@
 		WHERE user_no = #{user_no}
 	</update>
 	
+	<insert id="insertcheckbox" parameterType="map">
+		insert into tb_setting
+		(user_no,marketing_agree)
+		values (#{user_no},#{agree_marketing})
+	</insert>
+	
+	<select id="selectUserCheck" parameterType="int" resultType="SettingDto">
+		select msg_agree, update_agree, favor_agree, marketing_agree
+		from tb_setting
+		where user_no = #{user_no}
+	</select>
 	
 </mapper>

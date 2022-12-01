@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
+import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
 
@@ -39,9 +40,12 @@ public class SettingController {
     System.out.println(id);
     
     try {
-      
+     
       UserDto userDto = settingService.setUser(id);
       m.addAttribute(userDto);
+      
+      SettingDto settingDto = settingService.selectUserCheck(userDto.getUser_no());
+      m.addAttribute("settingDto",settingDto);
       
       Map<String, Object> settingMap = settingService.showSetting(id);
       m.addAttribute("settingMap", settingMap);
