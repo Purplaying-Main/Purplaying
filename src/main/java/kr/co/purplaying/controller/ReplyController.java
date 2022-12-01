@@ -15,16 +15,16 @@ import kr.co.purplaying.service.ReplyService;
 public class ReplyController {
   
   @Autowired
-  ReplyService service;
+  ReplyService replyService;
   
-  public @ResponseBody List<ReplyDto> list(int prdt_id) {
-    List<ReplyDto> list = null;
+  public @ResponseBody List<ReplyDto> list_reply(int prdt_id) {
+    List<ReplyDto> list_reply = null;
 
     try {
-      list = service.getList(prdt_id);
+      list_reply = replyService.selectReply(prdt_id);
 
-      System.out.println("list =" + list);
-      return list;
+      System.out.println("list_reply =" + list_reply);
+      return list_reply;
     } catch (Exception e) {
       e.printStackTrace();
       return null;
@@ -35,17 +35,17 @@ public class ReplyController {
   @PostMapping("/communitys")
   @ResponseBody
   public List<ReplyDto> list2(@RequestBody ReplyDto replyDto) {
-    List<ReplyDto> list = null;
+    List<ReplyDto> list_reply = null;
     System.out.println(replyDto);
 
     try {
-      if (service.insertRply(replyDto) != 1) {
+      if (replyService.insertReply(replyDto) != 1) {
         System.out.println("실패");
       }
-      list = service.getList(replyDto.getPrdt_id());
+      list_reply = replyService.selectReply(replyDto.getPrdt_id());
 
-      System.out.println("list =" + list);
-      return list;
+      System.out.println("list_reply =" + list_reply);
+      return list_reply;
     } catch (Exception e) {
       e.printStackTrace();
       return null;

@@ -16,9 +16,9 @@ public class CommunityDaoImpl implements CommunityDao {
     private static String namespace = "kr.co.purplaying.dao.CommunityMapper.";
 
       @Override
-      public List<CommunityDto> selectAll(int prdt_id) throws Exception {
+      public List<CommunityDto> selectCommunity(int prdt_id) throws Exception {
         // TODO Auto-generated method stub
-        return session.selectList(namespace+"selectAll", prdt_id);
+        return session.selectList(namespace+"selectCommunity", prdt_id);
       }
 
       @Override

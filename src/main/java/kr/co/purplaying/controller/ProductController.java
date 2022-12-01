@@ -31,14 +31,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.domain.CommunityDto;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.ReplyDto;
 import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.service.CommunityService;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
+import kr.co.purplaying.service.ReplyService;
 import kr.co.purplaying.service.RewardService;
 
 @Controller
@@ -50,6 +54,13 @@ public class ProductController {
   
   @Autowired
   RewardService rewardService;
+  
+  @Autowired
+  ReplyService replyService;
+  
+  @Autowired
+  CommunityService communityService;
+  
   
   @Autowired
   LikeService likeService;
@@ -94,6 +105,8 @@ public class ProductController {
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
+          List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
+          List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
 
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
           for(int i = 0; i<list_update.size(); i++) {
@@ -118,6 +131,8 @@ public class ProductController {
           
           m.addAttribute("list_update",list_update);     
           m.addAttribute("dto",list);
+          m.addAttribute("list_community", list_community);
+          m.addAttribute("list_reply", list_reply);
    
           String writer = projectDto.getWriter();
           m.addAttribute(writer);
