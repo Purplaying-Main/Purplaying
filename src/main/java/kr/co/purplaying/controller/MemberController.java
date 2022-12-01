@@ -89,19 +89,21 @@ public class MemberController {
     
     @PostMapping("/sendMail")
     @ResponseBody
-    public void sendMailTest(@RequestBody UserDto userDto) throws Exception{
+    public void sendMailTest(@RequestBody UserDto userDto) throws Exception{ 
+        System.out.println(userDto);
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
         userDto.setUser_pwd(String.valueOf(checkNum));
+        System.out.println(userDto);
         if(userDao.updateUserPwd(userDto)!=1)
         {
           System.out.println("비밀번호 변경오류");
-          return;
+          return ;
         }
         
-        String subject = "비번찾기 테스트 제목";
+        String subject = "퍼플레잉 비밀번호찾기";
         String content = "임시 비밀번호 : " + checkNum ;
-        String from = "kidwars@naver.com";
+        String from = "purplayingcorp@gmail.com";
         String to = userDto.getUser_id();
         
         try {
@@ -120,7 +122,7 @@ public class MemberController {
             //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
             mailHelper.setTo(to);
             mailHelper.setSubject(subject);
-            mailHelper.setText(content, true);
+            mailHelper.setText("<h2>"+content+ "</h2>", true);
             // true는 html을 사용하겠다는 의미입니다.
             
             /*

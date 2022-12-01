@@ -197,9 +197,10 @@ public class ProductController {
       
       String writer = (String) session.getAttribute("user_id");
       projectDto.setWriter(writer);
+      projectDto.setUser_id(writer);
       System.out.println("projectDto : "+projectDto);
       try {
-          if(projectService.write(projectDto.getWriter()) != 1)
+          if(projectService.write(projectDto) != 1)
             throw new Exception("write failed");
           rattr.addFlashAttribute("msg", "WRT_OK");
           m.addAttribute("mode", "new");

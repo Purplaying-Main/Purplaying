@@ -17,7 +17,7 @@ public interface ProjectService {
   ProjectDto read(Integer prdt_id) throws Exception;
   ProjectDto readRecently(String writer) throws Exception;
 
-  int write(String writer) throws Exception;
+  int write(ProjectDto projectDto) throws Exception;
   int modify(ProjectDto ProjectDto) throws Exception;
 
   int getSearchResultCnt(SearchItem sc) throws Exception;

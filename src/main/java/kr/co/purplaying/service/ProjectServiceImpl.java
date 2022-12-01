@@ -26,8 +26,8 @@ public class ProjectServiceImpl implements ProjectService{
   }
 
   @Override
-  public int write(String writer) throws Exception {
-    return projectDao.insert(writer);
+  public int write(ProjectDto projectDto) throws Exception {
+    return projectDao.insert(projectDto);
   }
 
   @Override

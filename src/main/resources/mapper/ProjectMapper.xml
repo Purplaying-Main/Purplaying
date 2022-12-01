@@ -104,10 +104,10 @@
 		limit 1
 	</select>
 	
-	<insert id="insert" parameterType="String"> <!-- Board 테이블 데이터 추가 -->
+	<insert id="insert" parameterType="ProjectDto"> <!-- Board 테이블 데이터 추가 -->
         INSERT INTO tb_product
-            (writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal)
-        VALUES (#{writer}, now(), now(),  false , 500000 )
+            (writer, prdt_opendate, prdt_enddate, prdt_open , prdt_goal , user_id)
+        VALUES (#{writer}, now(), now(),  false , 500000 ,#{user_id})
     </insert>
 	
 	<update id="update" parameterType="ProjectDto">

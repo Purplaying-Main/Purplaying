@@ -18,7 +18,7 @@ public interface ProjectDao {
   
   List<ProjectDto> selectPage(Map map) throws Exception;
 
-  int insert(String writer) throws Exception;
+  int insert(ProjectDto projectDto) throws Exception;
   int update(ProjectDto projectDto) throws Exception;
   int searchResultCnt(SearchItem sc) throws Exception;
   List<ProjectDto> searchSelectPage(SearchItem sc) throws Exception;

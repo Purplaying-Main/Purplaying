@@ -54,8 +54,8 @@
 	
 	<update id="updateUserPwd" parameterType="UserDto">
 		UPDATE tb_user
-		SET user_pwd= #{user_pwd}
-		WHERE user_no= #{user_no}
+		SET user_pwd = #{user_pwd}
+		WHERE user_id= #{user_id}
 	</update>
 
 	<!-- signup -->

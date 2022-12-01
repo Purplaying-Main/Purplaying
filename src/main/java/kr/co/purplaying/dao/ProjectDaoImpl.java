@@ -24,8 +24,8 @@ public class ProjectDaoImpl implements ProjectDao {
   private static String namespace = "kr.co.purplaying.dao.ProjectMapper.";
   
   @Override
-  public int insert(String writer) throws Exception {
-    return session.insert(namespace+"insert", writer);
+  public int insert(ProjectDto projectDto) throws Exception {
+    return session.insert(namespace+"insert", projectDto);
   }
   
   @Override
