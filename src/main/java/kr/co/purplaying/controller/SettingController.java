@@ -184,4 +184,21 @@ public class SettingController {
     }
   }
   
+  @RequestMapping(value="/setting/deladdress/{address_id}", method = RequestMethod.DELETE)
+  public ResponseEntity<String> remove(@PathVariable Integer address_id, HttpSession session) {
+    System.out.println(address_id + "삭제 호출");
+    
+    try {
+          
+          if(settingService.removeAddress(address_id) != 1) 
+              throw new Exception("Delete Failed");
+          
+          return new ResponseEntity<String>("DEL_OK", HttpStatus.OK);
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+          return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
+      }
+  }
+  
 }

@@ -98,4 +98,9 @@ public class SettingServiceImpl implements SettingService {
     return settingDao.selectUserCheck(user_no);
   }
 
+  @Override
+  public int removeAddress(Integer address_id) throws Exception {
+    
+    return addressDao.deleteAddress(address_id);
+  }
 }

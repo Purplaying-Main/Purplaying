@@ -493,7 +493,7 @@
                                                     <div class="form-floating mb-3">
                                                         <h4>배송지를 삭제 하시겠습니까?</h4>
                                                     </div>
-                                                    <button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close" >
+                                                    <button id="addressDelBtn" class="w-100 my-3 btn btn-lg rounded-3 btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close" >
                                                         배송지 삭제
                                                     </button>
                                                 </form>
@@ -790,6 +790,32 @@
 		  				error : function() {alert("error")}
 		  			})
 		  		})
+		  		
+		  		$('#addressList').on("click","#addDelBtn",function(){
+					let address_id = $(this).attr("data-address-id")
+					alert(address_id)
+					$("#addressDelModal").modal("show")
+					$("#addressDelBtn").attr("data-address-id", address_id)
+		  		})
+		  		
+		  		$("#addressDelBtn").click(function() {
+		  			let address_id = $(this).attr("data-address-id")
+		  			alert(address_id)
+		  			
+		  			$.ajax({
+		  				type : 'DELETE',
+		  				url : '/purplaying/setting/deladdress/'+address_id,
+		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							showList(user_no)
+							alert("배송지가 삭제되었습니다.")
+							$("#addressModiModal").modal("hide")
+						},
+		  				error : function() {
+		  					alert("error")
+		  					}
+		  			})
+		  		})
 	        	
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
@@ -803,6 +829,24 @@
 	        	})
 	        	
 	        	$("#passwordConfirm").on("input", function(){
+	        		if($(this).val() == $("#password").val() && $(this).val() != "") {
+	        			$("#modpwdBtn").removeAttr("disabled")
+	        		}
+	        		else {
+	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        		}
+	        	})
+	        	
+	        	$("#user_phonenum").on("input", function(){
+	        		if($(this).val() == passwordConfirm$("#user_phonenumConfirm").val() && $(this).val() != "") {
+	        			$("#modpwdBtn").removeAttr("disabled")
+	        		}
+	        		else {
+	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        		}
+	        	})
+	        	
+	        	$("#user_phonenumConfirm").on("input", function(){
 	        		if($(this).val() == $("#password").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
 	        		}
@@ -830,8 +874,8 @@
 	                    tmp += '<div class="border-bottom justify-content-between d-md-flex py-2">'
 	                    tmp += '<h6 class="col-auto text-info">' + address.address_name + '</h6>'
 	                    tmp += '<div class="col-auto d-md-flex px-3">'
-	                    tmp += '<button class="btn btn-outline-primary btn-sm me-md-2 addmodBtn" data-address-id="' + address.address_id + '" type="button">M</button>'
-	                    tmp += '<button class="btn btn-outline-danger btn-sm me-md-2 delmodBtn" data-address-id="' + address.address_id + '" type="button">D</button>'
+	                    tmp += '<button id="addModBtn" class="btn btn-outline-primary btn-sm me-md-2 " data-address-id="' + address.address_id + '" type="button">M</button>'
+	                    tmp += '<button id="addDelBtn" class="btn btn-outline-danger btn-sm me-md-2 adddelBtn" data-address-id="' + address.address_id + '" type="button">D</button>'
 	                    tmp += '</div></div><div class="px-3 pt-2"><h6>받는분 : ' + address.receiver_name + '</h6><h6>[' + address.address_num + '] '
 	                    tmp += address.address + ' ' + address.address_detail + '</h6><h6>' + address.receiver_phonenum + '</h6></div></div>'
 					});

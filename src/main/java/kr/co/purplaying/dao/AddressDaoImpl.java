@@ -23,9 +23,9 @@ public class AddressDaoImpl implements AddressDao {
   }
 
   @Override
-  public int delete(Integer address_id) throws Exception {
+  public int deleteAddress(Integer address_id) throws Exception {
     // TODO Auto-generated method stub
-    return session.delete(namespace + "delete", address_id);
+    return session.delete(namespace + "deleteAddress", address_id);
   }
 
   @Override
