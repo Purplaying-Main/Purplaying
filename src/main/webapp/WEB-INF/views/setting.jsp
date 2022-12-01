@@ -204,7 +204,6 @@
                                     <li class="row">
                                         <p>******</p>
                                     </li>
-                                    
                                 </ul>
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
@@ -212,7 +211,7 @@
                                             <h6>연락처</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#phoneChangeModal" >
+                                            <button id="phonemodBtn" class="btn btn-outline-primary">
                                                 변경
                                             </button>
                                         </div>
@@ -220,74 +219,6 @@
                                     <li class="row">
                                         <p>${userDto.user_phone }</p>
                                     </li>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="phoneChangeModalLabel">연락처 변경</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <label for="userphone" class="form-label">연락처</label>
-                                                    <div class="input-group mb-3">
-                                                        <input type="number" class="form-control" id="userphone" placeholder="휴대폰 번호 (-없이 입력)" />
-                                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                                                            인증번호 받기
-                                                        </button>
-                                                    </div>
-                                                    <input type="number" class="form-control" id="userphoneConfirm" placeholder="인증번호 입력 (남은 시간 2분 58초)" />
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
-                                                        확인
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ul>
-                                <ul class="border-bottom py-3">
-                                    <li class="row justify-content-between">
-                                        <div class="col-auto">
-                                            <h6>SNS 계정 연동</h6>
-                                        </div>
-                                        <div class="col-auto px-3 text-end">
-                                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#snsChangeModal">
-                                                변경
-                                            </button>
-                                        </div>
-                                    </li>
-                                    <li class="row">
-                                        <p>카카오톡 계정 연동 중입니다.</p>
-                                    </li>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="snsChangeModal" tabindex="-1" aria-labelledby="snsChangeModalLabel" aria-hidden="true" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="snsChangeModalLabel">SNS 계정 변경</h5>
-                                                    <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    ></button>
-                                                </div>
-                                                <div class="modal-body">... SNS 계정 변경을 어떻게..? 탈퇴로 넘길지.. 고민</div>
-                                                <div class="modal-footer">
-                                                    <button
-                                                        type="button"
-                                                        class="btn btn-primary"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                    >
-                                                        확인
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </ul>
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
@@ -325,6 +256,29 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- phoneChangeModal -->
+	                            <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
+	                                <div class="modal-dialog">
+	                                    <div class="modal-content">
+	                                        <div class="modal-header">
+	                                            <h5 class="modal-title" id="phoneChangeModalLabel">연락처 변경</h5>
+	                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+	                                        </div>
+	                                        <div class="modal-body">
+	                                            <label for="userphone" class="form-label">연락처</label>
+	                                            <div class="input-group mb-3">
+	                                                <input id="user_phone" type="text" class="form-control" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" />
+	                                            </div>
+	                                            <input id="user_phoneConfirm" type="text" class="form-control" name="user_phoneConfirm" placeholder="휴대폰 번호 확인" />
+	                                        </div>
+	                                        <div class="modal-footer">
+	                                            <button id="modphoneBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+	                                                확인
+	                                            </button>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
                             <!-- tab 3 contents -->
                             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                                 <div class="row justify-content-between">
@@ -340,50 +294,8 @@
                                 <!-- card start -->
                                 <div id="addressList">
                                 </div>
-                                <%-- <div class="row border rounded w-75 mx-1">
-                                    <div class="border-bottom justify-content-between d-md-flex py-2">
-                                        <h6 class="col-auto text-info">기본 배송지</h6>
-                                        <div class="col-auto d-md-flex px-3">
-                                            <!-- 수정 -->
-                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button">
-                                                M
-                                            </button>
-                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button">
-                                                D
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="px-3 pt-2">
-                                        <h6>받는분 : ${addressMap.receiver_name }</h6>
-                                        <h6>[${addressMap.address_num }] ${addressMap.address } ${addressMap.address_detail }</h6>
-                                        <h6>${addressMap.receiver_phonenum }</h6>
-                                    </div>
-                                </div>
-                                <!-- card end -->
-                                <hr class="my-4" />
-                                <!-- card start -->
-                                <div class="row border rounded w-75 mx-1">
-                                    <div class="border-bottom justify-content-between d-md-flex py-2">
-                                        <h6 class="col-auto text-info">배송지 #2</h6>
-                                        <div class="col-auto d-md-flex px-3">
-                                            <button class="btn btn-outline-primary btn-sm me-md-2" type="button">
-                                                M
-                                            </button>
-                                            <button class="btn btn-outline-danger btn-sm me-md-2" type="button">
-                                                D
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="px-3 pt-2">
-                                        <h6>받는분 : 홍길동</h6>
-                                        <h6>[06541] 서울특별시 서초구 강남대로 479 3층</h6>
-                                        <h6>010-0000-0000</h6>
-                                    </div>
-                                </div> --%>
-                                <!-- card end -->
                                 <!-- 배송지 추가 modal start -->
-                                <div
-                                    class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -662,7 +574,32 @@
 	  			})
 	  		})
 	  		
+	  		$("#phonemodBtn").click(function() {
+				let user_no = $("#user_no").val()
+	
+	  			$("#modphoneBtn").attr("user-no", user_no)
+	  			$("#phoneChangeModal").modal("show")
+
+	  		})
 	  		
+	  		$("#modphoneBtn").click(function() {
+				let user_no = $("#user_no").val()
+	  			let user_phone = $("#user_phone").val()
+	  			let pwdcheck = $("#user_phoneConfirm").val()
+				
+	  			$.ajax({
+	  				type : 'PATCH',
+	  				url : '/purplaying/setting/phone/'+user_no,
+	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+					data : JSON.stringify({user_phone:user_phone}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						
+						$("#phoneChangeModal").modal("hide")
+						
+					},
+	  				error : function() {alert("error")}
+	  			})
+	  		})
         	
             
 	        
@@ -718,8 +655,9 @@
 		  			})
 		  		})
 		  		
-		  		$('#addressList').on("click",".addmodBtn",function(){
+		  		$('#addressList').on("click","#addModBtn",function(){
 					let address_id = $(this).attr("data-address-id")
+					alert(address_id)
 					
 		  			$.ajax({
 						type:'POST',	//통신방식 (get,post)
@@ -837,21 +775,21 @@
 	        		}
 	        	})
 	        	
-	        	$("#user_phonenum").on("input", function(){
-	        		if($(this).val() == passwordConfirm$("#user_phonenumConfirm").val() && $(this).val() != "") {
-	        			$("#modpwdBtn").removeAttr("disabled")
+	        	$("#user_phone").on("input", function(){
+	        		if($(this).val() == $("#user_phoneConfirm").val() && $(this).val() != "") {
+	        			$("#modphoneBtn").removeAttr("disabled")
 	        		}
 	        		else {
-	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        			$("#modphoneBtn").attr("disabled", "disabled")
 	        		}
 	        	})
 	        	
-	        	$("#user_phonenumConfirm").on("input", function(){
-	        		if($(this).val() == $("#password").val() && $(this).val() != "") {
-	        			$("#modpwdBtn").removeAttr("disabled")
+	        	$("#user_phoneConfirm").on("input", function(){
+	        		if($(this).val() == $("#user_phone").val() && $(this).val() != "") {
+	        			$("#modphoneBtn").removeAttr("disabled")
 	        		}
 	        		else {
-	        			$("#modpwdBtn").attr("disabled", "disabled")
+	        			$("#modphoneBtn").attr("disabled", "disabled")
 	        		}
 	        	})
 	        	
@@ -875,7 +813,7 @@
 	                    tmp += '<h6 class="col-auto text-info">' + address.address_name + '</h6>'
 	                    tmp += '<div class="col-auto d-md-flex px-3">'
 	                    tmp += '<button id="addModBtn" class="btn btn-outline-primary btn-sm me-md-2 " data-address-id="' + address.address_id + '" type="button">M</button>'
-	                    tmp += '<button id="addDelBtn" class="btn btn-outline-danger btn-sm me-md-2 adddelBtn" data-address-id="' + address.address_id + '" type="button">D</button>'
+	                    tmp += '<button id="addDelBtn" class="btn btn-outline-danger btn-sm me-md-2" data-address-id="' + address.address_id + '" type="button">D</button>'
 	                    tmp += '</div></div><div class="px-3 pt-2"><h6>받는분 : ' + address.receiver_name + '</h6><h6>[' + address.address_num + '] '
 	                    tmp += address.address + ' ' + address.address_detail + '</h6><h6>' + address.receiver_phonenum + '</h6></div></div>'
 					});

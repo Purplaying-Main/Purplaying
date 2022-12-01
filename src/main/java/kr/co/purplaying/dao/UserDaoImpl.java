@@ -139,5 +139,12 @@ public class UserDaoImpl implements UserDao {
       return session.selectOne(namespace +"searchResultCnt", sc);
     }
 
+    @Override
+    public int updateUserPhone(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.update(namespace +"updateUserPhone", userDto);
+    }
+    
+    
 }
 

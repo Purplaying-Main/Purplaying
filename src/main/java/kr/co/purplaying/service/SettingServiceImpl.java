@@ -103,4 +103,10 @@ public class SettingServiceImpl implements SettingService {
     
     return addressDao.deleteAddress(address_id);
   }
+
+  @Override
+  public int modifyPhone(UserDto userDto) throws Exception {
+    // TODO Auto-generated method stub
+    return userDao.updateUserPhone(userDto);
+  }
 }

@@ -55,7 +55,7 @@
 	<update id="updateUserPwd" parameterType="UserDto">
 		UPDATE tb_user
 		SET user_pwd= #{user_pwd}
-		WHERE user_id= #{user_id}
+		WHERE user_no= #{user_no}
 	</update>
 
 	<!-- signup -->
@@ -122,5 +122,11 @@
 		order by user_role desc, user_no
 		limit 6 offset #{offset}
   	</select>
+  	
+  	<update id="updateUserPhone" parameterType="UserDto">
+		UPDATE tb_user
+		SET user_phone= #{user_phone}
+		WHERE user_no= #{user_no}
+	</update>
 	
 </mapper>

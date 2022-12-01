@@ -19,6 +19,7 @@
 		SELECT address_id, address_name, address_num, address, address_detail, receiver_name, receiver_phonenum, default_address, user_no
 		FROM tb_address
 		where user_no = #{user_no}
+		order by address_id
 	</select>
 	
 	<select id="select" parameterType="int" resultType="map">
