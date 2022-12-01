@@ -103,11 +103,10 @@ public class UserDto {
   }
   @Override
   public String toString() {
-    return "UserDto [user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone="
-        + user_phone + ", user_regdate=" + user_regdate + ", user_activate=" + user_activate + ", user_role=" + user_role
-        + "]";
+    return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
+        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
+        + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + "]";
   }
 
-  
   
 }

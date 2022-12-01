@@ -135,4 +135,13 @@ public class ProjectDaoImpl implements ProjectDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"selectProjectlikelist",prdt_id);
   }
+  
+  @Override
+  public int plusBuyerPrice(int prdt_id,int pay_total,int prdt_currenttotal) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("prdt_currenttotal",pay_total );
+    map.put("pay_total",prdt_currenttotal );
+    return session.update(namespace+"plusBuyerPrice",map);
+  }
 }

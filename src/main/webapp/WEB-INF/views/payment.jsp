@@ -51,19 +51,23 @@
         </div>
 
         <!-- 리워드 정보 -->
+        <form class="paymentForm" id="paymentform" action="" method="">
+        	<input type="hidden" id="pay_total" name="pay_total" value="">
+        	<input type="hidden" id="reward_id" name="rewardid" value="">
+        	<input type="hidden" id="reward_cnt" name="rewardcnt" value="">
         <div class="mb-4">
           <h5>리워드 정보</h5>
           <hr>
-          	<div>
+          	<div id="rewardCnt">
           <c:forEach var="reward" items="${reward }" varStatus="status">
           	<div>
-          	   <div class="d-flex justify-content-between mx-1">
+          	   <div class="d-flex justify-content-between mx-1" id="rewardInfo${status.count }">
           	   <div class="form-label  fw-bold">
               	<c:choose>
-              		<c:when test="${status.count%4 eq 1 }">리워드 번호 </c:when>
-              		<c:when test="${status.count%4 eq 2 }">리워드 패키지</c:when>
-              		<c:when test="${status.count%4 eq 3 }">리워드 수량</c:when>
-					<c:when test="${status.count%4 eq 0}">리워드 가격<hr>
+              		<c:when test="${status.count%4 eq 1 }">No.</c:when>
+              		<c:when test="${status.count%4 eq 2 }">패키지</c:when>
+              		<c:when test="${status.count%4 eq 3 }">수량</c:when>
+					<c:when test="${status.count%4 eq 0}">가격<hr>
 					</c:when>              		
               	</c:choose>
           	   </div>
@@ -106,7 +110,7 @@
           </div>
         </div>
 
-		<form class="paymentForm" id="paymentform" action="" method="">
+		
         <!-- 배송 정보 -->
         <div class="mb-4">
           <h5>배송정보</h5>
@@ -372,36 +376,9 @@
   		let user_phone = "${userDto.user_phone}";
   		document.getElementById("dt_phoneNumber").value = user_phone ;
    	}
-  		
-
-  	
-/*   	$(document).ready(function(){
-  	  		let user_name = "${userDto.user_name}";
-  	  		let user_phone = "${userDto.user_phone}";
-  	  $('#dt_sameChk').click(function(){
-  	    $('#dt_recieverName').toggle('fast',function(){ 	    	
-  	  	    if($('#dt_sameChk').is(":checked") == true){
-  	  	  		document.getElementById("dt_recieverName").value = user_name ;
-
-  	  	  		}
-  	  	    else{
-  	  	  		document.getElementById("dt_recieverName").value = "";
-  	  	    }
-  	    });
-  	    
-  	    
-  	    $('#dt_phoneNumber').toggle('fast',function(){
-  	  	    if($('#dt_sameChk').is(":checked") == true){
-  	  	  		document.getElementById("dt_phoneNumber").value = user_phone ;
-  	  	  		}
-  	  	    else{
-  	  	  		document.getElementById("dt_phoneNumber").value = "" ;
-  	  	    }
-  	    });
-  	    
-  	  });
-  	}); */
+  
   </script>
+
   <script>
   	$("#doPaymentBtn").on("click",function(){
   		console.log("실행");
@@ -412,6 +389,22 @@
   		let cardNum = dt_cardNumber1+dt_cardNumber2+dt_cardNumber3+dt_cardNumber4
   		document.getElementById("dt_cardNumber").value = cardNum;
   		
+  		let rn = [];
+  	    let rc = [];
+  	    let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)); //후원금액
+  	  	document.getElementById("pay_total").value = total;
+  	    
+  	    for(let i = 1; i<=document.getElementById("rewardCnt").childElementCount-4; i+=4){
+			let j = 2+i;
+  	    	rn[i] = parseInt(document.getElementById("rewardInfo"+i).lastElementChild.innerText); //리워드 번호 가져오고 int로 변환
+  	    	rc[i] = parseInt(document.getElementById("rewardInfo"+j).lastElementChild.innerText.replace(',','').split('원',1)); //리워드 수량 가져오고 int로 변환
+
+  	    }
+  	    
+  	  document.getElementById("reward_id").value = rn;
+  	  document.getElementById("reward_cnt").value = rc;
+  	    
+  	    
   		let form = $(".paymentForm");
   		
 		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")

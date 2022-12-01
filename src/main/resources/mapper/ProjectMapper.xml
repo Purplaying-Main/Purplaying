@@ -148,12 +148,19 @@
  		select prdt_id, prdt_name, prdt_content 
  	</select>
 
- <!-- 펀딩하기 클릭시 해당 펀딩구매수 증가 쿼리문 -->
+	 <!-- 결제 후  해당 펀딩 후원자수 증가 쿼리문 -->
 	 <update id="plusBuyerCnt" parameterType="int">
  		update tb_product
  		set prdt_buyercnt = prdt_buyercnt +1
  		where prdt_id = #{prdt_id}
  	</update>
+ 	
+	 <!-- 결제 후 해당 펀딩 총 후원금액 증가 쿼리문 -->
+	 <update id="plusBuyerPrice" parameterType="int">
+ 		update tb_product
+ 		set prdt_currenttotal = #{prdt_currenttotal} + #{pay_total}
+ 		where prdt_id = #{prdt_id}
+ 	</update>  
  	
 	
 	<!-- admin -->
