@@ -59,7 +59,7 @@
 					                            		${noticeDto.notice_title}
 					                            	</a>
 					                            </td>
-					                            <td>${noticeDto.writer eq 'admin@gmail.com' ? '관리자' : noticeDto.writer}</td>
+					                            <td>${sessionScope.user_role eq '1' ? '관리자' : noticeDto.writer}</td>
 					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
 				                        		<td>${noticeDto.view_cnt}</td>
 				                        		<td>${noticeDto.notice_private}</td>
