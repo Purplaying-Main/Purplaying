@@ -46,7 +46,6 @@
 						<%--	<form action="<c:url value="/oneonone/list" />" class="search-form" method="get">  --%>
 								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
 							</form>
-							
 							<table class="table project-table table-centered table-nowrap table-hover">
 								<thead class="border-3 border-bottom">
 									<tr>
@@ -63,8 +62,23 @@
 										<tr>
 											<td class="no">${oneononeDto.inquiry_no }</td>
 											<td class="state">${oneononeDto.inquiry_state eq 0 ? "답변중" : "답변완료" }</td>
-											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
-													${oneononeDto.inquiry_title } </a></td>
+											<td class="title">
+												<c:if test="${oneononeDto.inquiry_private == false}" >
+						            				<c:choose>
+						                				<c:when test="${oneononeDto.writer eq sessionScope.user_id or sessionScope.user_role eq '1'}">
+						                    				<a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
+						                    				<c:out value="${oneononeDto.inquiry_title }"/>
+						                    				</a>
+						                				</c:when>
+						               					<c:otherwise>작성자와 관리자만 볼 수 있습니다.</c:otherwise>
+						            				</c:choose>
+										        </c:if>
+										        <c:if test="${oneononeDto.inquiry_private == true}" >
+										            <a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
+										            <c:out value="${oneononeDto.inquiry_title }"/>
+										            </a>
+										        </c:if>
+												</td>
 											<td class="writer">${oneononeDto.writer }</td>
 											<td class="private">${oneononeDto.inquiry_private == true ? "공개" : "비공개" }</td>
 
@@ -72,8 +86,7 @@
 										</tr>
 									</c:forEach>
 								</tbody>
-							</table>
-
+							</table>					
 						</div>
 						<!-- end project-list -->
 						<div class="pt-3 row">
