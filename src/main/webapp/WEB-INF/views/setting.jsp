@@ -76,7 +76,7 @@
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p>${userDto.user_name }</p>
+                                        <p id="userName">${userDto.user_name }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3" id="IntroArea">
@@ -85,13 +85,13 @@
                                             <h6>소개</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button id="introchangeBtn"class="btn btn-outline-primary" type="button" data-introduce="${settingMap.user_introduce }">
+                                            <button id="introchangeBtn"class="btn btn-outline-primary" type="button" data-introduce="${settingDto.user_introduce }">
                                                 변경
                                             </button>
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p>${settingMap.user_introduce }</p>
+                                        <p id="userIntro">${settingDto.user_introduce }</p>
                                     </li>
                                     
                                 </ul>
@@ -170,25 +170,6 @@
                                     <li class="row">
                                         <p>${userDto.user_id }</p>
                                     </li>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="EmailChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="introChangeModalLabel">소개글 변경</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <textarea type="text" class="form-control col-10" placeholder="소개글 입력" rows="5" ></textarea>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
-                                                        확인
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </ul>
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
@@ -519,8 +500,8 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_name:user_name}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							$("#userName").val(user_name)
 							$("#nameChangeModal").modal("hide")
-							location.reload(); // 페이지 전체 새로고침
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -528,21 +509,28 @@
 	  		
 	  		$("#introchangeBtn").click(function() {
 				let user_no = $("#user_no").val()
-	  			let user_introduce = $("p", $(this).children().children().prev()).text()
-	  			
-	  			$("#user_Introduce").val(user_introduce)
-	  			$("#modintroBtn").attr("user-no", user_no)
-	  			$("#introChangeModal").modal("show")
-	  			
+					
+	  			$.ajax({
+					type:'POST',	//통신방식 (get,post)
+					url: '/purplaying/setting/stmodintro/'+user_no,
+					headers:{"content-type" : "application/json"},
+					data : JSON.stringify({user_no:user_no}),
+					dataType : 'text',
+					success:function(result){
+						user = JSON.parse(result)
+						$("#user_Introduce").val(user.user_introduce)
+			  			$("#modintroBtn").attr("user-no", user_no)
+			  			$("#introChangeModal").modal("show")
+					},
+					error : function(){
+						alert("error");
+					}
+		  		})
 	  		})
 	  		
 	  		$("#modintroBtn").click(function() {
 				let user_no = $("#user_no").val()
 	  			let user_introduce = $("#user_Introduce").val()
-	  			
-	  			if(user_introduce.trim() == '') { 
-	  				let user_introduce = $("#user_introduce").text("안녕하세요.")
-				}
 	  			
 	  			$.ajax({
 	  				type : 'PATCH',

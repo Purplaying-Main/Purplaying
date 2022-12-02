@@ -17,27 +17,15 @@ public class SettingDaoImpl implements SettingDao {
   private static String namespace = "kr.co.purplaying.SettingMapper.";
 
   @Override
-  public Map<String, Object> selectSettingJoinUser(String user_id) throws Exception {
+  public SettingDto selectSetting(int user_no) throws Exception {
     // TODO Auto-generated method stub
-    return session.selectOne(namespace + "selectSettingJoinUser", user_id);
+    return session.selectOne(namespace + "selectSetting", user_no);
   }
 
   @Override
-  public int updateIntro(Map<String, Object> map) throws Exception {
+  public int updateIntro(SettingDto settingDto) throws Exception {
     // TODO Auto-generated method stub
-    return session.update(namespace + "updateIntro", map);
-  }
-
-  @Override
-  public int insert(SettingDto settingDto) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public int update(SettingDto settingDto) throws Exception {
-    // TODO Auto-generated method stub
-    return 0;
+    return session.update(namespace + "updateIntro", settingDto);
   }
 
   @Override
