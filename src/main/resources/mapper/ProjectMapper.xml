@@ -224,4 +224,6 @@ on tb_payment.prdt_id = tb_product.prdt_id
 where tb_payment.user_no = #{user_no}
 group by tb_product.prdt_id
  	</select>
+ 	
+
 </mapper>

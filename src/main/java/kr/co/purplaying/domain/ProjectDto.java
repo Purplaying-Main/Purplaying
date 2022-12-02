@@ -39,10 +39,6 @@ public class ProjectDto {
 
   public ProjectDto() { }
 
-
-
-
-
   public ProjectDto(String writer, Integer prdt_id, String prdt_name, String prdt_desc, String prdt_desc_detail,
       Date prdt_regdate, Date prdt_opendate, Date prdt_enddate, int prdt_goal, int prdt_currenttotal, boolean prdt_open,
       String prdt_desc_policy, Integer prdt_genre, String prdt_thumbnail, String prdt_img, int prdt_user_no,
@@ -86,6 +82,8 @@ public class ProjectDto {
 
 
 
+
+
   @Override
   public String toString() {
     return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
@@ -94,10 +92,11 @@ public class ProjectDto {
         + prdt_currenttotal + ", prdt_open=" + prdt_open + ", prdt_desc_policy=" + prdt_desc_policy + ", prdt_genre="
         + prdt_genre + ", prdt_thumbnail=" + prdt_thumbnail + ", prdt_img=" + prdt_img + ", prdt_user_no="
         + prdt_user_no + ", prdt_dday=" + prdt_dday + ", prdt_percent=" + prdt_percent + ", prdt_purchaseday="
-        + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", prdt_buyercnt="
-        + prdt_buyercnt + ", prdt_comingday=" + prdt_comingday + "]";
+        + prdt_purchaseday + ", prdt_limitday=" + prdt_limitday + ", user_no=" + user_no + ", user_id=" + user_id
+        + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone=" + user_phone + ", user_regdate="
+        + user_regdate + ", user_activate=" + user_activate + ", user_role=" + user_role + ", prdt_buyercnt="
+        + prdt_buyercnt + ", prdt_comingday=" + prdt_comingday + ", pay_no=" + pay_no + "]";
   }
-
 
   public String getWriter() {
     return writer;

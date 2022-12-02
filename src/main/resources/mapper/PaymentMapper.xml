@@ -49,5 +49,12 @@
 	FROM tb_payment
 	where pay_no = #{pay_no}
  	</select>
+ 	 
+ 	 <select id="pay_no" parameterType="Map" resultType="PaymentDto">
+ 	select pay_no
+ 	from tb_payment
+ 	where tb_payment.user_no = #{user_no} and tb_payment.prdt_id = #{prdt_id}
+ 	limit 1
+ 	</select>
  		
  </mapper>

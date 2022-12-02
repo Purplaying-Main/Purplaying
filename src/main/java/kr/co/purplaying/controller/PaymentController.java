@@ -175,7 +175,7 @@ public class PaymentController {
       System.out.println(paymentDto);
       m.addAttribute("paymentDto",paymentDto);
       
-      prdt_id = paymentDao.getPaymentInfo(pay_no).getPrdt_id();
+      prdt_id = paymentDto.getPrdt_id();
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto",projectDto);
           

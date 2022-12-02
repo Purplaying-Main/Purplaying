@@ -23,6 +23,8 @@ public class ProjectDaoImpl implements ProjectDao {
   private SqlSession session;
   private static String namespace = "kr.co.purplaying.dao.ProjectMapper.";
   
+  ProjectDto projectDto;
+  
   @Override
   public int insert(ProjectDto projectDto) throws Exception {
     return session.insert(namespace+"insert", projectDto);
@@ -149,4 +151,5 @@ public class ProjectDaoImpl implements ProjectDao {
   public List<ProjectDto> getListByWriter(String user_id) throws Exception {
     return session.selectList(namespace+"getListByWriter", user_id);
   }
+
 }

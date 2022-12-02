@@ -51,5 +51,12 @@ public class PaymentDaoImpl implements PaymentDao {
     return session.selectOne(namespace+"getPaymentReceipt", pay_no);
   }
 
+  @Override
+  public List<PaymentDto> pay_no(int user_no, int prdt_id) throws Exception {
+    Map map = new HashMap();
+    map.put("user_no", user_no);
+    map.put("prdt_id", prdt_id);
+    return session.selectList(namespace+"pay_no",map);
+  }
 
 }
