@@ -30,21 +30,21 @@
 					<!-- profil div start -->
 
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+					<c:forEach var="UserDto" items="${list_crea }">
 						<div class="col">
 							<!-- project thumb start -->
-
 							<li class="row d-flex border rounded p-3 m-1">
 								<div class="col-4">
-									<img src="https://picsum.photos/90"
+									<img src="${UserDto.user_profile }"
 										class="img-thumbnail rounded-circle" alt="유저 프로필">
 								</div>
 								<div class="col">
-									<h5 class="row text-primary mt-2">${writer}</h5>
-									<h6 class="row text-muted">창작자 이메일</h6>
+									<h5 class="row text-primary mt-2">${UserDto.user_name} </h5>
+									<h6 class="row text-muted">${UserDto.user_id }</h6>
 								</div>
 							</li>
-
 						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<!-- profil div end -->
@@ -85,9 +85,41 @@
 			            </div><!-- project thumb end -->
 						</c:forEach>
 					</div>
+					</div>
+				        <div class="container py-4"><!-- genre div start -->
+				          <h3>Comingsoon ! 펀딩예정💖</h3>
+				          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				          	<c:forEach var="ProjectDto" items="${list_soon }">
+				            <div class="col"><!-- project thumb start -->
+				              <div class="card shadow-sm">
+				                <!-- 좋아요 버튼 -->
+				                <button class="likeBtn" onclick="clickBtn()"><i class="fa-regular fa-heart far"></i></button>
+				                <div onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;" style="cursor:pointer">
+				                <img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
+				                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">
+				                </div>
+				                <div class="card-body">
+					                  <div class="d-flex justify-content-between">
+				                  	<c:choose>
+				                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+				                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+				                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+				                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
+				                  	</c:choose>
+				                    	<small class="text-danger">공개까지 <b>D-${ProjectDto.prdt_comingday}</b></small>
+				                  	  </div>
+				                  	  <div class="link-div" onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;">
+					                  	<p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
+				                   	  </div>
+				                </div>
+				              </div>
+				             </div>
+				             </c:forEach>	
+				            </div><!-- project thumb end -->		
+				          </div>
 					<!-- project row end -->
+				
 				</div>
-
 			</div>
 	</section>
 

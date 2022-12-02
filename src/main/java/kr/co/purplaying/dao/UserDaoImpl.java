@@ -140,6 +140,12 @@ public class UserDaoImpl implements UserDao {
       // TODO Auto-generated method stub
       return session.update(namespace +"updateUserPhone", userDto);
     }
+
+    @Override
+    public List<UserDto> getUserList(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectList(namespace+"getUserList", userDto);
+    }
     
     
 }

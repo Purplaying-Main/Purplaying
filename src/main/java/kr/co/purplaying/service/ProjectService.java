@@ -34,7 +34,7 @@ public interface ProjectService {
   List<ProjectDto> selectProject(SearchItem sc) throws Exception;
   int deleteProject(Integer prdt_id) throws Exception;
   ProjectDto selectProjectlikelist(int prdt_id) throws Exception;
-  List<ProjectDto> getListByWriter(String writer)throws Exception;
-
+  List<ProjectDto> getListByWriter(String user_id)throws Exception;
+  List<ProjectDto> getSoonListByWriter(String user_id) throws Exception;
   
 }

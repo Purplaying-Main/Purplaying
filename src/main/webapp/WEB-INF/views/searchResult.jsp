@@ -106,7 +106,7 @@
 								"<%=request.getParameter("keyword")%>" 펀딩이 없습니다.
 							</h6>
 						</c:if>
-						<c:if test="${prdt_count != null || prdt_count != 0 }">
+						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
 								<li class="page-item"><a class="page-link"
 									href="<c:url value="/searchResult${pr2.sc.getQueryString(pr2.beginPage-1) }" />">
@@ -139,12 +139,12 @@
 								<!-- 창작자 list start -->
 								<li class="row d-flex border rounded p-3 m-1">
 									<div class="col-4">
-										<img src="https://picsum.photos/90"
+										<img src="${UserDto.user_profile }"
 											class="img-thumbnail rounded-circle" alt="유저 프로필">
 									</div>
 									<div class="col">
 										<h5 class="row text-primary mt-2">${UserDto.user_name }</h5>
-										<h6 class="row text-muted">창작자 이메일</h6>
+										<h6 class="row text-muted">${UserDto.user_id }</h6>
 										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
 									</div>
 								</li>

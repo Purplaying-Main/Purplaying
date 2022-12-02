@@ -51,6 +51,7 @@ public class SearchResultController {
           m.addAttribute("keyword", searchResult);
           
           List<UserDto> searchUser = userDao.searchUserPage(sc2);
+          System.out.println("ujser"+searchUser);
           m.addAttribute("U_keyword", searchUser);
           
           int totalCnt = searchResultService.getsearchcount(sc2);
@@ -74,15 +75,26 @@ public class SearchResultController {
         }
           
 
-  @GetMapping("/creatorSearch/{writer}")       
-  public String creatorSearch(@PathVariable String writer, Model m, HttpSession session) {
-          System.out.println(writer);
+  @GetMapping("/creatorSearch/{user_id}")       
+  public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, HttpSession session) {
+          System.out.println(user_id);
+          System.out.println(user_id);
+         
           try {
-              List<ProjectDto> list_project = projectService.getListByWriter(writer); 
+              List<ProjectDto> list_project = projectService.getListByWriter(user_id); 
               System.out.println(list_project);
               m.addAttribute("list_project",list_project);
               
-
+              List<ProjectDto> list_soon = projectService.getSoonListByWriter(user_id);
+              System.out.println(list_soon);
+              m.addAttribute("list_soon", list_soon);
+              
+             List<UserDto> list_crea = userDao.getUserList(userDto);
+             System.out.println(list_crea);
+             m.addAttribute("list_crea", list_crea);
+             
+              
+              
               
           
 

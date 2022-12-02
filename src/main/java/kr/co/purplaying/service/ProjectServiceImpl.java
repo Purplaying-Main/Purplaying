@@ -121,4 +121,10 @@ public class ProjectServiceImpl implements ProjectService{
     // TODO Auto-generated method stub
     return projectDao.getListByWriter(user_id);
   }
+
+  @Override
+  public List<ProjectDto> getSoonListByWriter(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return projectDao.getSoonListByWriter(user_id);
+  }
 }
