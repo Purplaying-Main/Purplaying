@@ -73,7 +73,13 @@
 		                    </div>
 		                  </div>
 		                  <h4 class="mb-0">${projectDto.prdt_name}</h4>
-		                  <p class="mb-1 text-danger">현재 달성률 00% 종료 D-${projectDto.prdt_dday}</p>
+		                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 
+		                  <c:choose>
+		                  <c:when test="${projectDto.prdt_comingday > 0 }">공개 D-${projectDto.prdt_comingday}</c:when>
+		                  <c:when test="${projectDto.prdt_dday >= 0}">종료 D-${projectDto.prdt_dday}</c:when>
+		                  <c:otherwise>D-DAY 출력</c:otherwise>
+		                  </c:choose>
+		                  </p>
 		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
@@ -92,6 +98,8 @@
               
               <h5 class="mt-4 mb-2">${sessionScope.user_id}님이 후원중인 펀딩</h5>
                <!-- project card start -->
+               <c:choose>
+               	<c:when test="${fn:length(myfunding) ne 0 }">
               <c:forEach var="projectDto" items="${myfunding }">
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                  <div class="col-auto d-none d-lg-block">
@@ -116,6 +124,13 @@
                 </div>
               </div>
                 </c:forEach>
+               	</c:when>
+               	<c:otherwise>
+               	<div class="text-center mt-4">
+               	<h5>현재 후원중인 펀딩이 없습니다.</h5>
+               	</div>
+               	</c:otherwise>
+               </c:choose>
               <!-- project card end -->
               <div class="my-4"></div>
             </div>

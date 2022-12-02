@@ -31,13 +31,14 @@
             </div>
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
-                <p class="col-6 mb-2"><span id="dt_caterory">
+                <p class="col-6 mb-2">
                 <c:choose>
                 <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
                 <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
                 <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
                 <c:otherwise>장르</c:otherwise>
-                </c:choose></span>
+                </c:choose>
+                <span> | </span>
                 <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
                 <h4 class="fw-bold mb-2">${projectDto.prdt_name}</h4>
                 <p>

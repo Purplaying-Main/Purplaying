@@ -44,6 +44,7 @@
 		                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
 		                <c:otherwise>장르</c:otherwise>
 	                </c:choose>
+	                <span> | </span>
 	                <span class="ms-2" id="dt_creator">${projectDto.writer}</span>
 	                </div> 
                   <div>예약번호 : ${paymentDto.pay_no }</div>

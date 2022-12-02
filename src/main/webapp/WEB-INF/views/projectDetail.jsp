@@ -336,7 +336,7 @@
    <!-- 페이지 URL copy JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/copyURL.js"></script> 
    <!-- 페이지 URL 가져오는 JS  -->
-   <script>document.getElementById("showURL").value = window.location.pathname+window.location.search;</script>
+   <script>document.getElementById("showURL").value = window.location.href</script>
    <!-- show / hide JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/showHide.js"></script> 
    <script type="text/javascript">
@@ -390,7 +390,11 @@
 			  
 		}
 	$(document).ready(function(){
-		
+	// 유저 = 창작자 펀딩하기 버튼 비활성화	
+		if(${sessionScope.user_id eq projectDto.writer}){
+				document.getElementById("doFundingBtn").disabled = true;
+				return false
+		}	
    	let selectedRewardName = document.getElementById("selectedRewardName");
    	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
    	
