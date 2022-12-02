@@ -32,4 +32,5 @@ public interface UserDao {
     List<UserDto> searchUserPage(SearchItem2 sc2) throws Exception;
     int getSearchResultCnt(SearchItem sc) throws Exception;
     int updateUserPhone(UserDto userDto) throws Exception;
+    List<UserDto> getUserList(UserDto userDto) throws Exception;
 }

@@ -113,13 +113,14 @@
 		FROM tb_user
 		WHERE TRUE
 		AND user_name LIKE concat('%', #{keyword}, '%')	
+		OR user_id LIKE concat('%', #{keyword}, '%')
 	</select>
 	
-	<select id="searchUserPage" parameterType="SearchItem" resultType="ProjectDto">
+	<select id="searchUserPage" parameterType="SearchItem" resultType="UserDto">
 		<include refid="selectFromUser"/>
 		WHERE TRUE
 		AND user_name LIKE concat('%', #{keyword}, '%')
-		order by user_role desc, user_no
+		OR user_id LIKE concat('%', #{keyword}, '%')
 		limit 6 offset #{offset}
   	</select>
   	
@@ -129,4 +130,8 @@
 		WHERE user_no= #{user_no}
 	</update>
 	
+	<select id="getUserList" parameterType="String" resultType="UserDto">
+		<include refid="selectFromUser" />
+		WHERE user_id = #{user_id}		
+	</select>	
 </mapper>

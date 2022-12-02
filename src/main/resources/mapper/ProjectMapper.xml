@@ -50,10 +50,15 @@
 		order by prdt_regdate
 	</select>
 	
+
 	<select id="getListByWriter" parameterType="String" resultType="ProjectDto">
 		<include refid="selectFromProject"/>
-		where user_id = #{user_id}
-		order by prdt_regdate
+		where <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]>
+	</select>
+	
+	<select id="getSoonListByWriter" parameterType="String" resultType="ProjectDto">
+		<include refid="selectFromProject"/>
+		where <![CDATA[prdt_opendate > current_date]]>
 	</select>
 	
 	<select id="selectPage" parameterType="map" resultType="ProjectDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->

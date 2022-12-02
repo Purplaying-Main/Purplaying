@@ -152,4 +152,9 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.selectList(namespace+"getListByWriter", user_id);
   }
 
+  @Override
+  public List<ProjectDto> getSoonListByWriter(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"getSoonListByWriter", user_id);
+  }
 }
