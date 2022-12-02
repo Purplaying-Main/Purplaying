@@ -68,7 +68,7 @@
           </div>
           <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
 	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	            <img src="${sessionScope.userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle">
+	            <img src="${sessionScope.userDto.user_profile }" alt="${sessionScopeuserDto.user_name }" width="32" height="32" class="rounded-circle">
 	          </a>
 	          <ul class="dropdown-menu text-small">
 	          	<c:if test="${sessionScope.user_role eq '1'}"><li><a class="dropdown-item" href="/purplaying/admin/userlist">Admin 페이지</a></li></c:if>

@@ -532,7 +532,7 @@
 		                prdt_thumbnail:prdt_thumbnail,
 		                prdt_img:prdt_img,
 		            }
-				alert("prdtData:"+JSON.stringify(prdtData))
+				//alert("prdtData:"+JSON.stringify(prdtData))
 				$.ajax({
 					type: 'PATCH',
 					url: '/purplaying/project/modify/'+prdt_id,
