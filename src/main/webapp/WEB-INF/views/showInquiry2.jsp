@@ -5,6 +5,9 @@
 <c:set var="prev_notice_id" value="${noticeDto.notice_id -1}" />
 <c:set var="adminAns"
 	value="${sessionScope.ans_state == 0 ? 'display:none':'' }" />
+<c:set var="AnsAns"
+	value="${oneononeDto.inquiry_state == 1 ? 'display:none':'' }" />
+	
 <fmt:parseDate var="ans_regdate" value="${dateString}" pattern="dd-MM-yyyy HH:mm:ss"/>
 <fmt:formatDate var="newFormattedDateString" value="${ans_regdate}" pattern="yyyy-MM-dd"/>
 
@@ -76,7 +79,7 @@
 								<hr class="my-4">
 								<div class="mt-3 text-end">
 									<!-- 수정권한 확인  -->
-									<c:if test="${oneononeDto.writer eq sessionScope.user_id or sessionScope.user_role eq '1'}">
+									<c:if test="${oneononeDto.writer eq sessionScope.user_id}">
 										<button type="button" id="modifyBtn" class="btn btn-outline-primary">
 											<i class="fa fa-edit"></i>수정
 										</button>
@@ -121,7 +124,10 @@
 									</div>
 								</form>
 							</div>
+						
+							<div style="${AnsAns}">
 							<button type="button" id="ansBtn" class="col-1 btn btn-primary"	style="${adminWrite}" class="btn btn-info btn-sm">답변</button>
+							</div>
 							<!-- 목록으로 가기 -->
 							<div class="row mx-auto col-md-4">
 								<button type="button" id="OneononeListBtn" class="btn btn-outline-primary my-3">목록으로 돌아가기</button>

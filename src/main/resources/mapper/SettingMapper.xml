@@ -14,7 +14,13 @@
 		where s.user_no = u.user_no and u.user_id = #{user_id}
 	</select>
 	
-	<update id="updateIntro" parameterType="map">
+	<select id="selectSetting" parameterType="int" resultType="SettingDto">
+		select *
+		from tb_setting
+		where user_no = #{user_no}
+	</select>
+	
+	<update id="updateIntro" parameterType="SettingDto">
 		UPDATE tb_setting
 		SET user_introduce= #{user_introduce}
 		WHERE user_no = #{user_no}
@@ -27,7 +33,7 @@
 	</insert>
 	
 	<select id="selectUserCheck" parameterType="int" resultType="SettingDto">
-		select msg_agree, update_agree, favor_agree, marketing_agree
+		select msg_agree, update_agree, favor_agree, marketing_agree, user_introduce
 		from tb_setting
 		where user_no = #{user_no}
 	</select>

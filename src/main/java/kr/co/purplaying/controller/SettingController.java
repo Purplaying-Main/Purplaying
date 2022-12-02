@@ -47,9 +47,6 @@ public class SettingController {
       SettingDto settingDto = settingService.selectUserCheck(userDto.getUser_no());
       m.addAttribute("settingDto",settingDto);
       
-      Map<String, Object> settingMap = settingService.showSetting(id);
-      m.addAttribute("settingMap", settingMap);
-      
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -109,17 +106,32 @@ public class SettingController {
     }
   }
   
-  @RequestMapping(value="/setting/intro/{user_no}", method = RequestMethod.PATCH)
-  public ResponseEntity<String> modifyIntro(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session) {
-    map.put("user_no", user_no);
+  @ResponseBody
+  @RequestMapping(value="/setting/stmodintro", method = RequestMethod.POST)
+  public SettingDto stmodIntro(int user_no, @RequestBody SettingDto settingDto, HttpSession session) {
     
     try {
-        if(settingService.modifyIntro(map) != 1)
+      settingDto = settingService.showSetting(user_no);
+      return settingDto;
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+      return null;
+    }
+    
+  }
+  
+  @RequestMapping(value="/setting/intro/{user_no}", method = RequestMethod.PATCH)
+  public ResponseEntity<SettingDto> modifyIntro(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session) {
+    settingDto.setUser_no(user_no);
+    
+    try {
+        if(settingService.modifyIntro(settingDto) != 1)
             throw new Exception("Update failed");
-        return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
+        return new ResponseEntity<SettingDto>(HttpStatus.OK);
     }catch(Exception e) {
         e.printStackTrace();
-        return new ResponseEntity<String>("MOD_ERR",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<SettingDto>(HttpStatus.BAD_REQUEST);
     }
   }
   

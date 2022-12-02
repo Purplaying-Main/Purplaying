@@ -144,7 +144,13 @@ public class NoticeController {
     
     try {
           String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
+          String non_member = "비회원";
+          
+          if (user_id != null ) {
+            m.addAttribute(user_id);
+          }else {
+            m.addAttribute("user_id", non_member);
+          }
           
           NoticeDto noticeDto = noticeService.read(notice_id);
           

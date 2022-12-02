@@ -41,15 +41,15 @@ public class SettingServiceImpl implements SettingService {
   }
 
   @Override
-  public Map<String, Object> showSetting(String user_id) throws Exception {
+  public SettingDto showSetting(int user_no) throws Exception {
     // TODO Auto-generated method stub
-    return settingDao.selectSettingJoinUser(user_id);
+    return settingDao.selectSetting(user_no);
   }
 
   @Override
-  public int modifyIntro(Map<String, Object> map) throws Exception {
+  public int modifyIntro(SettingDto settingDto) throws Exception {
     // TODO Auto-generated method stub
-    return settingDao.updateIntro(map);
+    return settingDao.updateIntro(settingDto);
   }
 
   @Override

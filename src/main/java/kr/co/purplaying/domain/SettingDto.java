@@ -5,17 +5,19 @@ import java.util.Objects;
 public class SettingDto {
 
   private Integer setting_no;
-  private Integer user_no;
+  private int user_no;
   private boolean msg_agree;
   private boolean update_agree;
   private boolean favor_agree;
   private boolean marketing_agree;
+  private String user_introduce;
+  
   
   public SettingDto() {
     this(0, false, false, false, false);
   }
   
-  public SettingDto(Integer user_no, boolean msg_agree, boolean update_agree, boolean favor_agree,
+  public SettingDto(int user_no, boolean msg_agree, boolean update_agree, boolean favor_agree,
       boolean marketing_agree) {
     //super();
     this.user_no = user_no;
@@ -25,11 +27,13 @@ public class SettingDto {
     this.marketing_agree = marketing_agree;
   }
 
+  
+
   @Override
   public String toString() {
     return "SettingDto [setting_no=" + setting_no + ", user_no=" + user_no + ", msg_agree=" + msg_agree
         + ", update_agree=" + update_agree + ", favor_agree=" + favor_agree + ", marketing_agree=" + marketing_agree
-        + "]";
+        + ", user_introduce=" + user_introduce + "]";
   }
 
   public Integer getSetting_no() {
@@ -85,6 +89,14 @@ public class SettingDto {
     return Objects.hash(setting_no, user_no);
   }
   
+  public String getUser_introduce() {
+    return user_introduce;
+  }
+
+  public void setUser_introduce(String user_introduce) {
+    this.user_introduce = user_introduce;
+  }
+
   @Override
   public boolean equals(Object obj) {
     if (this == obj)

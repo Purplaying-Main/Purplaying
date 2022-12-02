@@ -189,7 +189,7 @@
               <div class="nav nav-tabs" id="v-pills-tab" role="tablist">
                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">프로젝트 기본정보</button>
                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">업데이트</button>
-                <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>
+       <!--     <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>   -->
                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">정책</button>
               </div>
             </div>
@@ -269,6 +269,7 @@
                   </div>
                 </div>
                 <!-- tab 3 contents -->
+                <!-- 
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
                     <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
@@ -283,6 +284,7 @@
                     </div>
                   </div>
                   <!--댓글 시작-->
+                  <!--
                   <div class="row text-start">
                     <div class="col-1">
                       <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
@@ -296,7 +298,7 @@
                       <p class="mb-5" >내용 > ${communityDto.chat_context}</p>
                                                 </c:forEach>
                       
-                      <!--답글 시작-->
+                      --답글 시작--
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
                            <img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle">
@@ -311,11 +313,13 @@
                           </c:forEach>
                         </div>
                       </div>
-                      <!--답글 종료-->
+                     --답글 종료--
                     
                     </div>
                   </div>
-                  <!--댓글 종료-->
+                  --댓글 종료--
+                  
+                  -->
                 </div>
                 <!-- tab 4 contents 프로젝트 정책-->
                 <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
@@ -545,8 +549,9 @@
 		}	   
 	   
 	</script>
-	<!-- 커뮤티니 댓글 기능 -->
 	
+	<!-- 커뮤티니 댓글 기능 -->
+	<!--
    	<script type="text/javascript">
 	let prdt_id = ${prdt_id}
 
@@ -695,7 +700,7 @@
 	        return date_source.getFullYear() + '-' + month + '-' + day;
 
 	     }
-
+	-->
    </script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
