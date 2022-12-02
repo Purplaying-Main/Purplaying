@@ -198,7 +198,7 @@
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p id="userPhone"></p>
+                                        <p id="userPhone">${userDto.user_phone }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3">
@@ -238,28 +238,28 @@
                                 </div>
                             </div>
                             <!-- phoneChangeModal -->
-	                            <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
-	                                <div class="modal-dialog">
-	                                    <div class="modal-content">
-	                                        <div class="modal-header">
-	                                            <h5 class="modal-title" id="phoneChangeModalLabel">연락처 변경</h5>
-	                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-	                                        </div>
-	                                        <div class="modal-body">
-	                                            <label for="userphone" class="form-label">연락처</label>
-	                                            <div class="input-group mb-3">
-	                                                <input id="user_phone" type="text" class="form-control" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
-	                                            </div>
-	                                            <input id="user_phoneConfirm" type="text" class="form-control" name="user_phoneConfirm" placeholder="휴대폰 번호 확인" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
-	                                        </div>
-	                                        <div class="modal-footer">
-	                                            <button id="modphoneBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
-	                                                확인
-	                                            </button>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </div>
+                            <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="phoneChangeModalLabel">연락처 변경</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <label for="userphone" class="form-label">연락처</label>
+                                            <div class="input-group mb-3">
+                                                <input id="user_phone" type="text" class="form-control" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                            </div>
+                                            <input id="user_phoneConfirm" type="text" class="form-control" name="user_phoneConfirm" placeholder="휴대폰 번호 확인" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button id="modphoneBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                                확인
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- tab 3 contents -->
                             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                                 <div class="row justify-content-between">
@@ -306,7 +306,7 @@
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="receiver_phonenum" name="receiver_phonenum" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                                                        <input type="text" class="form-control rounded-3" id="receiver_phonenum" name="receiver_phonenum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
@@ -355,7 +355,7 @@
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_phonenum" name="receiver_phonenum" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_phonenum" name="receiver_phonenum" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
@@ -606,6 +606,25 @@
 	  				error : function() {alert("error")}
 	  			})
 	  		})
+	  		
+	  		$("#modintroBtn").click(function() {
+				let user_no = $("#user_no").val()
+	  			let user_introduce = $("#user_Introduce").val()
+	  			
+	  			$.ajax({
+	  				type : 'PATCH',
+	  				url : '/purplaying/setting/intro/'+user_no,
+	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						$("#userIntro").html(user_introduce)
+						$("#introChangeModal").modal("hide")
+						$("#user_Introduce").val("")
+						
+					},
+	  				error : function() {alert("error")}
+	  			})
+	  		})
         	
             
 	        
@@ -819,6 +838,8 @@
 	        	})
 	        	
 	        	
+	        	
+	        	
 	        	let showList = function(user_no) {
 		        	$.ajax({
 		        		type: 'POST',			//요청 메서드
@@ -846,6 +867,13 @@
 					return tmp;
 				}
 	        	
+	        	function checkNumber(event) {
+	        		  if(event.key === '.' || event.key === '-' || event.key >= 0 && event.key <= 9) {
+	        		    return true;
+	        		  }
+	        		  
+	        		  return false;
+	        		}
 	        })
 	        
 	        </script>
