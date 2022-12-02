@@ -14,6 +14,7 @@
 		<result column="inquiry_private" property="inquiry_private" />
 		<result column="inquiry_regdate" property="inquiry_regdate" />
 		<collection property="ansDto" resultMap="AnsDto" />
+		<collection property="userDto" resultMap="userDto" />
 	</resultMap>
 
 	<resultMap type="AnsDto" id="ansDto">
@@ -22,6 +23,13 @@
 		<result column="admin_id" property="admin_id" />
 		<result column="ans_context" property="ans_context" />
 		<result column="ans_regdate" property="ans_regdate" />
+	</resultMap>
+	
+	
+	<resultMap type="userDto" id="userDto">
+		<result column="user_no" property="user_no" />
+		<result column="user_id" property="user_id" />
+		<result column="user_role" property="user_role" />
 	</resultMap>
 	
 	<sql id="selectAllOneonone">

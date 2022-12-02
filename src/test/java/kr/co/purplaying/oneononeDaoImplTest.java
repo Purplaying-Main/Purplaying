@@ -20,9 +20,9 @@ public class oneononeDaoImplTest {
 	public void insertDummyDataTest() throws Exception {
 		//boardDao.deleteAll();
 		
-		for(int i=1; i<= 122; i++) {
+		for(int i=1; i<= 100; i++) {
 			
-		    OneononeDto oneononeDto = new OneononeDto(i, 0, "ezen@gmail.com", "purpl"+i, "yyy"+i, false, null, null);
+		    OneononeDto oneononeDto = new OneononeDto(i, 0, "ezen@gmail.com", "purplaying 더미 데이터 제목"+i, "purplaying 더미 데이터 내용"+i, false, null, null, null);
 			oneononeDao.insert(oneononeDto);
 			
 		}
