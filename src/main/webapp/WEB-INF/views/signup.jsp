@@ -373,7 +373,7 @@
 							/* result = parseXML(result)
 							alert(result) */
 							user_id_check = JSON.parse(result);
-							alert(user_id_check)
+							//alert(user_id_check)
 							if(user_id_check.user_id==null || user_id_check.user_id == ""){
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");

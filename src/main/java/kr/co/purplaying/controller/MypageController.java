@@ -14,10 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
@@ -33,6 +35,9 @@ public class MypageController {
   
   @Autowired
   ProjectDao projectDao;
+  
+  @Autowired
+  PaymentDao paymentDao;
 
    @Autowired
   LikeService likeService;
@@ -42,7 +47,7 @@ public class MypageController {
                      @RequestParam(defaultValue = "10") Integer pageSize,
                      Model m,
                      HttpServletRequest request, HttpSession session,
-                     ProjectDto projectDto) {
+                     ProjectDto projectDto, PaymentDto paymentDto) {
     
       if(!loginCheck(request))
         return "redirect:/login/login?toURL="+request.getRequestURL();
@@ -90,7 +95,16 @@ public class MypageController {
       
       //후원한 펀딩 보여주는 부분
       int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
-      List<ProjectDto> myfunding = projectDao.myfunding(user_no);
+      System.out.println("user_no : "+user_no);
+      List<ProjectDto> myfunding = projectDao.myfunding(userDao.getPaymentUserInfo(user_id).getUser_no());
+      System.out.println("myfunding : "+myfunding);
+      myfunding.get(0).setUser_no(user_no);
+      int prdt_id = myfunding.get(0).getPrdt_id();
+      System.out.println(paymentDao.pay_no(user_no, prdt_id));
+      //myfunding.get(0).setPay_no();
+      List<PaymentDto> pay_no = paymentDao.pay_no(user_no, prdt_id);
+      myfunding.get(0).setPay_no(pay_no.get(0).getPay_no());
+      System.out.println(myfunding);
       m.addAttribute("myfunding", myfunding);
       
       
