@@ -248,9 +248,9 @@
 	                                        <div class="modal-body">
 	                                            <label for="userphone" class="form-label">연락처</label>
 	                                            <div class="input-group mb-3">
-	                                                <input id="user_phone" type="text" class="form-control" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" />
+	                                                <input id="user_phone" type="text" class="form-control" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 	                                            </div>
-	                                            <input id="user_phoneConfirm" type="text" class="form-control" name="user_phoneConfirm" placeholder="휴대폰 번호 확인" />
+	                                            <input id="user_phoneConfirm" type="text" class="form-control" name="user_phoneConfirm" placeholder="휴대폰 번호 확인" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
 	                                        </div>
 	                                        <div class="modal-footer">
 	                                            <button id="modphoneBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
@@ -306,7 +306,7 @@
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="receiver_phonenum" name="receiver_phonenum" />
+                                                        <input type="text" class="form-control rounded-3" id="receiver_phonenum" name="receiver_phonenum" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
@@ -355,7 +355,7 @@
                                                         <label for="label_address_detail">상세 주소</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_phonenum" name="receiver_phonenum" />
+                                                        <input type="text" class="form-control rounded-3" id="Modreceiver_phonenum" name="receiver_phonenum" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                         <label for="label_userphone">연락처</label>
                                                     </div>
                                                     <div class="pb-2 border-bottom">
@@ -737,7 +737,8 @@
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						data : JSON.stringify(mod_address),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							$("#ModaddressList").html(toHtml(JSON.parse(result)));
+							$("#addressList").html(toHtml(JSON.parse(result)));
+						
 							$("#ModaddressModiModal").modal("hide")
 							$("#Moduser_no").val("")
 				  			$("#Modaddress_name").val("")
@@ -769,7 +770,7 @@
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
-							$("#ModaddressList").html(toHtml(JSON.parse(result)));
+							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressDelModal").modal("hide")
 							
 						},
@@ -816,6 +817,7 @@
 	        			$("#modphoneBtn").attr("disabled", "disabled")
 	        		}
 	        	})
+	        	
 	        	
 	        	let showList = function(user_no) {
 		        	$.ajax({
