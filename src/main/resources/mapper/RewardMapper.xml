@@ -53,6 +53,36 @@
 		<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문 -->
 	<resultMap type="RewardDto" id="RewardDto">
 			<result column="prdt_id" property="prdt_id"/>
+ 		 	<result column="reward_id" property="reward_id"/>
+ 		 	<result column="reward_name" property="reward_name"/>
+ 		 	<result column="reward_price" property="reward_price"/>
+ 		<association property="PaymentDto" javaType="PaymentDto">
+ 			<result column="prdt_id" property="prdt_id"/>
+ 		 	<result column="reward_id" property="reward_id"/>
+ 			<result column="pay_no" property="pay_no"/>
+ 			<result column="user_no" property="user_no"/>
+	 		<result column="reward_user_cnt" property="reward_user_cnt"/>
+	 		<result column="pay_total" property="pay_total"/>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<select id="userSelectedReward" parameterType="map"  resultType="RewardDto" >
+		select
+		row_number() over (order by pay_no) as "row_number" ,
+		tb_payment.pay_no,
+		tb_payment.reward_id, 
+		tb_reward.reward_name, 
+		tb_payment.reward_user_cnt as "reward_user_cnt", 
+		tb_reward.reward_price,
+		tb_payment.pay_total
+		from tb_payment left join tb_reward
+		on tb_payment.reward_id = tb_reward.reward_id
+		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no} and pay_total = #{pay_total}
+	</select>
+
+<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문  -->
+<!-- 	<resultMap type="RewardDto" id="RewardDto">
+			<result column="prdt_id" property="prdt_id"/>
  		 	<result column="reward_name" property="reward_name"/>
  		 	<result column="reward_price" property="reward_price"/>
  		<association property="PaymentDto" javaType="PaymentDto">
@@ -72,6 +102,6 @@
 		on tb_payment.prdt_id = tb_reward.prdt_id
 		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no}
 		order by tb_payment.reward_id
-	</select>
+	</select> -->
 
 </mapper>
