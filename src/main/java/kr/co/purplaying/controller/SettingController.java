@@ -107,8 +107,8 @@ public class SettingController {
   }
   
   @ResponseBody
-  @RequestMapping(value="/setting/stmodintro/{user_no}", method = RequestMethod.POST)
-  public SettingDto stmodIntro(@PathVariable int user_no, @RequestBody SettingDto settingDto, HttpSession session) {
+  @RequestMapping(value="/setting/stmodintro", method = RequestMethod.POST)
+  public SettingDto stmodIntro(int user_no, @RequestBody SettingDto settingDto, HttpSession session) {
     
     try {
       settingDto = settingService.showSetting(user_no);

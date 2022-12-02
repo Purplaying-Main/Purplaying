@@ -198,7 +198,7 @@
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p>${userDto.user_phone }</p>
+                                        <p id="userPhone"></p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3">
@@ -500,8 +500,9 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_name:user_name}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							$("#userName").val(user_name)
+							$("#userName").html(user_name)
 							$("#nameChangeModal").modal("hide")
+							$("#user_Name").val("")
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -538,7 +539,10 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						$("#userIntro").html(user_introduce)
 						$("#introChangeModal").modal("hide")
+						$("#user_Introduce").val("")
+						
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -567,6 +571,8 @@
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 						
 						$("#pwdChangeModal").modal("hide")
+						$("#password").val("")
+	  					$("#passwordConfirm").val("")
 						
 					},
 	  				error : function() {alert("error")}
@@ -578,7 +584,6 @@
 	
 	  			$("#modphoneBtn").attr("user-no", user_no)
 	  			$("#phoneChangeModal").modal("show")
-
 	  		})
 	  		
 	  		$("#modphoneBtn").click(function() {
@@ -592,8 +597,10 @@
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_phone:user_phone}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-						
+						$("#userPhone").html(user_phone)
 						$("#phoneChangeModal").modal("hide")
+						$("#user_phone").val("")
+	  					$("#user_phoneConfirm").val("")
 						
 					},
 	  				error : function() {alert("error")}
@@ -761,9 +768,10 @@
 		  				url : '/purplaying/setting/deladdress/'+address_id,
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							showList(user_no)
 							alert("배송지가 삭제되었습니다.")
-							$("#addressModiModal").modal("hide")
+							$("#ModaddressList").html(toHtml(JSON.parse(result)));
+							$("#addressDelModal").modal("hide")
+							
 						},
 		  				error : function() {
 		  					alert("error")
