@@ -424,7 +424,7 @@
                                             <h6>메시지</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.msg_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">알림 OFF</i>
+                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.msg_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
                                         </div>
                                     </li>
                                     <li class="row text-muted">
@@ -437,7 +437,7 @@
                                             <h6>후원 프로젝트 업데이트</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.update_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">알림 OFF</i>
+                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.update_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
                                         </div>
                                     </li>
                                     <li class="row text-muted">
@@ -450,7 +450,7 @@
                                             <h6>관심목록</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.favor_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">알림 OFF</i>
+                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.favor_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
                                         </div>
                                     </li>
                                     <li class="row text-muted">
@@ -463,7 +463,7 @@
                                             <h6>마케팅 알림</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.marketing_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">알림 OFF</i>
+                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.marketing_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
                                         </div>
                                     </li>
                                     <li class="row text-muted">
