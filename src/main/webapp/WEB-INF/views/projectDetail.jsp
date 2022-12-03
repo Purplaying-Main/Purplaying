@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<script type="text/javascript">
+<!-- 	<script type="text/javascript">
 	let chat_prdt_no = ${prdt_no}
 	
 	let showList = function(chat_prdt_no) {
@@ -42,7 +42,7 @@
 			showList(chat_prdt_no)
 		})
 	})
-</script>
+</script> -->
 	
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
@@ -189,7 +189,7 @@
               <div class="nav nav-tabs" id="v-pills-tab" role="tablist">
                 <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab01" type="button" role="tab" aria-controls="v-pills-tab01" aria-selected="true">프로젝트 기본정보</button>
                 <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab02" type="button" role="tab" aria-controls="v-pills-tab02" aria-selected="false">업데이트</button>
-       <!--     <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>   -->
+				<button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab03" type="button" role="tab" aria-controls="v-pills-tab03" aria-selected="false">커뮤니티</button>
                 <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-tab04" type="button" role="tab" aria-controls="v-pills-tab04" aria-selected="false">정책</button>
               </div>
             </div>
@@ -269,10 +269,9 @@
                   </div>
                 </div>
                 <!-- tab 3 contents -->
-                <!-- 
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.chat_writer }</p>
                     <div class="row align-items-end">
                       <div class="col-10">
                         <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="chat_context" ></textarea>
@@ -284,42 +283,35 @@
                     </div>
                   </div>
                   <!--댓글 시작-->
-                  <!--
+                  <div id="commentStart">
                   <div class="row text-start">
                     <div class="col-1">
                       <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                     </div>
                     <div class="col-11">
-                    <c:forEach var="communityDto" items="${list_community}">
                       <div class="border-bottom">
-                      	<h6 class="my-0">후원자 아이디 > ${communityDto.chat_writer }</h6>
-                        <p class="my-0 text-small">작성일 > ${communityDto.chat_date}  </p>
+                      	<h6 class="my-0">후원자 아이디 > </h6>
+                        <p class="my-0 text-small">작성일 >  </p>
                       </div>
-                      <p class="mb-5" >내용 > ${communityDto.chat_context}</p>
-                                                </c:forEach>
-                      
-                      --답글 시작--
+                      <p class="mb-5" >내용 > </p>
+                      <!--답글 시작-->
                       <div class="row rounded bg-light p-3 mb-3">
                         <div class="col-1">
-                           <img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle">
+                          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                         </div>
                         <div class="col-11">
-						<c:forEach var="replyDto" items="${list_reply}">                        
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 > ${replyDto.chat_writer }</h6>
-                            <p class="my-0 text-small">작성일 > ${replyDto.chat_date }</p>
+                            <h6 class="my-0">창작자 닉네임 >}</h6>
+                            <p class="my-0 text-small">작성일 ></p>
                           </div>
                           <p class="mb-5" >내용 ></p>
-                          </c:forEach>
                         </div>
                       </div>
-                     --답글 종료--
-                    
+                      <!--답글 종료-->
                     </div>
                   </div>
-                  --댓글 종료--
-                  
-                  -->
+                  </div>
+                  <!--댓글 종료-->
                 </div>
                 <!-- tab 4 contents 프로젝트 정책-->
                 <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
@@ -551,17 +543,16 @@
 	</script>
 	
 	<!-- 커뮤티니 댓글 기능 -->
-	<!--
-   	<script type="text/javascript">
-	let prdt_id = ${prdt_id}
+	<script type="text/javascript">
+		let prdt_id = ${prdt_id}
 
-	let showList = function(prdt_id) {
+		let showList = function(prdt_id) {
 		$.ajax({
 			type : 'GET',		//요청 메서드
-			url : '/purplaying/projectdetail/communitys?prdt_id=' + prdt_id,		// 요청 URI
+			url : '/purplaying/project/' + prdt_id + '/community',		// 요청 URI
 			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 				/* json = JSON.stringify(result) */
-				$("#v-pills-tab03").html(toHtml(result))		// result는 서버가 전송한 데이터
+				$("#commentStart").html(toHtml(result))		// result는 서버가 전송한 데이터
 				
 			},
 			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수
@@ -661,28 +652,31 @@
  	let toHtml = function(comments) {
 		let tmp = '<div class="row text-start">'
 
-		comments.forEach(function(comment) {
-			tmp += '<div class="col-1">
-			tmp += '			<div class="col-1">'
-			tmp += '    			<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-			tmp += '  			</div>'
-			tmp += '		<div class="col-11">'
-			tmp += '		<div class="border-bottom">'
-			tmp += '			<h6 class="my-0">후원자 아이디 >'+ comment.chat_writer + '</h6>'
-			tmp += '		<p class="my-0 text-small">작성일 >' + toStringByFormatting(comment.chat_date) + '</p></div>'
-			tmp += '		<p class="mb-5" >내용 >' + comment.chat_context + '</p>'
-			tmp += '		<div class="row rounded bg-light p-3 mb-3">'
-			tmp += '			<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-			tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + ' </p></div>'			
-			tmp += '			<p class="mb-5" >내용 >' + comment.chat_context + '</p>'
-			tmp += '	</div>'
-/* 			tmp += '<li data-chat_no=' + comment.chat_no
+/*			tmp += '<li data-chat_no=' + comment.chat_no
 			tmp += ' data-prdt_id=' + comment.prdt_id
 			tmp += ' data-chat_serial_no=' + comment.chat_serial_no + '>'
 			tmp += ' chat_writer= <span class="chat_writer" >' + comment.chat_writer + '</span>'
 			tmp += ' chat_context= <span class="chat_context" >' + comment.chat_context + '</span>' */
-			tmp += ' <button class="delBtn">삭제</button>'
-			tmp += ' <button class="modBtn">수정</button>'
+		
+			comments.forEach(function(comment) {
+				tmp += '<div class="col-1">'
+				tmp += '	<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+				tmp += '</div>'
+				tmp += '<div class="col-11">'
+ 				tmp += '	<div class="border-bottom">'
+				tmp += '		<h6 class="my-0">후원자 아이디 >'+ comment.chat_writer + '</h6>'
+				tmp += '		<p class="my-0 text-small">작성일 >' + toStringByFormatting(comment.chat_date) + '</p>'
+				tmp += '	</div>'
+				tmp += '		<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
+				tmp += '	<div class="row rounded bg-light p-3 mb-3">'
+				tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+				tmp += '		<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + ' </p>'
+				tmp += '	</div>'			
+				tmp += '		<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
+				tmp += '	</div>'
+				tmp += ' <button class="delBtn">삭제</button>'
+				tmp += ' <button class="modBtn">수정</button>'
+				tmp += '	</div>'
 		})
 		
 		return tmp += "</div>" 
@@ -700,8 +694,7 @@
 	        return date_source.getFullYear() + '-' + month + '-' + day;
 
 	     }
-	-->
-   </script>
+</script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

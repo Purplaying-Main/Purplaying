@@ -12,14 +12,20 @@ import kr.co.purplaying.domain.CommunityDto;
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
-  @Autowired
   CommunityDao communityDao;
   BoardDao boardDao;
 
+  @Autowired
+  public CommunityServiceImpl(CommunityDao communityDao, BoardDao boardDao) {
+    // super();
+    this.communityDao = communityDao;
+    this.boardDao = boardDao;
+  }
+
   @Override
-  public List<CommunityDto> selectCommunity(int prdt_id) throws Exception {
+  public List<CommunityDto> getList(int prdt_id) throws Exception {
     // TODO Auto-generated method stub
-    return communityDao.selectCommunity(prdt_id);
+    return communityDao.selectAll(prdt_id);
   }
 
   @Override

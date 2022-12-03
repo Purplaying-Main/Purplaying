@@ -6,7 +6,7 @@ import kr.co.purplaying.domain.CommunityDto;
 
 public interface CommunityService {
 
-  List<CommunityDto> selectCommunity(int prdt_id) throws Exception;
+  List<CommunityDto> getList(int prdt_id) throws Exception;
 
   int insertChat(CommunityDto communityDto) throws Exception;
 
