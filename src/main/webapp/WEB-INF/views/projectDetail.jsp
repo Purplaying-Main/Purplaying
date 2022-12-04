@@ -271,48 +271,48 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.chat_writer }</p>
-                    <div class="row align-items-end">
-                      <div class="col-10">
-                        <textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="chat_context" ></textarea>
-                      </div>
-                      <div class=" col-2 text-start">
-                       	 <button type="button" id="creationBtn" class="btn btn-primary">작 성</button>
-                      </div>
-                      <hr class="mt-3">
-                    </div>
-                  </div>
+                    <p> 작성자 닉네임 > ${CommunityDto.chat_writer }</p>
+                    <div id="commentStart">
+                    	<div class="row align-items-end">
+                      		<div class="col-10">
+								<textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="Commentform" ></textarea>
+                      		</div>
+						<div class=" col-2 text-start">
+							<button type="button" id="insertBtn" class="btn btn-primary">작 성</button>
+						</div>
+                   		<hr class="mt-3">
+                    	</div>
                   <!--댓글 시작-->
-                  <div id="commentStart">
-                  <div class="row text-start">
-                    <div class="col-1">
-                      <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
-                    </div>
-                    <div class="col-11">
-                      <div class="border-bottom">
-                      	<h6 class="my-0">후원자 아이디 > </h6>
-                        <p class="my-0 text-small">작성일 >  </p>
-                      </div>
-                      <p class="mb-5" >내용 > </p>
+                  	<div class="row text-start">
+                    	<div class="col-1">
+                      		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
+                   	 	</div>
+                    	<div class="col-11">
+                      		<div class="border-bottom">
+                      			<h6 class="my-0">후원자 아이디 > </h6>
+                        		<p class="my-0 text-small">작성일 >  </p>
+                      		</div>
+                   			<p class="mb-5" >내용 > </p>
+						</div>
                       <!--답글 시작-->
-                      <div class="row rounded bg-light p-3 mb-3">
-                        <div class="col-1">
-                          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
+						<div class="row rounded bg-light p-3 mb-3">
+						<div class="col-1">
+							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
                         </div>
                         <div class="col-11">
                           <div class="border-bottom">
-                            <h6 class="my-0">창작자 닉네임 >}</h6>
+                            <h6 class="my-0">창작자 닉네임 ></h6>
                             <p class="my-0 text-small">작성일 ></p>
                           </div>
-                          <p class="mb-5" >내용 ></p>
-                        </div>
+							<p class="mb-5" >내용 ></p>
+						</div>
                       </div>
                       <!--답글 종료-->
-                    </div>
                   </div>
-                  </div>
-                  <!--댓글 종료-->
+                 </div>
                 </div>
+           	   </div>
+                 <!--댓글 종료-->
                 <!-- tab 4 contents 프로젝트 정책-->
                 <div class="tab-pane fade" id="v-pills-tab04" role="tabpanel" aria-labelledby="v-pills-tab04-tab">
 	                 <div class="mt-2" id="prdt_desc_policy">
@@ -650,32 +650,42 @@
 	})
 	
  	let toHtml = function(comments) {
-		let tmp = '<div class="row text-start">'
+		let tmp = '<div class="row align-items-end">'
+			tmp += '	<div class="col-10">'
+			tmp += '		<textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="Commentform" ></textarea>'		
+			tmp += '	</div>'
+			tmp += '	<div class=" col-2 text-start">'
+			tmp += '		<button type="button" id="insertBtn" class="btn btn-primary">작 성</button>'
+			tmp += '	</div>'
+			tmp += '<hr class="mt-3">'
+			tmp += '</div>'
 
-/*			tmp += '<li data-chat_no=' + comment.chat_no
-			tmp += ' data-prdt_id=' + comment.prdt_id
-			tmp += ' data-chat_serial_no=' + comment.chat_serial_no + '>'
-			tmp += ' chat_writer= <span class="chat_writer" >' + comment.chat_writer + '</span>'
-			tmp += ' chat_context= <span class="chat_context" >' + comment.chat_context + '</span>' */
-		
 			comments.forEach(function(comment) {
-				tmp += '<div class="col-1">'
-				tmp += '	<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-				tmp += '</div>'
-				tmp += '<div class="col-11">'
- 				tmp += '	<div class="border-bottom">'
-				tmp += '		<h6 class="my-0">후원자 아이디 >'+ comment.chat_writer + '</h6>'
-				tmp += '		<p class="my-0 text-small">작성일 >' + toStringByFormatting(comment.chat_date) + '</p>'
-				tmp += '	</div>'
-				tmp += '		<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
-				tmp += '	<div class="row rounded bg-light p-3 mb-3">'
+				tmp += '<div class="row text-start">'
+				tmp += '	<div class="col-1">'
 				tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-				tmp += '		<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + ' </p>'
-				tmp += '	</div>'			
-				tmp += '		<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
 				tmp += '	</div>'
-				tmp += ' <button class="delBtn">삭제</button>'
-				tmp += ' <button class="modBtn">수정</button>'
+				tmp += '	<div class="col-11">'
+ 				tmp += '		<div class="border-bottom">'
+				tmp += '			<h6 class="my-0">후원자 아이디 > '+ comment.chat_writer + '</h6>'
+				tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + '</p>'
+				tmp += '	</div>'
+				tmp += '	<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
+				tmp += ' 		<button id="delBtn" class="btn btn-primary">삭제</button>'
+				tmp += '		<button id="modBtn" class="btn btn-primary">수정</button>'
+				tmp += '		</div>'
+				tmp += '	<div class="row rounded bg-light p-3 mb-3">'
+				tmp += '		<div class="col-1">'
+				tmp += '			<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+				tmp += '		</div>'
+				tmp += '	<div class="col-11">'
+				tmp += '		<div class="border-bottom">'
+				tmp += '			<h6 class="my-0">창작자 닉네임 > ' + comment.chat_writer + '</h6>'
+				tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + '</p>'
+				tmp += '		</div>'			
+				tmp += '			<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
+				tmp += ' 		<button id="delBtn" class="btn btn-primary">삭제</button>'
+				tmp += ' 		<button id="modBtn" class="btn btn-primary">수정</button>'
 				tmp += '	</div>'
 		})
 		
