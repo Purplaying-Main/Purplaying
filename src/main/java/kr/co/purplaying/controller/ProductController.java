@@ -109,7 +109,7 @@ public class ProductController {
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
-          List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
+//          List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
           List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
           UserDto userDto = userDao.selectUser(projectDto.getWriter());
           m.addAttribute(userDto);
@@ -137,7 +137,7 @@ public class ProductController {
           
           m.addAttribute("list_update",list_update);     
           m.addAttribute("dto",list);
-          m.addAttribute("list_community", list_community);
+       //   m.addAttribute("list_community", list_community);
           m.addAttribute("list_reply", list_reply);
    
           String writer = projectDto.getWriter();
