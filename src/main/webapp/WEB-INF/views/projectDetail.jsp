@@ -97,7 +97,7 @@
 <!-- 				<div class="col">
               	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
 				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
-				</div> -->
+				<d/div> -->
               </li>
               <li>
                 <form class="selectedRewardForm" id="selectedRewardForm" action="" method="">

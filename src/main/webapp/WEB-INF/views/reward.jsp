@@ -10,6 +10,7 @@
        			<!-- 추가하기전 수정시 아이템확인후 출력 -->
        			<div id="rewardCardBefore" >
 	       			<c:forEach var="rewardDto" items="${dto}">
+	       				<div id="${rewardDto.reward_id}">
 		       			<div class="card mb-3"><!--reward start-->
 			                <div class="card-header">
 				               <%-- <div style="display:none;">${rewardDto.reward_id}</div> --%>
@@ -29,6 +30,7 @@
 			                <div class="card-footer text-muted">
 			                  수량 ${rewardDto.reward_stock}개
 			                </div>
+		            	</div>
 		            	</div>
 		            </c:forEach>
        			</div>
@@ -184,6 +186,7 @@
 					let reward_modi_stock = $("#reward_modi_stock").val();
 					let reward_modi_category = $("#reward_modi_category").val();
 					let prdt_id = $("#prdt_id").val();
+					//alert(reward_id)
 					let modi_reward = {
 							reward_id:reward_id,
 							reward_name:reward_modi_name,
@@ -253,10 +256,11 @@
 				} else{
 					catergory_name = '얼리버드';
 				}
+				tmp += '<div id="'+reward.reward_id+'">';
 				tmp += '<div class="card mb-3"><div class="card-header">';
 				tmp += '<div class="d-md-flex text-end">';
 				tmp += '<button class="btn btn-outline-primary btn-sm me-md-2 modBtn" data-reward-id="'+reward.reward_id+'" type="button">M</button>';
-				tmp += '<button class="btn btn-outline-danger btn-sm delBtn" data-reward-id=' + reward.reward_id + ' type="button">D</button>';
+				tmp += '<button class="btn btn-outline-danger btn-sm delBtn" data-reward-id="' + reward.reward_id + '" type="button">D</button>';
 				tmp += '</div></div>';
 				tmp += '<div class="card-body"><span class="my-0 fw-normal bg-info">'+ catergory_name+'</span>';	
 				tmp += '<span>리워드 #'+reward.row_number+'</span><br/>';
@@ -264,6 +268,7 @@
 				tmp += '<h5 class="card-title text-primary">'+reward.reward_price+'원</h5>';
 				tmp += '<p class="card-text">'+reward.reward_desc+'</p>';
 				tmp += '</div><div class="card-footer text-muted">수량'+reward.reward_stock+'개</div></div>';
+				tmp += '</div>';
 			});
 			return tmp;
 		}
