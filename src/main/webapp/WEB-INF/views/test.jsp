@@ -29,12 +29,12 @@
 
 
 	<script type="text/javascript">
-		let prdt_id = 1
+		let prdt_id = 10
 
 		let showList = function(prdt_id) {
 			$.ajax({
 				type : 'GET',		//요청 메서드
-				url : '/purplaying/projectdetail/communitys?prdt_id=' + prdt_id,		// 요청 URI
+				url : '/purplaying/project/' + prdt_id + '/community',		// 요청 URI
 				success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 					/* json = JSON.stringify(result) */
 					$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터	
@@ -46,7 +46,7 @@
 		
 		$(document).ready(function() {
 			
-			let prdt_id = 1
+			let prdt_id = 10
 			showList(prdt_id)
 
 			
@@ -63,7 +63,7 @@
 				
 				$.ajax({
 					type : 'PATCH',				//요청 메서드
-					url : '/purplaying/projectdetail/communitys/'+chat_no,				//요청 URI
+					url : '/purplaying/project/' + prdt_id + '/community/' +chat_no,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -91,7 +91,7 @@
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/projectdetail/communitys/',				//요청 URI
+					url : '/purplaying/project/' + prdt_id + '/community',				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -112,7 +112,7 @@
 				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
-					url : '/purplaying/projectdetail/communitys/'+chat_no,			//요청 URI
+					url : '/purplaying/project/' + prdt_id + '/community/' +chat_no,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
 						alert(result)						//result 서버가 전송한 데이터
 						showList(prdt_id)
