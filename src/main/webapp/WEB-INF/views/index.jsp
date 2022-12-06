@@ -12,44 +12,21 @@
 <body>
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
-   
-  <!-- 카로셀 -->
-  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
+	<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
     <c:forEach var="bannerimg" items="${bannerList}" varStatus="status">
-      <div class="carousel-item ${status.index == 0 ? 'active' : ''}" id="item${status.index}">
+      <div class="carousel-item ${status.index == 0 ? 'active' : ''}" id="item${status.index}"
+      		style="background: url(${bannerimg.bannerfile_file }) center; background-repeat: no-repeat; background-size: cover; width: 100%;">
         <div class="container">
-         <img src="${bannerimg.bannerfile_file }" class="d-block w-100">
           <div class="carousel-caption text-start">
-            <p><a class="btn btn-outline-secondary" href="/purplaying/project/${bannerimg.bannerfile_prdt_id }">자세히보기</a></p>
+            <h1>프로젝트 제목</h1>
+            <p>프로젝트 간단 소개</p>
+            <p><a class="btn btn-lg btn-primary" href="/purplaying/project/${bannerimg.bannerfile_prdt_id }">자세히보기</a></p>
           </div>
         </div>
       </div>
-     </c:forEach>
-      <!-- <div class="carousel-item"  id="item01">
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>화제의 번역서 원서로 읽기</h1>
-            <p>읽고 싶었던 원서 번역 펀딩하기</p>
-            <p><a class="btn btn-outline-secondary" href="/purplaying/fundingguide">펀딩 가이드</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item" id="item03">
-        <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>2022 노벨문학상, 아니 에르노</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a class="btn btn-outline-secondary" href="/purplaying/projectDetail">자세히보기</a></p>
-          </div>
-        </div>
-      </div>
-    </div> -->
+	</c:forEach>
+    </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -58,12 +35,13 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
-  </div>
-
+  </div>	
   <!--메인 컨테이너 -->
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
+      
       <!--컨텐츠 영역-->
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
@@ -150,5 +128,6 @@
 	</script> -->
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
+
 </body>
 </html>
