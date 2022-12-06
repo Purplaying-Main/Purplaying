@@ -1,0 +1,97 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class NoticeController {
+  + modify(NoticeDto, Integer, Integer, RedirectAttributes, Model, HttpSession): String
+  + modify(Integer, Integer, Integer, Model, HttpSession): String
+  + list(Integer, Integer, Model, HttpServletRequest): String
+  + read(Integer, Integer, Integer, Model, HttpSession): String
+  + write(Model, HttpSession, NoticeDto): String
+  + remove(Integer, Integer, Integer, RedirectAttributes, HttpSession): String
+  + write(NoticeDto, RedirectAttributes, Model, HttpSession): String
+  + NoticeController(): 
+  ~ noticeService: NoticeService
+}
+interface NoticeDao << interface >> {
+  + count(): int
+  + update(NoticeDto): int
+  + delete(Integer, String): int
+  + select(Integer): NoticeDto
+  + insert(NoticeDto): int
+  + privateFalse(NoticeDto): int
+  + deleteAll(): int
+  + selectPage(Map): List<NoticeDto>
+  + increaseViewCnt(Integer): int
+}
+class NoticeDaoImpl {
+  + increaseViewCnt(Integer): int
+  + update(NoticeDto): int
+  + insert(NoticeDto): int
+  + deleteAll(): int
+  + delete(Integer, String): int
+  + selectPage(Map): List<NoticeDto>
+  + privateFalse(NoticeDto): int
+  + count(): int
+  + select(Integer): NoticeDto
+  + NoticeDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+class NoticeDto {
+  + getWriter(): String
+  + toString(): String
+  + getNotice_title(): String
+  + getNotice_category(): Integer
+  + setNotice_context(String): void
+  + setNotice_id(Integer): void
+  + setNotice_private(boolean): void
+  + setNotice_title(String): void
+  + setWriter(String): void
+  + getNotice_context(): String
+  + setNotice_regdate(Date): void
+  + isNotice_private(): boolean
+  + getView_cnt(): int
+  + hashCode(): int
+  + getNotice_id(): Integer
+  + setNotice_category(Integer): void
+  + equals(Object): boolean
+  + setView_cnt(int): void
+  + getNotice_regdate(): Date
+  + NoticeDto(String, String, String, Integer, boolean): 
+  + NoticeDto(): 
+  - notice_category: Integer
+  - notice_id: Integer
+  - writer: String
+  - notice_regdate: Date
+  - notice_title: String
+  - notice_private: boolean
+  - notice_context: String
+  - view_cnt: int
+}
+interface NoticeService << interface >> {
+  + privateFalse(NoticeDto): int
+  + getPage(Map): List<NoticeDto>
+  + write(NoticeDto): int
+  + remove(Integer, String): int
+  + getCount(): int
+  + modify(NoticeDto): int
+  + read(Integer): NoticeDto
+}
+class NoticeServiceImpl {
+  + remove(Integer, String): int
+  + write(NoticeDto): int
+  + privateFalse(NoticeDto): int
+  + read(Integer): NoticeDto
+  + getCount(): int
+  + getPage(Map): List<NoticeDto>
+  + modify(NoticeDto): int
+  + NoticeServiceImpl(): 
+  ~ noticeDao: NoticeDao
+}
+
+NoticeDaoImpl      -[#008200,dashed]-^  NoticeDao         
+NoticeServiceImpl  -[#008200,dashed]-^  NoticeService     
+@enduml

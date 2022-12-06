@@ -1,0 +1,41 @@
+@startuml
+
+header purplaying sequence
+title /notice/list
+footer Page %page% of %lastpage%
+
+
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+control "Notice Controller" as controller
+participant "Notice Service" as service
+participant "Notice Dao" as dao
+participant "Notice Mapper" as mapper
+database "Notice DB" as db
+
+
+User -> C: 1.공지사항 게시판 리스트\nGET: [/purplaying/notice/list]
+
+activate C
+C --> S: static asset 요청\n(HTML/CSS 등)
+
+activate S
+S --> controller: GetMapping("/list") 요청
+controller --> service: list 객체 : noticeService.getPage(map),\n조회수 : noticeService.getCount()
+service -->  dao : list 객체 : noticeDao.selectPage(map),\n조회수 : noticeDao.count()
+dao --> mapper : select id="selectPage" 요청
+mapper --> db : tb_notice Data 요청
+db --> mapper: tb_notice Data 응답
+mapper --> dao: select id="selectPage" 응답
+dao --> service: list객체, 조회수 응답
+service --> controller: list객체, 조회수 메서드 실행
+controller --> S : GetMapping("/list") 응답
+deactivate S
+
+S --> C : HTML/CSS 응답
+deactivate C
+
+C -> User: 공지사항 게시판 리스트
+
+@enduml
