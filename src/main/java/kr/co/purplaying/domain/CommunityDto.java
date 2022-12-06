@@ -73,7 +73,7 @@ public class CommunityDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(chat_context, chat_date, chat_no, chat_writer, prdt_id, user_no);
+    return Objects.hash(chat_context, chat_date, chat_no, chat_type, chat_writer, prdt_id, user_no);
   }
 
   public int getUser_no() {
@@ -94,8 +94,8 @@ public class CommunityDto {
       return false;
     CommunityDto other = (CommunityDto) obj;
     return Objects.equals(chat_context, other.chat_context) && Objects.equals(chat_date, other.chat_date)
-        && chat_no == other.chat_no && Objects.equals(chat_writer, other.chat_writer) && prdt_id == other.prdt_id
-        && user_no == other.user_no;
+        && chat_no == other.chat_no && chat_type == other.chat_type && Objects.equals(chat_writer, other.chat_writer)
+        && prdt_id == other.prdt_id && user_no == other.user_no;
   }
 
   @Override

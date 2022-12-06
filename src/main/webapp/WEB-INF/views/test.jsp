@@ -21,20 +21,20 @@
 				
 	</div>
 	<div id="rplybox">
-					<form class="rplyForm">
-						<textarea id="rply" class="form-control"  placeholder="답글을 입력하세요."></textarea>
-					</form>
-				</div>
+		<form class="rplyForm">
+			<textarea id="rply" class="form-control"  placeholder="답글을 입력하세요."></textarea>
+		</form>
+	</div>
 	
 
 
 	<script type="text/javascript">
-		let prdt_id = 10
+		let prdt_id = 12
 
 		let showList = function(prdt_id) {
 			$.ajax({
 				type : 'GET',		//요청 메서드
-				url : '/purplaying/project/' + prdt_id + '/community',		// 요청 URI
+				url : '/purplaying/project/' + prdt_id,		// 요청 URI
 				success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 					/* json = JSON.stringify(result) */
 					$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터	
@@ -46,10 +46,8 @@
 		
 		$(document).ready(function() {
 			
-			let prdt_id = 10
-			showList(prdt_id)
-
-			
+			let prdt_id = 12
+						
 			$("#modBtn").click(function() {
 				//showList(bno)
 				let chat_no = $(this).attr("data-chat_no")
@@ -144,25 +142,20 @@
 			
 			comments.forEach(function(comment) {
 				tmp += '<li data-chat_no=' + comment.chat_no
-				tmp += ' data-prdt_id=' + comment.prdt_id
-				tmp += ' data-chat_serial_no=' + comment.chat_serial_no + '>'
+				tmp += ' data-prdt_id=' + comment.prdt_id + '>'
 				tmp += ' chat_writer= <span class="chat_writer" >' + comment.chat_writer + '</span>'
 				tmp += ' chat_context= <span class="chat_context" >' + comment.chat_context + '</span>'
+				tmp += ' data-user_no=' + comment.user_no
 				tmp += ' <button class="delBtn">삭제</button>'
 				tmp += ' <button class="modBtn">수정</button>'
 				tmp += ' <button class="rplyBtn">답변</button>'
-					tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + ' </p></div>'
-/* 					tmp += '<div id="rplybox">'
-						tmp += '<form class="rplyForm">'
-							tmp += '<textarea id="rply" class="form-control"  placeholder="답글을 입력하세요.">' + reply.chat_context + '</textarea>'
-							tmp += '</form>'
-								tmp += '</div>' */
+				tmp += ' <p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + ' </p></div>'
 				tmp += "</li>"
 			})
 
 			return tmp += "</ul>"
 		}
-		
+		showList(prdt_id) 
 		function toStringByFormatting(source,delimiter = '-'){
 	         let date_source = new Date(source);
 	        let month = date_source.getMonth() + 1;
@@ -175,6 +168,11 @@
 
 	     }
 		
+/* 	tmp += '<div id="rplybox">'
+		tmp += '<form class="rplyForm">'
+			tmp += '<textarea id="rply" class="form-control"  placeholder="답글을 입력하세요.">' + reply.chat_context + '</textarea>'
+			tmp += '</form>'
+				tmp += '</div>'		 */
 	</script>
 
 </body>
