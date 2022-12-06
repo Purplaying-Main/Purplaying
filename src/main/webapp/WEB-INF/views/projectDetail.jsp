@@ -611,8 +611,8 @@
 				$("#modBtn").attr("data-chat_no", chat_no)
 				
 	
-				}) 
-			})
+			}) 
+		})
 				
 			let showList = function(prdt_id) {
 				$.ajax({
@@ -669,8 +669,6 @@
 				
 				return tmp += "</div>" 
 			}
-			
-		 	showList(prdt_id)
 		 	
 			function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);
