@@ -1,0 +1,24 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class CommunityController
+interface CommunityDao << interface >>
+class CommunityDaoImpl
+class CommunityDto
+interface CommunityService << interface >>
+class CommunityServiceImpl
+class ReplyController
+interface ReplyDao << interface >>
+class ReplyDaoImpl
+class ReplyDto
+interface ReplyService << interface >>
+class ReplyServiceImpl
+
+CommunityDaoImpl      -[#008200,dashed]-^  CommunityDao         
+CommunityServiceImpl  -[#008200,dashed]-^  CommunityService     
+ReplyDaoImpl          -[#008200,dashed]-^  ReplyDao             
+ReplyServiceImpl      -[#008200,dashed]-^  ReplyService         
+@enduml
