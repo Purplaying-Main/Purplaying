@@ -7,12 +7,13 @@ import kr.co.purplaying.domain.AnsDto;
 
 public interface AnsDao {
 
+/*
+   
   List<AnsDto> selectPage(Map map) throws Exception;
   
   int deleteAll(Integer inquiry_no) throws Exception;
 
   List<AnsDto> selectAll(Integer inquiry_no) throws Exception;
-//  int delete(Integer ans_no, String admin_id) throws Exception;
 
   int insert(AnsDto ansDto)throws Exception;
 
@@ -20,6 +21,8 @@ public interface AnsDao {
 
   AnsDto select(Integer inquiry_no) throws Exception;
 
+
+*/
   AnsDto selectAnsData(Integer inquiry_no) throws Exception;
 
   int insertAns(AnsDto ansDto) throws Exception;

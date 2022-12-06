@@ -52,7 +52,7 @@ public class OneononeServiceImpl implements OneononeService{
       return oneononeDao.update(oneononeDto);
 //    throw new Exception();              // 예외상황 테스트
   }
-
+/*
   @Override
   public int getSearchResultCnt(SearchItem sc) throws Exception {
       // TODO Auto-generated method stub
@@ -65,11 +65,14 @@ public class OneononeServiceImpl implements OneononeService{
       return oneononeDao.searchSelectPage(sc);
   }
 
+  */
+  /*
   @Override
   public OneononeDto readans(Integer inquiry_no) throws Exception {
     OneononeDto oneononeDto = oneononeDao.selectAns(inquiry_no);
     return oneononeDto;
   }
+  */
 
 //  @Override
 //    public int privateFalse(OneononeDto oneononeDto) throws Exception {

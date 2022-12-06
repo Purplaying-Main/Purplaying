@@ -24,6 +24,7 @@ public class AnsServiceImpl implements AnsService{
     this.ansDao = ansDao;
   }
 
+/*
 
   @Override
   public List<AnsDto> getList(Integer inquiry_no) throws Exception {
@@ -31,19 +32,6 @@ public class AnsServiceImpl implements AnsService{
     return ansDao.selectAll(inquiry_no);
   }
 
-/*
-  @Override
-  @Transactional(rollbackFor = Exception.class)
-  public int remove(Integer ans_no, Integer inquiry_no, String admin_id) throws Exception {
-    int rowCnt = oneononeDao.updateAnsCnt(inquiry_no, -1);
-    System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
-            
-    rowCnt = ansDao.delete(ans_no, admin_id);
-    System.out.println("rowCont = " + rowCnt);
-    
-    return rowCnt;
-  }
-*/
 
   @Override
   @Transactional(rollbackFor = Exception.class)
@@ -68,6 +56,8 @@ public class AnsServiceImpl implements AnsService{
   }
 
   
+  
+ */ 
 
   @Override
   public AnsDto selectAnsData(Integer inquiry_no) throws Exception {

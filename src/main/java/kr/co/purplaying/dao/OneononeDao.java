@@ -10,11 +10,11 @@ public interface OneononeDao{
 
     OneononeDto select(Integer inquiry_no) throws Exception;
     
-    OneononeDto selectAns(Integer inquiry_no) throws Exception;
+ //   OneononeDto selectAns(Integer inquiry_no) throws Exception;
 	
 	int insert(OneononeDto OneononeDto) throws Exception;
 	int count() throws Exception;
-	int deleteAll()throws Exception;
+//	int deleteAll()throws Exception;
 	
 	List<OneononeDto> selectPage(Map map) throws Exception;
 
@@ -22,11 +22,11 @@ public interface OneononeDao{
 
 	int update(OneononeDto oneononeDto) throws Exception;
 	
-	int searchResultCnt(SearchItem sc) throws Exception;
+//	int searchResultCnt(SearchItem sc) throws Exception;
 	    
-	List<OneononeDto> searchSelectPage(SearchItem sc) throws Exception;
+//	List<OneononeDto> searchSelectPage(SearchItem sc) throws Exception;
 	
-	int privateFalse(OneononeDto oneononeDto) throws Exception;
+//	int privateFalse(OneononeDto oneononeDto) throws Exception;
 	
 	int updateAnsCnt(Integer inquiry_no, Integer inquiry_state) throws Exception;
 

@@ -116,31 +116,7 @@ public class OneononeController {
       e.printStackTrace();
     }
   }
-  
-  
-  
-  /*
-  @PostMapping(value="/modify/ans", produces = "application/json" )
-  public void modifyAns(@RequestBody AnsDto ansDto, Integer inquiry_no, Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
-    
-    String admin_id = (String) session.getAttribute("user_id");
-    
-    System.out.println(ansDto);
-    
-    try {
-      System.out.println(ansDto);
-      if (ansService.modifyAns(ansDto) != 1) {
-        System.out.println("실패");
-      }
-    } catch (Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-    
-  }
-  */
-  
-  
+
   
   @PostMapping("/write/reg")
   public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, HttpSession session) {

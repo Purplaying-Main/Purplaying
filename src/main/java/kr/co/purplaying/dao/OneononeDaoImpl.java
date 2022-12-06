@@ -32,11 +32,13 @@ public class OneononeDaoImpl implements OneononeDao{
 	public int count() throws Exception {
 		return session.selectOne(namespace+"count");
 	}
-
+	
+/*
 	@Override
 	public int deleteAll() throws Exception {
 		return session.delete(namespace+"deleteAll");
 	}
+*/
 
 	@Override
 	public List<OneononeDto> selectPage(Map map) throws Exception {
@@ -57,6 +59,8 @@ public class OneononeDaoImpl implements OneononeDao{
         return session.update(namespace + "update", oneononeDto);
     }
 
+    /*
+     
     @Override
     public int searchResultCnt(SearchItem sc) throws Exception {
         
@@ -69,12 +73,15 @@ public class OneononeDaoImpl implements OneononeDao{
         
         return session.selectList(namespace + "searchSelectPage", sc);
     }
-
+    
+    */
+    
+/*
     @Override
     public int privateFalse(OneononeDto oneononeDto) throws Exception {
       return session.update(namespace+"privateFalse", oneononeDto);
     }
-
+*/
     @Override
     public int updateAnsCnt(Integer inquiry_no, Integer inquiry_state) throws Exception {
       Map map = new HashMap();
@@ -83,10 +90,12 @@ public class OneononeDaoImpl implements OneononeDao{
       return session.update(namespace+"updateAnsCnt", map);
     }
 
+ /*   
     @Override
     public OneononeDto selectAns(Integer inquiry_no) throws Exception {
       // TODO Auto-generated method stub
       return session.selectOne(namespace +"selectAns", inquiry_no);
     }
+    */
 
 }

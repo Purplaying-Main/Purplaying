@@ -17,6 +17,8 @@ public class AnsDaoimpl implements AnsDao {
   private SqlSession session;
   private static String namespace ="kr.co.purplaying.dao.AnsMapper.";
   
+/*  
+  
   @Override
   public int deleteAll(Integer inquiry_no) throws Exception {
     // TODO Auto-generated method stub
@@ -28,15 +30,7 @@ public class AnsDaoimpl implements AnsDao {
     // TODO Auto-generated method stub
     return session.selectList(namespace + "selectAll", inquiry_no);
   }
-  /*
-  @Override
-  public int delete(Integer ans_no, String admin_id) throws Exception {
-      Map map = new HashMap();
-      map.put("ans_no", ans_no);
-      map.put("admin_id", admin_id);
-      return session.delete(namespace + "delete", map);
-  }
-  */
+
   @Override
   public int insert(AnsDto ansDto) throws Exception {
     // TODO Auto-generated method stub
@@ -58,11 +52,16 @@ public class AnsDaoimpl implements AnsDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"select",inquiry_no);
   }
+  
+    
+*/
   @Override
   public AnsDto selectAnsData(Integer inquiry_no) throws Exception {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"selectAnsData",inquiry_no);
   }
+ 
+   
   @Override
   public int insertAns(AnsDto ansDto) throws Exception {
     // TODO Auto-generated method stub
