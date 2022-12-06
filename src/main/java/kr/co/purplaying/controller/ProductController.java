@@ -1,11 +1,7 @@
 package kr.co.purplaying.controller;
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ejb.access.EjbAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,15 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.CommunityDto;
-import kr.co.purplaying.domain.NoticeDto;
-import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.ReplyDto;
 import kr.co.purplaying.domain.RewardDto;
@@ -109,7 +100,7 @@ public class ProductController {
           
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
-//          List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
+          List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
           List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
           UserDto userDto = userDao.selectUser(projectDto.getWriter());
           m.addAttribute(userDto);
@@ -137,7 +128,7 @@ public class ProductController {
           
           m.addAttribute("list_update",list_update);     
           m.addAttribute("dto",list);
-       //   m.addAttribute("list_community", list_community);
+          m.addAttribute("list_community", list_community);
           m.addAttribute("list_reply", list_reply);
    
           String writer = projectDto.getWriter();

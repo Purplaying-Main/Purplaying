@@ -14,4 +14,6 @@ public interface CommunityService {
 
   int remove(int chat_no) throws Exception;
 
+  List<CommunityDto> selectCommunity(Integer prdt_id) throws Exception;
+
 }
