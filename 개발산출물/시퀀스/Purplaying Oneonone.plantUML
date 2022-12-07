@@ -17,9 +17,10 @@ C -> C: 0. 로그인이 되어 있지 않을 경우 로그인 페이지로 redir
 C --> User: 로그인 입력 페이지 [/purplaying/user/login]
 
 User -> C: 1. 아이디/Pw 입력 
-C -> C: cookie에 아이디 저장 
+C -> C: session에 아이디 저장 
 C -> C: 문의사항 리스트 페이지로 redirection GET [/purplaying/oneonone/list]
 
+C -> S: static asset 요청(HTML/CSS 등)
 activate S
 S -> D: 문의사항 list 총 게시글 수 요청
 D --> S :문의사항 list 총 게시글 수 응답
@@ -139,6 +140,7 @@ S -> D: 문의사항 답변 DB delete 요청
 D --> S : 문의사항 답변 DB delete 응답
 S -->C: 답변 삭제 응답
 deactivate S
+C -> C: 답변 완료 -> 답변 중으로 변경
 C --> Admin: 문의사항 답변 삭제 완료 리스트로 이동
 
 
