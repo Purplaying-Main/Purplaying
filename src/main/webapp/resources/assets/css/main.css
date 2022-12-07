@@ -68,7 +68,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 .logo { background: url('../img/purplaying_logo_eng.png'); background-repeat : no-repeat; background-size : contain;}
 /* album card */
 .card  {text-align: left;}
-.bd-placeholder-img { position : relative;}
+.bd-placeholder-img { position : relative; }
 /* 좋아요 버튼 */
 .likeBtn {z-index: 999; position: absolute; top: 20px; right : 20px; } 
 /* Carousel base class */
@@ -76,7 +76,7 @@ footer { height: 100%; padding : 0 40px; background-color: #333; color: var(--co
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption { bottom: 3rem; z-index: 10;}
 /* Declare heights because of positioning of img element */
-.carousel-item { height: 31rem;}
+.carousel-item { height: 31rem; background: center; background-repeat: no-repeat; background-size: cover; width: 100%;}
 /* #item01 { background: center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item02 { background: center; background-repeat : no-repeat; background-size : cover; width: 100%;}
 #item03 { background: center; background-repeat : no-repeat; background-size : cover; width: 100%;} */

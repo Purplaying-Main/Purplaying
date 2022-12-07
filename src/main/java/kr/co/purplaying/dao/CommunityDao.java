@@ -13,4 +13,6 @@ public interface CommunityDao {
   int update(CommunityDto communityDto) throws Exception;
 
   int delete(int chat_no) throws Exception;
+
+  List<CommunityDto> selectCommunity(Integer prdt_id) throws Exception;
 }
