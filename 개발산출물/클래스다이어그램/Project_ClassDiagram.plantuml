@@ -1,0 +1,66 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class ProductController {
+  + ProductController(): 
+  ~ projectService: ProjectService
+  ~ userDao: UserDao
+  ~ communityService: CommunityService
+  ~ rewardService: RewardService
+  ~ likeService: LikeService
+  ~ replyService: ReplyService
+}
+interface ProjectDao << interface >>
+class ProjectDaoImpl {
+  + ProjectDaoImpl(): 
+  - session: SqlSession
+  ~ projectDto: ProjectDto
+  - namespace: String
+}
+class ProjectDto {
+  + ProjectDto(): 
+  + ProjectDto(String, \n Integer, String, String, \n String, Date, Date, Date, \n int, int, boolean, String, \n Integer, String, String, int, \n int, int, Date, Date, \n int, String, String, String, \n  int, Date, String, String, \n int, int, int): 
+  - prdt_desc_detail: String
+  - prdt_comingday: int
+  - prdt_id: Integer
+  - prdt_purchaseday: Date
+  - prdt_dday: int
+  - user_name: String
+  - user_activate: String
+  - prdt_opendate: Date
+  - prdt_desc: String
+  - user_pwd: String
+  - prdt_name: String
+  - prdt_img: String
+  - prdt_desc_policy: String
+  - user_no: int
+  - user_role: String
+  - writer: String
+  - prdt_currenttotal: int
+  - prdt_percent: int
+  - prdt_open: boolean
+  - prdt_thumbnail: String
+  - user_phone: int
+  - pay_no: int
+  - prdt_goal: int
+  - prdt_limitday: Date
+  - prdt_genre: Integer
+  - prdt_regdate: Date
+  - prdt_buyercnt: int
+  - prdt_enddate: Date
+  - prdt_user_no: int
+  - user_id: String
+  - user_regdate: Date
+}
+interface ProjectService << interface >>
+class ProjectServiceImpl {
+  + ProjectServiceImpl(): 
+  ~ projectDao: ProjectDao
+}
+
+ProjectDaoImpl      -[#008200,dashed]-^  ProjectDao         
+ProjectServiceImpl  -[#008200,dashed]-^  ProjectService     
+@enduml
