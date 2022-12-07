@@ -1,0 +1,34 @@
+@startuml
+
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "Purplaying DB" as D
+
+group 로그인
+    User -> C:로그인페이지 요청\nGET:[/purplaying/user/login]
+
+    activate C
+    C -> S:static asset 요청(HTML/CSS)
+    activate S
+    S --> C: static asset 응답(HTML/CSS)
+    deactivate S
+
+    User -> C:아이디,비밀번호 입력
+
+    C -> S:아이디,비밀번호일치 확인 요청
+    activate S
+    S -> D:아이디,비밀번호 DB select요청
+    D --> S:아이디,비밀번호 DB select응답
+    S --> C:아이디 비밀번호일치 확인 응답
+    C -> C: Session에 아이디 저장
+    C -> C: 이전페이지 redirection
+    deactivate S
+
+    C --> User:이전페이지 노출
+
+    deactivate C
+
+end
+
+@enduml
