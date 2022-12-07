@@ -181,7 +181,7 @@ public class ProductController {
                       RedirectAttributes rattr, HttpSession session, HttpServletRequest request) {
     
       if(!loginCheck(request)) {
-        return "redirect:/login/login?toURL=" + request.getRequestURL();
+        return "redirect:/user/login?toURL=" + request.getRequestURL();
       }
       
       
