@@ -1,0 +1,154 @@
+@startuml
+
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "Purplaying DB" as D
+
+group 관리자페이지(유저권한)
+    User -> C:관리자 페이지(유저권한) 요청\nGET:[/purplaying/admin/userlist]
+
+    activate C
+    C -> S:static asset 요청(HTML/CSS)
+    activate S
+
+    S -> D: 유저 DB select 요청
+    D --> S: 유저 DB select 응답
+
+    S --> C: static asset 응답(HTML/CSS)
+    deactivate S
+
+    loop 
+        alt 유저 권한 변경
+            User -> C: 유저 권한 선택
+            C -> S: 저장버튼 선택
+
+            activate S
+            S -> D: 유저 role Update 요청
+            D --> S: 유저 role Update 응답
+            S --> C: 관리자페이지(유저 권한) redirection
+            deactivate S
+
+            C --> User: 관리자 페이지(유저권한)노출
+
+        else 유저 다음 페이지 이동
+            User -> C: 페이지 번호 선택
+            C -> S: 유저정보(선택 페이지 번호) 요청
+            activate S
+            S -> D: 유저 select 요청
+            D --> S: 유저 select 응답
+            S --> C: 유저정보(선택 페이지 번호) 응답
+            deactivate S
+
+            C --> User: 관리자페이지(유저 권한) 노출 
+        else 유저 검색
+            User -> C:유저 이름 입력
+            C -> S: 동일한 이름 유저 정보 요청
+            activate S
+            S -> D: 유저 select 요청
+            D --> S: 유저 select 응답
+            S --> C: 동일한 이름 유저 정보 응답
+            deactivate S
+
+            C --> User: 관리자페이지(유저 권한) 노출 
+            deactivate C
+        end
+    end
+end
+
+User -> C:헤더 (펀딩게시글) 버튼선택
+activate C
+C --> User: 관리자페이지(펀딩게시글) 노출
+deactivate C
+
+
+group 관리자페이지(펀딩 게시글)
+    User -> C:관리자 페이지(펀딩 게시글) 요청\nGET:[/purplaying/admin/projectlist]
+
+    activate C
+    C -> S:static asset 요청(HTML/CSS)
+    activate S
+
+    S -> D: 프로젝트 DB select 요청
+    D --> S: 프로젝트 DB select 응답
+
+    S --> C: static asset 응답(HTML/CSS)
+    deactivate S
+
+    loop 
+        alt 프로젝트 삭제
+            User -> C:삭제하기 버튼 선택
+            C -> S:프로젝트 삭제 요청
+
+            activate S
+            S -> D: 프로젝트 Delete 요청
+            D --> S: 프로젝트 Delete 응답
+            S --> C: 관리자페이지(펀딩 게시글) redirection
+            deactivate S
+
+            C --> User: 관리자 페이지(펀딩 게시글)노출
+
+        else 프로젝트 페이지 이동
+            User -> C: 페이지 번호 선택
+            C -> S: 프로젝트 정보(선택 페이지 번호) 요청
+            activate S
+            S -> D: 프로젝트 select 요청
+            D --> S: 프로젝트 select 응답
+            S --> C: 프로젝트 정보(선택 페이지 번호) 응답
+            deactivate S
+
+            C --> User: 관리자페이지(펀딩 게시글) 노출 
+        else 프로젝트 검색
+            User -> C:프로젝트 이름 입력
+            C -> S: 동일한 프로젝트 이름 정보 요청
+            activate S
+            S -> D: 프로젝트 select 요청
+            D --> S: 프로젝트 select 응답
+            S --> C: 동일한 프로젝트 이름 정보 응답
+            deactivate S
+
+            C --> User: 관리자페이지(펀딩 게시글) 노출 
+            deactivate C
+        end
+    end
+end
+
+User -> C:헤더 (사이트배너) 버튼선택
+activate C
+C --> User: 관리자페이지(사이트배너) 노출
+deactivate C
+
+group 관리자페이지(사이트배너)
+    User -> C:관리자 페이지(사이트배너) 요청\nGET:[/purplaying/admin/bannerlist]
+
+    activate C
+    C -> S:static asset 요청(HTML/CSS)
+    activate S
+
+    S -> D: 프로젝트 DB select 요청
+    D --> S: 프로젝트 DB select 응답
+
+    S -> D: 배너 DB select 요청
+    D --> S: 배너 DB select 응답
+
+    S --> C: static asset 응답(HTML/CSS)
+    deactivate S
+
+    loop 
+        User -> C:설정하기 버튼 선택
+        C -> S:배너 설정 요청
+
+        activate S
+        S -> D: 배너 insert 요청
+        D --> S: 배너 insert  응답
+        S --> C: 관리자페이지(사이트배너) redirection
+        deactivate S
+
+        C --> User: 관리자 페이지(펀딩 게시글)노출
+        deactivate C
+    end
+end
+
+
+
+@enduml
