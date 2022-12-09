@@ -525,10 +525,11 @@
 	</script>
 	
 	<!-- 커뮤티니 댓글 기능 -->
-	<script type="text/javascript">	
+	<script type="text/javascript">
 		$(document).ready(function() {
-			let prdt_id = $('#prdt_id').val();
 			
+			let prdt_id = $('#prdt_id').val();
+			showList(prdt_id)
 			$("#modBtn").click(function() {
 				//showList(bno)
 				let chat_no = $(this).attr("data-chat_no")
@@ -632,7 +633,7 @@
 				let tmp = '<div class="row text-start">'
 	
 					comments.forEach(function(comment) {
-						tmp += 
+
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
@@ -662,7 +663,6 @@
 				
 				return tmp += "</div>" 
 			}
-		 	showList(#prdt_id)
 
 		 	function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);
