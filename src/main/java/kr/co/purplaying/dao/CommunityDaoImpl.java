@@ -39,10 +39,5 @@ public class CommunityDaoImpl implements CommunityDao {
         return session.delete(namespace+"delete", chat_no);
       }
 
-      @Override
-      public List<CommunityDto> selectCommunity(Integer prdt_id) throws Exception {
-        // TODO Auto-generated method stub
-        return session.selectList(namespace+"selectCommunity", prdt_id);
-      }
 
 }

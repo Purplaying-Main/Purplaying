@@ -29,10 +29,10 @@
 
 
 	<script type="text/javascript">
-		$(document).ready(function() {
-			
+		$(document).ready(function() {			
 			let prdt_id = 10
-						
+			showList(prdt_id)
+		
 			$("#modBtn").click(function() {
 				//showList(bno)
 				let chat_no = $(this).attr("data-chat_no")
@@ -46,7 +46,7 @@
 				
 				$.ajax({
 					type : 'PATCH',				//요청 메서드
-					url : '/purplaying/project/' + prdt_id + '/community/' +chat_no,				//요청 URI
+					url : '/purplaying/community/'+chat_no,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -74,7 +74,7 @@
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/project/' + prdt_id + '/community',				//요청 URI
+					url : '/purplaying/community?prdt_id='+prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -95,7 +95,7 @@
 				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
-					url : '/purplaying/project/' + prdt_id + '/community/' +chat_no,			//요청 URI
+					url : '/purplaying/community/'+chat_no+'?prdt_id='+prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
 						alert(result)						//result 서버가 전송한 데이터
 						showList(prdt_id)
@@ -122,10 +122,11 @@
 			}) 
 		})
 		
+		
 		let showList = function(prdt_id) {
 			$.ajax({
 				type : 'GET',		//요청 메서드
-				url : '/purplaying/community?prdt='+prdt_id,		// 요청 URI
+				url : '/purplaying/community?prdt_id='+prdt_id,		// 요청 URI
 				success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 					/* json = JSON.stringify(result) */
 					$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터	
@@ -153,6 +154,8 @@
 			return tmp += "</ul>"
 		}
 		
+		
+		
 		function toStringByFormatting(source,delimiter = '-'){
 	         let date_source = new Date(source);
 	        let month = date_source.getMonth() + 1;
@@ -165,7 +168,7 @@
 
 	     }
 		
-		showList(prdt_id)
+		
 
 /* 	tmp += '<div id="rplybox">'
 		tmp += '<form class="rplyForm">'

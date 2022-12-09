@@ -46,10 +46,5 @@ public class CommunityServiceImpl implements CommunityService {
     return communityDao.delete(chat_no);
   }
 
-  @Override
-  public List<CommunityDto> selectCommunity(Integer prdt_id) throws Exception {
-    // TODO Auto-generated method stub
-    return communityDao.selectCommunity(prdt_id);
-  }
 
 }
