@@ -33,7 +33,19 @@
 	</insert>
 	
 	<select id="selectUserCheck" parameterType="int" resultType="SettingDto">
-		select msg_agree, update_agree, favor_agree, marketing_agree, user_introduce
+		select setting_no, user_no, msg_agree, update_agree, favor_agree, marketing_agree, user_introduce
+		from tb_setting
+		where user_no = #{user_no}
+	</select>
+	
+	<update id="updateAlarm" parameterType="map">
+		UPDATE tb_setting
+		SET msg_agree=#{msg_agree}, update_agree=#{update_agree}, favor_agree=#{favor_agree}, marketing_agree=#{marketing_agree}
+		WHERE user_no = #{user_no}
+	</update>
+	
+	<select id="selectAll" parameterType="int" resultType="SettingDto">
+		select setting_no, user_no, msg_agree, update_agree, favor_agree, marketing_agree
 		from tb_setting
 		where user_no = #{user_no}
 	</select>

@@ -70,16 +70,11 @@ public class UploadController {
   @GetMapping("/profile/display")
   @ResponseBody
   public ResponseEntity<byte[]> getProfile(String file_name , Integer user_no, Model m ) throws Exception {
-    
-    System.out.println("fileName : "+file_name);
-    
+  
     File file = new File("C:\\purplaying_file\\profile"+file_name);
-    System.out.println("file: "+file);
-    
     ResponseEntity<byte[]> result = null;
     
     try {
-      
       HttpHeaders header = new HttpHeaders();
       header.add("Content-Type", Files.probeContentType(file.toPath()));
       result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
@@ -149,20 +144,18 @@ public class UploadController {
   @GetMapping("/display")
   @ResponseBody
   public ResponseEntity<byte[]> getFile(String file_name , Integer prdt_id, Model m ) throws Exception {
-    
 //    AttachFileDto attachFileDto = fileService.read(prdt_id);
 //    m.addAttribute("attachFileDto", attachFileDto);
 //    System.out.println("attachFileDto: "+attachFileDto);
-    
+
     System.out.println("fileName : "+file_name);
     
-    File file = new File("C:\\purplaying_file\\"+file_name);
+    File file = new File("C:\\purplaying_file\\profile"+file_name);
     System.out.println("file: "+file);
     
     ResponseEntity<byte[]> result = null;
     
     try {
-      
       HttpHeaders header = new HttpHeaders();
       header.add("Content-Type", Files.probeContentType(file.toPath()));
       result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);

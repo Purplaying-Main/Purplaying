@@ -24,5 +24,8 @@ public interface SettingService {
   int insertcheckbox(int user_no, boolean agree_marketing) throws Exception;
   SettingDto selectUserCheck(int user_no) throws Exception;
   int modifyPhone(UserDto userDto) throws Exception;
+
+  /* int modifyAlarm(SettingDto settingDto) throws Exception; */
+  List<SettingDto> getAgreeList(int user_no) throws Exception;
   
 }

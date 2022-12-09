@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <c:set var="loginId" value="${sessionScope.id}" />
 <!DOCTYPE html>
 <html>
@@ -404,9 +406,10 @@
                                         <div class="col-auto">
                                             <h6>메시지</h6>
                                         </div>
-                                        <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.msg_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
-                                        </div>
+                                        <div class="col-auto px-3 text-end check-group">
+					                        <input type="checkbox" class="agreeAlarm " id="msg_agree" name="msg_agree" ${settingDto.msg_agree ? 'checked':'' }>
+					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.msg_agree ? 'fas text-info':'far text-muted' }" for="msg_agree">${settingDto.msg_agree ? '알림 ON':'알림 OFF' }</label>
+					                    </div>
                                     </li>
                                     <li class="row text-muted">
                                         <p>새 메시지 알림을 이메일로 수신합니다.</p>
@@ -417,9 +420,10 @@
                                         <div class="col-auto">
                                             <h6>후원 프로젝트 업데이트</h6>
                                         </div>
-                                        <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.update_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
-                                        </div>
+                                        <div class="col-auto px-3 text-end check-group">
+					                        <input type="checkbox" class="agreeAlarm" id="update_agree" name="update_agree" ${settingDto.update_agree ? 'checked':'' }>
+					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.update_agree ? 'fas text-info':'far text-muted' }" for="update_agree">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</label>
+					                    </div>
                                     </li>
                                     <li class="row text-muted">
                                         <p>후원하고 있는 프로젝트 업데이트 알림을 이메일로 수신합니다</p>
@@ -430,9 +434,10 @@
                                         <div class="col-auto">
                                             <h6>관심목록</h6>
                                         </div>
-                                        <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.favor_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
-                                        </div>
+                                        <div class="col-auto px-3 text-end check-group">
+					                        <input type="checkbox" class="agreeAlarm" id="favor_agree" name="favor_agree" ${settingDto.favor_agree ? 'checked':'' }>
+					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.favor_agree ? 'fas text-info':'far text-muted' }" for="favor_agree">${settingDto.favor_agree ? '알림 ON':'알림 OFF' }</label>
+					                    </div>
                                     </li>
                                     <li class="row text-muted">
                                         <p>관심목록에 등록된 이용자의 프로젝트 관련 알림을 이메일로 수신합니다.</p>
@@ -443,9 +448,10 @@
                                         <div class="col-auto">
                                             <h6>마케팅 알림</h6>
                                         </div>
-                                        <div class="col-auto px-3 text-end">
-                                            <i class="fa-regular fa-bell alretBtn fs-6 ${settingDto.marketing_agree ? 'fas text-info':'far text-muted' }" onclick="alretBtn()">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</i>
-                                        </div>
+                                        <div class="col-auto px-3 text-end check-group">
+					                        <input type="checkbox" class="agreeAlarm" id="marketing_agree" name="marketing_agree" ${settingDto.marketing_agree ? 'checked':'' }>
+					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.marketing_agree ? 'fas text-info':'far text-muted' }" for="marketing_agree">${settingDto.marketing_agree ? '알림 ON':'알림 OFF' }</label>
+					                    </div>
                                     </li>
                                     <li class="row text-muted">
                                         <p>퍼플레잉 신규 콘텐츠 및 추천 알림을 이메일로 수신합니다.</p>
@@ -462,6 +468,7 @@
         </section>
 
         <script type="text/javascript">
+       
         	
 	        $("#namechangeBtn").click(function() {
 				let user_no = $("#user_no").val()
@@ -874,6 +881,71 @@
 	        		  
 	        		  return false;
 	        		}
+	        	
+	        	 $(".alretBtn").click(function() {
+	             	   let _buttonI = event.target;
+	             	   var _buttonI_id = $(this).prev().attr("id")
+	             	   var _buttonI_id_val = $(this).prev().is(":checked")
+	             	   console.log("_buttonI_id : ",_buttonI_id, _buttonI_id_val)
+	             	   
+	             	   let user_no = $("#user_no").val()
+
+	             	   const agreeData ={
+	             		  user_no:Number(user_no),
+	             		  msg_agree:$("#msg_agree").is(":checked"),
+	             		  update_agree:$("#update_agree").is(":checked"),
+	             		  favor_agree:$("#favor_agree").is(":checked"),
+	             		  marketing_agree:$("#marketing_agree").is(":checked")
+	             	   }
+	             	   //if (_buttonI.classList.contains("text-info")) { // 알림ON 일때
+	             	   if (_buttonI_id_val) { // 알림ON 일때
+
+	      	  			$.ajax({
+	      	  				type : 'PATCH',
+	      	  				url : '/purplaying/setting/alarm/'+user_no,
+	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+	      	  				data: JSON.stringify(agreeData),
+	      					success : function(result) { 
+
+	      						 _buttonI.classList.remove("fas");
+	      	  					 _buttonI.classList.remove("text-info");
+	      	  					 _buttonI.classList.add("far");
+	      	  					 _buttonI.classList.add("text-muted");
+	      	  					
+	      	  					 _buttonI.innerText="알림 OFF";
+	      	  					
+	      	  					 console.log("agreeData: ",agreeData)			  
+	      						 console.log("alarm modify success")
+	      						 
+	      					},
+	      					error : function() { alert("error") }
+	      	  			})
+	      	       	   } //if end
+	      	       	   else { // 알림OFF 일때
+
+	      	       		$.ajax({
+	      	  				type : 'PATCH',
+	      	  				url : '/purplaying/setting/alarm/'+user_no,
+	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+	      	  				data: JSON.stringify(agreeData),
+	      					success : function(result) { 
+	      						 
+	      						 _buttonI.classList.remove("far");
+	      		  				 _buttonI.classList.remove("text-muted");
+	      						 _buttonI.classList.add("fas");
+	      						 _buttonI.classList.add("text-info");
+	      						 
+	      		  				 _buttonI.innerText="알림 ON";
+	      		  				 
+	      		  				 console.log("agreeData: ",agreeData)			 
+	      	  					 /* console.log("agreeOnData : ", agreeOnData) */			 
+	      						 console.log("alarm modify success")
+	      						 
+	      					},
+	      					error : function() { alert("error") }
+	      	  			})//ajax end   
+	      	       	   }//else end
+	      	       	})
 	        })
 	        
 	        </script>

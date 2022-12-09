@@ -30,25 +30,21 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public UserDto setUser(String user_id) throws Exception {
-    // TODO Auto-generated method stub
   return userDao.selectUser(user_id);
   }
 
   @Override
   public int modifyName(UserDto userDto) throws Exception {
-    // TODO Auto-generated method stub
     return userDao.updateName(userDto);
   }
 
   @Override
   public SettingDto showSetting(int user_no) throws Exception {
-    // TODO Auto-generated method stub
     return settingDao.selectSetting(user_no);
   }
 
   @Override
   public int modifyIntro(SettingDto settingDto) throws Exception {
-    // TODO Auto-generated method stub
     return settingDao.updateIntro(settingDto);
   }
 
@@ -65,25 +61,21 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public int modifyPwd(UserDto userDto) throws Exception {
-    // TODO Auto-generated method stub
     return userDao.updateUserPwd(userDto);
   }
 
   @Override
   public int addressAdd(AddressDto addressDto) throws Exception {
-    // TODO Auto-generated method stub
     return addressDao.insert(addressDto);
   }
 
   @Override
   public List<AddressDto> getList(int user_no) throws Exception {
-    // TODO Auto-generated method stub
     return addressDao.selectAll(user_no);
   }
 
   @Override
   public int modifyAddress(AddressDto addressDto) throws Exception {
-    // TODO Auto-generated method stub
     return addressDao.update(addressDto);
   }
 
@@ -94,19 +86,28 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public SettingDto selectUserCheck(int user_no) throws Exception {
-    // TODO Auto-generated method stub
     return settingDao.selectUserCheck(user_no);
   }
 
   @Override
   public int removeAddress(Integer address_id) throws Exception {
-    
     return addressDao.deleteAddress(address_id);
   }
 
   @Override
   public int modifyPhone(UserDto userDto) throws Exception {
-    // TODO Auto-generated method stub
     return userDao.updateUserPhone(userDto);
+  }
+
+  /*
+   * @Override
+   * public int modifyAlarm(SettingDto settingDto) throws Exception {
+   * return settingDao.updateAlarm(settingDto);
+   * }
+   */
+
+  @Override
+  public List<SettingDto> getAgreeList(int user_no) throws Exception {
+    return settingDao.selectAll(user_no);
   }
 }

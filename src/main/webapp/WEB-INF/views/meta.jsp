@@ -16,7 +16,6 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.bundle.min.js"></script> 
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/assets/js/alretOnOff.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>	  
   
   <!-- 아이콘  -->

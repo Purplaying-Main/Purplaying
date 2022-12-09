@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
+import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
@@ -32,6 +34,9 @@ public class SettingController {
   @Autowired
   UserDao userDao;
   
+  @Autowired
+  SettingDao settingDao;
+  
   
   @RequestMapping(value="/setting", method=RequestMethod.GET)
   public String list(Model m, HttpSession session) {
@@ -43,9 +48,28 @@ public class SettingController {
      
       UserDto userDto = settingService.setUser(id);
       session.putValue("userDto",userDto);
+      System.out.println("userDto: "+userDto);
+      int user_no = userDto.getUser_no();
+      System.out.println("user_no: "+user_no);
       
-      SettingDto settingDto = settingService.selectUserCheck(userDto.getUser_no());
+      SettingDto settingDto = settingService.selectUserCheck(user_no);
+      m.addAttribute("user_no",user_no);
       m.addAttribute("settingDto",settingDto);
+      
+      System.out.println("settingDto: "+settingDto);
+      
+      if(id!=null) {
+        Boolean msg_agree = settingDto.isMsg_agree();
+        Boolean update_agree = settingDto.isUpdate_agree();
+        Boolean favor_agree = settingDto.isFavor_agree();
+        Boolean marketing_agree = settingDto.isMarketing_agree();
+       
+        m.addAttribute("msg_agree",msg_agree);
+        m.addAttribute("update_agree",update_agree);
+        m.addAttribute("favor_agree",favor_agree);
+        m.addAttribute("marketing_agree",marketing_agree);
+
+      }
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -243,6 +267,28 @@ public class SettingController {
           e.printStackTrace();
           return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
       }
+  }
+  
+  @RequestMapping(value="/setting/alarm/{user_no}", method = RequestMethod.PATCH)
+  public ResponseEntity<List<SettingDto>> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {
+    
+    try {
+      settingDto = settingService.selectUserCheck(user_no);
+      m.addAttribute("user_no",user_no);
+      m.addAttribute("settingDto",settingDto);
+      System.out.println("settingDto: "+settingDto);
+
+      
+        List<SettingDto> agreeList = settingService.getAgreeList(user_no);
+        System.out.println("agreeList : "+agreeList);
+       
+        if(settingDao.updateAlarm(user_no, settingDto.isMsg_agree(), settingDto.isUpdate_agree(), settingDto.isFavor_agree(), settingDto.isMarketing_agree() ) != 1)
+            throw new Exception("Update failed");
+        return new ResponseEntity<List<SettingDto>>(agreeList,HttpStatus.OK);
+    }catch(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);
+    }
   }
   
 }

@@ -1,6 +1,7 @@
 package kr.co.purplaying.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,7 +25,6 @@ public class SettingDaoImpl implements SettingDao {
 
   @Override
   public int updateIntro(SettingDto settingDto) throws Exception {
-    // TODO Auto-generated method stub
     return session.update(namespace + "updateIntro", settingDto);
   }
 
@@ -41,6 +41,23 @@ public class SettingDaoImpl implements SettingDao {
   public SettingDto selectUserCheck(int user_no) throws Exception {
 
     return session.selectOne(namespace+"selectUserCheck",user_no);
+  }
+  
+  @Override
+  public int updateAlarm(int user_no, boolean msg_agree, boolean update_agree,boolean favor_agree,boolean marketing_agree) throws Exception {
+    Map map = new HashMap();
+    map.put("user_no", user_no);
+    map.put("msg_agree", msg_agree);
+    map.put("update_agree", update_agree);
+    map.put("favor_agree", favor_agree);
+    map.put("marketing_agree", marketing_agree);
+    
+    return session.update(namespace + "updateAlarm",map);
+  }
+
+  @Override
+  public List<SettingDto> selectAll(int user_no) throws Exception {
+    return session.selectList(namespace+"selectAll", user_no);
   }
 
 }
