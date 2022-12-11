@@ -56,12 +56,12 @@ C -> S : 펀딩완료 static asset(HTML,CSS,JS) 요청
 activate S
 S -> D : 작성된 폼 정보 Insert
 activate D
-D -> D : pay_no 생성
+D -> D : pay_no 생성,\nUPDATE 달성률, 후원자수, 현재금액
 D --> S : 해당 펀딩, 리워드, 결제, 유저 데이터 응답
 deactivate D
 S --> C : 펀딩완료 static asset(HTML,CSS,JS) 응답
 deactivate S
-C --> User : 펀딩롼료 페이지 노출
+C --> User : 펀딩완료 페이지 노출
 deactivate C
 
 @enduml
