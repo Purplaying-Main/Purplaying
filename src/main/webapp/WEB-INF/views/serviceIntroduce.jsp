@@ -16,12 +16,11 @@
 		<section id="intro">
 
     <div class="intro-content" id="intro-img">
-      <h1>도서 전문 펀딩 사이트, 퍼플레잉</h1>
+      <h1 class="mb-2">도서 전문 펀딩 사이트, 퍼플레잉</h1>
     </div>
 
   </section><!-- #intro -->
 
-  <main id="main">
 
     <!--==========================
       About Section
@@ -38,6 +37,7 @@
             <h3>퍼플레잉에서 독서의 범위를 넓혀보세요!</h3>
 
             <ul>
+              <li></li>
               <li><i class="ion-android-checkmark-circle"></i>세상에는 수많은 책들이 있습니다.</li>
               <li><i class="ion-android-checkmark-circle"></i>그리고 그 책들은 높은 가치를 지니고 있습니다. </li>
               <li><i class="ion-android-checkmark-circle"></i>하지만, 언어의 장벽은 그 가치를 온전히 받아들이지 못하게 합니다.</li>
@@ -55,41 +55,45 @@
     <section id="services">
       <div class="container">
         <div class="section-header">
-          <h2>Services</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
+          <h2>퍼플레잉 주요 서비스와 목표</h2>
+          <p>국내에 발간되지 않은 서적 및 각종 문화 아이템을 크라우드 펀딩을 통해 누구나 제안하고 후원받을 수 있으며,<br>후원 받은 금액을 출판 및 번역에 사용하고 후원자분들을 위한 리워드를 제공하는 등의 서비스 전반을 지원, 홍보해 드립니다.</p>
         </div>
 
         <div class="row">
 
           <div class="col-lg-6">
             <div class="box wow fadeInLeft">
-              <div class="icon"><i class="fa fa-bar-chart"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+              <div class="icon"><i class="fa-solid fa-book"></i></div>
+              <h4 class="title">도서 번역출판</h4>
+              <p class="description">다양한 도서를 소개하고 실제 발매로 이어지는 과정을
+              <br>지원하는 것이 퍼플레잉의 주요 목표입니다.<br></p>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="box wow fadeInRight">
-              <div class="icon"><i class="fa fa-picture-o"></i></div>
-              <h4 class="title"><a href="">Dolor Sitema</a></h4>
-              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
+              <div class="icon"><i class="fa-solid fa-percent"></i></div>
+              <h4 class="title">크라우드 펀딩</h4>
+              <p class="description">크라우드 펀딩 시스템을 통한 직접적인 후원을 통해
+              <br>출판 과정을 유연하게 지원할 수 있습니다.<br></p>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="box wow fadeInLeft" data-wow-delay="0.2s">
-              <div class="icon"><i class="fa fa-shopping-bag"></i></div>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
+              <div class="icon"><i class="fa-solid fa-language"></i></div>
+              <h4 class="title">번역 출판</h4>
+              <p class="description">한국에 출간되지 못했던 숨겨진 보석이 빛날 수 도록
+              <br>다양한 지원 활동을 하고 있습니다.<br></p>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="box wow fadeInRight" data-wow-delay="0.2s">
-              <div class="icon"><i class="fa fa-map"></i></div>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
+              <div class="icon"><i class="fa-solid fa-gift"></i></div>
+              <h4 class="title">리워드</h4>
+              <p class="description">리워드 시스템을 통해, 내가 원하는 다양한 도서를 후원하고
+              <br>창작자와 후원자 사이의 긍정적인 커뮤니케이션을 목표로 합니다.</p>
             </div>
           </div>
 
@@ -105,18 +109,18 @@
     <section id="team" class="wow fadeInUp">
       <div class="container">
         <div class="section-header">
-          <h2>팀 프로필</h2>
+          <h2>Purplaying 개발팀 프로필</h2>
         </div>
         <div class="row">
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-1.jpg" alt=""></div>
+              <div class="pic "><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>Walter White</h4>
-                <span>CEO</span>
+                <h4>[이름]</h4>
+                <span>Team Leader</span>
                 <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
                 </div>
@@ -126,13 +130,13 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-2.jpg" alt=""></div>
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>Sarah Jhinson</h4>
-                <span>Product Manager</span>
+                <h4>[이름]</h4>
+                <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
                 </div>
@@ -142,13 +146,13 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-3.jpg" alt=""></div>
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>William Anderson</h4>
-                <span>CTO</span>
+                <h4>[이름]</h4>
+                <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
                 </div>
@@ -158,13 +162,13 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="img/team-4.jpg" alt=""></div>
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>Amanda Jepson</h4>
-                <span>Accountant</span>
+                <h4>[이름]</h4>
+                <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa fa-twitter"></i></a>
-                  <a href=""><i class="fa fa-facebook"></i></a>
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
                 </div>
@@ -172,7 +176,71 @@
             </div>
           </div>
         </div>
+		        <div class="row">
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
+              <div class="details">
+                <h4>[이름]</h4>
+                <span>Team Member</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
+                  <a href=""><i class="fa fa-google-plus"></i></a>
+                  <a href=""><i class="fa fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
+              <div class="details">
+                <h4>[이름]</h4>
+                <span>Team Member</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
+                  <a href=""><i class="fa fa-google-plus"></i></a>
+                  <a href=""><i class="fa fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
+              <div class="details">
+                <h4>[이름]</h4>
+                <span>Team Member</span>
+                <div class="social">
+                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
+                  <a href=""><i class="fa fa-google-plus"></i></a>
+                  <a href=""><i class="fa fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/jwc.jpg" alt=""></div>
+              <div class="details">
+                <h4>전완철</h4>
+                <span>Team Member</span>
+                <div class="social">
+                  <a href="https://github.com/GRPeas"><i class="fa-brands fa-github"></i></a>
+                  <a href=""><i class="fa-solid fa-blog"></i></a>
+                  <a href=""><i class="fa fa-google-plus"></i></a>
+                  <a href=""><i class="fa fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
 	</section>
