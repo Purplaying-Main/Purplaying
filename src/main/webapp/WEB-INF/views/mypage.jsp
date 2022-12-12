@@ -48,12 +48,14 @@
 			  <c:forEach var="projectDto" items="${list}">
 	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
               		<!-- project card start -->
-              		<a href='<c:url value="/project/modify/${projectDto.prdt_id }"/>'>
-		              <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              		
+		             <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> 
+		             
 		                <div class="col-auto d-none d-lg-block">
 		                	<img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
 		                		src="${projectDto.prdt_thumbnail}" style="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }" >  
 		                </div>
+		                
 		                <div class="col p-4 d-flex flex-column position-static">
 		                  <div class="row justify-content-between mb-2">
 		                    <div class="col-auto me-auto text-primary">
@@ -62,9 +64,13 @@
 		                    	<c:when test="${projectDto.prdt_dday >= 0}">펀딩 중</c:when>
 		                    	<c:when test="${projectDto.prdt_comingday < 0 }">펀딩 종료</c:when>
 		                    	<c:otherwise>펀딩상태</c:otherwise>
-		                    </c:choose> | 펀딩번호 ${projectDto.prdt_id }
+		                    </c:choose> 
+		                    | 펀딩번호 ${projectDto.prdt_id }
 		                    </div> 
-		                    <div class="col-auto">
+		                    <div class="d-flex col-auto">
+		                    	<div class="me-3">
+		                    		 <a href="${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}">관리</a>
+		                    	</div>
 		                      <!-- on off btn -->
 		                      <div class="form-check form-switch">
 		                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
@@ -72,7 +78,11 @@
 		                      </div>
 		                    </div>
 		                  </div>
+		                  
+		                  <a href='<c:url value="/project/modify/${projectDto.prdt_id }"/>'>
 		                  <h4 class="mb-0">${projectDto.prdt_name}</h4>
+		                  </a> 
+		                  
 		                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 
 		                  <c:choose>
 		                  <c:when test="${projectDto.prdt_comingday > 0 }">공개 D-${projectDto.prdt_comingday}</c:when>
@@ -82,9 +92,11 @@
 		                  </p>
 		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
+		                  
 		                </div>
-		              </form> 
-		            </a> 
+		                
+		             </form>  
+		            
 		      	</c:if>
 		      </c:forEach>
 		      </c:if>

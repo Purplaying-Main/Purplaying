@@ -56,5 +56,13 @@
  	where tb_payment.user_no = #{user_no} and tb_payment.prdt_id = #{prdt_id}
  	limit 1
  	</select>
+ 	
+ 	<select id="fundingManage" parameterType="Map" resultType="PaymentDto">
+ 	select
+	pay_no, pay_time, user_no, reward_id, reward_user_cnt,
+	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail,delivery_memo
+	from tb_payment
+	where prdt_id =  #{prdt_id}
+ 	</select>
  		
  </mapper>

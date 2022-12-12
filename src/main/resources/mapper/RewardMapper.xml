@@ -51,7 +51,7 @@
 	</update>
 	
 		<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문 -->
-	<resultMap type="RewardDto" id="RewardDto">
+<!--  	<resultMap type="RewardDto" id="RewardDto">
 			<result column="prdt_id" property="prdt_id"/>
  		 	<result column="reward_id" property="reward_id"/>
  		 	<result column="reward_name" property="reward_name"/>
@@ -78,10 +78,10 @@
 		from tb_payment left join tb_reward
 		on tb_payment.reward_id = tb_reward.reward_id
 		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no} and pay_total = #{pay_total}
-	</select>
+	</select> -->
 
 <!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문  -->
-<!-- 	<resultMap type="RewardDto" id="RewardDto">
+	<resultMap type="RewardDto" id="RewardDto">
 			<result column="prdt_id" property="prdt_id"/>
  		 	<result column="reward_name" property="reward_name"/>
  		 	<result column="reward_price" property="reward_price"/>
@@ -102,6 +102,6 @@
 		on tb_payment.prdt_id = tb_reward.prdt_id
 		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no}
 		order by tb_payment.reward_id
-	</select> -->
+	</select>
 
 </mapper>

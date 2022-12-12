@@ -13,4 +13,5 @@ public interface PaymentDao {
   List<PaymentDto> paymentCompleted(Map map) throws Exception;
   PaymentDto getPaymentReceipt(int pay_no) throws Exception;
   List<PaymentDto> pay_no(int user_no,int prdt_it) throws Exception;
+  List<PaymentDto> fundingManage(Map map) throws Exception;
 }
