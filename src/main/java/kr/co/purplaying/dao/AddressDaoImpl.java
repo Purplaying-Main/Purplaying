@@ -46,4 +46,10 @@ public class AddressDaoImpl implements AddressDao {
     return session.selectList(namespace + "AddressList", user_no);
   }
 
+  @Override
+  public int countDefaultAddress(int user_no) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace + "CountDefaultAddress", user_no);
+  }
+
 }

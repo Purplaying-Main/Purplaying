@@ -12,4 +12,5 @@ public interface AddressDao {
   int update(AddressDto addressDto) throws Exception;
   int insert(AddressDto addressDto) throws Exception;
   List<AddressDto> selectAll(int user_no) throws Exception;
+  int countDefaultAddress(int user_no) throws Exception;
 }

@@ -887,6 +887,12 @@
 	             	   var _buttonI_id = $(this).prev().attr("id")
 	             	   var _buttonI_id_val = $(this).prev().is(":checked")
 	             	   console.log("_buttonI_id : ",_buttonI_id, _buttonI_id_val)
+	             	   if($(this).prev().is(":checked")) {
+	             		  	_buttonI_id_val = true
+						}
+						else {
+							_buttonI_id_val = false
+						}
 	             	   
 	             	   let user_no = $("#user_no").val()
 
@@ -897,6 +903,8 @@
 	             		  favor_agree:$("#favor_agree").is(":checked"),
 	             		  marketing_agree:$("#marketing_agree").is(":checked")
 	             	   }
+	             	   
+	             	  
 	             	   //if (_buttonI.classList.contains("text-info")) { // 알림ON 일때
 	             	   if (_buttonI_id_val) { // 알림ON 일때
 
@@ -916,6 +924,7 @@
 	      	  					
 	      	  					 console.log("agreeData: ",agreeData)			  
 	      						 console.log("alarm modify success")
+	      						 alert($("#update_agree").is(":checked"))
 	      						 
 	      					},
 	      					error : function() { alert("error") }
@@ -940,6 +949,7 @@
 	      		  				 console.log("agreeData: ",agreeData)			 
 	      	  					 /* console.log("agreeOnData : ", agreeOnData) */			 
 	      						 console.log("alarm modify success")
+	      						 alert($("#update_agree").is(":checked"))
 	      						 
 	      					},
 	      					error : function() { alert("error") }

@@ -53,4 +53,9 @@
 			#{user_no}, #{address_num})
 	</insert>
 	
+	<select id="CountDefaultAddress" resultType="int">
+		select count(*) from tb_address
+		where default_address = true and user_no = #{address_numm}
+	</select>
+	
 </mapper>

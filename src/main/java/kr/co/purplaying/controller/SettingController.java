@@ -58,18 +58,18 @@ public class SettingController {
       
       System.out.println("settingDto: "+settingDto);
       
-      if(id!=null) {
-        Boolean msg_agree = settingDto.isMsg_agree();
-        Boolean update_agree = settingDto.isUpdate_agree();
-        Boolean favor_agree = settingDto.isFavor_agree();
-        Boolean marketing_agree = settingDto.isMarketing_agree();
-       
-        m.addAttribute("msg_agree",msg_agree);
-        m.addAttribute("update_agree",update_agree);
-        m.addAttribute("favor_agree",favor_agree);
-        m.addAttribute("marketing_agree",marketing_agree);
-
-      }
+//      if(id!=null) {
+//        Boolean msg_agree = settingDto.isMsg_agree();
+//        Boolean update_agree = settingDto.isUpdate_agree();
+//        Boolean favor_agree = settingDto.isFavor_agree();
+//        Boolean marketing_agree = settingDto.isMarketing_agree();
+//       
+//        m.addAttribute("msg_agree",msg_agree);
+//        m.addAttribute("update_agree",update_agree);
+//        m.addAttribute("favor_agree",favor_agree);
+//        m.addAttribute("marketing_agree",marketing_agree);
+//
+//      }
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -270,25 +270,41 @@ public class SettingController {
   }
   
   @RequestMapping(value="/setting/alarm/{user_no}", method = RequestMethod.PATCH)
-  public ResponseEntity<List<SettingDto>> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {
+  public ResponseEntity<List<SettingDto>> alarmList(@PathVariable int user_no) {     
+    List<SettingDto> agreeList = null;
+    System.out.println("리스트함수 호출");
     
     try {
-      settingDto = settingService.selectUserCheck(user_no);
-      m.addAttribute("user_no",user_no);
-      m.addAttribute("settingDto",settingDto);
-      System.out.println("settingDto: "+settingDto);
-
-      
-        List<SettingDto> agreeList = settingService.getAgreeList(user_no);
-        System.out.println("agreeList : "+agreeList);
-       
-        if(settingDao.updateAlarm(user_no, settingDto.isMsg_agree(), settingDto.isUpdate_agree(), settingDto.isFavor_agree(), settingDto.isMarketing_agree() ) != 1)
-            throw new Exception("Update failed");
-        return new ResponseEntity<List<SettingDto>>(agreeList,HttpStatus.OK);
-    }catch(Exception e) {
+      agreeList = settingService.getAgreeList(user_no);
+        
+      System.out.println("agreeList = " + agreeList);
+      return new ResponseEntity<List<SettingDto>>(agreeList, HttpStatus.OK);       //200
+        
+    } catch (Exception e) {
         e.printStackTrace();
-        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);    //400
     }
-  }
+    
+}
+//  public ResponseEntity<List<SettingDto>> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {
+//    
+//    try {
+//      settingDto = settingService.selectUserCheck(user_no);
+//      m.addAttribute("user_no",user_no);
+//      m.addAttribute("settingDto",settingDto);
+//      System.out.println("settingDto: "+settingDto);
+//
+//      
+//        List<SettingDto> agreeList = settingService.getAgreeList(user_no);
+//        System.out.println("agreeList : "+agreeList);
+//       
+//        if(settingDao.updateAlarm(user_no, settingDto.isMsg_agree(), settingDto.isUpdate_agree(), settingDto.isFavor_agree(), settingDto.isMarketing_agree() ) != 1)
+//            throw new Exception("Update failed");
+//        return new ResponseEntity<List<SettingDto>>(agreeList,HttpStatus.OK);
+//    }catch(Exception e) {
+//        e.printStackTrace();
+//        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);
+//    }
+//  }
   
 }
