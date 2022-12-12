@@ -71,7 +71,7 @@ public class UploadController {
   @ResponseBody
   public ResponseEntity<byte[]> getProfile(String file_name , Integer user_no, Model m ) throws Exception {
   
-    File file = new File("C:\\purplaying_file\\profile"+file_name);
+    File file = new File("C:\\purplaying_file\\profile\\"+file_name);
     ResponseEntity<byte[]> result = null;
     
     try {
@@ -150,7 +150,7 @@ public class UploadController {
 
     System.out.println("fileName : "+file_name);
     
-    File file = new File("C:\\purplaying_file\\profile"+file_name);
+    File file = new File("C:\\purplaying_file\\"+file_name);
     System.out.println("file: "+file);
     
     ResponseEntity<byte[]> result = null;
