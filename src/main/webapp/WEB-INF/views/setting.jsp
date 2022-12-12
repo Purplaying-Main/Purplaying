@@ -407,7 +407,7 @@
                                             <h6>메시지</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
-					                        <input type="checkbox" class="agreeAlarm " id="msg_agree" name="msg_agree" ${settingDto.msg_agree ? 'checked':'' }>
+					                        <input type="checkbox" class="agreeAlarm " id="msg_agree" style="display:none;" name="msg_agree" ${settingDto.msg_agree ? 'checked':'' }>
 					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.msg_agree ? 'fas text-info':'far text-muted' }" for="msg_agree">${settingDto.msg_agree ? '알림 ON':'알림 OFF' }</label>
 					                    </div>
                                     </li>
@@ -421,7 +421,7 @@
                                             <h6>후원 프로젝트 업데이트</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
-					                        <input type="checkbox" class="agreeAlarm" id="update_agree" name="update_agree" ${settingDto.update_agree ? 'checked':'' }>
+					                        <input type="checkbox" class="agreeAlarm" id="update_agree" style="display:none;" name="update_agree" ${settingDto.update_agree ? 'checked':'' }>
 					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.update_agree ? 'fas text-info':'far text-muted' }" for="update_agree">${settingDto.update_agree ? '알림 ON':'알림 OFF' }</label>
 					                    </div>
                                     </li>
@@ -435,7 +435,7 @@
                                             <h6>관심목록</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
-					                        <input type="checkbox" class="agreeAlarm" id="favor_agree" name="favor_agree" ${settingDto.favor_agree ? 'checked':'' }>
+					                        <input type="checkbox" class="agreeAlarm" id="favor_agree" style="display:none;" name="favor_agree" ${settingDto.favor_agree ? 'checked':'' }>
 					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.favor_agree ? 'fas text-info':'far text-muted' }" for="favor_agree">${settingDto.favor_agree ? '알림 ON':'알림 OFF' }</label>
 					                    </div>
                                     </li>
@@ -449,7 +449,7 @@
                                             <h6>마케팅 알림</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
-					                        <input type="checkbox" class="agreeAlarm" id="marketing_agree" name="marketing_agree" ${settingDto.marketing_agree ? 'checked':'' }>
+					                        <input type="checkbox" class="agreeAlarm" id="marketing_agree" style="display:none;" name="marketing_agree" ${settingDto.marketing_agree ? 'checked':'' }>
 					                        <label class="fa-regular fa-bell alretBtn fs-6 ${settingDto.marketing_agree ? 'fas text-info':'far text-muted' }" for="marketing_agree">${settingDto.marketing_agree ? '알림 ON':'알림 OFF' }</label>
 					                    </div>
                                     </li>
@@ -886,71 +886,66 @@
 	             	   let _buttonI = event.target;
 	             	   var _buttonI_id = $(this).prev().attr("id")
 	             	   var _buttonI_id_val = $(this).prev().is(":checked")
-	             	   console.log("_buttonI_id : ",_buttonI_id, _buttonI_id_val)
-	             	   if($(this).prev().is(":checked")) {
-	             		  	_buttonI_id_val = true
-						}
-						else {
-							_buttonI_id_val = false
-						}
-	             	   
+	             	   //console.log("_buttonI_id : ",_buttonI_id, _buttonI_id_val)
+	             	   let msg_agree = $("#msg_agree").is(":checked")
+	             	   let update_agree = $("#update_agree").is(":checked")
+	             	   let favor_agree = $("#favor_agree").is(":checked")
+	             	   let marketing_agree = $("#marketing_agree").is(":checked")
 	             	   let user_no = $("#user_no").val()
-
-	             	   const agreeData ={
-	             		  user_no:Number(user_no),
-	             		  msg_agree:$("#msg_agree").is(":checked"),
-	             		  update_agree:$("#update_agree").is(":checked"),
-	             		  favor_agree:$("#favor_agree").is(":checked"),
-	             		  marketing_agree:$("#marketing_agree").is(":checked")
+	             	   
+	             	   if(_buttonI_id=="msg_agree"){
+	    	             	msg_agree = !(_buttonI_id_val)
+	             	   }
+	             	   else if(_buttonI_id=="update_agree"){
+	    	             	update_agree =!(_buttonI_id_val)
+	             	   }
+	             	   else if(_buttonI_id=="favor_agree"){
+	    	           		favor_agree = !(_buttonI_id_val)
+	             	   }
+	             	   else{
+	             		   marketing_agree = !(_buttonI_id_val)
 	             	   }
 	             	   
-	             	  
+	             	  const agreeData ={
+		             		  user_no:Number(user_no),
+		             		  msg_agree:msg_agree,
+		             		  update_agree:update_agree,
+		             		  favor_agree:favor_agree,
+		             		  marketing_agree:marketing_agree
+		             	   }
+	             	   
 	             	   //if (_buttonI.classList.contains("text-info")) { // 알림ON 일때
 	             	   if (_buttonI_id_val) { // 알림ON 일때
-
 	      	  			$.ajax({
 	      	  				type : 'PATCH',
 	      	  				url : '/purplaying/setting/alarm/'+user_no,
 	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 	      	  				data: JSON.stringify(agreeData),
 	      					success : function(result) { 
-
 	      						 _buttonI.classList.remove("fas");
 	      	  					 _buttonI.classList.remove("text-info");
 	      	  					 _buttonI.classList.add("far");
 	      	  					 _buttonI.classList.add("text-muted");
-	      	  					
 	      	  					 _buttonI.innerText="알림 OFF";
-	      	  					
-	      	  					 console.log("agreeData: ",agreeData)			  
-	      						 console.log("alarm modify success")
-	      						 alert($("#update_agree").is(":checked"))
-	      						 
+	      	  					 //console.log("agreeData: ",agreeData)			
 	      					},
 	      					error : function() { alert("error") }
 	      	  			})
 	      	       	   } //if end
 	      	       	   else { // 알림OFF 일때
-
+	      	       		
 	      	       		$.ajax({
 	      	  				type : 'PATCH',
 	      	  				url : '/purplaying/setting/alarm/'+user_no,
 	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 	      	  				data: JSON.stringify(agreeData),
 	      					success : function(result) { 
-	      						 
 	      						 _buttonI.classList.remove("far");
 	      		  				 _buttonI.classList.remove("text-muted");
 	      						 _buttonI.classList.add("fas");
 	      						 _buttonI.classList.add("text-info");
-	      						 
 	      		  				 _buttonI.innerText="알림 ON";
-	      		  				 
-	      		  				 console.log("agreeData: ",agreeData)			 
-	      	  					 /* console.log("agreeOnData : ", agreeOnData) */			 
-	      						 console.log("alarm modify success")
-	      						 alert($("#update_agree").is(":checked"))
-	      						 
+	      		  				//console.log("agreeData :",agreeData)
 	      					},
 	      					error : function() { alert("error") }
 	      	  			})//ajax end   

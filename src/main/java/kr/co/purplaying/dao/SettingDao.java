@@ -11,7 +11,7 @@ public interface SettingDao {
   int updateIntro(SettingDto settingDto) throws Exception;
   int insertcheckbox(int user_no,boolean agree_marketing) throws Exception;
   SettingDto selectUserCheck(int user_no) throws Exception;
-  int updateAlarm(int user_no, boolean msg_agree,boolean update_agree,boolean favor_agree,boolean marketing_agree) throws Exception;
+  int updateAlarm(SettingDto settingDto) throws Exception;
   List<SettingDto> selectAll(int user_no) throws Exception;
   
 }

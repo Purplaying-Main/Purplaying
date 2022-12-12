@@ -38,7 +38,7 @@
 		where user_no = #{user_no}
 	</select>
 	
-	<update id="updateAlarm" parameterType="map">
+	<update id="updateAlarm" parameterType="SettingDto">
 		UPDATE tb_setting
 		SET msg_agree=#{msg_agree}, update_agree=#{update_agree}, favor_agree=#{favor_agree}, marketing_agree=#{marketing_agree}
 		WHERE user_no = #{user_no}

@@ -25,7 +25,7 @@ public interface SettingService {
   SettingDto selectUserCheck(int user_no) throws Exception;
   int modifyPhone(UserDto userDto) throws Exception;
 
-  /* int modifyAlarm(SettingDto settingDto) throws Exception; */
+  int modifyAlarm(SettingDto settingDto) throws Exception;
   List<SettingDto> getAgreeList(int user_no) throws Exception;
   
 }

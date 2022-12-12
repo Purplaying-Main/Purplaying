@@ -44,15 +44,9 @@ public class SettingDaoImpl implements SettingDao {
   }
   
   @Override
-  public int updateAlarm(int user_no, boolean msg_agree, boolean update_agree,boolean favor_agree,boolean marketing_agree) throws Exception {
-    Map map = new HashMap();
-    map.put("user_no", user_no);
-    map.put("msg_agree", msg_agree);
-    map.put("update_agree", update_agree);
-    map.put("favor_agree", favor_agree);
-    map.put("marketing_agree", marketing_agree);
-    
-    return session.update(namespace + "updateAlarm",map);
+  public int updateAlarm(SettingDto settingDto) throws Exception {
+
+    return session.update(namespace + "updateAlarm",settingDto);
   }
 
   @Override

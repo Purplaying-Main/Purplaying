@@ -99,12 +99,12 @@ public class SettingServiceImpl implements SettingService {
     return userDao.updateUserPhone(userDto);
   }
 
-  /*
-   * @Override
-   * public int modifyAlarm(SettingDto settingDto) throws Exception {
-   * return settingDao.updateAlarm(settingDto);
-   * }
-   */
+
+  @Override
+  public int modifyAlarm(SettingDto settingDto) throws Exception {
+  return settingDao.updateAlarm(settingDto);
+  }
+  
 
   @Override
   public List<SettingDto> getAgreeList(int user_no) throws Exception {

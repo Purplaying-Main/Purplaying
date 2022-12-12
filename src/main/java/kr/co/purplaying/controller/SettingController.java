@@ -270,41 +270,22 @@ public class SettingController {
   }
   
   @RequestMapping(value="/setting/alarm/{user_no}", method = RequestMethod.PATCH)
-  public ResponseEntity<List<SettingDto>> alarmList(@PathVariable int user_no) {     
-    List<SettingDto> agreeList = null;
-    System.out.println("리스트함수 호출");
-    
+  public ResponseEntity<String> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {
+    System.out.println("불러온값"+settingDto);
     try {
-      agreeList = settingService.getAgreeList(user_no);
-        
-      System.out.println("agreeList = " + agreeList);
-      return new ResponseEntity<List<SettingDto>>(agreeList, HttpStatus.OK);       //200
-        
-    } catch (Exception e) {
-        e.printStackTrace();
-        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);    //400
-    }
-    
-}
-//  public ResponseEntity<List<SettingDto>> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {
-//    
-//    try {
-//      settingDto = settingService.selectUserCheck(user_no);
-//      m.addAttribute("user_no",user_no);
-//      m.addAttribute("settingDto",settingDto);
-//      System.out.println("settingDto: "+settingDto);
-//
-//      
+      m.addAttribute("user_no",user_no);
+      settingDto.setUser_no(user_no);
+      
 //        List<SettingDto> agreeList = settingService.getAgreeList(user_no);
 //        System.out.println("agreeList : "+agreeList);
-//       
-//        if(settingDao.updateAlarm(user_no, settingDto.isMsg_agree(), settingDto.isUpdate_agree(), settingDto.isFavor_agree(), settingDto.isMarketing_agree() ) != 1)
-//            throw new Exception("Update failed");
-//        return new ResponseEntity<List<SettingDto>>(agreeList,HttpStatus.OK);
-//    }catch(Exception e) {
-//        e.printStackTrace();
-//        return new ResponseEntity<List<SettingDto>>(HttpStatus.BAD_REQUEST);
-//    }
-//  }
+       
+        if(settingDao.updateAlarm(settingDto) != 1)
+            throw new Exception("Update failed");
+        return new ResponseEntity<String>("MOD_OK", HttpStatus.OK);
+    }catch(Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
+    }
+  }
   
 }
