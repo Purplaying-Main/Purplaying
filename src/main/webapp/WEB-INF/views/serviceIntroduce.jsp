@@ -116,7 +116,7 @@
             <div class="member">
               <div class="pic "><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>한승훈</h4>
                 <span>Team Leader</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -132,7 +132,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>고영은</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -148,7 +148,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>김영은</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -164,7 +164,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>김호경</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -181,7 +181,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>양승민</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -197,7 +197,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>이규황</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
@@ -213,7 +213,7 @@
             <div class="member">
               <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
-                <h4>[이름]</h4>
+                <h4>이희라</h4>
                 <span>Team Member</span>
                 <div class="social">
                   <a href=""><i class="fa-brands fa-github"></i></a>
