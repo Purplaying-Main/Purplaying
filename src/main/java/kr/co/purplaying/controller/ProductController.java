@@ -25,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.UserDao;
-import kr.co.purplaying.domain.CommunityDto;
 import kr.co.purplaying.domain.ProjectDto;
-import kr.co.purplaying.domain.ReplyDto;
 import kr.co.purplaying.domain.RewardDto;
 import kr.co.purplaying.domain.SearchItem;
 import kr.co.purplaying.domain.UpdateDto;

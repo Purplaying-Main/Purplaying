@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.domain.CommunityDto;
 import kr.co.purplaying.service.CommunityService;
@@ -46,7 +47,7 @@ public class CommunityController {
   @PostMapping("/community")
   @ResponseBody
   public List<CommunityDto> list2(@RequestBody CommunityDto communityDto, int prdt_id, Model m) {
-    List<CommunityDto> list = null;
+    List<CommunityDto> list = null; 
     System.out.println(communityDto);
 
     try {
@@ -54,15 +55,36 @@ public class CommunityController {
         System.out.println("실패");
       }
       list = service.getList(communityDto.getPrdt_id());
-
       System.out.println("list =" + list);
 
       return list;
+
     } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
+  }
 
+  @PostMapping("/community/{chat_no}")
+  public String write(CommunityDto communityDto, RedirectAttributes rattr, Model m, HttpSession session) {
+
+    String writer = (String) session.getAttribute("chat_writer");
+    communityDto.setChat_writer(writer);
+
+    try {
+
+      if (service.insertChat(communityDto) != 1)
+        throw new Exception("Write failed");
+      rattr.addFlashAttribute("msg", "RPL_OK");
+      return "redirect:/project/{prdt_id}";
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      m.addAttribute("mode", "new"); // 글쓰기 모드
+      m.addAttribute("communityDto", communityDto); // 등록하려던 내용을 보여줘야 함
+      m.addAttribute("msg", "RPL_ERR");
+      return "redirect:/project/{prdt_id}";
+    }
   }
 
 //지정된 댓글을 삭제하는 메서드
@@ -80,7 +102,7 @@ public class CommunityController {
     }
   }
 
-  // 댓글을 수정하는 메서드
+// 댓글을 수정하는 메서드
   @PatchMapping("/community/{chat_no}")
   public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
       HttpSession session) {
@@ -100,15 +122,15 @@ public class CommunityController {
     }
   }
 
+//댓글 작성
+
   /*
-   * ////댓글 작성
-   * 
    * @PostMapping("/community")
    * public ResponseEntity<String> write(@RequestBody CommunityDto dto, Integer
    * chat_no, HttpSession session) {
    * // 로그인을 안하고 commenter 정보를 입력해줘야함;
    * String chat_writer = (String) session.getAttribute("chat_writer");
-   * ;
+   * 
    * 
    * dto.setChat_writer(chat_writer);
    * dto.setChat_no(chat_no);
@@ -121,29 +143,6 @@ public class CommunityController {
    * } catch (Exception e) {
    * e.printStackTrace();
    * return new ResponseEntity<String>("WRT_ERR", HttpStatus.BAD_REQUEST);
-   * }
-   * }
-   */
-  /*
-   * @PostMapping("/community/{chat_no}/write")
-   * public String write(CommunityDto communityDto, RedirectAttributes rattr,
-   * Model m, HttpSession session) {
-   * 
-   * String writer = (String) session.getAttribute("chat_writer");
-   * communityDto.setChat_writer(writer);
-   * try {
-   * 
-   * if (communityService.insertChat(communityDto) != 1)
-   * throw new Exception("Write failed");
-   * rattr.addFlashAttribute("msg", "RPL_OK");
-   * return "redirect:/project/{prdt_id}";
-   * 
-   * } catch (Exception e) {
-   * e.printStackTrace();
-   * m.addAttribute("mode", "new"); // 글쓰기 모드
-   * m.addAttribute("communityDto", communityDto); // 등록하려던 내용을 보여줘야 함
-   * m.addAttribute("msg", "RPL_ERR");
-   * return "/project/{prdt_id}";
    * }
    * }
    */

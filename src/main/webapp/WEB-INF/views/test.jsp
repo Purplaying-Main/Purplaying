@@ -167,14 +167,7 @@
 	        return date_source.getFullYear() + '-' + month + '-' + day;
 
 	     }
-		
-		
 
-/* 	tmp += '<div id="rplybox">'
-		tmp += '<form class="rplyForm">'
-			tmp += '<textarea id="rply" class="form-control"  placeholder="답글을 입력하세요.">' + reply.chat_context + '</textarea>'
-			tmp += '</form>'
-				tmp += '</div>'		 */
 	</script>
 
 </body>

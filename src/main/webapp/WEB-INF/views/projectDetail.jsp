@@ -251,11 +251,11 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${CommunityDto.chat_writer }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
-								<textarea class="form-control" placeholder="내용 작성​" rows="5" style="resize: none;" name="Commentform" ></textarea>
+								<textarea class="form-control" id="comment" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
                       		</div>
 						<div class=" col-2 text-start">
 							<button type="button" id="insertBtn" class="btn btn-primary">작 성</button>
@@ -526,26 +526,30 @@
 	
 	<!-- 커뮤티니 댓글 기능 -->
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
-			
-			let prdt_id = $('#prdt_id').val();
+			//$("input[id=prdt_id]").val()
+			//$("input[id=chat_no]").val()
+			let prdt_id = $("input[id=prdt_id]").val()
 			showList(prdt_id)
-			$("#modBtn").click(function() {
+			
+			$(".modBtn").click(function() {
+				alert("수정버튼 클릭됨")
 				//showList(bno)
 				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("input[name=chat_context]").val();
+				let chat_context = $("#comment").val(); 
 				
 				if(chat_context.trim() == '') {
 					alert("댓글을 입력해 주세요.")
-					$("input[name=chat_context]").focus()
+					$("input[id=comment]").focus()
 					return
 				}
 				
 				$.ajax({
 					type : 'PATCH',				//요청 메서드
-					url : '/purplaying/community/'+chat_no,				//요청 URI
+					url : '/purplaying/community/' + chat_no,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
-					data : JSON.stringify({chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					data : JSON.stringify({chat_no:chat_no, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						alert(result)
 						showList(prdt_id)
@@ -557,18 +561,19 @@
 			
 			$("#insertBtn").click(function() {
 				//showList(bno)
-				
-				let comment = $("input[name=Commentform]").val();
+				//$('#updateDesc').val();
+				let comment = $("#comment").val();
+				alert(comment)
 				
 				if(comment.trim() == '') {
 					alert("댓글을 입력해 주세요.")
-					$("input[name=Commentform]").focus()
+					$("#comment").val();
 					return
 				}
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/community?prdt_id='+prdt_id,				//요청 URI
+					url : '/purplaying/community?prdt_id=' + prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -585,11 +590,11 @@
 				alert("삭제 버튼 클릭됨")
 				
 				let chat_no = $(this).parent().attr("data-chat_no")				// li 태그는 <button>의 부모임.
-				let prdt_id = $(this).parent().attr("data-prdt_id")				// attr 중 사용자 정의 attr를 선택함.
+				let prdt_id = $("input[id=prdt_id]").val();				//$(this).parent().attr("data-prdt_id")				// attr 중 사용자 정의 attr를 선택함.
 				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
-					url : '/purplaying/community/'+chat_no+'?prdt_id='+prdt_id,			//요청 URI
+					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
 						alert(result)						//result 서버가 전송한 데이터
 						showList(prdt_id)
@@ -601,16 +606,16 @@
 			})
 			
 			$("#commentList").on("click", ".modBtn", function() {			// commentList안에 있는 delBtn버튼에다가 클릭이벤트를 등록해야 함.
-				//alert("댓글수정 버튼 클릭됨")
+				alert("댓글수정 버튼 클릭됨")
 				
 			 	let chat_no = $(this).parent().attr("data-chat_no")				// li 태그는 <button>의 부모임.
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
 				let chat_context = $("span.chat_context",$(this).parent()).text()
 	
 				//1. comment의 내용을 input에 출력해주기
-				$("input[name=comment]").val(chat_context)
+				$("#comment").val(chat_context);
 				//2. cno전달하기
-				$("#modBtn").attr("data-chat_no", chat_no)
+				$("#insertBtn").attr("data-chat_no", chat_no)
 				
 	
 			}) 
@@ -619,7 +624,7 @@
 			let showList = function(prdt_id) {
 				$.ajax({
 					type : 'GET',		//요청 메서드
-					url : '/purplaying/community?prdt_id='+prdt_id,		// 요청 URI
+					url : '/purplaying/community?prdt_id=' + prdt_id,		// 요청 URI
 					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 						/* json = JSON.stringify(result) */
 						$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터
@@ -633,32 +638,37 @@
 				let tmp = '<div class="row text-start">'
 	
 					comments.forEach(function(comment) {
-
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
-						tmp += '	<div class="col-11">'
+						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
+						tmp += '		data-prdt_id'+ comment.prdt_id
+						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
-						tmp += '			<h6 class="my-0">후원자 아이디 > '+ comment.chat_writer + '</h6>'
-						tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + '</p>'
+						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.chat_writer + '</h6>'
+						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
-						tmp += '	<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
-						tmp += ' 		<button id="delBtn" class="btn btn-primary">삭제</button>'
-						tmp += '		<button id="modBtn" class="btn btn-primary">수정</button>'
-						tmp += '		</div>'
-						tmp += '	<div class="row rounded bg-light p-3 mb-3">'
+						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
+						tmp += ' 		<button class="delBtn" >삭제</button>'
+						tmp += '		<button class="modBtn" >수정</button>'
+						tmp += '	</div>'
+						
+						
+/* 						tmp += '	<div class="row rounded bg-light p-3 mb-3">'
 						tmp += '		<div class="col-1">'
 						tmp += '			<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '		</div>'
 						tmp += '	<div class="col-11">'
-						tmp += '		<div class="border-bottom">'
+						tmp += '		<div class="border-bottom" data-cno=' + comment.chat_no
+						tmp += '		data-prdt_id'+ comment.prdt_id
+						tmp += '		data-user_no'+ comment.user_no +'>'
 						tmp += '			<h6 class="my-0">창작자 닉네임 > ' + comment.chat_writer + '</h6>'
 						tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '		</div>'			
 						tmp += '			<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
-						tmp += ' 			<button id="delBtn" class="btn btn-primary">삭제</button>'
-						tmp += ' 			<button id="modBtn" class="btn btn-primary">수정</button>'
-						tmp += '	</div>'
+						tmp += ' 			<button class="delBtn" >삭제</button>'
+						tmp += ' 			<button class="modBtn" >수정</button>'
+						tmp += '	</div>' */
 				})
 				
 				return tmp += "</div>" 
