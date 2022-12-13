@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.purplaying.dao.ProjectMapper">
 		<sql id="selectFromProject"> <!--tb 내용 전체 select 추출-->
 		SELECT prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail, prdt_img
-		, (prdt_enddate-prdt_opendate) as "prdt_dday"
+		, (prdt_enddate-current_date) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
@@ -104,7 +104,7 @@
 		,user_regdate
 		,user_activate
 		,user_role
-		, (prdt_enddate-prdt_opendate) as "prdt_dday"
+		, (prdt_enddate-current_date) as "prdt_dday"
 		, (prdt_enddate+1) as "prdt_purchaseday"
 		, (prdt_enddate-3) as "prdt_limitday"
 		, (prdt_currenttotal/prdt_goal)*100 as "prdt_percent"
@@ -189,7 +189,7 @@
 	</delete>
 	
 	<select id="selectProjectlikelist" parameterType="int" resultType="ProjectDto">
-		select * from tb_product
+		<include refid="selectFromProject"/>
 		where prdt_id = #{prdt_id}
 		order by prdt_id desc
 	</select>
@@ -215,19 +215,19 @@
  	</resultMap>
  	
  	 <select id="myfunding" parameterType="int" resultType="ProjectDto">
-select
-	dense_rank() over  (order by tb_product.prdt_id desc), 
-	tb_product.prdt_id, 
-	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
-	(prdt_enddate-prdt_opendate) as "prdt_dday",
- 	tb_product.prdt_desc, 
- 	tb_product.prdt_name, 
- 	tb_product.prdt_thumbnail
-from tb_product inner join
-tb_payment
-on tb_payment.prdt_id = tb_product.prdt_id
-where tb_payment.user_no = #{user_no}
-group by tb_product.prdt_id
+		select
+			dense_rank() over  (order by tb_product.prdt_id desc), 
+			tb_product.prdt_id, 
+			(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+			(prdt_enddate-current_date) as "prdt_dday",
+		 	tb_product.prdt_desc, 
+		 	tb_product.prdt_name, 
+		 	tb_product.prdt_thumbnail
+		from tb_product inner join
+		tb_payment
+		on tb_payment.prdt_id = tb_product.prdt_id
+		where tb_payment.user_no = #{user_no}
+		group by tb_product.prdt_id
  	</select>
  	
 

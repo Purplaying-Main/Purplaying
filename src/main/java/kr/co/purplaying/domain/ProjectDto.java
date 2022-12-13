@@ -346,7 +346,4 @@ public class ProjectDto {
     this.pay_no = pay_no;
   }
 
-
-  
-  
 }

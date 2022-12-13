@@ -52,7 +52,7 @@ public class MypageController {
                      ProjectDto projectDto, PaymentDto paymentDto) {
     
       if(!loginCheck(request))
-        return "redirect:/login/login?toURL="+request.getRequestURL();
+        return "redirect:/user/login?toURL="+request.getRequestURL();
       
       try {
        //session.user_id 와 작성자 비교.
@@ -75,21 +75,20 @@ public class MypageController {
       
       List<LikeDto> list_like_project = likeService.selectByUserId(user_id);
       List<ProjectDto> list_like = new ArrayList<ProjectDto>();
-      
-      
-      System.out.println("list_like"+list_like_project);
+
+//      System.out.println("list_like"+list_like_project);
       for(int i = 0; i<list_like_project.size(); i++) {
         list_like.add(projectService.selectProjectlikelist(list_like_project.get(i).getPrdt_id()));
       }
-      
+//      System.out.println("list_like: "+list_like);
       m.addAttribute("list_like",list_like);   
         
       List<ProjectDto> list = projectService.getPage(map);
       
      
       m.addAttribute("list", list);
-      
-      System.out.println("list : "+ list);
+//      
+//      System.out.println("list : "+ list);
       m.addAttribute("pr", pageResolver);
       
       m.addAttribute("page", page);
