@@ -162,7 +162,13 @@
 	                </div>
 	                <div class="col p-4 d-flex flex-column position-static">
 	                  <div class="row justify-content-between mb-2">
-	                    <div class="col-auto me-auto text-primary" id="mypage_prdt_id">펀딩중 | 펀딩번호 ${projectDto.prdt_id }</div> 
+	                    <div class="col-auto me-auto text-primary" id="mypage_prdt_id">
+	                    	<c:choose>
+		                    	<c:when test="${projectDto.prdt_comingday > 0 }">펀딩 예정</c:when>
+		                    	<c:when test="${projectDto.prdt_dday >= 0}">펀딩 중</c:when>
+		                    	<c:when test="${projectDto.prdt_comingday < 0 }">펀딩 종료</c:when>
+		                    	<c:otherwise>펀딩상태</c:otherwise>
+		                    </c:choose> | 펀딩번호 ${projectDto.prdt_id}</div> 
 	                    <div class="col-auto">
 	                      <!-- on off btn -->
 	                     <div class="col-auto justify-content-end">
@@ -276,7 +282,7 @@
   	   } 
   	   else {
   		 let prdt_id = $('#mypage_prdt_id').html().split(' ').reverse()[0]
- 	
+ 			console.log(prdt_id)
   	   		$.ajax({
   				type : 'post',				//요청 메서드
   				url : '/purplaying/like/removelike',				//요청 URI

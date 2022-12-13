@@ -53,7 +53,7 @@ public class PaymentController {
   @Autowired
   RewardDao rewardDao;
   
-
+  
   @RequestMapping("/payment/{prdt_id}")
   @GetMapping("/payment/{prdt_id}")
   //@PostMapping("/payment/{prdt_id}")

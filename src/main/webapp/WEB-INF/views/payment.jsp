@@ -9,6 +9,8 @@
  <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
  <%@ include file ="meta.jsp" %>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+ 
 </head>
 <body>
     <!--헤더 인클루드-->
@@ -21,7 +23,12 @@
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h3>
-
+  
+        <%-- <input type="text" id="user_id" value="${sessionScope.UserDto.user_id }"/>
+        <input type="text" id="user_name" value="${sessionScope.UserDto.user_name}"/>
+        <input type="text" id="user_phone" value="${sessionScope.UserDto.user_phone}"/>
+		<input type="text" id="amount" value="${param.rewardTotalPrice}"/>
+		<input type="text" id="prdt_nm" value="${projectDto.prdt_name}"/> --%>
         <!-- 프로젝트명 -->
         <div class="mb-4">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -414,7 +421,8 @@
 		
 		if(formCheck())
 			form.submit()	
-  	})
+  	})  
+  	
   	
 		formCheck = function() {
 		let form = document.getElementById("paymentform")
