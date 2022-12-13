@@ -58,13 +58,13 @@ public class PageResolver2 {
 
   @Override
   public String toString() {
-      return "PageResolver [sc=" + sc2 + ", totalCnt=" + totalCnt + ", totalPage=" + totalPage + ", beginPage="
+      return "PageResolver [sc2=" + sc2 + ", totalCnt=" + totalCnt + ", totalPage=" + totalPage + ", beginPage="
               + beginPage + ", endPage=" + endPage + ", showNext=" + showNext + ", showPrev=" + showPrev + "]";
   }
 
   
 
-  public SearchItem2 getSc() {
+  public SearchItem2 getSc2() {
       return sc2;
   }
 

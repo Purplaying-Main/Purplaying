@@ -13,7 +13,6 @@ public class SearchItem2 {
 	
 	private Integer page = 1;
 	private Integer pageSize = DEFAULT_PAGE_SIZE;
-	private String option = "";
 	private String keyword = "";
 	private Integer offset;
 	
@@ -22,15 +21,14 @@ public class SearchItem2 {
 	}
 
 	public SearchItem2(Integer page, Integer pageSize) {
-		this(page, pageSize, "", "");
+		this(page, pageSize, "");
 	}
 	
 	
-	public SearchItem2(Integer page, Integer pageSize, String option, String keyword) {
+	public SearchItem2(Integer page, Integer pageSize, String keyword) {
 		//super();
 		this.page = page;
 		this.pageSize = pageSize;
-		this.option = option;
 		this.keyword = keyword;
 	}
 	
@@ -39,11 +37,10 @@ public class SearchItem2 {
 		return getQueryString(page);
 	}
 	
-	// uri? // ?page=10&pageSize=10&option= A&keyword=title
+	// uri? // ?page=10&pageSize=10&keyword=title
 	public String getQueryString(Integer page) {
 		return UriComponentsBuilder.newInstance().queryParam("page", page)
 												 .queryParam("pageSize", pageSize)
-												 .queryParam("option", option)
 												 .queryParam("keyword", keyword)
 												 .build().toString();
 	}
@@ -68,13 +65,6 @@ public class SearchItem2 {
 		this.pageSize = max(MIN_PAGE_SIZE, min(this.pageSize, MAX_PAGE_SIZE));
 	}
 
-	public String getOption() {
-		return option;
-	}
-
-	public void setOption(String option) {
-		this.option = option;
-	}
 
 	public String getKeyword() {
 		return keyword;
@@ -96,7 +86,7 @@ public class SearchItem2 {
 
 	@Override
 	public String toString() {
-		return "SearchItem2 [page=" + page + ", pageSize=" + pageSize + ", option=" + option + ", keyword=" + keyword
+		return "SearchItem2 [page=" + page + ", pageSize=" + pageSize + ",keyword=" + keyword
 				+ ", offset=" + offset + "]";
 	}
 	

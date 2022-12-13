@@ -11,11 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.purplaying.dao.ProjectSuggestDao;
 import kr.co.purplaying.dao.UserDao;
-import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.PageResolver2;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem2;
