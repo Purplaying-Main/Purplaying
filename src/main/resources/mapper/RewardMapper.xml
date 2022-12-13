@@ -51,7 +51,7 @@
 	</update>
 	
 		<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문 -->
-<!--  	<resultMap type="RewardDto" id="RewardDto">
+  	<resultMap type="RewardDto" id="RewardDto">
 			<result column="prdt_id" property="prdt_id"/>
  		 	<result column="reward_id" property="reward_id"/>
  		 	<result column="reward_name" property="reward_name"/>
@@ -78,30 +78,6 @@
 		from tb_payment left join tb_reward
 		on tb_payment.reward_id = tb_reward.reward_id
 		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no} and pay_total = #{pay_total}
-	</select> -->
-
-<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문  -->
-	<resultMap type="RewardDto" id="RewardDto">
-			<result column="prdt_id" property="prdt_id"/>
- 		 	<result column="reward_name" property="reward_name"/>
- 		 	<result column="reward_price" property="reward_price"/>
- 		<association property="PaymentDto" javaType="PaymentDto">
- 			<result column="prdt_id" property="prdt_id"/>
- 		 	<result column="reward_id" property="reward_id"/>
-	 		<result column="reward_user_cnt" property="reward_user_cnt"/>
- 		</association>
- 	</resultMap>
- 	
- 	<select id="userSelectedReward" parameterType="map"  resultType="RewardDto" >
-		select 
-		tb_payment.reward_id, 
-		tb_reward.reward_name, 
-		tb_payment.reward_user_cnt as "reward_user_cnt", 
-		tb_reward.reward_price
-		from tb_payment right join tb_reward
-		on tb_payment.prdt_id = tb_reward.prdt_id
-		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no}
-		order by tb_payment.reward_id
 	</select>
 
 </mapper>

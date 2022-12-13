@@ -400,8 +400,14 @@
   		let rn = [];
   	    let rc = [];
 
-  	    let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)); //후원금액
-  	  	document.getElementById("pay_total").value = total;
+  	    if(document.getElementById("dt_fundingPrice").innerText<=7){
+			let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1));
+			document.getElementById("pay_total").value = total;
+  	    }
+  	    else{
+  	    let totalOver = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)[0].replace(',','').split('원',1)); //후원금액
+  	    document.getElementById("pay_total").value = totalOver;
+  	    }
   	    
   	    for(let i = 1; i<=document.getElementById("rewardCnt").childElementCount-4; i+=4){
 			let j = 2+i;

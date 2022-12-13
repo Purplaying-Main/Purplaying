@@ -57,6 +57,24 @@
  	limit 1
  	</select>
  	
+ 	<!-- 일주일이내 일당 후원액 집계 -->
+	<select id="fundingManageForChart" parameterType="Map" resultType="PaymentDto">
+	select sum(pay_total) as "daySum",Extract(dow from pay_time) as"day"
+	from tb_payment
+	where <![CDATA[pay_time >= current_date-7]]> and prdt_id =  #{prdt_id}
+	group by Extract(dow from pay_time)
+	order by current_date desc
+	</select>
+ 	
+ 	<!-- 일주일 펀딩 내역 출력 -->
+ 	 <select id="fundingManageForWeek" parameterType="Map" resultType="PaymentDto">
+ 	select
+	pay_no, pay_time, user_no, reward_id, reward_user_cnt, pay_total
+	from tb_payment
+	where prdt_id =  #{prdt_id} and <![CDATA[pay_time >= current_date-7]]>
+ 	</select>
+ 	
+ 	<!-- csv 추출시 쿼리문 -->
  	<select id="fundingManage" parameterType="Map" resultType="PaymentDto">
  	select
 	pay_no, pay_time, user_no, reward_id, reward_user_cnt,
@@ -64,5 +82,5 @@
 	from tb_payment
 	where prdt_id =  #{prdt_id}
  	</select>
- 		
+	
  </mapper>

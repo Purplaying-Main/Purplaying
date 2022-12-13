@@ -25,7 +25,7 @@
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 	prdt_currenttotal, 
-	(prdt_enddate-prdt_opendate) as "prdt_dday",
+	(prdt_enddate-current_date) as "prdt_dday",
 	prdt_thumbnail
 	from tb_product
 	where prdt_genre = 1 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
@@ -40,7 +40,7 @@
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 	prdt_currenttotal, 
-	(prdt_enddate-prdt_opendate) as "prdt_dday",
+	(prdt_enddate-current_date) as "prdt_dday",
 	prdt_thumbnail
 	from tb_product
 	where prdt_genre = 2 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
@@ -55,7 +55,7 @@
 	prdt_name,
 	(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 	prdt_currenttotal, 
-	(prdt_enddate-prdt_opendate) as "prdt_dday",
+	(prdt_enddate-current_date) as "prdt_dday",
 	prdt_thumbnail
 	from tb_product
 	where prdt_genre = 3 and <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		

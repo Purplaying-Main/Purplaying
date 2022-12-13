@@ -11,7 +11,7 @@
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 
-		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		(prdt_enddate-current_date) as "prdt_dday",
 		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id),
 		prdt_thumbnail
 		from tb_product
@@ -26,7 +26,7 @@
 		prdt_name,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
 		prdt_currenttotal, 
-		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		(prdt_enddate-current_date) as "prdt_dday",
 		prdt_opendate,
 		row_number() over(order by prdt_opendate desc, prdt_id desc), <!--시작일이 같을 경우 상품 번호로 내림차순 정렬  -->
 		prdt_thumbnail
