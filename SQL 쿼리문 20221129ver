@@ -45,6 +45,7 @@ CREATE TABLE tb_user (
     user_role int4 NOT NULL DEFAULT 0,
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
     user_point int default 0,
+    user_nickname	varchar(100) not null,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );

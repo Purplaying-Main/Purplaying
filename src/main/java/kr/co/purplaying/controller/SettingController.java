@@ -105,8 +105,8 @@ public class SettingController {
   }
   
   @ResponseBody
-  @RequestMapping(value="/setting/stmodname", method = RequestMethod.POST)
-  public UserDto stmodName(@RequestBody UserDto userDto, HttpSession session) {
+  @RequestMapping(value="/setting/stmodnname", method = RequestMethod.POST)
+  public UserDto stmodNname(@RequestBody UserDto userDto, HttpSession session) {
     String id = (String)session.getAttribute("user_id");
     
     try {
@@ -120,15 +120,15 @@ public class SettingController {
     
   }
   
-  @RequestMapping(value="/setting/name/{user_no}", method = RequestMethod.PATCH)
-  public ResponseEntity<String> modifyName(@PathVariable int user_no, @RequestBody UserDto userDto , HttpSession session) {
+  @RequestMapping(value="/setting/nname/{user_no}", method = RequestMethod.PATCH)
+  public ResponseEntity<String> modifyNname(@PathVariable int user_no, @RequestBody UserDto userDto , HttpSession session) {
     String id = (String)session.getAttribute("user_id");
     userDto.setUser_id(id);
     
     System.out.println("id = " + id+ "userDto = " + userDto);
     
     try {
-        if(settingService.modifyName(userDto) != 1)
+        if(settingService.modifyNickName(userDto) != 1)
             throw new Exception("Update failed");
         return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
     }catch(Exception e) {

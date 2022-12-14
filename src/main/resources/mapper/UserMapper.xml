@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.purplaying.UserMapper">
 
 	<sql id="selectFromUser">
-		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE , USER_POINT
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE , USER_POINT, USER_NICKNAME
 		FROM tb_user
 	</sql>
 	<!-- signin -->
@@ -34,9 +34,9 @@
 		select count(*) from tb_user
 	</select>
 	
-	<update id="updateName" parameterType="UserDto">
+	<update id="updateNickName" parameterType="UserDto">
 		UPDATE tb_user
-		SET user_name= #{user_name}
+		SET user_nickname= #{user_nickname}
 		WHERE user_id= #{user_id}
 	</update>
 	

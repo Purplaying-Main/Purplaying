@@ -15,8 +15,15 @@ public class UserDto {
   private int user_role;
   private String user_profile;
   private int user_point;
+  private String user_nickname;
   
   
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
+  }
   public int getUser_point() {
     return user_point;
   }
@@ -112,7 +119,7 @@ public class UserDto {
   @Override
   public String toString() {
     return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
-        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
+        + user_name + ", user_phone=" + user_phone + ", user_nickname=" + user_nickname + ", user_regdate=" + user_regdate + ", user_activate="
         + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + ", user_point=" + user_point
         + "]";
   }
