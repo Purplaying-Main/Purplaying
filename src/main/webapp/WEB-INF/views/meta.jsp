@@ -17,6 +17,7 @@
   <script src="http://www.w3schools.com/lib/w3data.js"></script> 
   <script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>	  
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
   
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>

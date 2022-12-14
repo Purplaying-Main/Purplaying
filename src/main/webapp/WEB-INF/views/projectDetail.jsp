@@ -27,9 +27,6 @@
   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
    
-   
-  
-			
    <!--페이지 내용 시작-->
    <section>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>

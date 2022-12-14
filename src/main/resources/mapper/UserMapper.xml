@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.purplaying.UserMapper">
 
 	<sql id="selectFromUser">
-		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE , USER_POINT
 		FROM tb_user
 	</sql>
 	<!-- signin -->
@@ -134,4 +134,10 @@
 		<include refid="selectFromUser" />
 		WHERE user_id = #{user_id}		
 	</select>	
+	
+	<update id="insertPoint" parameterType="UserDto">
+		UPDATE tb_user 
+		set user_point= #{user_point}
+		WHERE user_id = #{user_id}	
+	</update>
 </mapper>

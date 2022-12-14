@@ -44,9 +44,11 @@ CREATE TABLE tb_user (
     user_activate int4 NOT NULL DEFAULT 1,
     user_role int4 NOT NULL DEFAULT 0,
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
+    user_point int default 0,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
+select * from TB_REWARD TR  
 
 ------------------------- account 테이블 -------------------------
 DROP TABLE if exists tb_account;
@@ -162,7 +164,7 @@ CREATE TABLE tb_inquiry_ans (
 ------------------------- leave 테이블 -------------------------
 DROP TABLE if exists tb_leave;
 CREATE TABLE tb_leave (
-    leave_no numeric NOT NULL,
+    leave_no serial NOT NULL,
     leave_category int4 NOT NULL,
     leave_reason text NULL,
     user_no int4 NOT NULL,
@@ -177,6 +179,8 @@ CREATE TABLE tb_mypage (
     product_like bool NULL DEFAULT false,
     CONSTRAINT tb_mypage_pkey PRIMARY KEY (user_no)
 );
+
+select * from  TB_SETTING TS 
 
 ------------------------- notice 테이블 -------------------------
 DROP TABLE if exists tb_notice;
@@ -256,7 +260,7 @@ CREATE TABLE tb_setting (
     update_agree bool NOT NULL DEFAULT false,
     favor_agree bool NOT NULL DEFAULT false,
     marketing_agree bool NOT NULL DEFAULT false,
-    user_introduce text NULL default '안녕하세요',
+    user_introduce text NULL,
     user_no int4 NOT NULL,
     CONSTRAINT tb_setting_pkey PRIMARY KEY (setting_no)
 );
@@ -318,6 +322,8 @@ ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
+
+
 
 --시리얼 초기화 
 -- truncate table tb_ restart identity;

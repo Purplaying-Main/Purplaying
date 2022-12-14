@@ -52,6 +52,13 @@ public class SettingController {
       int user_no = userDto.getUser_no();
       System.out.println("user_no: "+user_no);
       
+      //point용 유저정보
+      String user_id = (String) session.getAttribute("user_id");
+      UserDto pointUserDto = userDao.selectUser(user_id);
+      System.out.println(pointUserDto);
+      
+      m.addAttribute("pointUserDto",pointUserDto);
+      
       SettingDto settingDto = settingService.selectUserCheck(user_no);
       m.addAttribute("user_no",user_no);
       m.addAttribute("settingDto",settingDto);

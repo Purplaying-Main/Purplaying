@@ -14,8 +14,15 @@ public class UserDto {
   private int user_activate;
   private int user_role;
   private String user_profile;
+  private int user_point;
   
-
+  
+  public int getUser_point() {
+    return user_point;
+  }
+  public void setUser_point(int user_point) {
+    this.user_point = user_point;
+  }
   public int getUser_no() {
     return user_no;
   }
@@ -73,16 +80,17 @@ public class UserDto {
   
   
   public UserDto() {
-    this(0,"","",0);
+    this(0,"","",0,0);
   }
   
   
-  public UserDto(int user_no, String user_id, String user_pwd, int user_role) {
+  public UserDto(int user_no, String user_id, String user_pwd, int user_role,int user_point) {
     super();
     this.user_no = user_no;
     this.user_id = user_id;
     this.user_pwd = user_pwd;
     this.user_role = user_role;
+    this.user_point = user_point;
   }
   @Override
   public int hashCode() {
@@ -105,7 +113,8 @@ public class UserDto {
   public String toString() {
     return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
         + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
-        + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + "]";
+        + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + ", user_point=" + user_point
+        + "]";
   }
 
   

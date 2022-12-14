@@ -182,6 +182,8 @@ public class MemberController {
         
         UserDto userDto = userDao.selectUser(user_id);
         
+        System.out.println("포인트 : "+userDto);
+        
         
         //3. 세션 객체 얻어오기.
         HttpSession session = request.getSession();

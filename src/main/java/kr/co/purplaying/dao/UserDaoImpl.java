@@ -146,6 +146,12 @@ public class UserDaoImpl implements UserDao {
       // TODO Auto-generated method stub
       return session.selectList(namespace+"getUserList", userDto);
     }
+
+    @Override
+    public int updatePoint(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.update(namespace+"insertPoint",userDto);
+    }
     
     
 }
