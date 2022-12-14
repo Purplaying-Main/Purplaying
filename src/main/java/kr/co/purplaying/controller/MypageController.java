@@ -13,8 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.annotation.SessionScope;
 
 import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
@@ -96,16 +97,11 @@ public class MypageController {
       
       //후원한 펀딩 보여주는 부분
       int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
-      System.out.println("user_no : "+user_no);
       List<ProjectDto> myfunding = projectDao.myfunding(userDao.getPaymentUserInfo(user_id).getUser_no());
-      System.out.println("myfunding : "+myfunding);
       myfunding.get(0).setUser_no(user_no);
       int prdt_id = myfunding.get(0).getPrdt_id();
-      System.out.println(paymentDao.pay_no(user_no, prdt_id));
-      //myfunding.get(0).setPay_no();
       List<PaymentDto> pay_no = paymentDao.pay_no(user_no, prdt_id);
       myfunding.get(0).setPay_no(pay_no.get(0).getPay_no());
-      System.out.println(myfunding);
       m.addAttribute("myfunding", myfunding);
       
       
@@ -115,20 +111,47 @@ public class MypageController {
       return "mypage";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
- //펀딩관리페이지 맵핑
+  //펀딩관리페이지 맵핑
   @GetMapping("/mypage/fundingmanage/{prdt_id}")
-  public String fundingManage(HttpServletRequest request,HttpSession session,Model m,@PathVariable("prdt_id") Integer prdt_id, PaymentDto paymentDto) {
+  public String fundingManage(HttpServletRequest request,RedirectAttributes rattr,HttpSession session,Model m,@PathVariable("prdt_id") Integer prdt_id, PaymentDto paymentDto,ProjectDto projectDto) {
+
     try {
-      System.out.println(prdt_id);
-      m.addAttribute("prdt_id",prdt_id);
-      Map map = new HashMap(); 
-      map.put("prdt_id", prdt_id);
-      List<PaymentDto> list_pay = paymentDao.fundingManage(map);
-      System.out.println(list_pay);
-      m.addAttribute("list_pay",list_pay);
-      return "fundingManage";
+      projectDto.setPrdt_id(prdt_id);
+      ProjectDto proj_dto = projectDao.select(prdt_id); //해당펀딩정보
       
-    } catch (Exception e) {
+      //프로젝트 창작자 != 유저 아이디인경우 mypage로 리턴
+      if(!session.getAttribute("user_id").equals(proj_dto.getWriter())) {
+        rattr.addFlashAttribute("msg", "no_authorization");  //접근권한이 없다는 alert 띄움
+        return "redirect:/mypage";  //마이페이지로 리턴
+      }
+      
+
+      else {
+      m.addAttribute("proj_dto",proj_dto);
+      m.addAttribute("prdt_id",prdt_id);
+      Map mapT = new HashMap(); 
+      mapT.put("prdt_id", prdt_id);
+      
+      Map mapC = new HashMap(); 
+      mapC.put("prdt_id", prdt_id);
+      
+      List<PaymentDto> list_pay = paymentDao.fundingManageForWeek(mapT);    //해당 펀딩 결제정보(표)
+      m.addAttribute("list_pay",list_pay);
+     // System.out.println(list_pay);
+      List<PaymentDto> list_payC = paymentDao.fundingManageForChart(mapC);    //해당 펀딩 결제정보(차트)
+
+        Map<Integer, Integer> dayNtotal = new HashMap<Integer, Integer>();
+        for(int i = 0; i<list_payC.size(); i++) {
+          dayNtotal.put(list_payC.get(i).getDay(),list_payC.get(i).getDaySum());
+        }
+
+        m.addAttribute("dayNtotal",dayNtotal);
+        
+             
+      return "fundingManage";
+      }
+    } 
+    catch (Exception e) {
      e.printStackTrace();
      return "mypage";
     }

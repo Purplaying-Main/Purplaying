@@ -41,13 +41,14 @@ public class CSVFileDownloadController {
     response.setContentType("text/csv");
     response.setContentType("application/ms-excel; charset=MS949"); //한글깨짐 방지를 위해 인코딩
     response.setCharacterEncoding("MS949");
-    
+   
     String headerKey = "Content-Disposition";
     String headerValue = String.format("attachment; filename=\"%s\"",csvFileName);
     response.setHeader(headerKey, headerValue);
     
     Map map = new HashMap(); 
     map.put("prdt_id", prdt_id);
+    List<PaymentDto> lpay  = paymentDao.fundingManage(map);
     List<PaymentDto> list_pay = new ArrayList<PaymentDto>(paymentDao.fundingManage(map));
 
     ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);

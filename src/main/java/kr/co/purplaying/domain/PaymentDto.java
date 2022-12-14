@@ -23,6 +23,8 @@ public class PaymentDto {
  private int pay_carddate;
  private int pay_cvc;
  private int pay_pwd;
+ private int daySum;
+ private int day;
 
 
 public PaymentDto() {
@@ -32,10 +34,11 @@ public PaymentDto() {
 
 
 
+
 public PaymentDto(Integer pay_no, Date pay_time, int prdt_id, int user_no, int reward_id, int reward_user_cnt,
     int pay_total, String delivery_reciever, String delivery_phone, String delivery_postcode, String delivery_address,
     String delivery_addressdetail, String delivery_memo, int delivery_charge, String pay_cardnum, int pay_carddate,
-    int pay_cvc, int pay_pwd) {
+    int pay_cvc, int pay_pwd, int daySum, int day) {
   //super();
   this.pay_no = pay_no;
   this.pay_time = pay_time;
@@ -55,6 +58,8 @@ public PaymentDto(Integer pay_no, Date pay_time, int prdt_id, int user_no, int r
   this.pay_carddate = pay_carddate;
   this.pay_cvc = pay_cvc;
   this.pay_pwd = pay_pwd;
+  this.daySum = daySum;
+  this.day = day;
 }
 
 
@@ -66,8 +71,9 @@ public String toString() {
       + delivery_postcode + ", delivery_address=" + delivery_address + ", delivery_addressdetail="
       + delivery_addressdetail + ", delivery_memo=" + delivery_memo + ", delivery_charge=" + delivery_charge
       + ", pay_cardnum=" + pay_cardnum + ", pay_carddate=" + pay_carddate + ", pay_cvc=" + pay_cvc + ", pay_pwd="
-      + pay_pwd + "]";
+      + pay_pwd + ", daySum=" + daySum + ", day=" + day + "]";
 }
+
 
 
 @Override
@@ -338,6 +344,36 @@ public int getPay_pwd() {
 
 public void setPay_pwd(int pay_pwd) {
   this.pay_pwd = pay_pwd;
+}
+
+
+
+
+public int getDaySum() {
+  return daySum;
+}
+
+
+
+
+public void setDaySum(int daySum) {
+  this.daySum = daySum;
+}
+
+
+
+
+
+public int getDay() {
+  return day;
+}
+
+
+
+
+
+public void setDay(int day) {
+  this.day = day;
 }
 
 

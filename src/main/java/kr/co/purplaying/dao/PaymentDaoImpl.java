@@ -65,4 +65,16 @@ public class PaymentDaoImpl implements PaymentDao {
     return session.selectList(namespace+"fundingManage", map);
   }
 
+  @Override
+  public List<PaymentDto> fundingManageForWeek(Map map) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"fundingManageForWeek", map);
+  }
+
+  @Override
+  public List<PaymentDto> fundingManageForChart(Map map) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"fundingManageForChart", map);
+  }
+
 }
