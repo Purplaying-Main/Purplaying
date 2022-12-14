@@ -649,6 +649,7 @@
 						tmp += ' 		<button class="delBtn" >삭제</button>'
 						tmp += '		<button class="modBtn" >수정</button>'
 						tmp += '	</div>'
+						tmp += '<hr class="mt-3">'
 						
 						
 /* 						tmp += '	<div class="row rounded bg-light p-3 mb-3">'
