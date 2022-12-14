@@ -119,7 +119,7 @@
                 <h4>한승훈</h4>
                 <span>Team Leader</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/BlueUmb"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -135,7 +135,7 @@
                 <h4>고영은</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/0isduddms"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -151,7 +151,7 @@
                 <h4>김영은</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/yeong-eun-KIM"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -167,7 +167,7 @@
                 <h4>김호경</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/jake852"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -184,7 +184,7 @@
                 <h4>양승민</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/seungm2n"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -200,7 +200,7 @@
                 <h4>이규황</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/leeel427"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
@@ -216,7 +216,7 @@
                 <h4>이희라</h4>
                 <span>Team Member</span>
                 <div class="social">
-                  <a href=""><i class="fa-brands fa-github"></i></a>
+                  <a href="https://github.com/he22ra"><i class="fa-brands fa-github"></i></a>
                   <a href=""><i class="fa-solid fa-blog"></i></a>
                   <a href=""><i class="fa fa-google-plus"></i></a>
                   <a href=""><i class="fa fa-linkedin"></i></a>
