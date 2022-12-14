@@ -828,7 +828,7 @@
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
 	        	$("#password").on("input", function(){
-	        		if($(this).val() == passwordConfirm$("#passwordConfirm").val() && $(this).val() != "") {
+	        		if($(this).val() == passwordConfirm $("#passwordConfirm").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
 	        		}
 	        		else {
