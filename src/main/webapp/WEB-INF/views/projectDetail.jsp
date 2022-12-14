@@ -570,7 +570,7 @@
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/community?prdt_id=' + prdt_id,				//요청 URI
+					url : '/purplaying/community/insert/' + prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -636,7 +636,7 @@
 	
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
-						tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
 						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
 						tmp += '		data-prdt_id'+ comment.prdt_id
