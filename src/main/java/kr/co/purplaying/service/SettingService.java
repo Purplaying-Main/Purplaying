@@ -27,5 +27,6 @@ public interface SettingService {
 
   int modifyAlarm(SettingDto settingDto) throws Exception;
   List<SettingDto> getAgreeList(int user_no) throws Exception;
+  int addressCnt(int user_no);
   
 }

@@ -110,4 +110,9 @@ public class SettingServiceImpl implements SettingService {
   public List<SettingDto> getAgreeList(int user_no) throws Exception {
     return settingDao.selectAll(user_no);
   }
+
+  @Override
+  public int addressCnt(int user_no) {
+    return addressDao.CntAddress(user_no);
+  }
 }

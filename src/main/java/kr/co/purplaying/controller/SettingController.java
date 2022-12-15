@@ -196,6 +196,18 @@ public class SettingController {
   }
   
   @ResponseBody
+  @RequestMapping(value="/setting/stregaddress/{user_no}", method = RequestMethod.POST)
+  public int addressCnt(@PathVariable int user_no) {
+    System.out.println("user_no : " + user_no);
+    int Cnt = settingService.addressCnt(user_no);
+    
+    System.out.println("Cnt : " + Cnt);
+    
+    return Cnt;
+    
+  }
+  
+  @ResponseBody
   @RequestMapping(value="/setting/address/{user_no}", method = RequestMethod.POST)
   public List<AddressDto> addAddress(@PathVariable int user_no, @RequestBody AddressDto addressDto , HttpSession session) {
     addressDto.setUser_no(user_no);
@@ -246,7 +258,6 @@ public class SettingController {
     
   }
   
-  
   @RequestMapping(value="/setting/endmodaddress", method = RequestMethod.PATCH)
   public ResponseEntity<AddressDto> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
     try {
@@ -259,6 +270,7 @@ public class SettingController {
     }
   }
   
+
   @RequestMapping(value="/setting/deladdress/{address_id}", method = RequestMethod.DELETE)
   public ResponseEntity<String> remove(@PathVariable Integer address_id, HttpSession session) {
     System.out.println(address_id + "삭제 호출");
@@ -275,6 +287,7 @@ public class SettingController {
           return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
       }
   }
+  
   
   @RequestMapping(value="/setting/alarm/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {

@@ -299,7 +299,7 @@
                                         <h6>등록된 배송지</h6>
                                     </div>
                                     <div class="col-auto px-3 text-end">
-                                        <button id="regaddressBtn"class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addressRegModal">
+                                        <button id="regaddressBtn"class="btn btn-outline-primary">
                                             배송지 추가
                                         </button>
                                     </div>
@@ -642,27 +642,7 @@
 	  				error : function() {alert("error")}
 	  			})
 	  		})
-	  		
-	  		$("#modintroBtn").click(function() {
-				let user_no = $("#user_no").val()
-	  			let user_introduce = $("#user_Introduce").val()
-	  			
-	  			$.ajax({
-	  				type : 'PATCH',
-	  				url : '/purplaying/setting/intro/'+user_no,
-	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
-					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-						$("#userIntro").html(user_introduce)
-						$("#introChangeModal").modal("hide")
-						$("#user_Introduce").val("")
-						
-					},
-	  				error : function() {alert("error")}
-	  			})
-	  		})
-        	
-            
+
 	        
 	        $(document).ready(function(){
 	        	
@@ -675,9 +655,27 @@
 	        	
 	        	$("#regaddressBtn").click(function() {
 					let user_no = $("#user_no").val()
-		
-		  			$("#modpwdBtn").attr("user-no", user_no)
-		  			$("#addressRegModal").modal("show")
+					
+					$.ajax({
+						type:'POST',	//통신방식 (get,post)
+						url: '/purplaying/setting/stregaddress/'+user_no,                                                                                
+						headers:{"content-type" : "application/json"},
+						data : JSON.stringify({user_no:user_no}),
+						dataType : 'text',
+						success:function(result){
+							cnt = JSON.parse(result)
+							if (cnt >= 3) {
+								alert('배송지는 최대 3개까지 설정할 수 있습니다.')
+							}
+							else {
+								$("#addressRegBtn").attr("user-no", user_no)
+		  						$("#addressRegModal").modal("show")
+							}
+						},
+						error : function(){
+							alert("error");
+						}
+			  		})
 		  		})
 		  		
 		  		$("#addressRegBtn").click(function() {
