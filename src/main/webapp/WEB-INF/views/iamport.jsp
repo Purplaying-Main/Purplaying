@@ -1,21 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.net.URLDecoder" %>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
- <%@ include file ="meta.jsp" %>
- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-</head>
-<body>
-  <!--헤더 인클루드-->
 
-   <!--메인 컨테이너 -->
-   <section>
-   
    	<div class="modal fade" data-keyboard="false" data-backdrop="static" id="pointpayModal" role="dialog" tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -24,11 +10,12 @@
 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="delpointPay()"></button>
 	            </div>
                 <div class="modal-body p-5 pt-0">
-                	<input id="payaddress_num" />
-                	<input id="payaddress" />
-                	<input id="payuser_id" value="${UserDto.user_id}" />
-                	<input id="payuser_name" value="${UserDto.user_name}" />
-                	<input id="payuser_phone" value="${UserDto.user_phone}" />
+                	<input type="hidden" id="payaddress_num" />
+                	<input type="hidden" id="payaddress" />
+                	<input type="hidden" id="payuser_no" value="${UserDto.user_no}" />
+                	<input type="hidden" id="payuser_id" value="${UserDto.user_id}" />
+                	<input type="hidden" id="payuser_name" value="${UserDto.user_name}" />
+                	<input type="hidden" id="payuser_phone" value="${UserDto.user_phone}" />
                     <select id="point_price" class="form-select fs-6" onchange="pointSelect()">
 						<option value="0"selected disabled>금액을 선택해주세요</option>
 						<option value="10">10원</option>
@@ -122,7 +109,7 @@
 	  	}
 	  	
   	function pointSelect(){
-  		let user_no = $("#user_no").val()
+  		let user_no = $("#payuser_no").val()
   		$('#gotopayBtn').attr('disabled',false)
 			$.ajax({
       		type: 'POST',			//요청 메서드
@@ -142,8 +129,5 @@
   	}
  
   </script>
-  </section>
-   <!--푸터 인클루드-->
 
-</body>
 </html>
