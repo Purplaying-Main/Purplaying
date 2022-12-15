@@ -72,6 +72,26 @@ public class SearchResultController {
 
         }
           
+  @GetMapping("/viewMore")
+  public String viewMore(SearchItem2 sc2, ProjectDto projectDto,  Model m) {
+          
+          try {
+            
+            
+            List<ProjectDto> viewMore = searchResultService.getSearchResultPage(sc2);
+            m.addAttribute("prdt_view", viewMore);
+            
+            int totalCnt = searchResultService.getsearchcount(sc2);
+            m.addAttribute("prdt_count", totalCnt);
+            
+            PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+            m.addAttribute("pr2", pageResolver2);
+            
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          return "viewMore";
+        }
 
   @GetMapping("/creatorSearch/{user_id}")       
   public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, HttpSession session) {
