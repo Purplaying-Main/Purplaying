@@ -116,8 +116,8 @@ public class AdminController {
       m.addAttribute("totalCnt", totalCnt);
       m.addAttribute("pr", pageResolver);
 
-      List<AttachFileDto> bannerList =fileService.selectFileListforAdmin(sc);
-      m.addAttribute("bannerList",bannerList);
+      List<ProjectDto> ProjectDtoList = projectService.selectProjectImgforAdmin(sc);
+      m.addAttribute("ProjectDtoList",ProjectDtoList);
       m.addAttribute("bannerfileList",bannerfileList);
     } catch (Exception e) {
       // TODO Auto-generated catch block
