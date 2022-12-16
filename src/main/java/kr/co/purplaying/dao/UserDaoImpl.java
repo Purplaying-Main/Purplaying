@@ -40,9 +40,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int updateName(UserDto userDto) throws Exception {
+    public int updateNickName(UserDto userDto) throws Exception {
       
-      return session.update(namespace + "updateName", userDto);
+      return session.update(namespace + "updateNickName", userDto);
     }
 
     public int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception {

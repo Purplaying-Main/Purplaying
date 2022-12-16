@@ -34,8 +34,8 @@ public class SettingServiceImpl implements SettingService {
   }
 
   @Override
-  public int modifyName(UserDto userDto) throws Exception {
-    return userDao.updateName(userDto);
+  public int modifyNickName(UserDto userDto) throws Exception {
+    return userDao.updateNickName(userDto);
   }
 
   @Override
@@ -109,5 +109,10 @@ public class SettingServiceImpl implements SettingService {
   @Override
   public List<SettingDto> getAgreeList(int user_no) throws Exception {
     return settingDao.selectAll(user_no);
+  }
+
+  @Override
+  public int addressCnt(int user_no) {
+    return addressDao.CntAddress(user_no);
   }
 }

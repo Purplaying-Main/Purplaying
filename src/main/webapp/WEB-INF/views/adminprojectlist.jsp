@@ -15,9 +15,9 @@
   <!--메인 컨테이너 -->
 	<section>
   		<div class="container">
-    		<div class="my-4"> <!-- 탭 메뉴 -->
-        		<form id="searchproductform" action="<c:url value="/admin/projectlist"></c:url>" method="get" class="justify-content-end d-flex">
-        			<input class="form-control w-25 mb-4" id="searchproduct" name ="keyword" type="text" value="${param.keyword}"/>
+    		<div class="my-4" > <!-- 탭 메뉴 -->
+        		<form id="searchproductform" action="<c:url value="/admin/projectlist"></c:url>" method="get" class="col-10 row mx-auto justify-content-end">
+        			<input class="form-control w-25 mb-4" id="searchproduct" name ="keyword" type="text" placeholder="제목을 입력하세요" value="${param.keyword}"/>
         		</form>
         		<div id="product_list" class="row mx-auto col-10">
 	        		<table class="table table-hover">

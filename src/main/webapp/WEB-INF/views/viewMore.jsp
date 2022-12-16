@@ -18,28 +18,10 @@
 			<!--컨텐츠 영역-->
 			<!-- 펀딩 프로젝트 -->
 			<div class="album">
-				<div class="container py-4">
-					<div class="dropdown container">
-						<p>
-						<h2>
-							"<%=request.getParameter("keyword")%>" 검색 결과
-						</h2>
-						<h5>검색 결과가 ${prdt_count} 건 있습니다.</h5>
-						</p>
-
-					</div>
-					<div class="container py-4">
-						<h4>
-							<a>창작자명</a>
-							<h5>검색 결과가 ${user_count }건 있습니다.</h5>
-						</h4>
-					</div>
-				</div>
-
 				<div class="container py-8">
 					<!-- genre div start -->
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<c:forEach var="ProjectDto" items="${keyword }">
+						<c:forEach var="ProjectDto" items="${prdt_view }">
 							<div class="col">
 								<!-- project thumb start -->
 								<div class="card shadow-sm">
@@ -98,76 +80,32 @@
 							</div>
 						</c:forEach>
 					</div>
-						<div class="col">
-							<h1 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/viewMore?page=1'" style="color: #9E62FA; cursor:pointer;">더보기</h1>
-						</div>
 					<br>
 					<div class="pagination mb-0 col-10 justify-content-center">
 
-						<c:if test="${prdt_count == null || prdt_count == 0 }">
-							<h6 class="row text-center ">
-								"<%=request.getParameter("keyword")%>" 펀딩이 없습니다.
-							</h6>
-						</c:if>
-<%-- 						<c:if test="${prdt_count != null || count != 0 }">
+ 						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value="/searchResult${pr2.sc2.getQueryString(pr2.beginPage-1) }" />">
+									href="<c:url value="/viewMore${pr2.sc2.getQueryString(pr2.beginPage-1) }" />">
 										&lt; </a></li>
 							</c:if>
 							<c:forEach var="i" begin="${pr2.beginPage }"
 								end="${pr2.endPage }">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value="/searchResult${pr2.sc2.getQueryString(i)}" />">${i }</a>
+									href="<c:url value="/viewMore${pr2.sc2.getQueryString(i)}" />">${i }</a>
 								</li>
 							</c:forEach>
 							<c:if test="${pr2.showNext }">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value="/searchResult${pr2.sc2.getQueryString(pr2.endPage+1) }" />">
+									href="<c:url value="/viewMore${pr2.sc2.getQueryString(pr2.endPage+1) }" />">
 										&gt; </a></li>
 							</c:if>
-						</c:if> --%>
-
-					</div>
-
-				</div>
-			</div>
-
-			<div class="album">
-				<div class="container py-4">
-					<hr>
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<c:forEach var="UserDto" items="${U_keyword }">
-							<div class="col">
-								<!-- 창작자 list start -->
-								<li class="row d-flex border rounded p-3 m-1">
-									<div class="col-4">
-										<img src="${UserDto.user_profile }"
-											class="img-thumbnail rounded-circle" alt="유저 프로필">
-									</div>
-									<div class="col">
-										<h5 class="row text-primary mt-2">${UserDto.user_name }</h5>
-										<h6 class="row text-muted">${UserDto.user_id }</h6>
-										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
-									</div>
-								</li>
-								<!-- 창작자 list end -->
-							</div>
-						</c:forEach>
-					</div>
-					<br> <br>
-					<div class="pagination mb-0 col-10 justify-content-center">
-
-						<c:if test="${user_count == null || user_count == 0 }">
-							<h6 class="row text-center ">
-								"<%=request.getParameter("keyword")%>"이라는 제작자가 없습니다.
-							</h6>
-						</c:if>
-		
+						</c:if> 
 
 					</div>
 				</div>
 			</div>
+
 
 			<div class="container py-4">
 				<h4>
@@ -178,8 +116,6 @@
 		</div>
 
 	</section>
-	
-
 
 
 	<!--푸터 인클루드-->

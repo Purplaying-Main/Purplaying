@@ -186,7 +186,7 @@ public class MemberController {
         
         
         //3. 세션 객체 얻어오기.
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         //세션 객체에 id를 저장
         
 //        ArrayList<String> list = null;

@@ -343,5 +343,9 @@
 		})
 	})
 	</script>
+	 <script>
+  	let msg = "${msg}";
+  	if(msg == "no_authorization") alert("접근 권한이 없습니다.");
+  </script>
 </body>
 </html>

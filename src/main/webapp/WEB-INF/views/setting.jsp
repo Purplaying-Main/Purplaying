@@ -74,14 +74,24 @@
                                         <div class="col-auto">
                                             <h6>이름</h6>
                                         </div>
+                                    </li>
+                                    <li class="row">
+                                        <p id="userName">${userDto.user_name }</p>
+                                    </li>
+                                </ul>
+                                <ul class="border-bottom py-3" id="NickNameArea">
+                                    <li class="row justify-content-between">
+                                        <div class="col-auto">
+                                            <h6>닉네임</h6>
+                                        </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button id="namechangeBtn" class="btn btn-outline-primary" type="button" data-name="${userDto.user_name }">
+                                            <button id="nicknamechangeBtn" class="btn btn-outline-primary" type="button" data-nickname="${userDto.user_nickname }">
                                                 변경
                                             </button>
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p id="userName">${userDto.user_name }</p>
+                                        <p id="userNickName">${userDto.user_nickname }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3" id="IntroArea">
@@ -118,22 +128,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- NameChangeModal -->
-                            <div class="modal fade" id="nameChangeModal" tabindex="-1" aria-labelledby="nameChangeModalLabel" aria-hidden="true" >
+                            <!-- NicknameChangeModal -->
+                            <div class="modal fade" id="NicknameChangeModal" tabindex="-1" aria-labelledby="NicknameChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="nameChangeModalLabel">이름 변경</h5>
+                                            <h5 class="modal-title" id="NicknameChangeModalLabel">이름 변경</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                                         </div>
                                         <div class="modal-body mx-auto">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                                <input name="user_name" id="user_Name" type="text" class="form-control" placeholder="${userDto.user_name }" aria-label="Username" aria-describedby="basic-addon1" />
+                                                <input name="user_NickName" id="user_NickName" type="text" class="form-control" placeholder="${userDto.user_nickname }" aria-label="Username" aria-describedby="basic-addon1" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button id="modnameBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                            <button id="modnicknameBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
                                                 확인
                                             </button>
                                         </div>
@@ -289,7 +299,7 @@
                                         <h6>등록된 배송지</h6>
                                     </div>
                                     <div class="col-auto px-3 text-end">
-                                        <button id="regaddressBtn"class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addressRegModal">
+                                        <button id="regaddressBtn"class="btn btn-outline-primary">
                                             배송지 추가
                                         </button>
                                     </div>
@@ -489,20 +499,20 @@
 
         <script type="text/javascript">
             	
-	        $("#namechangeBtn").click(function() {
+	        $("#nicknamechangeBtn").click(function() {
 				let user_no = $("#user_no").val()
 					
 	  			$.ajax({
 					type:'POST',	//통신방식 (get,post)
-					url: '/purplaying/setting/stmodname',
+					url: '/purplaying/setting/stmodnname',
 					headers:{"content-type" : "application/json"},
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
 					success:function(result){
 						user = JSON.parse(result)
-						$("#user_Name").val(user.user_name)
-			  			$("#modnameBtn").attr("user-no", user_no)
-			  			$("#nameChangeModal").modal("show")
+						$("#user_NickName").val(user.user_nickname)
+			  			$("#modnicknameBtn").attr("user-no", user_no)
+			  			$("#NicknameChangeModal").modal("show")
 					},
 					error : function(){
 						alert("error");
@@ -510,25 +520,25 @@
 		  		})
 	  		})
 	  		
-	  		$("#modnameBtn").click(function() {
+	  		$("#modnicknameBtn").click(function() {
 				let user_no = $("#user_no").val()
-	  			let user_name = $("#user_Name").val()
+	  			let user_nickname = $("#user_NickName").val()
 	  			
-	  			if(user_name.trim() == '') { 
+	  			if(user_nickname.trim() == '') { 
 					alert("이름을 입력해 주세요.")
-					$("#user_Name").focus()
+					$("#user_NickName").focus()
 					return
 				}
 	  			
 	  			$.ajax({
 	  				type : 'PATCH',
-	  				url : '/purplaying/setting/name/'+user_no,
+	  				url : '/purplaying/setting/nname/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-					data : JSON.stringify({user_name:user_name}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					data : JSON.stringify({user_nickname:user_nickname}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-							$("#userName").html(user_name)
-							$("#nameChangeModal").modal("hide")
-							$("#user_Name").val("")
+							$("#userNickName").html(user_nickname)
+							$("#NicknameChangeModal").modal("hide")
+							$("#user_NickName").val("")
 					},
 	  				error : function() {alert("error")}
 	  			})
@@ -632,27 +642,7 @@
 	  				error : function() {alert("error")}
 	  			})
 	  		})
-	  		
-	  		$("#modintroBtn").click(function() {
-				let user_no = $("#user_no").val()
-	  			let user_introduce = $("#user_Introduce").val()
-	  			
-	  			$.ajax({
-	  				type : 'PATCH',
-	  				url : '/purplaying/setting/intro/'+user_no,
-	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
-					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
-						$("#userIntro").html(user_introduce)
-						$("#introChangeModal").modal("hide")
-						$("#user_Introduce").val("")
-						
-					},
-	  				error : function() {alert("error")}
-	  			})
-	  		})
-        	
-            
+
 	        
 	        $(document).ready(function(){
 	        	
@@ -665,9 +655,27 @@
 	        	
 	        	$("#regaddressBtn").click(function() {
 					let user_no = $("#user_no").val()
-		
-		  			$("#modpwdBtn").attr("user-no", user_no)
-		  			$("#addressRegModal").modal("show")
+					
+					$.ajax({
+						type:'POST',	//통신방식 (get,post)
+						url: '/purplaying/setting/stregaddress/'+user_no,                                                                                
+						headers:{"content-type" : "application/json"},
+						data : JSON.stringify({user_no:user_no}),
+						dataType : 'text',
+						success:function(result){
+							cnt = JSON.parse(result)
+							if (cnt >= 3) {
+								alert('배송지는 최대 3개까지 설정할 수 있습니다.')
+							}
+							else {
+								$("#addressRegBtn").attr("user-no", user_no)
+		  						$("#addressRegModal").modal("show")
+							}
+						},
+						error : function(){
+							alert("error");
+						}
+			  		})
 		  		})
 		  		
 		  		$("#addressRegBtn").click(function() {
@@ -828,7 +836,7 @@
 	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	
 	        	$("#password").on("input", function(){
-	        		if($(this).val() == passwordConfirm $("#passwordConfirm").val() && $(this).val() != "") {
+	        		if($(this).val() == $("#passwordConfirm").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
 	        		}
 	        		else {

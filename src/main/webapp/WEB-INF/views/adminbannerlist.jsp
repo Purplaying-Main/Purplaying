@@ -20,7 +20,7 @@
                 <input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
                 <button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
               </div>
-              <h5 class="mb-2">배너 적용중인 이미지</h5>
+              <h5 class="mb-2 text-center">배너 적용중인 이미지</h5>
               <div id="Banner_img_list" class="row mx-auto col-10">
 		        <table class="table table-hover">
 		        	<tr>
@@ -42,46 +42,72 @@
 				</table>
 			</div>
               <hr class="my-4">
-              <h5>프로젝트 썸네일 이미지</h5>
+              <h5 class="text-center">프로젝트 썸네일 이미지</h5>
         	<div id="Banner_list" class="row mx-auto col-10">
 		        <table class="table table-hover">
 		        	<tr>
-						<th class="file_id" scope="col">번호</th>
-						<th class="file_name" scope="col">이미지 이름</th>
-						<th class="file_location" scope="col">이미지 경로</th>
-						<th class="file_regdate" scope="col">등록 날짜</th>
+						<th class="Project_id" scope="col">번호</th>
+						<th class="Project_name" scope="col">프로젝트 이름</th>
+						<th class="Project_img" scope="col">이미지</th>
+						<th class="Project_regdate" scope="col">등록 날짜</th>
 						<th class="file_save" scope="col"></th>
 					</tr>
-		        	<c:forEach var="fileDto" items="${bannerList}">
+		        	<c:forEach var="ProjectDto" items="${ProjectDtoList}">
 						<tr>
-							<th name="file_id" scope="row">${fileDto.file_id}</th>
-							<td name="file_name"><a href="${pageContext.request.contextPath}/project/${fileDto.prdt_id}">${fileDto.file_name}</a></td>
-							<td name="file_location">${fileDto.file_location}</td>
-							<td name="file_regdate"><fmt:formatDate value="${fileDto.file_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
-							<td name="fileDto_save-${fileDto.file_id}">
-								<input type="hidden" value="${fileDto.prdt_id}">
-								<button type="button" onclick="setBanner()">설정하기</button>
+							<th id="Project_id" scope="row">${ProjectDto.prdt_id}</th>
+							<td id="Project_name"><a href="${pageContext.request.contextPath}/project/${ProjectDto.prdt_id}">${ProjectDto.prdt_name}</a></td>
+							<td id="Project_img">${ProjectDto.prdt_img}</td>
+							<td id="Project_regdate"><fmt:formatDate value="${ProjectDto.prdt_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
+							<td id="file_save-${ProjectDto.prdt_id}">
+								<input type="hidden" value="${ProjectDto.prdt_id}">
+								<button type="button" onclick="ShowBannerModal()" > <!-- onclick="setBanner()" -->설정/미리보기</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
+				<div class="modal fade" data-keyboard="false" data-backdrop="static" id="banner_Modal" role="dialog" tabindex="-1" aria-labelledby="bannerModalLabel" aria-hidden="true" >
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+				            <div class="modal-header p-5 pb-4 border-bottom-0">
+				                <h5 class="fw-bold mb-0">이미지 미리보기</h5>
+				                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				            </div>
+			                <div class="modal-body p-5 pt-0">
+			                	<img id="preview_img" src="" style="width:100%"/>
+							</div>
+			                <div class="modal-footer">
+			                    <button id="gotochangeBtn" class="btn btn-primary" onclick="save_change()">변경하기</button> 
+			                </div>
+			          <!-- modal body -->
+					    </div>
+					</div>
+				</div>
 			</div>
 			<div class="paging-container">
 				<div class="justify-content-center d-flex" id="paging_user">
+				 <div class="col-1"></div>
+				 <ul class="pagination mb-0 col-10 justify-content-center">
 					<c:if test="${totalCnt == null}">
 						<div> 게시물이 없습니다.</div>
 					</c:if>
 					<c:if test="${totalCnt != null || totalCnt != 0 }">
 						<c:if test="${pr.showPrev }">
-							<a class="page" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.beginPage-1) }" />"> &lt; </a>
+							<li class="page-item">
+								<a class="page-link" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.beginPage-1) }" />"> &lt; </a>
+							</li>
 						</c:if>
 						<c:forEach var="i" begin="${pr.beginPage}" end="${pr.endPage }">
-							<a class="page <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(i)}" />">${i }</a>
+							<li class="page-item">
+								<a class="page-link <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(i)}" />">${i }</a>
+							</li>
 						</c:forEach>
 						<c:if test="${pr.showNext }">
-							<a class="page" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.endPage+1) }" />"> &gt; </a>
+							<li class="page-item">
+								<a class="page-link" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.endPage+1) }" />"> &gt; </a>
+							</li>
 						</c:if>						
 					</c:if>
+				</ul>
 				</div>
 			</div>
         </div>
@@ -89,6 +115,12 @@
   </section>
   
   <script type="text/javascript">
+  function ShowBannerModal(){
+	  eventTarget = event.target;
+	  $('#banner_Modal').modal("show");
+	  prdtImg = eventTarget.parentNode.previousElementSibling.previousElementSibling.innerHTML
+	  $('#preview_img').attr("src",prdtImg)
+  }
   /* 파일 업로드 */
   	function setBanner(){
   		eventTarget = event.target;

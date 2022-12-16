@@ -11,7 +11,7 @@ public interface SettingService {
 
   UserDto setUser(String user_id) throws Exception;
   SettingDto showSetting(int user_no) throws Exception;
-  int modifyName(UserDto userDto) throws Exception;
+  int modifyNickName(UserDto userDto) throws Exception;
   int modifyIntro(SettingDto settingDto) throws Exception;
   AddressDto chooseAddress(Integer address_id) throws Exception;   // address_id로 출력 확인후 변경
   int modifyProfile(Map<String, Object> map) throws Exception;
@@ -27,5 +27,6 @@ public interface SettingService {
 
   int modifyAlarm(SettingDto settingDto) throws Exception;
   List<SettingDto> getAgreeList(int user_no) throws Exception;
+  int addressCnt(int user_no);
   
 }

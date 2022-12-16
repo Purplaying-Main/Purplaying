@@ -15,6 +15,10 @@
 		FROM tb_product
 	</sql>
 	
+	<sql id="selectFromProjectImg">
+		select * from tb_product
+	</sql>
+	
 	<sql id="searchCondition">
   		<choose>
 			<when test='option=="T"'>
@@ -229,6 +233,14 @@
 		where tb_payment.user_no = #{user_no}
 		group by tb_product.prdt_id
  	</select>
+ 	
+ 	<select id="selectProjectImgforAdmin" parameterType="SearchItem" resultType="ProjectDto">
+		<include refid="selectFromProjectImg"/>
+		WHERE TRUE
+		<include refid="searchCondition" />
+		ORDER BY prdt_regdate DESC, prdt_id DESC 
+		LIMIT #{pageSize} OFFSET #{offset}
+  	</select>
  	
 
 </mapper>

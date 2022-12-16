@@ -36,5 +36,6 @@ public interface ProjectService {
   ProjectDto selectProjectlikelist(int prdt_id) throws Exception;
   List<ProjectDto> getListByWriter(String user_id)throws Exception;
   List<ProjectDto> getSoonListByWriter(String user_id) throws Exception;
+  List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception;
   
 }
