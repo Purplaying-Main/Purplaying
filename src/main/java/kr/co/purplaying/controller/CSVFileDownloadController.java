@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import kr.co.purplaying.domain.PaymentDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +20,7 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import kr.co.purplaying.dao.PaymentDao;
+import kr.co.purplaying.domain.PaymentDto;
 
 @Controller
 public class CSVFileDownloadController {

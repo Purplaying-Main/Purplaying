@@ -1,8 +1,8 @@
 package kr.co.purplaying.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.RewardDto;
 
 public interface RewardDao {
@@ -22,7 +22,6 @@ public interface RewardDao {
   List<RewardDto> selectedRewardPayment(int no_arr, int cnt_arr) throws Exception;
   
   int insertSelectReward(int no_arr,int cnt_arr) throws Exception;
-
-  List<RewardDto> userSelectedReward(int prdt_id,int user_no,int pay_total) throws Exception;
-
+  
+  List<RewardDto> userReward(Map map) throws Exception;
 }

@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         backgroundColor: 'transparent',
         borderColor: 'rgb(100, 50, 200,0.7)',
         borderWidth: 4,
-        pointBackgroundColor: 'rgb(100, 50, 200)'
+        pointBackgroundColor: 'rgb(100, 50, 200)',
       }
       ]
     },

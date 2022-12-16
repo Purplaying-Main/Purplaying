@@ -50,8 +50,13 @@
 		update into tb_reward  set reward_id=#{no_arr}, reward_cnt=#{cnt_arr}
 	</update>
 	
+	<select id="userReward" parameterType="map"  resultType="RewardDto" >
+		<include refid="selectAllReward"/>
+		where prdt_id = #{prdt_id }
+	</select>
+
 		<!-- 펀딩완료 페이지에서 결제 정보 보이게 하는 쿼리문 -->
-  	<resultMap type="RewardDto" id="RewardDto">
+<!--   	<resultMap type="RewardDto" id="RewardDto">
 			<result column="prdt_id" property="prdt_id"/>
  		 	<result column="reward_id" property="reward_id"/>
  		 	<result column="reward_name" property="reward_name"/>
@@ -78,6 +83,6 @@
 		from tb_payment left join tb_reward
 		on tb_payment.reward_id = tb_reward.reward_id
 		WHERE tb_payment.prdt_id = #{prdt_id} and tb_payment.user_no = #{user_no} and pay_total = #{pay_total}
-	</select>
+	</select> -->
 
 </mapper>

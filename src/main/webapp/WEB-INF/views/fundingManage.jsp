@@ -57,7 +57,7 @@
 			  	<th>주문 번호</th>
 			  	<th>주문 일자</th>
 			  	<th>회원번호</th>
-			  	<th>리워드|수량</th>
+			  	<th>주문 내역</th>
 			  	<th>주문 금액</th>
 		  	</tr>
 			<c:if test="${empty list_pay }">

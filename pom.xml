@@ -27,6 +27,12 @@
 		  <artifactId>iamport-rest-client-java</artifactId>
 		  <version>0.2.14</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-typehandlers-jsr310 -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-typehandlers-jsr310</artifactId>
+	    <version>1.0.2</version>
+	</dependency>
 		
 		<!--csv export 관련-->
 		<dependency>

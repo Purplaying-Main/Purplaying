@@ -13,9 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
@@ -96,13 +95,23 @@ public class MypageController {
       m.addAttribute("pageSize", pageSize);
       
       //후원한 펀딩 보여주는 부분
-      int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
-      List<ProjectDto> myfunding = projectDao.myfunding(userDao.getPaymentUserInfo(user_id).getUser_no());
-      myfunding.get(0).setUser_no(user_no);
-      int prdt_id = myfunding.get(0).getPrdt_id();
-      List<PaymentDto> pay_no = paymentDao.pay_no(user_no, prdt_id);
-      myfunding.get(0).setPay_no(pay_no.get(0).getPay_no());
-      m.addAttribute("myfunding", myfunding);
+      int user_no = userDao.selectUser(user_id).getUser_no();
+      List<PaymentDto> userFunding = paymentDao.userFunding(user_no);
+      
+      ArrayList<String> userF = new ArrayList<String>();
+      for(int i=0; i<userFunding.size(); i++) {
+        userF.add(String.valueOf(userFunding.get(i).getPay_no()));
+        ProjectDto pi = projectDao.select(userFunding.get(i).getPrdt_id());
+        userF.add(String.valueOf(pi.getPrdt_id()));
+        userF.add(pi.getPrdt_thumbnail());
+        userF.add(pi.getPrdt_name());
+        userF.add(pi.getPrdt_desc());
+        userF.add(String.valueOf(pi.getPrdt_comingday()));
+        userF.add(String.valueOf(pi.getPrdt_dday()));
+        userF.add(String.valueOf(pi.getPrdt_percent()));
+      }
+      System.out.println(userF);
+      m.addAttribute("userF",userF);
       
       
       } catch (Exception e) {

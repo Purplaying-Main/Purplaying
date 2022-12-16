@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.co.purplaying.dao.IndexDao;
 import kr.co.purplaying.domain.BannerFileDto;
-import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.FileService;

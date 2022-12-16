@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.co.purplaying.dao.HeaderFundingDao;
 import kr.co.purplaying.domain.ProjectDto;
 
@@ -17,8 +17,6 @@ public class HeaderFundingController {
   @Autowired
   HeaderFundingDao headerFundingDao;
   
-  
-  @RequestMapping("/popularFunding")
   @GetMapping("/popularFunding")
   public String popularFunding(ProjectDto projectDto, Model m) {
     try {
@@ -33,7 +31,6 @@ public class HeaderFundingController {
     return "popularFunding";
   }
   
-  @RequestMapping("/newFunding")
   @GetMapping("/newFunding")
   public String newFunding(ProjectDto projectDto, Model m) {
     try {
@@ -48,8 +45,7 @@ public class HeaderFundingController {
     return "newFunding";
   }
   
-  
-  @RequestMapping("/comingsoonFunding")
+
   @GetMapping("/comingsoonFunding")
   public String getPage(ProjectDto projectDto, Model m ) {
     
