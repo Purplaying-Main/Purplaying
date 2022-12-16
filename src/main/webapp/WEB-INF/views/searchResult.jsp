@@ -98,9 +98,9 @@
 							</div>
 						</c:forEach>
 					</div>
-						<div class="col">
+<%-- 						<div class="col">
 							<h1 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/viewMore?page=1'" style="color: #9E62FA; cursor:pointer;">더보기</h1>
-						</div>
+						</div> --%>
 					<br>
 					<div class="pagination mb-0 col-10 justify-content-center">
 
@@ -108,6 +108,11 @@
 							<h6 class="row text-center ">
 								"<%=request.getParameter("keyword")%>" 펀딩이 없습니다.
 							</h6>
+						</c:if>
+						<c:if test="${prdt_count > 6 }">
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/projectViewMore?page=1'" style="cursor:pointer;" >더보기
+							</h6>						
+							
 						</c:if>
 <%-- 						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
@@ -163,7 +168,10 @@
 								"<%=request.getParameter("keyword")%>"이라는 제작자가 없습니다.
 							</h6>
 						</c:if>
-		
+						<c:if test="${user_count > 6 }">
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/creatorViewMore?page=1'" style="cursor:pointer;" >더보기
+							</h6>													
+						</c:if>						
 
 					</div>
 				</div>
