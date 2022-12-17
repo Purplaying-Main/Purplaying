@@ -67,5 +67,38 @@ public class FileServiceImpl implements FileService {
     return attachFileDao.selectBannerList();
   }
 
+  @Override
+  public int updateBannerFile(ProjectDto projectDto, int position) throws Exception {
+    // TODO Auto-generated method stub
+    return attachFileDao.updateBannerFile(projectDto,position);
+  }
+
+  @Override
+  public int insertbannerFile(String uploadPath, String srcFileName, long uploadFileSize) throws Exception {
+    return attachFileDao.insertbannerFile(uploadPath, srcFileName, uploadFileSize);
+  }
+  
+  @Override
+  public int getBannerSearchResultCnt(SearchItem sc) throws Exception {
+    return attachFileDao.BannersearchResultCnt(sc);
+  }
+  
+  @Override
+  public List<AttachFileDto> selectBanner_list(SearchItem sc) throws Exception {
+    return attachFileDao.selectBanner_list(sc);
+  }
+
+  @Override
+  public AttachFileDto findBannerByID(int file_id) throws Exception {
+    // TODO Auto-generated method stub
+    return attachFileDao.findBannerByID(file_id);
+  }
+  
+  @Override
+  public int updateBannerFileByUpload(String imgsrc, int position) throws Exception {
+    // TODO Auto-generated method stub
+    return attachFileDao.updateBannerFileByUpload(imgsrc, position);
+  }
+
   
 }

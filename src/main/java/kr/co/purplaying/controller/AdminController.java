@@ -2,7 +2,12 @@ package kr.co.purplaying.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -115,7 +121,7 @@ public class AdminController {
 
       m.addAttribute("totalCnt", totalCnt);
       m.addAttribute("pr", pageResolver);
-
+      System.out.println("totalCnt :"+totalCnt);
       List<ProjectDto> ProjectDtoList = projectService.selectProjectImgforAdmin(sc);
       m.addAttribute("ProjectDtoList",ProjectDtoList);
       m.addAttribute("bannerfileList",bannerfileList);
@@ -126,44 +132,73 @@ public class AdminController {
     
     return "adminbannerlist";
   }
-  @PostMapping("/bannerimg")
-  @ResponseBody
-  public List<BannerFileDto> AdminBannerList(@RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
+  
+  @GetMapping("/bannerupload")
+  public String AdminBannerUpload(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
+    if(!session.getAttribute("user_role").equals(1)) {
+      return null;
+    }
     try {
-      System.out.println(projectDto);
-      int prdt_id = projectDto.getPrdt_id();
+      List<BannerFileDto> bannerfileList = fileService.selectBannerList();
+      System.out.println(sc);
+      int totalCnt = fileService.getBannerSearchResultCnt(sc);
       
-      projectDto = fileService.findprojectImg(prdt_id);
-      System.out.println(projectDto);
-      
-      projectDto.setPrdt_id(prdt_id);
-      if(fileService.insertBannerFile(projectDto)!= 1) {
-        System.out.println("배너 저장 실패");
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+
+      m.addAttribute("totalCnt", totalCnt);
+      m.addAttribute("pr", pageResolver);
+//      System.out.println("totalCnt :"+totalCnt);
+//      System.out.println("sc :"+ sc);
+      List<AttachFileDto> banner_filelist = fileService.selectBanner_list(sc);
+      List<AttachFileDto> fix_banner_filelist = new ArrayList<AttachFileDto>();
+      for(int i=0 ; i<banner_filelist.size(); i++) {
+//        System.out.println("banner_filelist[" +i+ "] : "+banner_filelist.get(i));
+        if(i % 2 == 1) {
+          fix_banner_filelist.add(banner_filelist.get(i));
+        }
       }
-      List<BannerFileDto> bannerlist = fileService.selectBannerList();
-      return bannerlist;
+//      for(int i=0 ; i<fix_banner_filelist.size(); i++) {
+//        System.out.println("fix_banner_filelist[" +i+ "] : "+fix_banner_filelist.get(i));
+//      }
+      
+      m.addAttribute("banner_filelist",fix_banner_filelist);
+      m.addAttribute("bannerfileList",bannerfileList);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return "adminbannerupload";
+  }
+  
+  @PostMapping("/ShowBanner/{file_id}")
+  @ResponseBody
+  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
+    System.out.println(file_id);
+    try {
+      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
+      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
+      return file_src;
       
     } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
   }
-  
+    
   @PostMapping("/listUser")
   @ResponseBody
-  public List<UserDto> AdminUserList(SearchItem sc, @RequestBody UserDto userDto, Model m, HttpSession session ) {
+  public Boolean AdminUserList(SearchItem sc, @RequestBody UserDto userDto, Model m, HttpSession session ) {
    
     try {
       if(userDao.updateRole(userDto) != 1) {
         System.out.println("권한 업데이트 실패");
       }
-      List<UserDto> list = userDao.adminSelect(sc);
-      
-      return list;
+      return true;
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-      return null;
+      return false;
     }
   }
   
@@ -175,31 +210,29 @@ public class AdminController {
         System.out.println("프로젝트 삭제 실패");
       }
       List<ProjectDto> projectList =projectService.selectProject(sc);
+      System.out.println(projectList);
       return projectList;
     } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
   }
-  
-  //upload////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  @GetMapping("/displayAdmin")
+  //파일 보여주기/////////////////////////////////////////////////////////////////////////////////////////////////////////
+  @GetMapping("/display")
   @ResponseBody
-  public ResponseEntity<byte[]> getFile(String file_name , Integer prdt_id, Model m ) throws Exception {
-    
-//      AttachFileDto attachFileDto = fileService.read(prdt_id);
-//      m.addAttribute("attachFileDto", attachFileDto);
-//      System.out.println("attachFileDto: "+attachFileDto);
-    
+  public ResponseEntity<byte[]> getFile(String file_name, Model m ) throws Exception {
+//    AttachFileDto attachFileDto = fileService.read(prdt_id);
+//    m.addAttribute("attachFileDto", attachFileDto);
+//    System.out.println("attachFileDto: "+attachFileDto);
+
     System.out.println("fileName : "+file_name);
     
-    File file = new File("C:\\purplaying_file\\"+file_name);
+    File file = new File("C:\\purplaying_file\\banner\\"+file_name);
     System.out.println("file: "+file);
     
     ResponseEntity<byte[]> result = null;
-    
+    System.out.println(file);
     try {
-      
       HttpHeaders header = new HttpHeaders();
       header.add("Content-Type", Files.probeContentType(file.toPath()));
       result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
@@ -209,7 +242,163 @@ public class AdminController {
     return result;
   }
   
-  //이미지 파일 판단
+  //file upload////////////////////////////////////////////////////////////////////////////////////////////////
+  @PostMapping(value = "/bannerupload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+  @ResponseBody
+  public ResponseEntity<List<AttachFileDto>> fileUpload(@RequestBody MultipartFile[] uploadFile, Model m){
+    
+    List<AttachFileDto> list = new ArrayList<>();
+    
+    System.out.println("upload file ajax post....");
+    String uploadFolder ="C:\\purplaying_file\\Banner";
+    
+    String uploadFolderPath = getFolder();
+  
+    //make folder(yyyy/MM/dd)
+    File uploadPath = new File(uploadFolder, uploadFolderPath);
+    System.out.println("upload path: "+uploadPath);
+    
+    if(uploadPath.exists() == false) {
+      uploadPath.mkdirs();
+    }
+    
+    List<AttachFileDto> thumblist = new ArrayList();
+    
+    for (MultipartFile multipartFile : uploadFile) { 
+      
+      AttachFileDto attachFileDto = new AttachFileDto();
+      String uploadFileName = multipartFile.getOriginalFilename();
+      System.out.println("only file name: "+ uploadFileName);
+      
+      // 파일 경로, 이름 저장
+      attachFileDto.setFile_name(uploadFileName);
+      attachFileDto.setFile_location(uploadFolderPath);
+      System.out.println("uploadFolderPath: "+uploadFolderPath);
+
+//      파일명 중복방지 uuid
+      UUID uuid = UUID.randomUUID();
+      uploadFileName = uuid.toString() + "_" + uploadFileName;
+
+      try {
+        File saveFile = new File(uploadPath, uploadFileName);
+        multipartFile.transferTo(saveFile);
+        
+        attachFileDto.setUuid(uuid.toString());
+        attachFileDto.setUploadPath(uploadFolderPath);
+        
+        //원본 이미지 DB저장
+        
+        //썸네일 생성
+        if(checkImageType(saveFile)) {
+          attachFileDto.setImage(true);
+          
+          FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
+          Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 230, 195); //width, height
+          
+          thumbnail.close();
+        }
+        // add to List
+        list.add(attachFileDto);
+        System.out.println("attachFileDto"+attachFileDto);
+        
+      } catch (Exception e) {
+        e.printStackTrace();
+      }  
+    }//for
+    return new ResponseEntity<>(list,HttpStatus.OK);
+  }
+  
+  @PostMapping("/bannerimg/{position}")
+  @ResponseBody
+  public List<BannerFileDto> AdminBannerList(@RequestBody ProjectDto projectDto, @PathVariable int position , Model m, HttpSession session ) {
+    try {
+      System.out.println(projectDto);
+      int prdt_id = projectDto.getPrdt_id();
+      
+      projectDto = fileService.findprojectImg(prdt_id);
+      System.out.println(projectDto);
+      
+      projectDto.setPrdt_id(prdt_id);
+      if(fileService.updateBannerFile(projectDto,position)!= 1) {
+        System.out.println("배너 저장 실패");
+      }
+      List<BannerFileDto> bannerlist = fileService.selectBannerList();
+      return bannerlist;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
+  @PostMapping("/bannerByUpload/{position}")
+  @ResponseBody
+  public List<BannerFileDto> AdminBannerListByUpload(@RequestBody String imgsrc, @PathVariable int position , Model m, HttpSession session ) {
+    try {
+      if(fileService.updateBannerFileByUpload(imgsrc,position)!= 1) {
+        System.out.println("배너 저장 실패");
+      }
+      List<BannerFileDto> bannerlist = fileService.selectBannerList();
+      return bannerlist;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+  
+  ///삭제//////////////////////////////////////////////////////////////////////ㅍ
+  @PostMapping("/removeFile")
+  @ResponseBody
+  public ResponseEntity<Boolean> removeFile(String uploadPath, String fileName){
+      System.out.println("path:"+uploadPath+" name :"+fileName);
+      String srcFileName = null;
+      try{
+          srcFileName = URLDecoder.decode(fileName,"UTF-8");
+          //UUID가 포함된 파일이름을 디코딩해줍니다.
+          File file = new File(uploadPath +File.separator + srcFileName);
+          boolean result = file.delete();
+
+          File thumbnail = new File(file.getParent(),"s_"+file.getName());
+          //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
+          result = thumbnail.delete();
+          return new ResponseEntity<>(result,HttpStatus.OK);
+      }catch (UnsupportedEncodingException e){
+          e.printStackTrace();
+          return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+  }
+  @PostMapping("/bannersavedb")
+  @ResponseBody
+  public ResponseEntity<Boolean> saveFiledb(String uploadPath, String fileName, String fileuuid) throws Exception{
+      System.out.println("path:"+uploadPath+" name :"+fileName+"uuid : "+fileuuid);
+      String srcFileName = null;
+      try{
+          srcFileName = URLDecoder.decode(fileuuid+fileName,"UTF-8");
+          //UUID가 포함된 파일이름을 디코딩해줍니다.
+          
+          Path path = Paths.get("C:\\purplaying_file\\"+uploadPath+'\\'+fileuuid+fileName);
+          long uploadFileSize = Files.size(path);
+          System.out.println("uploadFileSize : "+uploadFileSize);
+          if(fileService.insertbannerFile(uploadPath, srcFileName, uploadFileSize) != 1) {
+            System.out.println("insertFile ERR");
+          }
+
+          String thumbnail = (String)("s_" + srcFileName);
+          Path paththumbnail = Paths.get("C:\\purplaying_file\\"+uploadPath+'\\'+"s_"+fileuuid+fileName);
+          long uploadFileSizethumbnail = Files.size(paththumbnail);
+          if(fileService.insertbannerFile(uploadPath, thumbnail, uploadFileSizethumbnail) != 1) {
+            System.out.println("insertFile ERR");
+          }
+         
+          return new ResponseEntity<>(HttpStatus.OK);
+      }catch (UnsupportedEncodingException e){
+          e.printStackTrace();
+          return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+  }
+  
+  
   private boolean checkImageType(File file) {
     try {
       String contentType = Files.probeContentType(file.toPath());
@@ -220,6 +409,7 @@ public class AdminController {
     }
     return false;
   }
+  
   //날짜별 폴더 생성 
   private String getFolder() {
     
@@ -229,5 +419,5 @@ public class AdminController {
     
     return str.replace("-", File.separator);
   }
-
+  
 }

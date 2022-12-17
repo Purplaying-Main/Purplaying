@@ -188,7 +188,7 @@
 		select prdt_id, prdt_name, writer,prdt_opendate,prdt_enddate,prdt_goal,prdt_currenttotal 
 		from tb_product
 		where prdt_name LIKE concat('%', #{keyword}, '%')
-		order by prdt_regdate desc
+		order by prdt_id desc
 		limit #{pageSize} OFFSET #{offset}
 	</select>
 	
@@ -243,7 +243,7 @@
 		<include refid="selectFromProjectImg"/>
 		WHERE TRUE
 		<include refid="searchCondition" />
-		ORDER BY prdt_regdate DESC, prdt_id DESC 
+		ORDER BY prdt_id DESC 
 		LIMIT #{pageSize} OFFSET #{offset}
   	</select>
  	

@@ -35,11 +35,19 @@
 		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{user_no});
 	</insert>
 	
+	<!-- prdt검색 -->
 	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+  		SELECT count(*)
+		FROM tb_product
+		WHERE TRUE
+		AND prdt_name LIKE concat('%', #{keyword}, '%')
+  	</select>
+  	
+  	<select id="BannersearchResultCnt" parameterType="SearchItem" resultType="int">
   		SELECT count(*)
 		FROM tb_file
 		WHERE TRUE
-		AND file_name LIKE concat('%', #{keyword}, '%')
+		AND isbannerimg = 1
   	</select>
   	
   	<select id="fileforAdmin" parameterType="int" resultType="ProjectDto">
@@ -52,8 +60,7 @@
   	<select id="selectBannerList" resultType="BannerFileDto">
   		SELECT *
 		FROM tb_bannerFile
-		order by bannerfile_regdate desc
-		limit 3
+		order by bannerFile_id
   	</select>
   	
   	<insert id="insertBannerFile" parameterType="ProjectDto">
@@ -70,4 +77,38 @@
 		order by file_regdate desc
 		limit #{pageSize} OFFSET #{offset}
   	</select>
+ 		
+  	<update id="updateBannerFile" parameterType="map">
+		update tb_bannerfile
+		set bannerfile_file = #{prdt_img}, bannerfile_prdt_id = #{prdt_id}, bannerfile_regdate = now()
+		where bannerfile_id = #{position}
+	</update>
+	
+	<update id="updateBannerFileByUpload" parameterType="map">
+		update tb_bannerfile
+		set bannerfile_file = #{imgsrc}, bannerfile_prdt_id = 0, bannerfile_regdate = now()
+		where bannerfile_id = #{position}
+	</update>
+	
+	<!-- 배너 업로드하기 -->
+	<insert id="insertbannerFile" parameterType="map">
+		INSERT INTO tb_file
+			(file_name, file_location, file_size, file_regdate, isbannerimg)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), 1);
+	</insert>
+	
+	<select id="selectBanner_list" parameterType="SearchItem" resultType="AttachFileDto">
+		SELECT  file_id, file_name, file_location, file_regdate
+		FROM tb_file
+		WHERE TRUE
+		AND isbannerimg = 1
+		order by file_regdate desc
+		limit #{pageSize} OFFSET #{offset}
+	</select>
+	
+	<select id="findBannerByID" parameterType="int" resultType="AttachFileDto">
+		SELECT  file_id, file_name, file_location
+		FROM tb_file
+		WHERE file_id = #{file_id}
+	</select>
 </mapper>
