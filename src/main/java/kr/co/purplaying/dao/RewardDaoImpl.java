@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.RewardDto;
 
 @Repository
@@ -66,13 +63,13 @@ public class RewardDaoImpl implements RewardDao {
     map.put("reward_cnt", cnt_arr);
     return session.update(namespace+"insertSelectReward", map);
   }
-  
+
   @Override
-  public List<RewardDto> userSelectedReward(int prdt_id, int user_no, int pay_total) throws Exception {
-    Map map = new HashMap();
-    map.put("prdt_id", prdt_id);
-    map.put("user_no", user_no);
-    map.put("pay_total", pay_total);
-    return session.selectList(namespace+"userSelectedReward", map);
+  public List<RewardDto> userReward(Map map) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"userReward", map);
   }
+
+
+  
 }

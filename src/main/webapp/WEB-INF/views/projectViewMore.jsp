@@ -86,18 +86,18 @@
  						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value="/viewMore${pr2.sc2.getQueryString(pr2.beginPage-1) }" />">
+									href="<c:url value="/projectViewMore${pr2.sc2.getQueryString(pr2.beginPage-1) }" />">
 										&lt; </a></li>
 							</c:if>
 							<c:forEach var="i" begin="${pr2.beginPage }"
 								end="${pr2.endPage }">
-								<li class="page-item"><a class="page-link"
-									href="<c:url value="/viewMore${pr2.sc2.getQueryString(i)}" />">${i }</a>
+								<li class="page-item"><a class="page-link <c:if test="${pr2.sc2.page==i}">active</c:if>"
+									href="<c:url value="/projectViewMore${pr2.sc2.getQueryString(i)}" />">${i }</a>
 								</li>
 							</c:forEach>
 							<c:if test="${pr2.showNext }">
 								<li class="page-item"><a class="page-link"
-									href="<c:url value="/viewMore${pr2.sc2.getQueryString(pr2.endPage+1) }" />">
+									href="<c:url value="/projectViewMore${pr2.sc2.getQueryString(pr2.endPage+1) }" />">
 										&gt; </a></li>
 							</c:if>
 						</c:if> 
@@ -106,13 +106,6 @@
 				</div>
 			</div>
 
-
-			<div class="container py-4">
-				<h4>
-					<a>이런 프로젝트는 어떠세요?</a>
-				</h4>
-				<%@ include file="projectSuggest.jsp"%>
-			</div>
 		</div>
 
 	</section>

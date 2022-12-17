@@ -111,30 +111,32 @@
               <h5 class="mt-4 mb-2">${sessionScope.user_id}님이 후원중인 펀딩</h5>
                <!-- project card start -->
                <c:choose>
-               	<c:when test="${fn:length(myfunding) ne 0 }">
-              <c:forEach var="projectDto" items="${myfunding }">
+               	<c:when test="${fn:length(userF) ne 0 }">
+               	<c:set var="i" value="0"/>
+              <c:forEach items="${userF }" begin="0" end="${fn:length(userF)/8-1}">
               <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                  <div class="col-auto d-none d-lg-block">
-		             <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail" src="${projectDto.prdt_thumbnail}" style="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }" >                  
+		             <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail" src="${userF[i+2]}" style="${userF[i+2] == null ? 'display:none' : '' }" >                  
 		         </div>
                 <div class="col p-4 d-flex flex-column position-static">
                   <div class="row justify-content-between mb-2">
                     <p class="col-auto me-auto text-primary">		                    
                     		<c:choose>
-		                    	<c:when test="${projectDto.prdt_comingday > 0 }">펀딩 예정</c:when>
-		                    	<c:when test="${projectDto.prdt_dday >= 0}">펀딩 중</c:when>
-		                    	<c:when test="${projectDto.prdt_comingday < 0 }">펀딩 종료</c:when>
+		                    	<c:when test="${userF[i+5] > 0 }">펀딩 예정</c:when>
+		                    	<c:when test="${userF[i+6] >= 0}">펀딩 중</c:when>
+		                    	<c:when test="${userF[i+5] < 0 }">펀딩 종료</c:when>
 		                    	<c:otherwise>펀딩상태</c:otherwise>
-		                    </c:choose> | 펀딩번호 ${projectDto.prdt_id}</p> 
+		                    </c:choose> | 펀딩번호 ${userF[i+1]}</p> 
                     <div class="col-auto">
-                      <a href="${pageContext.request.contextPath}/paymentCompleted/${projectDto.pay_no}">결제내역 상세보기</a>
+                      <a href="${pageContext.request.contextPath}/paymentCompleted/${userF[i]}">결제내역 상세보기</a>
                     </div>
                   </div>
-                  <h4 class="mb-0"><a href="${pageContext.request.contextPath}/project/${projectDto.prdt_id}">${projectDto.prdt_name}</a></h4>
-                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 종료 D-${projectDto.prdt_dday}</p>
-                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
+                  <h4 class="mb-0"><a href="${pageContext.request.contextPath}/project/${userF[i+1]}">${userF[i+3]}</a></h4>
+                  <p class="mb-1 text-danger">현재 달성률 ${userF[i+7]}% 종료 D-${userF[i+6]}</p>
+                  <p class="card-text mb-2">${userF[i+4]}</p>
                 </div>
               </div>
+              	<c:set var="i" value="${i+8 }"/>
                 </c:forEach>
                	</c:when>
                	<c:otherwise>

@@ -72,14 +72,13 @@ public class SearchResultController {
 
         }
           
-  @GetMapping("/viewMore")
-  public String viewMore(SearchItem2 sc2, ProjectDto projectDto,  Model m) {
+  @GetMapping("/projectViewMore")
+  public String projectViewMore(SearchItem2 sc2, ProjectDto projectDto,  Model m) {
           
           try {
-            
-            
-            List<ProjectDto> viewMore = searchResultService.getSearchResultPage(sc2);
-            m.addAttribute("prdt_view", viewMore);
+                      
+            List<ProjectDto> projectViewMore = searchResultService.getSearchResultPage(sc2);
+            m.addAttribute("prdt_view", projectViewMore);
             
             int totalCnt = searchResultService.getsearchcount(sc2);
             m.addAttribute("prdt_count", totalCnt);
@@ -87,11 +86,35 @@ public class SearchResultController {
             PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
             m.addAttribute("pr2", pageResolver2);
             
+            
           } catch (Exception e) {
             e.printStackTrace();
           }
-          return "viewMore";
+          return "projectViewMore";
         }
+  
+  @GetMapping("/creatorViewMore")
+  public String creatorViewMore(SearchItem2 sc2,  Model m) {
+          
+          try {
+                      
+            List<UserDto> creatorViewMore = userDao.searchUserPage(sc2);
+            m.addAttribute("creator_view", creatorViewMore);
+            
+            int userCount = userDao.searchuser(sc2);
+            m.addAttribute("user_count", userCount);          
+            
+            PageResolver2 pageResolver2 = new PageResolver2(userCount, sc2);
+            m.addAttribute("pr2", pageResolver2);
+            
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+          return "creatorViewMore";
+        }
+  
+  
+  
 
   @GetMapping("/creatorSearch/{user_id}")       
   public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, HttpSession session) {
@@ -111,10 +134,6 @@ public class SearchResultController {
              System.out.println(list_crea);
              m.addAttribute("list_crea", list_crea);
              
-              
-              
-              
-          
 
 
           } catch (Exception e) {

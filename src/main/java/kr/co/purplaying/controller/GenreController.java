@@ -1,8 +1,6 @@
 package kr.co.purplaying.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +18,6 @@ public class GenreController {
   @Autowired
   GenreDao genreDao;
   
-  @RequestMapping("/literature")
   @GetMapping("/literature")
   public String getLiterature(Order order, Model m) {
     try {
@@ -34,7 +31,7 @@ public class GenreController {
     return "genreLiterature";
   }
   
-  @RequestMapping("/poemessay")
+ 
   @GetMapping("/poemessay")
   public String getPoemEssay (Order order, Model m) {
     try {
@@ -48,7 +45,6 @@ public class GenreController {
     return "genrePoemEssay";
   }
   
-  @RequestMapping("/webtoon")
   @GetMapping("/webtoon")
   public String genrWebtoon (Order order, Model m) {
     try {

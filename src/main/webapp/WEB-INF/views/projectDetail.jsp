@@ -121,9 +121,6 @@
                   <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${projectDto.writer}/'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
-   			  <li class="row d-flex p-2">
-	             <button class="btn btn-outline-primary" style="${writerOnly}">후원내역 다운로드</button>
-	          </li>
             </ul>
           </div><!-- 상세페이지 상단 end -->
           <div class="row mb-2"><!-- 상세페이지 하단 start-->
@@ -365,11 +362,43 @@
 			  
 		}
 	$(document).ready(function(){
-	// 유저 = 창작자 펀딩하기 버튼 비활성화	
+		// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동 
 		if(${sessionScope.user_id eq projectDto.writer}){
-				document.getElementById("doFundingBtn").disabled = true;
+				
+				document.getElementById("doFundingBtn").value = "펀딩관리하기";
+				document.getElementById("doFundingBtn").addEventListener('click',function(){
+					window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
+				})
 				return false
 		}	
+	    $('#doFundingBtn').click(function(){
+			console.log("펀딩하기 버튼 클릭");
+	   		let form = $('#selectedRewardForm');
+			form.attr("action","<c:url value='/payment/${prdt_id}' />");
+			form.attr("method","get");
+			
+			if(formCheck())
+				form.submit()	
+
+	   	}) 
+	   	
+	   	formCheck = function() {
+			let form = document.getElementById("selectRewardBox")
+			
+			if(form.innerText == "" ) {
+				alert("리워드를 선택해주세요.")
+				return false
+			}
+			
+			if(form.style.display != "block" ) {
+				alert("리워드를 선택해주세요.")
+				return false
+			}
+			
+			console.log("입력 성공");
+			return true;
+		}
+	
    	let selectedRewardName = document.getElementById("selectedRewardName");
    	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
    	
@@ -393,35 +422,7 @@
 				$("#rewardTotalPrice").val(result_price); */
 			}
 		});
-	});
-    $('#doFundingBtn').click(function(){
-		console.log("펀딩하기 버튼 클릭");
-   		let form = $('#selectedRewardForm');
-		form.attr("action","<c:url value='/payment/${prdt_id}' />");
-		form.attr("method","get");
-		
-		if(formCheck())
-			form.submit()	
-
-   	}) 
-   	
-   	formCheck = function() {
-		let form = document.getElementById("selectRewardBox")
-		
-		if(form.innerText == "" ) {
-			alert("리워드를 선택해주세요.")
-			return false
-		}
-		
-		if(form.style.display != "block" ) {
-			alert("리워드를 선택해주세요.")
-			return false
-		}
-		
-		console.log("입력 성공");
-		return true;
-	}
-		
+	});		
    		
 	function calRewardPrice(){
 		eventTarget = event.target;		
