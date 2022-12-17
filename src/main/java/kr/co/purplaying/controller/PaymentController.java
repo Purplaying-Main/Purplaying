@@ -61,7 +61,7 @@ public class PaymentController {
       Model m, RewardDto rewardDto) {
     // 로그인 하지 않는 경우 펀딩하기 클릭시 로그인 요구
     if (!loginCheck(request))
-      return "redirect:/user/login?toURL=/payment/{prdt_id}";
+      return "redirect:/user/login?toURL=/project/{prdt_id}";
 
     try {
       String user_id = (String) session.getAttribute("user_id");
@@ -197,22 +197,15 @@ public class PaymentController {
       prdt_id = paymentDto.get(0).getPrdt_id();
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto",projectDto);
+      System.out.println(projectDto);
       
       Map pn = new HashMap();
       pn.put("pay_no", Integer.parseInt(num[1]));
       
       List<PaymentDto> paymentDto_r = paymentDao.paynoreinfo(pn);
-      System.out.println(paymentDto_r);
 
       String[] rd_id = paymentDto_r.get(0).getReward_id_s().split(",");
       String[] rd_cnt = paymentDto_r.get(0).getReward_user_cnt_s().split(",");
-      
-      //유저선택리워드
-      System.out.println(rd_id);
-      System.out.println(rd_cnt);
-      
-      paymentDto_r.get(0).getReward_id_s().length();
-      System.out.println();
       
       List<RewardDto> reward_user = rewardDao.selectReward(prdt_id);
       ArrayList<String> reward_pay = new ArrayList<>();

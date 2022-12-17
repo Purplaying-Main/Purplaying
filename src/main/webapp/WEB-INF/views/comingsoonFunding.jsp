@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +26,15 @@
       <div class="album">
         <div class="container py-4"><!-- genre div start -->
           <h3>Comingsoon ! 펀딩예정💖</h3>
+          <c:choose>
+          <c:when test="${fn:length(list_c) eq 0 }">
+          	  <div class="text-center my-4">
+               	<h5>현재 예정중인 펀딩이 없습니다.<br>
+               		조금만 기다려주세요 👀
+               	</h5>
+               	</div>
+          </c:when>
+          <c:otherwise>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="ProjectDto" items="${list_c }">
             <div class="col"><!-- project thumb start -->
@@ -52,7 +62,9 @@
               </div>
              </div>
              </c:forEach>	
-            </div><!-- project thumb end -->		
+            </div><!-- project thumb end -->	
+            </c:otherwise>
+            </c:choose>	
           </div>
         </div><!-- genre div end -->
       </div>

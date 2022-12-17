@@ -49,12 +49,11 @@ public class CSVFileDownloadController {
     
     Map map = new HashMap(); 
     map.put("prdt_id", prdt_id);
-    List<PaymentDto> lpay  = paymentDao.fundingManage(map);
     List<PaymentDto> list_pay = new ArrayList<PaymentDto>(paymentDao.fundingManage(map));
-
+    
     ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
     
-    String[] header = { "pay_no", "pay_time","user_no", "reward_id", "reward_user_cnt",
+    String[] header = { "pay_no", "pay_time","user_no", "reward_id_s", "reward_user_cnt_s","pay_total",
         "delivery_reciever", "delivery_phone", "delivery_postcode","delivery_address","delivery_addressdetail","delivery_memo" };
 
     csvWriter.writeHeader(header);

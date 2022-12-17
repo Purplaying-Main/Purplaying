@@ -52,13 +52,13 @@
         </div>
    	   
        <!-- 테이블 -->       
-		  <table>
-		  	<tr class="d-flex justify-content-between px-4 pt-4">
-			  	<th>주문 번호</th>
-			  	<th>주문 일자</th>
-			  	<th>회원번호</th>
-			  	<th>주문 내역</th>
-			  	<th>주문 금액</th>
+		  <table class="table">
+		  	<tr class="table-Secondary">
+			  	<th class="text-center col-1" scope="col">주문<br>번호</th>
+			  	<th class="text-center col-3" scope="col">주문 일자</th>
+			  	<th class="text-center col-1"  scope="col">회원<br>번호</th>
+			  	<th  class="text-center col-5"  scope="col">주문 정보</th>
+			  	<th  class="text-end col-2" scope="col">주문 금액</th>
 		  	</tr>
 			<c:if test="${empty list_pay }">
 			<tr class="d-flex px-4 py-4 justify-content-center" >
@@ -67,12 +67,12 @@
 			 </c:if>
 			 <c:if test="${not empty list_pay }">
 			  	<c:forEach var="paymentDto" items="${list_pay }">
-			  	<tr class="d-flex justify-content-between px-4 pt-4 ">
-					  <td>${paymentDto.pay_no }</td>
-					  <td><fmt:formatDate value="${paymentDto.pay_time }" pattern="yyyy년 MM월 dd일"/></td>
-					  <td>${paymentDto.user_no }</td>
-					  <td>${paymentDto.reward_id }|${paymentDto.reward_user_cnt }</td>
-					  <td><fmt:formatNumber value="${paymentDto.pay_total }" pattern="#,###" />원</td>
+			  	<tr>
+					  <td class="text-center col-1"><a href="${pageContext.request.contextPath}/paymentCompleted/${paymentDto.pay_no}">${paymentDto.pay_no }</a></td>
+					  <td  class="col-3 text-center"><fmt:formatDate value="${paymentDto.pay_time }" pattern="yyyy년 MM월 dd일"/></td>
+					  <td class="text-center col-1">${paymentDto.user_no }</td>
+					  <td  class="col-5 text-center">${paymentDto.reward_id_s }|${paymentDto.reward_user_cnt_s }</td>
+					  <td  class="col-2 text-end"><fmt:formatNumber value="${paymentDto.pay_total }" pattern="#,###" />원</td>
 				  </tr>
 			  	</c:forEach>
 			  	</c:if>

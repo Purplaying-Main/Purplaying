@@ -144,11 +144,10 @@ public class MypageController {
       Map mapC = new HashMap(); 
       mapC.put("prdt_id", prdt_id);
       
+      List<PaymentDto> list_payC = paymentDao.fundingManageForChart(mapC);    //해당 펀딩 결제정보(차트)
       List<PaymentDto> list_pay = paymentDao.fundingManageForWeek(mapT);    //해당 펀딩 결제정보(표)
       m.addAttribute("list_pay",list_pay);
-     // System.out.println(list_pay);
-      List<PaymentDto> list_payC = paymentDao.fundingManageForChart(mapC);    //해당 펀딩 결제정보(차트)
-
+      System.out.println(list_pay);
         Map<Integer, Integer> dayNtotal = new HashMap<Integer, Integer>();
         for(int i = 0; i<list_payC.size(); i++) {
           dayNtotal.put(list_payC.get(i).getDay(),list_payC.get(i).getDaySum());
