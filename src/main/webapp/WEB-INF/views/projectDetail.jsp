@@ -646,7 +646,7 @@
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
-						tmp += ' 		<button class="delBtn" >삭제</button>'
+						tmp += ' 		<button class="delBtn" onclick="index.ResponseEntity<String> remove(${user_no},${chat_no}})">삭제</button>'
 						tmp += '		<button class="modBtn" >수정</button>'
 						tmp += '	</div>'
 						tmp += '<hr class="mt-3">'
