@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.purplaying.domain.AlarmDto;
 import kr.co.purplaying.domain.LikeDto;
+import kr.co.purplaying.service.AlarmService;
 import kr.co.purplaying.service.LikeService;
 
 @Controller
@@ -19,16 +21,27 @@ public class LikeController {
   @Autowired
   LikeService likeService;
   
+  @Autowired
+  AlarmService alarmService;
+  
   @PostMapping("/addlike")
   @ResponseBody
-  public String addLikelist(@RequestBody LikeDto likeDto, HttpSession session){
-    System.out.println(session.getAttribute("user_id"));
-    likeDto.setUser_id((String)session.getAttribute("user_id"));
+  public String addLikelist(@RequestBody LikeDto likeDto, AlarmDto alarmDto, HttpSession session){
+//    System.out.println(session.getAttribute("user_id"));
+    String user_id = (String) session.getAttribute("user_id");
+    likeDto.setUser_id(user_id);
     System.out.println(likeDto);
+    
+    int like_id = likeDto.getLike_id();
+    alarmDto.setLike_id(like_id);
+    System.out.println("alarmDto: "+alarmDto);
     
     try {
       if(likeService.insertLike(likeDto)!=1) {
         System.out.println("좋아요 추가 실패");
+      }
+      if(alarmService.insertAlarm(alarmDto)!=1) {
+        System.out.println("관심 알림 추가 실패");
       }
     } catch (Exception e) {
       // TODO Auto-generated catch block

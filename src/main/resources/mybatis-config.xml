@@ -28,5 +28,6 @@
 		<typeAlias alias="ReplyDto" type="kr.co.purplaying.domain.ReplyDto" />
 		<typeAlias alias="BannerFileDto" type="kr.co.purplaying.domain.BannerFileDto" />
 		<typeAlias alias="LikeDto" type="kr.co.purplaying.domain.LikeDto" />
+		<typeAlias alias="AlarmDto" type="kr.co.purplaying.domain.AlarmDto" />
 	</typeAliases>
 </configuration>

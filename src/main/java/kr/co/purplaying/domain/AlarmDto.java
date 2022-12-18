@@ -11,13 +11,15 @@ public class AlarmDto {
   private int prdt_id;
   private int prdt_comingday;
   private int prdt_dday;
+  private String prdt_thumbnail;
+  private String prdt_name;
   
    
   public AlarmDto() {
     super();
   }
 
-  public AlarmDto(int alarm_no, int alarm_cnt, Date alarm_regdate, int like_id, int prdt_id, String user_id) {
+  public AlarmDto(int alarm_no, int alarm_cnt, Date alarm_regdate, int like_id, int prdt_id, String user_id, String prdt_thumbnail, String prdt_name) {
     super();
     this.alarm_no = alarm_no;
     this.alarm_cnt = alarm_cnt;
@@ -25,12 +27,14 @@ public class AlarmDto {
     this.like_id = like_id;
     this.prdt_id = prdt_id;
     this.user_id = user_id;
+    this.prdt_thumbnail = prdt_thumbnail;
+    this.prdt_name = prdt_name;
   }
 
   @Override
   public String toString() {
     return "AlarmDto [alarm_no=" + alarm_no + ", alarm_cnt=" + alarm_cnt + ", alarm_regdate=" + alarm_regdate
-        + ", like_id=" + like_id + ", prdt_id=" + prdt_id + ", user_id=" + user_id+ "]";
+        + ", like_id=" + like_id + ", prdt_id=" + prdt_id + ", user_id=" + user_id+", prdt_thumbnail=" + prdt_thumbnail+", prdt_name=" + prdt_name+  "]";
   }
 
   public int getAlarm_no() {
@@ -96,6 +100,23 @@ public class AlarmDto {
   public void setPrdt_dday(int prdt_dday) {
     this.prdt_dday = prdt_dday;
   }
+
+  public String getPrdt_thumbnail() {
+    return prdt_thumbnail;
+  }
+
+  public void setPrdt_thumbnail(String prdt_thumbnail) {
+    this.prdt_thumbnail = prdt_thumbnail;
+  }
+
+  public String getPrdt_name() {
+    return prdt_name;
+  }
+
+  public void setPrdt_name(String prdt_name) {
+    this.prdt_name = prdt_name;
+  }
+  
   
   
 }

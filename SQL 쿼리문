@@ -329,7 +329,13 @@ ALTER TABLE tb_file ADD COLUMN isbannerimg int not null default 0;
 -- truncate table tb_ restart identity;
 -- 컬럼명 변경
 --ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
+--컬럼 데이터타입 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 TYPE 변경할데이터타입;
+--컬럼 디폴트값 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 SET DEFAULT 변경할디폴트값;
 --컬럼 삭제
 --ALTER TABLE [테이블명] DROP COLUMN [기존컬럼명];
 --컬럼 not null 제거
 --ALTER TABLE [테이블명] ALTER COLUMN [기존컬럼명] DROP NOT NULL;
+--컬럼 추가
+--ALTER TABLE 테이블명 ADD COLUMN 컬럼명 데이터타입 제약조건

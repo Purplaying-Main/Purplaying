@@ -19,10 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.AlarmDto;
 import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.service.AlarmService;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
 
@@ -41,8 +43,11 @@ public class MypageController {
   @Autowired
   PaymentDao paymentDao;
 
-   @Autowired
+  @Autowired
   LikeService likeService;
+   
+  @Autowired
+  AlarmService alarmService;
   
   @GetMapping("/mypage")
   public String list(@RequestParam(defaultValue = "1") Integer page,
@@ -72,6 +77,7 @@ public class MypageController {
       Map map = new HashMap();
       map.put("offset", (page-1)*pageSize);
       map.put("pageSize", pageSize);
+      map.put("user_id", user_id);
       
       List<LikeDto> list_like_project = likeService.selectByUserId(user_id);
       List<ProjectDto> list_like = new ArrayList<ProjectDto>();
@@ -112,6 +118,19 @@ public class MypageController {
       }
       System.out.println(userF);
       m.addAttribute("userF",userF);
+      
+//    알림 목록 불러오기
+      List<AlarmDto> list_alarm = alarmService.selectPage(map);
+      System.out.println("list_alarm : "+list_alarm);
+      m.addAttribute("list_alarm", list_alarm);
+      
+      AlarmDto alarmDto = list_alarm.get(0);
+      System.out.println("alarmDto : "+alarmDto);
+//      int alarm_no = list_alarm.get(0).getAlarm_no();
+//      System.out.println("alarm_no: "+alarm_no);
+//      AlarmDto alarmDto = alarmService.selectAlarm(alarm_no);
+      
+      m.addAttribute("alarmDto", alarmDto);
       
       
       } catch (Exception e) {
