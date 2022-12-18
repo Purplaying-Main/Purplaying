@@ -1,6 +1,5 @@
---VER - 2022.11.30 17:00 수정
+--VER - 2022-12-18
 --tb_abc순 정렬
---tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
 
 ------------------------- product 테이블 -------------------------
@@ -45,22 +44,12 @@ CREATE TABLE tb_user (
     user_role int4 NOT NULL DEFAULT 0,
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
     user_point int default 0,
+    user_nickname varchar(100) default null,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
 select * from TB_REWARD TR  
 
-------------------------- account 테이블 -------------------------
-DROP TABLE if exists tb_account;
-CREATE TABLE tb_account (
-    account_no serial4 NOT NULL,
-    account_type int4 NOT NULL DEFAULT 1,
-    account_bank varchar(100) NOT NULL,
-    account_bank_no numeric NOT NULL,
-    account_bank_nm varchar(100) NOT NULL,
-    user_no int4 NOT NULL,
-    CONSTRAINT tb_account_pkey PRIMARY KEY (account_no)
-);
 
 ------------------------- address 테이블 -------------------------
 DROP TABLE if exists tb_address;
@@ -103,14 +92,6 @@ CREATE TABLE IF NOT EXISTS tb_chat_service(
     FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade
     );
 
-------------------------- deliverycharge 테이블 -------------------------
-DROP TABLE if exists tb_deliverycharge;
-CREATE TABLE tb_deliverycharge (
-    location_no serial4 NOT NULL,
-    location_nm varchar(100) NOT NULL,
-    location_price int4 NOT NULL,
-    CONSTRAINT tb_deliverycharge_pkey PRIMARY KEY (location_no)
-);
 
 ------------------------- file 테이블 -------------------------
 DROP TABLE if exists tb_file;
@@ -199,27 +180,21 @@ CREATE TABLE tb_notice (
 ------------------------- payment 테이블 -------------------------
 DROP TABLE if exists tb_payment;
 CREATE TABLE tb_payment (
-    pay_no serial4 NOT NULL,
-    pay_time timestamp NULL DEFAULT now(),
-    pay_cardnum varchar(300) NOT NULL,
-    pay_carddate int4 NOT NULL,
-    pay_cvc int4 NOT NULL,
-    pay_pwd int4 NOT NULL,
-    pay_total numeric NOT NULL,
-    prdt_id int4,
-    user_no int4,
-    delivery_reciever varchar(100) NOT NULL,
-    delivery_phone varchar(100) NOT NULL,
-    delivery_postcode varchar(100) NOT NULL,
-    delivery_address varchar(500) NOT NULL,
-    delivery_addressdetail varchar(500),
-    delivery_memo varchar(1000),
-    delivery_charge numeric,
-    reward_user_cnt int4 NULL,
-    reward_id int4 NULL,
-    CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
+	pay_no serial4 NOT NULL,
+	pay_time timestamp NULL DEFAULT now(),
+	user_no int4 NULL,
+	prdt_id int4 NULL,
+	reward_id _int4 NULL,
+	reward_user_cnt _int4 NULL,
+	pay_total numeric NOT NULL,
+	delivery_reciever varchar(100) NOT NULL,
+	delivery_phone varchar(100) NOT NULL,
+	delivery_postcode varchar(100) NOT NULL,
+	delivery_address varchar(500) NOT NULL,
+	delivery_addressdetail varchar(500) NULL,
+	delivery_memo varchar(1000) NULL,
+	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
 );
-
 
 
 ------------------------- reply 테이블 -------------------------
