@@ -29,7 +29,7 @@ public class AlarmDaoImpl implements AlarmDao{
 
   @Override
   public AlarmDto selectAlarm(int alarm_no) throws Exception {
-    return session.selectOne(namespace+"selectByUserId",alarm_no);
+    return session.selectOne(namespace+"selectAlarm",alarm_no);
   }
 
   @Override

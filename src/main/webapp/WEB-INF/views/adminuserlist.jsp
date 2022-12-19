@@ -33,13 +33,13 @@
 				</tr>
 	        	<c:forEach var="MemberDto" items="${UserList}">
 					<tr>
-						<th scope="row" id="user_no-${MemberDto.user_no}">${MemberDto.user_no}</th>
-						<td id="user_id-${MemberDto.user_no}">${MemberDto.user_id}</td>
-						<td id="user_name-${MemberDto.user_no}">${MemberDto.user_name}</td>
-						<td id="user_nickname-${MemberDto.user_no}">${MemberDto.user_nickname}</td>
-						<td id="user_phone-${MemberDto.user_no}">${MemberDto.user_phone}</td>
-						<td id="user_regdate-${MemberDto.user_no}"><fmt:formatDate value="${MemberDto.user_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
-						<td id="user_role-${MemberDto.user_no}">
+						<th class="align-middle" scope="row" id="user_no-${MemberDto.user_no}">${MemberDto.user_no}</th>
+						<td class="align-middle" id="user_id-${MemberDto.user_no}">${MemberDto.user_id}</td>
+						<td class="align-middle" id="user_name-${MemberDto.user_no}">${MemberDto.user_name}</td>
+						<td class="align-middle" id="user_nickname-${MemberDto.user_no}">${MemberDto.user_nickname}</td>
+						<td class="align-middle" id="user_phone-${MemberDto.user_no}">${MemberDto.user_phone}</td>
+						<td class="align-middle" id="user_regdate-${MemberDto.user_no}"><fmt:formatDate value="${MemberDto.user_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
+						<td class="align-middle" id="user_role-${MemberDto.user_no}">
 							<c:choose>
 								<c:when test="${MemberDto.user_role == 0}">일반회원</c:when>
 								<c:otherwise>관리자</c:otherwise>
@@ -48,12 +48,13 @@
 						<td id="save_change-${MemberDto.user_no}">
 							<input type="hidden" value="${MemberDto.user_no}"/>
 							<input type="hidden" value="${MemberDto.user_role}"/>
-							<button type="button" onclick="goto_Userrole_modal()">변경하기</button>
+							<button type="button" class="btn btn-primary" onclick="goto_Userrole_modal()">변경하기</button>
 						</td>
 					</tr>
 				</c:forEach>
-			</table>
-				<div class="modal fade" data-keyboard="false" data-backdrop="static" id="User_Role_Modal" role="dialog" tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
+				</table>
+			</div>
+				<div class="modal fade" id="User_Role_Modal" tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 				            <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -74,10 +75,9 @@
 					    </div>
 					</div>
 				</div>
-			</div>
+			
 			<div class="paging-container">
 				<div class="justify-content-center d-flex" id="paging_user">
-					<div class="col-1"></div>
 					<ul class="pagination mb-0 col-10 justify-content-center">
 						<c:if test="${totalCnt == null}">
 							<div> 유저가 없습니다.</div>
@@ -113,6 +113,7 @@
 	  user_no = eventTarget.previousElementSibling.previousElementSibling.value
 	  $('#User_Role').val(user_role)
 	  $('#user_no_modal').val(user_no)
+	  $('#User_Role_Modal').modal({backdrop: 'static', keyboard: false});
 	  $('#User_Role_Modal').modal("show");
 	  
   }
@@ -131,9 +132,12 @@
 			dataType : 'text',
 			data : JSON.stringify(user_data),
 			success:function(result){
-				$('#User_Role_Modal').modal("hide");
-				$('#user_list').html(toHtmlUser(JSON.parse(result)))
-				
+				alert(result)
+				if(result=='true'){
+					$('#User_Role_Modal').modal("hide");
+					//$('#user_list').html(toHtmlUser(JSON.parse(result)))
+					window.location.reload();
+				}
 			},
 			error : function(){
 				alert("error");
@@ -147,13 +151,13 @@
 	
 		table.forEach(function(table_item){
 			tmp += '<tr>'
-			tmp += '<th scope="row" id="user_no-'+table_item.user_no+'">'+table_item.user_no+'</th>';
-			tmp += '<td id="user_id-'+table_item.user_no+'">'+table_item.user_id+'</td>';
-			tmp += '<td id="user_name-'+table_item.user_no+'">'+table_item.user_name+'</td>';
-			tmp += '<td id="user_nickname-'+table_item.user_no+'">'+table_item.user_nickname+'</td>';
-			tmp += '<td id="user_phone-'+table_item.user_no+'">'+table_item.user_phone+'</td>';
-			tmp += '<td id="user_regdate-'+table_item.user_no+'">'+toStringByFormatting(table_item.user_regdate)+'</td>';
-			tmp += '<td id="user_role-'+table_item.user_no+'">';
+			tmp += '<th class="align-middle" scope="row" id="user_no-'+table_item.user_no+'">'+table_item.user_no+'</th>';
+			tmp += '<td class="align-middle" id="user_id-'+table_item.user_no+'">'+table_item.user_id+'</td>';
+			tmp += '<td class="align-middle" id="user_name-'+table_item.user_no+'">'+table_item.user_name+'</td>';
+			tmp += '<td class="align-middle" id="user_nickname-'+table_item.user_no+'">'+table_item.user_nickname+'</td>';
+			tmp += '<td class="align-middle" id="user_phone-'+table_item.user_no+'">'+table_item.user_phone+'</td>';
+			tmp += '<td class="align-middle" id="user_regdate-'+table_item.user_no+'">'+toStringByFormatting(table_item.user_regdate)+'</td>';
+			tmp += '<td class="align-middle" id="user_role-'+table_item.user_no+'">';
 			if(table_item.user_role==1){
 				tmp +='관리자</td>';
 			}
@@ -163,7 +167,7 @@
 			tmp += '<td id="save_change-'+table_item.user_no+'">';
 			tmp += '<input type="hidden" value="'+table_item.user_no+'"/>';
 			tmp += '<input type="hidden" value="'+table_item.user_role+'"/>'
-			tmp += '<button type="button" onclick="goto_Userrole_modal()">변경하기</button>';
+			tmp += '<button type="button" class="btn btn-primary" onclick="goto_Userrole_modal()">변경하기</button>';
 			tmp	+='</td>';
 			tmp += '</tr>';
 		});

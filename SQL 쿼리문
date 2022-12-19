@@ -1,6 +1,5 @@
---VER - 2022.12.17
+--VER - 2022-12-18
 --tb_abc순 정렬
---tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다. => 삭제함
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
 
 ------------------------- product 테이블 -------------------------
@@ -45,23 +44,12 @@ CREATE TABLE tb_user (
     user_role int4 NOT NULL DEFAULT 0,
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
     user_point int default 0,
-    user_nickname	varchar(100) default null,
+    user_nickname varchar(100) default null,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
 select * from TB_REWARD TR  
 
-------------------------- account 테이블 -------------------------
-DROP TABLE if exists tb_account;
-CREATE TABLE tb_account (
-    account_no serial4 NOT NULL,
-    account_type int4 NOT NULL DEFAULT 1,
-    account_bank varchar(100) NOT NULL,
-    account_bank_no numeric NOT NULL,
-    account_bank_nm varchar(100) NOT NULL,
-    user_no int4 NOT NULL,
-    CONSTRAINT tb_account_pkey PRIMARY KEY (account_no)
-);
 
 ------------------------- address 테이블 -------------------------
 DROP TABLE if exists tb_address;
@@ -208,6 +196,7 @@ CREATE TABLE tb_payment (
 	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
 );
 
+
 ------------------------- reply 테이블 -------------------------
 DROP TABLE IF EXISTS tb_reply;
 CREATE TABLE IF NOT EXISTS tb_reply(
@@ -233,6 +222,8 @@ CREATE TABLE public.tb_reward (
     reward_stock int4 NULL,
     reward_category int4 NOT NULL DEFAULT 0,
     prdt_id int4 NOT NULL,
+    reward_cnt int4 NULL,
+    user_no int4 NULL,
     CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
 );
 
@@ -301,18 +292,25 @@ ALTER TABLE tb_payment ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES t
 ALTER TABLE tb_product ADD CONSTRAINT tb_product_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
 ALTER TABLE tb_product ADD CONSTRAINT tb_product_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_reward ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_reward ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
-
+ALTER TABLE tb_file ADD COLUMN isbannerimg int not null default 0;
 
 
 --시리얼 초기화 
 -- truncate table tb_ restart identity;
 -- 컬럼명 변경
 --ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
+--컬럼 데이터타입 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 TYPE 변경할데이터타입;
+--컬럼 디폴트값 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 SET DEFAULT 변경할디폴트값;
 --컬럼 삭제
 --ALTER TABLE [테이블명] DROP COLUMN [기존컬럼명];
 --컬럼 not null 제거
 --ALTER TABLE [테이블명] ALTER COLUMN [기존컬럼명] DROP NOT NULL;
+--컬럼 추가
+--ALTER TABLE 테이블명 ADD COLUMN 컬럼명 데이터타입 제약조건

@@ -37,8 +37,13 @@
         <div class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <div><a href="${pageContext.request.contextPath}/admin/userlist" class="nav-link px-2 link-dark fw-bold mx-2">유저 권한</a></div>
           <div><a href="${pageContext.request.contextPath}/admin/projectlist" class="nav-link px-2 link-dark fw-bold mx-2">펀딩 게시글</a></div>
-          <div><a href="${pageContext.request.contextPath}/admin/bannerlist" class="nav-link px-2 link-dark fw-bold mx-2">사이트 배너</a></div>
-    
+          <div class="dropdown">
+          	<a href="#" class="nav-link link-dark dropdown-toggle  px-2 fw-bold mx-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">사이트배너</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item fw-bold" href="${pageContext.request.contextPath}/admin/bannerlist">프로젝트 썸네일</a></li>
+              <li><a class="dropdown-item fw-bold" href="${pageContext.request.contextPath}/admin/bannerupload">배너 업로드하기</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

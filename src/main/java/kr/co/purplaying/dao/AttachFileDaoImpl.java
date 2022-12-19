@@ -77,4 +77,47 @@ public class AttachFileDaoImpl implements AttachFileDao {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"selectBannerList");
   }
+
+  @Override
+  public int updateBannerFile(ProjectDto projectDto, int position) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", projectDto.getPrdt_id());
+    map.put("prdt_img", projectDto.getPrdt_img());
+    map.put("position", position);
+    return session.update(namespace+"updateBannerFile",map);
+  }
+
+  @Override
+  public int insertbannerFile(String uploadPath, String srcFileName, long uploadFileSize) throws Exception {
+    Map map = new HashMap();
+    map.put("file_location", uploadPath);
+    map.put("file_name", srcFileName);
+    map.put("file_size", uploadFileSize);
+    
+    return session.insert(namespace+"insertbannerFile", map);
+  }
+
+  @Override
+  public List<AttachFileDto> selectBanner_list(SearchItem sc) throws Exception {
+    return session.selectList(namespace+"selectBanner_list");
+  }
+
+  @Override
+  public int BannersearchResultCnt(SearchItem sc) throws Exception {
+    return session.selectOne(namespace+"BannersearchResultCnt", sc);
+  }
+
+  @Override
+  public AttachFileDto findBannerByID(int file_id) throws Exception {
+    return session.selectOne(namespace+"findBannerByID", file_id);
+  }
+  
+  @Override
+  public int updateBannerFileByUpload(String imgsrc, int position) throws Exception {
+    Map map = new HashMap();
+    map.put("position", position);
+    map.put("imgsrc", imgsrc);
+    return session.update(namespace+"updateBannerFileByUpload",map);
+  }
+  
 }

@@ -23,5 +23,11 @@ public interface AttachFileDao {
   ProjectDto findprojectImg(Integer prdt_id) throws Exception;
   int insertBannerFile(ProjectDto projectDto)throws Exception;
   List<BannerFileDto> selectBannerList() throws Exception;
- 
+  int updateBannerFile(ProjectDto projectDto, int position) throws Exception;
+  int insertbannerFile(String uploadPath, String srcFileName, long uploadFileSize) throws Exception;
+  List<AttachFileDto> selectBanner_list(SearchItem sc) throws Exception;
+  int BannersearchResultCnt(SearchItem sc) throws Exception;
+  AttachFileDto findBannerByID(int file_id) throws Exception;
+  int updateBannerFileByUpload(String imgsrc, int position) throws Exception;
+  
 }
