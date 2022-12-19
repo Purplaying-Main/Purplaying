@@ -815,14 +815,19 @@
 		  		
 		  		$("#addressDelBtn").click(function() {
 		  			let address_id = $(this).attr("data-address-id")
-		  			//alert(address_id)
+		  			let user_no = $("#user_no").val()
+		  			alert(address_id)
 		  			
 		  			$.ajax({
 		  				type : 'DELETE',
 		  				url : '/purplaying/setting/deladdress/'+address_id,
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
+		  				data : JSON.stringify({address_id:address_id,
+		  										user_no:user_no}),
+		  				
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
+							alert(JSON.parse(result))
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressDelModal").modal("hide")
 							
