@@ -822,9 +822,8 @@
 		  				type : 'DELETE',
 		  				url : '/purplaying/setting/deladdress/'+address_id,
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
-		  				data : JSON.stringify({address_id:address_id,
-		  										user_no:user_no}),
-		  				
+		  				data : JSON.stringify({address_id:address_id}),
+		  				dataType : 'text'
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
 							alert(JSON.parse(result))
