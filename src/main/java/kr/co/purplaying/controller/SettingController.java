@@ -264,7 +264,7 @@ public class SettingController {
     String id = (String)session.getAttribute("user_id");
     try {
       UserDto dto = settingService.setUser(id);
-      int user_no = (int)dto.getUser_no();
+      int user_no = dto.getUser_no();
       
       if(settingService.modifyAddress(addressDto) != 1)
           throw new Exception("Update failed");

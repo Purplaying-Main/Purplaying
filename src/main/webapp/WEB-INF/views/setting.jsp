@@ -710,7 +710,6 @@
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressRegModal").modal("hide")
-							$("#user_no").val("")
 				  			$("#address_name").val("")
 							$("#receiver_name").val("")
 							$("#address_num").val("")
@@ -725,6 +724,7 @@
 		  		
 		  		$('#addressList').on("click","#addModBtn",function(){
 					let address_id = $(this).attr("data-address-id")
+					
 					//alert(address_id)
 					
 		  			$.ajax({
@@ -749,6 +749,7 @@
 							}
 							$("#addressModiModal").modal("show")
 							$("#addressModBtn").attr("data-address-id", address_id)
+							
 						},
 						error : function(){
 							alert("error");
@@ -765,6 +766,7 @@
 					let address_detail = $("#Modaddress_detail").val()
 					let receiver_phonenum = $("#Modreceiver_phonenum").val()
 					let default_address = $("#Moddefault_address").val()
+					let user_no = $("#user_no").val()
 					
 					if($("#Moddefault_address").is(":checked")) {
 						default_address = true
@@ -781,7 +783,8 @@
 							address:address,
 							address_detail:address_detail,
 							receiver_phonenum:receiver_phonenum,
-							default_address:default_address
+							default_address:default_address,
+							user_no:user_no
 		  			}
 		  			
 		  			$.ajax({
@@ -794,7 +797,6 @@
 							$("#addressList").html(toHtml(JSON.parse(result)));
 						
 							$("#ModaddressModiModal").modal("hide")
-							$("#Moduser_no").val("")
 				  			$("#Modaddress_name").val("")
 							$("#Modreceiver_name").val("")
 							$("#Modaddress_num").val("")

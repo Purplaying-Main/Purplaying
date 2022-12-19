@@ -42,7 +42,7 @@
 		UPDATE tb_address
 		SET address_name = #{address_name}, address = #{address}, address_detail = #{address_detail},
 			receiver_name = #{receiver_name}, receiver_phonenum = #{receiver_phonenum}, default_address = #{default_address},
-			address_num = #{address_num}
+			address_num = #{address_num}, user_no = #{user_no}
 		WHERE address_id = #{address_id}
 	</update>
 	
@@ -59,7 +59,7 @@
 		where default_address = true and user_no = #{user_no}
 	</select>
 	
-	<update id="updateDefaultAddress" parameterType="AddressDto">
+	<update id="updateDefaultAddress" parameterType="int">
 		UPDATE tb_address
 		SET default_address = false
 		WHERE user_no = #{user_no} and default_address = true
