@@ -245,7 +245,7 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.user_nickname }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
@@ -641,9 +641,10 @@
 						tmp += '	</div>'
 						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
 						tmp += '		data-prdt_id'+ comment.prdt_id
+						tmp += '		data-chat_writer' + comment.chat_writer
 						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
-						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.chat_writer + '</h6>'
+						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.user_nickname + '</h6>'
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'

@@ -77,7 +77,11 @@ public class CommunityController {
     List<CommunityDto> list = null;
     String writer = (String) session.getAttribute("user_id");
     System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
+    UserDto nickname = (UserDto) session.getAttribute("UserDto");
+    System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
     communityDto.setChat_writer(writer);
+    communityDto.setUser_nickname(nickname.getUser_nickname());
+    
 
     try {
       UserDto userDto = userDao.searchUser_no(writer);
@@ -103,7 +107,7 @@ public class CommunityController {
   public ResponseEntity<String> remove(@PathVariable int chat_no) {
 
     try {
-      if (service.remove(chat_no) != 1)
+      if (service.remove(chat_no) != 1) 
         throw new Exception("Delete failed");
       return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
     } catch (Exception e) {
