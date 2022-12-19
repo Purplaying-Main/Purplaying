@@ -280,6 +280,20 @@ create table tb_like(
 
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+
+
+---------------------------마이페이지 알림 테이블---------------------------
+drop table if exists tb_alarm;
+create table tb_alarm
+(	
+   alarm_no serial primary KEY,
+   alarm_cnt int DEFAULT 0,
+   alarm_regdate timestamp DEFAULT now(),
+   like_id int NOT null,
+   FOREIGN KEY(like_id) REFERENCES tb_like(like_id) ON DELETE cascade
+); 
+
+
 ------------------------- FK 생성 -------------------------
 ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
