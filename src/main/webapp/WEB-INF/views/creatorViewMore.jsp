@@ -40,7 +40,7 @@
 						</c:forEach>
 					</div>
 					<br> <br>
-					<div class="pagination mb-0 col-10 justify-content-center">
+					<div class="pagination mb-0 col-12 justify-content-center">
 
  						<c:if test="${totalCnt != null || totalCnt != 0 }">
 							<c:if test="${pr2.showPrev }">
