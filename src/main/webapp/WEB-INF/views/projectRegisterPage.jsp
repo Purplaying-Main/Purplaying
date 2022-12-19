@@ -396,8 +396,10 @@
 			location.href = link
 		}
 		function modifyFinish() {
-				document.getElementById('modifyAllBtn').click()
-				location.href = link
+				if(formCheck()){					
+					location.href = link
+				}
+				else {return false}
 		}
 		
 		/* 이미지 미리보기(섬네일 출력) */
@@ -547,20 +549,24 @@
 		})
 		
 		let formCheck = function() {
-			let form = document.getElementById("form")
-			if(form.notice_title.value=="") {
+			if(document.getElementById("prdt_name").value=="") {
 				alert("제목을 입력해 주세요.")
-				form.title.focus()
+				document.getElementById("prdt_name").focus()
 				return false
 			}
-			if(form.notice_context.value=="") {
+			if(document.getElementById("prdt_desc").value=="") {
 				alert("내용을 입력해 주세요.")
-				form.notice_context.focus()
+				document.getElementById("prdt_desc").focus()
 				return false
 			}
-			if(form.notice_category.value == 0) {
+			if(document.getElementById("file_id").value=="") {
+				alert("사진을 등록해 주세요.")
+				document.getElementById("file_id").focus()
+				return false
+			}
+			if(document.getElementById("prdt_genre").value==0 ||document.getElementById("prdt_genre").value=="" ) {
 				alert("카테고리를 선택해주세요")
-				form.notice_category.focus()
+				document.getElementById("prdt_genre").focus()
 				return false
 			}	
 			return true;
