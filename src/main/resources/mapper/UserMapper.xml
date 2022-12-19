@@ -108,18 +108,21 @@
 	</update>
 	
 	<!--검색 기능  -->	
+	
+	<!-- 유저카운트 -->
 	<select id="searchuser" parameterType="SearchItem2" resultType="int">
 		select count(*) 
 		FROM tb_user
 		WHERE TRUE
-		AND user_name LIKE concat('%', #{keyword}, '%')	
+		AND user_nickname LIKE concat('%', #{keyword}, '%')	
 		OR user_id LIKE concat('%', #{keyword}, '%')
 	</select>
 	
+	<!-- 유저검색페이지 -->
 	<select id="searchUserPage" parameterType="SearchItem2" resultType="UserDto">
 		<include refid="selectFromUser"/>
 		WHERE TRUE
-		AND user_name LIKE concat('%', #{keyword}, '%')
+		AND user_nickname LIKE concat('%', #{keyword}, '%')
 		OR user_id LIKE concat('%', #{keyword}, '%')
 		limit 6 offset #{offset}
   	</select>
