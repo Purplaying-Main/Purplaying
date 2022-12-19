@@ -11,9 +11,13 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +26,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -57,6 +63,34 @@ public class AdminController {
   
   @Autowired
   FileService fileService;
+  
+  @Autowired
+  private JavaMailSender mailSender;
+  
+  
+  @GetMapping("/sendmessage")
+  public String Adminsendmessage(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
+    if(!session.getAttribute("user_role").equals(1)) {
+      return null;
+    }
+    try {
+      int totalCnt = userDao.getSearchResultCnt(sc);
+      
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+  
+      m.addAttribute("totalCnt", totalCnt);
+      m.addAttribute("pr", pageResolver);
+  
+      List<UserDto> list = userDao.adminSelect(sc);
+      System.out.println(list);
+      m.addAttribute("UserList",list);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return "adminsendmessage";
+  }
   
   @GetMapping("/userlist")
   public String AdminUserList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
@@ -396,6 +430,83 @@ public class AdminController {
           e.printStackTrace();
           return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
       }
+  }
+  
+  @PostMapping("/tousermail")
+  @ResponseBody
+  public void sendMailTest(@RequestBody UserDto userDto) throws Exception{ 
+      System.out.println(userDto);
+      Random random = new Random();
+      int checkNum = random.nextInt(888888) + 111111;
+      userDto.setUser_pwd(String.valueOf(checkNum));
+      System.out.println(userDto);
+      if(userDao.updateUserPwd(userDto)!=1)
+      {
+        System.out.println("비밀번호 변경오류");
+        return ;
+      }
+      
+      String subject = "퍼플레잉 비밀번호찾기";
+      String content = "임시 비밀번호 : " + checkNum ;
+      String from = "purplayingcorp@gmail.com";
+      String to = userDto.getUser_id();
+      
+      try {
+          MimeMessage mail = mailSender.createMimeMessage();
+          MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
+          // true는 멀티파트 메세지를 사용하겠다는 의미
+          
+          /*
+           * 단순한 텍스트 메세지만 사용시엔 아래의 코드도 사용 가능 
+           * MimeMessageHelper mailHelper = new MimeMessageHelper(mail,"UTF-8");
+           */
+          
+          mailHelper.setFrom(from);
+          // 빈에 아이디 설정한 것은 단순히 smtp 인증을 받기 위해 사용 따라서 보내는이(setFrom())반드시 필요
+          // 보내는이와 메일주소를 수신하는이가 볼때 모두 표기 되게 원하신다면 아래의 코드를 사용하시면 됩니다.
+          //mailHelper.setFrom("보내는이 이름 <보내는이 아이디@도메인주소>");
+          mailHelper.setTo(to);
+          mailHelper.setSubject(subject);
+          mailHelper.setText("<h2>"+content+ "</h2>", true);
+          // true는 html을 사용하겠다는 의미입니다.
+          
+          /*
+           * 단순한 텍스트만 사용하신다면 다음의 코드를 사용하셔도 됩니다. mailHelper.setText(content);
+           */
+          
+          mailSender.send(mail);
+          
+      } catch(Exception e) {
+          e.printStackTrace();
+      }
+      
+  }
+  
+  @PostMapping("/pageselect")
+  @ResponseBody
+  public Map pageSelect(@RequestBody SearchItem sc, HttpServletRequest request, HttpSession session ) {
+    System.out.println(sc);
+    Map map = new HashMap();
+    try {
+      int totalCnt = userDao.getSearchResultCnt(sc);
+      
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+      
+      List<UserDto> list = userDao.adminSelect(sc);
+      map.put("totalCnt", totalCnt);
+      map.put("pr", pageResolver);
+      map.put("UserList",list);
+      map.put("length", 3);
+      
+     
+      System.out.println(list);
+     
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return map;
   }
   
   

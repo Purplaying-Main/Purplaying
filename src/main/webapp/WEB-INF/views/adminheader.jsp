@@ -44,6 +44,7 @@
               <li><a class="dropdown-item fw-bold" href="${pageContext.request.contextPath}/admin/bannerupload">배너 업로드하기</a></li>
             </ul>
           </div>
+          <div><a href="${pageContext.request.contextPath}/admin/sendmessage" class="nav-link px-2 link-dark fw-bold mx-2">메일 보내기</a></div>
         </div>
       </div>
     </div>
