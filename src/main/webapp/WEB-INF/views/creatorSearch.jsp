@@ -39,7 +39,7 @@
 										class="img-thumbnail rounded-circle" alt="유저 프로필">
 								</div>
 								<div class="col">
-									<h5 class="row text-primary mt-2">${UserDto.user_name} </h5>
+									<h5 class="row text-primary mt-2">${UserDto.user_nickname} </h5>
 									<h6 class="row text-muted">${UserDto.user_id }</h6>
 								</div>
 							</li>

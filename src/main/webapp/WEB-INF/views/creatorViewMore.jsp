@@ -30,7 +30,7 @@
 											class="img-thumbnail rounded-circle" alt="유저 프로필">
 									</div>
 									<div class="col">
-										<h5 class="row text-primary mt-2">${UserDto.user_name }</h5>
+										<h5 class="row text-primary mt-2">${UserDto.user_nickname }</h5>
 										<h6 class="row text-muted">${UserDto.user_id }</h6>
 										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
 									</div>
