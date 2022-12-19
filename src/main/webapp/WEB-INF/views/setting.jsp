@@ -789,6 +789,7 @@
 		  				url : '/purplaying/setting/endmodaddress',
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						data : JSON.stringify(mod_address),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						dataType : 'text',
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							$("#addressList").html(toHtml(JSON.parse(result)));
 						
@@ -823,7 +824,7 @@
 		  				url : '/purplaying/setting/deladdress/'+address_id,
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 		  				data : JSON.stringify({address_id:address_id}),
-		  				dataType : 'text'
+		  				dataType : 'text',
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
 							alert(JSON.parse(result))

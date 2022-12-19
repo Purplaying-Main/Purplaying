@@ -259,14 +259,23 @@ public class SettingController {
   }
   
   @RequestMapping(value="/setting/endmodaddress", method = RequestMethod.PATCH)
-  public ResponseEntity<AddressDto> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
+  public ResponseEntity<List<AddressDto>> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
+    List<AddressDto> list = null;
+    String id = (String)session.getAttribute("user_id");
     try {
+      UserDto dto = settingService.setUser(id);
+      int user_no = (int)dto.getUser_no();
+      
       if(settingService.modifyAddress(addressDto) != 1)
           throw new Exception("Update failed");
-      return new ResponseEntity<AddressDto>(HttpStatus.OK);
+      
+      list = settingService.getList(user_no);
+      
+      System.out.println("list = " + list);
+      return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);
     }catch(Exception e) {
       e.printStackTrace();
-      return new ResponseEntity<AddressDto>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);
     }
   }
   
