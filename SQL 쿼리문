@@ -88,11 +88,14 @@ CREATE TABLE IF NOT EXISTS tb_chat_service(
     chat_context varchar(3000),
     chat_date date default now(),
     user_no int not null,
+    user_nickname varchar(100) default null,
     FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE cascade,
     FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade
     );
 
-
+ALTER TABLE tb_chat_service ADD COLUMN user_nickname varchar(100);
+ALTER TABLE tb_user ADD CONSTRAINT user_nickname UNIQUE (user_nickname);
+ALTER TABLE tb_chat_service ADD CONSTRAINT user_nickname_fkey FOREIGN KEY (user_nickname) REFERENCES tb_user(user_nickname) ON DELETE cascade;
 ------------------------- file 테이블 -------------------------
 DROP TABLE if exists tb_file;
 CREATE TABLE tb_file (
