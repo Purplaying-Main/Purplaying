@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.CommunityDto;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.CommunityService;
 
 @Controller
@@ -26,6 +28,9 @@ public class CommunityController {
 
   @Autowired
   CommunityService service;
+
+  @Autowired
+  UserDao userDao;
 
   @GetMapping("/community")
   @ResponseBody
@@ -47,7 +52,7 @@ public class CommunityController {
   @PostMapping("/community")
   @ResponseBody
   public List<CommunityDto> list2(@RequestBody CommunityDto communityDto, int prdt_id, Model m) {
-    List<CommunityDto> list = null; 
+    List<CommunityDto> list = null;
     System.out.println(communityDto);
 
     try {
@@ -65,25 +70,34 @@ public class CommunityController {
     }
   }
 
-  @PostMapping("/community/{chat_no}")
-  public String write(CommunityDto communityDto, RedirectAttributes rattr, Model m, HttpSession session) {
-
-    String writer = (String) session.getAttribute("chat_writer");
+  @PostMapping("/community/insert/{prdt_id}")
+  @ResponseBody
+  public ResponseEntity<List<CommunityDto>> write(@RequestBody CommunityDto communityDto, RedirectAttributes rattr,
+      Model m, HttpSession session) {
+    List<CommunityDto> list = null;
+    String writer = (String) session.getAttribute("user_id");
+    System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
+    UserDto nickname = (UserDto) session.getAttribute("UserDto");
+    System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
     communityDto.setChat_writer(writer);
+    communityDto.setUser_nickname(nickname.getUser_nickname());
+    
 
     try {
-
+      UserDto userDto = userDao.searchUser_no(writer);
+      communityDto.setUser_no(userDto.getUser_no());
+      System.out.println(communityDto);
       if (service.insertChat(communityDto) != 1)
         throw new Exception("Write failed");
       rattr.addFlashAttribute("msg", "RPL_OK");
-      return "redirect:/project/{prdt_id}";
-
+      list = service.getList(communityDto.getPrdt_id());
+      return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
       m.addAttribute("mode", "new"); // 글쓰기 모드
       m.addAttribute("communityDto", communityDto); // 등록하려던 내용을 보여줘야 함
       m.addAttribute("msg", "RPL_ERR");
-      return "redirect:/project/{prdt_id}";
+      return new ResponseEntity<List<CommunityDto>>(HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -93,7 +107,7 @@ public class CommunityController {
   public ResponseEntity<String> remove(@PathVariable int chat_no) {
 
     try {
-      if (service.remove(chat_no) != 1)
+      if (service.remove(chat_no) != 1) 
         throw new Exception("Delete failed");
       return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
     } catch (Exception e) {

@@ -55,7 +55,13 @@
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">
-              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
+              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">
+              <c:choose>
+              	<c:when test="${projectDto.prdt_dday >= 0}">${projectDto.prdt_dday}일</c:when>
+              	<c:when test="${projectDto.prdt_dday < 0}">펀딩 종료</c:when>
+              	<c:otherwise>Dday</c:otherwise>
+              </c:choose>
+              </h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary"><fmt:formatNumber value="${projectDto.prdt_currenttotal }" pattern="#,###" /> 원</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">${projectDto.prdt_buyercnt}명</h4></li>
@@ -151,7 +157,7 @@
 	                      <h5 class="card-title pricing-card-title">
 	                      	<span>${rewardDto.reward_desc }</span><br />
 	                      	<span class="text-primary mt-3">${rewardDto.reward_price}원</span></h5>
-	                      <div class="text-info">남은 수량 ${rewardDto.reward_stock }</div>
+	                         <div class="text-info" id="reward_stock${rewardDto.row_number }">남은 수량 ${rewardDto.reward_stock }</div>
 	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>
@@ -245,7 +251,7 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
+                    <p> 작성자 닉네임 > ${userDto.user_nickname }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
@@ -362,67 +368,80 @@
 			  
 		}
 	$(document).ready(function(){
-		// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동 
-		if(${sessionScope.user_id eq projectDto.writer}){
-				
-				document.getElementById("doFundingBtn").value = "펀딩관리하기";
-				document.getElementById("doFundingBtn").addEventListener('click',function(){
-					window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
-				})
-				return false
-		}	
-	    $('#doFundingBtn').click(function(){
-			console.log("펀딩하기 버튼 클릭");
-	   		let form = $('#selectedRewardForm');
-			form.attr("action","<c:url value='/payment/${prdt_id}' />");
-			form.attr("method","get");
-			
-			if(formCheck())
-				form.submit()	
 
-	   	}) 
-	   	
-	   	formCheck = function() {
-			let form = document.getElementById("selectRewardBox")
-			
-			if(form.innerText == "" ) {
-				alert("리워드를 선택해주세요.")
-				return false
+	let dday =  <c:out value="${projectDto.prdt_dday}"/>
+
+	// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동
+	if(${sessionScope.user_id eq projectDto.writer}){
+			document.getElementById("doFundingBtn").value = "펀딩관리하기";
+			document.getElementById("doFundingBtn").addEventListener('click',function(){
+			window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
+			})
+		return false
+	}	
+
+
+	else if(dday < 0 && ${sessionScope.user_id ne projectDto.writer}){
+		document.getElementById("doFundingBtn").disabled = true;
+		document.getElementById("doFundingBtn").value = "종료된 펀딩입니다";
+		return false
+	}
+
+	else {
+    $('#doFundingBtn').click(function(){
+		console.log("펀딩하기 버튼 클릭");
+		let form = $('#selectedRewardForm');
+		form.attr("action","<c:url value='/payment/${prdt_id}' />");
+		form.attr("method","get");
+
+		if(formCheck())
+			form.submit()	
+
+	}) 
+
+let selectedRewardName = document.getElementById("selectedRewardName");
+let selectedRewardPrice = document.getElementById("selectedRewardPrice");
+
+	$("#addReward").change(function(){
+		document.getElementById("selectRewardBox").style.display = 'block';
+		let reward_num = $('#addReward option:selected').val();
+		//alert(reward_num)
+		if(!arr.includes(reward_num[0])){
+			arr.push(reward_num[0]);
+			let list = selectToHtml($('#selectRewardBox').html())
+			$('#selectRewardBox').html(list)
+			calRewardPrice()
+			/* let result_price = 0;
+			var reward_length = $("input[name='reward_cnt']").length;
+			var arr_reward=  new Array(reward_length);
+			for(var i=0; i<reward_length; i++){
+				let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+				let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+				result_price = result_price + Number(price[0])*reward_cnt;
 			}
-			
-			if(form.style.display != "block" ) {
-				alert("리워드를 선택해주세요.")
-				return false
-			}
-			
-			console.log("입력 성공");
-			return true;
+			$("#rewardTotalPrice").val(result_price); */
 		}
-	
-   	let selectedRewardName = document.getElementById("selectedRewardName");
-   	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
-   	
-		$("#addReward").change(function(){
-			document.getElementById("selectRewardBox").style.display = 'block';
-			let reward_num = $('#addReward option:selected').val();
-			//alert(reward_num)
-			if(!arr.includes(reward_num[0])){
-				arr.push(reward_num[0]);
-				let list = selectToHtml($('#selectRewardBox').html())
-				$('#selectRewardBox').html(list)
-				calRewardPrice()
-				/* let result_price = 0;
-				var reward_length = $("input[name='reward_cnt']").length;
-				var arr_reward=  new Array(reward_length);
-				for(var i=0; i<reward_length; i++){
-					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
-					let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
-					result_price = result_price + Number(price[0])*reward_cnt;
-				}
-				$("#rewardTotalPrice").val(result_price); */
-			}
-		});
-	});		
+	});
+
+	//폼 체크
+	formCheck = function() {
+		let form = document.getElementById("selectRewardBox")
+
+		if(form.innerText == "" ) {
+			alert("리워드를 선택해주세요.")
+			return false
+		}
+
+		if(form.style.display != "block" ) {
+			alert("리워드를 선택해주세요.")
+			return false
+		}
+
+		console.log("입력 성공");
+		return true;
+	}
+	}
+});		
    		
 	function calRewardPrice(){
 		eventTarget = event.target;		
@@ -571,7 +590,7 @@
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/community?prdt_id=' + prdt_id,				//요청 URI
+					url : '/purplaying/community/insert/' + prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -637,17 +656,18 @@
 	
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
-						tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
 						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
 						tmp += '		data-prdt_id'+ comment.prdt_id
+						tmp += '		data-chat_writer' + comment.chat_writer
 						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
-						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.chat_writer + '</h6>'
+						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.user_nickname + '</h6>'
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
-						tmp += ' 		<button class="delBtn" >삭제</button>'
+						tmp += ' 		<button class="delBtn" onclick="index.ResponseEntity<String> remove(${user_no},${chat_no}})">삭제</button>'
 						tmp += '		<button class="modBtn" >수정</button>'
 						tmp += '	</div>'
 						tmp += '<hr class="mt-3">'

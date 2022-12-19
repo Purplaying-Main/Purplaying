@@ -66,6 +66,12 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public int addressAdd(AddressDto addressDto) throws Exception {
+    int user_no = addressDto.getUser_no();
+    System.out.println(addressDto);
+    
+    if (addressDto.isDefault_address() == true)
+      addressDao.DefaultT2F(user_no);
+      
     return addressDao.insert(addressDto);
   }
 
@@ -76,6 +82,11 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public int modifyAddress(AddressDto addressDto) throws Exception {
+    int user_no = addressDto.getUser_no();
+    System.out.println(addressDto);
+    
+    if (addressDto.isDefault_address() == true)
+      addressDao.DefaultT2F(user_no);
     return addressDao.update(addressDto);
   }
 
