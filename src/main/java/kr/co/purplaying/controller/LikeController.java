@@ -1,5 +1,7 @@
 package kr.co.purplaying.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +32,23 @@ public class LikeController {
 //    System.out.println(session.getAttribute("user_id"));
     String user_id = (String) session.getAttribute("user_id");
     likeDto.setUser_id(user_id);
-    System.out.println(likeDto);
-    
-    int like_id = likeDto.getLike_id();
-    alarmDto.setLike_id(like_id);
-    System.out.println("alarmDto: "+alarmDto);
     
     try {
       if(likeService.insertLike(likeDto)!=1) {
         System.out.println("좋아요 추가 실패");
       }
+      
+      LikeDto recentlyLikeDto = likeService.selectByRecently(user_id);
+      System.out.println("recentlyLikeDto: "+recentlyLikeDto);
+      int like_id = recentlyLikeDto.getLike_id();
+      
+      alarmDto.setLike_id(like_id);
+      System.out.println("alarmDto: "+alarmDto);
+      
       if(alarmService.insertAlarm(alarmDto)!=1) {
         System.out.println("관심 알림 추가 실패");
       }
     } catch (Exception e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
     return null;

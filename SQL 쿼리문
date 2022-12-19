@@ -271,15 +271,19 @@ CREATE TABLE tb_bannerfile
 
 drop table if exists tb_like;
 create table tb_like(
-    like_id serial,
-    like_regdate Date
-    ,
+    like_id serial PRIMARY KEY,
+    like_regdate timestamp,
     user_id varchar(100),
     prdt_id int
 );
 
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+
+-- like_regdate 타입변경
+ALTER TABLE tb_like ALTER COLUMN like_regdate TYPE timestamp;
+-- like_id PRIMARY KEY 타입 변경
+ALTER TABLE tb_like ADD CONSTRAINT like_id PRIMARY KEY;
 
 
 ---------------------------마이페이지 알림 테이블---------------------------

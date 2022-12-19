@@ -12,7 +12,7 @@
 	<insert id="insertLike" parameterType="LikeDto">
 		INSERT INTO tb_like
 			(like_regdate, user_id, prdt_id)
-		VALUES(now(), #{user_id}, #{prdt_id});
+		VALUES(now(), #{user_id}, #{prdt_id})
 	</insert>
 	
 	<delete id="deleteLike" parameterType="LikeDto">
@@ -30,6 +30,13 @@
 	<select id="selectByUserId" parameterType="String" resultType="LikeDto">
 		<include refid="selectAll"/>
 		where user_id = #{user_id}
+	</select>
+	
+	<select id="selectByRecently" parameterType="String" resultType="LikeDto">
+		<include refid="selectAll"/>
+		where user_id = #{user_id}
+		ORDER BY like_regdate DESC 
+		LIMIT 1
 	</select>
 	
 </mapper>

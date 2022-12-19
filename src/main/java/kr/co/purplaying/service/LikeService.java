@@ -14,5 +14,7 @@ public interface LikeService {
   List<Integer> selectLikelist(String user_id) throws Exception;
 
   List<LikeDto> selectByUserId(String user_id) throws Exception;
+
+  LikeDto selectByRecently(String user_id) throws Exception;
   
 }

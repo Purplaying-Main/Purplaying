@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -121,22 +122,37 @@ public class MypageController {
       
 //    알림 목록 불러오기
       List<AlarmDto> list_alarm = alarmService.selectPage(map);
-      System.out.println("list_alarm : "+list_alarm);
+//      System.out.println("list_alarm : "+list_alarm);
       m.addAttribute("list_alarm", list_alarm);
       
       AlarmDto alarmDto = list_alarm.get(0);
       System.out.println("alarmDto : "+alarmDto);
-//      int alarm_no = list_alarm.get(0).getAlarm_no();
-//      System.out.println("alarm_no: "+alarm_no);
-//      AlarmDto alarmDto = alarmService.selectAlarm(alarm_no);
-      
       m.addAttribute("alarmDto", alarmDto);
-      
-      
+
       } catch (Exception e) {
-      e.printStackTrace();
+        e.printStackTrace();
       }
       return "mypage";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
+  }
+  
+  //알림 확인 누르면 조회수 1증가. new 뱃지 삭제됨
+  @PatchMapping("/alarm/read/{alarm_no}")
+  public String read(@PathVariable Integer alarm_no, Model m, HttpSession session) {
+    
+    try {
+          String user_id = (String)session.getAttribute("user_id");
+          
+          if (user_id != null )
+            m.addAttribute(user_id);
+          
+          AlarmDto alarmDto = alarmService.read(alarm_no);
+          m.addAttribute(alarmDto);
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+          return "mypage";
+      }
+      return "mypage";
   }
   
   //펀딩관리페이지 맵핑

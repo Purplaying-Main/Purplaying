@@ -36,4 +36,9 @@ public class LikeServiceImpl implements LikeService {
     return likeDao.selectByUserId(user_id);
   }
 
+  @Override
+  public LikeDto selectByRecently(String user_id) throws Exception {
+    return likeDao.selectByRecently(user_id);
+  }
+
 }

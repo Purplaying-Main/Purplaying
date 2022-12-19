@@ -225,27 +225,38 @@
             </div>
             
             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
-            	<h5 class="my-4">${sessionScope.user_id}님의 관심펀딩 소식</h5>
+            		<h5 class="my-4">${sessionScope.user_id}님의 관심펀딩 소식</h5>
 	             <!-- project card start-->
 	             <c:choose>
 	              <c:when test="${fn:length(list_alarm) ne 0 }">
 	              	<!-- project card start-->
-	              	<table class="table">
+	              	<table class="table table-borderless mt-4">
 						  <thead>
-						    <tr>
-						      <th scope="col">펀딩번호</th>
-						      <th scope="col">펀딩썸네일</th>
-						      <th scope="col">펀딩명</th>
+						    <tr style="display:none;">
+						      <th scope="col" style="display:none;">#</th>
+						      <th width="80px">펀딩썸네일</th>
+						      <th width="160px">펀딩명</th>
 						      <th scope="col">알림내용</th>
+						      <th scope="col">알림확인</th>
 						    </tr>
 						  </thead>
-						  <tbody>
+						  <tbody class="">
 						  	<c:forEach var="alarmDto" items="${list_alarm}">
-							    <tr>
-							      <th scope="row">${alarmDto.prdt_id }</th>
-							      <td>${alarmDto.prdt_thumbnail }</td>
-							      <td>${alarmDto.prdt_name }</td>
-							      <td>prdt_comingday: ${alarmDto.prdt_comingday } / prdt_dday: ${alarmDto.prdt_dday }</td>
+							    <tr id="new_alarm_tr" class="${alarmDto.alarm_cnt eq 0 ? 'table-light' : ''}">
+							      <th scope="row" style="display:none;">${alarmDto.prdt_id } <input type="hidden" id="alarm_no" value="${alarmDto.alarm_no }"></th>
+							      <td width="80px"><img class="bd-placeholder-img" width="60" height="60" id="alarm_thumbnail" name="alarm_thumbnail" src="${alarmDto.prdt_thumbnail }"></td>
+							      <td width="160px" class="text-truncate"><a href="/purplaying/project/${alarmDto.prdt_id }" style="cursor:pointer"><h6>${alarmDto.prdt_name }</h6></a></td>
+							      <td class="alarm_message">
+							      	<c:if test="${alarmDto.prdt_comingday eq 1}">
+							      		<c:if test="${alarmDto.alarm_cnt eq 0}"><span class="badge bg-primary">OPEN</span></c:if>
+							      		펀딩오픈이 하루 남았습니다.
+							      	</c:if>
+				                    <c:if test="${alarmDto.prdt_dday eq 1}">
+				                    	<c:if test="${alarmDto.alarm_cnt eq 0}"><span class="badge bg-danger">CLOSE</span></c:if>
+				                    	펀딩마감이 하루 남았습니다.
+				                    </c:if>
+							      </td>
+							      <td><button id="alarm_confirm" type="button" onclick="alarm_confirm()">확인</button></td>
 							    </tr>
 						    </c:forEach>
 						  </tbody>
@@ -324,6 +335,31 @@
 				form.submit()					
 		})
 	})
+	// 알림확인 버튼클릭시 조회수 1 증가
+	function alarm_confirm(){
+		let alarm_no = $("#alarm_no").val()
+		let new_alarm_tr = $("#new_alarm_tr")
+		let alarm_message = $(".alarm_message")
+		console.log("alarm_no: ",alarm_no)	
+		console.log("new_alarm_tr: ",new_alarm_tr)	
+		console.log("alarm_message: ",alarm_message)	
+		
+		$.ajax({
+			type:'PATCH',	//통신방식 (get,post)
+			url: '/purplaying/alarm/read/'+alarm_no,
+			headers:{"content-type" : "application/json"},
+			data : JSON.stringify({alarm_no:Number(alarm_no)}),
+			dataType : 'text',
+			success:function(data){
+				console.log("alarm_no: ",alarm_no)
+				new_alarm_tr.classList.remove("table-light");
+				
+			},
+			error : function(){
+				console.log("alarm_no error");
+			}
+		})
+	}
 	</script>
 	 <script>
   	let msg = "${msg}";

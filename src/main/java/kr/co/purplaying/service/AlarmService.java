@@ -17,4 +17,6 @@ public interface AlarmService {
 
   List<AlarmDto> selectPage(Map map) throws Exception;
 
+  AlarmDto read(int alarm_no) throws Exception;
+
 }

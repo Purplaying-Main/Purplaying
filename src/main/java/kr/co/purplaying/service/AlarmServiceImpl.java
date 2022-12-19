@@ -40,4 +40,12 @@ public class AlarmServiceImpl implements AlarmService{
     return alarmDao.selectPage(map);
   }
 
+  @Override
+  public AlarmDto read(int alarm_no) throws Exception {
+    AlarmDto alarmDto = alarmDao.selectAlarm(alarm_no);
+    //조회수 증가
+    alarmDao.increaseViewCnt(alarm_no);
+    return alarmDto;
+  }
+
 }
