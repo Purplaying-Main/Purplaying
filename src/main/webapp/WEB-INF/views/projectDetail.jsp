@@ -55,7 +55,13 @@
             </div>
             <!--thumbnail end-->
             <ul class="col-md-4" id="move">
-              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">${projectDto.prdt_dday}일</h4></li>
+              <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">
+              <c:choose>
+              	<c:when test="${projectDto.prdt_dday >= 0}">${projectDto.prdt_dday}일</c:when>
+              	<c:when test="${projectDto.prdt_dday < 0}">펀딩 종료</c:when>
+              	<c:otherwise>Dday</c:otherwise>
+              </c:choose>
+              </h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary"><fmt:formatNumber value="${projectDto.prdt_currenttotal }" pattern="#,###" /> 원</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">${projectDto.prdt_buyercnt}명</h4></li>
@@ -151,7 +157,7 @@
 	                      <h5 class="card-title pricing-card-title">
 	                      	<span>${rewardDto.reward_desc }</span><br />
 	                      	<span class="text-primary mt-3">${rewardDto.reward_price}원</span></h5>
-	                      <div class="text-info">남은 수량 ${rewardDto.reward_stock }</div>
+	                         <div class="text-info" id="reward_stock${rewardDto.row_number }">남은 수량 ${rewardDto.reward_stock }</div>
 	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>
@@ -362,67 +368,80 @@
 			  
 		}
 	$(document).ready(function(){
-		// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동 
-		if(${sessionScope.user_id eq projectDto.writer}){
-				
-				document.getElementById("doFundingBtn").value = "펀딩관리하기";
-				document.getElementById("doFundingBtn").addEventListener('click',function(){
-					window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
-				})
-				return false
-		}	
-	    $('#doFundingBtn').click(function(){
-			console.log("펀딩하기 버튼 클릭");
-	   		let form = $('#selectedRewardForm');
-			form.attr("action","<c:url value='/payment/${prdt_id}' />");
-			form.attr("method","get");
-			
-			if(formCheck())
-				form.submit()	
 
-	   	}) 
-	   	
-	   	formCheck = function() {
-			let form = document.getElementById("selectRewardBox")
-			
-			if(form.innerText == "" ) {
-				alert("리워드를 선택해주세요.")
-				return false
+	let dday =  <c:out value="${projectDto.prdt_dday}"/>
+
+	// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동
+	if(${sessionScope.user_id eq projectDto.writer}){
+			document.getElementById("doFundingBtn").value = "펀딩관리하기";
+			document.getElementById("doFundingBtn").addEventListener('click',function(){
+			window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
+			})
+		return false
+	}	
+
+
+	else if(dday < 0 && ${sessionScope.user_id ne projectDto.writer}){
+		document.getElementById("doFundingBtn").disabled = true;
+		document.getElementById("doFundingBtn").value = "종료된 펀딩입니다";
+		return false
+	}
+
+	else {
+    $('#doFundingBtn').click(function(){
+		console.log("펀딩하기 버튼 클릭");
+		let form = $('#selectedRewardForm');
+		form.attr("action","<c:url value='/payment/${prdt_id}' />");
+		form.attr("method","get");
+
+		if(formCheck())
+			form.submit()	
+
+	}) 
+
+let selectedRewardName = document.getElementById("selectedRewardName");
+let selectedRewardPrice = document.getElementById("selectedRewardPrice");
+
+	$("#addReward").change(function(){
+		document.getElementById("selectRewardBox").style.display = 'block';
+		let reward_num = $('#addReward option:selected').val();
+		//alert(reward_num)
+		if(!arr.includes(reward_num[0])){
+			arr.push(reward_num[0]);
+			let list = selectToHtml($('#selectRewardBox').html())
+			$('#selectRewardBox').html(list)
+			calRewardPrice()
+			/* let result_price = 0;
+			var reward_length = $("input[name='reward_cnt']").length;
+			var arr_reward=  new Array(reward_length);
+			for(var i=0; i<reward_length; i++){
+				let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+				let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+				result_price = result_price + Number(price[0])*reward_cnt;
 			}
-			
-			if(form.style.display != "block" ) {
-				alert("리워드를 선택해주세요.")
-				return false
-			}
-			
-			console.log("입력 성공");
-			return true;
+			$("#rewardTotalPrice").val(result_price); */
 		}
-	
-   	let selectedRewardName = document.getElementById("selectedRewardName");
-   	let selectedRewardPrice = document.getElementById("selectedRewardPrice");
-   	
-		$("#addReward").change(function(){
-			document.getElementById("selectRewardBox").style.display = 'block';
-			let reward_num = $('#addReward option:selected').val();
-			//alert(reward_num)
-			if(!arr.includes(reward_num[0])){
-				arr.push(reward_num[0]);
-				let list = selectToHtml($('#selectRewardBox').html())
-				$('#selectRewardBox').html(list)
-				calRewardPrice()
-				/* let result_price = 0;
-				var reward_length = $("input[name='reward_cnt']").length;
-				var arr_reward=  new Array(reward_length);
-				for(var i=0; i<reward_length; i++){
-					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
-					let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
-					result_price = result_price + Number(price[0])*reward_cnt;
-				}
-				$("#rewardTotalPrice").val(result_price); */
-			}
-		});
-	});		
+	});
+
+	//폼 체크
+	formCheck = function() {
+		let form = document.getElementById("selectRewardBox")
+
+		if(form.innerText == "" ) {
+			alert("리워드를 선택해주세요.")
+			return false
+		}
+
+		if(form.style.display != "block" ) {
+			alert("리워드를 선택해주세요.")
+			return false
+		}
+
+		console.log("입력 성공");
+		return true;
+	}
+	}
+});		
    		
 	function calRewardPrice(){
 		eventTarget = event.target;		

@@ -86,7 +86,8 @@
 		                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 
 		                  <c:choose>
 		                  <c:when test="${projectDto.prdt_comingday > 0 }">공개 D-${projectDto.prdt_comingday}</c:when>
-		                  <c:when test="${projectDto.prdt_dday >= 0}">종료 D-${projectDto.prdt_dday}</c:when>
+		                  <c:when test="${projectDto.prdt_dday > 0}">종료 D-${projectDto.prdt_dday}</c:when>
+		                  <c:when test="${projectDto.prdt_dday < 0}">종료 D+${-projectDto.prdt_dday}</c:when>
 		                  <c:otherwise>D-DAY 출력</c:otherwise>
 		                  </c:choose>
 		                  </p>
@@ -182,7 +183,13 @@
 	                    </div>
 	                  </div>
 	                  <a class="mb-0" href="<c:url value="/project/${projectDto.prdt_id }"/>"><h4>${projectDto.prdt_name}</h4></a>
-	                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 종료 D-${projectDto.prdt_dday}</p>
+	                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 
+	                  <c:choose>
+		                  <c:when test="${projectDto.prdt_dday > 0}">종료 D-${projectDto.prdt_dday}</c:when>
+		                  <c:when test="${projectDto.prdt_dday < 0}">종료 D+${-projectDto.prdt_dday}</c:when>
+		                  <c:otherwise>D-DAY 출력</c:otherwise>
+		              </c:choose>
+	                  </p>
                   	  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
 	                  <p class="text-muted mb-0">심사완료</p>
 	                </div>
