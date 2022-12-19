@@ -270,21 +270,29 @@ public class SettingController {
     }
   }
   
-
+  @ResponseBody
   @RequestMapping(value="/setting/deladdress/{address_id}", method = RequestMethod.DELETE)
-  public ResponseEntity<String> remove(@PathVariable Integer address_id, HttpSession session) {
+  public ResponseEntity<List<AddressDto>> remove(@PathVariable Integer address_id, HttpSession session) {
+    List<AddressDto> list = null;
     System.out.println(address_id + "삭제 호출");
+    String id = (String)session.getAttribute("user_id");
+    
     
     try {
-          
+          UserDto dto = settingService.setUser(id);
+          int user_no = (int)dto.getUser_no();
+    
           if(settingService.removeAddress(address_id) != 1) 
               throw new Exception("Delete Failed");
           
-          return new ResponseEntity<String>("DEL_OK", HttpStatus.OK);
+          list = settingService.getList(user_no);
+          
+          System.out.println("list = " + list);
+          return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
           
       } catch (Exception e) {
           e.printStackTrace();
-          return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
+          return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);
       }
   }
   
