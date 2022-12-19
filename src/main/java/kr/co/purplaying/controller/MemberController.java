@@ -196,6 +196,7 @@ public class MemberController {
         session.setAttribute("user_id", user_id);
         session.setAttribute("user_role", userDto.getUser_role());
         session.setAttribute("UserDto", userDto);
+        System.out.println(userDto);
                
         System.out.println("user_role :"+session.getAttribute("user_role"));
         System.out.println("user_id :"+session.getAttribute("user_id"));

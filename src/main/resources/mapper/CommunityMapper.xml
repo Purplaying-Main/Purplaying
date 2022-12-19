@@ -24,9 +24,9 @@
 	
 	<insert id="insertChat" parameterType="CommunityDto">
 		INSERT INTO tb_chat_service
-			(prdt_id, chat_writer, chat_context, user_no)
+			(prdt_id, chat_writer, chat_context, user_no, user_nickname)
 		VALUES
-			(#{prdt_id}, #{chat_writer}, #{chat_context}, #{user_no})
+			(#{prdt_id}, #{chat_writer}, #{chat_context}, #{user_no}, #{user_nickname})
 	</insert>
 	
 	<update id="update" parameterType="CommunityDto">

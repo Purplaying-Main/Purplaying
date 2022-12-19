@@ -245,7 +245,7 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${sessionScope.user_id }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.user_nickname }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
@@ -571,7 +571,7 @@
 				
 				$.ajax({
 					type : 'post',				//요청 메서드
-					url : '/purplaying/community?prdt_id=' + prdt_id,				//요청 URI
+					url : '/purplaying/community/insert/' + prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
@@ -637,17 +637,18 @@
 	
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
-						tmp += '		<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
 						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
 						tmp += '		data-prdt_id'+ comment.prdt_id
+						tmp += '		data-chat_writer' + comment.chat_writer
 						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
-						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.chat_writer + '</h6>'
+						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.user_nickname + '</h6>'
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
-						tmp += ' 		<button class="delBtn" >삭제</button>'
+						tmp += ' 		<button class="delBtn" onclick="index.ResponseEntity<String> remove(${user_no},${chat_no}})">삭제</button>'
 						tmp += '		<button class="modBtn" >수정</button>'
 						tmp += '	</div>'
 						tmp += '<hr class="mt-3">'

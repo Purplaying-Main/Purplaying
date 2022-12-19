@@ -102,7 +102,7 @@
 							<h1 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/viewMore?page=1'" style="color: #9E62FA; cursor:pointer;">더보기</h1>
 						</div> --%>
 					<br>
-					<div class="pagination mb-0 col-10 justify-content-center">
+					<div class="pagination mb-0 col-12 justify-content-center">
 
 						<c:if test="${prdt_count == null || prdt_count == 0 }">
 							<h6 class="row text-center ">
@@ -161,7 +161,7 @@
 						</c:forEach>
 					</div>
 					<br> <br>
-					<div class="pagination mb-0 col-10 justify-content-center">
+					<div class="pagination mb-0 col-12 justify-content-center">
 
 						<c:if test="${user_count == null || user_count == 0 }">
 							<h6 class="row text-center ">

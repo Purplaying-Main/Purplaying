@@ -12,6 +12,7 @@ public class CommunityDto {
   private Date chat_date;
   private int user_no;
   private int chat_type;
+  private String user_nickname;
 
   public int getChat_type() {
     return chat_type;
@@ -73,7 +74,7 @@ public class CommunityDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(chat_context, chat_date, chat_no, chat_type, chat_writer, prdt_id, user_no);
+    return Objects.hash(chat_context, chat_date, chat_no, chat_type, chat_writer, prdt_id, user_nickname, user_no);
   }
 
   public int getUser_no() {
@@ -82,6 +83,19 @@ public class CommunityDto {
 
   public void setUser_no(int user_no) {
     this.user_no = user_no;
+  }
+
+  public CommunityDto(int chat_no, int prdt_id, String chat_writer, String chat_context, Date chat_date, int user_no,
+      int chat_type, String user_nickname) {
+    super();
+    this.chat_no = chat_no;
+    this.prdt_id = prdt_id;
+    this.chat_writer = chat_writer;
+    this.chat_context = chat_context;
+    this.chat_date = chat_date;
+    this.user_no = user_no;
+    this.chat_type = chat_type;
+    this.user_nickname = user_nickname;
   }
 
   @Override
@@ -95,14 +109,22 @@ public class CommunityDto {
     CommunityDto other = (CommunityDto) obj;
     return Objects.equals(chat_context, other.chat_context) && Objects.equals(chat_date, other.chat_date)
         && chat_no == other.chat_no && chat_type == other.chat_type && Objects.equals(chat_writer, other.chat_writer)
-        && prdt_id == other.prdt_id && user_no == other.user_no;
+        && prdt_id == other.prdt_id && Objects.equals(user_nickname, other.user_nickname) && user_no == other.user_no;
   }
 
   @Override
   public String toString() {
-    return "CommunityDto [chat_no=" + chat_no + ", prdt_id=" + prdt_id
-        + ", chat_writer=" + chat_writer + ", chat_context=" + chat_context + ", chat_date=" + chat_date
-        + ", user_no=" + user_no + "]";
+    return "CommunityDto [chat_no=" + chat_no + ", prdt_id=" + prdt_id + ", chat_writer=" + chat_writer
+        + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + ", chat_type="
+        + chat_type + ", user_nickname=" + user_nickname + "]";
+  }
+
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
   }
 
 }
