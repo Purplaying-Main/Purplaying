@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,33 +45,17 @@
 								<!-- project thumb start -->
 								<div class="card shadow-sm">
 									<!-- 좋아요 버튼 -->
-									<button class="likeBtn" onclick="clickBtn()">
-										<i class="fa-regular fa-heart far"></i>
-									</button>
-									<div
-										onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'"
-										style="cursor: pointer">
-										<img class="bd-placeholder-img" width="100%" height="225"
-											id="prdt_thumbnail" name="prdt_thumbnail"
-											src="${ProjectDto.prdt_thumbnail}"
-											style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">
-									</div>
+							                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
+							                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
+							                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
+							                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
+							                </div>
 									<div class="card-body">
 										<c:choose>
-											<c:when test="${ProjectDto.prdt_genre eq 1 }">
-												<p class="card-cate"
-													onclick="location.href='genre/literature'">문학</p>
-											</c:when>
-											<c:when test="${ProjectDto.prdt_genre eq 2 }">
-												<p class="card-cate"
-													onclick="location.href='genre/poemessay'">시/에세이</p>
-											</c:when>
-											<c:when test="${ProjectDto.prdt_genre eq 3 }">
-												<p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p>
-											</c:when>
-											<c:otherwise>
-												<p class="card-cate">장르</p>
-											</c:otherwise>
+											<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate"onclick="location.href='genre/literature'">문학</p></c:when>
+											<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate"onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+											<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+											<c:otherwise><p class="card-cate">장르</p></c:otherwise>
 										</c:choose>
 										<div class="link-div"
 											onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'">
@@ -186,7 +171,7 @@
 		</div>
 
 	</section>
-	
+
 
 
 
