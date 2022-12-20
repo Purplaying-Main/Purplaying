@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="loginId" value="${sessionScope.id}" /> 
 
 <!DOCTYPE html>
@@ -29,7 +30,13 @@
            <div class="d-flex justify-content-between">
 	           <div class="d-flex">
 	           		<a class="mb-0" href="<c:url value="/project/${proj_dto.prdt_id }"/>"><h4>${proj_dto.prdt_name}</h4></a>
-	           		<p class="mx-3 text-danger">종료 D-${proj_dto.prdt_dday }</p>
+	           		<p class="mx-3 text-danger">종료 D
+	           		<c:choose>
+	           			<c:when test="${proj_dto.prdt_dday >= 0 }">-${proj_dto.prdt_dday }</c:when>
+	           			<c:when test="${proj_dto.prdt_dday < 0 }">+${-proj_dto.prdt_dday }</c:when>
+	           			<c:otherwise>DDAY출력</c:otherwise>
+	           		</c:choose>
+	           		</p>
 	           		<p>종료일 <fmt:formatDate value="${proj_dto.prdt_enddate }" pattern="yyyy년 MM월 dd일"/></p>
 	      		</div>
 	      		<div>
@@ -61,7 +68,7 @@
 			  	<th  class="text-end col-2" scope="col">주문 금액</th>
 		  	</tr>
 			<c:if test="${empty list_pay }">
-			<tr class="d-flex px-4 py-4 justify-content-center" >
+			<tr class="text-center" >
 			  	<td colspan="5">일주일간 주문내역이 없습니다.</td>
 			</tr>
 			 </c:if>

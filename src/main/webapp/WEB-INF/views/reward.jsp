@@ -65,7 +65,7 @@
 		              <h5>리워드 설명</h5>
 		              <textarea class="form-control mt-2" id="reward_modi_desc" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
 		              <hr class="mb-4">
-		              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
+		              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 -1을 입력</span>
 		              <textarea  class="form-control mt-2" id="reward_modi_stock" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
 		              <hr class="mb-4">
                       <input class="w-100 my-3 btn btn-lg rounded-3 btn-primary" id="saveRewardModi" type="button" value="리워드 저장"/>
@@ -118,7 +118,7 @@
               <h5>리워드 설명</h5>
               <textarea id="reward_desc" class="form-control mt-2" placeholder="리워드 상품 구성을 적어주세요" rows="5" style="resize: vertical;"></textarea>
               <hr class="mb-4">
-              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 0을 입력</span>
+              <h5>수량 제한(추가옵션)</h5><span class="text-muted">수량 제한이 없을 경우 -1을 입력</span>
               <textarea id="reward_stock" class="form-control mt-2" placeholder="수량을 입력해 주세요." rows="1" style="resize: none;"></textarea>
           	  <hr class="mb-4">
           	  

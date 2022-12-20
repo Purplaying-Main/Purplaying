@@ -24,4 +24,6 @@ public interface RewardDao {
   int insertSelectReward(int no_arr,int cnt_arr) throws Exception;
   
   List<RewardDto> userReward(Map map) throws Exception;
+  
+  int calRewardStock(int prdt_id, int reward_id, int reward_stock, int reward_user_cnt) throws Exception;
 }

@@ -391,16 +391,7 @@
 		}
 		
 
-		var link = '/purplaying/mypage'
-		function cancel(){
-			location.href = link
-		}
-		function modifyFinish() {
-				if(formCheck()){					
-					location.href = link
-				}
-				else {return false}
-		}
+
 		
 		/* 이미지 미리보기(섬네일 출력) */
 		var uploadResult = $("#uploadResult");
@@ -548,6 +539,21 @@
 			})
 		})
 		
+		var link = '/purplaying/mypage'
+		function cancel(){
+			location.href = link
+		}
+		function modifyFinish() {
+			document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
+				if(formCheck()){					
+				}
+				else {
+					return false
+					} 
+				location.href = link
+		}
+		
+		
 		let formCheck = function() {
 			if(document.getElementById("prdt_name").value=="") {
 				alert("제목을 입력해 주세요.")
@@ -569,8 +575,8 @@
 				document.getElementById("prdt_genre").focus()
 				return false
 			}	
-			return true;
-		}
+			return true; 
+		} 
 	</script>
 	<!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

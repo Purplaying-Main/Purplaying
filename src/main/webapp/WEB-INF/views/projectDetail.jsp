@@ -155,9 +155,18 @@
 	                    </div>
 	                    <div class="card-body">
 	                      <h5 class="card-title pricing-card-title">
-	                      	<span>${rewardDto.reward_desc }</span><br />
-	                      	<span class="text-primary mt-3">${rewardDto.reward_price}원</span></h5>
-	                         <div class="text-info" id="reward_stock${rewardDto.row_number }">남은 수량 ${rewardDto.reward_stock }</div>
+	                      	<span>${rewardDto.reward_desc }</span>
+	                      </h5>
+	                      	<div class="text-end"><span class="text-primary mt-3"><fmt:formatNumber value="${rewardDto.reward_price }" pattern="#,###" />원</span></div>
+	                         <div class="text-info text-end">남은 수량
+	                         	<span class="fw-bold" id="reward_stock${rewardDto.row_number }">
+	                         	<c:choose>
+									<c:when test="${rewardDto.reward_stock eq -1 }">제한 없음</c:when>
+							        <c:when test="${rewardDto.reward_stock > 0 }">${rewardDto.reward_stock}개</c:when>     
+							        <c:otherwise>수량 null</c:otherwise>           
+	                         	</c:choose>
+	                         	</span> 
+	                         </div>
 	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>
@@ -371,7 +380,7 @@
 
 	let dday =  <c:out value="${projectDto.prdt_dday}"/>
 
-	// 유저 = 창작자 펀딩하기 버튼 대신 펀딩관리하기로 대체 > 펀딩관리페이지로 이동
+	// 유저 = 창작자이면 관리하기 버튼으로 보여줌
 	if(${sessionScope.user_id eq projectDto.writer}){
 			document.getElementById("doFundingBtn").value = "펀딩관리하기";
 			document.getElementById("doFundingBtn").addEventListener('click',function(){
@@ -380,13 +389,14 @@
 		return false
 	}	
 
-
+	// 유저!=창작자이면서 펀딩이 종료되면 종료된 펀딩이라고 띄움
 	else if(dday < 0 && ${sessionScope.user_id ne projectDto.writer}){
 		document.getElementById("doFundingBtn").disabled = true;
 		document.getElementById("doFundingBtn").value = "종료된 펀딩입니다";
 		return false
 	}
-
+	
+	// 유저!=창작자 
 	else {
     $('#doFundingBtn').click(function(){
 		console.log("펀딩하기 버튼 클릭");
@@ -405,6 +415,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	$("#addReward").change(function(){
 		document.getElementById("selectRewardBox").style.display = 'block';
 		let reward_num = $('#addReward option:selected').val();
+
 		//alert(reward_num)
 		if(!arr.includes(reward_num[0])){
 			arr.push(reward_num[0]);
@@ -441,6 +452,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		return true;
 	}
 	}
+	
 });		
    		
 	function calRewardPrice(){
@@ -502,9 +514,11 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		temp +='</div>'
 		temp +=	'<div class="d-flex justify-content-end col"><span class="align-self-center col-1" style="margin-bottom: 0px;">수량 </span><span class="col-2"><input type="number" class="text-center form-control form-control-sm" name="reward_cnt" value="1" id="selectedRewardCnt-'+num+'" placeholder="1" min="1" onchange="calRewardPrice()"/></span></div>'
 		temp += "</div>";
+
 		return temp;
 	}
-
+	
+	
 	function pickBtn() {
 		   let _buttonI = event.target;
 

@@ -133,7 +133,13 @@
                     </div>
                   </div>
                   <h4 class="mb-0"><a href="${pageContext.request.contextPath}/project/${userF[i+1]}">${userF[i+3]}</a></h4>
-                  <p class="mb-1 text-danger">현재 달성률 ${userF[i+7]}% 종료 D-${userF[i+6]}</p>
+                  <p class="mb-1 text-danger">현재 달성률 ${userF[i+7]}% 종료 D
+                  <c:choose>
+                  	<c:when test="${userF[i+6] >=0}">- ${userF[i+6]}</c:when>
+                  	<c:when test="${userF[i+6] <0}">+ ${-userF[i+6]}</c:when>
+                  	<c:otherwise>종료일</c:otherwise>
+                  </c:choose>
+                 </p>
                   <p class="card-text mb-2">${userF[i+4]}</p>
                 </div>
               </div>

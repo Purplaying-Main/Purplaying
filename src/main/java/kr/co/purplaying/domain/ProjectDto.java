@@ -80,9 +80,6 @@ public class ProjectDto {
 
 
 
-
-
-
   @Override
   public String toString() {
     return "ProjectDto [writer=" + writer + ", prdt_id=" + prdt_id + ", prdt_name=" + prdt_name + ", prdt_desc="
