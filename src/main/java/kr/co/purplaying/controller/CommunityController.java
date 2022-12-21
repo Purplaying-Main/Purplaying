@@ -76,9 +76,9 @@ public class CommunityController {
       Model m, HttpSession session) {
     List<CommunityDto> list = null;
     String writer = (String) session.getAttribute("user_id");
-    System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
+    //System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
     UserDto nickname = (UserDto) session.getAttribute("UserDto");
-    System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
+    //System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
     communityDto.setChat_writer(writer);
     communityDto.setUser_nickname(nickname.getUser_nickname());
     
@@ -104,10 +104,10 @@ public class CommunityController {
 //지정된 댓글을 삭제하는 메서드
 
   @DeleteMapping("/community/{chat_no}")
-  public ResponseEntity<String> remove(@PathVariable int chat_no) {
+  public ResponseEntity<String> remove(@PathVariable int chat_no, int user_no) {
 
     try {
-      if (service.remove(chat_no) != 1) 
+      if (service.remove(chat_no) != 1) /*|| service.remove(user_no) != 1)*/ 
         throw new Exception("Delete failed");
       return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
     } catch (Exception e) {
