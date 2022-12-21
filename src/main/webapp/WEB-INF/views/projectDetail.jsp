@@ -29,6 +29,7 @@
    
    <!--페이지 내용 시작-->
    <section>
+	<input type="hidden" id="user_point" value="${sessionScope.UserDto.user_point }">
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
       <input type="hidden" id="prdt_id" value="${projectDto.prdt_id}" />
@@ -63,7 +64,7 @@
               </c:choose>
               </h4></li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
-              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary"><fmt:formatNumber value="${projectDto.prdt_currenttotal }" pattern="#,###" /> 원</h4></li>
+              <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary"><fmt:formatNumber value="${projectDto.prdt_currenttotal }" pattern="#,###" />원</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">${projectDto.prdt_buyercnt}명</h4></li>
               <li><hr class="mb-2"></li>
               <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
@@ -135,7 +136,7 @@
 	              <h4 class="d-flex mt-2">리워드 선택하기
 	              	<div class="dropdown px-2">
 					  <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					    얼리버드 타입
+					    리워드 타입
 					  </button>
 					  <ul class="dropdown-menu">
 					    <li><a class="dropdown-item" href="#">슈퍼얼리버드</a></li>
@@ -163,11 +164,11 @@
 	                         	<c:choose>
 									<c:when test="${rewardDto.reward_stock eq -1 }">제한 없음</c:when>
 							        <c:when test="${rewardDto.reward_stock > 0 }">${rewardDto.reward_stock}개</c:when>     
-							        <c:otherwise>수량 null</c:otherwise>           
+							        <c:otherwise>0개</c:otherwise>           
 	                         	</c:choose>
 	                         	</span> 
 	                         </div>
-	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" onclick="jumpUp()">이 리워드 선택하기</button>
+	                      <button type="button" class="w-100 btn btn-outline-primary mt-2" id="reward_btn${rewardDto.row_number }" onclick="jumpUp()">이 리워드 선택하기</button>
 	                    </div>
 	                  </div>
 	                </div><!-- 리워드 card end-->
@@ -408,7 +409,18 @@
 			form.submit()	
 
 	}) 
-
+	
+	/*페이지가 로딩되었을 때 리워드 수량이 0인 리워드에 대하여 선택 비활성화*/
+	for(var i = 1; i<document.getElementById("addReward").childElementCount;i++){
+		if(parseInt(document.getElementById("reward_stock"+i).innerText.split("개")[0]) == 0){
+			document.getElementById("reward_btn"+i).disabled = true;
+			document.getElementById("addReward").children[i].disabled = true;
+		}
+		else {
+			continue;
+		}
+	}
+	
 let selectedRewardName = document.getElementById("selectedRewardName");
 let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 
@@ -434,20 +446,40 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		}
 	});
 
-	//폼 체크
+	/*펀딩하기 버튼 클릭시 validation 체크*/
 	formCheck = function() {
 		let form = document.getElementById("selectRewardBox")
-
-		if(form.innerText == "" ) {
+	
+		//1. 선택된 리워드가 없는 경우
+		if(form.childElementCount == 0) {
 			alert("리워드를 선택해주세요.")
 			return false
 		}
-
-		if(form.style.display != "block" ) {
-			alert("리워드를 선택해주세요.")
+		
+		//2. 선택된 리워드 수량이 남은 수량 보다 적은지 확인
+ 		for( i = 0; i <form.childElementCount; i++ ){
+ 			let input_RewardNo = form.children[i].firstChild.lastChild.value
+ 			let stock_id = "reward_stock"+input_RewardNo
+ 			let inputReward_id = "selectedRewardCnt-"+input_RewardNo
+ 			let stock = parseInt(document.getElementById(stock_id).innerText.split("개")[0])
+ 			let inputReward = parseInt(document.getElementById(inputReward_id).value)
+			if(stock < inputReward ){
+				alert("남은 수량을 다시 확인해주세요")
+				return false
+			} 
+			else {
+				continue
+			}
+ 		}
+		
+		//3. 유저 포인트가 결제 총액 보다 많은지 확인 > 적으면 iamport.jsp 호출
+		let user_point = parseInt(document.getElementById("user_point").value)
+		let total_price = parseInt(document.getElementById("rewardTotalPrice").value)
+		if( user_point <total_price){
+			alert("포인트가 부족합니다.")
+			document.getElementById("iamport").click()
 			return false
 		}
-
 		console.log("입력 성공");
 		return true;
 	}
