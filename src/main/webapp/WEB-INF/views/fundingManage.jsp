@@ -65,7 +65,7 @@
 			  	<th class="text-center col-3" scope="col">주문 일자</th>
 			  	<th class="text-center col-1"  scope="col">회원<br>번호</th>
 			  	<th  class="text-center col-5"  scope="col">주문 정보</th>
-			  	<th  class="text-end col-2" scope="col">주문 금액</th>
+			  	<th  class="text-end col-2 me-2" scope="col">주문 금액</th>
 		  	</tr>
 			<c:if test="${empty list_pay }">
 			<tr class="text-center" >
@@ -75,12 +75,19 @@
 			 <c:if test="${not empty list_pay }">
 			  	<c:forEach var="paymentDto" items="${list_pay }">
 			  	<tr>
-					  <td class="text-center col-1"><a href="${pageContext.request.contextPath}/paymentCompleted/${paymentDto.pay_no}">${paymentDto.pay_no }</a></td>
-					  <td  class="col-3 text-center"><fmt:formatDate value="${paymentDto.pay_time }" pattern="yyyy년 MM월 dd일"/></td>
-					  <td class="text-center col-1">${paymentDto.user_no }</td>
-					  <td  class="col-5 text-center">${paymentDto.reward_id_s }|${paymentDto.reward_user_cnt_s }</td>
-					  <td  class="col-2 text-end"><fmt:formatNumber value="${paymentDto.pay_total }" pattern="#,###" />원</td>
-				  </tr>
+				  <td class="text-center col-1"><a href="${pageContext.request.contextPath}/paymentCompleted/${paymentDto.pay_no}"><span class="fw-bold">${paymentDto.pay_no }</span></a></td>
+				  <td  class="col-3 text-center"><fmt:formatDate value="${paymentDto.pay_time }" pattern="yyyy년 MM월 dd일"/></td>
+				  <td class="text-center col-1">${paymentDto.user_no }</td>
+				  <td  class="col-5 text-center">
+				 	<c:forEach var="id" items="${fn:split(paymentDto.reward_id_s,',') }" varStatus="statusid">
+				 	 #리워드 ${id}
+				  	<c:forEach var="cnt" items="${fn:split(paymentDto.reward_user_cnt_s,',')[statusid.index] }" varStatus="status">
+				 	 -${cnt }개
+					</c:forEach>
+				  	</c:forEach>
+				  </td>
+				  <td class="col-2 text-end me-2"><fmt:formatNumber value="${paymentDto.pay_total }" pattern="#,###" />원</td>
+				</tr>
 			  	</c:forEach>
 			  	</c:if>
 		  </table>

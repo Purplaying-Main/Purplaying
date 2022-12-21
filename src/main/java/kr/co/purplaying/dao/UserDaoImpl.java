@@ -152,6 +152,14 @@ public class UserDaoImpl implements UserDao {
       // TODO Auto-generated method stub
       return session.update(namespace+"insertPoint",userDto);
     }
+
+    @Override
+    public int updatePoint(int user_no, int user_point) throws Exception {
+      Map map = new HashMap();
+      map.put("user_no", user_no);
+      map.put("user_point", user_point);
+      return session.update(namespace+"updatePoint",map);
+    }
     
     
 }

@@ -143,4 +143,11 @@
 		set user_point= #{user_point}
 		WHERE user_id = #{user_id}	
 	</update>
+	
+	<!-- 결제에 따른 유저 포인트 갱신 -->
+	<update id="updatePoint" parameterType="int">
+		UPDATE tb_user
+		set user_point = #{user_point}
+		where user_no = #{user_no}
+	</update>
 </mapper>

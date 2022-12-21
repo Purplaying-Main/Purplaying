@@ -127,7 +127,7 @@ public class PaymentController {
         //4.결제정보 insert (이때 리워드는 DB에 배열로 저장)
         paymentService.write(paymentDto);
         
-        //5.펀딩 후원자수, 후원금액 증가 & 리워드 수량 감소
+        //5.펀딩 후원자수, 후원금액 증가 & 리워드 수량, 유저 포인트 감소
         projectDao.plusBuyerCnt(prdt_id);  
         projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.getPrdt_currenttotal());
         m.addAttribute("projectDto",projectDto);
@@ -145,6 +145,9 @@ public class PaymentController {
             }
           
         }
+
+        userDao.updatePoint(userDto.getUser_no(), userDto.getUser_point()-Integer.parseInt(pay_total));
+        
         //6.완료한 결제내역을 보여주기 위해 고유 조건(유저번호,펀딩번호,총금액,리워드번호,우편번호)을 넣어줌
         Map map_p = new HashMap();
         map_p.put("user_no", userDto.getUser_no());
