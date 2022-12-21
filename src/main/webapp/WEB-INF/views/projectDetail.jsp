@@ -122,8 +122,8 @@
               <li class="row d-flex p-2 m-1">
                 <div class="col-3"><img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle"></div>
                 <div class="col"> 
-                  <h6 class="row text-muted">${projectDto.writer}</h6>
-                  <small class="row text-muted">${projectDto.user_id}</small>
+                  <h6 class="row text-muted">${userDto.user_nickname}</h6>
+                  <small class="row text-muted">${userDto.user_id}</small>
                   <small class="row" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${projectDto.writer}/'" style="color: #9E62FA; cursor:pointer;">창작자의 다른 프로젝트 더보기</small>
                 </div>
               </li>
