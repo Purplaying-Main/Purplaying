@@ -94,10 +94,11 @@
 				              <div class="card shadow-sm">
 				                <!-- 좋아요 버튼 -->
 				                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
+				                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" disabled="disabled" style="cursor:pointer"></div>               
 				                <div onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;" style="cursor:pointer">
 				                <img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
 				                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">
-				                </div>	                
+				                </div>               
 				                <div class="card-body">
 					                  <div class="d-flex justify-content-between">
 				                  	<c:choose>
