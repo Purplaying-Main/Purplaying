@@ -596,10 +596,13 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				let comment = $("#comment").val();
 				alert(comment)
 				
-				if(comment.trim() == '') {
+				if(${sessionScope.UserDto.user_nickname == null}){
+					alert("로그인 후에 이용 가능합니다.")
+					return false
+				} else if(comment.trim() == '') {
 					alert("댓글을 입력해 주세요.")
 					$("#comment").val();
-					return
+					return false
 				}
 				
 				$.ajax({
@@ -611,6 +614,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						alert(result)
 						showList(prdt_id)
 						$("#commentList").html(toHtml(result))
+						window.location.reload()
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
 				})
@@ -630,6 +634,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						alert(result)						//result 서버가 전송한 데이터
 						showList(prdt_id)
 						$("#commentList").html(toHtml(result))
+						window.location.reload()
 					},
 					error : function() { alert("Error") }	//에러가 발생했을 때 호출될 함수
 				})
@@ -681,29 +686,13 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '	</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
-						tmp += '<c:if test="${comment.chat_writer == userDto.user_id}">'
+						//tmp += '<c:if test="${comment.user_nickname == userDto.user_nickname}">'
 						tmp += ' 		<button class="delBtn" style="cursor:pointer;">삭제</button>'
 						tmp += '		<button class="modBtn" style="cursor:pointer;">수정</button>'
-						tmp += '</c:if>'
+						//tmp += '</c:if>'
 						tmp += '	</div>'
 						tmp += '<hr class="mt-3">'
 						
-						
-/* 						tmp += '	<div class="row rounded bg-light p-3 mb-3">'
-						tmp += '		<div class="col-1">'
-						tmp += '			<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-						tmp += '		</div>'
-						tmp += '	<div class="col-11">'
-						tmp += '		<div class="border-bottom" data-cno=' + comment.chat_no
-						tmp += '		data-prdt_id'+ comment.prdt_id
-						tmp += '		data-user_no'+ comment.user_no +'>'
-						tmp += '			<h6 class="my-0">창작자 닉네임 > ' + comment.chat_writer + '</h6>'
-						tmp += '			<p class="my-0 text-small">작성일 > ' + toStringByFormatting(comment.chat_date) + '</p>'
-						tmp += '		</div>'			
-						tmp += '			<p class="mb-5" >내용 ><span class="chat_context" >' + comment.chat_context + '</span></p>'
-						tmp += ' 			<button class="delBtn" >삭제</button>'
-						tmp += ' 			<button class="modBtn" >수정</button>'
-						tmp += '	</div>' */
 				})
 				
 				return tmp += "</div>" 
