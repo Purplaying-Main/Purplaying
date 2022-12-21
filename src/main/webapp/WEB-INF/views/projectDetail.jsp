@@ -260,7 +260,7 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
-                    <p> 작성자 닉네임 > ${userDto.user_nickname }</p>
+                    <p> 작성자 닉네임 > ${sessionScope.UserDto.user_nickname }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
