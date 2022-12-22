@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.purplaying.dao.RewardMapper">
 
 	<sql id="selectAllReward">
-		select (row_number() over(order by reward_id)), * from tb_reward
+		select (row_number() over(order by reward_category,reward_id )), * from tb_reward
 	</sql>
 	
 	<select id="selectReward" parameterType="int" resultType="RewardDto">
