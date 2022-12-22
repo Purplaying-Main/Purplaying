@@ -298,4 +298,18 @@ public class PaymentController {
       }
       
   }
+  
+  @ResponseBody
+  @RequestMapping(value="/payment/selectadd", method = RequestMethod.POST)
+  public AddressDto stmodaddress(@RequestBody AddressDto addressDto) {
+    System.out.println("수정 전 addressDto = " + addressDto);
+    try {
+      AddressDto dto = settingService.chooseAddress(addressDto.getAddress_id());
+      return dto;
+    }catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+    
+  }
 }
