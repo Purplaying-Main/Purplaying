@@ -9,13 +9,12 @@
  <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
  <%@ include file ="meta.jsp" %>
  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
- 
 </head>
 <body>
-    <!--헤더 인클루드-->
+   <!--헤더 인클루드-->
    <%@ include file ="header.jsp" %>
   
-	<!--메인 컨테이너 -->
+  <!--메인 컨테이너 -->
   <section>
   	<input type="hidden" id="user_no" value="${userDto.user_no }">
     <h1 class="visually-hidden">HOME</h1>
@@ -24,16 +23,17 @@
       <div class="row col-md-8 d-block mx-auto">
         <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h3>
   
-        <!-- 프로젝트명 -->
+       <!-- 프로젝트 정보 -->
         <div class="mb-4">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col-auto d-none d-lg-block">
               <img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
-                		src="${projectDto.prdt_thumbnail}" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">
+                 src="${projectDto.prdt_thumbnail}" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">
             </div>
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
                 <p class="col-6 mb-2">
+                <!-- 펀딩 장르 -->
                 <c:choose>
                 <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
                 <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
@@ -54,7 +54,7 @@
         </div>
 
         <!-- 리워드 정보 -->
-        <form class="paymentForm" id="paymentform" action="" method="">
+        <form class="paymentForm" id="paymentform">	<!-- hidden value를 paymentcontroller에 넘김 -->
         	<input type="hidden" id="pay_total" name="pay_total" value="">
         	<input type="hidden" id="reward_id" name="rewardid" value="">
         	<input type="hidden" id="reward_cnt" name="rewardcnt" value="">
@@ -62,6 +62,7 @@
           <h5>리워드 정보</h5>
           <hr>
           	<div id="rewardCnt">
+          <!-- 선택한 리워드와 수량 출력 -->
           <c:forEach var="reward" items="${reward }" varStatus="status">
           	<div>
           	   <div class="d-flex justify-content-between mx-1" id="rewardInfo${status.count }">
@@ -74,7 +75,7 @@
 					</c:when>              		
               	</c:choose>
           	   </div>
-              <div class="form-label">
+               <div class="form-label">
               		<c:choose>
               			<c:when test="${status.count%4 eq 0}">
               			<c:set var="price" value="${fn:split(reward,'원-')[0] }"/>
@@ -83,15 +84,15 @@
               			</c:when>
               			<c:otherwise>${reward }</c:otherwise>
               		</c:choose>
-              </div> 
-              </div>
+               </div> 
+               </div>
           	</div>
             </c:forEach>
             <div class="d-flex justify-content-between mx-1 my-1">
-            <p class="form-label fw-bold">후원 금액</p>
-            <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${param.rewardTotalPrice}"/></span>원</p>
-          </div>
- 			</div>
+            	<p class="form-label fw-bold">후원 금액</p>
+            	<p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${param.rewardTotalPrice}"/></span>원</p>
+            </div>
+ 		  </div>
         </div>
 
         <!-- 후원자 정보 -->
@@ -100,15 +101,14 @@
           <hr>
           <div class="d-flex justify-content-between mx-1">
               <div>
-                <p class="form-label fw-bold">연락처</p>
-                <p class="form-label" id="dt_phoneNM">${userDto.user_phone}</p>
-                <br>
-                <p class="form-label fw-bold">이메일</p>
-                <p class="form-label" id="dt_email">${userDto.user_id}</p>
+                 <p class="form-label fw-bold">연락처</p>
+                 <p class="form-label" id="dt_phoneNM">${userDto.user_phone}</p>
+                 <br>
+                 <p class="form-label fw-bold">이메일</p>
+                 <p class="form-label" id="dt_email">${userDto.user_id}</p>
               </div>
               <div class=" py-3 my-4">
-                <p class="text-left px-3 py-2">등록된 회원 정보로
-                  프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
+                <p class="text-left px-3 py-2">등록된 회원 정보로 프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
               </div>
           </div>
         </div>
@@ -224,10 +224,7 @@
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
   
-   <!-- 주소찾기 JS -->
-  <script src="${pageContext.request.contextPath}/resources/assets/js/addressSearch.js"></script>
-  
-  <!-- 후원자 정보와 동일 JS -->
+  <!-- 후원자 정보와 동일 클릭시 스크립트 -->
   <script>
    	function same(){
   		let user_name = "${userDto.user_name}";
@@ -237,10 +234,13 @@
    	}
   </script>
   
-    <!-- 후원하기 버튼 클릭시 실행 JS -->
+  <!-- 주소찾기 JS -->
+  <script src="${pageContext.request.contextPath}/resources/assets/js/addressSearch.js"></script>
+  
+  <!-- 후원하기 버튼 클릭시 스크립트 -->
   <script>
-  	$("#doPaymentBtn").on("click",function(){
-		//후원 금액
+$("#doPaymentBtn").on("click",function(){
+		//1.총 금액을 input hidden에 저장
   	    if(document.getElementById("dt_fundingPrice").innerText<=7){
 			let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1));
 			document.getElementById("pay_total").value = total;
@@ -250,7 +250,7 @@
   	    document.getElementById("pay_total").value = totalOver;
   	    }
   	    
-  	    //선택한 리워드를 배열에 담음
+  	    //2.선택한 리워드를 배열에 담음
   		let rn = new Array();
   	    let rc = new Array();
 		let k = 1;
@@ -263,12 +263,12 @@
   	    	
   	    }
   	    
+  	    //3.배열로 담은 리워드 아이디,수량을 input hidden에 저장
   	    document.getElementById("reward_id").value = rn;
   	    document.getElementById("reward_cnt").value = rc;
   	    
-  	    console.log("rn : " + rn +"\nrc : "+ rc)
+  	    //4.컨트롤러로 폼 전송
   		let form = $(".paymentForm");
-  		
 		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")
 		form.attr("method", "post")
 		
@@ -276,7 +276,8 @@
 			form.submit()	
   		})  
   	
-  	
+  		
+  		<!--결제정보 validation 체크 스크립트-->
 		formCheck = function() {
 		let form = document.getElementById("paymentform")
 		
@@ -314,7 +315,7 @@
 		}
 		
 		return true;
-	}		
+	}			
   </script>
   
   <!-- 배송지 목록 불러옴 -->
