@@ -104,10 +104,11 @@ public class CommunityController {
 //지정된 댓글을 삭제하는 메서드
 
   @DeleteMapping("/community/{chat_no}")
-  public ResponseEntity<String> remove(@PathVariable int chat_no, int user_no) {
+  
+  public ResponseEntity<String> remove(@PathVariable int chat_no) {
 
     try {
-      if (service.remove(chat_no) != 1) /*|| service.remove(user_no) != 1)*/ 
+      if (service.remove(chat_no) != 1)
         throw new Exception("Delete failed");
       return new ResponseEntity<>("DEL_OK", HttpStatus.OK);
     } catch (Exception e) {

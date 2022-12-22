@@ -273,6 +273,7 @@
                    		<hr class="mt-3">
                     	</div>
                   <!--댓글 시작-->
+                  <input type="hidden" id="user_id_for_comment" value="${sessionScope.userDto.user_no}" />
                   <div id="commentList">
                   	<div class="row text-start">
                     	<div class="col-1">
@@ -285,7 +286,8 @@
                       		</div>
                    			<p class="mb-5" >내용 > </p>
 						</div>
-                      <!--답글 시작-->
+
+<!--                       답글 시작
 						<div class="row rounded bg-light p-3 mb-3">
 						<div class="col-1">
 							<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
@@ -297,9 +299,9 @@
                           </div>
 							<p class="mb-5" >내용 ></p>
 						</div>
+                      </div> -->
                       </div>
-                      </div>
-                      <!--답글 종료-->
+                     <!--답글 종료-->
                   </div>
                  </div>
                 </div>
@@ -589,7 +591,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	
 	<!-- 커뮤티니 댓글 기능 -->
 	<script type="text/javascript">
-	
+					
 		$(document).ready(function() {
 			//$("input[id=prdt_id]").val()
 			//$("input[id=chat_no]").val()
@@ -704,7 +706,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			
 		 	let toHtml = function(comments) {
 				let tmp = '<div class="row text-start">'
-	
+				let user_id_for_comment = $('#user_id_for_comment').val()
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
@@ -714,21 +716,22 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						tmp += '		data-chat_writer' + comment.chat_writer
 						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
-						tmp += '			<h6 class="my-0"><Strong>후원자 아이디 ></Strong> '+ comment.user_nickname + '</h6>'
-						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong> ' + toStringByFormatting(comment.chat_date) + '</p>'
-						tmp += '	</div>'
-						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'
-						//tmp += '<c:if test="${comment.user_nickname == userDto.user_nickname}">'
-						tmp += ' 		<button class="delBtn" style="cursor:pointer;">삭제</button>'
-						tmp += '		<button class="modBtn" style="cursor:pointer;">수정</button>'
-						//tmp += '</c:if>'
-						tmp += '	</div>'
+						tmp += '			<h6 class="my-0"><Strong>작성자 닉네임 ></Strong>'+ comment.user_nickname + '</h6>'
+						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong>' + toStringByFormatting(comment.chat_date) + '</p>'
+						tmp += '		</div>'
+						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'	
+					if (comment.user_no == user_id_for_comment) {
+					    tmp +=	'		<div style="float:right;">'
+				    	tmp +=	'			<button class="modBtn" >[ 수 정 ]</button>'
+			    		tmp +=	'			<button class="delBtn" >[ 삭 제 ]</button>'
+		    			tmp +=  '		</div>'
+						}
+						tmp += '</div>'
 						tmp += '<hr class="mt-3">'
-						
 				})
-				
-				return tmp += "</div>" 
+				return tmp += "</div>"
 			}
+
 
 		 	function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);

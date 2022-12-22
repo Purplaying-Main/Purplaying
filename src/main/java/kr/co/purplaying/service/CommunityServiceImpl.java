@@ -46,5 +46,4 @@ public class CommunityServiceImpl implements CommunityService {
     return communityDao.delete(chat_no);
   }
 
-
 }
