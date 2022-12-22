@@ -274,6 +274,7 @@
                     	</div>
                   <!--댓글 시작-->
                   <input type="hidden" id="user_id_for_comment" value="${sessionScope.userDto.user_no}" />
+                  <input type="hidden" id="writer_id_for_comment" value="${projectDto.writer}" />
                   <div id="commentList">
                   	<div class="row text-start">
                     	<div class="col-1">
@@ -630,7 +631,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				let comment = $("#comment").val();
 				alert(comment)
 				
-				if(${sessionScope.UserDto.user_nickname == null}){
+				if(${sessionScope.UserDto.user_no == null}){
 					alert("로그인 후에 이용 가능합니다.")
 					return false
 				} else if(comment.trim() == '') {
@@ -707,6 +708,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		 	let toHtml = function(comments) {
 				let tmp = '<div class="row text-start">'
 				let user_id_for_comment = $('#user_id_for_comment').val()
+				let writer_id_for_comment = $('#projectDto.writer').val()
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
@@ -723,9 +725,14 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					if (comment.user_no == user_id_for_comment) {
 					    tmp +=	'		<div style="float:right;">'
 				    	tmp +=	'			<button class="modBtn" >[ 수 정 ]</button>'
-			    		tmp +=	'			<button class="delBtn" >[ 삭 제 ]</button>'
-		    			tmp +=  '		</div>'
+				    	tmp +=	'			<button class="delBtn" >[ 삭 제 ]</button>'
+				    	tmp +=  '</div>'
 						}
+					if (writer_id_for_comment == comment.user_id) {
+						tmp +=	'		<div style="float:right;">'
+			    		tmp +=	'			<button class="rplyBtn" >[ 답 변 ]</button>'
+		    			tmp +=  '		</div>'
+					}
 						tmp += '</div>'
 						tmp += '<hr class="mt-3">'
 				})
