@@ -60,6 +60,18 @@
             </div>
 
             <div class="col-12 mt-2">
+              <label for="username" class="form-label">닉네임</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="닉네임" required>
+              <div class="invalid-feedback">
+                  닉네임을 입력해주세요
+                </div>
+              </div>
+              	<i class="fa fa-exclamation-circle" id="check_nickname_msg" style="display:none"></i>
+            </div>            
+
+            <div class="col-12 mt-2">
               <label for="userphone" class="form-label">연락처</label>
               <div class="input-group mb-3">
                 <input type="number" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" required>
@@ -330,6 +342,8 @@
 				$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
 			}
 		}
+	
+		
 		$(document).ready(function(){
 			function parseXML (data) {
 			    var xml, tmp;
@@ -394,6 +408,7 @@
 				let id = document.getElementById("email");
 				let pwd = document.getElementById("password");
 				let name = document.getElementById("user_name");
+				let nickname = document.getElementById("user_nickname");
 				let phone = document.getElementById("user_phone");
 				let agree1 = document.getElementById("agree1");
 				let agree2 = document.getElementById("agree2");
@@ -408,6 +423,9 @@
 				}else if(name.value == null || name.value == ""){
 					name.scrollIntoView({block:"center"});
 					$("#check_name_msg").show().html('이름을 입력해주세요').css("color","red");
+				}else if(nickname.value == null || nickname.value == ""){
+					nickname.scrollIntoView({block:"center"});
+					$("#check_nickname_msg").show().html('닉네임을 입력해주세요').css("color","red");
 				}else if(phone.value == null || phone.value == ""){
 					phone.scrollIntoView({block:"center"});
 					$("#check_phone_msg").show().html('전화번호를 입력해주세요').css("color","red");
@@ -425,6 +443,7 @@
 							user_id : document.getElementById("email").value,
 							user_pwd : document.getElementById("password").value,
 							user_name : document.getElementById("user_name").value,
+							user_nickname : document.getElementById("user_nickname").value,
 							user_phone : document.getElementById("user_phone").value,
 							user_name : document.getElementById("user_name").value,
 							agree_age : $('#agree1').is(":checked"),

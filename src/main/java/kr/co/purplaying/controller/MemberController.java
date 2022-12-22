@@ -215,7 +215,7 @@ public class MemberController {
     public void signup2(@RequestBody MemberDto memberDto, Model m ,HttpServletRequest request) throws Exception {
       System.out.println(memberDto);
       System.out.println("user_id"+memberDto.getUser_id());
-      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_phone())!=1) {
+      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_nickname(),memberDto.getUser_phone())!=1) {
         System.out.println("실패");
       }
       UserDto user = userDao.searchUser_no(memberDto.getUser_id());
