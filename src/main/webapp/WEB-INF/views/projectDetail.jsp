@@ -275,8 +275,7 @@
                    		<hr class="mt-3">
                     	</div>
                   <!--댓글 시작-->
-                  <input type="hidden" id="user_id_for_comment" value="${sessionScope.userDto.user_no}" />
-                  <input type="hidden" id="writer_id_for_comment" value="${projectDto.writer}" />
+                  <input type="hidden" id="user_id_for_comment" value="${sessionScope.userDto.user_no}" />			<!-- 세션값에 있는 유저번호를 담음 -->
                   <div id="commentList">
                   	<div class="row text-start">
                     	<div class="col-1">
@@ -734,11 +733,11 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					error : function() { alert("error1") }	// 에러가 발생할 때, 호출될 함수
 				})
 			}
-			
+		 
 		 	let toHtml = function(comments) {
 				let tmp = '<div class="row text-start">'
-				let user_id_for_comment = $('#user_id_for_comment').val()
-				let writer_id_for_comment = $('#projectDto.writer').val()
+				let user_id_for_comment = $('#user_id_for_comment').val()			// 로그인정보를 세션에 담아옴
+				debugger;
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
@@ -752,17 +751,20 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong>' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '		</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context"  >' + comment.chat_context + '</span></p>'	
-					if (comment.user_no == user_id_for_comment) {
+						/*  */
+						if (user_id_for_comment == ''){true} 			// 아이디세션 값이 없으면 버튼 출력하지 않음
+						else if (user_id_for_comment == comment.user_no) {				// 로그인한 유저 번호와 작성댓글 유저 번호가 같으면 출력
 					    tmp +=	'		<div style="float:right;">'
 				    	tmp +=	'			<button class="modBtn" >[ 수 정 ]</button>'
+				    	tmp +=	'			<button class="rplyBtn">[ 답 변 ]</button>'
 				    	tmp +=	'			<button class="delBtn" >[ 삭 제 ]</button>'
-				    	tmp +=  '</div>'
+				    	tmp +=  '		</div>'
 						}
-					if (comment.user_no != comment.user_id) {
+						else {			// 로그인한 유저 번호와 작성댓글 유저 번호가 다르면 출력
 						tmp +=	'		<div style="float:right;">'
-			    		tmp +=	'			<button class="rplyBtn" >[ 답 변 ]</button>'
+			    		tmp +=	'			<button class="rplyBtn">[ 답 변 ]</button>'
 		    			tmp +=  '		</div>'
-					}
+						} 
 						tmp += '</div>'
 						tmp += '<hr class="mt-3">'
 				})
