@@ -134,13 +134,7 @@ public class PaymentController {
         paymentDto.setReward_id(rd_id);
         paymentDto.setReward_user_cnt(rd_cnt);
 
-        //4.결제정보 insert (이때 리워드는 DB에 배열로 저장)
-        paymentService.write(paymentDto);
-        
-        //5.펀딩 후원자수, 후원금액 증가 & 리워드 수량, 유저 포인트 감소
-        projectDao.plusBuyerCnt(prdt_id);  
-        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.getPrdt_currenttotal());
-        m.addAttribute("projectDto",projectDto);
+        //4.펀딩 후원자수, 후원금액 증가 & 리워드 수량, 유저 포인트 감소
         
         List<RewardDto> rewardInfo = rewardDao.selectReward(prdt_id);
         
@@ -148,15 +142,21 @@ public class PaymentController {
           for (int j = 0; j < rewardInfo.size(); j++) {
             if (Integer.parseInt(rd_id[i]) == rewardInfo.get(j).getRow_number()) {
               rewardDao.calRewardStock(prdt_id, rewardInfo.get(j).getReward_id(), rewardInfo.get(j).getReward_stock(), Integer.parseInt(rd_cnt[i]));
-              }
+            }
             else {
               continue;
-              }
             }
+          }
           
         }
-
+        
+        projectDao.plusBuyerCnt(prdt_id);  
+        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.getPrdt_currenttotal());
+        m.addAttribute("projectDto",projectDto);
         userDao.updatePoint(userDto.getUser_no(), userDto.getUser_point()-Integer.parseInt(pay_total));
+        
+        //5.결제정보 insert (이때 리워드는 DB에 배열로 저장)
+        paymentService.write(paymentDto);
         
         //6.완료한 결제내역을 보여주기 위해 고유 조건(유저번호,펀딩번호,총금액,리워드번호,우편번호)을 넣어줌
         Map map_p = new HashMap();
