@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
-import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
@@ -85,6 +84,7 @@ public class SettingController {
     return "setting";         //로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
+  @SuppressWarnings("deprecation")
   @RequestMapping(value="/setting/profile/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyProfile(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session) {
     map.put("user_no", user_no);
@@ -233,7 +233,7 @@ public class SettingController {
       
       try {
         list = settingService.getList(user_no);
-          
+        
         System.out.println("list = " + list);
         return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
           

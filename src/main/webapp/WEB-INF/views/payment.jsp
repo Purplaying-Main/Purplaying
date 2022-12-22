@@ -17,6 +17,7 @@
   
 	<!--메인 컨테이너 -->
   <section>
+  	<input type="hidden" id="user_no" value="${userDto.user_no }">
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
@@ -120,7 +121,7 @@
           <div class="d-flex justify-content-between mx-1 mb-1">
           	<p class="form-label fw-bold">배송지</p>
             <div class="d-flex">
-          	<input type="button" class="form-label btn btn-primary btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#deliveryModal" value="배송지목록">
+          	<input type="button" id="addlistBtn" class=" form-label btn btn-primary btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#deliveryModal" value="배송지목록">
                   <!-- Modal -->
                   <div class="modal fade" id="deliveryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deliveryModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -129,34 +130,7 @@
                           <h5 class="modal-title" id="deliveryModalLabel">등록된 배송지</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                     <div class="modal-body py-1">
-	                   <!-- card start -->
-                		<div class="card">
-                  			<div class="d-flex justify-content-between card-title px-3 pt-1">
-                    			<span class="text-primary pt-1">기본 배송지</span>
-                      			<input type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addressModiModal" value="선택">
-                  	 		</div>
-                  			<div class="card-body px-3 pt-1">
-                    			<span class="card-text">수령인 : 한승훈</span><br>
-                    			<span class="card-text">[06541] 서울특별시 서초구 강남대로 479 3층 </span><br>
-                    			<span class="card-text">010-2023-0111</span>
-                  			</div>
-                		</div>
-              			<!-- card end -->
-	                   <!-- card start -->
-                		<div class="card mt-1">
-                  			<div class="d-flex justify-content-between card-title px-3 pt-1">
-                    			<span class="text-primary pt-1">배송지2</span>
-                      			<input type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addressModiModal" value="선택">
-                  	 		</div>
-                  			<div class="card-body px-3 pt-1">
-                    			<span class="card-text">수령인 : 이규황</span><br>
-                    			<span class="card-text">[06541] 서울특별시 서초구 강남대로 479 3층 </span><br>
-                    			<span class="card-text">010-2022-1104</span>
-                  			</div>
-                		</div>
-              			<!-- card end -->              			
-                       </div>
+                     <div id="addlist" class="modal-body py-1"></div>
                        <div class="modal-footer">
                           <button type="button" class="btn-sm" data-bs-dismiss="modal">닫기</button>
                        </div>
@@ -341,6 +315,40 @@
 		
 		return true;
 	}		
+  </script>
+  
+  <!-- 배송지 목록 불러옴 -->
+  <script>
+	$("#addlistBtn").click(function(){
+		let user_no = $("#user_no").val()
+		showList(user_no)
+	})
+  
+	let showList = function(user_no) {
+		$.ajax({
+			type: 'POST',			//요청 메서드
+			url: '/purplaying/payment/addresslist/'+user_no,		// 요청 URI
+			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
+				$("#addlist").html(toHtml(result))		// result는 서버가 전송한 데이터
+			},
+			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수 
+		})
+	}
+	
+	let toHtml = function(addresses) {
+		let tmp = "";
+		addresses.forEach(function(address){
+			tmp += '<div class="card mb-1">'
+			tmp += '<div class="d-flex justify-content-between card-title px-3 pt-1">'
+			tmp += '<span class="text-primary pt-1">' + address.address_name + '</span>'
+			tmp += '<input type="button" class="btn btn-primary btn-sm" value="선택"></div>'
+			tmp += '<div class="card-body px-3 pt-1">'
+			tmp += '<span class="card-text">수령인 : ' + address.receiver_name + '</span><br><span class="card-text">[' + address.address_num + '] '
+			tmp += address.address + ' ' + address.address_detail + '</span><br><span class="card-text">' + address.receiver_phonenum + '</span></div></div>'
+		});
+		return tmp;
+	}
+	
   </script>
 </body>
 </html>

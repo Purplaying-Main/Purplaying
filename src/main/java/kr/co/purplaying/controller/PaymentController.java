@@ -10,16 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.dao.RewardDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.AddressDto;
 import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.RewardDto;
@@ -50,6 +57,9 @@ public class PaymentController {
   PaymentDao paymentDao;
   @Autowired
   PaymentService paymentService;
+  
+  @Autowired
+  SettingService settingservice;
   
   /*결제화면*/
   @GetMapping("/payment/{prdt_id}")
@@ -268,5 +278,24 @@ public class PaymentController {
     HttpSession session = request.getSession(false); // false는 session이 없어도 새로 생성하지 않음. 반환값 null
     // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
     return session != null && session.getAttribute("user_id") != null;
+  }
+  
+  @ResponseBody
+  @RequestMapping(value="/payment/addresslist/{user_no}", method = RequestMethod.POST)
+  public ResponseEntity<List<AddressDto>> list(@PathVariable int user_no) {     
+      List<AddressDto> list = null;
+      System.out.println("리스트함수 호출");
+      
+      try {
+        list = settingService.getList(user_no);
+          
+        System.out.println("list = " + list);
+        return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
+          
+      } catch (Exception e) {
+          e.printStackTrace();
+          return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);    //400
+      }
+      
   }
 }
