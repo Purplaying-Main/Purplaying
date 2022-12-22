@@ -758,7 +758,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				    	tmp +=	'			<button class="delBtn" >[ 삭 제 ]</button>'
 				    	tmp +=  '</div>'
 						}
-					if (writer_id_for_comment == comment.user_id) {
+					if (comment.user_no != comment.user_id) {
 						tmp +=	'		<div style="float:right;">'
 			    		tmp +=	'			<button class="rplyBtn" >[ 답 변 ]</button>'
 		    			tmp +=  '		</div>'
