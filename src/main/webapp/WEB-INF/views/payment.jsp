@@ -34,6 +34,7 @@
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
                 <p class="col-6 mb-2">
+		<!-- 펀딩 장르 -->
                 <c:choose>
                 <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
                 <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
@@ -54,7 +55,7 @@
         </div>
 
         <!-- 리워드 정보 -->
-        <form class="paymentForm" id="paymentform" action="" method="">
+        <form class="paymentForm" id="paymentform"> <!-- hidden value를 paymentcontroller에 넘김 -->
         	<input type="hidden" id="pay_total" name="pay_total" value="">
         	<input type="hidden" id="reward_id" name="rewardid" value="">
         	<input type="hidden" id="reward_cnt" name="rewardcnt" value="">
@@ -62,6 +63,7 @@
           <h5>리워드 정보</h5>
           <hr>
           	<div id="rewardCnt">
+		<!-- 선택한 리워드와 수량 출력 -->
           <c:forEach var="reward" items="${reward }" varStatus="status">
           	<div>
           	   <div class="d-flex justify-content-between mx-1" id="rewardInfo${status.count }">
@@ -250,7 +252,7 @@
   	    document.getElementById("pay_total").value = totalOver;
   	    }
   	    
-  	    //선택한 리워드를 배열에 담음
+  	    //2.선택한 리워드를 배열에 담음
   		let rn = new Array();
   	    let rc = new Array();
 		let k = 1;
@@ -263,6 +265,7 @@
   	    	
   	    }
   	    
+		//3.배열로 담은 리워드 아이디,수량을 input hidden에 저장
   	    document.getElementById("reward_id").value = rn;
   	    document.getElementById("reward_cnt").value = rc;
   	    
