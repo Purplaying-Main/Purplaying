@@ -135,20 +135,22 @@
             <!-- 리워드 -->
 	              <h4 class="d-flex mt-2">리워드 선택하기
 	              	<div class="dropdown px-2">
-					  <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  <button class="btn btn-secondary dropdown-toggle btn-sm" id="rewardOption" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 					    리워드 타입
 					  </button>
 					  <ul class="dropdown-menu">
-					    <li><a class="dropdown-item" href="#">슈퍼얼리버드</a></li>
-					    <li><a class="dropdown-item" href="#">얼리버드</a></li>
+					  	<li><button class="dropdown-item" id="dropDownOption0">모두 보기</button></li>
+					    <li><button class="dropdown-item" id="dropDownOption1">슈퍼얼리버드</button></li>
+					    <li><button class="dropdown-item" id="dropDownOption2">얼리버드</button></li>
 					  </ul>
 				  	</div>
 	              </h4>
 	                            	
-              <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100">
+              <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100" id="rewawrdBox">
               	<c:forEach var="rewardDto" items="${dto}">
-	                <div class="col mt-2"><!-- 리워드 card start-->
-	                  <div class="card mb-4 rounded-3 shadow-sm">
+	                <div class="col mt-2">
+	                <!-- 리워드 card start-->
+	                  <div class="card mb-4 rounded-3 shadow-sm" id="reward_Card${rewardDto.reward_category }">
 	                    <div class="card-header py-3">
 	                      <strong class="my-0 fw-normal bg-info">${rewardDto.reward_category == 1 ? "슈퍼얼리버드" : "얼리버드"}</strong><br>
 	                      <input type="hidden" id="reward_id" value="${rewardDto.reward_id }"/>
@@ -356,6 +358,8 @@
 				}					
 			});
 	   };
+	   
+	   /*이 리워드 선택하기 버튼 클릭 시 해당 리워드의 정보를 받아 위로 이동하는 스크립트*/
 	   function jumpUp(){
 		   //eventTarget.previousElementSibling.previousElementSibling.innerHTML
 		   document.getElementById("selectRewardBox").style.display = 'block';
@@ -461,8 +465,9 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		
 		//2. 선택된 리워드 수량이 남은 수량 보다 적은지 확인
  		for( i = 0; i <form.childElementCount; i++ ){
- 			let input_RewardNo = form.children[i].firstChild.lastChild.value
- 			let stock_id = "reward_stock"+input_RewardNo
+ 			//let input_RewardNo = form.children[i].firstChild.lastChild.value ///403
+ 			let input_RewardNo = form.children[i].firstChild.firstChild.firstChild.value
+ 			let stock_id = "reward_stock"+input_RewardNo 
  			let inputReward_id = "selectedRewardCnt-"+input_RewardNo
  			let stock = parseInt(document.getElementById(stock_id).innerText.split("개")[0])
  			let inputReward = parseInt(document.getElementById(inputReward_id).value)
@@ -478,14 +483,16 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		//3. 유저 포인트가 결제 총액 보다 많은지 확인 > 적으면 iamport.jsp 호출
 		let user_point = parseInt(document.getElementById("user_point").value)
 		let total_price = parseInt(document.getElementById("rewardTotalPrice").value)
-		if( user_point <total_price){
+		if(user_point <total_price){
 			alert("포인트가 부족합니다.")
 			document.getElementById("iamport").click()
 			return false
 		}
+		
 		console.log("입력 성공");
 		return true;
-	}
+	  }
+	
 	}
 	
 });		
@@ -553,7 +560,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		return temp;
 	}
 	
-	
+	/*찜하기 버튼 스크립트*/
 	function pickBtn() {
 		   let _buttonI = event.target;
 
@@ -590,7 +597,30 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	   
 	</script>
 	
-	<!-- 커뮤티니 댓글 기능 -->
+	<!-- 리워드 dropbox 옵션에 따른 스크립트 -->
+	<script type="text/javascript">
+	  let prdt_id = $("input[id=prdt_id]").val()
+	  //모두 보기 클릭 시
+	  $("#dropDownOption0").click(function(){
+		  $("div").filter("#reward_Card1").css({"display": "block"});
+		  $("div").filter("#reward_Card2").css({"display": "block"});
+	  })
+	  
+	  //슈퍼얼리버드 클릭 시
+	  $("#dropDownOption1").click(function(){
+		  $("div").filter("#reward_Card1").css({"display": "block"});
+		  $("div").filter("#reward_Card2").css({"display": "none"});
+	  })
+	  
+	  //얼리버드 클릭 시
+	  $("#dropDownOption2").click(function(){
+		$("div").filter("#reward_Card1").css({"display": "none"});
+		$("div").filter("#reward_Card2").css({"display": "block"});
+		
+	  })
+	</script>
+	
+	<!-- 커뮤니티 댓글 기능 -->
 	<script type="text/javascript">
 					
 		$(document).ready(function() {
