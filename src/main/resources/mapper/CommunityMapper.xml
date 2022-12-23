@@ -9,7 +9,7 @@
 		SELECT *
 		FROM tb_chat_service
 		where prdt_id = #{prdt_id}
-		order by chat_date
+		order by chat_date desc
 	</select>
 	
 	<delete id="deleteAll" parameterType="int">
