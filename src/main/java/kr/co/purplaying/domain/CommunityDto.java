@@ -11,16 +11,7 @@ public class CommunityDto {
   private String chat_context;
   private Date chat_date;
   private int user_no;
-  private int chat_type;
   private String user_nickname;
-
-  public int getChat_type() {
-    return chat_type;
-  }
-
-  public void setChat_type(int chat_type) {
-    this.chat_type = chat_type;
-  }
 
   public CommunityDto() {
     // TODO Auto-generated constructor stub
@@ -74,7 +65,7 @@ public class CommunityDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(chat_context, chat_date, chat_no, chat_type, chat_writer, prdt_id, user_nickname, user_no);
+    return Objects.hash(chat_context, chat_date, chat_no, chat_writer, prdt_id, user_nickname, user_no);
   }
 
   public int getUser_no() {
@@ -94,7 +85,6 @@ public class CommunityDto {
     this.chat_context = chat_context;
     this.chat_date = chat_date;
     this.user_no = user_no;
-    this.chat_type = chat_type;
     this.user_nickname = user_nickname;
   }
 
@@ -108,15 +98,15 @@ public class CommunityDto {
       return false;
     CommunityDto other = (CommunityDto) obj;
     return Objects.equals(chat_context, other.chat_context) && Objects.equals(chat_date, other.chat_date)
-        && chat_no == other.chat_no && chat_type == other.chat_type && Objects.equals(chat_writer, other.chat_writer)
+        && chat_no == other.chat_no && Objects.equals(chat_writer, other.chat_writer)
         && prdt_id == other.prdt_id && Objects.equals(user_nickname, other.user_nickname) && user_no == other.user_no;
   }
 
   @Override
   public String toString() {
     return "CommunityDto [chat_no=" + chat_no + ", prdt_id=" + prdt_id + ", chat_writer=" + chat_writer
-        + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + ", chat_type="
-        + chat_type + ", user_nickname=" + user_nickname + "]";
+        + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + ", user_nickname="
+        + user_nickname + "]";
   }
 
   public String getUser_nickname() {

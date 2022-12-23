@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.purplaying.dao.CommunityMapper">
 	
 	<select id="selectAll" parameterType="int" resultType="CommunityDto"> 
-		SELECT *
+		SELECT chat_no, prdt_id, chat_writer, chat_context, chat_date, user_no, user_nickname
 		FROM tb_chat_service
 		where prdt_id = #{prdt_id}
 		order by chat_date desc
@@ -31,8 +31,14 @@
 	
 	<update id="update" parameterType="CommunityDto">
 		update tb_chat_service 
-		set chat_context = #{chat_context}
+		set chat_writer=#{chat_writer}, chat_context = #{chat_context}, chat_date= now()
 		where chat_no = #{chat_no}
 	</update>
+	
+	<select id="selectOne" parameterType="int" resultType="CommunityDto">
+		SELECT chat_no
+		FROM public.tb_chat_service
+		where chat_no = {chat_no};
+	</select>
 	
 </mapper>

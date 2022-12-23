@@ -34,41 +34,41 @@ public class CommunityController {
 
   @GetMapping("/community")
   @ResponseBody
-  public ResponseEntity<List<CommunityDto>> list(int prdt_id) {
-    List<CommunityDto> list = null;
+public ResponseEntity<List<CommunityDto>> list(int prdt_id) {
+  List<CommunityDto> list = null;
 
-    try {
-      list = service.getList(prdt_id);
+  try {
+    list = service.getList(prdt_id);
 
-      System.out.println("list =" + list);
-      return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
-    } catch (Exception e) {
-      e.printStackTrace();
-      return new ResponseEntity<List<CommunityDto>>(HttpStatus.BAD_REQUEST);
-    }
-
+    System.out.println("list =" + list);
+    return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
+  } catch (Exception e) {
+    e.printStackTrace();
+    return new ResponseEntity<List<CommunityDto>>(HttpStatus.BAD_REQUEST);
   }
 
-  @PostMapping("/community")
-  @ResponseBody
-  public List<CommunityDto> list2(@RequestBody CommunityDto communityDto, int prdt_id, Model m) {
-    List<CommunityDto> list = null;
-    System.out.println(communityDto);
+}
 
-    try {
-      if (service.insertChat(communityDto) != 1) {
-        System.out.println("실패");
-      }
-      list = service.getList(communityDto.getPrdt_id());
-      System.out.println("list =" + list);
+@PostMapping("/community")
+@ResponseBody
+public List<CommunityDto> list2(@RequestBody CommunityDto communityDto, int prdt_id, Model m) {
+  List<CommunityDto> list = null;
+  System.out.println(communityDto);
 
-      return list;
-
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+  try {
+    if (service.insertChat(communityDto) != 1) {
+      System.out.println("실패");
     }
+    list = service.getList(communityDto.getPrdt_id());
+    System.out.println("list =" + list);
+
+    return list;
+
+  } catch (Exception e) {
+    e.printStackTrace();
+    return null;
   }
+}
 
   @PostMapping("/community/insert/{prdt_id}")
   @ResponseBody
@@ -76,12 +76,11 @@ public class CommunityController {
       Model m, HttpSession session) {
     List<CommunityDto> list = null;
     String writer = (String) session.getAttribute("user_id");
-    //System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
+    // System.out.println("ssssss:" + (String) session.getAttribute("user_id"));
     UserDto nickname = (UserDto) session.getAttribute("UserDto");
-    //System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
+    // System.out.println("ssssss:" + (UserDto)session.getAttribute("UserDto"));
     communityDto.setChat_writer(writer);
     communityDto.setUser_nickname(nickname.getUser_nickname());
-    
 
     try {
       UserDto userDto = userDao.searchUser_no(writer);
@@ -104,7 +103,6 @@ public class CommunityController {
 //지정된 댓글을 삭제하는 메서드
 
   @DeleteMapping("/community/{chat_no}")
-  
   public ResponseEntity<String> remove(@PathVariable int chat_no) {
 
     try {
@@ -118,13 +116,13 @@ public class CommunityController {
   }
 
 // 댓글을 수정하는 메서드
-  @PatchMapping("/community/{chat_no}")
+  @PatchMapping("/community/modify/{chat_no}")
   public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
       HttpSession session) {
-    String chat_writer = (String) session.getAttribute("prdt_id");
-
-    dto.setChat_writer(chat_writer);
+    String writer = (String)session.getAttribute("user_id");
+    
     dto.setChat_no(chat_no);
+    dto.setChat_writer(writer);
     System.out.println("dto = " + dto);
 
     try {
@@ -135,6 +133,7 @@ public class CommunityController {
       e.printStackTrace();
       return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
     }
+
   }
 
 //댓글 작성

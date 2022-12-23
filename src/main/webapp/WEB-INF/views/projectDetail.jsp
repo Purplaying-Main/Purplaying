@@ -289,51 +289,78 @@
                    			<p class="mb-5" >내용 > </p>
 						</div>
 
-                      	<div id="replyBox" >
-							<div class="row rounded bg-light p-3 mb-3">
-								<div class="col-1">
-									<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
-		                        </div>
-		                        <div class="col-11">
-		                          <div class="border-bottom">
-		                            <h6 class="my-0">창작자 닉네임 ></h6>
-		                            <p class="my-0 text-small">작성일 ></p>
-		                          </div>
-									<p class="mb-5" >내용 ></p>
-								</div>
-	                      	</div>
-	                      </div>
-                      </div>
+	                      	<div id="replyBox" >
+								<div class="row rounded bg-light p-3 mb-3">
+									<div class="col-1">
+										<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
+			                        </div>
+			                        <div class="col-11">
+			                          <div class="border-bottom">
+			                            <h6 class="my-0">창작자 닉네임 ></h6>
+			                            <p class="my-0 text-small">작성일 ></p>
+			                          </div>
+										<p class="mb-5" >내용 ></p>
+									</div>
+		                      	</div>
+		                      </div>
+							</div>
                      <!--답글 종료-->
-                  </div>
-                 </div>
-                </div>
-           	   </div>
+						</div>
+					</div>
+				</div>
+			</div>
                  <!--댓글 종료-->
-                 <!-- 모달 -->
-                 <div class="modal fade" id="User_Role_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <!--(댓글 수정) 모달 -->
+                 <div class="modal fade" id="mod_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <h1 class="modal-title fs-5" id="exampleModalLabel">답변하기</h1>
+				        <h1 class="modal-title fs-5" id="modify_chat">수정하기</h1>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
 				        <form>
 				          <div class="mb-3">
-				          <input type="hidden" id="context_for_chat" value="communityDto.chat_no">
-				            <label for="context_for_chat" class="col-form-label" >Recipient:</label>
-				            <input type="text" class="form-control" id="recipient-name">
+				            <label for="recipient" class="col-form-label" id="comment_to_reply">현재 댓글</label>
+				            <input class="form-control" id="modal_comment" readonly />
 				          </div>
 				          <div class="mb-3">
-				            <label for="message-text" class="col-form-label">Message:</label>
+				            <label for="message-text" class="col-form-label" >수정 입력</label>
 				            <textarea class="form-control" id="message-text"></textarea>
 				          </div>
 				        </form>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				        <button type="button" class="btn btn-primary">Send message</button>
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-primary" id="RmodifyBtn">수정</button>
+				      </div>
+				    </div>
+				  </div>
+				</div> 
+				
+                 <!--(댓글 답변) 모달 -->
+                 <div class="modal fade" id="reply_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="comment_reply_chat">답변하기</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="mb-3">
+				            <label for="recipient" class="col-form-label" id="comment_to_reply">현재 댓글</label>
+				            <input class="form-control" id="modal_comment" readonly />
+				          </div>
+				          <div class="mb-3">
+				            <label for="message-text" class="col-form-label" >답변 입력</label>
+				            <textarea class="form-control" id="message-text"></textarea>
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-primary" id="RtoRBtn">답변</button>
 				      </div>
 				    </div>
 				  </div>
@@ -657,16 +684,16 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			//$("input[id=chat_no]").val()
 			let prdt_id = $("input[id=prdt_id]").val()
 				showList(prdt_id)
-			
-			$(".modBtn").click(function() {
-				alert("수정버튼 클릭됨")
-				//showList(bno)
+				
+	 		$("#RtoRBtn").click(function() {
+				alert("답변버튼 클릭됨")
+				
 				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("#comment").val(); 
+				let chat_context = $("#message-text").val(); 
 				
 				if(chat_context.trim() == '') {
 					alert("댓글을 입력해 주세요.")
-					$("input[id=comment]").focus()
+					$("input[id=message-text]").focus()
 					return
 				}
 				
@@ -676,19 +703,45 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert(result)
-						showList(prdt_id)
+
 						$("#commentList").html(toHtml(result))
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
 				})
+	 		})
+	 		
+	 		// 댓글 수정 이벤트
+			$("#RmodifyBtn").click(function() {
+				alert("수정버튼 클릭됨")
+				let user_id_for_comment = $('#user_id_for_comment').val()
+				let chat_no = $(this).attr("data-chat_no")
+				let chat_context = $("#message-text").val(); 
+				
+				if(chat_context.trim() == '') {
+					alert("댓글을 입력해 주세요.")
+					$("input[id=message-text]").focus()
+					return
+				}
+
+				$.ajax({
+					type : 'PATCH',				//요청 메서드
+					url : '/purplaying/community/modify/' + chat_no,				//요청 URI
+					headers :	{ "content-type" : "application/json"},				//요청 헤더
+					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
+						$("#commentList").html(toHtml(result))
+						alert("수정완료")
+						window.location.reload()
+			     	},
+			     	
+			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+				})
+				
 			})
 			
+			// 댓글 작성
 			$("#insertBtn").click(function() {
-				//showList(bno)
-				//$('#updateDesc').val();
 				let comment = $("#comment").val();
-				alert(comment)
 				
 				if(${sessionScope.UserDto.user_no == null}){
 					alert("로그인 후에 이용 가능합니다.")
@@ -705,28 +758,25 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert(result)
-						showList(prdt_id)
+					
 						$("#commentList").html(toHtml(result))
-						window.location.reload()
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
 				})
 			})
 			
-				
-			$("#commentList").on("click", ".delBtn", function() {			// commentList안에 있는 delBtn버튼에다가 클릭이벤트를 등록해야 함.
+			// 삭제
+			$("#commentList").on("click", ".delBtn", function() {
 				alert("삭제 버튼 클릭됨")
 				
-				let chat_no = $(this).parent().attr("data-chat_no")				// li 태그는 <button>의 부모임.
-				let prdt_id = $("input[id=prdt_id]").val();				//$(this).parent().attr("data-prdt_id")				// attr 중 사용자 정의 attr를 선택함.
+				let chat_no = $(this).parent().attr("data-chat_no")	
+				let prdt_id = $("input[id=prdt_id]").val();	
 				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
 					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
-						alert(result)						//result 서버가 전송한 데이터
-						showList(prdt_id)
+
 						$("#commentList").html(toHtml(result))
 						window.location.reload()
 					},
@@ -735,29 +785,30 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				
 			})
 			
-			$("#commentList").on("click", ".modBtn", function() {			// commentList안에 있는 delBtn버튼에다가 클릭이벤트를 등록해야 함.
+			// 수정
+			$("#commentList").on("click", ".modBtn", function() {
 				alert("댓글수정 버튼 클릭됨")
-				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("span.chat_context",).val(); 
+				let chat_no = $(this).parent().parent().attr("data-chat_no")				
+				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
+				let prdt_id = $(this).parent().parent().attr("data-prdt_id")
+				//1. 내용을 input에 출력해주기
+				$("input[id=modal_comment]").val(chat_context);
+				//2. chat_no전달하기
+				$("#RmodifyBtn").attr("data-chat_no", chat_no)
 				
-			 /* 	let chat_no = $(this).parent().attr("data-chat_no")				// li 태그는 <button>의 부모임.
-				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
-				let chat_context = $("span.chat_context",$(this).parent()).text() */
-				
-				//1. comment의 내용을 input에 출력해주기
-				$("#comment").val(chat_context);
-				//2. cno전달하기
-				$("#insertBtn").attr("data-chat_no", chat_no)
-				
-	
 			}) 
 
-			
-			$("#commentList").on("click", ".replyBtn", function() {			// commentList안에 있는 delBtn버튼에다가 클릭이벤트를 등록해야 함.
+			// 답변
+			$("#commentList").on("click", ".replyBtn", function() {			
 				alert("답변 버튼 클릭됨")
-				let chat_no = $(this).parent().attr("data-chat_no")				// li 태그는 <button>의 부모임.
+				let chat_no = $(this).parent().parent().attr("data-chat_no")
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
-				let chat_context = $("span.chat_context",$(this).parent()).text()
+				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
+				//1. 내용을 input에 출력해주기
+				
+				$("input[id=modal_comment]").val(chat_context);
+				//2. chat_no전달하기
+				$("#RtoRBtn").attr("data-chat_no", chat_no)
 				
 				})
 		})
@@ -768,14 +819,12 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					type : 'GET',		//요청 메서드
 					url : '/purplaying/community?prdt_id=' + prdt_id,		// 요청 URI
 					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
-						/* json = JSON.stringify(result) */
 						$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터
-					
 					},
 					error : function() { alert("error1") }	// 에러가 발생할 때, 호출될 함수
 				})
 			}
-		 
+		
 		 	let toHtml = function(comments) {
 				let tmp = '<div class="row text-start">'
 				let user_id_for_comment = $('#user_id_for_comment').val()			// 로그인정보를 세션에 담아옴
@@ -783,20 +832,21 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
 						tmp += '	</div>'
-						tmp += '	<div class="col-11" data-chat_no=' + comment.chat_no
+						tmp += '	<li class="col-11" data-chat_no=' + comment.chat_no
 						tmp += '		data-prdt_id'+ comment.prdt_id
 						tmp += '		data-chat_writer' + comment.chat_writer
-						tmp += '		data-user_no'+ comment.user_no +'>'
+						tmp += '		data-chat_date' + comment.chat_date
+ 						tmp += '		data-user_no'+ comment.user_no +'>'
 		 				tmp += '		<div class="border-bottom">'
 						tmp += '			<h6 class="my-0"><Strong>작성자 닉네임 ></Strong>'+ comment.user_nickname + '</h6>'
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong>' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '		</div>'
-						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context" id="comment"  >' + comment.chat_context + '</span></p>'	
+						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context" id="comment" >' + comment.chat_context + '</span></p>'	
 						/*  */
 					if (user_id_for_comment == ''){true} 			// 아이디세션 값이 없으면 버튼 출력하지 않음
 					else if (user_id_for_comment == comment.user_no) {				// 로그인한 유저 번호와 작성댓글 유저 번호가 같으면 출력
 					    tmp +=	'		<div style="float:right;">'
-				    	tmp +=	'			<button type="button" class="modBtn btn btn-primary" >수 정</button>'
+				    	tmp +=	'			<button type="button" id="modBtn" class="modBtn btn btn-primary" onclick="mod_Modal()" >수 정</button>'
 				    	tmp +=	'			<button type="button" id="replyBtn" class="replyBtn btn btn-primary" onclick="reply_Modal()" ">답 변</button>'
 				    	tmp +=	'			<button type="button" class="delBtn btn btn-primary" >삭 제</button>'
 				    	tmp +=  '		</div>'
@@ -807,7 +857,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		    			tmp +=  '		</div>'
 						} 
 											
-						tmp += '</div>'
+						tmp += '</li>'
 						tmp += '<hr class="mt-3">'
 				})
 				return tmp += "</div>"
@@ -826,25 +876,12 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			        return date_source.getFullYear() + '-' + month + '-' + day;
 	
 		     }
-		 	function reply_Modal() {				// 답변 모달 창을 띄움
-				$('#User_Role_Modal').modal('show')
+		 	function mod_Modal() {				// 수정 모달 창을 띄움
+				$('#mod_Modal').modal('show')
 			}
-		 	const exampleModal = document.getElementById('exampleModal')
-		 	exampleModal.addEventListener('show.bs.modal', event => {
-		 	  // Button that triggered the modal
-		 	  const button = event.relatedTarget
-		 	  // Extract info from data-bs-* attributes
-		 	  const recipient = button.getAttribute('data-bs-whatever')
-		 	  // If necessary, you could initiate an AJAX request here
-		 	  // and then do the updating in a callback.
-		 	  //
-		 	  // Update the modal's content.
-		 	  const modalTitle = exampleModal.querySelector('.modal-title')
-		 	  const modalBodyInput = exampleModal.querySelector('.modal-body input')
-
-		 	  modalTitle.textContent = `New message to ${recipient}`
-		 	  modalBodyInput.value = recipient
-		 	})
+		 	function reply_Modal() {				// 답변 모달 창을 띄움
+				$('#reply_Modal').modal('show')
+			}
 </script>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
