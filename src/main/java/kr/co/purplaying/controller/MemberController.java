@@ -158,7 +158,8 @@ public class MemberController {
     }
     
     @PostMapping("/login")
-    public String login(String user_id, String user_pwd, boolean rememberId,String toURL ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String login(String user_id, String user_pwd, boolean rememberId,String toURL
+                        ,HttpServletRequest request, HttpServletResponse response) throws Exception {
                 
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {

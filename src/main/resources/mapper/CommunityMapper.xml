@@ -31,12 +31,12 @@
 	
 	<update id="update" parameterType="CommunityDto">
 		update tb_chat_service 
-		set chat_writer=#{chat_writer}, chat_context = #{chat_context}, chat_date= now()
+		set chat_context = #{chat_context}
 		where chat_no = #{chat_no}
 	</update>
 	
 	<select id="selectOne" parameterType="int" resultType="CommunityDto">
-		SELECT chat_no
+		SELECT chat_no, prdt_id, chat_writer, chat_context, chat_date, user_no, user_nickname
 		FROM public.tb_chat_service
 		where chat_no = {chat_no};
 	</select>

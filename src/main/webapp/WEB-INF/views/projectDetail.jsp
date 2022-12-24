@@ -326,7 +326,7 @@
 				          </div>
 				          <div class="mb-3">
 				            <label for="message-text" class="col-form-label" >수정 입력</label>
-				            <textarea class="form-control" id="message-text"></textarea>
+				            <textarea class="form-control" id="modify_text" placeholder="수정할 내용을 입력하세요"></textarea>
 				          </div>
 				        </form>
 				      </div>
@@ -354,7 +354,7 @@
 				          </div>
 				          <div class="mb-3">
 				            <label for="message-text" class="col-form-label" >답변 입력</label>
-				            <textarea class="form-control" id="message-text"></textarea>
+				            <textarea class="form-control" id="RtoR_text" placeholder="답변 내용을 입력하세요"></textarea>
 				          </div>
 				        </form>
 				      </div>
@@ -689,16 +689,16 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				alert("답변버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("#message-text").val(); 
+				let chat_context = $("#RtoR-text").val(); 
 				
 				if(chat_context.trim() == '') {
 					alert("댓글을 입력해 주세요.")
-					$("input[id=message-text]").focus()
+					$("textarea[id=RtoR_text]").focus()
 					return
 				}
 				
 				$.ajax({
-					type : 'PATCH',				//요청 메서드
+					type : 'post',				//요청 메서드
 					url : '/purplaying/community/' + chat_no,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
@@ -713,28 +713,31 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	 		// 댓글 수정 이벤트
 			$("#RmodifyBtn").click(function() {
 				alert("수정버튼 클릭됨")
-				let user_id_for_comment = $('#user_id_for_comment').val()
+				
 				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("#message-text").val(); 
+				let chat_context = $("#modify_text").val(); 
 				
 				if(chat_context.trim() == '') {
 					alert("댓글을 입력해 주세요.")
-					$("input[id=message-text]").focus()
+					$("textarea[id=modify_text]").focus()
 					return
 				}
 
 				$.ajax({
-					type : 'PATCH',				//요청 메서드
+					type : 'patch',				//요청 메서드
 					url : '/purplaying/community/modify/' + chat_no,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						$("#commentList").html(toHtml(result))
-						alert("수정완료")
+						alert("수정 완료")
+						/* showList(prdt_id) */
+						// $("#commentList").html(toHtml(result)) 
+					
+						
 						window.location.reload()
 			     	},
 			     	
-			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("ModifyError") }			//에러가 발생했을 때, 호출될 함수
 				})
 				
 			})
@@ -758,8 +761,9 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-					
+						alert(JSON.stringify({prdt_id:prdt_id, chat_context:comment}))
 						$("#commentList").html(toHtml(result))
+						alert("댓글이 작성되었습니다.")
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
 				})
@@ -769,15 +773,15 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			$("#commentList").on("click", ".delBtn", function() {
 				alert("삭제 버튼 클릭됨")
 				
-				let chat_no = $(this).parent().attr("data-chat_no")	
+				let chat_no = $(this).parent().parent().attr("data-chat_no")	
 				let prdt_id = $("input[id=prdt_id]").val();	
-				
+				debugger
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
 					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
-
-						$("#commentList").html(toHtml(result))
+						//$("#commentList").html(toHtml(result))
+						alert("댓글이 삭제되었습니다.")
 						window.location.reload()
 					},
 					error : function() { alert("Error") }	//에러가 발생했을 때 호출될 함수
@@ -826,8 +830,10 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			}
 		
 		 	let toHtml = function(comments) {
-				let tmp = '<div class="row text-start">'
+		 		let tmp = '<div class="row text-start">'
 				let user_id_for_comment = $('#user_id_for_comment').val()			// 로그인정보를 세션에 담아옴
+				debugger;
+		 		
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
 						tmp += '		<img src="${userDto.user_profile }" alt="${userDto.user_name }" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
@@ -842,7 +848,8 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong>' + toStringByFormatting(comment.chat_date) + '</p>'
 						tmp += '		</div>'
 						tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context" id="comment" >' + comment.chat_context + '</span></p>'	
-						/*  */
+						
+						
 					if (user_id_for_comment == ''){true} 			// 아이디세션 값이 없으면 버튼 출력하지 않음
 					else if (user_id_for_comment == comment.user_no) {				// 로그인한 유저 번호와 작성댓글 유저 번호가 같으면 출력
 					    tmp +=	'		<div style="float:right;">'

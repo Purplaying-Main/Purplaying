@@ -7,11 +7,12 @@ public class CommunityDto {
 
   private int chat_no;
   private int prdt_id;
+  private int user_no;
+  private String user_nickname;
   private String chat_writer;
   private String chat_context;
   private Date chat_date;
-  private int user_no;
-  private String user_nickname;
+
 
   public CommunityDto() {
     // TODO Auto-generated constructor stub
