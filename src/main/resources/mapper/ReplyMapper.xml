@@ -6,8 +6,16 @@
 <mapper namespace="kr.co.purplaying.dao.ReplyMapper">
 
 	<select id="selectReply" parameterType="int" resultType="ReplyDto">
-		SELECT rno, prdt_id, chat_no, chat_writer, chat_context, chat_date, user_no
+		SELECT rno, prdt_id, chat_no, chat_writer, chat_context, chat_date, user_no, user_nickname
 		FROM tb_reply
+		order by rno, chat_date asc
 	</select>
+	
+	<insert id="replyInsert" parameterType="ReplyDto">
+		INSERT INTO public.tb_reply
+			(prdt_id, chat_no, chat_writer, chat_context, user_no, user_nickname)
+		VALUES
+			(#{prdt_id}, #{chat_no}, #{chat_writer}, #{chat_context}, #{user_no}, #{user_nickname});
+	</insert>
 	
 </mapper>

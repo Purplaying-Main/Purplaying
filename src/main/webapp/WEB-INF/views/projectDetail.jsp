@@ -275,6 +275,7 @@
                    		<hr class="mt-3">
                     	</div>
                   <!--댓글 시작-->
+                  <input type="hidden" id="rno" value="${replyDto.rno }" />
                   <input type="hidden" id="user_id_for_comment" value="${sessionScope.userDto.user_no}" />			<!-- 세션값에 있는 유저번호를 담음 -->
                   <div id="commentList">
                   	<div class="row text-start">
@@ -680,30 +681,57 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	<script type="text/javascript">
 					
 		$(document).ready(function() {
-			//$("input[id=prdt_id]").val()
-			//$("input[id=chat_no]").val()
+			
 			let prdt_id = $("input[id=prdt_id]").val()
-				showList(prdt_id)
+			let rno = $("input[id=rno]").val()
+			debugger	
+			showList(prdt_id)
 				
 	 		$("#RtoRBtn").click(function() {
 				alert("답변버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
-				let chat_context = $("#RtoR-text").val(); 
+				let chat_context = $("#RtoR_text").val(); 
 				
 				if(chat_context.trim() == '') {
-					alert("댓글을 입력해 주세요.")
+					alert("답글을 입력해 주세요.")
 					$("textarea[id=RtoR_text]").focus()
 					return
 				}
-				
+				debugger
 				$.ajax({
-					type : 'post',				//요청 메서드
-					url : '/purplaying/community/' + chat_no,				//요청 URI
+					type : 'POST',				//요청 메서드
+					url : '/purplaying/community/insert/' + rno,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
-					data : JSON.stringify({chat_no:chat_no, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-
+						let html = "";
+		/* 			<div id="replyBox" >
+						<div class="row rounded bg-light p-3 mb-3">
+							<div class="col-1">
+								<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
+	                        </div>
+	                        <div class="col-11">
+	                          <div class="border-bottom">
+	                            <h6 class="my-0">창작자 닉네임 ></h6>
+	                            <p class="my-0 text-small">작성일 ></p>
+	                          </div>
+								<p class="mb-5" >내용 ></p>
+							</div>
+                      	</div>
+                      </div> */
+						if (result.list.length > 0){
+							for(let i = 0; i < result.list.length; i++) {
+								html += "<div id='replyBox' >"
+								html += "<input type='hidden' id='user_nickname'" + data.list[i].id + " 'value ='" + data.list[i].id + "'>'"
+								html +="<div class='row rounded bg-light p-3 mb-3'>"
+								html +="<div class='col-1'>"
+								html +='<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+								html +='</div>'
+							
+							}
+							
+						}
 						$("#commentList").html(toHtml(result))
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
@@ -729,7 +757,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert("수정 완료")
+						alert("댓글이 수정되었습니다.")
 						/* showList(prdt_id) */
 						// $("#commentList").html(toHtml(result)) 
 					
@@ -804,7 +832,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 
 			// 답변
 			$("#commentList").on("click", ".replyBtn", function() {			
-				alert("답변 버튼 클릭됨")
+				alert("댓글답변 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
@@ -825,7 +853,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 						$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터
 					},
-					error : function() { alert("error1") }	// 에러가 발생할 때, 호출될 함수
+					error : function() { alert("errorShowList") }	// 에러가 발생할 때, 호출될 함수
 				})
 			}
 		

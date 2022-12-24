@@ -12,9 +12,31 @@ public class ReplyDto {
   private String chat_context;
   private Date chat_date;
   private int user_no;
+  private String user_nickname;
 
   public ReplyDto() {
     // TODO Auto-generated constructor stub
+  }
+
+  public ReplyDto(int rno, int prdt_id, int chat_no, String chat_writer, String chat_context, Date chat_date,
+      int user_no, String user_nickname) {
+    super();
+    this.rno = rno;
+    this.prdt_id = prdt_id;
+    this.chat_no = chat_no;
+    this.chat_writer = chat_writer;
+    this.chat_context = chat_context;
+    this.chat_date = chat_date;
+    this.user_no = user_no;
+    this.user_nickname = user_nickname;
+  }
+
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
   }
 
   public int getRno() {
@@ -75,7 +97,7 @@ public class ReplyDto {
 
   @Override
   public int hashCode() {
-    return Objects.hash(chat_context, chat_date, chat_no, prdt_id, rno, user_no, chat_writer);
+    return Objects.hash(chat_context, chat_date, chat_no, chat_writer, prdt_id, rno, user_nickname, user_no);
   }
 
   @Override
@@ -88,14 +110,15 @@ public class ReplyDto {
       return false;
     ReplyDto other = (ReplyDto) obj;
     return Objects.equals(chat_context, other.chat_context) && Objects.equals(chat_date, other.chat_date)
-        && chat_no == other.chat_no && prdt_id == other.prdt_id && rno == other.rno && user_no == other.user_no
-        && Objects.equals(chat_writer, other.chat_writer);
+        && chat_no == other.chat_no && Objects.equals(chat_writer, other.chat_writer) && prdt_id == other.prdt_id
+        && rno == other.rno && user_nickname == other.user_nickname && user_no == other.user_no;
   }
 
   @Override
   public String toString() {
-    return "ReplyDto [rno=" + rno + ", prdt_id=" + prdt_id + ", chat_no=" + chat_no + ", writer=" + chat_writer
-        + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + "]";
+    return "ReplyDto [rno=" + rno + ", prdt_id=" + prdt_id + ", chat_no=" + chat_no + ", chat_writer=" + chat_writer
+        + ", chat_context=" + chat_context + ", chat_date=" + chat_date + ", user_no=" + user_no + ", user_nickname="
+        + user_nickname + "]";
   }
 
 }

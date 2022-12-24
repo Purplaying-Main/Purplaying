@@ -2,7 +2,6 @@ package kr.co.purplaying.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class CommunityController {
     try {
       list = service.getList(prdt_id);
 
-      System.out.println("list =" + list);
+      System.out.println("list1 =" + list);
       return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
@@ -61,7 +60,7 @@ public class CommunityController {
         System.out.println("실패");
       }
       list = service.getList(communityDto.getPrdt_id());
-      System.out.println("list =" + list);
+      System.out.println("list11 =" + list);
 
       return list;
 
@@ -116,14 +115,15 @@ public class CommunityController {
   }
 
 //댓글을 수정하는 메서드
-  
+
   @PatchMapping("/community/modify/{chat_no}")
-  public ResponseEntity<String> modify(@PathVariable Integer chat_no,@RequestBody CommunityDto dto, String chat_context, HttpSession session) {
+  public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
+      String chat_context, HttpSession session) {
     String writer = (String) session.getAttribute("user_id");
 
     dto.setChat_no(chat_no);
     dto.setChat_writer(writer);
-    
+
     System.out.println("dto = " + dto);
 
     try {

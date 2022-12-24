@@ -20,11 +20,11 @@ public class ReplyDaoImpl implements ReplyDao {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"selectReply", prdt_id);
   }
-
+  
   @Override
-  public int insertReply(ReplyDto replyDto) throws Exception {
+  public int replyInsert(ReplyDto rDto) throws Exception {
     // TODO Auto-generated method stub
-    return session.insert(namespace+"insertReply", replyDto);
+    return session.insert(namespace+"replyInsert", rDto);
   }
 
 

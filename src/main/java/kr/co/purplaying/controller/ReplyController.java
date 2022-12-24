@@ -2,55 +2,104 @@ package kr.co.purplaying.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.ReplyDto;
+import kr.co.purplaying.domain.UserDto;
+import kr.co.purplaying.service.CommunityService;
 import kr.co.purplaying.service.ReplyService;
 
 @Controller
 public class ReplyController {
-  
+
+  @Autowired
+  CommunityService service;
+
+  @Autowired
+  UserDao userDao;
+
   @Autowired
   ReplyService replyService;
-  
-  public @ResponseBody List<ReplyDto> list_reply(int prdt_id) {
-    List<ReplyDto> list_reply = null;
+
+//Reply list
+  @GetMapping("/community")
+  @ResponseBody
+  public ResponseEntity<List<ReplyDto>> list(int prdt_id) {
+    List<ReplyDto> list = null;
 
     try {
-      list_reply = replyService.selectReply(prdt_id);
+      list = replyService.getRlist(prdt_id);
 
-      System.out.println("list_reply =" + list_reply);
-      return list_reply;
+      System.out.println("RRRRRRRlist =" + list);
+      return new ResponseEntity<List<ReplyDto>>(list, HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
-      return null;
+      return new ResponseEntity<List<ReplyDto>>(HttpStatus.BAD_REQUEST);
     }
 
   }
 
-  @PostMapping("/communitys")
+  @PostMapping("/community/{prdt_id}")
   @ResponseBody
-  public List<ReplyDto> list2(@RequestBody ReplyDto replyDto) {
-    List<ReplyDto> list_reply = null;
+  public List<ReplyDto> list2(@RequestBody ReplyDto replyDto, int prdt_id, Model m) {
+    List<ReplyDto> list_reply2 = null;
     System.out.println(replyDto);
 
     try {
-      if (replyService.insertReply(replyDto) != 1) {
+      if (replyService.replyInsert(replyDto) != 1) {
         System.out.println("실패");
       }
-      list_reply = replyService.selectReply(replyDto.getPrdt_id());
+      list_reply2 = replyService.getRlist(replyDto.getPrdt_id());
+      System.out.println("list2 =" + list_reply2);
 
-      System.out.println("list_reply =" + list_reply);
-      return list_reply;
+      return list_reply2;
+
     } catch (Exception e) {
       e.printStackTrace();
       return null;
     }
-
   }
 
+  @PostMapping("/community/insert/{rno}")
+  @ResponseBody
+  public ResponseEntity<List<ReplyDto>> write(@RequestBody ReplyDto rDto, RedirectAttributes rattr,
+      Model m, HttpSession session) {
+    List<ReplyDto> list = null;
+    String writer = (String) session.getAttribute("user_id");
+    UserDto nickname = (UserDto) session.getAttribute("UserDto");
+
+    rDto.setChat_writer(writer);
+    rDto.setUser_nickname(nickname.getUser_nickname());
+
+    System.out.println("list13 =" + list);
+    try {
+      UserDto userDto = userDao.searchUser_no(writer);
+      rDto.setUser_no(userDto.getUser_no());
+      System.out.println(rDto);
+      if (replyService.replyInsert(rDto) != 1)
+        throw new Exception("Write failed");
+      rattr.addFlashAttribute("msg", "RPL_OK");
+      list = replyService.getRlist(rDto.getPrdt_id());
+      System.out.println("Rlist = " + list);
+      return new ResponseEntity<List<ReplyDto>>(list, HttpStatus.OK);
+    } catch (Exception e) {
+      e.printStackTrace();
+      m.addAttribute("mode", "new"); // 글쓰기 모드
+      m.addAttribute("communityDto", rDto); // 등록하려던 내용을 보여줘야 함
+      m.addAttribute("msg", "RPL_ERR");
+      return new ResponseEntity<List<ReplyDto>>(HttpStatus.BAD_REQUEST);
+    }
+  }
 }

@@ -215,6 +215,8 @@ CREATE TABLE IF NOT EXISTS tb_reply(
     FOREIGN KEY(chat_no) REFERENCES tb_chat_service(chat_no) ON DELETE cascade
     );
     
+ALTER TABLE tb_reply ADD COLUMN user_nickname varchar(100);
+ALTER TABLE tb_reply ADD CONSTRAINT user_nickname_fkey FOREIGN KEY (user_nickname) REFERENCES tb_user(user_nickname) ON DELETE cascade;
 ------------------------- reward 테이블 -------------------------
 DROP TABLE if exists tb_reward;
 CREATE TABLE public.tb_reward (
