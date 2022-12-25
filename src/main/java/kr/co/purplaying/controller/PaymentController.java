@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,101 +114,127 @@ public class PaymentController {
 
   /*결제완료화면*/
   @PostMapping("/paymentCompleted/{prdt_id}") //아직 결제가 이뤄지지 않았기 때문에 상품 번호로 맵핑
-  public String paymentCompleted(@PathVariable Integer prdt_id,
-     HttpSession session, Model m, String rewardid, String rewardcnt, String pay_total, PaymentDto paymentDto) {
-    
-    try {
-
-        //1.해당 유저 정보
-        String user_id = (String)session.getAttribute("user_id");
-        UserDto userDto = settingService.setUser(user_id);
-        m.addAttribute("userDto",userDto);
+      public String paymentCompleted(@PathVariable Integer prdt_id,
+      HttpSession session, Model m, String rewardid, String rewardcnt, String
+      pay_total, PaymentDto paymentDto, HttpServletRequest request, HttpServletResponse response) {
+      
+      try {
+      
+      //1.해당 유저 정보
+      String user_id = (String)session.getAttribute("user_id");
+      UserDto userDto = settingService.setUser(user_id);
+      m.addAttribute("userDto",userDto);
+      
+      //2.해당 펀딩 정보
+      ProjectDto projectDto = projectService.readPayment(prdt_id);
+      paymentDto.setUser_no(userDto.getUser_no());
+      paymentDto.setPay_total(Integer.parseInt(pay_total));
+      m.addAttribute("pay_total",Integer.parseInt(pay_total));
+      
+      //3.결제화면에서 선택된 리워드를 배열형태로 받아와 하나씩 쪼갬
+      String[] rd_id = rewardid.split(",");
+      String[] rd_cnt = rewardcnt.split(",");
+      paymentDto.setReward_id(rd_id);
+      paymentDto.setReward_user_cnt(rd_cnt);
+      
+      m.addAttribute("projectDto",projectDto);
+      
+      //4.쿠키를 생성하여 Double submit 방지
+      Cookie[] cookies = request.getCookies();
+      Cookie prdtCookie = null;
+      
+      //4-1.쿠키가 없을 경우 쿠키 생성
+      if(cookies!=null && cookies.length>0) {
+        for(int i=0;i<cookies.length;i++) {
+          if(cookies[i].getName().equals("cookie"+prdt_id+userDto.getUser_no())) {
+            prdtCookie = cookies[i];
+          }
+        }
+      }
+      
+      //5. 쿠키가 없을 경우(최초 submit)에서 실행
+      if(prdtCookie == null) {
+        Cookie newcookie = new Cookie("cookie"+prdt_id+userDto.getUser_no(), "prdt_id+user_no");
+        System.out.println(newcookie);
+        response.addCookie(newcookie);
         
-        //2.해당 펀딩 정보
-        ProjectDto projectDto = projectService.readPayment(prdt_id);
-        paymentDto.setUser_no(userDto.getUser_no());
-        paymentDto.setPay_total(Integer.parseInt(pay_total));
-        m.addAttribute("pay_total",Integer.parseInt(pay_total));
-        
-        //3.결제화면에서 선택된 리워드를 배열형태로 받아와 하나씩 쪼갬
-        String[] rd_id = rewardid.split(",");
-        String[] rd_cnt = rewardcnt.split(",");
-        paymentDto.setReward_id(rd_id);
-        paymentDto.setReward_user_cnt(rd_cnt);
-
-        //4.펀딩 후원자수, 후원금액 증가 & 리워드 수량, 유저 포인트 감소
-        
+        //5-1.리워드 수량 감소
         List<RewardDto> rewardInfo = rewardDao.selectReward(prdt_id);
         
         for (int i = 0; i < rd_id.length; i++) {
           for (int j = 0; j < rewardInfo.size(); j++) {
             if (Integer.parseInt(rd_id[i]) == rewardInfo.get(j).getRow_number()) {
-              rewardDao.calRewardStock(prdt_id, rewardInfo.get(j).getReward_id(), rewardInfo.get(j).getReward_stock(), Integer.parseInt(rd_cnt[i]));
+              rewardDao.calRewardStock(prdt_id, rewardInfo.get(j).getReward_id(),
+                  rewardInfo.get(j).getReward_stock(), Integer.parseInt(rd_cnt[i]));
             }
             else {
               continue;
             }
           }
-          
         }
         
-        projectDao.plusBuyerCnt(prdt_id);  
-        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.getPrdt_currenttotal());
-        m.addAttribute("projectDto",projectDto);
-        userDao.updatePoint(userDto.getUser_no(), userDto.getUser_point()-Integer.parseInt(pay_total));
+        //5-2.후원자수,후원금액 증가
+        projectDao.plusBuyerCnt(prdt_id);
+        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.
+        getPrdt_currenttotal());
         
-        //5.결제정보 insert (이때 리워드는 DB에 배열로 저장)
+        //5-3.유저포인트 감소
+        userDao.updatePoint(userDto.getUser_no(),
+        userDto.getUser_point()-Integer.parseInt(pay_total));
+        
+        //6.결제정보 insert (이때 리워드는 DB에 배열로 저장)
         paymentService.write(paymentDto);
         
-        //6.완료한 결제내역을 보여주기 위해 고유 조건(유저번호,펀딩번호,총금액,리워드번호,우편번호)을 넣어줌
-        Map map_p = new HashMap();
-        map_p.put("user_no", userDto.getUser_no());
-        map_p.put("prdt_id", prdt_id);
-        map_p.put("pay_total", Integer.parseInt(pay_total));
-        map_p.put("reward_id", rd_id);
-        map_p.put("delivery_postcode", paymentDto.getDelivery_postcode());
-        
-        //7.고유 조건과 일치하는 결제,유저,펀딩정보 가져오기
-        List<PaymentDto> pay_user = paymentDao.paymentCompleted(map_p);
-        
-        //8.유저가 선택한 리워드의 정보를 담아줌
-        pay_user.get(0).setReward_id(rd_id);
-        pay_user.get(0).setReward_user_cnt(rd_cnt);
-        m.addAttribute("pay_user",pay_user);
-        
-        //9.유저가 선택한 리워드와 해당 펀딩의 리워드 목록 중 id가 일치하는 리워드를 찾아 어레이리스트로 저장
-        int[] reid = new int[pay_user.get(0).getReward_id().length];
-        for(int i = 0; i<pay_user.get(0).getReward_id().length; i++) {
-          reid[i] = Integer.parseInt(pay_user.get(0).getReward_id()[i]);
+      }
+      
+
+      //7.완료한 결제내역을 보여주기 위해 고유 조건(유저번호,펀딩번호,총금액,리워드번호,우편번호)을 넣어줌
+      Map map_p = new HashMap();
+      map_p.put("user_no", userDto.getUser_no());
+      map_p.put("prdt_id", prdt_id);
+      map_p.put("pay_total", Integer.parseInt(pay_total));
+      map_p.put("reward_id", rd_id);
+      map_p.put("delivery_postcode", paymentDto.getDelivery_postcode());
+      
+      //8.고유 조건과 일치하는 결제,유저,펀딩정보 가져오기
+      List<PaymentDto> pay_user = paymentDao.paymentCompleted(map_p);
+      
+      //9.유저가 선택한 리워드의 정보를 담아줌
+      pay_user.get(0).setReward_id(rd_id);
+      pay_user.get(0).setReward_user_cnt(rd_cnt);
+      m.addAttribute("pay_user",pay_user);
+      
+      //10.유저가 선택한 리워드와 해당 펀딩의 리워드 목록 중 id가 일치하는 리워드를 찾아 어레이리스트로 저장
+      int[] reid = new int[pay_user.get(0).getReward_id().length];
+      for(int i = 0; i<pay_user.get(0).getReward_id().length; i++) {
+        reid[i] = Integer.parseInt(pay_user.get(0).getReward_id()[i]);
+      }
+      
+      List<RewardDto> reward_user = rewardDao.selectReward(prdt_id);
+      ArrayList<String> reward_pay = new ArrayList<>();
+      for(int i = 0; i < reid.length; i++) {
+        for(int j = 0; j<reward_user.size(); j++) {
+            if(reid[i] == reward_user.get(j).getRow_number()) {
+                reward_pay.add(String.valueOf(reward_user.get(j).getRow_number()));
+                reward_pay.add(reward_user.get(j).getReward_name());
+                reward_pay.add(String.valueOf(pay_user.get(0).getReward_user_cnt()[i]));
+                reward_pay.add(String.valueOf(reward_user.get(j).getReward_price()));
+            }
+            else {
+              continue; //리워드 id가 일치하지 않는 경우 생략하고 계속 진행
+            }
         }
-        
-       List<RewardDto> reward_user = rewardDao.selectReward(prdt_id);
-       ArrayList<String> reward_pay = new ArrayList<>();
-       for(int i = 0; i < reid.length; i++) {
-         for(int j = 0; j<reward_user.size(); j++) {
-           if(reid[i] == reward_user.get(j).getRow_number()) {
-             reward_pay.add(String.valueOf(reward_user.get(j).getRow_number()));
-             reward_pay.add(reward_user.get(j).getReward_name());
-             reward_pay.add(String.valueOf(pay_user.get(0).getReward_user_cnt()[i]));
-             reward_pay.add(String.valueOf(reward_user.get(j).getReward_price()));
-           }
-           else {
-             continue; //리워드 id가 일치하지 않는 경우 생략하고 계속 진행
-           }
-         }
-       }
-       
-       m.addAttribute("reward_pay",reward_pay);
-
-        return "paymentCompleted";
-
-    } 
-    catch (Exception e) {
+      }
+      
+      m.addAttribute("reward_pay",reward_pay);
+      
+      return "paymentCompleted";
+      
+      }
+      catch (Exception e) {
         e.printStackTrace();
-     return "/{prdt_id}";
-    }
-    
-    
+      return "redirect:/mypage";
+      }
   }
  
   
