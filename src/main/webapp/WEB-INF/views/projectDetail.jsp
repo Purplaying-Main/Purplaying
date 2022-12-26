@@ -198,8 +198,8 @@
                     		<fmt:formatDate pattern ="yyyy-MM-dd" value="${projectDto.prdt_opendate}"/> ~ <fmt:formatDate pattern ="yyyy-MM-dd" value="${projectDto.prdt_enddate}"/>
 						</h6>
 					</dd>
-                    <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
-                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/>에 결제 진행</h6></dd>
+                   <%--  <dt class="col-sm-3"><strong class="text-muted">결제예정일</strong></dt>
+                    <dd class="col-sm-9"><h6 class="text-info">목표금액 달성시 <fmt:formatDate pattern ="yyyy/MM/dd" value="${projectDto.prdt_purchaseday}"/>에 결제 진행</h6></dd> --%>
                   </dl>
                   	<hr class="my-4">
 		            <div class="py2"><!-- 프로젝트 상세소개 start -->

@@ -104,7 +104,7 @@
             </div>
             <div class="col-6 px-3">
               <div class="input-group mb-3">
-                <input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
+                <input type="file" class="form-control" name="file_id" id="file_id" value="${projectDto.prdt_img}"/>
               </div>
               <div class="bg-light p-2" id="uploadResult" style="height:260px;">
               	<img width="100%" height="240px" id="prdt_thumbnail" name="prdt_thumbnail" src="" style=" ${projectDto.prdt_thumbnail == null ? 'display:none' : '' }">

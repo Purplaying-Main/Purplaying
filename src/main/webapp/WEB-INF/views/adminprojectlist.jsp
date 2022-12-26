@@ -100,74 +100,44 @@
 		</div>
 	</section>
   <script type="text/javascript">
+  
+  	  //프로젝트 삭제 모달 호출 function
 	  function goto_project_modal(){
-		  eventTarget = event.target
-		  prdt_id = eventTarget.previousElementSibling.value
+		  eventTarget = event.target		//이벤트 발생시킨 html태그 저장
+		  prdt_id = eventTarget.previousElementSibling.value	//이벤트 발생 요소기준 부모,자식관계 이용 펀딩번호 저장
 		  $('#prdt_id_modal').val(prdt_id)
-		  $('#project_preview_page').attr('src','');
-		  $('#project_preview_page').attr('src','http://localhost:8080/purplaying/project/'+prdt_id);
+		  $('#project_preview_page').attr('src','');		//펀딩 미리보기 src 초기화
+		  $('#project_preview_page').attr('src','http://localhost:8080/purplaying/project/'+prdt_id);	//펀딩 미리보기 호출
 		  $('#ProjectModal').modal({backdrop: 'static', keyboard: false});
-		  $('#ProjectModal').modal("show");
+		  $('#ProjectModal').modal("show");		//펀딩 삭제 모달 호출
 	  }
 	  
+  	  //펀딩 삭제 모달 종료 function
 	  function Close_project_modal(){
-		  $('#ProjectModal').modal("hide");
-		  $('#project_preview_page').attr('src','');
+		  $('#ProjectModal').modal("hide");		//펀딩 삭제 모달 종료
+		  $('#project_preview_page').attr('src','');	//펀딩 미리보기 src 초기화
 	  }
-  /* 파일 업로드 */
   
+  	//펀딩 삭제 요청 function
   	function delete_project(){
-  		let prdt_id = $('#prdt_id_modal').val()
-  		let prdt_data = {prdt_id:prdt_id};
-  		$.ajax({
-			type:'post',	//통신방식 (get,post)
+  		let prdt_id = $('#prdt_id_modal').val()		//펀딩번호 저장
+  		let prdt_data = {prdt_id:prdt_id};		//펀딩 삭제 요청시 필요한 data Json형태로 저장
+  		$.ajax({		//펀딩 삭제 ajax로 요청
+			type:'post',
 			url: '/purplaying/admin/listProject',                                                                                
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(prdt_data),
-			success:function(result){
-				alert("삭제되었습니다")
-				$('#product_list').html(toHtmlProduct(JSON.parse(result)))
-				Close_project_modal()
+			success:function(result){		//펀딩삭제 성공시 호출
+				window.location.reload();		//페이지 새로고침
+				Close_project_modal()		//펀딩 삭제 모달 종료 function호출
 			},
-			error : function(){
+			error : function(){		//펀딩삭제 실패시 호출
 				alert("error");
 			}					
 		});
   	}
-  	let toHtmlProduct = function(table){
-  		let tmp = "<table class='table table-hover'><tr class='table-Secondary'><th class='prdt_id'>번호</th><th class='prdt_name' scope='col'>제목</th><th class='prdt_writer' scope='col'>작성자</th>";
-  	 	tmp += "<th class='prdt_opendate' scope='col'>오픈일</th><th class='prdt_enddate'>종료일</th><th class='prdt_goal' scope='col'>목표금액</th>";
-  		tmp += "<th class='prdt_currenttotal' scope='col'>현재금액</th><th class='prdt_save' scope='col'></th></tr>";
-  		
-		table.forEach(function(table_item){
-			tmp += '<tr>'
-			tmp += '<th class="align-middle" scope="row" id="prdt_id-'+table_item.prdt_id+'">'+table_item.prdt_id+'</td>';
-			tmp += '<td class="align-middle" id="prdt_name-'+table_item.prdt_id+'"><a href="${pageContext.request.contextPath}/project/'+table_item.prdt_id+'">'+table_item.prdt_name+'</a></td>';
-			tmp += '<td class="align-middle" id="prdt_writer-'+table_item.prdt_id+'">'+table_item.writer+'</td>';
-			tmp += '<td class="align-middle" id="prdt_opendate-'+table_item.prdt_id+'">'+toStringByFormatting(table_item.prdt_opendate)+'</td>';
-			tmp += '<td class="align-middle" id="prdt_enddate-'+table_item.prdt_id+'">'+toStringByFormatting(table_item.prdt_enddate)+'</td>';
-			tmp += '<td class="align-middle" id="prdt_goal-'+table_item.prdt_id+'">'+table_item.prdt_goal+'</td>';
-			tmp += '<td class="align-middle" id="prdt_currenttotal-'+table_item.prdt_id+'">'+table_item.prdt_currenttotal+'</td>'
-			tmp += '<td class="align-middle" id="prdt_delete-'+table_item.prdt_id+'">';
-			tmp += '<input type="hidden" value="'+table_item.prdt_id+'"/>';
-			tmp += '<button type="button" class="btn btn-primary" onclick="goto_project_modal()">삭제하기</button>';
-			tmp	+='</td>';
-			tmp += '</tr>';
-		});
-		tmp += "</table>";
-		return tmp;
-	}	
- 	function toStringByFormatting(source,delimiter = '-'){
- 		let date_source = new Date(source);
-	    let month = date_source.getMonth() + 1;
-        let day = date_source.getDate();
-       
-        month = month >= 10 ? month : '0' + month;
-        day = day >= 10 ? day : '0' + day;
-      
-        return date_source.getFullYear() + '-' + month + '-' + day;
- 	} 
+  	
   </script>
 	
   <!--푸터 인클루드-->

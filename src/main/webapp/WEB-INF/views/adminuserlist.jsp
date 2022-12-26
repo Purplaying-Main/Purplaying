@@ -107,85 +107,42 @@
   </section>
   
   <script type="text/javascript">
-  function goto_Userrole_modal(){
-	  eventTarget = event.target;
-	  user_role = eventTarget.previousElementSibling.value
-	  user_no = eventTarget.previousElementSibling.previousElementSibling.value
-	  $('#User_Role').val(user_role)
-	  $('#user_no_modal').val(user_no)
-	  $('#User_Role_Modal').modal({backdrop: 'static', keyboard: false});
-	  $('#User_Role_Modal').modal("show");
-	  
-  }
-  
-  /* 파일 업로드 */
-  	function save_change(){
-  		eventTarget = event.target;
-  		let role_select = $('#User_Role').val();
-  		let user_no = $('#user_no_modal').val();
- 		let user_data = {user_no:user_no,user_role:role_select};
-  	
- 		$.ajax({
-			type:'post',	//통신방식 (get,post)
-			url: '/purplaying/admin/listUser',                                                                                
-			headers:{"content-type" : "application/json"},
-			dataType : 'text',
-			data : JSON.stringify(user_data),
-			success:function(result){
-				alert(result)
-				if(result=='true'){
-					$('#User_Role_Modal').modal("hide");
-					//$('#user_list').html(toHtmlUser(JSON.parse(result)))
-					window.location.reload();
-				}
-			},
-			error : function(){
-				alert("error");
-			}					
-		}); 
-  	}
-  	let toHtmlUser = function(table){
-		let tmp = "<table class='table table-hover'><tr class='table-Secondary'><th class='user_no' scope='col'>번호</th><th class='user_id' scope='col'>아이디</th><th class='user_name' scope='col'>이름</th>";
-		tmp += "<th class='user_nickname' scope='col'>닉네임</th><th class='user_phone' scope='col'>전화번호</th><th class='user_regdate' scope='col'>등록일</th>";
-		tmp += "<th class='user_role' scope='col'>권한</th><th class='role_change' scope='col'></th></tr>";
+	  //유저권한 수정 모달 호출 function
+	  function goto_Userrole_modal(){
+		  eventTarget = event.target;		//이벤트 발생시킨 html태그 저장
+		  user_role = eventTarget.previousElementSibling.value		//이벤트 발생 요소기준 부모,자식관계 이용 유저권한 저장
+		  user_no = eventTarget.previousElementSibling.previousElementSibling.value //이벤트 발생 요소기준기준 부모,자식관계 이용 유저번호 저장
+		  $('#User_Role').val(user_role)
+		  $('#user_no_modal').val(user_no)
+		  $('#User_Role_Modal').modal({backdrop: 'static', keyboard: false});
+		  $('#User_Role_Modal').modal("show");		//유저권한 수정 모달 출력	  
+	  }
+	    
+	  //유저권한 저장 function
+	  	function save_change(){
+	  		let role_select = $('#User_Role').val();		//변경된 유저권한 저장
+	  		let user_no = $('#user_no_modal').val();		//유저번호 저장
+	 		let user_data = {user_no:user_no,user_role:role_select};	//유저권한 변경시 필요한 data Json형태로 저장
+	  	
+	 		$.ajax({		//유저권한 수정 ajax로 요청
+				type:'post',
+				url: '/purplaying/admin/listUser',                                                                                
+				headers:{"content-type" : "application/json"},
+				dataType : 'text',
+				data : JSON.stringify(user_data),
+				success:function(result){		//유저권한 수정 성공시 호출
+					if(result=='true'){
+						$('#User_Role_Modal').modal("hide");	//유저권한 수정 모달 종료
+						window.location.reload();		//페이지 새로고침
+					}
+				},
+				error : function(){		//유저권한 수정 실패시 호출
+					alert("error");
+				}					
+			}); 
+	  	}
 	
-		table.forEach(function(table_item){
-			tmp += '<tr>'
-			tmp += '<th class="align-middle" scope="row" id="user_no-'+table_item.user_no+'">'+table_item.user_no+'</th>';
-			tmp += '<td class="align-middle" id="user_id-'+table_item.user_no+'">'+table_item.user_id+'</td>';
-			tmp += '<td class="align-middle" id="user_name-'+table_item.user_no+'">'+table_item.user_name+'</td>';
-			tmp += '<td class="align-middle" id="user_nickname-'+table_item.user_no+'">'+table_item.user_nickname+'</td>';
-			tmp += '<td class="align-middle" id="user_phone-'+table_item.user_no+'">'+table_item.user_phone+'</td>';
-			tmp += '<td class="align-middle" id="user_regdate-'+table_item.user_no+'">'+toStringByFormatting(table_item.user_regdate)+'</td>';
-			tmp += '<td class="align-middle" id="user_role-'+table_item.user_no+'">';
-			if(table_item.user_role==1){
-				tmp +='관리자</td>';
-			}
-			else if(table_item.user_role == 0){
-				tmp +='일반회원</td>';
-			}
-			tmp += '<td id="save_change-'+table_item.user_no+'">';
-			tmp += '<input type="hidden" value="'+table_item.user_no+'"/>';
-			tmp += '<input type="hidden" value="'+table_item.user_role+'"/>'
-			tmp += '<button type="button" class="btn btn-primary" onclick="goto_Userrole_modal()">변경하기</button>';
-			tmp	+='</td>';
-			tmp += '</tr>';
-		});
-		tmp += "</table>";
-		return tmp;
-	}
- 	function toStringByFormatting(source,delimiter = '-'){
- 		let date_source = new Date(source);
-	    let month = date_source.getMonth() + 1;
-        let day = date_source.getDate();
-       
-        month = month >= 10 ? month : '0' + month;
-        day = day >= 10 ? day : '0' + day;
-      
-        return date_source.getFullYear() + '-' + month + '-' + day;
- 		
- 	} 
-  </script>
+  	</script>
 	
   <!--푸터 인클루드-->
 </body>

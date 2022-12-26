@@ -36,7 +36,7 @@
 	</div>
    
   <script>
-  function gotopay(){
+	function gotopay(){		// iamport 사용을 위한 필수입력정보 Json형식 데이터로 저장
 		data = {
  	          merchant_uid: createOrderNum(),
  	          name: "퍼플레잉",
@@ -46,20 +46,20 @@
  	          buyer_tel: $('#payuser_phone').val().substr(0,3)+"-"+$('#payuser_phone').val().substr(3,7)+"-"+$('#payuser_phone').val().substr(7,11),
  	          buyer_addr: $('#payaddress').val(),
  	          buyer_postcode: $('#payaddress_num').val()
-  	}
-		requestPay(data)
+  		}
+		requestPay(data)	// iamport 결제 요청
 	}
 	
-	 function requestPay(data) {
+	 function requestPay(data) {	// iamport 결제 절차
 	  		  var IMP = window.IMP;
-	  	  	  IMP.init("imp78380323"); 
+	  	  	  IMP.init("imp78380323");
 	      // IMP.request_pay(param, callback) 결제창 호출
 	      IMP.request_pay({ // param
 	          pg: "html5_inicis",
 	          pay_method: "card",
 	          merchant_uid: data.merchant_uid,
 	          name: data.name,
-	          amount: data.amount,
+	          amount: data.amount, 
 	          buyer_email: data.buyer_email,
 	          buyer_name: data.buyer_name,
 	          buyer_tel: data.buyer_tel,
@@ -74,13 +74,13 @@
   	        	console.log(data);
   	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
   	        	if(rsp.paid_amount == data.response.amount){
-  		        	alert("결제 및 결제검증완료");
+  		        	//alert("결제 및 결제검증완료");
   		        	$.ajax({
   						type:'post',	
   						url: '/purplaying/iamport/insertpoint/'+rsp.paid_amount,                                                                                
   						headers:{"content-type" : "application/json"},
   						dataType : 'text',
-  						success:function(result){
+  						success:function(result){	//결제 완료후 포인트 출력
   							$('#user_point').html("현재 보유 포인트 : "+result)
   							$('#pointpayModal').modal("hide");
   						},
@@ -95,7 +95,7 @@
   		});
 		}
 	 
-	  	function createOrderNum(){
+	  	function createOrderNum(){		//결제 요청시 필요한 주문번호 랜덤 생성
 	  		const date = new Date();
 	  		const year = date.getFullYear();
 	  		const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -108,22 +108,22 @@
 	  		return orderNum;
 	  	}
 	  	
-  	function pointSelect(){
+  	function pointSelect(){ 	// 결제 요청시 필요한 우편번호,주소 파싱
   		let user_no = $("#payuser_no").val()
   		$('#gotopayBtn').attr('disabled',false)
 			$.ajax({
-      		type: 'POST',			//요청 메서드
-				url: '/purplaying/setting/addresslist/'+user_no,		// 요청 URI
-				success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
+      		type: 'POST',			
+				url: '/purplaying/setting/addresslist/'+user_no,
+				success : function(result) {			
 					console.log(result[0].address)
-					$("#payaddress").val(result[0].address)		// result는 서버가 전송한 데이터
+					$("#payaddress").val(result[0].address)		
 					$("#payaddress_num").val(result[0].address_num)	
 				},
-				error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수 
+				error : function() { alert("error") }
       	})
   		
   	}
-  	function delpointPay(){
+  	function delpointPay(){		//결제 모달 종료시 모달초기화
   		$('#point_price').val(0)
   		$('#gotopayBtn').attr('disabled',true)
   	}

@@ -332,7 +332,7 @@
 		   		$('#agreeAll').prop('checked', true);
 		    }
 		})
-	
+		//비밀번호,비밀번호확인 일치 function
 		function check_pw(){
 			var pw = document.getElementById('password').value;
 			if(document.getElementById('password').value == document.getElementById('passwordConfirm').value && document.getElementById('password').value != null ){
@@ -374,8 +374,6 @@
 				if(val==null || val==""){
 					$("#check_id_msg").show().html(' 아이디를 입력해주세요').css("color","red");
 				}else{
-					//alert("the request is sent");
-					//alert(JSON.stringify(user_id));
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/chkuserid',                                                                                
@@ -383,16 +381,10 @@
 						dataType : 'text',
 						data : JSON.stringify(user_id),
 						success:function(result){
-							//alert(result)
-							/* result = parseXML(result)
-							alert(result) */
 							user_id_check = JSON.parse(result);
-							//alert(user_id_check)
 							if(user_id_check.user_id==null || user_id_check.user_id == ""){
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");
-								/* $("#check_msg").show();
-								$("#check_msg") */	
 							}else{
 								$("#check_id_msg").show().html(' 사용가능한 아이디 입니다').css("color","#9E62FA");
 							}

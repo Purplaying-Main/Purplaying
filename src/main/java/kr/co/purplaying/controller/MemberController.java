@@ -253,6 +253,7 @@ public class MemberController {
           System.out.println("탈퇴성공");
         }
       }
+      session.invalidate();
       return "redirect:/";
     }
     

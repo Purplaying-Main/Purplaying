@@ -150,6 +150,8 @@
   </section>
   
   <script type="text/javascript">
+  	
+	//배너 설정시 위치선택 요청 function
 	function setBannerNext(){
 		$('#banner-header').html("배너위치 선택");
 		$('#gotochangeBtn').css('display', 'none');
@@ -157,112 +159,86 @@
 		$('#banner-position').css('display', 'block');
 		$('#gotosaveBtn').css('display','none');
 	}
+	//배너 설정 요청 function
 	function setBanner(){
-  		let position = event.target.getAttribute("id")
-  		let imgsrc = $('#preview_img').attr('src')
+  		let position = event.target.getAttribute("id")	//이벤트 발생 요소 id속성 저장
+  		let imgsrc = $('#preview_img').attr('src')	//미리보기 이미지 주소 저장
   		
-  		$.ajax({
-			type:'post',	//통신방식 (get,post)
+  		$.ajax({		//배너 설정 ajax로 요청
+			type:'post',	
 			url: '/purplaying/admin/bannerByUpload/'+position,                                                                                
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : imgsrc,
-			success:function(result){
-				$('#Banner_img_list').html(toHtmlBannerList(JSON.parse(result)))
-				CloseBannerModal()
+			success:function(result){	//배너설정 모달 요청 성공시 호출
+		        window.location.reload();	//페이지 새로고침
+				CloseBannerModal()		//배너설정 모달 종료 function 호출
 			},
 			error : function(){
-				alert("error");
+				alert("error");		//배너설정 모달 요청 실패시 호출
 			}					
 		});
  	}
+	
+	//파일업로드 모달 호출 function
   	function showUploadModal(){
   		$('#ImageUploadModal').modal({backdrop: 'static', keyboard: false});
-  		$('#ImageUploadModal').modal("show");
+  		$('#ImageUploadModal').modal("show");		//파일업로드 모달 출력
   	}
+  	//파일업로드 모달 종료 function
   	function Close_upload_modal(){
-  		$('#ImageUploadModal').modal("hide");
+  		$('#ImageUploadModal').modal("hide");		//배너설정 모달 종료
   		$('#file_id').val("")
   	}
+  	//배너 설정 모달 종료 function
   	function CloseBannerModal(){
-  		$('#banner_Modal').modal('hide');
+  		$('#banner_Modal').modal('hide');		//배너설정 모달 종료
   		$('#preview_img').attr('src','');
   		$('#banner-header').html("이미지 미리보기");
 		$('#banner-body').css('display', 'block');
 		$('#banner-position').css('display', 'none');
 		$('#gotosaveBtn').css('display','block');
   	}
+  	
+  	//파일업로드 저장 요청 function
   	function save_uploadImg(){
-  		let fileuuid = $('#prdt_uuid').val()
-  		let filename = $('#prdt_image').val()
-  		let uploadPath = $('#prdt_uploadpath').val().split('purplaying_file\\')[1]
+  		let fileuuid = $('#prdt_uuid').val()	//파일uuid 저장
+  		let filename = $('#prdt_image').val()	//파일명 저장
+  		let uploadPath = $('#prdt_uploadpath').val().split('purplaying_file\\')[1]	//파일 저장 경로 저장
   		console.log(prdt_uploadpath)
   		$.post('/purplaying/admin/bannersavedb',
-				{fileName : filename, fileuuid : fileuuid , uploadPath:uploadPath}, 
-				function(result){
-			        console.log(result);
-			        window.location.reload();
+				{fileName : filename, fileuuid : fileuuid , uploadPath:uploadPath}, //파일 저장 요청시 필요한 data Json형태로 저장
+				function(result){	//파일저장 성공시 호출
+			        window.location.reload();	//페이지 새로고침
   				})
   	}
   	
-  	let toHtmlBannerList = function(list){
-  		let tmp = "<table class='table table-hover'><tr class='table-Secondary'><th class='bannerfile_id' scope='col'>번호</th><th class='bannerfile_name' scope='col'>이미지 이름</th>";
-  	 	tmp += "<th class='bannerfile_regdate' scope='col'>등록 날짜</th>";
-  		tmp += "<th class='bannerfile_save' scope='col'></th></tr>";
-  		  		
-		list.forEach(function(list_item){
-			tmp += '<tr>'
-			tmp += '<th id="bannerfile_id">'+list_item.bannerfile_id+'</td>';
-			tmp += '<td id="bannerfile_name" class="text-truncate" style="max-width: 512px">'+list_item.bannerfile_file+'</td>';
-			tmp += '<td id="bannerfile_regdate">'+toStringByFormatting(list_item.bannerfile_regdate)+'</td>';
-			tmp += '<td id="bannerfile_save-'+list_item.bannerfile_id+'">';
-			tmp	+='</td>';
-			tmp += '</tr>';
-		});
-		tmp += "</table>";
-		return tmp;
-	}  	
-  	
-  	function toStringByFormatting(source,delimiter = '-'){
- 		let date_source = new Date(source);
-	    let month = date_source.getMonth() + 1;
-        let day = date_source.getDate();
-       
-        month = month >= 10 ? month : '0' + month;
-        day = day >= 10 ? day : '0' + day;
-      
-        return date_source.getFullYear() + '-' + month + '-' + day;
- 		
- 	} 
-  	
+    //배너설정 모달 요청 function
   	function ShowBannerModal(){
-  		eventTarget = event.target
-  		let file_id = eventTarget.previousElementSibling.value
-  		//alert(file_id)
+  		eventTarget = event.target		//이벤트 발생시킨 html태그 저장
+  		let file_id = eventTarget.previousElementSibling.value		//이벤트 발생 요소기준 부모,자식관계 이용 파일번호 저장
   		$.ajax({
-			type:'post',	//통신방식 (get,post)
+			type:'post',
 			url: '/purplaying/admin/ShowBanner/'+file_id,                                                                                
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
-			success:function(result){
-				//alert('/purplaying/admin/display?file_name='+result)
+			success:function(result){		//배너설정 모달 요청 성공시 호출
 				$('#preview_img').attr('src','/purplaying/admin/display?file_name='+encodeURIComponent(result))
 				$('#banner_Modal').modal({backdrop: 'static', keyboard: false});
-				$('#banner_Modal').modal('show');
+				$('#banner_Modal').modal('show');		//배너설정 모달 출력
 			},
 			error : function(){
-				alert("error");
+				alert("error");	//배너설정 모달 요청 실패시 호출
 			}					
 		});
   	}
   	
   	/*파일 업로드*/
   	function previewimg(){
-  		if($('#prdt_thumbnail').attr('src') == ''){
+  		if($('#prdt_thumbnail').attr('src') == ''){		//펀딩이미지가 있을 경우 호출
 	  		var formData = new FormData()
 			var inputFile = $("#file_id")
 			var files = inputFile[0].files
-			console.log(files)
 	
 			for (var i=0; i<files.length; i++){
 				if(!checkExtension(files[i].name, files[i].size)){
@@ -271,7 +247,7 @@
 				formData.append("uploadFile", files[i]);
 			}
 			
-			$.ajax({
+			$.ajax({	//파일업로드 ajax 요청
 				type: 'POST',	
 				url: '/purplaying/admin/bannerupload',
 				enctype: "multpart/form-data",
@@ -279,30 +255,28 @@
 				processData: false,
 			    contentType: false,
 			    dataType:'json',
-				success: function(result) {
-					console.log(result)
+				success: function(result) { 	//파일업로드 성공시 호출
 					$('#gotodeleteBtn').attr('disabled',false)
-					showUploadedFile(result)
+					showUploadedFile(result)	//파일 미리보기 function요청
 				},
-				error : function() { 
+				error : function() { //파일업로드 실패시 호출
 					alert("error") 
 				}
 			}) 
-  		}else{
+  		}else{		//펀딩이미지가 없을 경우 호출
   			alert('취소후 시도해주세요')
   		}
 	}
+  	
+  	//업로드한 이미지 삭제 요청 function
   	function delete_uploadImg(){
   		let filename = $("#prdt_image").val();
   		let fileuuid = $("#prdt_uuid").val();
-  		console.log(filename)
-  		console.log(fileuuid)
   		filename = fileuuid+filename
   		let uploadPath = $("#prdt_uploadpath").val();
-  		console.log(uploadPath)
-	  	$.post('/purplaying/admin/removeFile',{fileName : filename, uploadPath:uploadPath}, function(result){
-	        console.log(result);
-	        if(result === true){
+	  	$.post('/purplaying/admin/removeFile',{fileName : filename, uploadPath:uploadPath}, //파일삭제 요청시 필요한 data Json형태로 저장
+	  		function(result){
+	        if(result === true){ //ajax처리후 반환받은 갑이 true면 요청
 	        	$("#prdt_thumbnail").attr("style", 'display:none;');
 	    		$("#prdt_thumbnail").attr("src", "");
 	    		$("#file_id").val('')
@@ -314,8 +288,10 @@
   	}
   	
   	/* 파일 확장자, 크기 처리 */
-  	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
+  	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")	//파일 확장자 확인
 	var maxSize = 5242880 //5MB
+	
+	//파일유형,사이즈 확인 function
 	function checkExtension(file_name, fileSize) {
 		if(fileSize >= maxSize){
 			alert("파일 사이즈 초과")
@@ -328,29 +304,25 @@
 		return true
 	}
   	
+  	//파일 미리보기 function
   	function showUploadedFile(uploadResultArr) {
 		var str= "";
 		var fileCallPath = "";
 		var none="";
 		
 		$(uploadResultArr).each(function (i, obj) {
-			
-			// 이미지가 아닌 파일일때, 파일아이콘 출력
 			if(!obj.image){
-				/* <i class='fa-light fa-file'>"+obj.file_name+"</li> */
 				str = "";
 			}else{
 				// 이미지일때 썸네일 출력
 				str = "/purplaying/admin/display?file_name="+encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.file_name);
 				// 원본 파일 경로 저장
 				fileCallPath = "/purplaying/admin/display?file_name="+encodeURIComponent( obj.uploadPath+"/"+obj.uuid+"_"+obj.file_name);
-				//$("#prdt_image").val(obj.uuid+"_"+obj.file_name);
-				$('#prdt_image').val(obj.file_name);
-				$('#prdt_uuid').val(obj.uuid+"_")
-				$("#prdt_uploadpath").val('C:\\purplaying_file\\Banner\\'+obj.uploadPath);
+				$('#prdt_image').val(obj.file_name);	//파일 이름 저장
+				$('#prdt_uuid').val(obj.uuid+"_")		//파일 uuid저장
+				$("#prdt_uploadpath").val('C:\\purplaying_file\\Banner\\'+obj.uploadPath);	//파일 저장경로 저장
 			}
 		})
-		/* uploadResult.append(str); */
 		$("#prdt_thumbnail").attr("style", none);
 		$("#prdt_thumbnail").attr("src", str);
 		

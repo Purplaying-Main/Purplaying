@@ -120,21 +120,25 @@
   </section>
   
   <script type="text/javascript">
+  
+  //배너 설정시 위치선택 요청 function
   function setBannerNext(){
 	  $('#banner-header').html("배너위치 선택");
 	  $('#gotochangeBtn').css('display', 'none');
 	  $('#banner-body').css('display', 'none');
 	  $('#banner-position').css('display', 'block');
   }
+  //배너설정 모달 호출 function
   function ShowBannerModal(){
-	  eventTarget = event.target;
-	  let prdt_id = eventTarget.previousElementSibling.value
-	  prdtImg = eventTarget.parentNode.previousElementSibling.previousElementSibling.innerHTML
+	  eventTarget = event.target;		//이벤트 발생시킨 html태그 저장
+	  let prdt_id = eventTarget.previousElementSibling.value	//이벤트 발생 요소기준 부모,자식관계 이용 펀딩번호 저장
+	  prdtImg = eventTarget.parentNode.previousElementSibling.previousElementSibling.innerHTML	//이벤트 발생 요소기준 부모,자식관계 이용 펀딩이미지(썸네일) 저장
 	  $('#preview_img').attr("src",prdtImg)
 	  $('#prdt_banner_no').val(prdt_id)
 	  $('#banner_Modal').modal({backdrop: 'static', keyboard: false});
-	  $('#banner_Modal').modal("show");
+	  $('#banner_Modal').modal("show");		//배너설정 모달 출력
   }
+  //배너설정 모달 종료 function
   function CloseBannerModal(){
 		$('#banner_Modal').modal("hide");
 		$('#banner-header').html("이미지 미리보기");
@@ -142,69 +146,27 @@
 		$('#banner-body').css('display', 'block');
 		$('#banner-position').css('display', 'none');
   }
-  /* 파일 업로드 */
+  
+  	//배너 설정 요청 function
   	function setBanner(){
-  		let prdt_id = $('#prdt_banner_no').val()
-  		let position = event.target.getAttribute("id")
-  		let prdt_data = {prdt_id:prdt_id};
-  		$.ajax({
-			type:'post',	//통신방식 (get,post)
+  		let prdt_id = $('#prdt_banner_no').val()	//펀딩번호 저장
+  		let position = event.target.getAttribute("id")	//이벤트 발생 요소 id속성 저장
+  		let prdt_data = {prdt_id:prdt_id};		//배너 설정 요청시 필요한 data Json형태로 저장
+  		$.ajax({		//배너 설정 ajax로 요청
+			type:'post',
 			url: '/purplaying/admin/bannerimg/'+position,                                                                                
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(prdt_data),
-			success:function(result){
-				$('#Banner_img_list').html(toHtmlBannerList(JSON.parse(result)))
-				CloseBannerModal()
+			success:function(result){		//배너설정 성공시 호출
+				window.location.reload();		//페이지 새로고침
+				CloseBannerModal()		//배너 설정 모달 종료 function호출
 			},
-			error : function(){
+			error : function(){		//배너설정 실패시 호출
 				alert("error");
 			}					
 		});
  	}
-  	var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
-	var maxSize = 5242880 //5MB
-	function checkExtension(file_name, fileSize) {
-		if(fileSize >= maxSize){
-			alert("파일 사이즈 초과")
-			return false
-		}
-		if(regex.test(file_name)){
-			alert("해당 확장자의 파일은 업로드할 수 없습니다. ")
-			return false
-		}
-		return true
-	}	
-  	let toHtmlBannerList = function(list){
-  		let tmp = "<table class='table table-hover'><tr class='table-Secondary'><th class='bannerfile_id' scope='col'>번호</th><th class='bannerfile_name' scope='col'>이미지 이름</th>";
-  	 	tmp += "<th class='bannerfile_regdate' scope='col'>등록 날짜</th>";
-  		tmp += "<th class='bannerfile_save' scope='col'></th></tr>";
-  		  		
-		list.forEach(function(list_item){
-			tmp += '<tr>'
-			tmp += '<th id="bannerfile_id">'+list_item.bannerfile_id+'</td>';
-			tmp += '<td id="bannerfile_name" class="text-truncate" style="max-width: 512px">'+list_item.bannerfile_file+'</td>';
-			tmp += '<td id="bannerfile_regdate">'+toStringByFormatting(list_item.bannerfile_regdate)+'</td>';
-			tmp += '<td id="bannerfile_save-'+list_item.bannerfile_id+'">';
-			tmp += '<input type="hidden" value="'+list_item.banner_prdt_id+'">';
-			tmp	+='</td>';
-			tmp += '</tr>';
-		});
-		tmp += "</table>";
-		return tmp;
-	}	
-	
- 	function toStringByFormatting(source,delimiter = '-'){
- 		let date_source = new Date(source);
-	    let month = date_source.getMonth() + 1;
-        let day = date_source.getDate();
-       
-        month = month >= 10 ? month : '0' + month;
-        day = day >= 10 ? day : '0' + day;
-      
-        return date_source.getFullYear() + '-' + month + '-' + day;
- 		
- 	} 
   </script>
 	
   <!--푸터 인클루드-->

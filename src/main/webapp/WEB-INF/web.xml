@@ -4,13 +4,14 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WepApp_ID" version="3.1">
-
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
-	<context-param>
+	
+	
+    <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
+		
+ 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -46,6 +47,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	
 	<!-- 한글 변환 필터 -->
 	<filter>
 		<filter-name>encodigFilter</filter-name>
@@ -65,6 +67,24 @@
 		<filter-name>encodigFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- security -->
+	<!-- <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	The definition of the Root Spring Container shared by all Servlets and Filters
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/security-context.xml
+		</param-value>
+	</context-param> -->
+	
 	
 	<!-- fontawesome woff error -->
 	<mime-mapping>
