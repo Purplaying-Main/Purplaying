@@ -89,8 +89,7 @@
 									</c:if>
 								</div>
 							</form>
-
-							<%-- <button type="button" id="ansBtn" class="col-1 btn btn-primary"	style="${adminWrite}" class="btn btn-info btn-sm">답변</button> --%>
+							<!-- 답변 버튼 영역 -->
 							<input type="hidden" name="inquiry_State" value="${ansState}">
 							<input type="hidden" name=user_role value="${sessionScope.user_role}">
 							<div id="ans_area" style="${ansState ? '' :'display:none'}">
@@ -132,6 +131,7 @@
 							<div class="row mx-auto col-md-4">
 								<button type="button" id="OneononeListBtn" class="btn btn-outline-primary my-3">목록으로 돌아가기</button>
 							</div>
+							<!-- 답변 모달 영역 -->
 							<div class="modal fade" id="ansModal" tabindex="-1" aria-labelledby="ansModiModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
@@ -195,12 +195,13 @@
 	<%@ include file="footer.jsp"%>
 
 	<script type="text/javascript">
+	//일대일 문의 리스트 요청 function
 	$(document).ready(function() {
 		$("#OneononeListBtn").on("click", function() {
 			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 		})
 		
-		//remove
+		//remove 삭제
 		$("#removeBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
@@ -211,7 +212,7 @@
 			form.submit()
 		})
 		
-		//write
+		//write 작성
 		$("#writeBtn").on("click", function() {
 			let form = $("#form");
 			form.attr("action", "<c:url value='/oneonone/write' />")
@@ -221,7 +222,7 @@
 				form.submit()					
 		})
 		
-		//modify
+		//modify 수정
 		$("#modifyBtn").on("click", function() {
 			let form = $("#form");
 			form.attr("action", "<c:url value='/oneonone/modify?page=${page}&pageSize=${pageSize}' />")
@@ -230,18 +231,17 @@
 			form.submit()
 		})
 		
-		//writeans
+		//writeans 답변 작성
 		$("#ansBtn").on("click", function() {
 			$('#ansModal').modal("show");		
 		})
 		
-		//ansComplete
+		//ansComplete 답변 완료
 		$("#ansComplete").on("click", function() {
 			let ansData = {ans_context:$('#ansWriteContext').val(),inquiry_no:$('#inquiry_no').val()}
-			//alert($('#ansWriteContext').val())
 			$.ajax({
 	            type : 'post',										// 요청 메서드
-	            url : '/purplaying/oneonone/write/ans',								// 요청 URI
+	            url : '/purplaying/oneonone/write/ans',				// 요청 URI
 	            headers : { "content-type" : "application/json" }, 	// 요청 헤더	//생략가능
 	            dataType : 'text',									// 서버에서 전송받을 데이터타입
 	            data : JSON.stringify(ansData),						// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
@@ -255,12 +255,11 @@
 		}) 
 		
 		
-		//removeans
+		//removeans 답변 삭제
 		$("#removeAnsBtn").on("click", function() {
 			if(!confirm("정말로 삭제하시겠습니까?")) return;
 			
 			let form = $("#Ansform")
-//			alert($(this).serialize())
 			console.log($(this).serialize());
 			form.attr("action","<c:url value='/oneonone/remove/ans?page=${page}&pageSize=${pageSize}' />")
 			form.attr("method", "post")  
@@ -268,13 +267,13 @@
 			form.submit()
 		})
 		
-		//ans_modifyBtn	
+		//ans_modifyBtn	답변 수정 버튼 호출 function
 		$("#ans_modifyBtn").on("click", function() {
 			$('#ans_modiModal').modal("show");		
 		})
 		
 
-		//ansModiComplete
+		//ansModiComplete 답변 수정 완료
 		$("#ansModiComplete").click(function() {
 
 			let ansmodiData = {ans_context:$('#ansModiContext').val()
@@ -286,10 +285,10 @@
 			
 		 	$.ajax({
 	            type : 'post',										// 요청 메서드
-	            url : '/purplaying/oneonone/modify/ans',					// 요청 URI
+	            url : '/purplaying/oneonone/modify/ans',			// 요청 URI
 	            headers : { "content-type" : "application/json" }, 	// 요청 헤더	//생략가능
 	            dataType : 'text',									// 서버에서 전송받을 데이터타입
-	            data : JSON.stringify(ansmodiData),						// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
+	            data : JSON.stringify(ansmodiData),					// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
 	            success : function(result) {						// 서버로부터 응답이 도착하면 호출될 함수 { 정상적으로 요청, 응답 시 처리 }
 	      			$('#ans_modiModal').modal("hide")
 	            	location.reload();

@@ -26,7 +26,6 @@
 						href="/purplaying/oneonone/list">1:1문의</a></li>
 					<li class="breadcrumb-item active" aria-current="page">1:1
 						문의하기 ${mode=="new" ? "작성하기" : "수정하기" }</li>
-					</li>
 				</ol>
 			</nav>
 			<h2 class="mx-auto text-center py-3">1:1 문의하기 ${mode=="new" ? "작성하기" : "수정하기" }</h2>
@@ -112,16 +111,17 @@
 	<!--푸터 인클루드-->
 	<%@ include file="footer.jsp"%>
 	<script type="text/javascript">
+			//작성 취소 버튼 function
 			$("#cancelwriteBtn").click(function(){
 				$('#inquiryWriteCancelModal').modal("show");
 			});
 					
-			
+			//일대일 문의 리스트 요청 function
 			$("#listBtn").on("click", function() {
 				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 			})
 			
-			
+			// 작성버튼
 			$("#writeBtn").on("click", function() {
 				let form = $("#oneononeform");
 				form.attr("action", "<c:url value='/oneonone/write/reg' />")
@@ -138,11 +138,10 @@
 					
 			
 			
-			
+			// 수정 버튼
 			$("#modifyBtn").on("click", function() {
 				let form = $("#oneononeform");	
 		
-				//2.수정 상태면 수정된 내용을 서버로 전송
 				form.attr("action", "<c:url value='/oneonone/modify' />")
 				form.attr("method", "post")
 					
@@ -150,9 +149,6 @@
 					form.submit();	
 				}	
 			})
-				
-//					$('#inquiryWriteFinishModal').modal("show");		
-//					$('#writeComplete').modal("hide")
 
 			
 			let formCheck = function() {

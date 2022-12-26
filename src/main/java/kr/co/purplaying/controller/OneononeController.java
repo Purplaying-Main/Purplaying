@@ -40,6 +40,7 @@ public class OneononeController {
   @Autowired
   UserDao userDao;
 
+  // 게시글 수정 post
   @PostMapping("/modify")
   public String modify(Integer inquiry_no, String inquiry_title, String inquiry_context, boolean inquiry_private,
       Integer page, Integer pageSize,
@@ -70,7 +71,8 @@ public class OneononeController {
     }
 
   }
-
+  
+  // 게시글 수정 get
   @GetMapping("/modify")
   public String modify(Integer inquiry_no, Integer page, Integer pageSize, Model m, HttpSession session) {
     // read와 동일. inquiry_no를 불러와서 조회.
@@ -94,9 +96,10 @@ public class OneononeController {
       return "redirect:/oneonone/list";
     }
 
-    return "inquiryWrite"; // board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
+    return "inquiryWrite"; // inquiryWrite.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
   }
-
+  
+  // 답변 수정 post
   @PostMapping("/modify/ans")
   @ResponseBody
   public void modifyAns(
@@ -117,7 +120,7 @@ public class OneononeController {
     }
   }
 
-  
+  // 1:1 문의 작성 페이지
   @PostMapping("/write/reg")
   public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, HttpSession session) {
     String writer = (String) session.getAttribute("user_id");
@@ -140,6 +143,7 @@ public class OneononeController {
 
   }
 
+  // 1:1문의 작성
   @GetMapping("/write")
   public String write(Model m, HttpSession session, OneononeDto oneononeDto) {
     String writer = (String) session.getAttribute("user_id");
@@ -150,6 +154,7 @@ public class OneononeController {
     return "inquiryWrite"; // 쓰기에 사용할때는 mode=new
   }
 
+  // 답변 작성
   @PostMapping("/write/ans")
   @ResponseBody
   public void writeans(@RequestBody AnsDto ansDto, Integer inquiry_no, HttpSession session) {
@@ -203,6 +208,7 @@ public class OneononeController {
     return "redirect:/oneonone/list";
   }
 
+  // 게시글 삭제
   @PostMapping("/remove")
   public String remove(Integer inquiry_no, Integer page, Integer pageSize,
       RedirectAttributes rattr, HttpSession session) {
@@ -230,6 +236,7 @@ public class OneononeController {
     return "redirect:/oneonone/list";
   }
 
+  // 게시글 읽기
   @GetMapping("/read")
   public String read(Integer inquiry_no, boolean user_role , Integer page, Integer pageSize, Model m, HttpSession session) {
    
@@ -275,6 +282,7 @@ public class OneononeController {
     return "showInquiry2";
   }
 
+  // 1:1 문의 리스트 불러오기
   @GetMapping("/list")
   public String list(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer pageSize,
@@ -313,6 +321,7 @@ public class OneononeController {
     return "oneonone"; // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
+  // 로그인 상태인지 체크
   private boolean loginCheck(HttpServletRequest request) {
     // 1. 세션을 얻어서
     HttpSession session = request.getSession(false);                //false 는 session 이 없어도 새로 생성하지 않음. 반환값 null

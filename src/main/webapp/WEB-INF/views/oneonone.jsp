@@ -131,11 +131,13 @@
 	</section>
 	<!--페이지 내용 종료-->
 		<script type="text/javascript">
+		//일대일 문의 리스트 요청 function
 		$(document).ready(function() {
 			$("#listBtn").on("click", function() {
 				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
 			})
 			
+			// 삭제 버튼
 			$("#removeBtn").on("click", function() {
 				if(!confirm("정말로 삭제하시겠습니까?")) return;
 				
@@ -145,6 +147,7 @@
 				form.submit()
 			})
 			
+			// 작성 버튼
 			$("#writeBtn").on("click", function() {
 			location.href ="<c:url value='/oneonone/write' />";	
 		})
