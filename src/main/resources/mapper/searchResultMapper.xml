@@ -48,6 +48,7 @@
 		WHERE TRUE
 		AND prdt_name LIKE concat('%', #{keyword}, '%')	
 		AND <![CDATA[prdt_opendate <= current_date]]>
+		AND <![CDATA[prdt_enddate >= current_date]]>
 	</select>
 
   	<select id="searchSelectPage" parameterType="SearchItem2" resultType="ProjectDto">
@@ -55,6 +56,7 @@
 		WHERE TRUE
 		AND prdt_name LIKE concat('%', #{keyword}, '%')
 		AND <![CDATA[prdt_opendate <=current_date]]>
+		AND <![CDATA[prdt_enddate >= current_date]]>
 		limit 6 offset #{offset}	
   	</select>
 	
