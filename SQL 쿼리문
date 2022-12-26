@@ -1,6 +1,5 @@
---VER - 2022.11.30 17:00 수정
+--VER - 2022-12-18
 --tb_abc순 정렬
---tb_account, tb_deliverycharge는 현 단계에서 참조하는 테이블이 없습니다.
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
 
 ------------------------- product 테이블 -------------------------
@@ -45,23 +44,12 @@ CREATE TABLE tb_user (
     user_role int4 NOT NULL DEFAULT 0,
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
     user_point int default 0,
-    user_nickname	varchar(100) not null,
+    user_nickname varchar(100) default null,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
 select * from TB_REWARD TR  
 
-------------------------- account 테이블 -------------------------
-DROP TABLE if exists tb_account;
-CREATE TABLE tb_account (
-    account_no serial4 NOT NULL,
-    account_type int4 NOT NULL DEFAULT 1,
-    account_bank varchar(100) NOT NULL,
-    account_bank_no numeric NOT NULL,
-    account_bank_nm varchar(100) NOT NULL,
-    user_no int4 NOT NULL,
-    CONSTRAINT tb_account_pkey PRIMARY KEY (account_no)
-);
 
 ------------------------- address 테이블 -------------------------
 DROP TABLE if exists tb_address;
@@ -100,19 +88,14 @@ CREATE TABLE IF NOT EXISTS tb_chat_service(
     chat_context varchar(3000),
     chat_date date default now(),
     user_no int not null,
+    user_nickname varchar(100) default null,
     FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE cascade,
     FOREIGN KEY(prdt_id) REFERENCES tb_product(prdt_id) ON DELETE cascade
     );
 
-------------------------- deliverycharge 테이블 -------------------------
-DROP TABLE if exists tb_deliverycharge;
-CREATE TABLE tb_deliverycharge (
-    location_no serial4 NOT NULL,
-    location_nm varchar(100) NOT NULL,
-    location_price int4 NOT NULL,
-    CONSTRAINT tb_deliverycharge_pkey PRIMARY KEY (location_no)
-);
-
+ALTER TABLE tb_chat_service ADD COLUMN user_nickname varchar(100);
+ALTER TABLE tb_user ADD CONSTRAINT user_nickname UNIQUE (user_nickname);
+ALTER TABLE tb_chat_service ADD CONSTRAINT user_nickname_fkey FOREIGN KEY (user_nickname) REFERENCES tb_user(user_nickname) ON DELETE cascade;
 ------------------------- file 테이블 -------------------------
 DROP TABLE if exists tb_file;
 CREATE TABLE tb_file (
@@ -200,27 +183,21 @@ CREATE TABLE tb_notice (
 ------------------------- payment 테이블 -------------------------
 DROP TABLE if exists tb_payment;
 CREATE TABLE tb_payment (
-    pay_no serial4 NOT NULL,
-    pay_time timestamp NULL DEFAULT now(),
-    pay_cardnum varchar(300) NOT NULL,
-    pay_carddate int4 NOT NULL,
-    pay_cvc int4 NOT NULL,
-    pay_pwd int4 NOT NULL,
-    pay_total numeric NOT NULL,
-    prdt_id int4,
-    user_no int4,
-    delivery_reciever varchar(100) NOT NULL,
-    delivery_phone varchar(100) NOT NULL,
-    delivery_postcode varchar(100) NOT NULL,
-    delivery_address varchar(500) NOT NULL,
-    delivery_addressdetail varchar(500),
-    delivery_memo varchar(1000),
-    delivery_charge numeric,
-    reward_user_cnt int4 NULL,
-    reward_id int4 NULL,
-    CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
+	pay_no serial4 NOT NULL,
+	pay_time timestamp NULL DEFAULT now(),
+	user_no int4 NULL,
+	prdt_id int4 NULL,
+	reward_id _int4 NULL,
+	reward_user_cnt _int4 NULL,
+	pay_total numeric NOT NULL,
+	delivery_reciever varchar(100) NOT NULL,
+	delivery_phone varchar(100) NOT NULL,
+	delivery_postcode varchar(100) NOT NULL,
+	delivery_address varchar(500) NOT NULL,
+	delivery_addressdetail varchar(500) NULL,
+	delivery_memo varchar(1000) NULL,
+	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
 );
-
 
 
 ------------------------- reply 테이블 -------------------------
@@ -238,6 +215,8 @@ CREATE TABLE IF NOT EXISTS tb_reply(
     FOREIGN KEY(chat_no) REFERENCES tb_chat_service(chat_no) ON DELETE cascade
     );
     
+ALTER TABLE tb_reply ADD COLUMN user_nickname varchar(100);
+ALTER TABLE tb_reply ADD CONSTRAINT user_nickname_fkey FOREIGN KEY (user_nickname) REFERENCES tb_user(user_nickname) ON DELETE cascade;
 ------------------------- reward 테이블 -------------------------
 DROP TABLE if exists tb_reward;
 CREATE TABLE public.tb_reward (
@@ -294,15 +273,33 @@ CREATE TABLE tb_bannerfile
 
 drop table if exists tb_like;
 create table tb_like(
-    like_id serial,
-    like_regdate Date
-    ,
+    like_id serial PRIMARY KEY,
+    like_regdate timestamp,
     user_id varchar(100),
     prdt_id int
 );
 
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_like ADD CONSTRAINT tb_like_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
+
+-- like_regdate 타입변경
+ALTER TABLE tb_like ALTER COLUMN like_regdate TYPE timestamp;
+-- like_id PRIMARY KEY 타입 변경
+ALTER TABLE tb_like ADD CONSTRAINT like_id PRIMARY KEY;
+
+
+---------------------------마이페이지 알림 테이블---------------------------
+drop table if exists tb_alarm;
+create table tb_alarm
+(	
+   alarm_no serial primary KEY,
+   alarm_cnt int DEFAULT 0,
+   alarm_regdate timestamp DEFAULT now(),
+   like_id int NOT null,
+   FOREIGN KEY(like_id) REFERENCES tb_like(like_id) ON DELETE cascade
+); 
+
+
 ------------------------- FK 생성 -------------------------
 ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
@@ -323,14 +320,20 @@ ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
-
+ALTER TABLE tb_file ADD COLUMN isbannerimg int not null default 0;
 
 
 --시리얼 초기화 
 -- truncate table tb_ restart identity;
 -- 컬럼명 변경
 --ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
+--컬럼 데이터타입 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 TYPE 변경할데이터타입;
+--컬럼 디폴트값 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 SET DEFAULT 변경할디폴트값;
 --컬럼 삭제
 --ALTER TABLE [테이블명] DROP COLUMN [기존컬럼명];
 --컬럼 not null 제거
 --ALTER TABLE [테이블명] ALTER COLUMN [기존컬럼명] DROP NOT NULL;
+--컬럼 추가
+--ALTER TABLE 테이블명 ADD COLUMN 컬럼명 데이터타입 제약조건

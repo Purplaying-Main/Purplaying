@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.dao.AlarmMapper">
+
+	<sql id="selectAll">
+		SELECT 
+			alarm_no, tl.prdt_id, alarm_regdate, alarm_cnt, ta.like_id, tl.user_id, prdt_name, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, writer, prdt_thumbnail,  
+			(prdt_opendate - current_date) as "prdt_comingday",
+			(prdt_enddate-current_date) as "prdt_dday"
+		FROM tb_alarm ta
+		INNER JOIN tb_like tl 
+		ON ta.like_id = tl.like_id 
+		INNER JOIN tb_product tp 
+		ON tl.prdt_id = tp.prdt_id
+	</sql>
+	
+	<select id="count" resultType="int"> <!-- Board 테이블 데이터 갯수 추출 -->
+		SELECT COUNT(*) from tb_alarm  
+	</select>
+	
+	<select id="selectAlarm" parameterType="Int" resultType="AlarmDto">
+		<include refid="selectAll"/>
+		WHERE ta.alarm_no = #{alarm_no}
+	</select>
+	
+	<update id="increaseViewCnt" parameterType="int"> <!--조회수 컬럼 데이터 변경(증가)-->
+		UPDATE tb_alarm SET alarm_cnt = alarm_cnt + 1 where alarm_no = #{alarm_no}
+	</update>
+	
+	<select id="selectPage" parameterType="map" resultType="AlarmDto"> <!-- Board 테이블 데이터 추출 및 내림차순 정렬 (offset부터 pageSize만큼) -->
+		<include refid="selectAll"/>
+			where tl.user_id = #{user_id}
+	</select>
+	
+	<insert id="insertAlarm" parameterType="AlarmDto">
+		INSERT INTO tb_alarm
+			(like_id)
+		VALUES(#{like_id});
+	</insert>
+	
+	<delete id="deleteLike" parameterType="AlarmDto">
+		delete from tb_alarm
+		where like_id = #{like_id}
+	</delete>
+
+</mapper>

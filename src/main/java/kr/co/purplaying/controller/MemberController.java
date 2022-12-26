@@ -158,7 +158,8 @@ public class MemberController {
     }
     
     @PostMapping("/login")
-    public String login(String user_id, String user_pwd, boolean rememberId,String toURL ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String login(String user_id, String user_pwd, boolean rememberId,String toURL
+                        ,HttpServletRequest request, HttpServletResponse response) throws Exception {
                 
         //1. id와 pw를 확인
         if(!loginCheck(user_id, user_pwd)) {
@@ -186,7 +187,7 @@ public class MemberController {
         
         
         //3. 세션 객체 얻어오기.
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(true);
         //세션 객체에 id를 저장
         
 //        ArrayList<String> list = null;
@@ -196,6 +197,7 @@ public class MemberController {
         session.setAttribute("user_id", user_id);
         session.setAttribute("user_role", userDto.getUser_role());
         session.setAttribute("UserDto", userDto);
+        System.out.println(userDto);
                
         System.out.println("user_role :"+session.getAttribute("user_role"));
         System.out.println("user_id :"+session.getAttribute("user_id"));
@@ -214,7 +216,7 @@ public class MemberController {
     public void signup2(@RequestBody MemberDto memberDto, Model m ,HttpServletRequest request) throws Exception {
       System.out.println(memberDto);
       System.out.println("user_id"+memberDto.getUser_id());
-      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_phone())!=1) {
+      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_nickname(),memberDto.getUser_phone())!=1) {
         System.out.println("실패");
       }
       UserDto user = userDao.searchUser_no(memberDto.getUser_id());

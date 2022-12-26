@@ -6,57 +6,72 @@
  <mapper namespace="kr.co.purplaying.dao.PaymentMapper">
  	<sql id="selectAll">
  	SELECT 
- 	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
- 	prdt_id, 
- 	user_no, 
- 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, delivery_charge
+ 	*
 	FROM tb_payment
-	limit 1
  	</sql>
  	
  	<select id="select" parameterType="map" resultType="PaymentDto">
  		<include refid="selectAll"/>
  	</select>
  	
+ 	<!-- 결제정보 insert (선택된 리워드를 배열형태로 DB에 저장) -->
  	<insert id="insert" parameterType="PaymentDto">
- 	INSERT INTO tb_payment
-	(pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total,prdt_id, user_no, delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, reward_id, reward_user_cnt )
-	VALUES(now(), #{pay_cardnum},#{pay_carddate}, #{pay_cvc}, #{pay_pwd}, #{pay_total},#{prdt_id}, #{user_no}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo}, #{reward_id},#{reward_user_cnt})
+	INSERT INTO tb_payment
+	(pay_time, user_no, prdt_id,reward_id,reward_user_cnt, pay_total, 
+	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo)
+	VALUES(now(), #{user_no}, #{prdt_id},Array
+	<foreach collection="reward_id" item="reward_id" index="index" open="[" close="]" separator=",">
+	#{reward_id}
+		</foreach>,Array
+		<foreach collection="reward_user_cnt" item="reward_user_cnt" index="index" open="[" close="]" separator=",">
+	 #{reward_user_cnt} 
+ 	</foreach>,
+	#{pay_total}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo})
  	</insert>
- 	
- 	<select id="getPaymentInfo" parameterType="int" resultType="PaymentDto">
- 		<include refid="selectAll"/>
- 	</select>
- 	
+ 	 	
+ 	<!-- 결제완료 내역 가져오기 -->
  	<select id="paymentCompleted" parameterType="map" resultType="PaymentDto">
- 	SELECT 
- 	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
- 	prdt_id, 
- 	user_no, 
- 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo
-	FROM tb_payment
- 	where prdt_id = #{prdt_id} and user_no = #{user_no}
- 	order by pay_no
- 	limit 1
+ 	 <include refid="selectAll"/>
+ 	where prdt_id = #{prdt_id} and user_no = #{user_no} and pay_total = #{pay_total} and reward_id = #{reward_id} and delivery_postcode = #{delivery_postcode}
  	</select>
  	
- 	<select id="getPaymentReceipt" parameterType="int" resultType="PaymentDto">
- 	SELECT 
- 	pay_no, pay_time, pay_cardnum, pay_carddate, pay_cvc, pay_pwd, pay_total, 
- 	prdt_id, 
- 	user_no, 
- 	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo, delivery_charge
-	FROM tb_payment
-	where pay_no = #{pay_no}
+ 	<!-- 마이페이지 후원중인 펀딩 출력 -->
+ 	<select id="userFunding" parameterType="int" resultType="PaymentDto" >
+ 		<include refid="selectAll"/>
+ 		where user_no = #{user_no}
+ 		order by pay_no desc
  	</select>
- 	 
- 	 <select id="pay_no" parameterType="Map" resultType="PaymentDto">
- 	select pay_no
- 	from tb_payment
- 	where tb_payment.user_no = #{user_no} and tb_payment.prdt_id = #{prdt_id}
- 	limit 1
+
+	<!-- pay_no에 대한 결제 정보 가져오기 -->
+	<select id="paynoinfo" parameterType="int" resultType="paymentDto">
+ 	select *
+	from tb_payment
+ 	where pay_no = #{pay_no}
  	</select>
  	
+ 	<!-- pay_no에 대한 리워드 내역 가져오기 -->
+ 	<resultMap id="payment" type="PaymentDto">
+        <result property="pay_no" column="pay_no" javaType="int" />
+        <result property="pay_time" column="pay_time" javaType="Date" />
+        <result property="user_no" column="user_no" javaType="int" />
+        <result property="reward_id_s" column="reward_id_s" javaType="java.lang.String" />
+        <result property="reward_user_cnt_s" column="reward_user_cnt_s" javaType="java.lang.String" />
+        <result property="pay_total" column="pay_total" javaType="int" />
+        <result property="delivery_reciever" column="delivery_reciever" javaType="java.lang.String" />
+        <result property="delivery_phone" column="delivery_phone" javaType="java.lang.String" />
+         <result property="delivery_postcode" column="delivery_postcode" javaType="java.lang.String" />
+        <result property="delivery_address" column="delivery_address" javaType="java.lang.String" />
+         <result property="delivery_addressdetail" column="delivery_addressdetail" javaType="java.lang.String" />
+        <result property="delivery_memo" column="delivery_memo" javaType="java.lang.String" />
+    </resultMap>
+ 	
+ 	<select id="paynoreinfo" parameterType="PaymentDto" resultMap="payment">
+ 	select pay_no, 
+ 	array_to_string(array[reward_id],',') as reward_id_s, array_to_string(array[reward_user_cnt],',') as reward_user_cnt_s
+	from tb_payment
+ 	where pay_no = #{pay_no}
+ 	</select>
+ 	 	
  	<!-- 일주일이내 일당 후원액 집계 -->
 	<select id="fundingManageForChart" parameterType="Map" resultType="PaymentDto">
 	select sum(pay_total) as "daySum",Extract(dow from pay_time) as"day"
@@ -67,18 +82,21 @@
 	</select>
  	
  	<!-- 일주일 펀딩 내역 출력 -->
- 	 <select id="fundingManageForWeek" parameterType="Map" resultType="PaymentDto">
+ 	 <select id="fundingManageForWeek" parameterType="Map" resultMap="payment">
  	select
-	pay_no, pay_time, user_no, reward_id, reward_user_cnt, pay_total
+	pay_no, pay_time, user_no, 
+	array_to_string(array[reward_id],',') as reward_id_s, array_to_string(array[reward_user_cnt],',') as reward_user_cnt_s, 
+	pay_total
 	from tb_payment
 	where prdt_id =  #{prdt_id} and <![CDATA[pay_time >= current_date-7]]>
  	</select>
  	
  	<!-- csv 추출시 쿼리문 -->
- 	<select id="fundingManage" parameterType="Map" resultType="PaymentDto">
- 	select
-	pay_no, pay_time, user_no, reward_id, reward_user_cnt,
-	delivery_reciever, delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail,delivery_memo
+ 	<select id="fundingManage" parameterType="Map" resultMap="payment">
+ 	 select
+	pay_no, pay_time, user_no, 
+	array_to_string(array[reward_id],',') as reward_id_s, array_to_string(array[reward_user_cnt],',') as reward_user_cnt_s, 
+	pay_total,delivery_reciever,delivery_phone, delivery_postcode, delivery_address, delivery_addressdetail, delivery_memo
 	from tb_payment
 	where prdt_id =  #{prdt_id}
  	</select>

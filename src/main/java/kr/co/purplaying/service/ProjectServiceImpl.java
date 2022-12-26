@@ -127,4 +127,10 @@ public class ProjectServiceImpl implements ProjectService{
     // TODO Auto-generated method stub
     return projectDao.getSoonListByWriter(user_id);
   }
+
+  @Override
+  public List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception {
+    // TODO Auto-generated method stub
+    return projectDao.selectProjectImgforAdmin(sc);
+  }
 }

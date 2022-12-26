@@ -58,6 +58,7 @@ public class iamportController {
         return 0;
       }
       UserDto returnuserDto = userDao.selectUser(userDto.getUser_id());
+      session.setAttribute("UserDto", returnuserDto);
       return returnuserDto.getUser_point();
     } catch (Exception e) {
       // TODO Auto-generated catch block

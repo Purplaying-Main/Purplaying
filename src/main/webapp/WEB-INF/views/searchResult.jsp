@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,33 +45,17 @@
 								<!-- project thumb start -->
 								<div class="card shadow-sm">
 									<!-- 좋아요 버튼 -->
-									<button class="likeBtn" onclick="clickBtn()">
-										<i class="fa-regular fa-heart far"></i>
-									</button>
-									<div
-										onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'"
-										style="cursor: pointer">
-										<img class="bd-placeholder-img" width="100%" height="225"
-											id="prdt_thumbnail" name="prdt_thumbnail"
-											src="${ProjectDto.prdt_thumbnail}"
-											style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">
-									</div>
+							                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
+							                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
+							                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
+							                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
+							                </div>
 									<div class="card-body">
 										<c:choose>
-											<c:when test="${ProjectDto.prdt_genre eq 1 }">
-												<p class="card-cate"
-													onclick="location.href='genre/literature'">문학</p>
-											</c:when>
-											<c:when test="${ProjectDto.prdt_genre eq 2 }">
-												<p class="card-cate"
-													onclick="location.href='genre/poemessay'">시/에세이</p>
-											</c:when>
-											<c:when test="${ProjectDto.prdt_genre eq 3 }">
-												<p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p>
-											</c:when>
-											<c:otherwise>
-												<p class="card-cate">장르</p>
-											</c:otherwise>
+											<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate"onclick="location.href='genre/literature'">문학</p></c:when>
+											<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate"onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+											<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+											<c:otherwise><p class="card-cate">장르</p></c:otherwise>
 										</c:choose>
 										<div class="link-div"
 											onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'">
@@ -98,13 +83,21 @@
 							</div>
 						</c:forEach>
 					</div>
+<%-- 						<div class="col">
+							<h1 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/viewMore?page=1'" style="color: #9E62FA; cursor:pointer;">더보기</h1>
+						</div> --%>
 					<br>
-					<div class="pagination mb-0 col-10 justify-content-center">
+					<div class="pagination mb-0 col-12 justify-content-center">
 
 						<c:if test="${prdt_count == null || prdt_count == 0 }">
 							<h6 class="row text-center ">
 								"<%=request.getParameter("keyword")%>" 펀딩이 없습니다.
 							</h6>
+						</c:if>
+						<c:if test="${prdt_count > 6 }">
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/projectViewMore?page=1'" style="cursor:pointer;" >더보기
+							</h6>						
+							
 						</c:if>
 <%-- 						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
@@ -143,7 +136,7 @@
 											class="img-thumbnail rounded-circle" alt="유저 프로필">
 									</div>
 									<div class="col">
-										<h5 class="row text-primary mt-2">${UserDto.user_name }</h5>
+										<h5 class="row text-primary mt-2">${UserDto.user_nickname }</h5>
 										<h6 class="row text-muted">${UserDto.user_id }</h6>
 										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
 									</div>
@@ -153,14 +146,17 @@
 						</c:forEach>
 					</div>
 					<br> <br>
-					<div class="pagination mb-0 col-10 justify-content-center">
+					<div class="pagination mb-0 col-12 justify-content-center">
 
 						<c:if test="${user_count == null || user_count == 0 }">
 							<h6 class="row text-center ">
 								"<%=request.getParameter("keyword")%>"이라는 제작자가 없습니다.
 							</h6>
 						</c:if>
-		
+						<c:if test="${user_count > 6 }">
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/creatorViewMore?page=1'" style="cursor:pointer;" >더보기
+							</h6>													
+						</c:if>						
 
 					</div>
 				</div>
@@ -175,6 +171,8 @@
 		</div>
 
 	</section>
+
+
 
 
 	<!--푸터 인클루드-->

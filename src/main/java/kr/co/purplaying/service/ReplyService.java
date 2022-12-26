@@ -6,8 +6,8 @@ import kr.co.purplaying.domain.ReplyDto;
 
 public interface ReplyService {
 
-  List<ReplyDto> selectReply(int prdt_id) throws Exception;
+  List<ReplyDto> getRlist(int prdt_id) throws Exception;
 
-  int insertReply(ReplyDto replyDto) throws Exception;
+  int replyInsert(ReplyDto rDto) throws Exception;
 
 }

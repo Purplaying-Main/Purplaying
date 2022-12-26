@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.purplaying.domain.CommunityDto;
+import kr.co.purplaying.domain.ReplyDto;
 
 @Repository
 public class CommunityDaoImpl implements CommunityDao {
@@ -37,6 +38,17 @@ public class CommunityDaoImpl implements CommunityDao {
       public int delete(int chat_no) throws Exception {
         // TODO Auto-generated method stub
         return session.delete(namespace+"delete", chat_no);
+      }
+      @Override
+      public List<ReplyDto> selectReply(int prdt_id) throws Exception {
+        // TODO Auto-generated method stub
+        return session.selectList(namespace+"selectReply", prdt_id);
+      }
+      
+      @Override
+      public int replyInsert(ReplyDto rDto) throws Exception {
+        // TODO Auto-generated method stub
+        return session.insert(namespace+"replyInsert", rDto);
       }
 
 

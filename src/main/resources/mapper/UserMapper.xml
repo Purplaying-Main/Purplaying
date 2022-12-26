@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.purplaying.UserMapper">
 
 	<sql id="selectFromUser">
-		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE , USER_POINT, USER_NICKNAME
+		SELECT USER_NO, USER_ID ,USER_PWD ,USER_NAME, USER_NICKNAME,USER_PHONE,USER_REGDATE ,USER_ACTIVATE,USER_ROLE , USER_PROFILE , USER_POINT
 		FROM tb_user
 	</sql>
 	<!-- signin -->
@@ -60,7 +60,7 @@
 
 	<!-- signup -->
 	<insert id="insertUserInfo" parameterType="map">
-		INSERT INTO tb_user (user_id, user_pwd, user_name, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_phone})
+		INSERT INTO tb_user (user_id, user_pwd, user_name, user_nickname, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_nickname}, #{user_phone})
 	</insert>
 	
 	<insert id="insertUserCheck" parameterType="map">
@@ -108,18 +108,21 @@
 	</update>
 	
 	<!--검색 기능  -->	
+	
+	<!-- 유저카운트 -->
 	<select id="searchuser" parameterType="SearchItem2" resultType="int">
 		select count(*) 
 		FROM tb_user
 		WHERE TRUE
-		AND user_name LIKE concat('%', #{keyword}, '%')	
+		AND user_nickname LIKE concat('%', #{keyword}, '%')	
 		OR user_id LIKE concat('%', #{keyword}, '%')
 	</select>
 	
+	<!-- 유저검색페이지 -->
 	<select id="searchUserPage" parameterType="SearchItem2" resultType="UserDto">
 		<include refid="selectFromUser"/>
 		WHERE TRUE
-		AND user_name LIKE concat('%', #{keyword}, '%')
+		AND user_nickname LIKE concat('%', #{keyword}, '%')
 		OR user_id LIKE concat('%', #{keyword}, '%')
 		limit 6 offset #{offset}
   	</select>
@@ -139,5 +142,12 @@
 		UPDATE tb_user 
 		set user_point= #{user_point}
 		WHERE user_id = #{user_id}	
+	</update>
+	
+	<!-- 결제에 따른 유저 포인트 갱신 -->
+	<update id="updatePoint" parameterType="int">
+		UPDATE tb_user
+		set user_point = #{user_point}
+		where user_no = #{user_no}
 	</update>
 </mapper>

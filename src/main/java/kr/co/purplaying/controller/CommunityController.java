@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.CommunityDto;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.CommunityService;
 
 @Controller
@@ -26,6 +28,9 @@ public class CommunityController {
 
   @Autowired
   CommunityService service;
+
+  @Autowired
+  UserDao userDao;
 
   @GetMapping("/community")
   @ResponseBody
@@ -35,7 +40,7 @@ public class CommunityController {
     try {
       list = service.getList(prdt_id);
 
-      System.out.println("list =" + list);
+      System.out.println("list1 =" + list);
       return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
@@ -47,7 +52,7 @@ public class CommunityController {
   @PostMapping("/community")
   @ResponseBody
   public List<CommunityDto> list2(@RequestBody CommunityDto communityDto, int prdt_id, Model m) {
-    List<CommunityDto> list = null; 
+    List<CommunityDto> list = null;
     System.out.println(communityDto);
 
     try {
@@ -55,7 +60,7 @@ public class CommunityController {
         System.out.println("실패");
       }
       list = service.getList(communityDto.getPrdt_id());
-      System.out.println("list =" + list);
+      System.out.println("list11 =" + list);
 
       return list;
 
@@ -65,25 +70,32 @@ public class CommunityController {
     }
   }
 
-  @PostMapping("/community/{chat_no}")
-  public String write(CommunityDto communityDto, RedirectAttributes rattr, Model m, HttpSession session) {
+  @PostMapping("/community/insert/{prdt_id}")
+  @ResponseBody
+  public ResponseEntity<List<CommunityDto>> write(@RequestBody CommunityDto communityDto, RedirectAttributes rattr,
+      Model m, HttpSession session) {
+    List<CommunityDto> list = null;
+    String writer = (String) session.getAttribute("user_id");
+    UserDto nickname = (UserDto) session.getAttribute("UserDto");
 
-    String writer = (String) session.getAttribute("chat_writer");
     communityDto.setChat_writer(writer);
+    communityDto.setUser_nickname(nickname.getUser_nickname());
 
     try {
-
+      UserDto userDto = userDao.searchUser_no(writer);
+      communityDto.setUser_no(userDto.getUser_no());
+      System.out.println(communityDto);
       if (service.insertChat(communityDto) != 1)
         throw new Exception("Write failed");
       rattr.addFlashAttribute("msg", "RPL_OK");
-      return "redirect:/project/{prdt_id}";
-
+      list = service.getList(communityDto.getPrdt_id());
+      return new ResponseEntity<List<CommunityDto>>(list, HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
       m.addAttribute("mode", "new"); // 글쓰기 모드
       m.addAttribute("communityDto", communityDto); // 등록하려던 내용을 보여줘야 함
       m.addAttribute("msg", "RPL_ERR");
-      return "redirect:/project/{prdt_id}";
+      return new ResponseEntity<List<CommunityDto>>(HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -102,14 +114,16 @@ public class CommunityController {
     }
   }
 
-// 댓글을 수정하는 메서드
-  @PatchMapping("/community/{chat_no}")
-  public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
-      HttpSession session) {
-    String chat_writer = (String) session.getAttribute("prdt_id");
+//댓글을 수정하는 메서드
 
-    dto.setChat_writer(chat_writer);
+  @PatchMapping("/community/modify/{chat_no}")
+  public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
+      String chat_context, HttpSession session) {
+    String writer = (String) session.getAttribute("user_id");
+
     dto.setChat_no(chat_no);
+    dto.setChat_writer(writer);
+
     System.out.println("dto = " + dto);
 
     try {
@@ -120,6 +134,7 @@ public class CommunityController {
       e.printStackTrace();
       return new ResponseEntity<String>("MOD_ERR", HttpStatus.BAD_REQUEST);
     }
+
   }
 
 //댓글 작성

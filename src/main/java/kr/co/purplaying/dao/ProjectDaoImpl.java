@@ -157,4 +157,10 @@ public class ProjectDaoImpl implements ProjectDao {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"getSoonListByWriter", user_id);
   }
+
+  @Override
+  public List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"selectProjectImgforAdmin",sc);
+  }
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +48,7 @@
 	                <span> | </span>
 	                <span class="ms-2" id="dt_creator">${projectDto.writer}</span>
 	                </div> 
-                  <div>예약번호 : <c:forEach var="paymentDto" items="${pay }" >${paymentDto.pay_no }</div>
+                 <div>예약번호 : ${pay_user.get(0).getPay_no() }</div>
                 </div>
                 <h4 class="fw-bold lh-lg">${projectDto.prdt_name}</h4>
                 <br>
@@ -57,43 +58,34 @@
   
           <!--사분할 시작-->
           <div class="row justify-content-center">
-
             <!--리워드 정보-->
             <div class="d-flex mb-2">
             <div class="col-12">
               <div class="card">
                 <h5 class="card-header">리워드 정보</h5>
-                <c:forEach var="rewardDto" items="${rewardDto }">
                   <div class="card-body">
-                  <div class="d-flex justify-content-between mx-1">
-                    <p class="form-label fw-bold">No. 패키지</p>
-                    <p class="form-label">${rewardDto.row_number}. ${rewardDto.reward_name}</p>
-                  </div>
-                  <div class="d-flex justify-content-between mx-1">
-                    <p class="form-label fw-bold">수량</p>
-                    <p class="form-label"><span id="dt_rewardItem">${rewardDto.reward_user_cnt }</span></p>
-                  </div> 
-                  <div class="d-flex justify-content-between mx-1">
-                    <p class="form-label fw-bold">가격</p>
-                    <p class="form-label"><span id="dt_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${rewardDto.reward_price }"/></span>원</p>
-                  </div>
+	        	<table class="table">
+	        		<tr class="table-Secondary">
+                  		<th class="col-8" scope="col">리워드 패키지</th>
+                  		<th class="col-2 text-center" scope="col">수량</th>
+                  		<th class="col-2 text-center" scope="col">가격</th>
+                  	</tr>
+                  <c:set var="i" value="0"/>
+                  <c:forEach items="${reward_pay }" begin="0" end="${fn:length(reward_pay)/4-1}">
+                  <tr>
+                    <td class="col-8">${reward_pay[i]} - ${reward_pay[i+1]}</td>
+                    <td class="col-2 text-center" > ${reward_pay[i+2]}개</td>
+                    <td class="col-2 text-center" ><fmt:formatNumber type="number" maxFractionDigits="3" value="${reward_pay[i+3] }"/>원</td>
+                  </tr>
+                  <c:set var="i" value="${i+4 }" />
+                  </c:forEach>
+                  </table>
                 </div>
-                </c:forEach>
               </div>
             </div>
             </div>
             
-<%--             <!-- 후원자 정보-->
-            <div class="col-6">
-              <div class="card">
-                <h5 class="card-header">후원자 정보</h5>
-                <div class="card-body" style="line-height: 3.47;">
-                    <p class="form-label"><span class="fw-bold">연락처</span><span class="ms-1" id="dt_phoneNM">${userDto.user_phone}</span></p>
-                    <p class="form-label"><span class="fw-bold">이메일</span><span class="ms-1" id="dt_email">${userDto.user_id}</span></p>
-                </div>
-              </div>
-            </div>
-            </div> --%>
+
   
             <!--배송 정보-->
             <div class="d-flex">
@@ -111,17 +103,10 @@
                     <p class="form-label fw-bold">연락처</p>
                     <p class="form-label"><span id="dt_phoneNM">${userDto.user_phone}</span></p>
                 </div>
- <%--                 <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">후원 금액</p>
-                    <p class="form-label"><span id="dt_fundingPrice">${paymentDto.pay_total }</span>원</p>
-                  </div>
-                   <div class="d-flex justify-content-between">
-                      <p class="form-label fw-bold">배송비</p>
-                      <p class="form-label"><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.delivery_charge}"/></span>원</p>
-                  </div> --%>
+
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
-                    <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.pay_total}"/></span>원</p>
+                     <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pay_user.get(0).getPay_total()}"/></span>원</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 예정일</p>
@@ -137,26 +122,25 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">수령인</p>
-                    <p class="form-label" id="dt_recieverName">${param.delivery_reciever }</p>
+                    <p class="form-label" id="dt_recieverName">${pay_user.get(0).getDelivery_reciever() }</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">연락처</p>
-                    <p class="form-label" id="dt_phoneNumber">${param.delivery_phone }</p>
+                    <p class="form-label" id="dt_phoneNumber">${pay_user.get(0).getDelivery_phone() }</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">주소</p>
-                    <p class="form-label" id="dt_address">[${param.delivery_postcode }]${param.delivery_address } ${param.delivery_addressdetail}</p>
+                    <p class="form-label" id="dt_address">[${pay_user.get(0).getDelivery_postcode() }]${pay_user.get(0).getDelivery_address() } ${pay_user.get(0).getDelivery_addressdetail()}</p>
                   </div>
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">배송요청사항</p>
-                    <p class="form-label" id="dt_deliveryMemo">${param.delivery_memo }</p>
+                    <p class="form-label" id="dt_deliveryMemo">${pay_user.get(0).getDelivery_memo() }</p>
                   </div>
                 </div>
               </div>
             </div>
   
 		  </div>
-            </c:forEach>
 
           </div><!--사분할 종료-->
 

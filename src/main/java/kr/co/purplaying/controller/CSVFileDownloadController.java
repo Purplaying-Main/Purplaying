@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
-import kr.co.purplaying.domain.PaymentDto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +20,7 @@ import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
 import kr.co.purplaying.dao.PaymentDao;
+import kr.co.purplaying.domain.PaymentDto;
 
 @Controller
 public class CSVFileDownloadController {
@@ -41,7 +42,7 @@ public class CSVFileDownloadController {
     response.setContentType("text/csv");
     response.setContentType("application/ms-excel; charset=MS949"); //한글깨짐 방지를 위해 인코딩
     response.setCharacterEncoding("MS949");
-    
+   
     String headerKey = "Content-Disposition";
     String headerValue = String.format("attachment; filename=\"%s\"",csvFileName);
     response.setHeader(headerKey, headerValue);
@@ -49,10 +50,10 @@ public class CSVFileDownloadController {
     Map map = new HashMap(); 
     map.put("prdt_id", prdt_id);
     List<PaymentDto> list_pay = new ArrayList<PaymentDto>(paymentDao.fundingManage(map));
-
+    
     ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(),CsvPreference.STANDARD_PREFERENCE);
     
-    String[] header = { "pay_no", "pay_time","user_no", "reward_id", "reward_user_cnt",
+    String[] header = { "pay_no", "pay_time","user_no", "reward_id_s", "reward_user_cnt_s","pay_total",
         "delivery_reciever", "delivery_phone", "delivery_postcode","delivery_address","delivery_addressdetail","delivery_memo" };
 
     csvWriter.writeHeader(header);

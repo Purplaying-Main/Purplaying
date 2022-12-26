@@ -45,11 +45,12 @@ public class UserDaoImpl implements UserDao {
       return session.update(namespace + "updateNickName", userDto);
     }
 
-    public int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception {
+    public int signUpUser(String user_id, String user_pwd, String user_name, String user_nickname, String user_phone) throws Exception {
       Map map = new HashMap();
       map.put("user_id", user_id);
       map.put("user_pwd", user_pwd);
       map.put("user_name", user_name);
+      map.put("user_nickname", user_nickname);
       map.put("user_phone", user_phone);
       
       return session.insert(namespace+"insertUserInfo",map);
@@ -151,6 +152,14 @@ public class UserDaoImpl implements UserDao {
     public int updatePoint(UserDto userDto) throws Exception {
       // TODO Auto-generated method stub
       return session.update(namespace+"insertPoint",userDto);
+    }
+
+    @Override
+    public int updatePoint(int user_no, int user_point) throws Exception {
+      Map map = new HashMap();
+      map.put("user_no", user_no);
+      map.put("user_point", user_point);
+      return session.update(namespace+"updatePoint",map);
     }
     
     

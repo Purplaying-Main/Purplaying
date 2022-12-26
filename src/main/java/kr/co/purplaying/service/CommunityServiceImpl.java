@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.BoardDao;
 import kr.co.purplaying.dao.CommunityDao;
+import kr.co.purplaying.dao.ReplyDao;
 import kr.co.purplaying.domain.CommunityDto;
+import kr.co.purplaying.domain.ReplyDto;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
   CommunityDao communityDao;
   BoardDao boardDao;
+  ReplyDao replyDao;
 
   @Autowired
   public CommunityServiceImpl(CommunityDao communityDao, BoardDao boardDao) {
@@ -46,5 +49,16 @@ public class CommunityServiceImpl implements CommunityService {
     return communityDao.delete(chat_no);
   }
 
+  @Override
+  public int replyInsert(ReplyDto rDto) throws Exception {
+    // TODO Auto-generated method stub
+    return replyDao.replyInsert(rDto);
+  }
+
+  @Override
+  public List<ReplyDto> getRlist(int prdt_id) throws Exception {
+    
+    return replyDao.selectReply(prdt_id);
+  }
 
 }

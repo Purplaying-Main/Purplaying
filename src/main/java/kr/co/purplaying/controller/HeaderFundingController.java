@@ -4,27 +4,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.co.purplaying.dao.HeaderFundingDao;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.service.LikeService;
 
 @Controller
 public class HeaderFundingController { 
   @Autowired
   HeaderFundingDao headerFundingDao;
   
+  @Autowired
+  LikeService likeService;
   
-  @RequestMapping("/popularFunding")
   @GetMapping("/popularFunding")
-  public String popularFunding(ProjectDto projectDto, Model m) {
+  public String popularFunding(ProjectDto projectDto, Model m, HttpSession session) {
+    
+    String id = (String)session.getAttribute("user_id");
+    
     try {
       Map map = new HashMap();
       List<ProjectDto> list_p = headerFundingDao.popularFunding(map);
       m.addAttribute("list_p",list_p);
+      
+      if(id!=null) {
+        boolean likecheck = false;
+        List<Integer> Likelist = likeService.selectLikelist(id);
+        System.out.println(Likelist);
+     
+   
+        m.addAttribute("Likelist",Likelist);
+        
+      }      
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -33,13 +50,26 @@ public class HeaderFundingController {
     return "popularFunding";
   }
   
-  @RequestMapping("/newFunding")
   @GetMapping("/newFunding")
-  public String newFunding(ProjectDto projectDto, Model m) {
+  public String newFunding(ProjectDto projectDto, Model m, HttpSession session) {
+    
+    String id = (String)session.getAttribute("user_id");
+    
     try {
       Map map = new HashMap();
       List<ProjectDto> list_n = headerFundingDao.newFunding(map);
       m.addAttribute("list_n",list_n);
+      
+      
+      if(id!=null) {
+        boolean likecheck = false;
+        List<Integer> Likelist = likeService.selectLikelist(id);
+        System.out.println(Likelist);
+     
+   
+        m.addAttribute("Likelist",Likelist);
+        
+      }      
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -48,15 +78,27 @@ public class HeaderFundingController {
     return "newFunding";
   }
   
-  
-  @RequestMapping("/comingsoonFunding")
+
   @GetMapping("/comingsoonFunding")
-  public String getPage(ProjectDto projectDto, Model m ) {
+  public String getPage(ProjectDto projectDto, Model m, HttpSession session ) {
+    
+    String id = (String)session.getAttribute("user_id");
     
     try {
       Map map = new HashMap();
       List<ProjectDto> list_c = headerFundingDao.comingsoonFunding(map);
       m.addAttribute("list_c",list_c);
+      
+      if(id!=null) {
+        boolean likecheck = false;
+        List<Integer> Likelist = likeService.selectLikelist(id);
+        System.out.println(Likelist);
+     
+   
+        m.addAttribute("Likelist",Likelist);
+        
+      }      
+      
 
     } catch (Exception e) {
       e.printStackTrace();

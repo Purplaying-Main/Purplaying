@@ -12,17 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.ProjectDao;
 import kr.co.purplaying.dao.UserDao;
+import kr.co.purplaying.domain.AlarmDto;
 import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.service.AlarmService;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
 
@@ -41,8 +44,11 @@ public class MypageController {
   @Autowired
   PaymentDao paymentDao;
 
-   @Autowired
+  @Autowired
   LikeService likeService;
+   
+  @Autowired
+  AlarmService alarmService;
   
   @GetMapping("/mypage")
   public String list(@RequestParam(defaultValue = "1") Integer page,
@@ -72,6 +78,7 @@ public class MypageController {
       Map map = new HashMap();
       map.put("offset", (page-1)*pageSize);
       map.put("pageSize", pageSize);
+      map.put("user_id", user_id);
       
       List<LikeDto> list_like_project = likeService.selectByUserId(user_id);
       List<ProjectDto> list_like = new ArrayList<ProjectDto>();
@@ -94,41 +101,104 @@ public class MypageController {
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
       
-      //후원한 펀딩 보여주는 부분
-      int user_no = userDao.getPaymentUserInfo(user_id).getUser_no();
-      System.out.println("user_no : "+user_no);
-      List<ProjectDto> myfunding = projectDao.myfunding(userDao.getPaymentUserInfo(user_id).getUser_no());
-      System.out.println("myfunding : "+myfunding);
-      myfunding.get(0).setUser_no(user_no);
-      int prdt_id = myfunding.get(0).getPrdt_id();
-      System.out.println(paymentDao.pay_no(user_no, prdt_id));
-      //myfunding.get(0).setPay_no();
-      List<PaymentDto> pay_no = paymentDao.pay_no(user_no, prdt_id);
-      myfunding.get(0).setPay_no(pay_no.get(0).getPay_no());
-      System.out.println(myfunding);
-      m.addAttribute("myfunding", myfunding);
+      /*후원 중인 펀딩 부분*/
+      //1.유저 번호(FK)를 이용하여 해당 유저번호에 해당하는 펀딩 결제내역을 가져옴
+      int user_no = userDao.selectUser(user_id).getUser_no();
+      List<PaymentDto> userFunding = paymentDao.userFunding(user_no);
       
+      //2.해당 펀딩에 해당하는 정보를 어레이리스트에 담음 (*두 테이블에서 int와 string이 섞여있어 어레이리스트를 이용하였음)
+      ArrayList<String> userF = new ArrayList<String>();
+      for(int i=0; i<userFunding.size(); i++) {
+        userF.add(String.valueOf(userFunding.get(i).getPay_no()));
+        ProjectDto pi = projectDao.select(userFunding.get(i).getPrdt_id());
+        userF.add(String.valueOf(pi.getPrdt_id()));
+        userF.add(pi.getPrdt_thumbnail());
+        userF.add(pi.getPrdt_name());
+        userF.add(pi.getPrdt_desc());
+        userF.add(String.valueOf(pi.getPrdt_comingday()));
+        userF.add(String.valueOf(pi.getPrdt_dday()));
+        userF.add(String.valueOf(pi.getPrdt_percent()));
+      }
+
+      m.addAttribute("userF",userF);
       
+//    알림 목록 불러오기
+      List<AlarmDto> list_alarm = alarmService.selectPage(map);
+//      System.out.println("list_alarm : "+list_alarm);
+      m.addAttribute("list_alarm", list_alarm);
+
+      AlarmDto alarmDto = list_alarm.get(0);
+      System.out.println("alarmDto : "+alarmDto);
+      m.addAttribute("alarmDto", alarmDto);
+
       } catch (Exception e) {
-      e.printStackTrace();
+        e.printStackTrace();
       }
       return "mypage";                         // 로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
- //펀딩관리페이지 맵핑
-  @GetMapping("/mypage/fundingmanage/{prdt_id}")
-  public String fundingManage(HttpServletRequest request,HttpSession session,Model m,@PathVariable("prdt_id") Integer prdt_id, PaymentDto paymentDto) {
+//알림 확인 누르면 조회수 1증가. new 뱃지 삭제됨
+  @PatchMapping("/alarm/read/{alarm_no}")
+  public String read(@PathVariable Integer alarm_no, Model m, HttpSession session) {
+
     try {
-      System.out.println(prdt_id);
-      m.addAttribute("prdt_id",prdt_id);
-      Map map = new HashMap(); 
-      map.put("prdt_id", prdt_id);
-      List<PaymentDto> list_pay = paymentDao.fundingManage(map);
-      System.out.println(list_pay);
-      m.addAttribute("list_pay",list_pay);
-      return "fundingManage";
+          String user_id = (String)session.getAttribute("user_id");
+
+          if (user_id != null )
+            m.addAttribute(user_id);
+
+          AlarmDto alarmDto = alarmService.read(alarm_no);
+          m.addAttribute(alarmDto);
+
+      } catch (Exception e) {
+          e.printStackTrace();
+          return "mypage";
+      }
+      return "mypage";
+  }
+  
+  /*창작 중인 펀딩 관리 화면*/
+  @GetMapping("/mypage/fundingmanage/{prdt_id}")
+  public String fundingManage(HttpServletRequest request,RedirectAttributes rattr,HttpSession session,Model m,
+      @PathVariable("prdt_id") Integer prdt_id, PaymentDto paymentDto,ProjectDto projectDto) {
+
+    try {
+      //1.펀딩번호에 해당하는 펀딩 정보
+      projectDto.setPrdt_id(prdt_id);
+      ProjectDto proj_dto = projectDao.select(prdt_id);
       
-    } catch (Exception e) {
+      //2.프로젝트 창작자 != 유저 아이디인경우 alert 띄우고 마이페이지로 리턴
+      if(!session.getAttribute("user_id").equals(proj_dto.getWriter())) {
+        rattr.addFlashAttribute("msg", "no_authorization");
+        return "redirect:/mypage";  
+      }
+      
+      //3.프로젝트 창작자 = 유저 아아디인 경우
+      else {
+      m.addAttribute("proj_dto",proj_dto);
+      m.addAttribute("prdt_id",prdt_id);
+      
+      //4-1 테이블용 map
+      Map mapT = new HashMap(); 
+      mapT.put("prdt_id", prdt_id);
+      List<PaymentDto> list_pay = paymentDao.fundingManageForWeek(mapT);
+      m.addAttribute("list_pay",list_pay);
+
+      //4-2 일별 모금액을 map에 저장 => 스크립트를 통해 차트로 보여줌
+      Map mapC = new HashMap(); 
+      mapC.put("prdt_id", prdt_id);
+      List<PaymentDto> list_payC = paymentDao.fundingManageForChart(mapC);
+      Map<Integer, Integer> dayNtotal = new HashMap<Integer, Integer>();
+      for(int i = 0; i<list_payC.size(); i++) {
+        dayNtotal.put(list_payC.get(i).getDay(),list_payC.get(i).getDaySum());
+      }
+       m.addAttribute("dayNtotal",dayNtotal);
+        
+             
+      return "fundingManage";
+      }
+    } 
+    catch (Exception e) {
      e.printStackTrace();
      return "mypage";
     }

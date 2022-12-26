@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.purplaying.dao.SettingDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.AddressDto;
-import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
@@ -85,6 +84,7 @@ public class SettingController {
     return "setting";         //로그인 한 상태, 게시판 목록 화면으로 이동
   }
   
+  @SuppressWarnings("deprecation")
   @RequestMapping(value="/setting/profile/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyProfile(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session) {
     map.put("user_no", user_no);
@@ -196,6 +196,18 @@ public class SettingController {
   }
   
   @ResponseBody
+  @RequestMapping(value="/setting/stregaddress/{user_no}", method = RequestMethod.POST)
+  public int addressCnt(@PathVariable int user_no) {
+    System.out.println("user_no : " + user_no);
+    int Cnt = settingService.addressCnt(user_no);
+    
+    System.out.println("Cnt : " + Cnt);
+    
+    return Cnt;
+    
+  }
+  
+  @ResponseBody
   @RequestMapping(value="/setting/address/{user_no}", method = RequestMethod.POST)
   public List<AddressDto> addAddress(@PathVariable int user_no, @RequestBody AddressDto addressDto , HttpSession session) {
     addressDto.setUser_no(user_no);
@@ -221,7 +233,7 @@ public class SettingController {
       
       try {
         list = settingService.getList(user_no);
-          
+        
         System.out.println("list = " + list);
         return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
           
@@ -246,35 +258,53 @@ public class SettingController {
     
   }
   
-  
   @RequestMapping(value="/setting/endmodaddress", method = RequestMethod.PATCH)
-  public ResponseEntity<AddressDto> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
+  public ResponseEntity<List<AddressDto>> modifyAddress(@RequestBody AddressDto addressDto , HttpSession session) {
+    List<AddressDto> list = null;
+    String id = (String)session.getAttribute("user_id");
     try {
+      UserDto dto = settingService.setUser(id);
+      int user_no = dto.getUser_no();
+      
       if(settingService.modifyAddress(addressDto) != 1)
           throw new Exception("Update failed");
-      return new ResponseEntity<AddressDto>(HttpStatus.OK);
+      
+      list = settingService.getList(user_no);
+      
+      System.out.println("list = " + list);
+      return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);
     }catch(Exception e) {
       e.printStackTrace();
-      return new ResponseEntity<AddressDto>(HttpStatus.BAD_REQUEST);
+      return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);
     }
   }
   
+  @ResponseBody
   @RequestMapping(value="/setting/deladdress/{address_id}", method = RequestMethod.DELETE)
-  public ResponseEntity<String> remove(@PathVariable Integer address_id, HttpSession session) {
+  public ResponseEntity<List<AddressDto>> remove(@PathVariable Integer address_id, HttpSession session) {
+    List<AddressDto> list = null;
     System.out.println(address_id + "삭제 호출");
+    String id = (String)session.getAttribute("user_id");
+    
     
     try {
-          
+          UserDto dto = settingService.setUser(id);
+          int user_no = (int)dto.getUser_no();
+    
           if(settingService.removeAddress(address_id) != 1) 
               throw new Exception("Delete Failed");
           
-          return new ResponseEntity<String>("DEL_OK", HttpStatus.OK);
+          list = settingService.getList(user_no);
+          
+          System.out.println("list = " + list);
+          return new ResponseEntity<List<AddressDto>>(list, HttpStatus.OK);       //200
           
       } catch (Exception e) {
           e.printStackTrace();
-          return new ResponseEntity<String>("DEL_ERR", HttpStatus.BAD_REQUEST);
+          return new ResponseEntity<List<AddressDto>>(HttpStatus.BAD_REQUEST);
       }
   }
+  
   
   @RequestMapping(value="/setting/alarm/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyAlarm(@PathVariable int user_no, @RequestBody SettingDto settingDto , HttpSession session, Model m) {

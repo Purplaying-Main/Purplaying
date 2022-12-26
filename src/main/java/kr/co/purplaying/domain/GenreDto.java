@@ -2,7 +2,6 @@ package kr.co.purplaying.domain;
 
 import java.util.Date;
 import java.util.Objects;
-import org.springframework.web.util.UriComponentsBuilder;
 
 public class GenreDto {
   private int prdt_id;

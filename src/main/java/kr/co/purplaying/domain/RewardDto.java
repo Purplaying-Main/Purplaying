@@ -14,7 +14,7 @@ public class RewardDto {
   private int reward_cnt;
   private int user_no;
   private int pay_no;
-  private int reward_user_cnt;
+  private int reward_user_cnt;  //결제시 리워드 재고 조정을 위해 필요(DB에는 없음)
   PaymentDto paymentDto;
   
   public RewardDto() {

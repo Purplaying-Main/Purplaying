@@ -15,15 +15,15 @@ public class ReplyServiceImpl implements ReplyService {
   ReplyDao replyDao;
 
   @Override
-  public List<ReplyDto> selectReply(int prdt_id) throws Exception {
+  public int replyInsert(ReplyDto rDto) throws Exception {
     // TODO Auto-generated method stub
-    return replyDao.selectReply(prdt_id);
+    return replyDao.replyInsert(rDto);
   }
 
   @Override
-  public int insertReply(ReplyDto replyDto) throws Exception {
+  public List<ReplyDto> getRlist(int prdt_id) throws Exception {
     // TODO Auto-generated method stub
-    return replyDao.insertReply(replyDto);
+    return replyDao.selectReply(prdt_id);
   }
 
 }

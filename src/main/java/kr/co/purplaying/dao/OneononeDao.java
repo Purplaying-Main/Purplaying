@@ -30,9 +30,6 @@ public interface OneononeDao{
 	
 	int updateAnsCnt(Integer inquiry_no, Integer inquiry_state) throws Exception;
 
-
-   
-  
 }
 
 

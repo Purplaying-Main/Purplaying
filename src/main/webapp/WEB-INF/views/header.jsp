@@ -74,12 +74,14 @@
 	          	<c:if test="${sessionScope.user_role eq '1'}"><li><a class="dropdown-item" href="/purplaying/admin/userlist">Admin 페이지</a></li></c:if>
 	            <li><a class="dropdown-item link-primary" href="/purplaying/project/write"><strong>신규 프로젝트 올리기</strong></a></li>
 	            <li><hr class="dropdown-divider"></li>
+	            <li><button class="dropdown-item" id="iamport" data-bs-toggle="modal" data-bs-target="#pointpayModal">포인트 충전하기 <i class="fa-solid fa-sack-dollar" style="color:#9E62FA"></i></button></li>
 	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
 	            <li><a class="dropdown-item" href="/purplaying/notice/list">고객센터</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
 	          </ul>
+	          <%@ include file ="iamport.jsp" %>
           </div>
         <!--   <script type="text/javascript">
           		function goPost(){
@@ -94,7 +96,6 @@
 <script type="text/javascript">
 
 function searchCheck()
-
 {
      var str_keyword = window.searchform.keyword.value;
      if(!str_keyword || str_keyword == "")

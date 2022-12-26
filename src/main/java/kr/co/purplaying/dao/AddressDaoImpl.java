@@ -52,4 +52,15 @@ public class AddressDaoImpl implements AddressDao {
     return session.selectOne(namespace + "CountDefaultAddress", user_no);
   }
 
+  @Override
+  public int CntAddress(int user_no) {
+    return session.selectOne(namespace + "CountAddress", user_no);
+  }
+
+  @Override
+  public int DefaultT2F(int user_no) throws Exception {
+    
+    return session.update(namespace + "updateDefaultAddress", user_no);
+  }
+
 }

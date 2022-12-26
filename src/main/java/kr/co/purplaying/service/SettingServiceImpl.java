@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.purplaying.dao.AddressDao;
 import kr.co.purplaying.dao.SettingDao;
@@ -66,6 +67,12 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public int addressAdd(AddressDto addressDto) throws Exception {
+    int user_no = addressDto.getUser_no();
+    System.out.println(addressDto);
+    
+    if (addressDto.isDefault_address() == true)
+      addressDao.DefaultT2F(user_no);
+      
     return addressDao.insert(addressDto);
   }
 
@@ -76,6 +83,12 @@ public class SettingServiceImpl implements SettingService {
 
   @Override
   public int modifyAddress(AddressDto addressDto) throws Exception {
+    int user_no = addressDto.getUser_no();
+    System.out.println("수정 할 addressDto = "+ addressDto);
+    
+    if (addressDto.isDefault_address() == true)
+      addressDao.DefaultT2F(user_no);
+      
     return addressDao.update(addressDto);
   }
 
@@ -109,5 +122,10 @@ public class SettingServiceImpl implements SettingService {
   @Override
   public List<SettingDto> getAgreeList(int user_no) throws Exception {
     return settingDao.selectAll(user_no);
+  }
+
+  @Override
+  public int addressCnt(int user_no) {
+    return addressDao.CntAddress(user_no);
   }
 }

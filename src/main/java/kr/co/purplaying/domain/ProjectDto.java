@@ -1,7 +1,6 @@
 package kr.co.purplaying.domain;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class ProjectDto {
   
@@ -78,9 +77,6 @@ public class ProjectDto {
     this.prdt_comingday = prdt_comingday;
     this.pay_no = pay_no;
   }
-
-
-
 
 
 
