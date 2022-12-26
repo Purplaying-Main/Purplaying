@@ -47,13 +47,14 @@
 		FROM tb_product
 		WHERE TRUE
 		AND prdt_name LIKE concat('%', #{keyword}, '%')	
+		AND <![CDATA[prdt_opendate <= current_date]]>
 	</select>
 
   	<select id="searchSelectPage" parameterType="SearchItem2" resultType="ProjectDto">
 		<include refid="selectFromBoard"/>
 		WHERE TRUE
 		AND prdt_name LIKE concat('%', #{keyword}, '%')
-		ORDER BY prdt_regdate DESC, prdt_id DESC 
+		AND <![CDATA[prdt_opendate <=current_date]]>
 		limit 6 offset #{offset}	
   	</select>
 	
