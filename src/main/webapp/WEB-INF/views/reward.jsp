@@ -61,7 +61,7 @@
 		              <hr class="mb-4">
 		              <h5 class="fw-bold">리워드 수량</h5>
 		              <p>(수량 제한이 없을 경우 -1을 입력)</p>
-		              <textarea  class="form-control mt-2" id="reward_modi_stock"  placeholder="리워드 수량을 적어주세요." rows="1" style="resize: none;"></textarea>
+		              <input class="form-control mt-2" id="reward_modi_stock"  placeholder="리워드 수량을 적어주세요." rows="1" onKeyup="this.value=this.value.replace(/[^(-1)-9]/g,'');" style="resize: none;" />
 		              <hr class="mb-4">
                       <input class="w-100 my-3 btn btn-lg rounded-3 btn-primary" id="saveRewardModi" type="button" value="리워드 저장"/>
                     </div><!-- modal body -->
