@@ -113,7 +113,7 @@
               <hr class="mb-4">
               <h5 class="fw-bold">리워드 수량</h5>
               <p>(수량 제한이 없을 경우 -1을 입력)</p>
-              <textarea id="reward_stock" class="form-control mt-2" placeholder="리워드 수량을 적어주세요." rows="1" style="resize: none;"></textarea>
+              <input id="reward_stock" class="form-control mt-2" placeholder="리워드 수량을 적어주세요." rows="1" onKeyup="this.value=this.value.replace(/[^(-1)-9]/g,'');" style="resize: none;"></textarea>
           	  <hr class="mb-4">
           	  
             </div>
