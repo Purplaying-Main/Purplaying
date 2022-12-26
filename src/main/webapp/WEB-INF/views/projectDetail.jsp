@@ -701,37 +701,13 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				debugger
 				$.ajax({
 					type : 'POST',				//요청 메서드
-					url : '/purplaying/community/insert/' + rno,				//요청 URI
+					url : '/purplaying/reply/' + prdt_id,				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						let html = "";
-		/* 			<div id="replyBox" >
-						<div class="row rounded bg-light p-3 mb-3">
-							<div class="col-1">
-								<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">
-	                        </div>
-	                        <div class="col-11">
-	                          <div class="border-bottom">
-	                            <h6 class="my-0">창작자 닉네임 ></h6>
-	                            <p class="my-0 text-small">작성일 ></p>
-	                          </div>
-								<p class="mb-5" >내용 ></p>
-							</div>
-                      	</div>
-                      </div> */
-						if (result.list.length > 0){
-							for(let i = 0; i < result.list.length; i++) {
-								html += "<div id='replyBox' >"
-								html += "<input type='hidden' id='user_nickname'" + data.list[i].id + " 'value ='" + data.list[i].id + "'>'"
-								html +="<div class='row rounded bg-light p-3 mb-3'>"
-								html +="<div class='col-1'>"
-								html +='<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
-								html +='</div>'
-							
-							}
-							
-						}
+						
+						alert(JSON.stringify({chat_no:chat_no, chat_context:chat_context}))
+						
 						$("#commentList").html(toHtml(result))
 			     	},
 			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
@@ -891,7 +867,30 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			    		tmp +=	'			<button type="button" id="replyBtn" class="replyBtn btn btn-primary" onclick="reply_Modal()">답 변</button>'
 		    			tmp +=  '		</div>'
 						} 
-											
+						
+						
+						/* if (result.list.length > 0){
+							for(let i = 0; i < result.list.length; i++) {
+								tmp +="<div id='replyBox' >"
+								tmp +="<input type='hidden' id='user_nickname'" + data.list[i].id + " 'value ='" + data.list[i].id + "'>'"
+								tmp += '	<li class="col-11" data-chat_no=' + comment.chat_no
+								tmp += '		data-prdt_id'+ comment.prdt_id
+								tmp += '		data-chat_writer' + comment.chat_writer
+								tmp += '		data-chat_date' + comment.chat_date
+		 						tmp += '		data-user_no'+ comment.user_no +'>'
+		 						
+								tmp +="<div class='row rounded bg-light p-3 mb-3'>"
+								tmp +="<div class='col-1'>"
+								tmp +='<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle mt-2" id="ownerimg">'
+								tmp +='</div>'
+								tmp += '			<h6 class="my-0"><Strong>작성자 닉네임 ></Strong>'+ comment.user_nickname + '</h6>'
+								tmp += '			<p class="my-0 text-small"><Strong>작성일 ></Strong>' + toStringByFormatting(comment.chat_date) + '</p>'
+								tmp += '		</div>'
+								tmp += '	<p class="mb-5" ><Strong>내용 ></Strong><span class="chat_context" id="comment" >' + comment.chat_context + '</span></p>'
+							
+						} */
+						
+						
 						tmp += '</li>'
 						tmp += '<hr class="mt-3">'
 				})

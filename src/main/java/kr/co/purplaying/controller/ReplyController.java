@@ -34,7 +34,7 @@ public class ReplyController {
   ReplyService replyService;
 
 //Reply list
-  @GetMapping("/community")
+  @GetMapping("/reply")
   @ResponseBody
   public ResponseEntity<List<ReplyDto>> list(int prdt_id) {
     List<ReplyDto> list = null;
@@ -51,7 +51,7 @@ public class ReplyController {
 
   }
 
-  @PostMapping("/community/{prdt_id}")
+  @PostMapping("/reply")
   @ResponseBody
   public List<ReplyDto> list2(@RequestBody ReplyDto replyDto, int prdt_id, Model m) {
     List<ReplyDto> list_reply2 = null;
@@ -72,7 +72,7 @@ public class ReplyController {
     }
   }
 
-  @PostMapping("/community/insert/{rno}")
+  @PostMapping("/reply/insert/{rno}")
   @ResponseBody
   public ResponseEntity<List<ReplyDto>> write(@RequestBody ReplyDto rDto, RedirectAttributes rattr,
       Model m, HttpSession session) {
