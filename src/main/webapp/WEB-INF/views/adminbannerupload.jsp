@@ -200,7 +200,7 @@
 		$('#gotosaveBtn').css('display','block');
   	}
   	
-  	//파일업로드 저장 요청 function
+  	//파일업로드 db저장 요청 function
   	function save_uploadImg(){
   		let fileuuid = $('#prdt_uuid').val()	//파일uuid 저장
   		let filename = $('#prdt_image').val()	//파일명 저장

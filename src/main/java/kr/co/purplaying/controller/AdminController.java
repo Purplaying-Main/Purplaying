@@ -205,27 +205,28 @@ public class AdminController {
     return "adminbannerupload"; //admin 사이트배너 배너업로드 페이지호출
   }
   
-  @PostMapping("/ShowBanner/{file_id}")
-  @ResponseBody
-  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
-    System.out.println(file_id);
-    try {
-      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
-      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
-      return file_src;
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-    
+//  @PostMapping("/ShowBanner/{file_id}")
+//  @ResponseBody
+//  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
+//    System.out.println(file_id);
+//    try {
+//      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
+//      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
+//      return file_src;
+//      
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//      return null;
+//    }
+//  }
+  
+  //유저권한 변경
   @PostMapping("/listUser")
   @ResponseBody
   public Boolean AdminUserList(SearchItem sc, @RequestBody UserDto userDto, Model m, HttpSession session ) {
    
     try {
-      if(userDao.updateRole(userDto) != 1) {
+      if(userDao.updateRole(userDto) != 1) {    //ajax로 전달받은 userDto를 이용하여 유저권한 변경
         System.out.println("권한 업데이트 실패");
       }
       return true;
@@ -236,30 +237,27 @@ public class AdminController {
     }
   }
   
+  //프로젝트 삭제
   @PostMapping("/listProject")
   @ResponseBody
-  public List<ProjectDto> AdminProjectList(SearchItem sc, @RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
+  public Boolean AdminProjectList(SearchItem sc, @RequestBody ProjectDto projectDto , Model m, HttpSession session ) {
     try {
-      if(projectService.deleteProject(projectDto.getPrdt_id())!=1) {
+      if(projectService.deleteProject(projectDto.getPrdt_id())!=1) {    //ajax로 전달받은 projectDto를 이용하여 프로젝트 삭제
         System.out.println("프로젝트 삭제 실패");
       }
-      List<ProjectDto> projectList =projectService.selectProject(sc);
-      System.out.println(projectList);
-      return projectList;
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
-      return null;
+      return false;
     }
   }
-  //파일 보여주기/////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  //파일 보여주기
   @GetMapping("/display")
   @ResponseBody
   public ResponseEntity<byte[]> getFile(String file_name, Model m ) throws Exception {
-//    AttachFileDto attachFileDto = fileService.read(prdt_id);
-//    m.addAttribute("attachFileDto", attachFileDto);
-//    System.out.println("attachFileDto: "+attachFileDto);
 
-    System.out.println("fileName : "+file_name);
+    System.out.println("fileName : "+file_name); 
     
     File file = new File("C:\\purplaying_file\\banner\\"+file_name);
     System.out.println("file: "+file);
@@ -276,7 +274,7 @@ public class AdminController {
     return result;
   }
   
-  //file upload////////////////////////////////////////////////////////////////////////////////////////////////
+  //파일 업로드
   @PostMapping(value = "/bannerupload", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   @ResponseBody
   public ResponseEntity<List<AttachFileDto>> fileUpload(@RequestBody MultipartFile[] uploadFile, Model m){
@@ -342,46 +340,46 @@ public class AdminController {
     return new ResponseEntity<>(list,HttpStatus.OK);
   }
   
+  //썸네일에서 배너 설정
   @PostMapping("/bannerimg/{position}")
   @ResponseBody
-  public List<BannerFileDto> AdminBannerList(@RequestBody ProjectDto projectDto, @PathVariable int position , Model m, HttpSession session ) {
+  public Boolean AdminBannerList(@RequestBody ProjectDto projectDto, @PathVariable int position , Model m, HttpSession session ) {
     try {
       System.out.println(projectDto);
       int prdt_id = projectDto.getPrdt_id();
       
-      projectDto = fileService.findprojectImg(prdt_id);
+      projectDto = fileService.findprojectImg(prdt_id); //prdt_id를 이용하여 프로젝트정보 가져오기
       System.out.println(projectDto);
       
       projectDto.setPrdt_id(prdt_id);
-      if(fileService.updateBannerFile(projectDto,position)!= 1) {
+      if(fileService.updateBannerFile(projectDto,position)!= 1) {   //ajax로 전달받은 position의 위치에 projectDto의 파일경로 업데이트
         System.out.println("배너 저장 실패");
       }
-      List<BannerFileDto> bannerlist = fileService.selectBannerList();
-      return bannerlist;
+      return true;
       
     } catch (Exception e) {
       e.printStackTrace();
-      return null;
+      return false;
     }
   }
   
+  //파일업로드에서 배너설정
   @PostMapping("/bannerByUpload/{position}")
   @ResponseBody
-  public List<BannerFileDto> AdminBannerListByUpload(@RequestBody String imgsrc, @PathVariable int position , Model m, HttpSession session ) {
+  public Boolean AdminBannerListByUpload(@RequestBody String imgsrc, @PathVariable int position , Model m, HttpSession session ) {
     try {
-      if(fileService.updateBannerFileByUpload(imgsrc,position)!= 1) {
+      if(fileService.updateBannerFileByUpload(imgsrc,position)!= 1) { //ajax로 전달받은 position의 위치에 imgsrc로 업데이트
         System.out.println("배너 저장 실패");
       }
-      List<BannerFileDto> bannerlist = fileService.selectBannerList();
-      return bannerlist;
+      return true;
       
     } catch (Exception e) {
       e.printStackTrace();
-      return null;
+      return false;
     }
   }
   
-  ///삭제//////////////////////////////////////////////////////////////////////ㅍ
+  //서버에서 파일 삭제하기
   @PostMapping("/removeFile")
   @ResponseBody
   public ResponseEntity<Boolean> removeFile(String uploadPath, String fileName){
@@ -391,17 +389,19 @@ public class AdminController {
           srcFileName = URLDecoder.decode(fileName,"UTF-8");
           //UUID가 포함된 파일이름을 디코딩해줍니다.
           File file = new File(uploadPath +File.separator + srcFileName);
-          boolean result = file.delete();
+          boolean result = file.delete();   //파일 삭제하기
 
           File thumbnail = new File(file.getParent(),"s_"+file.getName());
           //getParent() - 현재 File 객체가 나태내는 파일의 디렉토리의 부모 디렉토리의 이름 을 String으로 리턴해준다.
-          result = thumbnail.delete();
+          result = thumbnail.delete();  //thumbnail(uuid)파일삭제하기
           return new ResponseEntity<>(result,HttpStatus.OK);
       }catch (UnsupportedEncodingException e){
           e.printStackTrace();
           return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
       }
   }
+  
+  //파일 db에 업로드
   @PostMapping("/bannersavedb")
   @ResponseBody
   public ResponseEntity<Boolean> saveFiledb(String uploadPath, String fileName, String fileuuid) throws Exception{
@@ -432,6 +432,7 @@ public class AdminController {
       }
   }
   
+  //전체 메세지 보내기
   @PostMapping("/sendgroupmessage")
   @ResponseBody
   public void sendMailTest(String title, String user_id, String context) throws Exception{ 
@@ -441,9 +442,9 @@ public class AdminController {
       String content = context;
       String from = "purplayingcorp@gmail.com";
       String to = null;
-      String[] user = user_id.split(",");      
+      String[] user = user_id.split(",");      //ajax를 통해 전달받은 user_id를 ','를 기준으로 나누어 배열에 저장
       for(int i = 0; i<user.length; i++){
-          to = user[i];
+          to = user[i];     //배열에 저장한 user_id를 순서대로 메일 대상으로 설정
           try {
               MimeMessage mail = mailSender.createMimeMessage();
               MimeMessageHelper mailHelper = new MimeMessageHelper(mail,true,"UTF-8");
@@ -476,21 +477,21 @@ public class AdminController {
       
       
   }
-  
+  //메일보내기 유저선택 모달
   @PostMapping("/pageselect")
   @ResponseBody
   public Map pageSelect(@RequestBody SearchItem sc, HttpServletRequest request, HttpSession session ) {
     System.out.println(sc);
     Map map = new HashMap();
     try {
-      int totalCnt = userDao.getSearchResultCnt(sc);
+      int totalCnt = userDao.getSearchResultCnt(sc);    //ajax로 전달받은 sc를 이용하여 리스트의 전체갯수 저장
       
-      PageResolver pageResolver= new PageResolver(totalCnt, sc);
+      PageResolver pageResolver= new PageResolver(totalCnt, sc);    //전체갯수와 sc를 이용하여 페이지정보설정
       
-      List<UserDto> list = userDao.adminSelect(sc);
-      map.put("totalCnt", totalCnt);
-      map.put("pr", pageResolver);
-      map.put("UserList",list);
+      List<UserDto> list = userDao.adminSelect(sc);     //sc를 이용하여 유저 DB에서 select후 list형태로 저장
+      map.put("totalCnt", totalCnt); //map에 전체갯수 추가
+      map.put("pr", pageResolver);  //map에 페이지 정보 추가
+      map.put("UserList",list); //map에 유저리스트 추가
       map.put("length", 3);
       
      
@@ -504,7 +505,7 @@ public class AdminController {
     return map;
   }
   
-  
+  //이미지 타입 체크하기
   private boolean checkImageType(File file) {
     try {
       String contentType = Files.probeContentType(file.toPath());
