@@ -18,7 +18,7 @@
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-        <h3 class="text-center py-2 mb-2 fw-bold">결제 정보</h3>
+        <h3 class="text-center py-2 mb-2 fw-bold">펀딩 결제 정보</h3>
 
         <!--상단 영역-->
         <div class="mb-2">

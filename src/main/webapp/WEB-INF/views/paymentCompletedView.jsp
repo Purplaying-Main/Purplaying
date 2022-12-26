@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,58 @@
     <div class="contentsWrap">
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
-        <h3 class="text-center py-2 mb-2 fw-bold">결제 정보</h3>
+        <h3 class="text-center py-2 mb-2 fw-bold">펀딩 결제 정보</h3>
 
         <!--상단 영역-->
         <div class="mb-2">
-          <h5>퍼플레잉<span class="badge bg-primary ms-1">후원완료</span></h5>
-          <p class="ms-2">후원해 주셔서 감사합니다.<br>후원 내역은 마이 페이지에서 확인 할 수 있습니다.</p>
+          <h5><span class="badge bg-primary ms-1">후원완료</span></h5>
+          <div class="d-flex justify-content-between">
+          	<div class="ms-2">후원해 주셔서 감사합니다.<br>후원 내역은 마이 페이지에서 확인 할 수 있습니다.</div>
+          	<div class="lh-lg mt-2"><button class="btn btn-secondary btn-sm me-1" id="paymentCancelBtn"  data-bs-toggle="modal" data-bs-target="#paymentCancel">펀딩취소</button></div>
+          	  <!-- Modal -->
+                  <div class="modal fade" id="paymentCancel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="paymentCancelModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title fw-bold" id="paymentCancelModalLabel">펀딩 취소 하기</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <input type="hidden" id="cancelDay">
+                          <table class="table text-center">
+                            <tr>
+                          	<th>취소 기간</th>
+                          	<td>환불 금액</td>
+                          	</tr>
+                          	<tr>
+                          	<th>결제 예정 3일 전</th>
+                          	<td>취소 불가</td>
+                          	</tr>
+							<tr>
+                          	<th>결제 예정 7일 전</th>
+                          	<td>결제 금액의 80% </td>
+                          	</tr>
+                          	<tr>
+                          	<th>결제 예정 15일 전</th>
+                          	<td>결제 금액의 90%</td>
+                          	</tr>
+                          	 <tr>
+                          	<th>결제 예정 15일 이상</th>
+                          	<td>결제 금액 전액 환불</td>
+                          	</tr>
+                          </table> 
+                        </div>
+                        <div class="modal-footer">
+                          <div>
+                          환불예정금액
+							<input type="text" value="${paymentDto.get(0).getPay_total() }" readonly>
+						  </div>
+                          <button class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+                        </div>
+                      </div>
+                    </div>
+                </div> <!-- Modal end-->
+          </div>
         </div>
 
         <!--중간 영역 시작-->
@@ -108,7 +155,7 @@
                   </div> 
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">결제 예정일</p>
-                    <p class="form-label"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
+                    <p class="form-label" id="purchaseDay"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
                   </div>
                 </div>
               </div>
@@ -160,5 +207,20 @@
 
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
+  
+  <script type="text/javascript">
+  $(document).ready(function(){
+ 	let today = new Date();
+ 	today = new Date(today.getFullYear()+"."+(today.getMonth()+1)+"."+today.getDate());
+ 	let purchaseDay = new Date($("#purchaseDay").text());
+	let diffDay = (purchaseDay - today)/(1000*60*60*24);
+ 	if(diffDay <= 3){
+ 		document.getElementById("paymentCancelBtn").disabled = true;
+ 	}
+ 	else{
+ 		document.getElementById("cancelDay").value = diffDay;
+ 		} 
+  });
+  </script>
 </body>
 </html>

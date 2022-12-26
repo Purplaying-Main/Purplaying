@@ -201,42 +201,6 @@
 		where prdt_id = #{prdt_id}
 		order by prdt_id desc
 	</select>
-	
-	
-	<!-- 마이페이지에서 후원한 펀딩 보이게 하는 쿼리문 -->
-	<resultMap type="ProjectDto" id="ProjectDto">
- 		 	<result column="prdt_id" property="prdt_id"/>
-	 		 <result column="prdt_currenttotal" property="prdt_currenttotal"/>
-	 		 <result column="prdt_goal" property="prdt_goal"/>
-	 		 <result column="prdt_dday" property="prdt_dday"/>
-	 		 <result column="prdt_percent" property="prdt_percent"/>
-	 		 <result column="prdt_opendate" property="prdt_opendate"/>
-	 		 <result column="prdt_enddate" property="prdt_enddate"/>
-	 		 <result column="prdt_desc" property="prdt_desc"/>
-	 		 <result column="prdt_name" property="prdt_name"/>
-	 		 <result column="prdt_thumbnail" property="prdt_thumbnail"/>
- 		<association property="PaymentDto" javaType="PaymentDto">
-	 		 <result column="pay_no" property="pay_no"/>
- 		 	<result column="prdt_id" property="prdt_id"/>
- 		 	<result column="user_no" property="user_no"/>
- 		</association>
- 	</resultMap>
- 	
- 	 <select id="myfunding" parameterType="int" resultType="ProjectDto">
-		select
-			dense_rank() over  (order by tb_product.prdt_id desc), 
-			tb_product.prdt_id, 
-			(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
-			(prdt_enddate-current_date) as "prdt_dday",
-		 	tb_product.prdt_desc, 
-		 	tb_product.prdt_name, 
-		 	tb_product.prdt_thumbnail
-		from tb_product inner join
-		tb_payment
-		on tb_payment.prdt_id = tb_product.prdt_id
-		where tb_payment.user_no = #{user_no}
-		group by tb_product.prdt_id
- 	</select>
  	
  	<select id="selectProjectImgforAdmin" parameterType="SearchItem" resultType="ProjectDto">
 		<include refid="selectFromProjectImg"/>

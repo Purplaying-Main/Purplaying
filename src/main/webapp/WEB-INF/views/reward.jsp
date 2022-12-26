@@ -334,12 +334,15 @@
 		/*리워드 생성 structure*/	
 		let toHtml = function(rewards){
 			let tmp = "";
-			let catergory_name="";
+			//let catergory_name="";
 			rewards.forEach(function(reward){
 				if(reward.reward_category == 1) {
 					catergory_name = '슈퍼얼리버드';
-				} else{
+				} else if(reward.reward_category == 2){
 					catergory_name = '얼리버드';
+				}
+				else {
+					return false;
 				}
 				tmp += '<div id="'+reward.reward_id+'">';
 				tmp += '<div class="card mb-3"><div class="card-header">';

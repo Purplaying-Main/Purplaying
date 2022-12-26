@@ -17,13 +17,10 @@ public interface RewardDao {
 
   int deleteReward(int reward_id) throws Exception;
   
-  RewardDto getPaymentRewardInfo(Integer prdt_id) throws Exception;
-  
-  List<RewardDto> selectedRewardPayment(int no_arr, int cnt_arr) throws Exception;
-  
-  int insertSelectReward(int no_arr,int cnt_arr) throws Exception;
-  
-  List<RewardDto> userReward(Map map) throws Exception;
-  
+  //디테일페이지-드롭박스 필터
+  List<RewardDto> rewardCategory(int prdt_id,int reward_category) throws Exception;
+
+  //결제-리워드 수량 감소
   int calRewardStock(int prdt_id, int reward_id, int reward_stock, int reward_user_cnt) throws Exception;
+  
 }

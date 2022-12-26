@@ -84,15 +84,16 @@ public class PaymentController {
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto", projectDto);
   
-      //5.유저가 펀딩 페이지에서 선택한 리워드를 배열에 담고(JSP) 이를 다시 짝을 맞춰 배열로 저장(JAVA)
+      //5.JSP에서 파라미터로 넘어온 리워드 정보를 배열에 저장
        String[] arr = request.getParameterValues("no");
        String[] arr2 = request.getParameterValues("reward_cnt");
        
-       int[] no_arr = Arrays.stream(arr).mapToInt(Integer::parseInt).toArray();
-       String[] nm_arr = request.getParameterValues("nm");
-       int[] cnt_arr = Arrays.stream(arr2).mapToInt(Integer::parseInt).toArray();
-       String[] pr_arr = request.getParameterValues("pr");
+       int[] no_arr = Arrays.stream(arr).mapToInt(Integer::parseInt).toArray(); //리워드번호
+       String[] nm_arr = request.getParameterValues("nm"); //리워드이름
+       int[] cnt_arr = Arrays.stream(arr2).mapToInt(Integer::parseInt).toArray(); //리워드수량
+       String[] pr_arr = request.getParameterValues("pr"); //리워드가격
        
+       //6.선택한 리워드를 바탕으로 어레이리스트 구성
        ArrayList<String> reward = new ArrayList<String>();
        for(int i=0;i<no_arr.length;i++) {
          reward.add(String.valueOf(no_arr[i]));
@@ -127,6 +128,7 @@ public class PaymentController {
       
       //2.해당 펀딩 정보
       ProjectDto projectDto = projectService.readPayment(prdt_id);
+      
       paymentDto.setUser_no(userDto.getUser_no());
       paymentDto.setPay_total(Integer.parseInt(pay_total));
       m.addAttribute("pay_total",Integer.parseInt(pay_total));
@@ -143,7 +145,7 @@ public class PaymentController {
       Cookie[] cookies = request.getCookies();
       Cookie prdtCookie = null;
       
-      //4-1.쿠키가 없을 경우 쿠키 생성
+      //4-1.최초 생성된 쿠키와 일치하는 쿠키가 존재하는지 확인
       if(cookies!=null && cookies.length>0) {
         for(int i=0;i<cookies.length;i++) {
           if(cookies[i].getName().equals("cookie"+prdt_id+userDto.getUser_no())) {
@@ -152,13 +154,12 @@ public class PaymentController {
         }
       }
       
-      //5. 쿠키가 없을 경우(최초 submit)에서 실행
+      //5. 쿠키가 없을 경우(최초 submit) 쿠키 생성
       if(prdtCookie == null) {
         Cookie newcookie = new Cookie("cookie"+prdt_id+userDto.getUser_no(), "prdt_id+user_no");
-        System.out.println(newcookie);
         response.addCookie(newcookie);
         
-        //5-1.리워드 수량 감소
+        //5-1. 유저가 선택한 리워드 id를 상품의 리워드 id와 비교하여 일치할 경우 수량 감소
         List<RewardDto> rewardInfo = rewardDao.selectReward(prdt_id);
         
         for (int i = 0; i < rd_id.length; i++) {
@@ -173,17 +174,8 @@ public class PaymentController {
           }
         }
         
-        //5-2.후원자수,후원금액 증가
-        projectDao.plusBuyerCnt(prdt_id);
-        projectDao.plusBuyerPrice(prdt_id,paymentDto.getPay_total(),projectDto.
-        getPrdt_currenttotal());
-        
-        //5-3.유저포인트 감소
-        userDao.updatePoint(userDto.getUser_no(),
-        userDto.getUser_point()-Integer.parseInt(pay_total));
-        
-        //6.결제정보 insert (이때 리워드는 DB에 배열로 저장)
-        paymentService.write(paymentDto);
+        //6. 후원자수,후원금액 증가,유저포인트감소 후 결정보 insert(이때 리워드는 DB에 배열로 저장됨)
+        paymentService.payment(projectDto, userDto, paymentDto);
         
       }
       
@@ -260,7 +252,6 @@ public class PaymentController {
       prdt_id = paymentDto.get(0).getPrdt_id();
       ProjectDto projectDto = projectService.readPayment(prdt_id);
       m.addAttribute("projectDto",projectDto);
-      System.out.println(projectDto);
       
       //5.DB에 저장된 리워드(배열)을 String형태로 가져옴
       Map pn = new HashMap();

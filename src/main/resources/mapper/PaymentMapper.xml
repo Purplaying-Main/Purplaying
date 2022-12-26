@@ -22,14 +22,14 @@
 	VALUES(now(), #{user_no}, #{prdt_id},Array
 	<foreach collection="reward_id" item="reward_id" index="index" open="[" close="]" separator=",">
 	#{reward_id}
-		</foreach>,Array
-		<foreach collection="reward_user_cnt" item="reward_user_cnt" index="index" open="[" close="]" separator=",">
+	</foreach>,Array
+	<foreach collection="reward_user_cnt" item="reward_user_cnt" index="index" open="[" close="]" separator=",">
 	 #{reward_user_cnt} 
  	</foreach>,
 	#{pay_total}, #{delivery_reciever}, #{delivery_phone}, #{delivery_postcode}, #{delivery_address}, #{delivery_addressdetail}, #{delivery_memo})
  	</insert>
  	 	
- 	<!-- 결제완료 내역 가져오기 -->
+ 	<!-- 고유조건에 해당하는 결제완료 내역 가져오기 -->
  	<select id="paymentCompleted" parameterType="map" resultType="PaymentDto">
  	 <include refid="selectAll"/>
  	where prdt_id = #{prdt_id} and user_no = #{user_no} and pay_total = #{pay_total} and reward_id = #{reward_id} and delivery_postcode = #{delivery_postcode}

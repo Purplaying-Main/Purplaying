@@ -41,19 +41,6 @@ public class RewardServiceImpl implements RewardService {
   public int deleteReward(int reward_id) throws Exception {
     return rewardDao.deleteReward(reward_id);
   }
-
-  @Override
-  public RewardDto readPayment(Integer prdt_id) throws Exception {
-    RewardDto rewardDto = rewardDao.getPaymentRewardInfo(prdt_id);
-    return rewardDto;
-  }
-
-  @Override
-  public List<RewardDto> setReward(int no_arr, int cnt_arr) throws Exception {
-
-    return rewardDao.selectedRewardPayment(no_arr,cnt_arr);
-  }
-  
   
 
 }

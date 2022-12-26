@@ -93,13 +93,6 @@ public class UserDaoImpl implements UserDao {
     public int updateUserPwd(UserDto userDto) throws Exception {
       return session.update(namespace+"updateUserPwd",userDto);
     }
-
-    @Override
-    public UserDto getPaymentUserInfo(String user_name) throws Exception {
-      // TODO Auto-generated method stub
-      return session.selectOne(namespace+"getPaymentUserInfo", user_name);
-    }
-
     @Override
     public int modifyProfile(Map<String, Object> map) throws Exception {
       return session.update(namespace+"modifyProfile",map);

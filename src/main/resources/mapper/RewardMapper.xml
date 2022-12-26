@@ -32,27 +32,6 @@
 		where reward_id = #{reward_id}
 	</delete>
 	
-	<select id="getPaymentRewardInfo" parameterType="int" resultType="RewardDto">
-		<include refid="selectAllReward"/>
-		WHERE prdt_id = #{prdt_id}
-		order by reward_id
-		limit 1
-	</select>
-	
-	<select id="selectedRewardPayment" parameterType="map"  resultType="RewardDto">
-		select reward_id, reward_name, reward_desc, reward_price, prdt_id, reward_cnt
-		from tb_reward
-		where (reward_id=#{reward_id} or reward_id=#{reward_id}) and prdt_id = #{prdt_id }
-	</select>
-	
-	<update id="insertSelectReward" parameterType="map">
-		update into tb_reward  set reward_id=#{no_arr}, reward_cnt=#{cnt_arr}
-	</update>
-	
-	<select id="userReward" parameterType="map"  resultType="RewardDto" >
-		<include refid="selectAllReward"/>
-		where prdt_id = #{prdt_id }
-	</select>
 
 	<!-- 결제에 따른 리워드 재고 조정 -->
 	<update id="calRewardStock" parameterType="int">
@@ -64,5 +43,11 @@
 		end
 		where reward_id = #{reward_id} and  prdt_id = #{prdt_id}
 	</update>
-
+	
+	<!-- 드롭박스 카테고리에 해당하는 리워드 출력 -->
+	<select id="rewardCategory" parameterType="Map" resultType="RewardDto">
+	<include refid="selectAllReward"/>
+		WHERE prdt_id = #{prdt_id} and reward_category = #{reward_category}
+	</select>
+	
 </mapper>

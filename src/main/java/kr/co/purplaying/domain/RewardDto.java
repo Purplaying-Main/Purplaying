@@ -11,21 +11,15 @@ public class RewardDto {
   private int reward_stock;
   private int reward_category;
   private int prdt_id;
-  private int reward_cnt;
-  private int user_no;
-  private int pay_no;
   private int reward_user_cnt;  //결제시 리워드 재고 조정을 위해 필요(DB에는 없음)
-  PaymentDto paymentDto;
-  
+
   public RewardDto() {
+    // TODO Auto-generated constructor stub
   }
 
-
-
-
   public RewardDto(int row_number, int reward_id, String reward_name, String reward_desc, int reward_price,
-      int reward_stock, int reward_category, int prdt_id, int reward_cnt, int user_no, int pay_no) {
-   // super();
+      int reward_stock, int reward_category, int prdt_id, int reward_user_cnt) {
+    //super();
     this.row_number = row_number;
     this.reward_id = reward_id;
     this.reward_name = reward_name;
@@ -34,12 +28,8 @@ public class RewardDto {
     this.reward_stock = reward_stock;
     this.reward_category = reward_category;
     this.prdt_id = prdt_id;
-    this.reward_cnt = reward_cnt;
-    this.user_no = user_no;
-    this.pay_no = pay_no;
+    this.reward_user_cnt = reward_user_cnt;
   }
-
-
 
   public int getRow_number() {
     return row_number;
@@ -77,8 +67,8 @@ public class RewardDto {
     return reward_price;
   }
 
-  public int setReward_price(int reward_price) {
-    return this.reward_price = reward_price;
+  public void setReward_price(int reward_price) {
+    this.reward_price = reward_price;
   }
 
   public int getReward_stock() {
@@ -104,58 +94,22 @@ public class RewardDto {
   public void setPrdt_id(int prdt_id) {
     this.prdt_id = prdt_id;
   }
-  
-  @Override
-  public String toString() {
-    return "RewardDto [row_number="+row_number+", reward_id=" + reward_id + ", reward_name=" + reward_name + ", reward_desc=" + reward_desc
-        + ", reward_price=" + reward_price + ", reward_stock=" + reward_stock + ", reward_category=" + reward_category
-        + ", prdt_id=" + prdt_id + "]";
-  }
-
-  public int getReward_cnt() {
-    return reward_cnt;
-  }
-
-  public void setReward_cnt(int reward_cnt) {
-    this.reward_cnt = reward_cnt;
-  }
-
-  public int getUser_no() {
-    return user_no;
-  }
-
-  public void setUser_no(int user_no) {
-    this.user_no = user_no;
-  }
-
-
-
-
-  public int getPay_no() {
-    return pay_no;
-  }
-
-
-
-
-  public void setPay_no(int pay_no) {
-    this.pay_no = pay_no;
-  }
-
-
-
 
   public int getReward_user_cnt() {
     return reward_user_cnt;
   }
 
-
-
-
   public void setReward_user_cnt(int reward_user_cnt) {
     this.reward_user_cnt = reward_user_cnt;
   }
-  
+
+  @Override
+  public String toString() {
+    return "RewardDto [row_number=" + row_number + ", reward_id=" + reward_id + ", reward_name=" + reward_name
+        + ", reward_desc=" + reward_desc + ", reward_price=" + reward_price + ", reward_stock=" + reward_stock
+        + ", reward_category=" + reward_category + ", prdt_id=" + prdt_id + ", reward_user_cnt=" + reward_user_cnt
+        + "]";
+  }
   
   
 }

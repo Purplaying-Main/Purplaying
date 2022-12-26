@@ -43,34 +43,6 @@ public class RewardDaoImpl implements RewardDao {
   }
 
   @Override
-  public RewardDto getPaymentRewardInfo(Integer prdt_id) throws Exception {
-    // TODO Auto-generated method stub
-    return session.selectOne(namespace+"getPaymentRewardInfo", prdt_id);
-  }
-
-  @Override
-  public List<RewardDto> selectedRewardPayment(int no_arr, int cnt_arr) throws Exception {
-    Map map = new HashMap();
-    map.put("reward_id", no_arr);
-    map.put("reward_cnt", cnt_arr);
-    return session.selectList(namespace+"selectedRewardPayment",map);
-  }
-
-  @Override
-  public int insertSelectReward(int no_arr, int cnt_arr) throws Exception {
-    Map map = new HashMap();
-    map.put("reward_id", no_arr);
-    map.put("reward_cnt", cnt_arr);
-    return session.update(namespace+"insertSelectReward", map);
-  }
-
-  @Override
-  public List<RewardDto> userReward(Map map) throws Exception {
-    // TODO Auto-generated method stub
-    return session.selectList(namespace+"userReward", map);
-  }
-
-  @Override
   public int calRewardStock(int prdt_id, int reward_id, int reward_stock, int reward_user_cnt) throws Exception {
     Map map = new HashMap();
     map.put("prdt_id", prdt_id);
@@ -78,6 +50,14 @@ public class RewardDaoImpl implements RewardDao {
     map.put("reward_stock", reward_stock);
     map.put("reward_user_cnt", reward_user_cnt);
     return session.update(namespace+"calRewardStock", map);
+  }
+
+  @Override
+  public List<RewardDto> rewardCategory(int prdt_id, int reward_category) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id",prdt_id);
+    map.put("reward_category", reward_category);
+    return session.selectList(namespace, map);
   }
 
 

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.RewardDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.RewardDto;
@@ -42,6 +43,9 @@ public class ProductController {
   
   @Autowired
   ProjectService projectService;
+  
+  @Autowired
+  RewardDao rewardDao;
   
   @Autowired
   RewardService rewardService;
@@ -94,9 +98,11 @@ public class ProductController {
   public String viewproduct(@PathVariable Integer prdt_id, Model m ,HttpSession session) {
         String user_id = (String) session.getAttribute("user_id");
         try {
+          //1.프로젝트정보 가져오기
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
           
+          //2.리워드정보 가져오기
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
           //List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
@@ -141,6 +147,25 @@ public class ProductController {
       
       return "projectDetail";
   }
+  
+  
+  /*
+   * 리워드 드롭박스 구현 중 (1226)
+   * @GetMapping("/reward_category")
+   * public ResponseEntity<List<RewardDto>> rewardOption(@PathVariable int
+   * reward_category,int prdt_id, @RequestBody RewardDto rewardDto, Model m){
+   * try {
+   * System.out.println("컨트롤러");
+   * List<RewardDto> dto = rewardDao.rewardCategory(prdt_id, reward_category);
+   * m.addAttribute("dto",dto);
+   * return new ResponseEntity<List<RewardDto>>(dto,HttpStatus.OK);
+   * } catch (Exception e) {
+   * e.printStackTrace();
+   * }
+   * return new ResponseEntity<List<RewardDto>>(HttpStatus.BAD_REQUEST);
+   * }
+   */
+  
   
   @GetMapping("/calculate/{prdt_goal}")
   public @ResponseBody String[] calculate(@PathVariable Integer prdt_goal) {

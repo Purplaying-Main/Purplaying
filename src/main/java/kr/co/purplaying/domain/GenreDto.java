@@ -21,7 +21,7 @@ public class GenreDto {
   
 
   public GenreDto(int prdt_id, int prdt_genre, String prdt_name) {
-    super();
+    //super();
     this.prdt_id = prdt_id;
     this.prdt_genre = prdt_genre;
     this.prdt_name = prdt_name;

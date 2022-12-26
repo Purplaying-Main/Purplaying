@@ -94,11 +94,6 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.insert(namespace+"insertFile", map);
   }
 
-  @Override
-  public ProjectDto getPaymentProjectInfo(Integer prdt_id) {
-    // TODO Auto-generated method stub
-    return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
-  }
 
   @Override
   public int insertUpdate(UpdateDto updateDto) throws Exception {
@@ -127,10 +122,6 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.delete(namespace+"deleteProject",prdt_id);
   }
   
-  @Override
-  public List<ProjectDto> myfunding(int user_no) throws Exception {
-    return session.selectList(namespace+"myfunding", user_no);
-  }
 
   @Override
   public ProjectDto selectProjectlikelist(int prdt_id) throws Exception {
@@ -162,5 +153,11 @@ public class ProjectDaoImpl implements ProjectDao {
   public List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception {
     // TODO Auto-generated method stub
     return session.selectList(namespace+"selectProjectImgforAdmin",sc);
+  }
+
+  @Override
+  public ProjectDto getPaymentProjectInfo(Integer prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
   }
 }

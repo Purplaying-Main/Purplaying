@@ -3,6 +3,9 @@ package kr.co.purplaying.domain;
 import java.util.Arrays;
 import java.util.Date;
 
+import lombok.Data;
+
+
 public class PaymentDto {
  private Integer pay_no;
  private Date pay_time;
@@ -17,16 +20,15 @@ public class PaymentDto {
  private String delivery_address;
  private String delivery_addressdetail;
  private String delivery_memo;
- private int daySum;
- private int day;
- private String reward_id_s;
+ /*펀딩관리페이지 사용*/
+ private int daySum; //일당 후원금액 
+ private int day; //일
+ private String reward_id_s; //펀딩관리페이지 리워드 배열->스트링 변환 시 필요
  private String reward_user_cnt_s;
  
  public PaymentDto() {
   // TODO Auto-generated constructor stub
 }
-
-
 
 public PaymentDto(Integer pay_no, Date pay_time, int prdt_id, int user_no, String[] reward_id, String[] reward_user_cnt,
     int pay_total, String delivery_reciever, String delivery_phone, String delivery_postcode, String delivery_address,

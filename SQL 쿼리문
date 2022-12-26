@@ -1,4 +1,4 @@
---VER - 2022-12-18
+--VER - 2022-12-26
 --tb_abc순 정렬
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
 
@@ -20,13 +20,8 @@ CREATE TABLE tb_product (
     prdt_genre int4,
     prdt_thumbnail text,
     prdt_img text,
-    prdt_dday numeric,
-    prdt_percent numeric,
-    prdt_purchaseday date,
-    prdt_limitday date,
     prdt_buyercnt int default 0,
     user_id varchar(100),
-    img_no int4,
     update_regdate timestamp NOT NULL DEFAULT now(),
     CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
 );
@@ -227,8 +222,6 @@ CREATE TABLE public.tb_reward (
     reward_stock int4 NULL,
     reward_category int4 NOT NULL DEFAULT 0,
     prdt_id int4 NOT NULL,
-    reward_cnt int4 NULL,
-    user_no int4 NULL,
     CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
 );
 
@@ -312,10 +305,8 @@ ALTER TABLE tb_mypage ADD CONSTRAINT tb_mypage_user_no_fkey FOREIGN KEY (user_no
 ALTER TABLE tb_notice ADD CONSTRAINT user_id FOREIGN KEY (writer) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_payment ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_payment ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
-ALTER TABLE tb_product ADD CONSTRAINT tb_product_img_no_fkey FOREIGN KEY (img_no) REFERENCES tb_image(img_no) ON DELETE CASCADE;
 ALTER TABLE tb_product ADD CONSTRAINT tb_product_user_id_fkey FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_reward ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
-ALTER TABLE tb_reward ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb_product(prdt_id) ON DELETE CASCADE;
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;

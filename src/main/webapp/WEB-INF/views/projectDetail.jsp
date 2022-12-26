@@ -656,25 +656,74 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	
 	<!-- 리워드 dropbox 옵션에 따른 스크립트 -->
 	<script type="text/javascript">
-	  let prdt_id = $("input[id=prdt_id]").val()
-	  //모두 보기 클릭 시
+/* 	  let prdt_id = $("input[id=prdt_id]").val()
+	    //모두 보기 클릭 시
 	  $("#dropDownOption0").click(function(){
-		  $("div").filter("#reward_Card1").css({"display": "block"});
-		  $("div").filter("#reward_Card2").css({"display": "block"});
+		  
 	  })
 	  
 	  //슈퍼얼리버드 클릭 시
 	  $("#dropDownOption1").click(function(){
-		  $("div").filter("#reward_Card1").css({"display": "block"});
-		  $("div").filter("#reward_Card2").css({"display": "none"});
+		  alert("옵션1선택")
+		  dropbox(1)
 	  })
 	  
 	  //얼리버드 클릭 시
 	  $("#dropDownOption2").click(function(){
-		$("div").filter("#reward_Card1").css({"display": "none"});
-		$("div").filter("#reward_Card2").css({"display": "block"});
-		
+		dropbox(2)
 	  })
+	  
+	  function dropbox(category){
+		  let prdt_id = $("input[id=prdt_id]").val();
+		  let reward_category = category;
+		  console.log(typeof(prdt_id),typeof(reward_category))
+	      $.ajax({
+				type : 'GET',		
+				url : '/purplaying/project/'+reward_category,
+				data : reward_category,
+				dataType: 'JSON',			// 서버에서 응답받을 데이터타입
+				success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
+					$("#rewardBox").html(toHtmlDropbox(JSON.parse(result)));
+					alert("성공");
+		     	},
+		    	error : function() { 
+		    		alert("error") ;
+		    		}			//에러가 발생했을 때, 호출될 함수
+			})
+	  }
+	  
+		let toHtmlDropbox = function(rewards){
+			let tmp = "";
+			rewards.forEach(function(reward){
+				tmp += '<div class="col mt-2">';
+				tmp += '<div class="card mb-4 rounded-3 shadow-sm" id="reward_Card'+reward_category+'">';
+				tmp += '<div class="card-header py-3">';
+				tmp += '<strong class="my-0 fw-normal bg-info">';
+				if(reward_category == 1){
+					tmp += '슈퍼얼리버드';
+				}
+				else{
+					tmp += '얼리버드';
+				}
+				tmp += '</strong><br>';
+				tmp += '<input type="hidden" id="reward_id" value="'+reward_id+'"/>';
+				tmp += '<strong class="fw-normal">'+row_number+'. '+reward_name+'</strong></div>';
+				tmp += '<div class="card-body"><h5 class="card-title pricing-card-title">';	
+				tmp += '<span>'+reward_desc+'</span></h5>';
+				tmp += '<h5 class="card-title mt-1">'+reward.reward_name+'</h5>';
+				tmp += '<p class="card-text">'+reward.reward_desc+'</p>';
+				tmp += '<div class="text-end"><span class="text-primary mt-3">'+reward_price+'원</span></div>';
+				tmp += '<div class="text-info text-end">남은 수량<span class="fw-bold" id="reward_stock'+row_number+'">';
+				if(rewardDto.reward_stock == -1){
+					tmp += '제한없음';
+				}
+				else{
+					tmp += ''+reward_stock+'개';
+				}
+				tmp += '</span></div><button type="button" class="w-100 btn btn-outline-primary mt-2" id="'+row_number+'" onclick="jumpUp()">이 리워드 선택하기</button></div></div></div>';
+			});
+			return tmp;
+		} */
 	</script>
 	
 	<!-- 커뮤니티 댓글 기능 -->
