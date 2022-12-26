@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css"> <!-- main style-->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/owl.theme.default.min.css">
   
   <!-- JS -->
   <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.bundle.min.js"></script> 
@@ -18,6 +20,9 @@
   <script src="${pageContext.request.contextPath}/resources/assets/js/heart.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.3.js"></script>	  
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/owl.carousel.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/popper.js"></script>
+  
   
   <!-- 아이콘  -->
   <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>

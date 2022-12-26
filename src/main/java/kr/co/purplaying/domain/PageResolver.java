@@ -17,7 +17,7 @@ public class PageResolver {
   
   
   public PageResolver(int totalCnt, int page) {
-      this(totalCnt, new SearchItem(page, 10));
+      this(totalCnt, new SearchItem(page, 1));
   }
   
   

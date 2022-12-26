@@ -46,40 +46,68 @@
       <!-- 펀딩 프로젝트 -->
       <div class="album py-5">
         <div class="container">
-          <h4 class="mb-2"><a href="/purplaying/popularFunding">지금 달성률이 높은 펀딩🔥</a></h4>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">           
-          <c:forEach var="ProjectDto" items="${list_p }">
-            <div class="col"><!-- project thumb start -->
-              <div class="card shadow-sm">
-                <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
-                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
-                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
-                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
-                </div>
-                 <div class="card-body">         
-                  	<c:choose>
-                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
-                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
-                  	</c:choose>
-                  <div class="link-div" onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'">
-	                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
-                   </div>
-	                  <div class="d-flex justify-content-between align-items-center">
-                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
-                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
-                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
-                  	</div>          
-                  <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-             
-              </div>
-            </div><!-- project thumb end -->
-          </c:forEach> 
+          <div class="mb-2 row justify-content-between">
+          	 <a class="col-6" href="/purplaying/popularFunding"><span class="fs-4 fw-bold">지금 달성률이 높은 펀딩🔥</span>   <i class="fa-regular fa-square-plus"></i> 더보기</a>
+          	 <div class="col-4">
+				<!-- 페이지 네비게이션 -->
+				<div class="col-1"></div>
+					<div class="pagination mb-0 justify-content-end">
+				    	<c:if test="${totalCnt == null || totalCnt == 0 }">
+							<h6 class="row text-center ">게시물이 없습니다.</h6>
+						</c:if>
+					    <!-- 게시물이 있는 경우, page nav 출력  -->
+						<c:if test="${totalCnt != null || totalCnt != 0 }">
+						    <!-- <button type="button" role="presentation" class="page-link"> <i class="fa-solid fa-angle-left"></i></button>
+						    <button type="button" role="presentation" class="page-link"><i class="fa-solid fa-angle-right"></i> </button> -->
+<!-- 						    <div class="owl-nav">
+						    	<button type="button" role="presentation" class="owl-prev"><i class="fa-solid fa-angle-left"></i></button>
+						    	<button type="button" role="presentation" class="owl-next"><i class="fa-solid fa-angle-right"></i></button>
+						    </div> -->
+						</c:if>
+					</div>          	 	
+          	 	</div>
+          	</div>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4"> 
+          
+          <div class="featured-carousel owl-carousel">
+          	 <c:forEach var="ProjectDto" items="${list_p}">
+	          	<div class="item">
+					<div class="work">
+						
+						<div class="" id="popularList"><!-- project thumb start -->
+			              <div class="card shadow-sm">
+			                <!-- 좋아요 버튼 -->
+			                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
+			                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
+			                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
+			                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
+			                </div>
+			                 <div class="card-body">         
+			                  	<c:choose>
+			                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+			                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+			                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+			                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
+			                  	</c:choose>
+			                  <div class="link-div" onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'">
+				                  <p class="card-text"><h5>${ProjectDto.prdt_name }</h5></p>
+			                   </div>
+				                  <div class="d-flex justify-content-between align-items-center">
+			                     	<strong class="text-danger">현재 달성률 ${ProjectDto.prdt_percent }%</strong>
+			                    	<small class="text-muted"><fmt:formatNumber type="number" maxFractionDigits="3" value="${ProjectDto.prdt_currenttotal }"></fmt:formatNumber>원</small>
+			                    	<small class="text-muted text-end">${ProjectDto.prdt_dday}일 남음</small>
+			                  	</div>          
+			                  <div class="progress">
+			                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-label="Animated striped example" style="width: ${ProjectDto.prdt_percent }%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+			                  </div>
+			                </div><!-- card-body end  -->
+			              </div><!-- card end  -->
+			            </div><!-- project thumb end -->
+					</div>
+				</div>
+			 </c:forEach>
+          </div>  
+
           </div>
          
           <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
@@ -128,6 +156,50 @@
 	</script> -->
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
+  <script type="text/javascript">
+  (function($) {
 
+		"use strict";
+
+		var fullHeight = function() {
+
+			$('.js-fullheight').css('height', $(window).height());
+			$(window).resize(function(){
+				$('.js-fullheight').css('height', $(window).height());
+			});
+
+		};
+		fullHeight();
+
+		var carousel = function() {
+			$('.featured-carousel').owlCarousel({
+		    loop:true,
+		    autoplay: false,
+		    margin:30,
+		    animateOut: 'fadeOut',
+		    animateIn: 'fadeIn',
+		    nav:true,
+		    dots: true,
+		    autoplayHoverPause: false,
+		    items: 1,
+		    navText : ["<i class='fa-solid fa-angle-left'></i>","<i class='fa-solid fa-angle-right'></i>"],
+		    responsive:{
+		      0:{
+		        items:1
+		      },
+		      600:{
+		        items:2
+		      },
+		      1000:{
+		        items:3
+		      }
+		    }
+			});
+
+		};
+		carousel();
+
+	})(jQuery);
+  </script>
 </body>
 </html>

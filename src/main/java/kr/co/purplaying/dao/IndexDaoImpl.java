@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.SearchItem;
 
 @Repository
 public class IndexDaoImpl implements IndexDao {
@@ -32,5 +33,16 @@ public class IndexDaoImpl implements IndexDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"select", prdt_no);
   }
+
+  @Override
+  public int getCount() throws Exception {
+    return session.selectOne(namespace+"getCount");
+  }
+
+  @Override
+  public int getSearchResultCnt(SearchItem sc) throws Exception {
+    return session.selectOne(namespace +"searchResultCnt", sc);
+  }
+
 
 }
