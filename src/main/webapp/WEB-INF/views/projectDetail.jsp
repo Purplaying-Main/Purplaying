@@ -713,21 +713,21 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	</script>
 	
 	<!-- 커뮤니티 댓글 기능 -->
-	<script type="text/javascript">
-					
+	<script type="text/javascript">		
 		$(document).ready(function() {
 			
 			let prdt_id = $("input[id=prdt_id]").val()
 			let rno = $("input[id=rno]").val()
-			debugger	
-			showList(prdt_id)
 				
+			showList(prdt_id)
+			
 	 		$("#RtoRBtn").click(function() {
 				alert("답변버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
 				let chat_context = $("#RtoR_text").val(); 
 				
+				// 답변 글 체크
 				if(chat_context.trim() == '') {
 					alert("답글을 입력해 주세요.")
 					$("textarea[id=RtoR_text]").focus()
@@ -767,12 +767,8 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert("댓글이 수정되었습니다.")
-						/* showList(prdt_id) */
-						// $("#commentList").html(toHtml(result)) 
-					
-						
-						window.location.reload()
+						alert("댓글이 수정되었습니다.")			// 성공 시 알림
+						window.location.reload()				// Reload
 			     	},
 			     	
 			    	error : function() { alert("ModifyError") }			//에러가 발생했을 때, 호출될 함수
@@ -784,6 +780,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			$("#insertBtn").click(function() {
 				let comment = $("#comment").val();
 				
+				// 댓글 작성 시 로그인 체크 및 댓글 입력 체크
 				if(${sessionScope.UserDto.user_no == null}){
 					alert("로그인 후에 이용 가능합니다.")
 					return false
@@ -799,11 +796,10 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert(JSON.stringify({prdt_id:prdt_id, chat_context:comment}))
-						$("#commentList").html(toHtml(result))
-						alert("댓글이 작성되었습니다.")
+						$("#commentList").html(toHtml(result))		// 댓글 출력 폼으로 전송
+						alert("댓글이 작성되었습니다.")				// 댓글 작성 시 알림
 			     	},
-			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Insert_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 			})
 			
@@ -818,35 +814,33 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					type : 'DELETE',					//요청 메서드
 					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
-						//$("#commentList").html(toHtml(result))
-						alert("댓글이 삭제되었습니다.")
-						window.location.reload()
+						alert("댓글이 삭제되었습니다.")		// 삭제 시 알림
+						window.location.reload()			// Reload
 					},
-					error : function() { alert("Error") }	//에러가 발생했을 때 호출될 함수
+					error : function() { alert("Error_Delete_Chat") }	//에러가 발생했을 때 호출될 함수
 				})
 				
 			})
 			
-			// 수정
+			// 댓글 수정
 			$("#commentList").on("click", ".modBtn", function() {
 				alert("댓글수정 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")				
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
 				let prdt_id = $(this).parent().parent().attr("data-prdt_id")
-				//1. 내용을 input에 출력해주기
+				//	1. 내용을 input에 출력해주기
 				$("input[id=modal_comment]").val(chat_context);
-				//2. chat_no전달하기
+				//	2. chat_no전달하기
 				$("#RmodifyBtn").attr("data-chat_no", chat_no)
 				
 			}) 
-			// 답변
+			// 댓글 답변
 			$("#commentList").on("click", ".replyBtn", function() {			
 				alert("댓글답변 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
 				//1. 내용을 input에 출력해주기
-				
 				$("input[id=modal_comment]").val(chat_context);
 				//2. chat_no전달하기
 				$("#RtoRBtn").attr("data-chat_no", chat_no)
@@ -862,14 +856,13 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 						$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터
 					},
-					error : function() { alert("errorShowList") }	// 에러가 발생할 때, 호출될 함수
+					error : function() { alert("Error_Chat_List") }	// 에러가 발생할 때, 호출될 함수
 				})
 			}
 		
 		 	let toHtml = function(comments) {
 		 		let tmp = '<div class="row text-start">'
 				let user_id_for_comment = $('#user_id_for_comment').val()			// 로그인정보를 세션에 담아옴
-				debugger;
 		 		
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
@@ -930,6 +923,8 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				return tmp += "</div>"
 					
 			}
+			
+			// 댓글 출력
 		 	function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);
 			        let month = date_source.getMonth() + 1;
@@ -941,10 +936,10 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			        return date_source.getFullYear() + '-' + month + '-' + day;
 	
 		     }
-		 	function mod_Modal() {				// 수정 모달 창을 띄움
+		 	function mod_Modal() {					// 수정 버튼 클릭 시 수정 모달 창을 띄움
 				$('#mod_Modal').modal('show')
 			}
-		 	function reply_Modal() {				// 답변 모달 창을 띄움
+		 	function reply_Modal() {				// 답변 버튼 클릭 시 답변 모달 창을 띄움
 				$('#reply_Modal').modal('show')
 			}
 </script>
