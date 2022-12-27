@@ -1,0 +1,59 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+interface AddressDao << interface >>
+class AddressDaoImpl {
+  + AddressDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class AddressDto {
+  + AddressDto(): 
+  + AddressDto(Integer, String, String, String, String, String, String, boolean, Integer): 
+  - address_id: Integer
+  - address_num: String
+  - address: String
+  - receiver_name: String
+  - receiver_phonenum: String
+  - default_address: boolean
+  - user_no: int
+  - address_name: String
+  - address_detail: String
+}
+class SettingController {
+  + SettingController(): 
+  ~ settingService: SettingService
+  ~ userDao: UserDao
+}
+interface SettingDao << interface >>
+class SettingDaoImpl {
+  + SettingDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class SettingDto {
+  + SettingDto(): 
+  + SettingDto(int, boolean, boolean, boolean, boolean): 
+  - user_introduce: String
+  - update_agree: boolean
+  - msg_agree: boolean
+  - user_no: int
+  - marketing_agree: boolean
+  - favor_agree: boolean
+  - setting_no: Integer
+}
+interface SettingService << interface >>
+class SettingServiceImpl {
+  + SettingServiceImpl(UserDao, AddressDao, SettingDao): 
+  ~ userDao: UserDao
+  ~ addressDao: AddressDao
+  ~ settingDao: SettingDao
+}
+
+AddressDaoImpl      -[#008200,dashed]-^  AddressDao         
+SettingDaoImpl      -[#008200,dashed]-^  SettingDao         
+SettingServiceImpl  -[#008200,dashed]-^  SettingService     
+@enduml

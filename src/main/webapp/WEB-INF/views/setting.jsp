@@ -498,10 +498,15 @@
         </section>
 
         <script type="text/javascript">
-            	
+          	
+        	// 닉네임 수정 버튼을 눌렀을 때
 	        $("#nicknamechangeBtn").click(function() {
+	        	// user_no의 값을 user_no에 할당
 				let user_no = $("#user_no").val()
-					
+				
+				
+				
+				// POST 방식으로 user_no의 값을 넘겨준다.
 	  			$.ajax({
 					type:'POST',	//통신방식 (get,post)
 					url: '/purplaying/setting/stmodnname',
@@ -509,9 +514,13 @@
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
 					success:function(result){
+						// JSON 방식으로 넘어온 user의 값을 js 형식으로 바꿈
 						user = JSON.parse(result)
+						// 유저의 닉네임 값을 닉네임 수정 모달창의 입력란에 삽입
 						$("#user_NickName").val(user.user_nickname)
+						// 닉네임 수정 완료 버튼에 유저 번호 값을 추가해줌
 			  			$("#modnicknameBtn").attr("user-no", user_no)
+			  			// 닉네임 수정 모달창 보이기
 			  			$("#NicknameChangeModal").modal("show")
 					},
 					error : function(){
@@ -521,14 +530,10 @@
 	  		})
 	  		
 	  		$("#modnicknameBtn").click(function() {
+	  			// user_no의 값을 user_no에 할당
 				let user_no = $("#user_no").val()
+				// 닉네임 수정 모달창의 입력란에 있는 값을 user_nickname에 할당
 	  			let user_nickname = $("#user_NickName").val()
-	  			
-	  			if(user_nickname.trim() == '') { 
-					alert("이름을 입력해 주세요.")
-					$("#user_NickName").focus()
-					return
-				}
 	  			
 	  			$.ajax({
 	  				type : 'PATCH',
@@ -840,8 +845,17 @@
 		  			})
 		  		})
 	        	
-	        	$("#modpwdBtn").attr("disabled", "disabled")
+	        	$("#modnicknameBtn").attr("disabled", "disabled")
+	        	$("#user_NickName").on("input", function(){
+		        	if($(this).val() != '') { 
+						$("#modnicknameBtn").removeAttr("disabled")
+	        		}
+	        		else {
+	        			$("#modnicknameBtn").attr("disabled", "disabled")
+					}
+	        	})
 	        	
+	        	$("#modpwdBtn").attr("disabled", "disabled")
 	        	$("#password").on("input", function(){
 	        		if($(this).val() == $("#passwordConfirm").val() && $(this).val() != "") {
 	        			$("#modpwdBtn").removeAttr("disabled")
