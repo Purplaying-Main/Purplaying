@@ -172,7 +172,7 @@
               </div>
               <div class="row mb-2">
                 <h6 class="col-4 text-start py-3">종료일</h6>
-                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" onchange="calDate()" value="${endDate}"/></div>
+                <div class="col-8"><input class="form-control" type="date" id="prdt_enddate" onchange="calDate()" value="${endDate}" onclick="savecurDate(this)"/></div>
               </div>
               <p class="text-end text-info" id="punding_date_range">펀딩 기간 ${calDate}일</p>
               <h6>후원자 결제 종료</h6>
@@ -330,6 +330,162 @@
 		})
 	</script>
 	<script type="text/javascript">
+	let curDate = null;
+	var link = '/purplaying/mypage'
+		function cancel(){
+			location.href = link
+		}
+		function modifyFinish() {
+			document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
+				if(formCheck()){					
+				}
+				else {
+					return false
+					} 
+				location.href = link
+		}
+		
+		
+		let formCheck = function() {
+			if(document.getElementById("prdt_name").value=="") {
+				alert("제목을 입력해 주세요.")
+				document.getElementById("prdt_name").focus()
+				return false
+			}
+			if(document.getElementById("prdt_desc").value=="") {
+				alert("내용을 입력해 주세요.")
+				document.getElementById("prdt_desc").focus()
+				return false
+			}
+			if(document.getElementById("file_id").value=="") {
+				alert("사진을 등록해 주세요.")
+				document.getElementById("file_id").focus()
+				return false
+			}
+			if(document.getElementById("prdt_genre").value==0 ||document.getElementById("prdt_genre").value=="" ) {
+				alert("카테고리를 선택해주세요")
+				document.getElementById("prdt_genre").focus()
+				return false
+			}	
+			return true; 
+		} 
+		function dateFormat(date) {
+	        let month = date.getMonth() + 1;
+	        let day = date.getDate();
+	
+	        month = month >= 10 ? month : '0' + month;
+	        day = day >= 10 ? day : '0' + day;
+	     
+	
+	        return date.getFullYear() + '-' + month + '-' + day;
+		}
+		function savecurDate(element){
+			curDate = element.value
+			console.log(curDate)
+			//alert(curDate)
+		}
+		
+		function calDate(){
+			let openDate = $('#prdt_opendate').val()
+			let endDate = $('#prdt_enddate').val()
+			//alert(typeof(openDate))
+			let finishDate = new Date(endDate);
+			let tomorrow_end_Date = new Date(finishDate.setDate(finishDate.getDate()+1));
+			let Date_openDate = new Date(openDate);
+			let Date_endDate = new Date(endDate);
+			if(Date_endDate>=Date_openDate){
+				$.ajax({
+					type: 'GET',	
+					url: '/purplaying/project/calDate/'+openDate+"/"+endDate,//year+month+day,
+					processData: false,
+				    contentType: false,
+				    dataType:'json',
+					success: function(result) {
+						//alert(result)
+						$('#punding_date_range').html("펀딩 기간 "+result+"일");
+						$('#adjust_date').html("예상 정산일은 "+dateFormat(tomorrow_end_Date)+"입니다.");
+					},
+					error : function() { alert("error") }
+				})
+			}
+			else{
+				$('#prdt_enddate').val(curDate)
+				alert("종료일이 잘못되었습니다.")
+			}
+		}
+		function calculate(){
+			if($('#prdt_goal').val()==null){
+				var prdt_goal = 0;
+			}
+			else{
+				var prdt_goal = $('#prdt_goal').val()
+			}
+			
+			//alert(typeof(prdt_goal))
+			$.ajax({
+				type: 'GET',	
+				url: '/purplaying/project/calculate/'+prdt_goal,
+				processData: false,
+			    contentType: false,
+			    dataType:'json',
+				success: function(result) {
+					//alert("price :"+result)
+					//$('#goal_price').val(result);
+					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#total_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#agencies_commission').html(result[2].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					$('#platform_commission').html(result[3].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+					
+				},
+				error : function() { alert("error") }
+			})
+		}
+		
+
+
+		
+		/* 이미지 미리보기(섬네일 출력) */
+		var uploadResult = $("#uploadResult");
+			/* 첨부파일 파일명 인코딩 처리 */
+			function showUploadedFile(uploadResultArr) {
+				var str= "";
+				var fileCallPath = "";
+				var none="";
+				let prdt_id = ${projectDto.prdt_id}
+				
+				$(uploadResultArr).each(function (i, obj) {
+					// 이미지가 아닌 파일일때, 파일아이콘 출력
+					if(!obj.image){
+						/* <i class='fa-light fa-file'>"+obj.file_name+"</li> */
+						str = "";
+					}else{
+						// 이미지일때 썸네일 출력
+						str = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.file_name);
+						// 원본 파일 경로 저장
+						fileCallPath = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+"/"+obj.uuid+"_"+obj.file_name);
+					}
+				})
+				/* uploadResult.append(str); */
+				$("#prdt_thumbnail").attr("style", none);
+				$("#prdt_thumbnail").attr("src", str);
+				$("#prdt_img").attr("value", fileCallPath);
+			}
+		/* 파일 확장자, 크기 처리 */
+		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
+		var maxSize = 5242880 //5MB
+		function checkExtension(file_name, fileSize) {
+			if(fileSize >= maxSize){
+				alert("파일 사이즈 초과")
+				return false
+			}
+			if(regex.test(file_name)){
+				alert("해당 확장자의 파일은 업로드할 수 없습니다. ")
+				return false
+			}
+			return true
+		}
+		
+		let prdt_id = ${projectDto.prdt_id}
 		
 		$(document).ready(function() {	
 			
@@ -435,160 +591,6 @@
 			})
 		})
 		
-		let before_endDate = $('#prdt_enddate').val()
-		
-		var link = '/purplaying/mypage'
-		function cancel(){
-			location.href = link
-		}
-		function modifyFinish() {
-			document.getElementById('modifyAllBtn').click() // 저장 후 페이지 이동
-				if(formCheck()){					
-				}
-				else {
-					return false
-					} 
-				location.href = link
-		}
-		
-		
-		let formCheck = function() {
-			if(document.getElementById("prdt_name").value=="") {
-				alert("제목을 입력해 주세요.")
-				document.getElementById("prdt_name").focus()
-				return false
-			}
-			if(document.getElementById("prdt_desc").value=="") {
-				alert("내용을 입력해 주세요.")
-				document.getElementById("prdt_desc").focus()
-				return false
-			}
-			if(document.getElementById("file_id").value=="") {
-				alert("사진을 등록해 주세요.")
-				document.getElementById("file_id").focus()
-				return false
-			}
-			if(document.getElementById("prdt_genre").value==0 ||document.getElementById("prdt_genre").value=="" ) {
-				alert("카테고리를 선택해주세요")
-				document.getElementById("prdt_genre").focus()
-				return false
-			}	
-			return true; 
-		} 
-		function dateFormat(date) {
-	        let month = date.getMonth() + 1;
-	        let day = date.getDate();
-	
-	        month = month >= 10 ? month : '0' + month;
-	        day = day >= 10 ? day : '0' + day;
-	     
-	
-	        return date.getFullYear() + '-' + month + '-' + day;
-		}
-		
-		function calDate(){
-			let openDate = $('#prdt_opendate').val()
-			let endDate = $('#prdt_enddate').val()
-			//alert(typeof(openDate))
-			let finishDate = new Date(endDate);
-			let tomorrow_end_Date = new Date(finishDate.setDate(finishDate.getDate()+1));
-			let Date_openDate = new Date(openDate);
-			let Date_endDate = new Date(endDate);
-			if(Date_endDate>=Date_openDate){
-				$.ajax({
-					type: 'GET',	
-					url: '/purplaying/project/calDate/'+openDate+"/"+endDate,//year+month+day,
-					processData: false,
-				    contentType: false,
-				    dataType:'json',
-					success: function(result) {
-						//alert(result)
-						$('#punding_date_range').html("펀딩 기간 "+result+"일");
-						$('#adjust_date').html("예상 정산일은 "+dateFormat(tomorrow_end_Date)+"입니다.");
-					},
-					error : function() { alert("error") }
-				})
-			}
-			else{
-				$('#prdt_enddate').val(before_endDate)
-				alert("종료일이 잘못되었습니다.")
-				alert(before_endDate)
-				alert($('#prdt_enddate').val())
-			}
-		}
-		function calculate(){
-			if($('#prdt_goal').val()==null){
-				var prdt_goal = 0;
-			}
-			else{
-				var prdt_goal = $('#prdt_goal').val()
-			}
-			
-			//alert(typeof(prdt_goal))
-			$.ajax({
-				type: 'GET',	
-				url: '/purplaying/project/calculate/'+prdt_goal,
-				processData: false,
-			    contentType: false,
-			    dataType:'json',
-				success: function(result) {
-					//alert("price :"+result)
-					//$('#goal_price').val(result);
-					$('#goal_price').html(result[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#total_commission').html(result[1].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#agencies_commission').html(result[2].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					$('#platform_commission').html(result[3].replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
-					
-				},
-				error : function() { alert("error") }
-			})
-		}
-		
-
-
-		
-		/* 이미지 미리보기(섬네일 출력) */
-		var uploadResult = $("#uploadResult");
-			/* 첨부파일 파일명 인코딩 처리 */
-			function showUploadedFile(uploadResultArr) {
-				var str= "";
-				var fileCallPath = "";
-				var none="";
-				let prdt_id = ${projectDto.prdt_id}
-				
-				$(uploadResultArr).each(function (i, obj) {
-					// 이미지가 아닌 파일일때, 파일아이콘 출력
-					if(!obj.image){
-						/* <i class='fa-light fa-file'>"+obj.file_name+"</li> */
-						str = "";
-					}else{
-						// 이미지일때 썸네일 출력
-						str = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid+"_"+obj.file_name);
-						// 원본 파일 경로 저장
-						fileCallPath = "/purplaying/file/display?file_name="+encodeURIComponent( obj.uploadPath+"/"+obj.uuid+"_"+obj.file_name);
-					}
-				})
-				/* uploadResult.append(str); */
-				$("#prdt_thumbnail").attr("style", none);
-				$("#prdt_thumbnail").attr("src", str);
-				$("#prdt_img").attr("value", fileCallPath);
-			}
-		/* 파일 확장자, 크기 처리 */
-		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$")
-		var maxSize = 5242880 //5MB
-		function checkExtension(file_name, fileSize) {
-			if(fileSize >= maxSize){
-				alert("파일 사이즈 초과")
-				return false
-			}
-			if(regex.test(file_name)){
-				alert("해당 확장자의 파일은 업로드할 수 없습니다. ")
-				return false
-			}
-			return true
-		}
-		
-		let prdt_id = ${projectDto.prdt_id}
 		
 	</script>
 	<!--푸터 인클루드-->
