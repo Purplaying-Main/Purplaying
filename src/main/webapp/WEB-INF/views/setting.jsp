@@ -535,14 +535,18 @@
 				// 닉네임 수정 모달창의 입력란에 있는 값을 user_nickname에 할당
 	  			let user_nickname = $("#user_NickName").val()
 	  			
+	  			// PATCH 방식으로 user_no의 값을 넘겨준다.
 	  			$.ajax({
 	  				type : 'PATCH',
 	  				url : '/purplaying/setting/nname/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_nickname:user_nickname}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							// 수정된 닉네임을 html로 출력
 							$("#userNickName").html(user_nickname)
+							// 닉네임 수정 모달창 숨기기
 							$("#NicknameChangeModal").modal("hide")
+							// 닉네임 수정 모달창의 값 초기화
 							$("#user_NickName").val("")
 					},
 	  				error : function() {alert("error")}
@@ -550,8 +554,10 @@
 	  		})
 	  		
 	  		$("#introchangeBtn").click(function() {
+	  			// user_no의 값을 user_no에 할당
 				let user_no = $("#user_no").val()
-					
+				
+				// POST 방식으로 user_no의 값을 넘겨준다.
 	  			$.ajax({
 					type:'POST',	//통신방식 (get,post)
 					url: '/purplaying/setting/stmodintro/'+user_no,
@@ -559,7 +565,9 @@
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
 					success:function(result){
+						// JSON 방식으로 넘어온 user의 값을 js 형식으로 바꿈
 						user = JSON.parse(result)
+						
 						$("#user_Introduce").val(user.user_introduce)
 			  			$("#modintroBtn").attr("user-no", user_no)
 			  			$("#introChangeModal").modal("show")
