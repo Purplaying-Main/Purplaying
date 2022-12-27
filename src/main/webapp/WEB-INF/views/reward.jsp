@@ -258,7 +258,7 @@
 						data : JSON.stringify(modi_reward),
 						success:function(result){
 							$('#rewardModiModal').modal("hide");
-							$("#BtnGroup").html(toHtmlModi(JSON.parse(result)));
+							$("#BtnGroup").html(toHtml(JSON.parse(result)));
 						},
 						error : function(){
 							alert("error");
@@ -342,6 +342,7 @@
 					catergory_name = '얼리버드';
 				}
 				else {
+					alert("리워드를 선택해주세요.");
 					return false;
 				}
 				tmp += '<div id="'+reward.reward_id+'">';

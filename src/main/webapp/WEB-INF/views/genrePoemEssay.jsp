@@ -21,26 +21,26 @@
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
       <!--컨텐츠 영역-->
-      <!-- 펀딩 프로젝트 -->
       <div class="album">
       	<div class="container d-flex justify-content-between">
           <h3 class="ms-2">📗<b>시/에세이</b></h3>
 	       <div class="dropdown me-1">
 	        <form action='<c:url value="/genre/poemessay"/>' method="get">
-	          <button class="btn btn-secondary dropdown-toggle" id="orderSelect" type="button" data-bs-toggle="dropdown" aria-expanded="false" > 정렬 </button>
+	          <button class="btn btn-secondary dropdown-toggle" id="orderSelect" type="button" data-bs-toggle="dropdown" aria-expanded="false" >정렬</button>
 	          <ul class="dropdown-menu dropdown-menu-end text-end">
-	         	 <li><button class="dropdown-item"> 정렬 </button></li>
+	         	 <li><button class="dropdown-item">정렬</button></li>
 	            <li><button class="dropdown-item" name="order" value="popular">인기순</button></li>
 	            <li><button class="dropdown-item" name="order" value="new" >최신순</button></li>
 	          </ul>      
 	        </form>
 	       </div>
       	</div>
-        <div class="container py-4"><!-- genre div start -->
+        <div class="container py-4">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="ProjectDto" items="${list_gpe }">        
-            <div class="col"><!-- project thumb start -->
+            <div class="col">
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
@@ -68,34 +68,30 @@
                   </div>
                 </div>
               </div>
-            </div><!-- project thumb end -->
+            </div>
           	</c:forEach>
-          </div><!-- project row end -->
-        </div><!-- genre div end -->
+          </div>
+        </div>
       </div>
     </div>
 
   </section>
-  	<script>
-	/*progressbar 연동 JS*/
-	const perValue = ${ProjectDto.prdt_percent };
-	if(perValue >= 100) {perValue = 100;}
-	</script>
-	<script>
+  	<!-- 드롭박스 필터 -->
+	<script type="text/javascript">
 	let orderSelect = document.getElementById("orderSelect");
     function searchParam(key) {
          return new URLSearchParams(location.search).get(key);
     }
     let order = searchParam('order');
     switch (order){
-    case 'popular' :
-        orderSelect.innerText = '인기순';
-        break;
-    case 'new' : 
-        orderSelect.innerText = '최신순';
-        break;
-    default :
-        orderSelect.innerText = ' 정렬 ';
+	    case 'popular' :
+	        orderSelect.innerText = '인기순';
+	        break;
+	    case 'new' : 
+	        orderSelect.innerText = '최신순';
+	        break;
+	    default :
+	        orderSelect.innerText = ' 정렬 ';
     }
 	</script>
   <!--푸터 인클루드-->

@@ -10,22 +10,21 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file="meta.jsp"%>
-  	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
-  <style>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/heart.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/indexHover.css">
+  <style type="text/css">
   .fa-heart{
-  border-radius: 0.375rem; 
+  	border-radius: 0.375rem; 
   }
   #selectRewardBox {
-  display: none;
+  	display: none;
   }
   </style>
 </head>
-
 <body>
 
   <!--헤더 인클루드-->
-   <%@ include file ="header.jsp" %>
+  <%@ include file ="header.jsp" %>
    
    <!--페이지 내용 시작-->
    <section>
@@ -43,8 +42,7 @@
             </h4>
             <h1>${projectDto.prdt_name}</h1>
           </div>
-          <div class="row mb-2"> <!-- 상세페이지 상단 start-->
-            <!--thumbnail start-->
+          <div class="row mb-2">
             <div class="col" id="projectCarousel">
 	            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
 				  <div class="carousel-inner">
@@ -54,7 +52,6 @@
 				  </div>
 				</div>
             </div>
-            <!--thumbnail end-->
             <ul class="col-md-4" id="move">
               <li id="remaining-day"><small class="text-muted">남은 기간</small><h4 class="text-primary">
               <c:choose>
@@ -62,12 +59,14 @@
               	<c:when test="${projectDto.prdt_dday < 0}">펀딩 종료</c:when>
               	<c:otherwise>Dday</c:otherwise>
               </c:choose>
-              </h4></li>
+              </h4>
+              </li>
               <li id="achievement-rate"><small class="text-muted">달성률</small><h4 class="text-primary">${projectDto.prdt_percent}%</h4></li>
               <li id="total-amount"><small class="text-muted">모인 금액</small><h4 class="text-primary"><fmt:formatNumber value="${projectDto.prdt_currenttotal }" pattern="#,###" />원</h4></li>
               <li id="total-supporter"><small class="text-muted">후원자</small><h4 class="text-primary">${projectDto.prdt_buyercnt}명</h4></li>
               <li><hr class="mb-2"></li>
-              <li class="row justify-content-end pb-3"><!-- 리워드 셀렉트 영역  -->
+              <li class="row justify-content-end pb-3">
+              <!-- 리워드 셀렉트 영역  -->
               	<div class="col">
               		<label for="rewardSelectLabel" class="form-label">리워드 선택</label>
 	              	<select  id="addReward" class="form-select fs-6" name="rewardSelect">
@@ -77,14 +76,10 @@
 					  </c:forEach>
 					</select>
 				</div>
-				
-<!-- 				<div class="col">
-              	  <label for="rewardSelectNumLabel" class="form-label">수량</label>
-				  <input type="number" class="form-control" id="rewardSelectNum" placeholder="1" min="1">
-				<d/div> -->
               </li>
               <li>
-                <form class="selectedRewardForm" id="selectedRewardForm" action="" method="">
+              	<!-- 파라미터로 전달될 리워드 -->
+                <form class="selectedRewardForm" id="selectedRewardForm"> 
               	<div class="form-floating mb-3">
               		<div id="selectRewardBox">
               			
@@ -129,8 +124,9 @@
                 </div>
               </li>
             </ul>
-          </div><!-- 상세페이지 상단 end -->
-          <div class="row mb-2"><!-- 상세페이지 하단 start-->
+          </div>
+          
+          <div class="row mb-2">
           <hr class="mb-4">
             <!-- 리워드 -->
 	              <h4 class="d-flex mt-2">리워드 선택하기
@@ -144,8 +140,7 @@
 					    <li><button class="dropdown-item" id="dropDownOption2">얼리버드</button></li>
 					  </ul>
 				  	</div>
-	              </h4>
-	                            	
+	              </h4>	
               <div class="row row-cols-1 row-cols-md-4 mb-3 text-center w-100" id="rewawrdBox">
               	<c:forEach var="rewardDto" items="${dto}">
 	                <div class="col mt-2">
@@ -176,6 +171,7 @@
 	                </div><!-- 리워드 card end-->
 	             </c:forEach>
             </div><!-- 리워드 end -->
+            
             <!-- 프로젝트 작성 페이지 탭 -->
             <div class="mb-4"> <!-- 탭 메뉴 -->
               <div class="nav nav-tabs" id="v-pills-tab" role="tablist">
@@ -378,7 +374,7 @@
           </form>
         </div><!-- 상세페이지 하단 종료 -->
     </section>
-   <!--페이지 내용 종료-->
+      <!--페이지 내용 종료-->
    
    <!-- 찜하기 JS -->
    <script src="${pageContext.request.contextPath}/resources/assets/js/pickBtn.js"></script> 
@@ -442,9 +438,7 @@
 			  
 		}
 	$(document).ready(function(){
-
 	let dday =  <c:out value="${projectDto.prdt_dday}"/>
-
 	// 유저 = 창작자이면 관리하기 버튼으로 보여줌
 	if(${sessionScope.user_id eq projectDto.writer}){
 			document.getElementById("doFundingBtn").value = "펀딩관리하기";
@@ -453,7 +447,6 @@
 			})
 		return false
 	}	
-
 	// 유저!=창작자이면서 펀딩이 종료되면 종료된 펀딩이라고 띄움
 	else if(dday < 0 && ${sessionScope.user_id ne projectDto.writer}){
 		document.getElementById("doFundingBtn").disabled = true;
@@ -468,10 +461,8 @@
 		let form = $('#selectedRewardForm');
 		form.attr("action","<c:url value='/payment/${prdt_id}' />");
 		form.attr("method","get");
-
 		if(formCheck())
 			form.submit()	
-
 	}) 
 	
 	/*페이지가 로딩되었을 때 리워드 수량이 0인 리워드에 대하여 선택 비활성화*/
@@ -487,11 +478,9 @@
 	
 let selectedRewardName = document.getElementById("selectedRewardName");
 let selectedRewardPrice = document.getElementById("selectedRewardPrice");
-
 	$("#addReward").change(function(){
 		document.getElementById("selectRewardBox").style.display = 'block';
 		let reward_num = $('#addReward option:selected').val();
-
 		//alert(reward_num)
 		if(!arr.includes(reward_num[0])){
 			arr.push(reward_num[0]);
@@ -509,7 +498,6 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			$("#rewardTotalPrice").val(result_price); */
 		}
 	});
-
 	/*펀딩하기 버튼 클릭시 validation 체크*/
 	formCheck = function() {
 		let form = document.getElementById("selectRewardBox")
@@ -613,14 +601,12 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		temp +='</div>'
 		temp +=	'<div class="d-flex justify-content-end col"><span class="align-self-center col-1" style="margin-bottom: 0px;">수량 </span><span class="col-2"><input type="number" class="text-center form-control form-control-sm" name="reward_cnt" value="1" id="selectedRewardCnt-'+num+'" placeholder="1" min="1" onchange="calRewardPrice()"/></span></div>'
 		temp += "</div>";
-
 		return temp;
 	}
 	
 	/*찜하기 버튼 스크립트*/
 	function pickBtn() {
 		   let _buttonI = event.target;
-
 		   if (_buttonI.classList.contains("far")) {
 		      $.ajax({
 					type : 'post',				//요청 메서드
@@ -775,7 +761,6 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					$("textarea[id=modify_text]").focus()
 					return
 				}
-
 				$.ajax({
 					type : 'patch',				//요청 메서드
 					url : '/purplaying/community/modify/' + chat_no,				//요청 URI
@@ -854,7 +839,6 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				$("#RmodifyBtn").attr("data-chat_no", chat_no)
 				
 			}) 
-
 			// 답변
 			$("#commentList").on("click", ".replyBtn", function() {			
 				alert("댓글답변 버튼 클릭됨")
@@ -946,8 +930,6 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				return tmp += "</div>"
 					
 			}
-
-
 		 	function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);
 			        let month = date_source.getMonth() + 1;

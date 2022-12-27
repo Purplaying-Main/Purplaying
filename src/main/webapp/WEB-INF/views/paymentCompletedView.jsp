@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
@@ -17,6 +16,7 @@
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h3 class="text-center py-2 mb-2 fw-bold">펀딩 결제 정보</h3>
@@ -75,7 +75,6 @@
 
         <!--중간 영역 시작-->
         <div class="mb-2">
-
           <div class="mb-2">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col-auto d-none d-lg-block">
@@ -103,9 +102,8 @@
             </div>
           </div>
   
-          <!--사분할 시작-->
-          <div class="row justify-content-center">
 
+          <div class="row justify-content-center">
              <!--리워드 정보-->
             <div class="d-flex mb-2">
             <div class="col-12">
@@ -133,8 +131,7 @@
             </div>
             </div>
             
-  
-            <!--배송 정보-->
+            <!--결제 정보-->
             <div class="d-flex">
             <div class="col-6">
               <div class="card">
@@ -161,6 +158,7 @@
               </div>
             </div>            
             
+            <!-- 배송 정보 -->
              <div class="col-6">
               <div class="card">
                 <h5 class="card-header">배송 정보</h5>
@@ -184,14 +182,9 @@
                 </div>
               </div>
             </div>
-   
 
-            
             </div>
-         
-
-          </div><!--사분할 종료-->
-
+          </div>
         </div><!--중간 영역 끝-->
 
         <!--하단 영역-->
@@ -200,14 +193,15 @@
           <a class="btn btn-secondary ms-2" href="${pageContext.request.contextPath}/">메인으로</a>
         </div>
 
-      </div><!--컨텐츠 영역-->
-    </div><!-- contentsWrap end -->
+      </div>
+    </div>
   </section>
 
 
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
   
+  <!-- 결제취소 관련 스크립트 -->
   <script type="text/javascript">
   $(document).ready(function(){
  	let today = new Date();

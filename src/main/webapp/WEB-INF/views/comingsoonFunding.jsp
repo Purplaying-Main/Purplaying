@@ -8,23 +8,24 @@
 <head>
   <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
   <%@ include file ="meta.jsp" %>
-	<link rel="stylesheet" href="resources/assets/css/heart.css">
-	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
-	<script src="resources/assets/js/heart.js"></script>
+  <link rel="stylesheet" href="resources/assets/css/heart.css">
+  <link rel="stylesheet" href="resources/assets/css/indexHover.css">
+  <script src="resources/assets/js/heart.js"></script>
 </head>
 <body>
   <!--헤더 인클루드-->
-   <%@ include file ="header.jsp" %>
-   
- 
+  <%@ include file ="header.jsp" %>
+    
   <!--메인 컨테이너 -->
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
       <!--컨텐츠 영역-->
+      
       <!-- 펀딩 프로젝트 -->
       <div class="album">
-        <div class="container py-4"><!-- genre div start -->
+        <div class="container py-4">
           <h3>Comingsoon ! 펀딩예정💖</h3>
           <c:choose>
           <c:when test="${fn:length(list_c) eq 0 }">
@@ -37,7 +38,7 @@
           <c:otherwise>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="ProjectDto" items="${list_c }">
-            <div class="col"><!-- project thumb start -->
+            <div class="col">
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
                 <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
@@ -48,12 +49,12 @@
                 </div>
                 <div class="card-body">
 	                  <div class="d-flex justify-content-between">
-                  	<c:choose>
-                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
-                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
-                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
-                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
-                  	</c:choose>
+                  		<c:choose>
+	                  		<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate" onclick="location.href='genre/literature'">문학</p></c:when>
+	                  		<c:when test="${ProjectDto.prdt_genre eq 2 }"><p class="card-cate" onclick="location.href='genre/poemessay'">시/에세이</p></c:when>
+	                  		<c:when test="${ProjectDto.prdt_genre eq 3 }"><p class="card-cate" onclick="location.href='genre/webtoon'">웹툰</p></c:when>
+	                  		<c:otherwise><p class="card-cate">장르</p></c:otherwise>
+                  		</c:choose>
                     	<small class="text-danger">공개까지 <b>D-${ProjectDto.prdt_comingday}</b></small>
                   	  </div>
                   	  <div class="link-div" onclick="alert(${ProjectDto.prdt_comingday}+'일 뒤 공개 예정입니다.'); return false;">
@@ -63,11 +64,11 @@
               </div>
              </div>
              </c:forEach>	
-            </div><!-- project thumb end -->	
+            </div>
             </c:otherwise>
             </c:choose>	
           </div>
-        </div><!-- genre div end -->
+        </div>
       </div>
   </section>
   

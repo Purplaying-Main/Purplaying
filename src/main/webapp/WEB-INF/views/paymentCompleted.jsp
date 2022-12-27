@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
@@ -16,19 +15,19 @@
   <section>
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h3 class="text-center py-2 mb-2 fw-bold">펀딩 결제 정보</h3>
 
         <!--상단 영역-->
         <div class="mb-2">
-          <h5>퍼플레잉<span class="badge bg-primary ms-1">후원완료</span></h5>
+          <h5><span class="badge bg-primary ms-1">후원완료</span></h5>
           <p class="ms-2">후원해 주셔서 감사합니다.<br>후원 내역은 마이 페이지에서 확인 할 수 있습니다.</p>
         </div>
 
-        <!--중간 영역 시작-->
+        <!-- 프로젝트 정보 -->
         <div class="mb-2">
-
           <div class="mb-2">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col-auto d-none d-lg-block">
@@ -56,7 +55,6 @@
             </div>
           </div>
   
-          <!--사분할 시작-->
           <div class="row justify-content-center">
             <!--리워드 정보-->
             <div class="d-flex mb-2">
@@ -64,33 +62,29 @@
               <div class="card">
                 <h5 class="card-header">리워드 정보</h5>
                   <div class="card-body">
-	        	<table class="table">
-	        		<tr class="table-Secondary">
-                  		<th class="col-8" scope="col">리워드 패키지</th>
-                  		<th class="col-2 text-center" scope="col">수량</th>
-                  		<th class="col-2 text-center" scope="col">가격</th>
-                  	</tr>
-                  <c:set var="i" value="0"/>
-                  <c:forEach items="${reward_pay }" begin="0" end="${fn:length(reward_pay)/4-1}">
-                  <tr>
-                    <td class="col-8">${reward_pay[i]} - ${reward_pay[i+1]}</td>
-                    <td class="col-2 text-center" > ${reward_pay[i+2]}개</td>
-                    <td class="col-2 text-center" ><fmt:formatNumber type="number" maxFractionDigits="3" value="${reward_pay[i+3] }"/>원</td>
-                  </tr>
-                  <c:set var="i" value="${i+4 }" />
-                  </c:forEach>
+	        		<table class="table">
+		        		<tr class="table-Secondary">
+	                  		<th class="col-8" scope="col">리워드 패키지</th>
+	                  		<th class="col-2 text-center" scope="col">수량</th>
+	                  		<th class="col-2 text-center" scope="col">가격</th>
+	                  	</tr>
+	                    <c:set var="i" value="0"/>
+	                    <c:forEach items="${reward_pay }" begin="0" end="${fn:length(reward_pay)/4-1}">
+	                 	<tr>
+	                    	<td class="col-8">${reward_pay[i]} - ${reward_pay[i+1]}</td>
+	                    	<td class="col-2 text-center" > ${reward_pay[i+2]}개</td>
+	                    	<td class="col-2 text-center" ><fmt:formatNumber type="number" maxFractionDigits="3" value="${reward_pay[i+3] }"/>원</td>
+	                    </tr>
+	                  	<c:set var="i" value="${i+4 }" />
+	                  	</c:forEach>
                   </table>
                 </div>
               </div>
             </div>
             </div>
-            
 
-  
-            <!--배송 정보-->
-            <div class="d-flex">
-            
-            <!--결제정보-->
+            <div class="d-flex">            
+            <!-- 결제 정보 -->
             <div class="col-6">
               <div class="card">
                 <h5 class="card-header">결제 정보</h5>
@@ -103,7 +97,6 @@
                     <p class="form-label fw-bold">연락처</p>
                     <p class="form-label"><span id="dt_phoneNM">${userDto.user_phone}</span></p>
                 </div>
-
                   <div class="d-flex justify-content-between">
                     <p class="form-label fw-bold">후원 금액</p>
                      <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pay_user.get(0).getPay_total()}"/></span>원</p>
@@ -116,6 +109,7 @@
               </div>
             </div>            
             
+            <!-- 배송 정보 -->
             <div class="col-6">
               <div class="card">
                 <h5 class="card-header">배송 정보</h5>
@@ -139,11 +133,9 @@
                 </div>
               </div>
             </div>
-  
 		  </div>
 
-          </div><!--사분할 종료-->
-
+        </div>
         </div><!--중간 영역 끝-->
 
         <!--하단 영역-->
@@ -152,10 +144,9 @@
           <a class="btn btn-secondary ms-2" href="${pageContext.request.contextPath}/">메인으로</a>
         </div>
 
-      </div><!--컨텐츠 영역-->
-    </div><!-- contentsWrap end -->
+      </div>
+    </div>
   </section>
-
 
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>

@@ -25,7 +25,7 @@
      <div class="row">
       <h2 class="col-auto mb-5 justify-content-md-center">창작중인 펀딩 관리</h2>
      </div>
-     <input type="hidden" id="dayNtotal" value="${dayNtotal}">
+     <input type="hidden" id="dayNtotal" value="${dayNtotal}"> <!-- 대시보드에 나타낼 데이터 -->
       <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
       <div class="px-4 pt-4 position-static">
         <div class="d-flex justify-content-between">
@@ -67,12 +67,13 @@
 			  	<th  class="text-center col-5"  scope="col">주문 정보</th>
 			  	<th  class="text-end col-2 me-2" scope="col">주문 금액</th>
 		  	</tr>
-		  	<!-- 주문 내역이 있는지 확인 후 출력 -->
+		  	<!-- 주문 내역이 없음 -->
 			<c:if test="${empty list_pay }">
 			<tr class="text-center" >
 			  	<td colspan="5">일주일간 주문내역이 없습니다.</td>
 			</tr>
 			</c:if>
+			<!-- 주문 내역이 있음 -->
 			<c:if test="${not empty list_pay }">
 			 <c:forEach var="paymentDto" items="${list_pay }">
 			  <tr>

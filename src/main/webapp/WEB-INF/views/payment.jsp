@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -20,11 +19,12 @@
   	<input type="hidden" id="user_no" value="${userDto.user_no }">
     <h1 class="visually-hidden">HOME</h1>
     <div class="contentsWrap">
+    
       <!--컨텐츠 영역-->
       <div class="row col-md-8 d-block mx-auto">
         <h3 class="text-center py-2 mb-2">펀딩 프로젝트 후원하기</h3>
   
-        <!-- 프로젝트명 -->
+        <!-- 프로젝트 정보 -->
         <div class="mb-4">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col-auto d-none d-lg-block">
@@ -34,20 +34,21 @@
             <div class="col p-4 d-flex flex-column position-static">
               <div class="row mb-2">
                 <p class="col-6 mb-2">
-		<!-- 펀딩 장르 -->
-                <c:choose>
-                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
-                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
-                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
-                <c:otherwise>장르</c:otherwise>
-                </c:choose>
-                <span> | </span>
-                <span class="ms-2" id="dt_creator">${projectDto.writer}</span></p> 
+					<!-- 펀딩 장르 -->
+		                <c:choose>
+		                <c:when test="${projectDto.prdt_genre eq 1}">문학</c:when>
+		                <c:when test="${projectDto.prdt_genre eq 2}">시/에세이</c:when>
+		                <c:when test="${projectDto.prdt_genre eq 3}">웹툰</c:when>
+		                <c:otherwise>장르</c:otherwise>
+	                </c:choose>
+	                <span> | </span>
+	                <span class="ms-2" id="dt_creator">${projectDtㄴo.writer}</span>
+                </p> 
                 <h4 class="fw-bold mb-2">${projectDto.prdt_name}</h4>
                 <p>
-                <span class="text-danger" id="dt_fundingMoney"><fmt:formatNumber type="number" maxFractionDigits="3" value="${projectDto.prdt_currenttotal }"/>원</span>
-                <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 ${projectDto.prdt_percent}%</span>
-                <span class="text-danger" id="dt_dDay">종료 D-${projectDto.prdt_dday}</span>
+	                <span class="text-danger" id="dt_fundingMoney"><fmt:formatNumber type="number" maxFractionDigits="3" value="${projectDto.prdt_currenttotal }"/>원</span>
+	                <span class="text-danger mx-2" id="dt_fundingRatio">현재 달성률 ${projectDto.prdt_percent}%</span>
+	                <span class="text-danger" id="dt_dDay">종료 D-${projectDto.prdt_dday}</span>
               	</p>
               </div>
             </div>
@@ -55,44 +56,44 @@
         </div>
 
         <!-- 리워드 정보 -->
-        <form class="paymentForm" id="paymentform"> <!-- hidden value를 paymentcontroller에 넘김 -->
+        <form class="paymentForm" id="paymentform"> <!-- hidden value를 컨트롤러에 넘김 -->
         	<input type="hidden" id="pay_total" name="pay_total" value="">
         	<input type="hidden" id="reward_id" name="rewardid" value="">
         	<input type="hidden" id="reward_cnt" name="rewardcnt" value="">
         <div class="mb-4">
           <h5>리워드 정보</h5>
           <hr>
-          	<div id="rewardCnt">
-		<!-- 선택한 리워드와 수량 출력 -->
-          <c:forEach var="reward" items="${reward }" varStatus="status">
-          	<div>
-          	   <div class="d-flex justify-content-between mx-1" id="rewardInfo${status.count }">
-          	   <div class="form-label  fw-bold">
-              	<c:choose>
-              		<c:when test="${status.count%4 eq 1 }">No.</c:when>
-              		<c:when test="${status.count%4 eq 2 }">패키지</c:when>
-              		<c:when test="${status.count%4 eq 3 }">수량</c:when>
-					<c:when test="${status.count%4 eq 0}">가격<hr>
-					</c:when>              		
-              	</c:choose>
-          	   </div>
-              <div class="form-label">
-              		<c:choose>
-              			<c:when test="${status.count%4 eq 0}">
-              			<c:set var="price" value="${fn:split(reward,'원-')[0] }"/>
-              			<fmt:parseNumber var="i" integerOnly="true"  type="number" value="${price}" />
-              			<fmt:formatNumber type="number" maxFractionDigits="3" value="${i }"/>원
-              			</c:when>
-              			<c:otherwise>${reward }</c:otherwise>
-              		</c:choose>
-              </div> 
-              </div>
-          	</div>
-            </c:forEach>
-            <div class="d-flex justify-content-between mx-1 my-1">
-            <p class="form-label fw-bold">후원 금액</p>
-            <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${param.rewardTotalPrice}"/></span>원</p>
-          </div>
+          <div id="rewardCnt">
+			<!-- 선택한 리워드와 수량 출력 -->
+	          <c:forEach var="reward" items="${reward }" varStatus="status">
+	          	<div>
+	          	   <div class="d-flex justify-content-between mx-1" id="rewardInfo${status.count }">
+	          	   <div class="form-label fw-bold">
+	              	<c:choose>
+	              		<c:when test="${status.count%4 eq 1 }">No.</c:when>
+	              		<c:when test="${status.count%4 eq 2 }">패키지</c:when>
+	              		<c:when test="${status.count%4 eq 3 }">수량</c:when>
+						<c:when test="${status.count%4 eq 0}">가격<hr>
+						</c:when>              		
+	              	</c:choose>
+	          	   </div>
+	              <div class="form-label">
+	              		<c:choose>
+	              			<c:when test="${status.count%4 eq 0}">
+	              			<c:set var="price" value="${fn:split(reward,'원-')[0] }"/>
+	              			<fmt:parseNumber var="i" integerOnly="true"  type="number" value="${price}" />
+	              			<fmt:formatNumber type="number" maxFractionDigits="3" value="${i }"/>원
+	              			</c:when>
+	              			<c:otherwise>${reward }</c:otherwise>
+	              		</c:choose>
+	              </div> 
+	              </div>
+	          	</div>
+	            </c:forEach>
+	            <div class="d-flex justify-content-between mx-1 my-1">
+		            <p class="form-label fw-bold">후원 금액</p>
+		            <p class="form-label"><span id="dt_fundingPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${param.rewardTotalPrice}"/></span>원</p>
+	            </div>
  			</div>
         </div>
 
@@ -109,12 +110,10 @@
                 <p class="form-label" id="dt_email">${userDto.user_id}</p>
               </div>
               <div class=" py-3 my-4">
-                <p class="text-left px-3 py-2">등록된 회원 정보로
-                  프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
+                <p class="text-left px-3 py-2">등록된 회원 정보로 프로젝트에 대한 알림 및 소식이 전달됩니다.</p>
               </div>
           </div>
         </div>
-
 		
         <!-- 배송 정보 -->
         <div class="mb-4">
@@ -124,7 +123,7 @@
           	<p class="form-label fw-bold">배송지</p>
             <div class="d-flex">
           	<input type="button" id="addlistBtn" class=" form-label btn btn-primary btn-sm ms-1" data-bs-toggle="modal" data-bs-target="#deliveryModal" value="배송지목록">
-                  <!-- Modal -->
+                  <!-- 배송지 목록 모달 -->
                   <div class="modal fade" id="deliveryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deliveryModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -138,7 +137,7 @@
                        </div>
                       </div>
                     </div>
-                </div> <!-- Modal end-->
+                </div> <!-- 모달 끝 -->
             <input type="checkbox" class="form-check-input ms-2" id="dt_sameChk" onclick="same()">
             <label class="form-check-label-sm ms-2" for="dt_sameChk">후원자 정보와 동일</label>
           	</div>
@@ -154,7 +153,6 @@
           <div class="mb-2">
             <div class="d-flex justify-content-between mx-1 mb-1">
               <p class="form-label fw-bold">주소</p>
-            <!--JavaScript -->
               <div class="d-flex justify-content-end">
                 <div class="col-4"><input type="text" class="form-control form-control-sm ps-1" id="address_num" name="delivery_postcode" placeholder="우편번호" value="${paymentDto.delivery_postcode }" readonly></div>
                 <input type="button" class="btn btn-primary btn-sm ms-1" id="addressFindBtn" onclick="execDaumPostcode()" value="주소 찾기">
@@ -185,7 +183,7 @@
                 <input type="checkbox" class="form-check-input" id="chk1" name="agree1" required>
                 <label class="form-check-label" for="chk1">개인정보 제 3자 제공 동의</label>
                 <a data-bs-toggle="modal" data-bs-target="#agree4Modal" href="#" >내용보기</a>
-                  <!-- Modal -->
+                  <!-- 동의 모달 -->
                   <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -204,33 +202,34 @@
                         </div>
                       </div>
                     </div>
-                </div> <!-- Modal end-->
+                </div> <!-- 모달 종료-->
               </div>
               <div class="form-check">
                 <input class="form-check-input" id="chk2" type="checkbox" name="agree2" required>
                 <label class="form-check-label" for="chk2">유의 사항 확인</label>
               </div>
             </div>
-          </div>
+          </div>  
           </form>
           <div class="row justify-content-center">
             <div class="col-8 text-center">
              <%-- <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p> --%>
              <button type="button" class="btn btn-primary fs-3 w-50 my-3" id="doPaymentBtn">후원하기</button>
             </div>
-          </div> 
+          </div>    
         </div>
+        
       </div>
     </div><!-- contentsWrap end -->
   </section>
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
   
-   <!-- 주소찾기 JS -->
+  <!-- 주소찾기 스크립트 -->
   <script src="${pageContext.request.contextPath}/resources/assets/js/addressSearch.js"></script>
   
-  <!-- 후원자 정보와 동일 JS -->
-  <script>
+  <!-- 후원자 정보와 동일 체크박스 스크립트 -->
+  <script type="text/javascript">
    	function same(){
   		let user_name = "${userDto.user_name}";
   		document.getElementById("dt_recieverName").value = user_name ;
@@ -239,17 +238,17 @@
    	}
   </script>
   
-    <!-- 후원하기 버튼 클릭시 실행 JS -->
-  <script>
+  <!-- 후원하기 버튼 클릭시 실행 JS -->
+  <script type="text/javascript">
   	$("#doPaymentBtn").on("click",function(){
-		//후원 금액
+		//후원 금액(100만원이하/100만원이상)
   	    if(document.getElementById("dt_fundingPrice").innerText<=7){
 			let total = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1));
 			document.getElementById("pay_total").value = total;
   	    }
   	    else{
-  	    let totalOver = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)[0].replace(',','').split('원',1));
-  	    document.getElementById("pay_total").value = totalOver;
+	  	    let totalOver = parseInt(document.getElementById("dt_fundingPrice").innerText.replace(',','').split('원',1)[0].replace(',','').split('원',1));
+	  	    document.getElementById("pay_total").value = totalOver;
   	    }
   	    
   	    //2.선택한 리워드를 배열에 담음
@@ -262,16 +261,14 @@
   	    	rc[i] = parseInt(document.getElementById("rewardInfo"+j).lastElementChild.innerText.replace(',','').split('원',1)); //리워드 수량 가져오고 int로 변환
   	    	k += 4;
 			j += 4;
-  	    	
   	    }
   	    
 		//3.배열로 담은 리워드 아이디,수량을 input hidden에 저장
   	    document.getElementById("reward_id").value = rn;
   	    document.getElementById("reward_cnt").value = rc;
+  	    console.log("리워드번호 : " + rn +"\리워드수량 : "+ rc)
   	    
-  	    console.log("rn : " + rn +"\nrc : "+ rc)
   		let form = $(".paymentForm");
-  		
 		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")
 		form.attr("method", "post")
 		
@@ -279,7 +276,7 @@
 			form.submit()	
   		})  
   	
-  	
+  		//validation check
 		formCheck = function() {
 		let form = document.getElementById("paymentform")
 		
