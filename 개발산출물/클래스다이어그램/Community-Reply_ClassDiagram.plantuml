@@ -11,19 +11,19 @@ class CommunityController {
 interface CommunityDao << interface >>
 class CommunityDaoImpl {
   + CommunityDaoImpl(): 
-  - namespace: String
   - session: SqlSession
+  - namespace: String
 }
 class CommunityDto {
-  + CommunityDto(): 
   + CommunityDto(String, String): 
-  - chat_no: int
-  - chat_context: String
-  - user_no: int
+  + CommunityDto(): 
   - chat_date: Date
-  - prdt_id: int
-  - chat_type: int
   - chat_writer: String
+  - chat_context: String
+  - chat_type: int
+  - chat_no: int
+  - prdt_id: int
+  - user_no: int
 }
 interface CommunityService << interface >>
 class CommunityServiceImpl {
@@ -38,18 +38,18 @@ class ReplyController {
 interface ReplyDao << interface >>
 class ReplyDaoImpl {
   + ReplyDaoImpl(): 
-  - namespace: String
   - session: SqlSession
+  - namespace: String
 }
 class ReplyDto {
   + ReplyDto(): 
-  - chat_context: String
-  - prdt_id: int
-  - rno: int
   - chat_no: int
-  - chat_date: Date
+  - prdt_id: int
+  - chat_context: String
   - user_no: int
   - chat_writer: String
+  - chat_date: Date
+  - rno: int
 }
 interface ReplyService << interface >>
 class ReplyServiceImpl {
