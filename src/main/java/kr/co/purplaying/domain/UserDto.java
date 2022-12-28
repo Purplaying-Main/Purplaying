@@ -1,9 +1,18 @@
 package kr.co.purplaying.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class UserDto {
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@SuppressWarnings("serial")
+public class UserDto implements UserDetails {
   
   private int user_no;
   private String user_id;
@@ -12,12 +21,26 @@ public class UserDto {
   private String user_phone;
   private Date user_regdate;
   private int user_activate;
-  private int user_role;
+  private String user_role;
   private String user_profile;
   private int user_point;
   private String user_nickname;
+  private int enabled;
   
   
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+      ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+      authList.add(new SimpleGrantedAuthority(user_role));
+      return authList;
+  }
+  
+ 
+  public int getEnabled() {
+    return enabled;
+  }
+  public void setEnabled(int enabled) {
+    this.enabled = enabled;
+  }
   public String getUser_nickname() {
     return user_nickname;
   }
@@ -72,10 +95,10 @@ public class UserDto {
   public void setUser_activate(int user_activate) {
     this.user_activate = user_activate;
   }
-  public int getUser_role() {
+  public String getUser_role() {
     return user_role;
   }
-  public void setUser_role(int user_role) {
+  public void setUser_role(String user_role) {
     this.user_role = user_role;
   }
   public String getUser_profile() {
@@ -87,11 +110,11 @@ public class UserDto {
   
   
   public UserDto() {
-    this(0,"","",0,0);
+    this(0,"","","",0);
   }
   
   
-  public UserDto(int user_no, String user_id, String user_pwd, int user_role,int user_point) {
+  public UserDto(int user_no, String user_id, String user_pwd, String user_role,int user_point) {
     super();
     this.user_no = user_no;
     this.user_id = user_id;
@@ -116,13 +139,47 @@ public class UserDto {
         && Objects.equals(user_pwd, other.user_pwd) && user_role == other.user_role;
 
   }
+  
+  
   @Override
   public String toString() {
     return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
         + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
         + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + ", user_point=" + user_point
-        + ", user_nickname=" + user_nickname + "]";
+        + ", user_nickname=" + user_nickname + ", enabled=" + enabled + "]";
   }
+
+
+  @Override
+  public String getPassword() {
+      return user_pwd;
+  }
+
+  @Override
+  public String getUsername() {
+      return user_id;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+      return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+      return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+      return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+      return enabled==1?true:false;
+  }
+
 
   
 }

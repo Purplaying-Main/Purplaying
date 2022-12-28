@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,10 +48,10 @@ public class IndexController {
   LikeService likeService;
   
   @RequestMapping("/")
-  @GetMapping("/")
   public String getPage(ProjectDto projectDto, Model m, HttpSession session) {
-    
+   
     String id = (String)session.getAttribute("user_id");
+    
     
     try {
 //    로그인 시 유저정보(userDto) 세션에 저장

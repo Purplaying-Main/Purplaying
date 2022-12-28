@@ -72,7 +72,7 @@
 											<td class="align-middle" id="user_phone-${MemberDto.user_no}">${MemberDto.user_phone}</td>
 											<td class="align-middle" id="user_role-${MemberDto.user_no}">
 												<c:choose>
-													<c:when test="${MemberDto.user_role == 0}">일반회원</c:when>
+													<c:when test="${MemberDto.user_role == 'ROLE_USER'}">일반회원</c:when>
 													<c:otherwise>관리자</c:otherwise>
 												</c:choose>
 											</td>

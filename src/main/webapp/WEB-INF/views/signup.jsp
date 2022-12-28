@@ -444,12 +444,20 @@
 							agree_inform_third : $('#agree4').is(":checked"),
 							agree_marketing : $('#agree5').is(":checked")
 					} 
+					console.log(user_info)
+					var header = $("meta[name='_csrf_header']").attr('content');
+					var token = $("meta[name='_csrf']").attr('content');
+					console.log(header)
+			    	console.log(token)
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/signup',                                                                                
 						headers:{"content-type" : "application/json"},
 						dataType : 'text',
 						data : JSON.stringify(user_info),
+					 	beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
 							$("#signUpCompleteModal").modal("show");
 						},

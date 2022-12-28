@@ -70,9 +70,6 @@ public class AdminController {
   //admin 메일 보내기 페이지
   @GetMapping("/sendmessage")
   public String Adminsendmessage(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
-    if(!session.getAttribute("user_role").equals(1)) {  //유저권한이 1이아닌경우 메인페이지로 return;
-      return "redirect:/";
-    }
     try {
       int totalCnt = userDao.getSearchResultCnt(sc);    //ajax로 전달받은 sc를 이용하여 리스트의 전체갯수 저장
       
@@ -95,10 +92,6 @@ public class AdminController {
   //admin 유저권한 페이지
   @GetMapping("/userlist")
   public String AdminUserList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
-    if(!session.getAttribute("user_role").equals(1)) {  //유저권한이 1이아닌경우 메인페이지로 return;
-      return "redirect:/";
-    }
-    
     try {
       System.out.println(sc);
       int totalCnt = userDao.getSearchResultCnt(sc);    //ajax로 전달받은 sc를 이용하여 리스트의 전체갯수 저장
@@ -122,9 +115,6 @@ public class AdminController {
   //admin 펀딩게시글 페이지
   @GetMapping("/projectlist")
   public String AdminProjectList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
-    if(!session.getAttribute("user_role").equals(1)) {  //유저권한이 1이아닌경우 메인페이지로 return;
-      return "redirect:/";
-    }
     try {
       System.out.println(sc);
       int totalCnt = projectService.getSearchResultCnt(sc); //ajax로 전달받은 sc를 이용하여 리스트의 전체갯수 저장
@@ -147,9 +137,6 @@ public class AdminController {
   //admin 사이트배너 프로젝트썸네일 페이지
   @GetMapping("/bannerlist")
   public String AdminBannerList(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
-    if(!session.getAttribute("user_role").equals(1)) {  //유저권한이 1이아닌경우 메인페이지로 return;
-      return null;
-    }
     try {
       List<BannerFileDto> bannerfileList = fileService.selectBannerList();    //배너파일 DB에서 select후 list형태로 저장
       System.out.println(sc);
@@ -174,9 +161,6 @@ public class AdminController {
   //admin 사이트배너 배너업로드 페이지
   @GetMapping("/bannerupload")
   public String AdminBannerUpload(SearchItem sc, HttpServletRequest request, Model m, HttpSession session ) {
-    if(!session.getAttribute("user_role").equals(1)) { //유저권한이 1이아닌경우 메인페이지로 return;
-      return null;
-    }
     try {
       List<BannerFileDto> bannerfileList = fileService.selectBannerList(); //배너파일 DB에서 select후 list형태로 저장
       System.out.println(sc);
