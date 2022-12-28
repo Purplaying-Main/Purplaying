@@ -99,7 +99,7 @@ public class MemberController {
         int checkNum = random.nextInt(888888) + 111111;
         userDto.setUser_pwd(String.valueOf(checkNum));
         System.out.println(userDto);
-        if(userDao.updateUserPwd(userDto)!=1)
+        if(userService.updateUserPwd(userDto)!=1)
         {
           System.out.println("비밀번호 변경오류");
           return ;

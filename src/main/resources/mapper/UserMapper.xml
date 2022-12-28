@@ -153,6 +153,6 @@
 	
 	<!-- security 로그인 -->
 	<select id="getUserById" parameterType="String" resultType="UserDto">
-		SELECT * FROM tb_user WHERE user_id = #{id}
+		SELECT * FROM tb_user WHERE user_id = #{id} and user_activate = 1
 	</select>
 </mapper>

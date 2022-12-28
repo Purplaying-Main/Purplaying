@@ -36,4 +36,16 @@ public class UserServiceImpl implements UserService{
     return userDao.signUpUser(userInfo);
   }
 
+  @Override
+  public int updateUserPwd(UserDto userDto) throws Exception {
+    String user_pwd = userDto.getUser_pwd();
+    String endcodedPassword = bcryptPasswordEncoder.encode(user_pwd);
+    
+    userDto.setUser_pwd(endcodedPassword);
+    
+    return userDao.updateUserPwd(userDto);
+  }
+  
+  
+
 }
