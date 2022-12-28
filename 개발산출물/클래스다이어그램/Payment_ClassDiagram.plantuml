@@ -7,92 +7,90 @@ skinparam linetype ortho
 class PaymentController {
   + PaymentController(): 
   ~ settingService: SettingService
-  ~ paymentService: PaymentService
   ~ paymentDao: PaymentDao
-  ~ userDao: UserDao
-  ~ rewardDao: RewardDao
   ~ rewardService: RewardService
-  ~ projectDao: ProjectDao
+  ~ rewardDao: RewardDao
+  ~ paymentService: PaymentService
+  ~ userDao: UserDao
   ~ projectService: ProjectService
+  ~ settingservice: SettingService
+  ~ projectDao: ProjectDao
 }
 interface PaymentDao << interface >>
 class PaymentDaoImpl {
   + PaymentDaoImpl(): 
-  ~ projectDto: ProjectDto
-  ~ projectDao: ProjectDao
+  - session: SqlSession
   ~ paymentDto: PaymentDto
   - namespace: String
-  - session: SqlSession
-  ~ userDto: UserDto
 }
 class PaymentDto {
   + PaymentDto(): 
-  + PaymentDto(Integer, Date, int, int, int, int, int, String, String, String, String, String, String, int, String, int, int, int): 
-  - prdt_id: int
-  - delivery_postcode: String
-  - pay_carddate: int
-  - pay_no: Integer
-  - delivery_addressdetail: String
-  - delivery_phone: String
-  - pay_time: Date
-  - delivery_reciever: String
-  - user_no: int
-  - delivery_memo: String
-  - pay_total: int
-  - pay_pwd: int
-  - reward_user_cnt: int
-  - reward_id: int
+  + PaymentDto(Integer, Date, int, int, String[], String[], int, String, String, String, String, String, String, int, int, String, String): 
   - delivery_address: String
-  - pay_cardnum: String
-  - pay_cvc: int
-  - delivery_charge: int
+  - user_no: int
+  - reward_user_cnt: String[]
+  - reward_id_s: String
+  - reward_user_cnt_s: String
+  - pay_time: Date
+  - reward_id: String[]
+  - prdt_id: int
+  - daySum: int
+  - delivery_reciever: String
+  - pay_total: int
+  - delivery_addressdetail: String
+  - day: int
+  - pay_no: Integer
+  - delivery_memo: String
+  - delivery_postcode: String
+  - delivery_phone: String
 }
 interface PaymentService << interface >>
 class PaymentServiceImpl {
   + PaymentServiceImpl(): 
+  ~ projectDao: ProjectDao
   ~ paymentDao: PaymentDao
+  ~ userDao: UserDao
 }
 interface ProjectDao << interface >>
 class ProjectDaoImpl {
   + ProjectDaoImpl(): 
+  - session: SqlSession
   - namespace: String
   ~ projectDto: ProjectDto
-  - session: SqlSession
 }
 class ProjectDto {
-  + ProjectDto(String, Integer, String, String, String, Date, Date, Date, int, int, boolean, String, Integer, String, String, int, int, int, Date, Date, int, String, String, String, int, Date, String, String, int, int, int): 
+  + ProjectDto(String, Integer, String, String, String, Date, Date, Date, int, int, boolean, String, Integer, String, String, int, int, int, Date, Date, int, int, int, String, String, String, int, Date, String, String): 
   + ProjectDto(): 
-  - prdt_user_no: int
-  - user_role: String
-  - prdt_open: boolean
-  - prdt_desc_detail: String
-  - prdt_limitday: Date
-  - prdt_enddate: Date
-  - user_id: String
-  - user_regdate: Date
-  - user_phone: int
-  - prdt_desc: String
-  - prdt_desc_policy: String
-  - prdt_thumbnail: String
-  - prdt_dday: int
-  - prdt_currenttotal: int
-  - prdt_regdate: Date
-  - prdt_comingday: int
-  - prdt_percent: int
-  - user_no: int
+  - prdt_purchaseday: Date
+  - prdt_genre: Integer
+  - user_pwd: String
   - writer: String
+  - prdt_currenttotal: int
+  - user_no: int
+  - prdt_comingday: int
+  - prdt_enddate: Date
+  - prdt_img: String
+  - prdt_goal: int
+  - prdt_open: boolean
+  - prdt_limitday: Date
+  - prdt_thumbnail: String
+  - user_regdate: Date
+  - user_role: String
+  - prdt_dday: int
+  - prdt_desc_policy: String
+  - prdt_opendate: Date
+  - prdt_user_no: int
+  - prdt_desc: String
+  - user_id: String
+  - prdt_id: Integer
   - prdt_buyercnt: int
   - prdt_name: String
+  - user_phone: int
+  - prdt_desc_detail: String
   - user_activate: String
-  - pay_no: int
-  - prdt_genre: Integer
-  - prdt_img: String
+  - prdt_regdate: Date
   - user_name: String
-  - user_pwd: String
-  - prdt_opendate: Date
-  - prdt_purchaseday: Date
-  - prdt_id: Integer
-  - prdt_goal: int
+  - prdt_percent: int
 }
 interface ProjectService << interface >>
 class ProjectServiceImpl {
@@ -106,45 +104,50 @@ class RewardDaoImpl {
   - namespace: String
 }
 class RewardDto {
-  + RewardDto(int, int, String, String, int, int, int, int, int, int, int): 
   + RewardDto(): 
-  - user_no: int
-  - reward_id: int
+  + RewardDto(int, int, String, String, int, int, int, int, int): 
   - reward_price: int
-  - reward_category: int
-  - row_number: int
-  - reward_stock: int
   - reward_name: String
-  ~ paymentDto: PaymentDto
-  - reward_desc: String
-  - pay_no: int
+  - reward_category: int
   - prdt_id: int
+  - reward_stock: int
+  - reward_id: int
+  - row_number: int
   - reward_user_cnt: int
-  - reward_cnt: int
+  - reward_desc: String
 }
 interface RewardService << interface >>
 class RewardServiceImpl {
   + RewardServiceImpl(): 
   ~ rewardDao: RewardDao
 }
+interface SettingService << interface >>
+class SettingServiceImpl {
+  + SettingServiceImpl(UserDao, AddressDao, SettingDao): 
+  ~ addressDao: AddressDao
+  ~ userDao: UserDao
+  ~ settingDao: SettingDao
+}
 interface UserDao << interface >>
 class UserDaoImpl {
   + UserDaoImpl(): 
-  - session: SqlSession
   - namespace: String
+  - session: SqlSession
 }
 class UserDto {
+  + UserDto(int, String, String, int, int): 
   + UserDto(): 
-  + UserDto(int, String, String, int): 
-  - user_pwd: String
-  - user_id: String
-  - user_profile: String
   - user_role: int
-  - user_phone: String
+  - user_profile: String
+  - user_nickname: String
   - user_no: int
-  - user_activate: int
-  - user_name: String
+  - user_point: int
   - user_regdate: Date
+  - user_pwd: String
+  - user_phone: String
+  - user_name: String
+  - user_id: String
+  - user_activate: int
 }
 
 PaymentDaoImpl      -[#008200,dashed]-^  PaymentDao         
@@ -153,5 +156,6 @@ ProjectDaoImpl      -[#008200,dashed]-^  ProjectDao
 ProjectServiceImpl  -[#008200,dashed]-^  ProjectService     
 RewardDaoImpl       -[#008200,dashed]-^  RewardDao          
 RewardServiceImpl   -[#008200,dashed]-^  RewardService      
+SettingServiceImpl  -[#008200,dashed]-^  SettingService     
 UserDaoImpl         -[#008200,dashed]-^  UserDao            
 @enduml
