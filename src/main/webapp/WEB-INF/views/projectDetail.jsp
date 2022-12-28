@@ -733,7 +733,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					$("textarea[id=RtoR_text]").focus()
 					return
 				}
-				debugger
+				
 				$.ajax({
 					type : 'POST',				//요청 메서드
 					url : '/purplaying/reply/' + prdt_id,				//요청 URI
@@ -745,7 +745,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 						
 						$("#commentList").html(toHtml(result))
 			     	},
-			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Reply_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 	 		})
 	 		
@@ -768,10 +768,10 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						alert("댓글이 수정되었습니다.")			// 성공 시 알림
-						window.location.reload()				// Reload
+						window.location.reload()						// Reload
 			     	},
 			     	
-			    	error : function() { alert("ModifyError") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Modify_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 				
 			})
@@ -798,6 +798,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						$("#commentList").html(toHtml(result))		// 댓글 출력 폼으로 전송
 						alert("댓글이 작성되었습니다.")				// 댓글 작성 시 알림
+						window.location.reload()							// Reload
 			     	},
 			    	error : function() { alert("Error_Insert_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
@@ -809,7 +810,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				
 				let chat_no = $(this).parent().parent().attr("data-chat_no")	
 				let prdt_id = $("input[id=prdt_id]").val();	
-				debugger
+				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
 					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
