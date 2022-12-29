@@ -69,7 +69,7 @@
 				<div class="text-end my-5">
 					<label class="btn btn-outline-danger" id="noticeWriteCancelBtn">작성취소</label>
 					<button type="button" class="btn btn-primary" id='${mode=="new" ? "writeBtn" : "modifyBtn" }'>게 시</button>
-					<div class="modal fade" id="noticeWriteFinishModal" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
+					<div class="modal fade" id="noticeWriteFinishModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="noticeWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -87,7 +87,7 @@
 					</div>
 				</div>
 				<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="noticeWriteCancel" tabindex="-1"
+					<div class="modal fade" id="noticeWriteCancel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="noticeWriteCancelLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">

@@ -67,7 +67,7 @@
 				<div class="text-end my-5">
 					<input class="btn btn-outline-danger" id="cancelwriteBtn" value="작성취소" />
 					<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="inquiryWriteCancelModal" tabindex="-1"
+					<div class="modal fade" id="inquiryWriteCancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="inquiryWriteCancelModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -87,7 +87,7 @@
 					</div>
 					<!-- 작성취소 모달창 end -->
 					<button type="button" class="btn btn-primary" id='${mode=="new" ? "writeBtn" : "modifyBtn" }'>게 시</button>
-					<div class="modal fade" id="inquiryWriteFinishModal" aria-labelledby="inquiryWriteFinishModalLabel" aria-hidden="true">
+					<div class="modal fade" id="inquiryWriteFinishModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="inquiryWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">

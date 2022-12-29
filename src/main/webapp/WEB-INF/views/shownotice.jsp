@@ -240,7 +240,7 @@
 				<div class="text-end my-5">
 					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#ansWriteCancelModal">작성취소</button>
 					<!-- 작성취소 모달창 start -->
-					<div class="modal fade" id="ansWriteCancelModal" tabindex="-1"
+					<div class="modal fade" id="ansWriteCancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="ansWriteCancelModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -260,7 +260,7 @@
 					</div>
 					<!-- 작성취소 모달창 end -->
 					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ansWriteFinishModal">게 시</button>
-					<div class="modal fade" id="ansWriteFinishModal" aria-labelledby="ansWriteFinishModalLabel" aria-hidden="true">
+					<div class="modal fade" id="ansWriteFinishModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="ansWriteFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">

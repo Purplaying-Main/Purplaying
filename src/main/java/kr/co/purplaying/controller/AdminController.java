@@ -205,20 +205,20 @@ public class AdminController {
     return "adminbannerupload"; //admin 사이트배너 배너업로드 페이지호출
   }
   
-//  @PostMapping("/ShowBanner/{file_id}")
-//  @ResponseBody
-//  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
-//    System.out.println(file_id);
-//    try {
-//      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
-//      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
-//      return file_src;
-//      
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//      return null;
-//    }
-//  }
+  @PostMapping("/ShowBanner/{file_id}")
+  @ResponseBody
+  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
+    System.out.println(file_id);
+    try {
+      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
+      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
+      return file_src;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
   
   //유저권한 변경
   @PostMapping("/listUser")

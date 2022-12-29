@@ -18,10 +18,12 @@
       <div class="carousel-item ${status.index == 0 ? 'active' : ''}" id="item${status.index}"
       		style="background: url(${bannerimg.bannerfile_file }) center; background-repeat: no-repeat; background-size: cover; width: 100%;">
         <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>프로젝트 제목</h1>
-            <p>프로젝트 간단 소개</p>
+          <div class="carousel-caption text-end">
+            <c:if test="${bannerimg.bannerfile_prdt_id != 0}">
+            <h1></h1>
+            <p></p>
             <p><a class="btn btn-lg btn-primary" href="/purplaying/project/${bannerimg.bannerfile_prdt_id }">자세히보기</a></p>
+            </c:if> 
           </div>
         </div>
       </div>

@@ -44,10 +44,16 @@
 		where reward_id = #{reward_id} and  prdt_id = #{prdt_id}
 	</update>
 	
-	<!-- 드롭박스 카테고리에 해당하는 리워드 출력 -->
-	<select id="rewardCategory" parameterType="Map" resultType="RewardDto">
+	<!-- 드롭박스 카테고리에 해당하는 리워드 출력 
+	<select id="rewardCategory" parameterType="map" resultType="RewardDto">
 	<include refid="selectAllReward"/>
-		WHERE prdt_id = #{prdt_id} and reward_category = #{reward_category}
-	</select>
+		where prdt_id = #{prdt_id} 
+		<choose>
+			<when test="${reward_category != 0}">
+			and reward_category = #{reward_category}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</select>-->
 	
 </mapper>

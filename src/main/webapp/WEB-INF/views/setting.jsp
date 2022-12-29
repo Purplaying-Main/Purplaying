@@ -112,7 +112,7 @@
                                 </ul>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="profileChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                             <!-- IntroChangeModal -->
-                            <div class="modal fade" id="introChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="introChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -231,7 +231,7 @@
                                 </ul>
                             </div>
                             <!-- PwdChangeModal -->
-                            <div class="modal fade" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="pwdChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             <!-- phoneChangeModal -->
-                            <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="phoneChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -280,7 +280,7 @@
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
                                         <div class="col-auto">
-                                            <h6 id="user_point">현재 보유 포인트 : ${pointUserDto.user_point}</h6>
+                                            <h6 id="user_point">현재 보유 포인트 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${pointUserDto.user_point}"/>원</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
 					                        <input type="button" class="btn btn-primary" id="point_pay" value="충전하기" data-bs-toggle="modal" data-bs-target="#pointpayModal"/>
@@ -308,7 +308,7 @@
                                 <div id="addressList">
                                 </div>
                                 <!-- 배송지 추가 modal start -->
-                                <div class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressRegModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -357,7 +357,7 @@
                                 <!-- Modal end-->
 
                                 <!-- 배송지 수정 modal start -->
-                                <div class="modal fade" id="addressModiModal" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressModiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -406,7 +406,7 @@
                                 <!-- Modal end-->
 
                                 <!-- 배송지 삭제 modal start -->
-                                <div class="modal fade" id="addressDelModal" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressDelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -832,7 +832,7 @@
 		  		$("#addressDelBtn").click(function() {
 		  			let address_id = $(this).attr("data-address-id")
 		  			let user_no = $("#user_no").val()
-		  			alert(address_id)
+		  			//alert(address_id)
 		  			
 		  			$.ajax({
 		  				type : 'DELETE',
@@ -842,7 +842,7 @@
 		  				dataType : 'text',
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
-							alert(JSON.parse(result))
+							//alert(JSON.parse(result))
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressDelModal").modal("hide")
 							

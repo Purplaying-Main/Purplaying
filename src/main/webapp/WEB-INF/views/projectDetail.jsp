@@ -98,7 +98,7 @@
               	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
                   <!-- 공유하기 Modal -->
-                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -308,7 +308,7 @@
 			</div>
                  <!--댓글 종료-->
                  <!--(댓글 수정) 모달 -->
-                 <div class="modal fade" id="mod_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal fade" id="mod_Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -336,7 +336,7 @@
 				</div> 
 				
                  <!--(댓글 답변) 모달 -->
-                 <div class="modal fade" id="reply_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal fade" id="reply_Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -420,12 +420,16 @@
 		   let eventTargetTitle = eventTarget.parentElement.previousElementSibling.lastElementChild.innerHTML
 		   let eventTargetPrice = eventTarget.parentElement.firstElementChild.lastElementChild.innerHTML
 		   //alert(eventTargetTitle+'+'+eventTargetPrice);
-		   let reward_number = eventTarget.parentElement.parentElement.firstElementChild.lastElementChild.previousElementSibling.value
+		   let reward_number = eventTarget.parentElement.previousElementSibling.lastElementChild.previousElementSibling.value
+		   //alert(reward_number)
+		   /* eventTarget.parentElement.parentElement.firstElementChild.lastElementChild.previousElementSibling.value */
 		  // $('#addReward option:eq('+reward_number+')').prop('selected',true);		
 		   $('#addReward').val(reward_number).prop('selected',true);	
 		   
-		   if(!arr.includes(reward_number[0])){
-			   arr.push(reward_number[0])
+		   if(!arr.includes(reward_number
+				   )){
+			   arr.push(reward_number)
+			   //alert("리워드 넘버"+reward_number)
 			  	let list = selectToHtml($('#selectRewardBox').html())
 				$('#selectRewardBox').html(list)
 				calRewardPrice()
@@ -438,6 +442,27 @@
 			  
 		}
 	$(document).ready(function(){
+		$("#addReward").change(function(){
+			document.getElementById("selectRewardBox").style.display = 'block';
+			let reward_num = $('#addReward option:selected').val();
+			//alert(reward_num)
+			if(!arr.includes(reward_num)){
+				arr.push(reward_num);
+				let list = selectToHtml($('#selectRewardBox').html())
+				$('#selectRewardBox').html(list)
+				calRewardPrice()
+				/* let result_price = 0;
+				var reward_length = $("input[name='reward_cnt']").length;
+				var arr_reward=  new Array(reward_length);
+				for(var i=0; i<reward_length; i++){
+					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+					let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+					result_price = result_price + Number(price[0])*reward_cnt;
+				}
+				$("#rewardTotalPrice").val(result_price); */
+			}
+		});
+		
 	let dday =  <c:out value="${projectDto.prdt_dday}"/>
 	// 유저 = 창작자이면 관리하기 버튼으로 보여줌
 	if(${sessionScope.user_id eq projectDto.writer}){
@@ -478,26 +503,8 @@
 	
 let selectedRewardName = document.getElementById("selectedRewardName");
 let selectedRewardPrice = document.getElementById("selectedRewardPrice");
-	$("#addReward").change(function(){
-		document.getElementById("selectRewardBox").style.display = 'block';
-		let reward_num = $('#addReward option:selected').val();
-		//alert(reward_num)
-		if(!arr.includes(reward_num[0])){
-			arr.push(reward_num[0]);
-			let list = selectToHtml($('#selectRewardBox').html())
-			$('#selectRewardBox').html(list)
-			calRewardPrice()
-			/* let result_price = 0;
-			var reward_length = $("input[name='reward_cnt']").length;
-			var arr_reward=  new Array(reward_length);
-			for(var i=0; i<reward_length; i++){
-				let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
-				let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
-				result_price = result_price + Number(price[0])*reward_cnt;
-			}
-			$("#rewardTotalPrice").val(result_price); */
-		}
-	});
+
+	
 	/*펀딩하기 버튼 클릭시 validation 체크*/
 	formCheck = function() {
 		let form = document.getElementById("selectRewardBox")
@@ -591,7 +598,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		let num = name.split('.')[0];
 		let price_won = getOption.split('+')[1];
 		let reward_value =  $("#addReward option:checked").val();
-		price = price_won.split('원')[0];
+		let price = price_won.split('원')[0];
 		
 		let temp = tmp;
 		temp += "<div>";
@@ -722,7 +729,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			showList(prdt_id)
 			
 	 		$("#RtoRBtn").click(function() {
-				alert("답변버튼 클릭됨")
+				//alert("답변버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
 				let chat_context = $("#RtoR_text").val(); 
@@ -741,7 +748,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						
-						alert(JSON.stringify({chat_no:chat_no, chat_context:chat_context}))
+						//alert(JSON.stringify({chat_no:chat_no, chat_context:chat_context}))
 						
 						$("#commentList").html(toHtml(result))
 			     	},
@@ -751,7 +758,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	 		
 	 		// 댓글 수정 이벤트
 			$("#RmodifyBtn").click(function() {
-				alert("수정버튼 클릭됨")
+				//alert("수정버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
 				let chat_context = $("#modify_text").val(); 
@@ -806,7 +813,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			
 			// 삭제
 			$("#commentList").on("click", ".delBtn", function() {
-				alert("삭제 버튼 클릭됨")
+				//alert("삭제 버튼 클릭됨")
 				
 				let chat_no = $(this).parent().parent().attr("data-chat_no")	
 				let prdt_id = $("input[id=prdt_id]").val();	
@@ -825,7 +832,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			
 			// 댓글 수정
 			$("#commentList").on("click", ".modBtn", function() {
-				alert("댓글수정 버튼 클릭됨")
+				//alert("댓글수정 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")				
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
 				let prdt_id = $(this).parent().parent().attr("data-prdt_id")
@@ -837,7 +844,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			}) 
 			// 댓글 답변
 			$("#commentList").on("click", ".replyBtn", function() {			
-				alert("댓글답변 버튼 클릭됨")
+				//alert("댓글답변 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()

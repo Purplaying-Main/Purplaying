@@ -82,13 +82,14 @@
 	</select>
  	
  	<!-- 일주일 펀딩 내역 출력 -->
- 	 <select id="fundingManageForWeek" parameterType="Map" resultMap="payment">
+ 	<select id="fundingManageForWeek" parameterType="Map" resultMap="payment">
  	select
 	pay_no, pay_time, user_no, 
 	array_to_string(array[reward_id],',') as reward_id_s, array_to_string(array[reward_user_cnt],',') as reward_user_cnt_s, 
 	pay_total
 	from tb_payment
 	where prdt_id =  #{prdt_id} and <![CDATA[pay_time >= current_date-7]]>
+	order by pay_no desc
  	</select>
  	
  	<!-- csv 추출시 쿼리문 -->

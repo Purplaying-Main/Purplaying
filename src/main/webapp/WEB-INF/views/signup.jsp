@@ -92,7 +92,7 @@
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="agreeAll" name="agree"> 
-                      <label class="form-check-label" for="agree-14">전체동의  <i class="fa fa-exclamation-circle" id="check_check_msg" style="display:none"></i></label>
+                      <label class="form-check-label" for="agreeAll">전체동의</label><i class="fa fa-exclamation-circle" id="check_check_msg" style="display:none"></i>
                     </div>
                   </button>
                 </h2>
@@ -101,7 +101,7 @@
                     <div class="row mb-2">
                       <div class="col-8 check-group">
                         <input type="checkbox" class="form-check-input agreeCheck" id="agree1" name="agree1" required>
-                        <label class="form-check-label" for="agree-1">만 14세 이상입니다. (* 필수)</label>
+                        <label class="form-check-label" for="agree1">만 14세 이상입니다. (* 필수)</label>
                          <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -109,7 +109,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree1Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree1Modal" tabindex="-1" aria-labelledby="agree1ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree1ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -137,7 +137,7 @@
                     <div class="row mb-2">
                       <div class="col-8 check-group">
                         <input type="checkbox" class="form-check-input agreeCheck" id="agree2" name="agree2" required>
-                        <label class="form-check-label" for="agree-2">퍼플레잉 이용 약관 동의 (* 필수)</label>
+                        <label class="form-check-label" for="agree2">퍼플레잉 이용 약관 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -145,7 +145,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree2Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree2Modal" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -174,7 +174,7 @@
                     <div class="row mb-2">
                       <div class="col-8 check-group">
                         <input type="checkbox" class="form-check-input agreeCheck" id="agree3" name="agree3" required>
-                        <label class="form-check-label" for="agree-3">개인정보 수집 및 이용 동의 (* 필수)</label>
+                        <label class="form-check-label" for="agree3">개인정보 수집 및 이용 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -182,7 +182,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree3Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree3Modal" tabindex="-1" aria-labelledby="agree3ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree3Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree3ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -210,12 +210,12 @@
                     <div class="row mb-2">
                       <div class="col-8 check-group">
                         <input type="checkbox" class="form-check-input agreeCheck" id="agree4" name="agree4">
-                        <label class="form-check-label" for="agree-4">개인정보 제 3자 제공 동의 (선택)</label>
+                        <label class="form-check-label" for="agree4">개인정보 제 3자 제공 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree4Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -243,12 +243,12 @@
                     <div class="row mb-2">
                       <div class="col-8 check-group">
                         <input type="checkbox" class="form-check-input agreeCheck" id="agree5" name="agree5">
-                        <label class="form-check-label" for="agree-5">마케팅 정보 수신 동의 (선택)</label>
+                        <label class="form-check-label" for="agree5">마케팅 정보 수신 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree5Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree5Modal" tabindex="-1" aria-labelledby="agree5ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree5Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree5ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -281,7 +281,7 @@
           <input type="button" class="w-100 btn btn-primary btn-lg mt-4" id="signUp" value="회원가입"><!--  -->
           </form>
           <!-- 회원가입 완료 모달창 -->
-          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" data-bs-toggle="modal" aria-hidden="true"><!--  모달실행 -->
+          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true"><!--  모달실행 -->
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -397,6 +397,7 @@
 			});
 			
 			$('#signUp').click(function(){
+
 				let id = document.getElementById("email");
 				let pwd = document.getElementById("password");
 				let name = document.getElementById("user_name");
@@ -451,6 +452,7 @@
 						dataType : 'text',
 						data : JSON.stringify(user_info),
 						success:function(result){
+							$('#signUpCompleteModal').modal({backdrop: 'static', keyboard: false});
 							$("#signUpCompleteModal").modal("show");
 						},
 						error : function(){

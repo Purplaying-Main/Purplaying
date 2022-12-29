@@ -38,7 +38,7 @@
        		</div>
 
               <!-- 리워드 수정 modal start -->
-              <div class="modal fade" id="rewardModiModal" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
+              <div class="modal fade" id="rewardModiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="rewardModiModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -69,7 +69,7 @@
                 </div>
               </div> <!-- Modal end-->
                <!-- 리워드 삭제 modal start -->
-              <div class="modal fade" id="rewardDelModal" tabindex="-1" aria-labelledby="rewardDelModalLabel" aria-hidden="true">
+              <div class="modal fade" id="rewardDelModal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="rewardDelModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -224,7 +224,7 @@
 						$("#reward_modi_category").val(reward2.reward_category=='1'?'슈퍼얼리버드':'얼리버드');
 						$('#rewardModiModal').modal("show");
 						$("#prdt_id").val();
-						alert(reward2.reward_category);
+						//alert(reward2.reward_category);
 						
 					},
 					error : function(){
@@ -258,7 +258,7 @@
 						data : JSON.stringify(modi_reward),
 						success:function(result){
 							$('#rewardModiModal').modal("hide");
-							$("#BtnGroup").html(toHtml(JSON.parse(result)));
+							$("#BtnGroup").html(toHtmlModi(JSON.parse(result)));
 						},
 						error : function(){
 							alert("error");

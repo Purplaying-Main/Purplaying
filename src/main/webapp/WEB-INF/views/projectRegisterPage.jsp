@@ -32,10 +32,12 @@
 			  <button class="btn btn-outline-primary btn-sm" type="button" id="previewBtn">미리보기</button>
 			  <button class="btn btn-outline-primary btn-sm" type="button" id="modifyAllBtn">저장</button>
 			  <button class="btn btn-outline-danger btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#prjDelModal">삭제</button>
+			  <c:if test="${mode=='new'}">
 			  <button class="btn btn-primary btn-sm" type="button" onclick="modifyFinish()">등록</button>
+			  </c:if>
 		  	</div><!-- 컨트롤 버튼그룹 end -->  
 		  	<!-- 삭제 모달창 start -->
-				<div class="modal fade" id="prjDelModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
+				<div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="prjDelModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
