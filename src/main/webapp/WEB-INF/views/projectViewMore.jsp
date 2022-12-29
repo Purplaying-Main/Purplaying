@@ -87,7 +87,7 @@
 							<c:forEach var="i" begin="${pr2.beginPage }"
 								end="${pr2.endPage }">
 								<li class="page-item"><a class="page-link <c:if test="${pr2.sc2.page==i}">active</c:if>"
-									href="<c:url value="/projectViewMore${pr2.sc2.getQueryString(i)}" />">${i }</a>
+									href="<c:url value="/projectViewMore${pr2.sc2.getQueryString(i)}&keyword=${param.keyword}" />">${i }</a>
 								</li>
 							</c:forEach>
 							<c:if test="${pr2.showNext }">

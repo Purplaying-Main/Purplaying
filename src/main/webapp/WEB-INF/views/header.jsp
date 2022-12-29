@@ -92,9 +92,8 @@
           			form.submit();
           		}
           </script> -->
-      
+<!-- 검색어 == null Alert 띄우기  -->      
 <script type="text/javascript">
-
 function searchCheck()
 {
      var str_keyword = window.searchform.keyword.value;
@@ -106,7 +105,7 @@ function searchCheck()
      }
      window.sendform.submit();
 }
-	</script>
+</script>
 		
           
         </div>

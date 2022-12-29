@@ -49,17 +49,17 @@ public class SearchResultController {
         try {
           Map map = new HashMap();
 
-          
+          //검색 리스트
           List<ProjectDto> searchResult = searchResultService.getSearchResultPage(sc2);
           m.addAttribute("keyword", searchResult);
-          
+          //유저 리스트
           List<UserDto> searchUser = userDao.searchUserPage(sc2);
           System.out.println("ujser"+searchUser);
           m.addAttribute("U_keyword", searchUser);
-          
+          // 검색결과 펀딩 수 
           int totalCnt = searchResultService.getsearchcount(sc2);
           m.addAttribute("prdt_count", totalCnt);
-          
+          // 검색결과 유저 수
           int userCount = userDao.searchuser(sc2);
           m.addAttribute("user_count", userCount);
 
@@ -69,22 +69,17 @@ public class SearchResultController {
           List<ProjectDto> list_ps = projectSuggestDao.projectSuggest(map);
           m.addAttribute("list_ps", list_ps);
           
+          //세션의 유저 id의 좋아요 리스트 
           if(id!=null) {
             boolean likecheck = false;
             List<Integer> Likelist = likeService.selectLikelist(id);
             System.out.println(Likelist);
-         
-       
-            m.addAttribute("Likelist",Likelist);
-            
-          }
-          
+            m.addAttribute("Likelist",Likelist);            
+          }          
         } catch (Exception e) {
           e.printStackTrace();
-        }
-        
+        }        
         return "searchResult";
-
         }
           
   @GetMapping("/projectViewMore")
@@ -119,10 +114,10 @@ public class SearchResultController {
           return "projectViewMore";
         }
   
+  
   @GetMapping("/creatorViewMore")
   public String creatorViewMore(SearchItem2 sc2,  Model m) {
-          
-    
+
           try {
                       
             List<UserDto> creatorViewMore = userDao.searchUserPage(sc2);
@@ -142,7 +137,7 @@ public class SearchResultController {
   
   
   
-
+  //창작자 프로젝트 더보기
   @GetMapping("/creatorSearch/{user_id}")       
   public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, HttpSession session) {
           System.out.println(user_id);
@@ -151,36 +146,33 @@ public class SearchResultController {
           String id = (String)session.getAttribute("user_id"); 
 
           try {
+              // 유저 id에 해당하는 펀딩 리스트
               List<ProjectDto> list_project = projectService.getListByWriter(user_id); 
               System.out.println(list_project);
               m.addAttribute("list_project",list_project);
               
+              // 펀딩 예정 리스트
               List<ProjectDto> list_soon = projectService.getSoonListByWriter(user_id);
               System.out.println(list_soon);
               m.addAttribute("list_soon", list_soon);
               
+              // 유저 프로필
               List<UserDto> list_crea = userDao.getUserList(userDto);
               System.out.println(list_crea);
               m.addAttribute("list_crea", list_crea);
-             
               
+              // 세션의 유저 id의 좋아요 리스트 
               if(id!=null) {
                 boolean likecheck = false;
                 List<Integer> Likelist = likeService.selectLikelist(id);
-                System.out.println(Likelist);
-             
-           
-                m.addAttribute("Likelist",Likelist);
-                
+                System.out.println(Likelist);        
+                m.addAttribute("Likelist",Likelist);               
               }
-
           } catch (Exception e) {
             e.printStackTrace();
-          }
-          
+          }          
         return "creatorSearch";
-      }
-        
+      }        
   }
       
 
