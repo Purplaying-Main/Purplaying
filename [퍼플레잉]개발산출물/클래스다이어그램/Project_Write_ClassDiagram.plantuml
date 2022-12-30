@@ -1,0 +1,146 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+interface AttachFileDao << interface >>
+class AttachFileDaoImpl {
+  + AttachFileDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+class AttachFileDto {
+  + AttachFileDto(): 
+  + AttachFileDto(int, String, String, int, Date, int, int, String, String, boolean): 
+  - uploadPath: String
+  - file_location: String
+  - file_regdate: Date
+  - file_id: int
+  - file_name: String
+  - file_size: int
+  - image: boolean
+  - file_del: int
+  - uuid: String
+  - prdt_id: int
+}
+interface FileService << interface >>
+class FileServiceImpl {
+  + FileServiceImpl(): 
+  ~ attachFileDao: AttachFileDao
+}
+class ProductController {
+  + ProductController(): 
+  ~ replyService: ReplyService
+  ~ rewardService: RewardService
+  ~ userDao: UserDao
+  ~ communityService: CommunityService
+  ~ projectService: ProjectService
+  ~ likeService: LikeService
+}
+interface ProjectDao << interface >>
+class ProjectDaoImpl {
+  + ProjectDaoImpl(): 
+  - namespace: String
+  ~ projectDto: ProjectDto
+  - session: SqlSession
+}
+class ProjectDto {
+  + ProjectDto(String, Integer, String, String, String, Date, Date, Date, int, int, boolean, String, Integer, String, String, int, int, int, Date, Date, int, String, String, String, int, Date, String, String, int, int, int): 
+  + ProjectDto(): 
+  - user_phone: int
+  - pay_no: int
+  - prdt_genre: Integer
+  - prdt_enddate: Date
+  - prdt_dday: int
+  - user_pwd: String
+  - prdt_goal: int
+  - prdt_img: String
+  - prdt_limitday: Date
+  - prdt_buyercnt: int
+  - prdt_opendate: Date
+  - user_role: String
+  - prdt_user_no: int
+  - user_regdate: Date
+  - prdt_thumbnail: String
+  - prdt_percent: int
+  - prdt_regdate: Date
+  - prdt_name: String
+  - user_name: String
+  - prdt_open: boolean
+  - user_activate: String
+  - user_id: String
+  - prdt_currenttotal: int
+  - prdt_desc_policy: String
+  - writer: String
+  - prdt_id: Integer
+  - prdt_desc_detail: String
+  - prdt_desc: String
+  - prdt_comingday: int
+  - user_no: int
+  - prdt_purchaseday: Date
+}
+interface ProjectService << interface >>
+class ProjectServiceImpl {
+  + ProjectServiceImpl(): 
+  ~ projectDao: ProjectDao
+}
+class ReplyDto {
+  + ReplyDto(): 
+  - user_no: int
+  - rno: int
+  - prdt_id: int
+  - chat_no: int
+  - chat_context: String
+  - chat_writer: String
+  - chat_date: Date
+}
+class RewardController {
+  + RewardController(): 
+  ~ m: Model
+  ~ rewardService: RewardService
+}
+interface RewardDao << interface >>
+class RewardDaoImpl {
+  + RewardDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+interface RewardService << interface >>
+class RewardServiceImpl {
+  + RewardServiceImpl(): 
+  ~ rewardDao: RewardDao
+}
+class UploadController {
+  + UploadController(): 
+  ~ projectService: ProjectService
+  ~ fileService: FileService
+}
+interface UserDao << interface >>
+class UserDaoImpl {
+  + UserDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+class UserDto {
+  + UserDto(int, String, String, int): 
+  + UserDto(): 
+  - user_name: String
+  - user_phone: String
+  - user_activate: int
+  - user_profile: String
+  - user_regdate: Date
+  - user_role: int
+  - user_pwd: String
+  - user_id: String
+  - user_no: int
+}
+
+AttachFileDaoImpl   -[#008200,dashed]-^  AttachFileDao      
+FileServiceImpl     -[#008200,dashed]-^  FileService        
+ProjectDaoImpl      -[#008200,dashed]-^  ProjectDao         
+ProjectServiceImpl  -[#008200,dashed]-^  ProjectService     
+RewardDaoImpl       -[#008200,dashed]-^  RewardDao          
+RewardServiceImpl   -[#008200,dashed]-^  RewardService      
+UserDaoImpl         -[#008200,dashed]-^  UserDao            
+@enduml

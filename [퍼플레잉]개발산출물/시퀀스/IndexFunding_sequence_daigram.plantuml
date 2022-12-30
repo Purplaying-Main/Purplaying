@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "Purplaying DB" as D
+
+User -> C : GET(/purplaying)
+activate C
+C -> S : static asset(HTML,CSS,JS) 요청
+activate S
+S -> D : 상위 인기,최신펀딩 요청
+activate D
+D --> S : Select 인기(달성률),최신펀딩(오픈일) 각 상위 3개 응답
+deactivate D
+S --> C : static asset(HTML,CSS,JS) 응답
+deactivate S
+C --> User : Index 페이지 노출
+deactivate C
+
+@enduml

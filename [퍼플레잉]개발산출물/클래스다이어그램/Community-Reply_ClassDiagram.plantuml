@@ -1,0 +1,64 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class CommunityController {
+  + CommunityController(): 
+  ~ service: CommunityService
+}
+interface CommunityDao << interface >>
+class CommunityDaoImpl {
+  + CommunityDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class CommunityDto {
+  + CommunityDto(String, String): 
+  + CommunityDto(): 
+  - chat_date: Date
+  - chat_writer: String
+  - chat_context: String
+  - chat_type: int
+  - chat_no: int
+  - prdt_id: int
+  - user_no: int
+}
+interface CommunityService << interface >>
+class CommunityServiceImpl {
+  + CommunityServiceImpl(CommunityDao, BoardDao): 
+  ~ communityDao: CommunityDao
+  ~ boardDao: BoardDao
+}
+class ReplyController {
+  + ReplyController(): 
+  ~ replyService: ReplyService
+}
+interface ReplyDao << interface >>
+class ReplyDaoImpl {
+  + ReplyDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class ReplyDto {
+  + ReplyDto(): 
+  - chat_no: int
+  - prdt_id: int
+  - chat_context: String
+  - user_no: int
+  - chat_writer: String
+  - chat_date: Date
+  - rno: int
+}
+interface ReplyService << interface >>
+class ReplyServiceImpl {
+  + ReplyServiceImpl(): 
+  ~ replyDao: ReplyDao
+}
+
+CommunityDaoImpl      -[#008200,dashed]-^  CommunityDao         
+CommunityServiceImpl  -[#008200,dashed]-^  CommunityService     
+ReplyDaoImpl          -[#008200,dashed]-^  ReplyDao             
+ReplyServiceImpl      -[#008200,dashed]-^  ReplyService         
+@enduml

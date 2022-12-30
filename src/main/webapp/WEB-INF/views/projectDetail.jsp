@@ -414,22 +414,15 @@
 	   
 	   /*이 리워드 선택하기 버튼 클릭 시 해당 리워드의 정보를 받아 위로 이동하는 스크립트*/
 	   function jumpUp(){
-		   //eventTarget.previousElementSibling.previousElementSibling.innerHTML
 		   document.getElementById("selectRewardBox").style.display = 'block';
 		   eventTarget = event.target;
 		   let eventTargetTitle = eventTarget.parentElement.previousElementSibling.lastElementChild.innerHTML
 		   let eventTargetPrice = eventTarget.parentElement.firstElementChild.lastElementChild.innerHTML
-		   //alert(eventTargetTitle+'+'+eventTargetPrice);
 		   let reward_number = eventTarget.parentElement.previousElementSibling.lastElementChild.previousElementSibling.value
-		   //alert(reward_number)
-		   /* eventTarget.parentElement.parentElement.firstElementChild.lastElementChild.previousElementSibling.value */
-		  // $('#addReward option:eq('+reward_number+')').prop('selected',true);		
-		   $('#addReward').val(reward_number).prop('selected',true);	
-		   
+		   $('#addReward').val(reward_number).prop('selected',true);		   
 		   if(!arr.includes(reward_number
 				   )){
 			   arr.push(reward_number)
-			   //alert("리워드 넘버"+reward_number)
 			  	let list = selectToHtml($('#selectRewardBox').html())
 				$('#selectRewardBox').html(list)
 				calRewardPrice()

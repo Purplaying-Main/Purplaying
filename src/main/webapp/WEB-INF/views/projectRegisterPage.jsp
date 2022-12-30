@@ -344,6 +344,7 @@
 				else {
 					return false
 					} 
+				
 				location.href = link
 		}
 		
@@ -369,6 +370,7 @@
 				document.getElementById("prdt_genre").focus()
 				return false
 			}	
+			alert("저장되었습니다.")
 			return true; 
 		} 
 		function dateFormat(date) {

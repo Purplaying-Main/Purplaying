@@ -1,0 +1,26 @@
+@startuml Update
+participant User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+participant "Purplaying DB" as D
+
+User -> C: 1. 탭 메뉴 업데이트 선택
+activate C
+C -> S: static asset 요청(HTML/CSS 등)
+activate S
+S -> D: 업데이트 DB select 요청
+D --> S : 업데이트 DB select 응답
+S --> C: HTML/CSS 등 응답
+deactivate S
+C --> User: 업데이트 리스트 출력
+loop A
+  User -> C: 3. 업데이트 작성 & 추가
+  C -> C: 업데이트 작성 버튼 선택
+  S -> D: 업데이트 DB insert 요청
+  D --> S: 업데이트 DB insert 응답
+  C -> C: 업데이트 리스트 페이지로 redirection
+  C --> User: 업데이트 리스트 페이지 노출
+end
+
+deactivate C
+@enduml

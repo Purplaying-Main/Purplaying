@@ -1,0 +1,36 @@
+@startuml
+participant User as U
+participant "Web Client" as C
+participant "Purplaying Server" as S
+Database "Purplaying DB" as PDB
+
+
+U -> C: 1. 마이페이지 - 후원 중인 펀딩 내역 확인
+
+    activate C
+    C -> S: 요청한 회원의 ID에 대한 펀딩 내역 리스트 요청
+
+        activate S
+        S -> PDB: 요청한 회원의 ID에 대한 펀딩 내역 리스트 select 요청
+        PDB --> S: 요청한 회원의 ID에 대한 펀딩 내역 리스트 반환
+        S --> C: 요청한 회원의 ID에 대한 펀딩 내역 리스트 반환
+        deactivate S
+
+    C --> U: 요청한 회원이 후원 중인 펀딩 내역
+    deactivate C
+
+U -> C: 2. 리스트에서 회원이 후원 중인 프로젝트의 상세 내역 클릭
+
+    activate C
+    C->S: 해당 프로젝트에 대한 후원 상세 내역 요청
+
+        activate S
+        S -> PDB: 요청한 프로젝트에 대한 후원 상세 내역 select 요청
+        PDB --> S: 요청한 프로젝트의 후원 상세 내역 반환
+        S --> C: 선택한 프로젝트에 대한 후원 상세 내역 반환
+        deactivate S
+
+    C --> U: 선택한 프로젝트의 후원 상세 내역
+    deactivate C
+
+@enduml

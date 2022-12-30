@@ -18,7 +18,7 @@
                 	<input type="hidden" id="payuser_phone" value="${UserDto.user_phone}" />
                     <select id="point_price" class="form-select fs-6" onchange="pointSelect()">
 						<option value="0"selected disabled>금액을 선택해주세요</option>
-						<option value="10">10원</option>
+						<!-- <option value="10">10원</option> -->
 						<option value="1000">1,000원</option>
 						<option value="5000">5,000원</option>
 						<option value="10000">10,000원</option>

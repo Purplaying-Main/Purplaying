@@ -48,10 +48,10 @@
           </div>
 
             <div class="col-12 mt-2">
-              <label for="username" class="form-label">Username</label>
+              <label for="username" class="form-label">이름</label>
               <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
+                <!-- <span class="input-group-text"></span> -->
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" required>
               <div class="invalid-feedback">
                   이름을 입력해주세요
                 </div>

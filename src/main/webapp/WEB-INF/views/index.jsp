@@ -112,7 +112,7 @@
 
           </div>
          
-          <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
+          <h4 class="mb-2 fw-bold"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
           <div class="featured-carousel owl-carousel">         
           	<c:forEach var="ProjectDto" items="${list_n }">

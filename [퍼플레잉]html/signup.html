@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/dist/bootstrap.min.css"> <!-- 부트스트랩 -->
+  <link rel="stylesheet" href="assets/css/owl.css">   <!-- 캐러셀(carousel) -->
+  <link rel="stylesheet" href="assets/css/animate.css">   <!-- 애니메이션효과 -->
+  <link rel="stylesheet" href="assets/css/main.css" > <!-- main style-->
+  <link rel="stylesheet" href="assets/css/headers.css" > <!-- header-->
+  <link rel="stylesheet" href="assets/css/dist/form-validation.css" > <!-- form -->
+
+  <!-- JS -->
+  <script src="assets/js/bootstrap.bundle.min.js"></script> 
+  <script src="http://www.w3schools.com/lib/w3data.js"></script> 
+  <!-- 아이콘  -->
+  <script src="https://kit.fontawesome.com/7f409b18dd.js" crossorigin="anonymous"></script>
+  <!-- 네이버 로그인 -->
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!-- 카카오 로그인 -->
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.0.0/kakao.min.js" integrity="sha384-PFHeU/4gvSH8kpvhrigAPfZGBDPs372JceJq3jAXce11bVA6rMvGWzvP4fMQuBGL" crossorigin="anonymous"></script>
+  <script>Kakao.init('a552d7347e0153f2016931655fb81ce2'); // 사용하려는 앱의 JavaScript 키 입력</script>
+  <!-- 구글 로그인 -->
+  <meta name ="google-signin-client_id" content="95590378121-8118g73bm3el7ee5chueqomti4ga4m80.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+
+  <title>Purplaying</title>
+
+</head>
+
+<body>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+    </symbol>
+    <symbol id="home" viewBox="0 0 16 16">
+      <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
+    </symbol>
+    <symbol id="speedometer2" viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/>
+      <path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/>
+    </symbol>
+    <symbol id="table" viewBox="0 0 16 16">
+      <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+    </symbol>
+    <symbol id="people-circle" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+    </symbol>
+    <symbol id="grid" viewBox="0 0 16 16">
+      <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"/>
+    </symbol>
+  </svg>
+  
+ 
+  <!--헤더 컨테이너-->
+  <h1 class="visually-hidden">Header</h1>
+  <header class="p-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 link-secondary">메뉴1</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴2</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴3</a></li>
+          <li><a href="#" class="nav-link px-2 link-dark">메뉴4</a></li>
+        </ul>
+
+        <!-- 검색창 -->
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!--메인 컨테이너 -->
+  <section>
+    <h1 class="visually-hidden">HOME</h1>
+    <div class="contentsWrap">
+      <!--컨텐츠 영역-->
+      <div class="row col-md-8 d-block mx-auto">
+        <h4 class="mb-3">이메일 간편가입</h4>
+        <form class="needs-validation" novalidate>
+          <div class="row">
+            <label for="email" class="form-label">Email</label>
+            <div class="input-group mb-2">
+                <input type="email" class="form-control" id="email" placeholder="you@example.com" required autofocus>
+                <button type="submit" class="btn btn-secondary col-md-3">인증하기</button> 
+                <div class="invalid-feedback">
+                  Please enter a valid email address for shipping updates.
+                </div>
+            </div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" class="form-control mb-2" id="password" placeholder="비밀번호 입력" required>
+            <input type="password" class="form-control" id="passwordConfirm" placeholder="비밀번호 확인" required>
+            <div class="invalid-feedback">
+              Please enter your shipping address.
+            </div>
+          </div>
+
+          <!--  이름 <div class="row">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+          </div> -->
+
+            <div class="col-12 mt-2">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" placeholder="Username" required>
+              <div class="invalid-feedback">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 mt-2">
+              <label for="userphone" class="form-label">연락처</label>
+              <div class="input-group mb-3">
+                <input type="number" class="form-control" id="userphone" placeholder="휴대폰 번호 (-없이 입력)">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">인증번호 받기</button>
+              </div>
+              <input type="number" class="form-control" id="userphoneConfirm" placeholder="인증번호 입력 (남은 시간 2분 58초)">
+            </div>
+            
+            <hr class="my-4">
+            <!-- 전체 동의 -->
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="agreeAll" name="agree" onclick="selectAll(this)"> 
+                      <label class="form-check-label" for="agree-14">전체동의</label>
+                    </div>
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                  <div class="accordion-body">
+                    <div class="row mb-2">
+                      <div class="col-8">
+                        <input type="checkbox" class="form-check-input" id="agree1" name="agree">
+                        <label class="form-check-label" for="agree-1">만 14세 이상입니다. (* 필수)</label>
+                      </div>
+                      <!-- Button trigger modal -->
+                      <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree1Modal"><a href="#">내용보기</a></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="agree1Modal" tabindex="-1" aria-labelledby="agree1ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="agree1ModalLabel">만 14세 이상 동의</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              만 14세 이상입니다.
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree1()">동의</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-2">
+                      <div class="col-8">
+                        <input type="checkbox" class="form-check-input" id="agree2" name="agree">
+                        <label class="form-check-label" for="agree-2">퍼플레잉 이용 약관 동의 (* 필수)</label>
+                      </div>
+                      <!-- Button trigger modal -->
+                      <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree2Modal"><a href="#">내용보기</a></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="agree2Modal" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="agree2ModalLabel">퍼플레잉 이용 약관 동의</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              퍼플레잉 이용 약관 동의합니다.
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree2()">동의</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- Modal end-->
+                      
+                    </div>
+                    
+                    <div class="row mb-2">
+                      <div class="col-8">
+                        <input type="checkbox" class="form-check-input" id="agree3" name="agree">
+                        <label class="form-check-label" for="agree-3">개인정보 수집 및 이용 동의 (* 필수)</label>
+                      </div>
+                      <!-- Button trigger modal -->
+                      <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree3Modal"><a href="#">내용보기</a></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="agree3Modal" tabindex="-1" aria-labelledby="agree3ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="agree3ModalLabel">개인정보 수집 및 이용 동의</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              개인정보 수집 및 이용 동의합니다.
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree3()">동의</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- Modal end-->
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-8">
+                        <input type="checkbox" class="form-check-input" id="agree4" name="agree">
+                        <label class="form-check-label" for="agree-4">개인정보 제 3자 제공 동의 (선택)</label>
+                      </div>
+                      <!-- Button trigger modal -->
+                      <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree4Modal"><a href="#">내용보기</a></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="agree4ModalLabel">개인정보 제 3자 제공 동의</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              개인정보 제 3자 제공 동의합니다.
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree4()">동의</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- Modal end-->
+                    </div>
+
+                    <div class="row mb-2">
+                      <div class="col-8">
+                        <input type="checkbox" class="form-check-input" id="agree5" name="agree">
+                        <label class="form-check-label" for="agree-5">마케팅 정보 수신 동의 (선택)</label>
+                      </div>
+                      <!-- Button trigger modal -->
+                      <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree5Modal"><a href="#">내용보기</a></div>
+                      <!-- Modal -->
+                      <div class="modal fade" id="agree5Modal" tabindex="-1" aria-labelledby="agree5ModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="agree5ModalLabel">마케팅 정보 수신 동의</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              마케팅 정보 수신 동의합니다.
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                              .<br>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="checked_agree5()">동의</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- Modal end-->
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- 회원가입 완료 버튼 -->
+          <div class="w-100 btn btn-primary btn-lg mt-4" type="submit" data-bs-toggle="modal" data-bs-target="#signUpCompleteModal">회원가입</div>
+          <!-- 회원가입 완료 모달창 -->
+          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="signUpCompleteModalLabel">🎉 회원가입이 완료되었습니다! </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  축하합니다! 번역 크라우드 펀딩 사이트,<br>
+                  퍼플레잉에서 다양한 작품을 만나보세요.
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+                </div>
+              </div>
+            </div>
+          </div> <!-- Modal end-->
+        </form>
+
+        <hr class="my-4">
+        
+        <p class="text-center">이미 퍼플레잉 계정이 있나요? <a href="signIn.html">로그인</a></p>
+        <h5 class="mb-3 text-center">또는 다른 방법으로 회원가입</h5>
+        <div class="row">
+            <!-- 카카오 로그인 버튼 노출 영역 -->
+            <div class="col-4">
+              <a id="kakao-login-btn" href="javascript:loginWithKakao()">
+                <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="180" alt="카카오 로그인 버튼" />
+              </a>
+              <p id="token-result"></p>
+            </div>
+          <!-- 네이버 로그인 버튼 노출 영역 -->
+          <div class="col-4" id="naver_id_login"></div>
+          <!-- 구글 로그인 버튼 노출 영역 -->
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+
+      </div>
+
+     
+
+
+
+    </div>
+
+  </section>
+  
+
+  <!--푸터 인클루드-->
+  <footer class="py-5">
+    <div class="row">
+      <div class="col-6 col-md-2 mb-3">
+        <h5>퍼플레잉</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">공지사항</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">서비스 소개</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-2 mb-3">
+        <h5>이용안내</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">창작 가이드</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">후원 가이드</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-2 mb-3">
+        <h5>정책</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">이용약관</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">개인정보처리 방침</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-5 offset-md-1 mb-3 text-end">
+        <form>
+          <h5>고객지원</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><button class="btn btn-primary" type="button">고객센터 문의하기</button></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+
+    <div class="py-4 border-top">
+      <p class="nav flex-column mb-3">
+        회사명  퍼플레잉㈜  |  주소  서울 서초구 서초대로 77길, 54 (서초더블유타워 13,14층)  |  대표  이순신  |  사업자등록번호  167-85-00921  |  통신판매업 신고번호  제2018-서울서초-0507호 | 대표번호  1644-0685  &copy; 2022 Purplaying Inc.
+      </p>
+      <p class="nav flex-column text-small text-muted">퍼플레잉은 플랫폼 제공자로서 프로젝트의 당사자가 아니며, 직접적인 통신판매를 진행하지 않습니다. 프로젝트의 완수 및 선물제공의 책임은 해당 프로젝트의 창작자에게 있으며, 프로젝트와 관련하여 후원자와 발생하는 법적 분쟁에 대한 책임은 해당 창작자가 부담합니다.
+      </p>
+    </div>
+  </footer>
+  
+  <!-- 전체 동의 체크 -->
+  <script>
+    function selectAll(selectAll)  {
+      const checkboxes 
+          = document.getElementsByName("agree");
+      
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked;
+      })
+    }
+    function checked_agree1() {
+      $('input[id="agree1"]').prop('checked', true);
+    }
+    function checked_agree2() {
+      $('input[id="agree2"]').prop('checked', true);
+    }
+    function checked_agree3() {
+      $('input[id="agree3"]').prop('checked', true);
+    }
+    function checked_agree4() {
+      $('input[id="agree4"]').prop('checked', true);
+    }
+    function checked_agree5() {
+      $('input[id="agree5"]').prop('checked', true);
+    }
+  </script>
+
+  <!-- //네이버 로그인 버튼 노출 영역 -->
+  <script type="text/javascript">
+    var naver_id_login = new naver_id_login("YOUR_CLIENT_ID", "YOUR_CALLBACK_URL");
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 3, 42);
+    naver_id_login.setDomain("YOUR_SERVICE_URL");
+    naver_id_login.setState(state);
+    naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+  </script>
+
+  <!-- 카카오 로그인 -->
+  <script>
+    function loginWithKakao() {
+      Kakao.Auth.authorize({
+        redirectUri: 'https://developers.kakao.com/tool/demo/oauth',
+      });
+    }
+
+    function getCookie(name) {
+      var parts = document.cookie.split(name + '=');
+      if (parts.length === 2) { return parts[1].split(';')[0]; }
+    }
+  </script>
+
+  <!-- 구글 로그인 -->
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'outline',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+</body>
+</html>
