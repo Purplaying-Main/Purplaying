@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ import kr.co.purplaying.domain.LikeDto;
 import kr.co.purplaying.domain.PageResolver;
 import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.AlarmService;
 import kr.co.purplaying.service.LikeService;
 import kr.co.purplaying.service.ProjectService;
@@ -54,16 +56,17 @@ public class MypageController {
   public String list(@RequestParam(defaultValue = "1") Integer page,
                      @RequestParam(defaultValue = "10") Integer pageSize,
                      Model m,
-                     HttpServletRequest request, HttpSession session,
+                     HttpServletRequest request, Authentication authentication,
                      ProjectDto projectDto, PaymentDto paymentDto) {
     
-      if(!loginCheck(request))
+    UserDto udt = (UserDto) authentication.getPrincipal();
+    if (!loginCheck(udt.getUser_id()))
         return "redirect:/user/login?toURL="+request.getRequestURL();
       
       try {
        //session.user_id 와 작성자 비교.
-        String user_id = (String)session.getAttribute("user_id");
-        m.addAttribute(user_id);
+        String user_id = udt.getUser_id();
+        m.addAttribute("user_id",user_id);
         
       
       int totalCnt = projectService.getCount();
@@ -139,10 +142,11 @@ public class MypageController {
   
 //알림 확인 누르면 조회수 1증가. new 뱃지 삭제됨
   @PatchMapping("/alarm/read/{alarm_no}")
-  public String read(@PathVariable Integer alarm_no, Model m, HttpSession session) {
+  public String read(@PathVariable Integer alarm_no, Model m, Authentication authentication) {
 
     try {
-          String user_id = (String)session.getAttribute("user_id");
+      UserDto udt = (UserDto) authentication.getPrincipal();
+      String user_id = udt.getUser_id();
 
           if (user_id != null )
             m.addAttribute(user_id);
@@ -159,7 +163,7 @@ public class MypageController {
   
   /*창작 중인 펀딩 관리 화면*/
   @GetMapping("/mypage/fundingmanage/{prdt_id}")
-  public String fundingManage(HttpServletRequest request,RedirectAttributes rattr,HttpSession session,Model m,
+  public String fundingManage(HttpServletRequest request,RedirectAttributes rattr,Authentication authentication,Model m,
       @PathVariable("prdt_id") Integer prdt_id, PaymentDto paymentDto,ProjectDto projectDto) {
 
     try {
@@ -167,8 +171,10 @@ public class MypageController {
       projectDto.setPrdt_id(prdt_id);
       ProjectDto proj_dto = projectDao.select(prdt_id);
       
+      UserDto udt = (UserDto) authentication.getPrincipal();
+      
       //2.프로젝트 창작자 != 유저 아이디인경우 alert 띄우고 마이페이지로 리턴
-      if(!session.getAttribute("user_id").equals(proj_dto.getWriter())) {
+      if(!udt.getUser_id().equals(proj_dto.getWriter())) {
         rattr.addFlashAttribute("msg", "no_authorization");
         return "redirect:/mypage";  
       }
@@ -206,11 +212,10 @@ public class MypageController {
    
   }
 
-  private boolean loginCheck(HttpServletRequest request) {
+  private boolean loginCheck(String string) {
     // 1. 세션을 얻어서
-    HttpSession session = request.getSession(false);        // false는 session이 없어도 새로 생성하지 않음. 반환값  null
-    // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-    return session != null && session.getAttribute("user_id") != null;
+    return string != null || string != ""; 
+       
   }
   
   

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -67,10 +68,11 @@ public class ProductController {
   @GetMapping("/view/{prdt_id}")
   public String view(@PathVariable Integer prdt_id,
                                       Model m,
-                                      HttpSession session) {
+                                      Authentication authentication) {
         try {
-          String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
+          UserDto udt = (UserDto) authentication.getPrincipal();
+          String user_id = udt.getUser_id();
+          m.addAttribute("user_id",user_id);
           
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
@@ -95,8 +97,9 @@ public class ProductController {
  
   /*펀딩 상세 페이지 (로그인 유무 상관없음)*/
   @GetMapping("/{prdt_id}")
-  public String viewproduct(@PathVariable Integer prdt_id, Model m ,HttpSession session) {
-        String user_id = (String) session.getAttribute("user_id");
+  public String viewproduct(@PathVariable Integer prdt_id, Model m ,Authentication authentication) {
+    UserDto udt = (UserDto) authentication.getPrincipal();
+    String user_id = udt.getUser_id();
         try {
           //1.프로젝트정보 가져오기
           ProjectDto projectDto = projectService.read(prdt_id);
@@ -202,15 +205,14 @@ public class ProductController {
   
   @PostMapping("/write")
   public String write(ProjectDto projectDto, Model m, 
-                      RedirectAttributes rattr, HttpSession session, HttpServletRequest request) {
+                      RedirectAttributes rattr, Authentication authentication, HttpServletRequest request) {
     
-      if(!loginCheck(request)) {
+    UserDto udt = (UserDto) authentication.getPrincipal();
+    if (!loginCheck(udt.getUser_id())) {
         return "redirect:/user/login?toURL=" + request.getRequestURL();
       }
       
-      
-      
-      String writer = (String) session.getAttribute("user_id");
+      String writer = udt.getUser_id();
       projectDto.setWriter(writer);
       projectDto.setUser_id(writer);
       System.out.println("projectDto : "+projectDto);
@@ -386,11 +388,8 @@ public class ProductController {
     }
   }
   
-  private boolean loginCheck(HttpServletRequest request) {
+  private boolean loginCheck(String string) {
     // 1. 세션을 얻어서
-    HttpSession session = request.getSession(false);                    // false는 session이 없어도 새로 생성하지 않음. 반환값 : null.
-    // 2. 세션에 id가 있는지 확인, 있으면 true를 반환함
-    return session != null && session.getAttribute("user_id") != null;
-
+    return string != null || string != ""; 
   }
 }

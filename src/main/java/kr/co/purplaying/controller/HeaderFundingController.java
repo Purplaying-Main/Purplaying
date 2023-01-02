@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import kr.co.purplaying.dao.HeaderFundingDao;
 import kr.co.purplaying.domain.PageResolver2;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem2;
+import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.LikeService;
 
 @Controller
@@ -26,9 +28,10 @@ public class HeaderFundingController {
   LikeService likeService;
   
   @GetMapping("/popularFunding")
-  public String popularFunding(SearchItem2 sc2, Model m, HttpSession session) {
+  public String popularFunding(SearchItem2 sc2, Model m, Authentication authentication) {
     
-    String id = (String)session.getAttribute("user_id");
+    UserDto udt = (UserDto) authentication.getPrincipal();
+   String id = udt.getUser_id();
     
     try {
       int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
@@ -61,10 +64,10 @@ public class HeaderFundingController {
   }
   
   @GetMapping("/newFunding")
-  public String newFunding(ProjectDto projectDto, Model m, HttpSession session) {
+  public String newFunding(ProjectDto projectDto, Model m, Authentication authentication) {
     
-    String id = (String)session.getAttribute("user_id");
-    
+    UserDto udt = (UserDto) authentication.getPrincipal();
+   String id = udt.getUser_id();
     try {
       Map map = new HashMap();
       List<ProjectDto> list_n = headerFundingDao.newFunding(map);
@@ -90,9 +93,10 @@ public class HeaderFundingController {
   
 
   @GetMapping("/comingsoonFunding")
-  public String getPage(ProjectDto projectDto, Model m, HttpSession session ) {
+  public String getPage(ProjectDto projectDto, Model m, Authentication authentication ) {
     
-    String id = (String)session.getAttribute("user_id");
+    UserDto udt = (UserDto) authentication.getPrincipal();
+   String id = udt.getUser_id();
     
     try {
       Map map = new HashMap();

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="loginId" value="${sessionScope.id}" />
+<c:set var="loginId" value="${user_id}" />
 <c:set var="default_thumbnail" value="${projectDto.prdt_thumbnail == null ? '' : 'display:none' }"/>
 <c:set var="display_thumbnail" value="${projectDto.prdt_thumbnail == null ? 'display:none' : '' }"/>
 <c:set var="today" value="<%=new java.util.Date()%>"/>
@@ -43,10 +43,10 @@
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
             
             <!-- 창작중인 펀딩 영역-->
-              <h5 class="my-4">${sessionScope.user_id}님이 창작중인 펀딩</h5>
+              <h5 class="my-4">${user_id}님이 창작중인 펀딩</h5>
 			  <c:if test="${fn:length(list) > 0}">
 			  <c:forEach var="projectDto" items="${list}">
-	              <c:if test="${projectDto.writer eq sessionScope.user_id}">
+	              <c:if test="${projectDto.writer eq user_id}">
 		             <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> 
 		                <div class="col-auto d-none d-lg-block">
 		                	<img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
@@ -100,7 +100,7 @@
               <hr class="mt-4 mb-2">
               
               <!-- 후원중인 펀딩 영역-->
-              <h5 class="mt-4 mb-2">${sessionScope.user_id}님이 후원중인 펀딩</h5>
+              <h5 class="mt-4 mb-2">${user_id}님이 후원중인 펀딩</h5>
                <c:choose>
                	<c:when test="${fn:length(userF) ne 0 }">
                	<c:set var="i" value="0"/>
@@ -149,7 +149,7 @@
             
             <!-- 관심 tab -->
             <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
-              <h5 class="my-4">${sessionScope.user_id}님이 관심중인 펀딩</h5>
+              <h5 class="my-4">${user_id}님이 관심중인 펀딩</h5>
               <!-- project card start-->
              <c:choose>
               <c:when test="${fn:length(list_like) ne 0 }">
@@ -222,7 +222,7 @@
             </div>
             
             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
-            		<h5 class="my-4">${sessionScope.user_id}님의 관심펀딩 소식</h5>
+            		<h5 class="my-4">${user_id}님의 관심펀딩 소식</h5>
 	             <!-- project card start-->
 	             <c:choose>
 	              <c:when test="${fn:length(list_alarm) ne 0 }">

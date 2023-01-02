@@ -91,6 +91,7 @@
               	  <span for="rewardSelectPrice" class="input-group-text">총 금액</span>
 				  <input type="text" class="form-control text-end" id="rewardTotalPrice" name="rewardTotalPrice" value="0" placeholder="1000" readonly>
 				</div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
               </li>
               <li><input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="펀딩하기"/></li>
@@ -478,7 +479,7 @@
 		console.log("펀딩하기 버튼 클릭");
 		let form = $('#selectedRewardForm');
 		form.attr("action","<c:url value='/payment/${prdt_id}' />");
-		form.attr("method","get");
+		form.attr("method","post");
 		if(formCheck())
 			form.submit()	
 	}) 

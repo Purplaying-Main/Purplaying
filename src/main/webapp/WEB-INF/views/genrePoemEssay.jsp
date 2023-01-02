@@ -34,6 +34,8 @@
 	            <li><button class="dropdown-item" name="order" value="popular">인기순</button></li>
 	            <li><button class="dropdown-item" name="order" value="new" >최신순</button></li>
 	          </ul>      
+	          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	          
 	        </form>
 	       </div>
       	</div>

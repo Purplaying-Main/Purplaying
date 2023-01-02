@@ -210,6 +210,7 @@
               </div>
             </div>
           </div>  
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </form>
           <div class="row justify-content-center">
             <div class="col-8 text-center">

@@ -9,11 +9,11 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,19 +64,20 @@ public class PaymentController {
   SettingService settingservice;
   
   /*결제화면*/
-  @GetMapping("/payment/{prdt_id}")
-  public String payment(@PathVariable("prdt_id") Integer prdt_id, HttpServletRequest request, HttpSession session,
-      Model m, RewardDto rewardDto) {
+  @PostMapping("/payment/{prdt_id}")
+  public String payment(@PathVariable("prdt_id") Integer prdt_id, HttpServletRequest request,
+      Model m, RewardDto rewardDto,Authentication authentication ) {
     
+    UserDto udt = (UserDto) authentication.getPrincipal();
     // 1. 로그인 하지 않는 경우 펀딩하기 클릭시 로그인 요구
-    if (!loginCheck(request))
+    if (!loginCheck(udt.getUser_id()))
       return "redirect:/user/login?toURL=/project/{prdt_id}";
 
     // 2. 로그인 성공시 펀딩결제 진행
     try {
       
       //3.해당 유저 정보
-      String user_id = (String) session.getAttribute("user_id");
+      String user_id = udt.getUser_id();
       UserDto userDto = settingService.setUser(user_id);
       m.addAttribute(userDto);
       
@@ -115,14 +116,13 @@ public class PaymentController {
 
   /*결제완료화면*/
   @PostMapping("/paymentCompleted/{prdt_id}") //아직 결제가 이뤄지지 않았기 때문에 상품 번호로 맵핑
-      public String paymentCompleted(@PathVariable Integer prdt_id,
-      HttpSession session, Model m, String rewardid, String rewardcnt, String
+      public String paymentCompleted(@PathVariable Integer prdt_id,Authentication authentication, Model m, String rewardid, String rewardcnt, String
       pay_total, PaymentDto paymentDto, HttpServletRequest request, HttpServletResponse response) {
       
       try {
-      
+      UserDto udt = (UserDto) authentication.getPrincipal();
       //1.해당 유저 정보
-      String user_id = (String)session.getAttribute("user_id");
+      String user_id = udt.getUser_id();
       UserDto userDto = settingService.setUser(user_id);
       m.addAttribute("userDto",userDto);
       
@@ -232,10 +232,12 @@ public class PaymentController {
   
   /*마이페이지-결제내역상세보기 클릭시 화면*/
   @GetMapping("/paymentCompleted/{pay_no}") //결제가 이뤄졌으므로 결제 번호로 맵핑
-  public String paymentCompleted(@PathVariable("pay_no") Integer pay_no, HttpServletRequest request, HttpSession session, Model m,Integer prdt_id) {
+  public String paymentCompleted(@PathVariable("pay_no") Integer pay_no, HttpServletRequest request,Authentication authentication
+, Model m,Integer prdt_id) {
     try {
       //1.해당 유저 정보
-      String user_id = (String)session.getAttribute("user_id");
+      UserDto udt = (UserDto) authentication.getPrincipal();
+      String user_id = udt.getUser_id();
       UserDto userDto = settingService.setUser(user_id);
       m.addAttribute("userDto",userDto);
       
@@ -292,11 +294,10 @@ public class PaymentController {
   }
   
   /*로그인 validation*/
-  private boolean loginCheck(HttpServletRequest request) {
+  private boolean loginCheck(String string) {
     // 1. 세션을 얻어서
-    HttpSession session = request.getSession(false); // false는 session이 없어도 새로 생성하지 않음. 반환값 null
-    // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-    return session != null && session.getAttribute("user_id") != null;
+    return string != null || string != ""; 
+       
   }
   
   @ResponseBody
