@@ -85,7 +85,7 @@
 			                  <c:otherwise>D-DAY 출력</c:otherwise>
 		                  </c:choose>
 		                  </p>
-		                  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${projectDto.prdt_desc}</p>
+		                  <p class="card-text mb-2 text-truncate" style="max-width:500px">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
 		             </form>  
@@ -130,7 +130,7 @@
 	                  	<c:otherwise>종료일</c:otherwise>
 	                  </c:choose>
 	                 </p>
-	                  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${userF[i+4]}</p>
+	                  <p class="card-text mb-2 text-truncate" style="max-width:500px">${userF[i+4]}</p>
 	                </div>
 	              </div>
 	              	<c:set var="i" value="${i+8 }"/>

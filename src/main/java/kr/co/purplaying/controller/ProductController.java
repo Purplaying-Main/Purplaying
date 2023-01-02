@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -152,22 +153,24 @@ public class ProductController {
   }
   
   
-  /*
-   * 리워드 드롭박스 구현 중 (1226)
-   * @GetMapping("/reward_category")
-   * public ResponseEntity<List<RewardDto>> rewardOption(@PathVariable int
-   * reward_category,int prdt_id, @RequestBody RewardDto rewardDto, Model m){
-   * try {
-   * System.out.println("컨트롤러");
-   * List<RewardDto> dto = rewardDao.rewardCategory(prdt_id, reward_category);
-   * m.addAttribute("dto",dto);
-   * return new ResponseEntity<List<RewardDto>>(dto,HttpStatus.OK);
-   * } catch (Exception e) {
-   * e.printStackTrace();
-   * }
-   * return new ResponseEntity<List<RewardDto>>(HttpStatus.BAD_REQUEST);
-   * }
-   */
+  
+    /*리워드 드롭박스*/
+    @ResponseBody
+    @PostMapping("/reward_category")
+    public ResponseEntity<List<RewardDto>> rewardOption(@RequestBody RewardDto rewardDto){
+    try {
+
+    List<RewardDto> list = rewardDao.rewardCategory(rewardDto.getPrdt_id(),rewardDto.getReward_category());
+    
+     return new ResponseEntity<List<RewardDto>>(list, HttpStatus.OK);
+    
+    } catch (Exception e) {   
+        e.printStackTrace();
+        return new ResponseEntity<List<RewardDto>>(HttpStatus.BAD_REQUEST);
+      }
+    
+    }
+   
   
   
   @GetMapping("/calculate/{prdt_goal}")
