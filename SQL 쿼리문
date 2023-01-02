@@ -1,6 +1,7 @@
 --VER - 2022-12-26
 --tb_abc순 정렬
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
+-- [01/01] tb_user user_role -> varchar(100)으로 변경 및 ALTER TABLE tb_user ADD COLUMN ENABLED int NOT NULL 적용하기
 
 ------------------------- product 테이블 -------------------------
 DROP TABLE if exists tb_product;
