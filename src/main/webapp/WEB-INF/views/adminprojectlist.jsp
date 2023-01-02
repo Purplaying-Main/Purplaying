@@ -128,6 +128,9 @@
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(prdt_data),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){		//펀딩삭제 성공시 호출
 				window.location.reload();		//페이지 새로고침
 				Close_project_modal()		//펀딩 삭제 모달 종료 function호출

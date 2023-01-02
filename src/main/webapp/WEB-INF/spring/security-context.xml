@@ -10,6 +10,7 @@
 	<context:component-scan base-package="kr.co.purplaying" />
 	<bean id="customUserService" class="kr.co.purplaying.security.CustomUserDetailService" />
 	<bean id="loginSuccessHandler" class="kr.co.purplaying.security.loginSuccessHandler"/>
+	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
 	
 	<security:http>
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
@@ -21,10 +22,11 @@
 		        invalidate-session="true"
 		        delete-cookies="JSESSIONID" />
 		
-		<security:form-login login-page="/user/login"
+		<security:form-login login-page="/user/signin"
 							 username-parameter="user_id"
 							 password-parameter="user_pwd"	
 							 login-processing-url="/user/login"
+							 authentication-failure-handler-ref="loginFailureHandler"
     						 authentication-success-handler-ref="loginSuccessHandler"/>
 							 
 		<!-- 최대 한 개의 세션만 생성되도록 -->
@@ -34,6 +36,8 @@
             							  error-if-maximum-exceeded="true" />
             							  
         </security:session-management>
+		
+		
 		
 	</security:http>
 	

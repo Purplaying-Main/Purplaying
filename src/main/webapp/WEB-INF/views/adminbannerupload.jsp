@@ -170,6 +170,9 @@
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : imgsrc,
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){	//배너설정 모달 요청 성공시 호출
 		        window.location.reload();	//페이지 새로고침
 				CloseBannerModal()		//배너설정 모달 종료 function 호출
@@ -206,11 +209,22 @@
   		let filename = $('#prdt_image').val()	//파일명 저장
   		let uploadPath = $('#prdt_uploadpath').val().split('purplaying_file\\')[1]	//파일 저장 경로 저장
   		console.log(prdt_uploadpath)
-  		$.post('/purplaying/admin/bannersavedb',
-				{fileName : filename, fileuuid : fileuuid , uploadPath:uploadPath}, //파일 저장 요청시 필요한 data Json형태로 저장
-				function(result){	//파일저장 성공시 호출
-			        window.location.reload();	//페이지 새로고침
-  				})
+  		
+		$.ajax({		//배너 설정 ajax로 요청
+			type:'post',	
+			url: '/purplaying/admin/bannersavedb/',
+			data : {fileName : filename, fileuuid : fileuuid , uploadPath:uploadPath},
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+		    function(result){	//파일저장 성공시 호출
+		    	Close_upload_modal()
+		        window.location.reload();	//페이지 새로고침
+			},
+		    error : function(){
+				alert("error");		//배너설정 모달 요청 실패시 호출
+			}					
+		});
   	}
   	
     //배너설정 모달 요청 function
@@ -222,7 +236,11 @@
 			url: '/purplaying/admin/ShowBanner/'+file_id,                                                                                
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){		//배너설정 모달 요청 성공시 호출
+				result = JSON.parse(result)
 				$('#preview_img').attr('src','/purplaying/admin/display?file_name='+encodeURIComponent(result))
 				$('#banner_Modal').modal({backdrop: 'static', keyboard: false});
 				$('#banner_Modal').modal('show');		//배너설정 모달 출력
@@ -255,6 +273,9 @@
 				processData: false,
 			    contentType: false,
 			    dataType:'json',
+			    beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success: function(result) { 	//파일업로드 성공시 호출
 					$('#gotodeleteBtn').attr('disabled',false)
 					showUploadedFile(result)	//파일 미리보기 function요청
@@ -274,17 +295,29 @@
   		let fileuuid = $("#prdt_uuid").val();
   		filename = fileuuid+filename
   		let uploadPath = $("#prdt_uploadpath").val();
-	  	$.post('/purplaying/admin/removeFile',{fileName : filename, uploadPath:uploadPath}, //파일삭제 요청시 필요한 data Json형태로 저장
-	  		function(result){
-	        if(result === true){ //ajax처리후 반환받은 갑이 true면 요청
-	        	$("#prdt_thumbnail").attr("style", 'display:none;');
-	    		$("#prdt_thumbnail").attr("src", "");
-	    		$("#file_id").val('')
-	    		$('#prdt_name').val('')
-	    		$('#prdt_uuid').val('')
-	    		$('#gotodeleteBtn').attr('disabled',true)
-	        }
-	    })
+	  	
+	    $.ajax({	//파일업로드 ajax 요청
+			type: 'POST',	
+			url: '/purplaying/admin/removeFile',
+			enctype: "multpart/form-data",
+			data : {fileName : filename, uploadPath:uploadPath},
+		    beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+			success: function(result) { 	//파일업로드 성공시 호출
+				if(result === true){ //ajax처리후 반환받은 갑이 true면 요청
+		        	$("#prdt_thumbnail").attr("style", 'display:none;');
+		    		$("#prdt_thumbnail").attr("src", "");
+		    		$("#file_id").val('')
+		    		$('#prdt_name').val('')
+		    		$('#prdt_uuid').val('')
+		    		$('#gotodeleteBtn').attr('disabled',true)
+		        }
+			},
+			error : function() { //파일업로드 실패시 호출
+				alert("error") 
+			}
+		}) 
   	}
   	
   	/* 파일 확장자, 크기 처리 */

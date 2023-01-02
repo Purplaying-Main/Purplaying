@@ -24,12 +24,12 @@
       <div class="row col-md-8 d-block mx-auto">
       
         <div class="form-signin w-100 m-auto">
-          <form action="<c:url value='/user/login'/>" method="post" onsubmit="return formCheck(this)">
+          <form action="<c:url value='/user/login'/>" method="post">
             <img class="mb-4 text-center pt-4 w-25" src="${pageContext.request.contextPath}/resources/assets/img/purplaying_logo_kor.png" alt="퍼플레잉 로고">
             <h1 class="mb-3 fw-normal text-center">퍼플레잉 로그인</h1>
         	<div id="msg">
-				<c:if test="${ not empty param.msg }">
-					<i class="fa fa-exclamation-circle">${URLDecoder.decode(param.msg) }</i>
+        		<c:if test="${LoginFailMessage!=null}">
+					<i class="fa fa-exclamation-circle">${LoginFailMessage}</i>
 				</c:if>
 			</div>
             <div class="form-floating py-2">
@@ -50,7 +50,7 @@
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-            <p class="text-center mt-4">아이디/비밀번호를 잊으셨나요? <a href="findaccount">아이디/비밀번호 찾기</a></p>
+            <p class="text-center mt-4">아이디/비밀번호를 잊으셨나요?<a href="findaccount">아이디 / 비밀번호 찾기</a></p>
             <p class="mt-5 mb-3 text-muted">&copy; 2022 Purplaying</p>
            	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </form>

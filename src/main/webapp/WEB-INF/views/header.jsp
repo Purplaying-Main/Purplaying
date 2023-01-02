@@ -8,6 +8,7 @@
 <c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
 <c:set var="loginDisplay" value="${sessionScope.user_id == null ? 'display:none' : '' }"/>
 <c:set var="adminWrite" value="${sessionScope.user_role eq '1' ? '' : 'display:none' }"/>
+<sec:authentication property="principal" var="prc"/>
 
 	
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -71,7 +72,7 @@
           <sec:authorize access="isAuthenticated()">
 	          <div> <!-- 로그인 후 보이는 화면 : 프로필-->
 		          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-		            <img src="${sessionScope.UserDto.user_profile}" alt="${sessionScope.UserDto.user_name }" width="32" height="32" class="rounded-circle">
+		            <img src="${prc.user_profile}" alt="${sessionScope.UserDto.user_name }" width="32" height="32" class="rounded-circle">
 		          </a>
 		          <ul class="dropdown-menu text-small">
 		          	<%-- <c:if test="${sessionScope.user_role eq '1'}"> --%>
@@ -99,8 +100,9 @@
           			form.submit();
           		}
           </script> -->
-<!-- 검색어 == null Alert 띄우기  -->      
+      
 <script type="text/javascript">
+
 function searchCheck()
 {
      var str_keyword = window.searchform.keyword.value;
@@ -112,12 +114,14 @@ function searchCheck()
      }
      window.sendform.submit();
 }
-
 function logoutSubmit(){
 	$('#form_logout').submit();
 }
 	</script>
-
+	<script type="text/javascript">
+	    var header = $("meta[name='_csrf_header']").attr('content');
+		var token = $("meta[name='_csrf']").attr('content');
+    </script>
 		
           
         </div>

@@ -1,4 +1,4 @@
-package kr.co.purplaying.controller;
+                               package kr.co.purplaying.controller;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -77,6 +77,11 @@ public class MemberController {
 //        session.invalidate();
 //        return "redirect:/";
 //    }
+    
+    @PostMapping("/loginFail")
+    public String loginFail() {
+      return "/signIn";
+    }
     
     //@RequestMapping(value="signuppost", method = RequestMethod.POST)
     @GetMapping("signup")

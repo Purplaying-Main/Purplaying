@@ -39,7 +39,7 @@
 			<div class="d-flex justify-content-end my-2">
 				<input type="button" class="btn btn-primary" value="메일 보내기" onclick="send_message()">
 			</div>
-			<div class="modal fade" id="User_Message_Modal"  tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
+			<div class="modal fade" id="User_Message_Modal" tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
 				<div class="modal-dialog modal-xl" role="document">
 					<div class="modal-content">
 			            <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -135,6 +135,9 @@
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(pageData),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){	//모달내 페이지 초기화 성공시 호출
 				let result_List = JSON.parse(result)
 				var result_i = [result_List.totalCnt,result_List.pr,result_List.UserList]
@@ -151,10 +154,20 @@
 		let title = $('#message_title').val()
 		let user_id = $('#selected_user_list').val()
 		let context = $('#message_context').val()
-		$.post('/purplaying/admin/sendgroupmessage',{title:title, user_id:user_id, context:context}, //이메일 전송 요청시 필요한 data Json형태로 저장
-			function(result){
-			alert("보내기 성공")
-	    })
+	   	$.ajax({	//선택한 페이지 번호에 해당하는 유저리스트 ajax요청
+			type:'post',	
+			url: '/purplaying/admin/sendgroupmessage',   
+			data : {title:title, user_id:user_id, context:context},
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+			success:function(result){	//페이지 선택 성공시 호출
+					alert("보내기 성공")
+			},
+			error : function(){	//페이지 선택 실패시 호출
+				alert("error");
+			}					
+		});
 	}
 	//유저선택 모달 요청 function
   	function choice_to_user(){
@@ -220,6 +233,9 @@
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(pageData),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){	//페이지 선택 성공시 호출
 				let result_List = JSON.parse(result)
 				var result_i = [result_List.totalCnt,result_List.pr,result_List.UserList]

@@ -158,6 +158,9 @@
 			headers:{"content-type" : "application/json"},
 			dataType : 'text',
 			data : JSON.stringify(prdt_data),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success:function(result){		//배너설정 성공시 호출
 				window.location.reload();		//페이지 새로고침
 				CloseBannerModal()		//배너 설정 모달 종료 function호출

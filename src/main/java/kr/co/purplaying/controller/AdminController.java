@@ -168,9 +168,9 @@ public class AdminController {
       System.out.println(sc);
       int totalCnt = fileService.getBannerSearchResultCnt(sc);  //ajax로 전달받은 sc를 이용하여 리스트의 전체갯수 저장
       
-      PageResolver pageResolver= new PageResolver(totalCnt, sc);    //전체갯수와 sc를 이용하여 페이지정보설정
+      PageResolver pageResolver= new PageResolver(totalCnt/2, sc);    //전체갯수와 sc를 이용하여 페이지정보설정
 
-      m.addAttribute("totalCnt", totalCnt); //model에 전체갯수 저장
+      m.addAttribute("totalCnt", totalCnt/2); //model에 전체갯수 저장
       m.addAttribute("pr", pageResolver);   //model에 페이지정보 저장
       
       List<AttachFileDto> banner_filelist = fileService.selectBanner_list(sc); //sc를 이용하여 파일 DB에서 select후 list형태로 저장
@@ -411,7 +411,7 @@ public class AdminController {
             System.out.println("insertFile ERR");
           }
          
-          return new ResponseEntity<>(HttpStatus.OK);
+          return new ResponseEntity<>(true,HttpStatus.OK);
       }catch (UnsupportedEncodingException e){
           e.printStackTrace();
           return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
