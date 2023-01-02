@@ -1,0 +1,64 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+interface AnsDao << interface >>
+class AnsDaoimpl {
+  + AnsDaoimpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class AnsDto {
+  + AnsDto(Integer, Integer, String, Integer, String, Date): 
+  + AnsDto(): 
+  - inquiry_no: Integer
+  - ans_state: Integer
+  - ans_context: String
+  - ans_regdate: Date
+  - ans_no: Integer
+  - admin_id: String
+}
+interface AnsService << interface >>
+class AnsServiceImpl {
+  + AnsServiceImpl(OneononeDao, AnsDao): 
+  ~ oneononeDao: OneononeDao
+  ~ ansDao: AnsDao
+}
+class OneononeController {
+  + OneononeController(): 
+  ~ ansService: AnsService
+  ~ oneononeService: OneononeService
+  ~ userDao: UserDao
+}
+interface OneononeDao << interface >>
+class OneononeDaoImpl {
+  + OneononeDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class OneononeDto {
+  + OneononeDto(): 
+  + OneononeDto(Integer, Integer, String, String, String, boolean, Date, AnsDto, UserDto): 
+  - inquiry_title: String
+  - inquiry_context: String
+  - inquiry_state: Integer
+  - inquiry_private: boolean
+  - userDto: UserDto
+  - writer: String
+  - inquiry_no: Integer
+  - inquiry_regdate: Date
+  - ansDto: AnsDto
+}
+interface OneononeService << interface >>
+class OneononeServiceImpl {
+  + OneononeServiceImpl(): 
+  ~ oneononeDao: OneononeDao
+}
+
+AnsDaoimpl           -[#008200,dashed]-^  AnsDao              
+AnsServiceImpl       -[#008200,dashed]-^  AnsService          
+OneononeDaoImpl      -[#008200,dashed]-^  OneononeDao         
+OneononeServiceImpl  -[#008200,dashed]-^  OneononeService     
+@enduml

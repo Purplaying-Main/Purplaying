@@ -22,9 +22,11 @@
 				<div class="container py-4">
 					<div class="dropdown container">
 						<p>
+						<!-- 검색 키워드 -->
 						<h2>
 							"<%=request.getParameter("keyword")%>" 검색 결과
 						</h2>
+						<!-- 검색결과 펀딩 수 -->
 						<h5>검색 결과가 ${prdt_count} 건 있습니다.</h5>
 						</p>
 
@@ -32,13 +34,13 @@
 					<div class="container py-4">
 						<h4>
 							<a>창작자명</a>
+							<!-- 검색결과 유저 수 -->
 							<h5>검색 결과가 ${user_count }건 있습니다.</h5>
 						</h4>
 					</div>
 				</div>
-
 				<div class="container py-8">
-					<!-- genre div start -->
+					<!-- 검색결과 펀딩 리스트 -->
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 						<c:forEach var="ProjectDto" items="${keyword }">
 							<div class="col">
@@ -49,7 +51,7 @@
 							                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
 							                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
 							                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
-							                </div>
+							                </div>					               
 									<div class="card-body">
 										<c:choose>
 											<c:when test="${ProjectDto.prdt_genre eq 1 }"><p class="card-cate"onclick="location.href='genre/literature'">문학</p></c:when>
@@ -87,17 +89,16 @@
 							<h1 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/viewMore?page=1'" style="color: #9E62FA; cursor:pointer;">더보기</h1>
 						</div> --%>
 					<br>
+					<!-- 검색결과 X -->
 					<div class="pagination mb-0 col-12 justify-content-center">
-
 						<c:if test="${prdt_count == null || prdt_count == 0 }">
 							<h6 class="row text-center ">
 								"<%=request.getParameter("keyword")%>" 펀딩이 없습니다.
 							</h6>
 						</c:if>
 						<c:if test="${prdt_count > 6 }">
-							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/projectViewMore?page=1'" style="cursor:pointer;" >더보기
-							</h6>						
-							
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/projectViewMore?page=1&keyword=<%=request.getParameter("keyword")%>'" style="cursor:pointer;" >더보기
+							</h6>													
 						</c:if>
 <%-- 						<c:if test="${prdt_count != null || count != 0 }">
 							<c:if test="${pr2.showPrev }">
@@ -129,7 +130,7 @@
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 						<c:forEach var="UserDto" items="${U_keyword }">
 							<div class="col">
-								<!-- 창작자 list start -->
+								<!-- 창작자 list -->
 								<li class="row d-flex border rounded p-3 m-1">
 									<div class="col-4">
 										<img src="${UserDto.user_profile }"
@@ -138,7 +139,8 @@
 									<div class="col">
 										<h5 class="row text-primary mt-2">${UserDto.user_nickname }</h5>
 										<h6 class="row text-muted">${UserDto.user_id }</h6>
-										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6>
+										<h6 class="row text-muted" onclick="location.href='${pageContext.request.contextPath}/creatorSearch/${UserDto.user_id}/'" 
+													style="color: #9E62FA; cursor:pointer;">올린 프로젝트 더보기</h6> 
 									</div>
 								</li>
 								<!-- 창작자 list end -->
@@ -146,15 +148,15 @@
 						</c:forEach>
 					</div>
 					<br> <br>
+					<!-- 검색결과 유저수 X -->
 					<div class="pagination mb-0 col-12 justify-content-center">
-
 						<c:if test="${user_count == null || user_count == 0 }">
 							<h6 class="row text-center ">
 								"<%=request.getParameter("keyword")%>"이라는 제작자가 없습니다.
 							</h6>
 						</c:if>
 						<c:if test="${user_count > 6 }">
-							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/creatorViewMore?page=1'" style="cursor:pointer;" >더보기
+							<h6 class="row text-center " onclick="location.href='${pageContext.request.contextPath}/creatorViewMore?page=1&keyword=<%=request.getParameter("keyword")%>'" style="cursor:pointer;" >더보기
 							</h6>													
 						</c:if>						
 

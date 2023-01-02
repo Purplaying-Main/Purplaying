@@ -39,7 +39,7 @@
 			<div class="d-flex justify-content-end my-2">
 				<input type="button" class="btn btn-primary" value="메일 보내기" onclick="send_message()">
 			</div>
-			<div class="modal fade" id="User_Message_Modal" tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
+			<div class="modal fade" id="User_Message_Modal"  tabindex="-1" aria-labelledby="pointpayModalLabel" aria-hidden="true" >
 				<div class="modal-dialog modal-xl" role="document">
 					<div class="modal-content">
 			            <div class="modal-header p-5 pb-4 border-bottom-0">

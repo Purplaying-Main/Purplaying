@@ -25,7 +25,8 @@
      <div class="row">
       <h2 class="col-auto mb-5 justify-content-md-center">창작중인 펀딩 관리</h2>
      </div>
-     <input type="hidden" id="dayNtotal" value="${dayNtotal}"> <!-- 대시보드에 나타낼 데이터 -->
+     <!-- 대시보드에 나타낼 데이터 -->
+     <input type="hidden" id="dayNtotal" value="${dayNtotal}"> 
       <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
       <div class="px-4 pt-4 position-static">
         <div class="d-flex justify-content-between">
@@ -70,14 +71,15 @@
 		  	<!-- 주문 내역이 없음 -->
 			<c:if test="${empty list_pay }">
 			<tr class="text-center" >
-			  	<td colspan="5">일주일간 주문내역이 없습니다.</td>
+			  	<td colspan="5">일주일 내 후원내역이 없습니다.</td>
 			</tr>
 			</c:if>
 			<!-- 주문 내역이 있음 -->
 			<c:if test="${not empty list_pay }">
 			 <c:forEach var="paymentDto" items="${list_pay }">
 			  <tr>
-				  <td class="text-center col-1"><a href="${pageContext.request.contextPath}/paymentCompleted/${paymentDto.pay_no}"><span class="fw-bold">${paymentDto.pay_no }</span></a></td>
+				  <td class="text-center col-1"><a href="${pageContext.request.contextPath}/paymentCompleted/${paymentDto.pay_no}">
+				  <span class="fw-bold">${paymentDto.pay_no }</span></a></td>
 				  <td  class="col-3 text-center"><fmt:formatDate value="${paymentDto.pay_time }" pattern="yyyy년 MM월 dd일"/></td>
 				  <td class="text-center col-1">${paymentDto.user_no }</td>
 				  <td  class="col-5 text-center">

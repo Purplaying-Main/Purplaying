@@ -22,7 +22,6 @@
 	</repositories>
 	
 	<dependencies>
-	
 	<dependency>
         <groupId>org.springframework.security</groupId>
         <artifactId>spring-security-core</artifactId>
@@ -43,7 +42,6 @@
         <artifactId>spring-security-taglibs</artifactId>
         <version>5.6.0</version>
     </dependency>
-    
 		<dependency>
 		  <groupId>com.github.iamport</groupId>
 		  <artifactId>iamport-rest-client-java</artifactId>

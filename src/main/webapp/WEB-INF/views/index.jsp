@@ -18,10 +18,12 @@
       <div class="carousel-item ${status.index == 0 ? 'active' : ''}" id="item${status.index}"
       		style="background: url(${bannerimg.bannerfile_file }) center; background-repeat: no-repeat; background-size: cover; width: 100%;">
         <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>프로젝트 제목</h1>
-            <p>프로젝트 간단 소개</p>
+          <div class="carousel-caption text-end">
+            <c:if test="${bannerimg.bannerfile_prdt_id != 0}">
+            <h1></h1>
+            <p></p>
             <p><a class="btn btn-lg btn-primary" href="/purplaying/project/${bannerimg.bannerfile_prdt_id }">자세히보기</a></p>
+            </c:if> 
           </div>
         </div>
       </div>
@@ -110,7 +112,7 @@
 
           </div>
          
-          <h4 class="mb-2"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
+          <h4 class="mb-2 fw-bold"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
           <div class="featured-carousel owl-carousel">         
           	<c:forEach var="ProjectDto" items="${list_n }">

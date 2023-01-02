@@ -227,7 +227,7 @@
 
           <div class="col-lg-3 col-md-6">
             <div class="member">
-              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/jwc.jpg" alt=""></div>
+              <div class="pic"><img src="${pageContext.request.contextPath}/resources/assets/img/teamProfile/profile_default.jpg" alt=""></div>
               <div class="details">
                 <h4>전완철</h4>
                 <span>Team Member</span>

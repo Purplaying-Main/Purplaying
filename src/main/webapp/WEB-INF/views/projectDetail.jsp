@@ -98,7 +98,7 @@
               	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
                   <!-- 공유하기 Modal -->
-                  <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -308,7 +308,7 @@
 			</div>
                  <!--댓글 종료-->
                  <!--(댓글 수정) 모달 -->
-                 <div class="modal fade" id="mod_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal fade" id="mod_Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -336,7 +336,7 @@
 				</div> 
 				
                  <!--(댓글 답변) 모달 -->
-                 <div class="modal fade" id="reply_Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <div class="modal fade" id="reply_Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -414,18 +414,15 @@
 	   
 	   /*이 리워드 선택하기 버튼 클릭 시 해당 리워드의 정보를 받아 위로 이동하는 스크립트*/
 	   function jumpUp(){
-		   //eventTarget.previousElementSibling.previousElementSibling.innerHTML
 		   document.getElementById("selectRewardBox").style.display = 'block';
 		   eventTarget = event.target;
 		   let eventTargetTitle = eventTarget.parentElement.previousElementSibling.lastElementChild.innerHTML
 		   let eventTargetPrice = eventTarget.parentElement.firstElementChild.lastElementChild.innerHTML
-		   //alert(eventTargetTitle+'+'+eventTargetPrice);
-		   let reward_number = eventTarget.parentElement.parentElement.firstElementChild.lastElementChild.previousElementSibling.value
-		  // $('#addReward option:eq('+reward_number+')').prop('selected',true);		
-		   $('#addReward').val(reward_number).prop('selected',true);	
-		   
-		   if(!arr.includes(reward_number[0])){
-			   arr.push(reward_number[0])
+		   let reward_number = eventTarget.parentElement.previousElementSibling.lastElementChild.previousElementSibling.value
+		   $('#addReward').val(reward_number).prop('selected',true);		   
+		   if(!arr.includes(reward_number
+				   )){
+			   arr.push(reward_number)
 			  	let list = selectToHtml($('#selectRewardBox').html())
 				$('#selectRewardBox').html(list)
 				calRewardPrice()
@@ -438,6 +435,27 @@
 			  
 		}
 	$(document).ready(function(){
+		$("#addReward").change(function(){
+			document.getElementById("selectRewardBox").style.display = 'block';
+			let reward_num = $('#addReward option:selected').val();
+			//alert(reward_num)
+			if(!arr.includes(reward_num)){
+				arr.push(reward_num);
+				let list = selectToHtml($('#selectRewardBox').html())
+				$('#selectRewardBox').html(list)
+				calRewardPrice()
+				/* let result_price = 0;
+				var reward_length = $("input[name='reward_cnt']").length;
+				var arr_reward=  new Array(reward_length);
+				for(var i=0; i<reward_length; i++){
+					let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
+					let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
+					result_price = result_price + Number(price[0])*reward_cnt;
+				}
+				$("#rewardTotalPrice").val(result_price); */
+			}
+		});
+		
 	let dday =  <c:out value="${projectDto.prdt_dday}"/>
 	// 유저 = 창작자이면 관리하기 버튼으로 보여줌
 	if(${sessionScope.user_id eq projectDto.writer}){
@@ -478,26 +496,8 @@
 	
 let selectedRewardName = document.getElementById("selectedRewardName");
 let selectedRewardPrice = document.getElementById("selectedRewardPrice");
-	$("#addReward").change(function(){
-		document.getElementById("selectRewardBox").style.display = 'block';
-		let reward_num = $('#addReward option:selected').val();
-		//alert(reward_num)
-		if(!arr.includes(reward_num[0])){
-			arr.push(reward_num[0]);
-			let list = selectToHtml($('#selectRewardBox').html())
-			$('#selectRewardBox').html(list)
-			calRewardPrice()
-			/* let result_price = 0;
-			var reward_length = $("input[name='reward_cnt']").length;
-			var arr_reward=  new Array(reward_length);
-			for(var i=0; i<reward_length; i++){
-				let price = $("input[name='reward_cnt']").eq(i).parent().parent().prev().children('span:eq(1)').text().split("원");
-				let reward_cnt = $("input[name='reward_cnt']").eq(i).val();
-				result_price = result_price + Number(price[0])*reward_cnt;
-			}
-			$("#rewardTotalPrice").val(result_price); */
-		}
-	});
+
+	
 	/*펀딩하기 버튼 클릭시 validation 체크*/
 	formCheck = function() {
 		let form = document.getElementById("selectRewardBox")
@@ -591,7 +591,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 		let num = name.split('.')[0];
 		let price_won = getOption.split('+')[1];
 		let reward_value =  $("#addReward option:checked").val();
-		price = price_won.split('원')[0];
+		let price = price_won.split('원')[0];
 		
 		let temp = tmp;
 		temp += "<div>";
@@ -713,27 +713,27 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 	</script>
 	
 	<!-- 커뮤니티 댓글 기능 -->
-	<script type="text/javascript">
-					
+	<script type="text/javascript">		
 		$(document).ready(function() {
 			
 			let prdt_id = $("input[id=prdt_id]").val()
 			let rno = $("input[id=rno]").val()
-			debugger	
-			showList(prdt_id)
 				
+			showList(prdt_id)
+			
 	 		$("#RtoRBtn").click(function() {
-				alert("답변버튼 클릭됨")
+				//alert("답변버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
 				let chat_context = $("#RtoR_text").val(); 
 				
+				// 답변 글 체크
 				if(chat_context.trim() == '') {
 					alert("답글을 입력해 주세요.")
 					$("textarea[id=RtoR_text]").focus()
 					return
 				}
-				debugger
+				
 				$.ajax({
 					type : 'POST',				//요청 메서드
 					url : '/purplaying/reply/' + prdt_id,				//요청 URI
@@ -741,17 +741,17 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						
-						alert(JSON.stringify({chat_no:chat_no, chat_context:chat_context}))
+						//alert(JSON.stringify({chat_no:chat_no, chat_context:chat_context}))
 						
 						$("#commentList").html(toHtml(result))
 			     	},
-			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Reply_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 	 		})
 	 		
 	 		// 댓글 수정 이벤트
 			$("#RmodifyBtn").click(function() {
-				alert("수정버튼 클릭됨")
+				//alert("수정버튼 클릭됨")
 				
 				let chat_no = $(this).attr("data-chat_no")
 				let chat_context = $("#modify_text").val(); 
@@ -767,15 +767,11 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({chat_no:chat_no, chat_context:chat_context}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert("댓글이 수정되었습니다.")
-						/* showList(prdt_id) */
-						// $("#commentList").html(toHtml(result)) 
-					
-						
-						window.location.reload()
+						alert("댓글이 수정되었습니다.")			// 성공 시 알림
+						window.location.reload()						// Reload
 			     	},
 			     	
-			    	error : function() { alert("ModifyError") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Modify_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 				
 			})
@@ -784,6 +780,7 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			$("#insertBtn").click(function() {
 				let comment = $("#comment").val();
 				
+				// 댓글 작성 시 로그인 체크 및 댓글 입력 체크
 				if(${sessionScope.UserDto.user_no == null}){
 					alert("로그인 후에 이용 가능합니다.")
 					return false
@@ -799,54 +796,52 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:prdt_id, chat_context:comment}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
-						alert(JSON.stringify({prdt_id:prdt_id, chat_context:comment}))
-						$("#commentList").html(toHtml(result))
-						alert("댓글이 작성되었습니다.")
+						$("#commentList").html(toHtml(result))		// 댓글 출력 폼으로 전송
+						alert("댓글이 작성되었습니다.")				// 댓글 작성 시 알림
+						window.location.reload()							// Reload
 			     	},
-			    	error : function() { alert("error") }			//에러가 발생했을 때, 호출될 함수
+			    	error : function() { alert("Error_Insert_Chat") }			//에러가 발생했을 때, 호출될 함수
 				})
 			})
 			
 			// 삭제
 			$("#commentList").on("click", ".delBtn", function() {
-				alert("삭제 버튼 클릭됨")
+				//alert("삭제 버튼 클릭됨")
 				
 				let chat_no = $(this).parent().parent().attr("data-chat_no")	
 				let prdt_id = $("input[id=prdt_id]").val();	
-				debugger
+				
 				$.ajax({
 					type : 'DELETE',					//요청 메서드
 					url : '/purplaying/community/'+ chat_no + '?prdt_id=' + prdt_id,			//요청 URI
 					success : function(result) {			//서버로부터 응답이 도착하면 호출될 함수
-						//$("#commentList").html(toHtml(result))
-						alert("댓글이 삭제되었습니다.")
-						window.location.reload()
+						alert("댓글이 삭제되었습니다.")		// 삭제 시 알림
+						window.location.reload()			// Reload
 					},
-					error : function() { alert("Error") }	//에러가 발생했을 때 호출될 함수
+					error : function() { alert("Error_Delete_Chat") }	//에러가 발생했을 때 호출될 함수
 				})
 				
 			})
 			
-			// 수정
+			// 댓글 수정
 			$("#commentList").on("click", ".modBtn", function() {
-				alert("댓글수정 버튼 클릭됨")
+				//alert("댓글수정 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")				
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
 				let prdt_id = $(this).parent().parent().attr("data-prdt_id")
-				//1. 내용을 input에 출력해주기
+				//	1. 내용을 input에 출력해주기
 				$("input[id=modal_comment]").val(chat_context);
-				//2. chat_no전달하기
+				//	2. chat_no전달하기
 				$("#RmodifyBtn").attr("data-chat_no", chat_no)
 				
 			}) 
-			// 답변
+			// 댓글 답변
 			$("#commentList").on("click", ".replyBtn", function() {			
-				alert("댓글답변 버튼 클릭됨")
+				//alert("댓글답변 버튼 클릭됨")
 				let chat_no = $(this).parent().parent().attr("data-chat_no")
 				//클릭된 수정버튼의 부모(li)에 span 태그의 text만 가져옴
 				let chat_context = $("span.chat_context",$(this).parent().parent()).text()
 				//1. 내용을 input에 출력해주기
-				
 				$("input[id=modal_comment]").val(chat_context);
 				//2. chat_no전달하기
 				$("#RtoRBtn").attr("data-chat_no", chat_no)
@@ -862,14 +857,13 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수
 						$("#commentList").html(toHtml(result))		// result는 서버가 전송한 데이터
 					},
-					error : function() { alert("errorShowList") }	// 에러가 발생할 때, 호출될 함수
+					error : function() { alert("Error_Chat_List") }	// 에러가 발생할 때, 호출될 함수
 				})
 			}
 		
 		 	let toHtml = function(comments) {
 		 		let tmp = '<div class="row text-start">'
 				let user_id_for_comment = $('#user_id_for_comment').val()			// 로그인정보를 세션에 담아옴
-				debugger;
 		 		
 					comments.forEach(function(comment) {
 						tmp += '	<div class="col-1">'
@@ -930,6 +924,8 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 				return tmp += "</div>"
 					
 			}
+			
+			// 댓글 출력
 		 	function toStringByFormatting(source,delimiter = '-'){
 			         let date_source = new Date(source);
 			        let month = date_source.getMonth() + 1;
@@ -941,10 +937,10 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 			        return date_source.getFullYear() + '-' + month + '-' + day;
 	
 		     }
-		 	function mod_Modal() {				// 수정 모달 창을 띄움
+		 	function mod_Modal() {					// 수정 버튼 클릭 시 수정 모달 창을 띄움
 				$('#mod_Modal').modal('show')
 			}
-		 	function reply_Modal() {				// 답변 모달 창을 띄움
+		 	function reply_Modal() {				// 답변 버튼 클릭 시 답변 모달 창을 띄움
 				$('#reply_Modal').modal('show')
 			}
 </script>

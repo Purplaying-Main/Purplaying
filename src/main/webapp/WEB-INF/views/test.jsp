@@ -10,7 +10,8 @@
 <title>comment list</title>
 </head>
 <body>
-	<h2>CommentTest</h2>
+
+<!-- 	<h2>CommentTest</h2>
 	comment :
 	<input type="text" name="comment" />
 	<br />
@@ -168,7 +169,7 @@
 
 	     }
 
-	</script>
+	</script> -->
 
 </body>
 </html>

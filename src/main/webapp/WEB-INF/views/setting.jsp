@@ -112,7 +112,7 @@
                                 </ul>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="profileChangeModal" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="profileChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="profileChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                             <!-- IntroChangeModal -->
-                            <div class="modal fade" id="introChangeModal" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="introChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="introChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -231,7 +231,7 @@
                                 </ul>
                             </div>
                             <!-- PwdChangeModal -->
-                            <div class="modal fade" id="pwdChangeModal" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="pwdChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pwdChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             <!-- phoneChangeModal -->
-                            <div class="modal fade" id="phoneChangeModal" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
+                            <div class="modal fade" id="phoneChangeModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="phoneChangeModalLabel" aria-hidden="true" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -280,7 +280,7 @@
                                 <ul class="border-bottom py-3">
                                     <li class="row justify-content-between">
                                         <div class="col-auto">
-                                            <h6 id="user_point">현재 보유 포인트 : ${pointUserDto.user_point}</h6>
+                                            <h6 id="user_point">현재 보유 포인트 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${pointUserDto.user_point}"/>원</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end check-group">
 					                        <input type="button" class="btn btn-primary" id="point_pay" value="충전하기" data-bs-toggle="modal" data-bs-target="#pointpayModal"/>
@@ -308,7 +308,7 @@
                                 <div id="addressList">
                                 </div>
                                 <!-- 배송지 추가 modal start -->
-                                <div class="modal fade" id="addressRegModal" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressRegModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressRegModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -357,7 +357,7 @@
                                 <!-- Modal end-->
 
                                 <!-- 배송지 수정 modal start -->
-                                <div class="modal fade" id="addressModiModal" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressModiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressModiModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -406,7 +406,7 @@
                                 <!-- Modal end-->
 
                                 <!-- 배송지 삭제 modal start -->
-                                <div class="modal fade" id="addressDelModal" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true" >
+                                <div class="modal fade" id="addressDelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addressDelModalLabel" aria-hidden="true" >
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header p-5 pb-4 border-bottom-0">
@@ -535,14 +535,18 @@
 				// 닉네임 수정 모달창의 입력란에 있는 값을 user_nickname에 할당
 	  			let user_nickname = $("#user_NickName").val()
 	  			
+	  			// PATCH 방식으로 user_no의 값을 넘겨준다.
 	  			$.ajax({
 	  				type : 'PATCH',
 	  				url : '/purplaying/setting/nname/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_nickname:user_nickname}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							// 수정된 닉네임을 html로 출력
 							$("#userNickName").html(user_nickname)
+							// 닉네임 수정 모달창 숨기기
 							$("#NicknameChangeModal").modal("hide")
+							// 닉네임 수정 모달창의 값 초기화
 							$("#user_NickName").val("")
 					},
 	  				error : function() {alert("error")}
@@ -550,8 +554,10 @@
 	  		})
 	  		
 	  		$("#introchangeBtn").click(function() {
+	  			// user_no의 값을 user_no에 할당
 				let user_no = $("#user_no").val()
-					
+				
+				// POST 방식으로 user_no의 값을 넘겨준다.
 	  			$.ajax({
 					type:'POST',	//통신방식 (get,post)
 					url: '/purplaying/setting/stmodintro/'+user_no,
@@ -559,7 +565,9 @@
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
 					success:function(result){
+						// JSON 방식으로 넘어온 user의 값을 js 형식으로 바꿈
 						user = JSON.parse(result)
+						
 						$("#user_Introduce").val(user.user_introduce)
 			  			$("#modintroBtn").attr("user-no", user_no)
 			  			$("#introChangeModal").modal("show")
@@ -824,7 +832,7 @@
 		  		$("#addressDelBtn").click(function() {
 		  			let address_id = $(this).attr("data-address-id")
 		  			let user_no = $("#user_no").val()
-		  			alert(address_id)
+		  			//alert(address_id)
 		  			
 		  			$.ajax({
 		  				type : 'DELETE',
@@ -834,7 +842,7 @@
 		  				dataType : 'text',
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
-							alert(JSON.parse(result))
+							//alert(JSON.parse(result))
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressDelModal").modal("hide")
 							

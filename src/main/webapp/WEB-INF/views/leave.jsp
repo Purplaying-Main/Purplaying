@@ -64,7 +64,7 @@
 	
 	            <div class="w-100 btn btn-outline-primary btn-lg" type="submit" data-bs-toggle="modal" data-bs-target="#findAccountModal">본인 인증 하기</div>
 	            <!-- 본인인증하기 : 비밀번호 입력 모달창 -->
-	            <div class="modal fade" id="findAccountModal" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
+	            <div class="modal fade" id="findAccountModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
 	              <div class="modal-dialog">
 	                <div class="modal-content">
 	                  <div class="modal-header">

@@ -1,0 +1,131 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class PageResolver2 {
+  + PageResolver2(int, Integer, int): 
+  + PageResolver2(int, int): 
+  + PageResolver2(int, SearchItem2): 
+  - sc2: SearchItem2
+  - totalCnt: int
+  - beginPage: int
+  - endPage: int
+  + NAV_SIZE: int
+  - showNext: boolean
+  - showPrev: boolean
+  - totalPage: int
+}
+interface ProjectDao << interface >>
+class ProjectDaoImpl {
+  + ProjectDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+  ~ projectDto: ProjectDto
+}
+class ProjectDto {
+  + ProjectDto(String, Integer, String, String, String, Date, Date, Date, int, int, boolean, String, Integer, String, String, int, int, int, Date, Date, int, int, int, String, String, String, int, Date, String, String): 
+  + ProjectDto(): 
+  - prdt_desc: String
+  - prdt_desc_policy: String
+  - user_no: int
+  - prdt_genre: Integer
+  - prdt_thumbnail: String
+  - prdt_enddate: Date
+  - prdt_goal: int
+  - user_id: String
+  - user_activate: String
+  - prdt_comingday: int
+  - prdt_regdate: Date
+  - prdt_buyercnt: int
+  - prdt_dday: int
+  - writer: String
+  - prdt_percent: int
+  - prdt_desc_detail: String
+  - prdt_open: boolean
+  - prdt_id: Integer
+  - prdt_opendate: Date
+  - prdt_user_no: int
+  - prdt_purchaseday: Date
+  - user_name: String
+  - prdt_img: String
+  - user_role: String
+  - prdt_name: String
+  - user_regdate: Date
+  - prdt_currenttotal: int
+  - user_phone: int
+  - user_pwd: String
+  - prdt_limitday: Date
+}
+interface ProjectService << interface >>
+class ProjectServiceImpl {
+  + ProjectServiceImpl(): 
+  ~ projectDao: ProjectDao
+}
+interface ProjectSuggestDao << interface >>
+class ProjectSuggestDaoImpl {
+  + ProjectSuggestDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+class SearchItem2 {
+  + SearchItem2(): 
+  + SearchItem2(Integer, Integer, String): 
+  + SearchItem2(Integer, Integer): 
+  - pageSize: Integer
+  + MAX_PAGE_SIZE: int
+  - offset: Integer
+  + MIN_PAGE_SIZE: int
+  - page: Integer
+  - keyword: String
+  + DEFAULT_PAGE_SIZE: int
+}
+class SearchResultController {
+  + SearchResultController(): 
+  ~ searchResultService: SearchResultService
+  ~ userDao: UserDao
+  ~ projectService: ProjectService
+  ~ likeService: LikeService
+  ~ projectSuggestDao: ProjectSuggestDao
+}
+interface SearchResultDao << interface >>
+class SearchResultDaoImpl {
+  + SearchResultDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+interface SearchResultService << interface >>
+class SearchResultServiceImpl {
+  + SearchResultServiceImpl(): 
+  ~ searchResultDao: SearchResultDao
+}
+interface UserDao << interface >>
+class UserDaoImpl {
+  + UserDaoImpl(): 
+  - namespace: String
+  - session: SqlSession
+}
+class UserDto {
+  + UserDto(): 
+  + UserDto(int, String, String, int, int): 
+  - user_point: int
+  - user_name: String
+  - user_regdate: Date
+  - user_profile: String
+  - user_activate: int
+  - user_id: String
+  - user_role: int
+  - user_no: int
+  - user_pwd: String
+  - user_phone: String
+  - user_nickname: String
+}
+
+ProjectDaoImpl           -[#008200,dashed]-^  ProjectDao              
+ProjectServiceImpl       -[#008200,dashed]-^  ProjectService          
+ProjectSuggestDaoImpl    -[#008200,dashed]-^  ProjectSuggestDao       
+SearchResultDaoImpl      -[#008200,dashed]-^  SearchResultDao         
+SearchResultServiceImpl  -[#008200,dashed]-^  SearchResultService     
+UserDaoImpl              -[#008200,dashed]-^  UserDao                 
+@enduml

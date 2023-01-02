@@ -32,6 +32,7 @@ public class CommunityController {
   @Autowired
   UserDao userDao;
 
+  // 댓글 리스트를 불러오는 메서드
   @GetMapping("/community")
   @ResponseBody
   public ResponseEntity<List<CommunityDto>> list(int prdt_id) {
@@ -70,6 +71,7 @@ public class CommunityController {
     }
   }
 
+ //댓글을 입력하는 메서드
   @PostMapping("/community/insert/{prdt_id}")
   @ResponseBody
   public ResponseEntity<List<CommunityDto>> write(@RequestBody CommunityDto communityDto, RedirectAttributes rattr,
@@ -100,7 +102,6 @@ public class CommunityController {
   }
 
 //지정된 댓글을 삭제하는 메서드
-
   @DeleteMapping("/community/{chat_no}")
   public ResponseEntity<String> remove(@PathVariable int chat_no) {
 
@@ -114,8 +115,7 @@ public class CommunityController {
     }
   }
 
-//댓글을 수정하는 메서드
-
+//지정된 댓글을 수정하는 메서드
   @PatchMapping("/community/modify/{chat_no}")
   public ResponseEntity<String> modify(@PathVariable Integer chat_no, @RequestBody CommunityDto dto,
       String chat_context, HttpSession session) {

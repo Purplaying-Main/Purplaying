@@ -132,7 +132,7 @@
 								<button type="button" id="OneononeListBtn" class="btn btn-outline-primary my-3">목록으로 돌아가기</button>
 							</div>
 							<!-- 답변 모달 영역 -->
-							<div class="modal fade" id="ansModal" tabindex="-1" aria-labelledby="ansModiModalLabel" aria-hidden="true">
+							<div class="modal fade" id="ansModal"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ansModiModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header p-5 pb-4 border-bottom-0">
@@ -154,7 +154,7 @@
 								</div>
 							</div>
 							<!-- Modal end-->
-							<div class="modal fade" id="ans_modiModal" tabindex="-1" aria-labelledby="ansModiModalLabel" aria-hidden="true">
+							<div class="modal fade" id="ans_modiModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ansModiModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header p-5 pb-4 border-bottom-0">

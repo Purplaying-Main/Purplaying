@@ -45,7 +45,7 @@
                   </div>
                   <input class="w-100 btn btn-lg btn-primary" type="button" id="findAccountBtn" value="이메일 확인"/>
                   <!-- 아이디 찾기 : 등록되지 않은 계정 모달창 -->
-                  <div class="modal fade" id="xfindAccountModal" tabindex="-1" aria-labelledby="xfindAccountModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="xfindAccountModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="xfindAccountModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -64,7 +64,7 @@
                     </div>
                   </div> <!-- Modal end-->
                   <!-- 아이디 찾기 : 등록된 계정 모달창 -->
-                  <div class="modal fade" id="findAccountModal" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="findAccountModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -98,7 +98,7 @@
                   </div>
                   <input class="w-100 btn btn-lg btn-primary" type="button" id="findPwdBtn" value="인증번호 받기"/>
                   <!-- 비밀번호 찾기 : 이메일 오류 모달창 -->
-                  <div class="modal fade" id="findPasswordModal" tabindex="-1" aria-labelledby="findPasswordModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="findPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="findPasswordModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">

@@ -8,12 +8,11 @@
 		<!-- SELECT user_id, prdt_id, writer, prdt_name, prdt_desc, prdt_desc_detail, prdt_regdate, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_open, prdt_desc_policy, prdt_genre, prdt_thumbnail, prdt_img -->		
 		SELECT 
 		prdt_id, prdt_name, prdt_desc, prdt_desc_detail, prdt_open, user_id, 
-		prdt_desc_policy, writer, prdt_genre, prdt_thumbnail, prdt_img, img_no,
+		prdt_desc_policy, writer, prdt_genre, prdt_thumbnail, prdt_img,
 		prdt_regdate, prdt_opendate, prdt_enddate,  update_regdate,
 		prdt_goal, prdt_currenttotal, prdt_buyercnt,
 		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent", 
 		(prdt_enddate-current_date) as "prdt_dday", 
-		prdt_limitday,
 		(prdt_enddate+1) as "prdt_purchaseday",
 		(prdt_enddate-3) as "prdt_limitday",
 		(prdt_opendate - current_date) as "prdt_comingday"

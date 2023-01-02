@@ -85,7 +85,7 @@
 			                  <c:otherwise>D-DAY 출력</c:otherwise>
 		                  </c:choose>
 		                  </p>
-		                  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
+		                  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
 		             </form>  
@@ -130,7 +130,7 @@
 	                  	<c:otherwise>종료일</c:otherwise>
 	                  </c:choose>
 	                 </p>
-	                  <p class="card-text mb-2">${userF[i+4]}</p>
+	                  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${userF[i+4]}</p>
 	                </div>
 	              </div>
 	              	<c:set var="i" value="${i+8 }"/>
@@ -187,7 +187,7 @@
 		                  <c:otherwise>D-DAY 출력</c:otherwise>
 		              </c:choose>
 	                  </p>
-                  	  <p class="card-text mb-2">${projectDto.prdt_desc}</p>
+                  	  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${projectDto.prdt_desc}</p>
 	                  <p class="text-muted mb-0">심사완료</p>
 	                </div>
 	              </form> 
@@ -244,16 +244,20 @@
 							      <td width="80px"><img class="bd-placeholder-img" width="60" height="60" id="alarm_thumbnail" name="alarm_thumbnail" src="${alarmDto.prdt_thumbnail }"></td>
 							      <td width="160px" class="text-truncate"><a href="/purplaying/project/${alarmDto.prdt_id }" style="cursor:pointer"><h6>${alarmDto.prdt_name }</h6></a></td>
 							      <td class="alarm_message">
-							      	<c:if test="${alarmDto.prdt_comingday eq 1}">
+<%-- 							      	<c:if test="${alarmDto.prdt_comingday eq 1}">
 							      		<c:if test="${alarmDto.alarm_cnt eq 0}"><span class="badge bg-primary">OPEN</span></c:if>
 							      		펀딩오픈이 하루 남았습니다.
 							      	</c:if>
 				                    <c:if test="${alarmDto.prdt_dday eq 1}">
 				                    	<c:if test="${alarmDto.alarm_cnt eq 0}"><span class="badge bg-danger">CLOSE</span></c:if>
 				                    	펀딩마감이 하루 남았습니다.
-				                    </c:if>
+				                    </c:if>--%>
+				                    <c:choose> 
+				                    	<c:when test="${(alarmDto.prdt_comingday eq 1) && (alarmDto.alarm_cnt eq 0)}"><span class="badge bg-primary">OPEN </span>펀딩오픈이 하루 남았습니다.</c:when>
+				                    	<c:when test="${(alarmDto.prdt_dday eq 1) && (alarmDto.alarm_cnt eq 0)}"><span class="badge bg-danger">CLOSE </span>펀딩마감이 하루 남았습니다.</c:when>
+				                    </c:choose>
 							      </td>
-							      <td><button id="alarm_confirm" type="button" onclick="alarm_confirm()">확인</button></td>
+							      <td  class="text-end"><button id="alarm_confirm" type="button" onclick="alarm_confirm()">확인</button></td>
 							    </tr>
 						    </c:forEach>
 						  </tbody>
@@ -261,7 +265,7 @@
                	   </c:when>
 	               	<c:otherwise>
 		               	<div class="text-center mt-4">
-		               		<h5>현재 관심중인 펀딩이 없습니다.</h5>
+		               		<h5>현재 알림 받고 있는 펀딩이 없습니다.</h5>
 		               	</div>
 	               	</c:otherwise>
               	 </c:choose>	 	

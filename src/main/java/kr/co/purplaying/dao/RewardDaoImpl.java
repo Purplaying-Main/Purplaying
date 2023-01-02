@@ -57,7 +57,7 @@ public class RewardDaoImpl implements RewardDao {
     Map map = new HashMap();
     map.put("prdt_id",prdt_id);
     map.put("reward_category", reward_category);
-    return session.selectList(namespace, map);
+    return session.selectList(namespace+"rewardCategory", map);
   }
 
 
