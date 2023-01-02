@@ -41,7 +41,7 @@
 						<td class="align-middle" id="user_regdate-${MemberDto.user_no}"><fmt:formatDate value="${MemberDto.user_regdate}" pattern="yyyy-MM-dd" type="date" /></td>
 						<td class="align-middle" id="user_role-${MemberDto.user_no}">
 							<c:choose>
-								<c:when test="${MemberDto.user_role == 0}">일반회원</c:when>
+								<c:when test="${MemberDto.user_role eq 'ROLE_USER' }">일반회원</c:when>
 								<c:otherwise>관리자</c:otherwise>
 							</c:choose>
 						</td>
@@ -64,8 +64,8 @@
 			                <div class="modal-body p-5 pt-0">
 			                	<input type="hidden" id="user_no_modal"/>
 			                    <select id="User_Role" class="form-select fs-6">
-									<option value="1">관리자</option>
-									<option value="0">일반 회원</option>
+									<option value="ROLE_ADMIN">관리자</option>
+									<option value="ROLE_USER">일반 회원</option>
 								</select>
 							</div>
 			                <div class="modal-footer">
@@ -112,6 +112,7 @@
 		  eventTarget = event.target;		//이벤트 발생시킨 html태그 저장
 		  user_role = eventTarget.previousElementSibling.value		//이벤트 발생 요소기준 부모,자식관계 이용 유저권한 저장
 		  user_no = eventTarget.previousElementSibling.previousElementSibling.value //이벤트 발생 요소기준기준 부모,자식관계 이용 유저번호 저장
+		  
 		  $('#User_Role').val(user_role)
 		  $('#user_no_modal').val(user_no)
 		  $('#User_Role_Modal').modal({backdrop: 'static', keyboard: false});
@@ -124,12 +125,18 @@
 	  		let user_no = $('#user_no_modal').val();		//유저번호 저장
 	 		let user_data = {user_no:user_no,user_role:role_select};	//유저권한 변경시 필요한 data Json형태로 저장
 	  	
+	 		var header = $("meta[name='_csrf_header']").attr('content');
+			var token = $("meta[name='_csrf']").attr('content');
+			
 	 		$.ajax({		//유저권한 수정 ajax로 요청
 				type:'post',
 				url: '/purplaying/admin/listUser',                                                                                
 				headers:{"content-type" : "application/json"},
 				dataType : 'text',
 				data : JSON.stringify(user_data),
+				beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success:function(result){		//유저권한 수정 성공시 호출
 					if(result=='true'){
 						$('#User_Role_Modal').modal("hide");	//유저권한 수정 모달 종료

@@ -89,7 +89,7 @@
               <div class="form-signin w-100 m-auto">
                 <p class="text-muted text-center">
                   가입하셨던 이메일 계정을 입력하시면<br>
-                  비밀번호를 새로 만들 수 있는 링크를 이메일로 발송해드립니다.
+                  임시 비밀번호를 새로 발급하여 이메일로 발송해드립니다.
                 </p>
                 <form id="PwdForm">
                   <div class="form-floating py-2">
@@ -131,6 +131,9 @@
     </div>
   </section>
 	<script type="text/javascript">
+	var header = $("meta[name='_csrf_header']").attr('content');
+	var token = $("meta[name='_csrf']").attr('content');
+	
 		$(document).ready(function(){
 			$('#findAccountBtn').click(function(){
 				let find_data = {user_name:$('#user_name').val(),user_phone:$('#user_phone').val()} ;
@@ -140,6 +143,9 @@
 					headers:{"content-type" : "application/json"},
 					dataType : 'text',
 					data : JSON.stringify(find_data),
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success:function(result){
 						//alert(result);
 						if(result == null || result == ""){
@@ -156,6 +162,7 @@
 					}					
 				});
 			});	
+			
 			$('#findPwdBtn').click(function(){
 				let find_pwd = {user_id:$('#floatingUser_id').val()};
 				let domain = $('#floatingUser_id').val().split('@')[1].split('.')[0];
@@ -165,6 +172,9 @@
 					headers:{"content-type" : "application/json"},
 					dataType : 'text',
 					data : JSON.stringify(find_pwd),
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success:function(result){
 						//alert(result);
 						if(domain == "gmail"){

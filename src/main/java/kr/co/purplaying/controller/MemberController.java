@@ -26,6 +26,7 @@ import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.MemberDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
+import kr.co.purplaying.service.UserService;
 
 @Controller
 @RequestMapping("/user")
@@ -33,6 +34,9 @@ public class MemberController {
 
     @Autowired
     UserDao userDao;
+    
+    @Autowired
+    UserService userService;
     
     @Autowired
     SettingService settingService;
@@ -68,11 +72,11 @@ public class MemberController {
       return "setting";
     }
     
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/";
-    }
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//        return "redirect:/";
+//    }
     
     //@RequestMapping(value="signuppost", method = RequestMethod.POST)
     @GetMapping("signup")
@@ -93,9 +97,10 @@ public class MemberController {
         System.out.println(userDto);
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
+        
         userDto.setUser_pwd(String.valueOf(checkNum));
         System.out.println(userDto);
-        if(userDao.updateUserPwd(userDto)!=1)
+        if(userService.updateUserPwd(userDto)!=1)
         {
           System.out.println("비밀번호 변경오류");
           return ;
@@ -156,7 +161,7 @@ public class MemberController {
       }
       
     }
-    
+    /*
     @PostMapping("/login")
     public String login(String user_id, String user_pwd, boolean rememberId,String toURL
                         ,HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -209,14 +214,14 @@ public class MemberController {
         return "redirect:"+toURL;
         
 
-    }
+    }*/
         
     @ResponseBody
     @PostMapping("/signup")
     public void signup2(@RequestBody MemberDto memberDto, Model m ,HttpServletRequest request) throws Exception {
       System.out.println(memberDto);
       System.out.println("user_id"+memberDto.getUser_id());
-      if(userDao.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_nickname(),memberDto.getUser_phone())!=1) {
+      if(userService.signUpUser(memberDto.getUser_id(),memberDto.getUser_pwd(),memberDto.getUser_name(),memberDto.getUser_nickname(),memberDto.getUser_phone())!=1) {
         System.out.println("실패");
       }
       UserDto user = userDao.searchUser_no(memberDto.getUser_id());

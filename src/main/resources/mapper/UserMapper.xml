@@ -18,7 +18,7 @@
 		<include refid="selectFromUser" />
 		where user_activate = 1
 		AND user_name LIKE concat('%', #{keyword}, '%')
-		order by user_role desc, user_no
+		order by user_role, user_no
 		limit #{pageSize} OFFSET #{offset}
 	</select>
 	
@@ -59,8 +59,8 @@
 	</update>
 
 	<!-- signup -->
-	<insert id="insertUserInfo" parameterType="map">
-		INSERT INTO tb_user (user_id, user_pwd, user_name, user_nickname, user_phone) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_nickname}, #{user_phone})
+	<insert id="insertUserInfo" parameterType="UserDto">
+		INSERT INTO tb_user (user_id, user_pwd, user_name, user_nickname, user_phone, ENABLED) VALUES (#{user_id}, #{user_pwd}, #{user_name}, #{user_nickname}, #{user_phone} , 1)
 	</insert>
 	
 	<insert id="insertUserCheck" parameterType="map">
@@ -150,4 +150,9 @@
 		set user_point = #{user_point}
 		where user_no = #{user_no}
 	</update>
+	
+	<!-- security 로그인 -->
+	<select id="getUserById" parameterType="String" resultType="UserDto">
+		SELECT * FROM tb_user WHERE user_id = #{id} and user_activate = 1
+	</select>
 </mapper>

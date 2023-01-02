@@ -1,6 +1,7 @@
 --VER - 2022-12-26
 --tb_abc순 정렬
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
+-- [01/01] tb_user user_role -> varchar(100)으로 변경 및 ALTER TABLE tb_user ADD COLUMN ENABLED int NOT NULL 적용하기
 
 ------------------------- product 테이블 -------------------------
 DROP TABLE if exists tb_product;
@@ -36,10 +37,9 @@ CREATE TABLE tb_user (
     user_phone varchar(100) NOT NULL DEFAULT '010-0000-0000'::character varying,
     user_regdate timestamp NULL DEFAULT now(),
     user_activate int4 NOT NULL DEFAULT 1,
-    user_role int4 NOT NULL DEFAULT 0,
+    user_role varchar(100) NOT NULL DEFAULT 'ROLE_USER',
     user_profile varchar(300) default '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif',
     user_point int default 0,
-    user_nickname varchar(100) default null,
     CONSTRAINT constraintname UNIQUE (user_id),
     CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
 );
@@ -312,7 +312,7 @@ ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES tb
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES tb_user(user_id) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY(user_no) REFERENCES tb_user(user_no) ON DELETE CASCADE;
 ALTER TABLE tb_file ADD COLUMN isbannerimg int not null default 0;
-
+ALTER TABLE tb_user ADD COLUMN ENABLED int NOT NULL
 
 --시리얼 초기화 
 -- truncate table tb_ restart identity;
