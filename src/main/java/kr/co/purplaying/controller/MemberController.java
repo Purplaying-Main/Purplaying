@@ -97,6 +97,7 @@ public class MemberController {
         System.out.println(userDto);
         Random random = new Random();
         int checkNum = random.nextInt(888888) + 111111;
+        
         userDto.setUser_pwd(String.valueOf(checkNum));
         System.out.println(userDto);
         if(userService.updateUserPwd(userDto)!=1)

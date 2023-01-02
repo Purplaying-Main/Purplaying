@@ -21,10 +21,10 @@ public class loginSuccessHandler implements AuthenticationSuccessHandler {
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
-      HttpSession session = request.getSession();
-      UserDto userDto_Session = (UserDto) authentication.getPrincipal();
-      userDto_Session.setUser_pwd(null);
-      session.setAttribute("UserDto", userDto_Session);
+//      HttpSession session = request.getSession();
+//      UserDto userDto_Session = (UserDto) authentication.getPrincipal();
+//      userDto_Session.setUser_pwd(null);
+//      session.setAttribute("UserDto", userDto_Session);
       
       RequestCache requestCache = new HttpSessionRequestCache();
       SavedRequest savedRequest = requestCache.getRequest(request, response);
@@ -40,12 +40,12 @@ public class loginSuccessHandler implements AuthenticationSuccessHandler {
       }
 
       // 세션 Attribute 확인
-      Enumeration<String> list = request.getSession().getAttributeNames();
-      while (list.hasMoreElements()) {
-          System.out.println(list.nextElement());
-      }
-      System.out.println("asdfas:"+session.getAttribute("UserDto"));
-      
+//      Enumeration<String> list = request.getSession().getAttributeNames();
+//      while (list.hasMoreElements()) {
+//          System.out.println(list.nextElement());
+//      }
+//      System.out.println("asdfas:"+session.getAttribute("UserDto"));
+//      
       response.sendRedirect("/purplaying");
   }
 

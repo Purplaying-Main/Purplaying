@@ -147,7 +147,9 @@ public class AdminController {
       m.addAttribute("totalCnt", totalCnt); //model에 전체갯수 저장
       m.addAttribute("pr", pageResolver);   //model에 페이지정보 저장
       System.out.println("totalCnt :"+totalCnt);
-      List<ProjectDto> ProjectDtoList = projectService.selectProjectImgforAdmin(sc);    //sc를 이용하여 프로젝트 DB에서 select후 list형태로 저장
+      List<ProjectDto> ProjectDtoList = projectService.selectProjectImgforAdmin(sc);    
+      //sc를 이용하여 프로젝트 DB에서 select후 list형태로 저장
+      
       m.addAttribute("ProjectDtoList",ProjectDtoList);  //model에 프로젝트 list저장
       m.addAttribute("bannerfileList",bannerfileList);  //model에 배너파일 list저장
     } catch (Exception e) {
@@ -189,20 +191,20 @@ public class AdminController {
     return "adminbannerupload"; //admin 사이트배너 배너업로드 페이지호출
   }
   
-//  @PostMapping("/ShowBanner/{file_id}")
-//  @ResponseBody
-//  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
-//    System.out.println(file_id);
-//    try {
-//      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
-//      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
-//      return file_src;
-//      
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//      return null;
-//    }
-//  }
+  @PostMapping("/ShowBanner/{file_id}")
+  @ResponseBody
+  public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
+    System.out.println(file_id);
+    try {
+      AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
+      String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
+      return file_src;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
   
   //유저권한 변경
   @PostMapping("/listUser")
