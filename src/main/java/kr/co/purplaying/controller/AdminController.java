@@ -194,10 +194,10 @@ public class AdminController {
   @PostMapping("/ShowBanner/{file_id}")
   @ResponseBody
   public String ShowBanner(@PathVariable int file_id , Model m, HttpSession session ) {
-    System.out.println(file_id);
     try {
       AttachFileDto attachFileDto = fileService.findBannerByID(file_id);
       String file_src = attachFileDto.getFile_location().substring(7)+"\\"+attachFileDto.getFile_name();
+
       return file_src;
       
     } catch (Exception e) {

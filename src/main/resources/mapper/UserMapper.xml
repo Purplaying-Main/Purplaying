@@ -74,7 +74,7 @@
 	</select>
 	
 	<update id="updateUserActivation" parameterType="int">
-		UPDATE tb_user SET user_activate = 0 WHERE user_no = #{user_no}
+		UPDATE tb_user SET user_activate = 0 , enabled = 0 WHERE user_no = #{user_no}
 	</update>
 	
 	<!-- leave -->

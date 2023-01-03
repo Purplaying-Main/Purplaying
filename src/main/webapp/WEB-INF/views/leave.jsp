@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal" var="principal"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,12 +42,13 @@
 	            </span>
 	            <div class="mt-3 row col-md-8 m-auto py-3">
 	              <input type="checkbox" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
-	              <label class="btn btn-outline-danger btn-lg" for="danger-outlined"> 탈퇴 유의사항을 확인했습니다.</label>  
+	              <label class="btn btn-outline-danger btn-lg" for="danger-outlined" id="danger-outlined_label" onclick="leaveCheck()"> 탈퇴 유의사항을 확인했습니다.</label>  
 	            </div>
+	            <div class="text-center" id="leaveCheckAlert" style="display:none;"></div>
 	
 	            <hr class="my-4 mt-3">
 	
-	            <select class="form-select mb-3" aria-label="Default select example" id="leave_category" name="leave_category">
+	            <select class="form-select mb-3" aria-label="Default select example" id="leave_category" name="leave_category" onchange="leaveSelect()">
 	              <option value="0" selected>탈퇴 사유를 선택해주세요</option>
 	              <option value="1">서비스 대상이 아님</option>
 	              <option value="2">서비스 이용이 복잡하고 불편함</option>
@@ -54,17 +57,17 @@
 	              <option value="5">개인정보 (통신 및 신용정보 등) 노출 우려</option>
 	              <option value="6">기타</option>
 	            </select>
-	
-	            <div class="input-group mb-3 ">
-	              <span class="input-group-text"  >기타 사유<br/>(선택)</span>
-	              <textarea class="form-control" aria-label="With textarea" name="leave_reason"></textarea>
+				<div class="text-center" id="leaveCategoryAlert" style="display:none;"></div>
+	            <div class="input-group mb-3 " id="leave_reason" style="display:none;">
+	              <span class="input-group-text">기타 사유<br/>(선택)</span>
+	              <textarea class="form-control" aria-label="With textarea" name="leave_reason" id="leave_reason_text" style="resize:none"></textarea>
 	            </div>
 	
 	            <hr class="my-4">
 	
-	            <div class="w-100 btn btn-outline-primary btn-lg" type="submit" data-bs-toggle="modal" data-bs-target="#findAccountModal">본인 인증 하기</div>
+	            <div class="w-100 btn btn-outline-primary btn-lg" type="submit" onclick="leaveModal()" >본인 인증 하기</div>
 	            <!-- 본인인증하기 : 비밀번호 입력 모달창 -->
-	            <div class="modal fade" id="findAccountModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
+	            <div class="modal fade" id="findAccountModal" tabindex="-1" aria-labelledby="findAccountModalLabel" aria-hidden="true">
 	              <div class="modal-dialog">
 	                <div class="modal-content">
 	                  <div class="modal-header">
@@ -73,17 +76,19 @@
 	                  </div>
 	                  <div class="modal-body">
 	                    <div class="form-floating py-2">
-	                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value="${sessionScope.user_id} "disabled>
+	                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" value="${principal.user_id} "disabled>
 	                      <label for="floatingInput" placeholder="Disabled input" aria-label="Disabled input example" readonly>Email address</label>
 	                    </div>
 	                    <div class="form-floating py-2">
 	                      <input type="password" class="form-control" id="floatingPassword" name="user_pwd" placeholder="Password">
 	                      <label for="floatingPassword">Password</label>
 	                    </div>
+	                    <div class="text-center" id="leavePwAlert" style="display:none;"></div>
 	                  </div>
 	                  <div class="modal-footer">
-	                    <button type="submit" class="w-100 btn btn-lg btn-outline-primary">회원 탈퇴하기</button>
-	                    <button type="submit" class="w-100 btn btn-lg btn-outline-secondary" data-bs-dismiss="modal">닫 기</button>
+	                  	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	                    <button type="button" class="w-100 btn btn-lg btn-outline-primary" onclick="leaveSubmit()">회원 탈퇴하기</button>
+	                    <button type="button" class="w-100 btn btn-lg btn-outline-secondary" data-bs-dismiss="modal">닫 기</button>
 	                  </div>
 	                </div>
 	              </div>
@@ -92,6 +97,76 @@
 	     </form>
       </div>
     </div>
+    <script type="text/javascript">
+    function leaveCheck(){
+    	let leave_check_btn = document.getElementById("danger-outlined");
+    	if(leave_check_btn.classList.contains("LEAVECHECK")){
+    		$('#danger-outlined').removeClass('LEAVECHECK')
+    	}
+    	else{
+    		$('#danger-outlined').addClass('LEAVECHECK')
+    		$('#leaveCheckAlert').hide().html('');
+    	}
+    }
+    function leaveSelect(){
+    	if($("#leave_category").val()=='6'){
+    		$('#leave_reason').css('display','');
+    		$('#leaveCategoryAlert').hide().html('').css("color","red");
+    	}else{
+    		$('#leave_reason').css('display','none');
+    		$('#leaveCategoryAlert').hide().html('').css("color","red");
+    	}
+    }
+    function leaveModal(){
+    	let leave_check_btn = document.getElementById("danger-outlined");
+    	let leave_check_label = document.getElementById("danger-outlined_label");
+    	if(!leave_check_btn.classList.contains("LEAVECHECK")){
+    		$('#leaveCheckAlert').show().html('탈퇴 유의사항을 확인해주세요').css("color","red");
+    		leave_check_label.scrollIntoView({block:"center"});
+    	}
+    	else if($("#leave_category").val()=='0'){
+    		$('#leaveCategoryAlert').show().html('탈퇴 사유를 선택해주세요').css("color","red");
+    		$("#leave_category").focus()
+    	}
+    	else if($("#leave_category").val()=='6'){
+    		if($('#leave_reason_text').val()==null || $('#leave_reason_text').val()=="" ){
+    			$('#leaveCategoryAlert').show().html('탈퇴 사유를 입력해주세요').css("color","red");
+    			$('#leave_reason').focus();
+    		}else{
+    			$('#leaveCategoryAlert').hide().html('').css("color","red");
+    			$('#findAccountModal').modal({backdrop: 'static', keyboard: false});
+    	    	$('#findAccountModal').modal('show')
+    		}
+    	}
+    	else{
+    		$('#findAccountModal').modal({backdrop: 'static', keyboard: false});
+	    	$('#findAccountModal').modal('show')
+    	}
+    }
+    function leaveSubmit(){
+    	if($('#floatingPassword').val()==null || $('#floatingPassword').val()=="" ){
+    		$('#leavePwAlert').show().html('비밀번호를 입력해주세요').css("color","red");
+    	}
+    	$.ajax({
+			type:'post',	//통신방식 (get,post)
+			url: '/purplaying/user/checkleavepw',       
+			data : {user_id:$('#floatingInput').val(),user_pwd:$('#floatingPassword').val()},
+		 	beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+			success:function(result){
+				if(result == true){
+					$('#form').submit()
+				}else{
+					$('#leavePwAlert').show().html('비밀번호가 다릅니다').css("color","red");
+				}
+			},
+			error : function(){
+				alert("error")
+			}					
+		});
+    }
+    </script>
 
   </section>
   

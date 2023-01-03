@@ -240,7 +240,7 @@
 		        xhr.setRequestHeader(header, token);
 		    },
 			success:function(result){		//배너설정 모달 요청 성공시 호출
-				result = JSON.parse(result)
+				//result = JSON.parse(result)
 				$('#preview_img').attr('src','/purplaying/admin/display?file_name='+encodeURIComponent(result))
 				$('#banner_Modal').modal({backdrop: 'static', keyboard: false});
 				$('#banner_Modal').modal('show');		//배너설정 모달 출력

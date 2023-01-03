@@ -27,8 +27,8 @@
           <div class="row">
             <label for="email" class="form-label">Email</label>
             <div class="input-group mb-2">
-                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" value="" required autofocus>
-                <input class="btn btn-outline-secondary" type="button" id="check_id" value="중복체크" required>
+                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" value="" onchange="check_id_change(this)" required autofocus/>
+                <input class="btn btn-outline-secondary" type="button" id="check_id" value="중복체크" required/>
                 <div class="invalid-feedback">
                   아이디를 입력해주세요
                 </div>   
@@ -39,7 +39,7 @@
 
           <div class="col-12 mt-2" onsubmit="return formCheck(this)">
             <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" required>
+            <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" onchange="check_pw()" required>
             <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" onchange="check_pw()" required><!-- onchange='func_chk_Pwd()' 값바뀌면 script실행--> 
             <div class="invalid-feedback">
               비밀번호를 입력해주세요
@@ -311,6 +311,13 @@
 
     </div>
 	<script type="text/javascript">
+		function check_id_change(element){
+			if(element.classList.contains("IDCHECK")){
+				$("#email").removeClass('IDCHECK')
+				$("#check_id_msg").show().html('아이디 중복체크를 해주세요').css("color","red");
+			}
+		}
+
 		/* 전체동의 */
 		$('#agreeAll').on('click', function(){
 			var checked = $(this).is(':checked');
@@ -334,15 +341,22 @@
 		})
 		//비밀번호,비밀번호확인 일치 function
 		function check_pw(){
-			var pw = document.getElementById('password').value;
-			if(document.getElementById('password').value == document.getElementById('passwordConfirm').value && document.getElementById('password').value != null ){
-				$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
+			let pwd = document.getElementById('password').value;
+			let pwdchk = document.getElementById('passwordConfirm').value;
+			if(pwdchk != ""){
+				if(pwd == pwdchk){
+					$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
+					$("#password").addClass('PWDCHECK')
+				}
+				else{
+					$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
+					$("#password").removeClass('PWDCHECK')
+				}
+			}else{
+				$("#check_pwd_msg").hide().html('').css("color","red");
 			}
-			else{
-				$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
-			}
+			
 		}
-	
 		
 		$(document).ready(function(){
 			function parseXML (data) {
@@ -367,7 +381,10 @@
 			    }
 			    return xml;
 			}
+			
 			$('#check_id').click(function(){
+				var header = $("meta[name='_csrf_header']").attr('content');
+				var token = $("meta[name='_csrf']").attr('content');
 				let val = document.getElementById("email").value;
 				let user_id = {user_id: val};
 				let user_id_check = {};
@@ -376,17 +393,20 @@
 				}else{
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
-						url: '/purplaying/user/chkuserid',                                                                                
-						headers:{"content-type" : "application/json"},
-						dataType : 'text',
-						data : JSON.stringify(user_id),
+						url: '/purplaying/user/chkuserid',
+						data : user_id,
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
-							user_id_check = JSON.parse(result);
-							if(user_id_check.user_id==null || user_id_check.user_id == ""){
+							user_id_check = result;
+							alert(result)
+							if(user_id_check==null || user_id_check == ""){
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");
 							}else{
-								$("#check_id_msg").show().html(' 사용가능한 아이디 입니다').css("color","#9E62FA");
+								$("#check_id_msg").show().html('사용가능한 아이디 입니다').css("color","#9E62FA");
+								$("#email").addClass('IDCHECK')
 							}
 						},
 						error : function(){
@@ -398,7 +418,7 @@
 			
 			$('#signUp').click(function(){
 
-				let id = document.getElementById("email");
+				let id =  document.getElementById("email");
 				let pwd = document.getElementById("password");
 				let name = document.getElementById("user_name");
 				let nickname = document.getElementById("user_nickname");
@@ -410,9 +430,15 @@
 				if(id.value == null || id.value == ""){
 					id.scrollIntoView({block:"center"});
 					$("#check_id_msg").show().html('아이디를 입력해주세요').css("color","red");
+				}else if(!id.classList.contains("IDCHECK")){
+					id.scrollIntoView({block:"center"});
+					$("#check_id_msg").show().html('아이디 중복체크를 해주세요').css("color","red");
 				}else if(pwd.value == null || pwd.value == ""){
 					pwd.scrollIntoView({block:"center"});
 					$("#check_pwd_msg").show().html('비밀번호를 입력해주세요').css("color","red");
+				}else if(!pwd.classList.contains("PWDCHECK") ){
+					pwd.scrollIntoView({block:"center"});
+					$("#check_pwd_msg").show().html('비밀번호가 일치하지 않습니다').css("color","red");
 				}else if(name.value == null || name.value == ""){
 					name.scrollIntoView({block:"center"});
 					$("#check_name_msg").show().html('이름을 입력해주세요').css("color","red");

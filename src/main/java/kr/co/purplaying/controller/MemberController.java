@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.LeaveDao;
 import kr.co.purplaying.dao.UserDao;
@@ -43,6 +47,9 @@ public class MemberController {
 
     @Autowired(required=true)
     LeaveDao leaveDao;
+    
+    @Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
     
     @Autowired
     private JavaMailSender mailSender;
@@ -245,11 +252,13 @@ public class MemberController {
    }
     
     @PostMapping("/leave")
-    public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request) throws Exception {
+    public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request, Authentication authentication) throws Exception {
       
       HttpSession session = request.getSession();
-      UserDto user = userDao.selectUser((String)session.getAttribute("user_id"));
-      System.out.println(user);
+//      UserDto user = userDao.selectUser((String)session.getAttribute("user_id"));
+//      System.out.println(user);
+      
+      UserDto user =  (UserDto) authentication.getPrincipal();
       
       System.out.println(user.getUser_no());
       System.out.println(leave_category);
@@ -258,9 +267,9 @@ public class MemberController {
       if(leaveDao.insertLeaveReason(user.getUser_no(), leave_category, leave_reason)!=1) {
         System.out.println("성공");
       }
-      if(user.getUser_pwd().equals(user_pwd)) {
+      if(bcryptPasswordEncoder.matches(user_pwd,user.getUser_pwd())) {
         if(userDao.updateUserActivate(user.getUser_no())!=1) {
-          System.out.println("탈퇴성공");
+          System.out.println("탈퇴실패");
         }
       }
       session.invalidate();
@@ -270,15 +279,31 @@ public class MemberController {
     //아이디 중복체크///////////////////////////////////////////////////////////////////////
     @ResponseBody       
     @PostMapping("/chkuserid")
-    public UserDto chkuserid(@RequestBody UserDto userDto) {
-      UserDto user;
+    public String chkuserid(String user_id) {
+      System.out.println("id = "+user_id);
+      UserDto userDto = new UserDto();
       try {
-        user = userDao.selectUser(userDto.getUser_id());
-        user.setUser_id("");
-        return user;
+        userDto = userDao.selectUser(user_id);
+        System.out.println(userDto.getUser_id());
+        return "";
       } catch (Exception e) {
-        return userDto;
+        return user_id;
       }
+    }
+    
+    @ResponseBody       
+    @PostMapping("/checkleavepw")
+    public boolean checkleavepw(String user_id,String user_pwd, Authentication authentication) {
+      UserDto userDto =  (UserDto) authentication.getPrincipal();
+      try {
+        if(bcryptPasswordEncoder.matches(user_pwd,userDto.getUser_pwd())) {
+          return true;
+        }
+        
+      } catch (Exception e) {
+        return false;
+      }
+      return false;
     }
     
     public static void makeCookie(HttpServletResponse response, String user_id) {
