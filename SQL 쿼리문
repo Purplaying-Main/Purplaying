@@ -304,6 +304,11 @@ ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES pu
 ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.tb_user(user_id) ON DELETE CASCADE;
 
 
+-- tb_banner 더미 생성 --
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+
 --시리얼 초기화 
 -- truncate table tb_ restart identity;
 -- 컬럼명 변경
