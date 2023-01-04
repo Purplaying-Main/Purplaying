@@ -75,6 +75,7 @@
 		            <img src="${prc.user_profile}" alt="${prc.user_name }" width="32" height="32" class="rounded-circle">
 		          </a>
 		          <ul class="dropdown-menu text-small">
+		          	<li class="mx-3 border-bottom" >${prc.user_nickname }님</li>
 		          	<%-- <c:if test="${sessionScope.user_role eq '1'}"> --%>
 		          	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		          		<li><a class="dropdown-item" href="/purplaying/admin/userlist">Admin 페이지</a></li>
