@@ -388,8 +388,12 @@
 				let val = document.getElementById("email").value;
 				let user_id = {user_id: val};
 				let user_id_check = {};
+				let id_form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+				
 				if(val==null || val==""){
-					$("#check_id_msg").show().html(' 아이디를 입력해주세요').css("color","red");
+					$("#check_id_msg").show().html('아이디를 입력해주세요').css("color","red");
+				}else if(!id_form.test(val)){
+					$("#check_id_msg").show().html('이메일형식을 입력해주세요').css("color","red");
 				}else{
 					$.ajax({
 						type:'post',	//통신방식 (get,post)

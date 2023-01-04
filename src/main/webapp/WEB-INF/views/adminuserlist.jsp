@@ -125,9 +125,6 @@
 	  		let user_no = $('#user_no_modal').val();		//유저번호 저장
 	 		let user_data = {user_no:user_no,user_role:role_select};	//유저권한 변경시 필요한 data Json형태로 저장
 	  	
-	 		var header = $("meta[name='_csrf_header']").attr('content');
-			var token = $("meta[name='_csrf']").attr('content');
-			
 	 		$.ajax({		//유저권한 수정 ajax로 요청
 				type:'post',
 				url: '/purplaying/admin/listUser',                                                                                

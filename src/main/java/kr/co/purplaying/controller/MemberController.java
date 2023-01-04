@@ -255,8 +255,6 @@ public class MemberController {
     public String leave(int leave_category , String leave_reason, String user_pwd, HttpServletRequest request, Authentication authentication) throws Exception {
       
       HttpSession session = request.getSession();
-//      UserDto user = userDao.selectUser((String)session.getAttribute("user_id"));
-//      System.out.println(user);
       
       UserDto user =  (UserDto) authentication.getPrincipal();
       

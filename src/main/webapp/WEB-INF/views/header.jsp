@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-
+<sec:csrfMetaTags/>
 <%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
 <c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
 <c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
@@ -72,7 +72,7 @@
           <sec:authorize access="isAuthenticated()">
 	          <div> <!-- 로그인 후 보이는 화면 : 프로필-->
 		          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-		            <img src="${prc.user_profile}" alt="${sessionScope.UserDto.user_name }" width="32" height="32" class="rounded-circle">
+		            <img src="${prc.user_profile}" alt="${prc.user_name }" width="32" height="32" class="rounded-circle">
 		          </a>
 		          <ul class="dropdown-menu text-small">
 		          	<%-- <c:if test="${sessionScope.user_role eq '1'}"> --%>
