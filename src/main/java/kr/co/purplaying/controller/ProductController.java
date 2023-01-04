@@ -98,9 +98,10 @@ public class ProductController {
  
   /*펀딩 상세 페이지 (로그인 유무 상관없음)*/
   @GetMapping("/{prdt_id}")
-  public String viewproduct(@PathVariable Integer prdt_id, Model m ,Authentication authentication) {
-    UserDto udt = (UserDto) authentication.getPrincipal();
-    String user_id = udt.getUser_id();
+  public String viewproduct(@PathVariable Integer prdt_id, Model m, HttpSession session) {
+
+    String user_id = (String)session.getAttribute("user_id");
+    
         try {
           //1.프로젝트정보 가져오기
           ProjectDto projectDto = projectService.read(prdt_id);

@@ -28,10 +28,9 @@ public class HeaderFundingController {
   LikeService likeService;
   
   @GetMapping("/popularFunding")
-  public String popularFunding(SearchItem2 sc2, Model m, Authentication authentication) {
+  public String popularFunding(SearchItem2 sc2, Model m, HttpSession session) {
     
-    UserDto udt = (UserDto) authentication.getPrincipal();
-   String id = udt.getUser_id();
+    String id = (String)session.getAttribute("user_id");
     
     try {
       int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
@@ -64,10 +63,9 @@ public class HeaderFundingController {
   }
   
   @GetMapping("/newFunding")
-  public String newFunding(ProjectDto projectDto, Model m, Authentication authentication) {
+  public String newFunding(ProjectDto projectDto, Model m, HttpSession session) {
     
-    UserDto udt = (UserDto) authentication.getPrincipal();
-   String id = udt.getUser_id();
+    String id = (String)session.getAttribute("user_id");
     try {
       Map map = new HashMap();
       List<ProjectDto> list_n = headerFundingDao.newFunding(map);
@@ -93,10 +91,9 @@ public class HeaderFundingController {
   
 
   @GetMapping("/comingsoonFunding")
-  public String getPage(ProjectDto projectDto, Model m, Authentication authentication ) {
+  public String getPage(ProjectDto projectDto, Model m, HttpSession session ) {
     
-    UserDto udt = (UserDto) authentication.getPrincipal();
-   String id = udt.getUser_id();
+    String id = (String)session.getAttribute("user_id");
     
     try {
       Map map = new HashMap();

@@ -27,10 +27,9 @@ public class GenreController {
   LikeService likeService;
   
   @GetMapping("/literature")
-  public String getLiterature(Order order, Model m, Authentication authentication) {
+  public String getLiterature(Order order, Model m, HttpSession session) {
   
-    UserDto udt = (UserDto) authentication.getPrincipal();
-    String user_id = udt.getUser_id();
+    String user_id = (String)session.getAttribute("user_id");
     
     try {
       List<ProjectDto> list_gl = genreDao.genreLiterature(order);
@@ -55,10 +54,9 @@ public class GenreController {
   
  
   @GetMapping("/poemessay")
-  public String getPoemEssay (Order order, Model m, Authentication authentication) {
+  public String getPoemEssay (Order order, Model m, HttpSession session) {
     
-    UserDto udt = (UserDto) authentication.getPrincipal();
-    String user_id = udt.getUser_id();
+    String user_id = (String)session.getAttribute("user_id");
     
     try {
       List<ProjectDto> list_gpe = genreDao.genrePoemEssay(order);
@@ -82,10 +80,9 @@ public class GenreController {
   }
   
   @GetMapping("/webtoon")
-  public String genrWebtoon (Order order, Model m, Authentication authentication) {
+  public String genrWebtoon (Order order, Model m, HttpSession session) {
     
-    UserDto udt = (UserDto) authentication.getPrincipal();
-    String user_id = udt.getUser_id();
+    String user_id = (String)session.getAttribute("user_id");
 
     try {
       List<ProjectDto> list_gw = genreDao.genreWebtoon(order);
