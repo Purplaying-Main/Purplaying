@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:csrfMetaTags/>
-<%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
-<c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
-<c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
-<c:set var="loginDisplay" value="${sessionScope.user_id == null ? 'display:none' : '' }"/>
-<c:set var="adminWrite" value="${sessionScope.user_role eq '1' ? '' : 'display:none' }"/>
+<%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 --> 
+<c:set var="loginout" value="${prc.user_id == null ? 'Login' : 'Logout' }"/>
+<c:set var="loginHidden" value="${prc.user_id == null ? '' : 'display:none' }"/>
+<c:set var="loginDisplay" value="${prc.user_id == null ? 'display:none' : '' }"/>
+<c:set var="adminWrite" value="${prc.user_role eq '1' ? '' : 'display:none' }"/>
 <sec:authentication property="principal" var="prc"/>
 
 	
