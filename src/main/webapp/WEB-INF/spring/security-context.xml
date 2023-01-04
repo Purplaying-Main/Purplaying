@@ -13,6 +13,8 @@
 	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
 	
 	<security:http>
+		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우-->
+		<security:intercept-url pattern="/project/write" access="isAuthenticated()" />
 		<security:intercept-url pattern="/admin/display/**" access="permitAll" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**" access="permitAll" />
@@ -23,7 +25,7 @@
 		        invalidate-session="true"
 		        delete-cookies="JSESSIONID" />
 		
-		<security:form-login login-page="/user/signin"
+		<security:form-login login-page="/user/login"
 							 username-parameter="user_id"
 							 password-parameter="user_pwd"	
 							 login-processing-url="/user/login"

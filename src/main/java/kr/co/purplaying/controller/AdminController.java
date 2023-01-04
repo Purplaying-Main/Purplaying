@@ -410,7 +410,7 @@ public class AdminController {
           if(fileService.insertbannerFile(uploadPath, thumbnail, uploadFileSizethumbnail) != 1) {
             System.out.println("insertFile ERR");
           }
-         
+          System.out.println("저장 성공");
           return new ResponseEntity<>(true,HttpStatus.OK);
       }catch (UnsupportedEncodingException e){
           e.printStackTrace();

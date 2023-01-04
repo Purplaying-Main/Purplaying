@@ -128,17 +128,17 @@
 					<c:if test="${totalCnt != null || totalCnt != 0 }">
 						<c:if test="${pr.showPrev }">
 							<li class="page-item">
-								<a class="page-link" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.beginPage-1) }" />">Previous</a>
+								<a class="page-link" href="<c:url value="/admin/bannerupload${pr.sc.getQueryString(pr.beginPage-1) }" />">Previous</a>
 							</li>
 						</c:if>
 						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
 							<li class="page-item">
-								<a class="page-link <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(i)}" />">${i }</a>
+								<a class="page-link <c:if test="${pr.sc.page==i}">active</c:if>" href="<c:url value="/admin/bannerupload${pr.sc.getQueryString(i)}" />">${i }</a>
 							</li>
 						</c:forEach>
 						<c:if test="${pr.showNext }">
 							<li class="page-item">
-								<a class="page-link" href="<c:url value="/admin/bannerlist${pr.sc.getQueryString(pr.endPage+1) }" />">Next</a>
+								<a class="page-link" href="<c:url value="/admin/bannerupload${pr.sc.getQueryString(pr.endPage+1) }" />">Next</a>
 							</li>
 						</c:if>						
 					</c:if>
@@ -212,14 +212,14 @@
   		
 		$.ajax({		//배너 설정 ajax로 요청
 			type:'post',	
-			url: '/purplaying/admin/bannersavedb/',
+			url: '/purplaying/admin/bannersavedb',
 			data : {fileName : filename, fileuuid : fileuuid , uploadPath:uploadPath},
 			beforeSend: function(xhr){
 		        xhr.setRequestHeader(header, token);
 		    },
-		    function(result){	//파일저장 성공시 호출
+		    success:function(result){	//파일저장 성공시 호출
 		    	Close_upload_modal()
-		        window.location.reload();	//페이지 새로고침
+		       	window.location.reload();	//페이지 새로고침
 			},
 		    error : function(){
 				alert("error");		//배너설정 모달 요청 실패시 호출
