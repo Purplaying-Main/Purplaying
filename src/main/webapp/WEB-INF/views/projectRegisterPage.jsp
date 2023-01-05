@@ -404,6 +404,9 @@
 					processData: false,
 				    contentType: false,
 				    dataType:'json',
+				    beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success: function(result) {
 						//alert(result)
 						$('#punding_date_range').html("펀딩 기간 "+result+"일");
@@ -432,6 +435,9 @@
 				processData: false,
 			    contentType: false,
 			    dataType:'json',
+			    beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success: function(result) {
 					//alert("price :"+result)
 					//$('#goal_price').val(result);
@@ -516,6 +522,9 @@
 					processData: false,
 				    contentType: false,
 				    dataType:'json',
+				    beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success: function(result) {
 						console.log(result)
 						showUploadedFile(result)
@@ -532,6 +541,9 @@
 				$.ajax({
 					type: 'GET',	
 					url: '/purplaying/project/view/'+prdt_id,	
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success: function() {
 						alert("작성중인 내용 저장완료. 미리보기페이지로 이동합니다.")
 						location.href = '/purplaying/project/view/'+prdt_id
@@ -545,6 +557,9 @@
 				$.ajax({
 					type: 'DELETE',	
 					url: '/purplaying/project/remove/'+prdt_id,	
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success: function() {
 						console.log("프로젝트가 삭제되었습니다. 마이페이지로 이동합니다.")
 						location.href = link
@@ -587,6 +602,9 @@
 					url: '/purplaying/project/modify/'+prdt_id,
 					headers : { "content-type" : "application/json-patch+json; charset=utf-8" }, 		//요청 헤더
 	                data: JSON.stringify(prdtData),
+	                beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function() { 
 						console.log("modifyAll success")
 					},

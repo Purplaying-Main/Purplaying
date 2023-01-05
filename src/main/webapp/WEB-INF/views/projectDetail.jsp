@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="writerOnly" value="${sessionScope.user_id eq projectDto.writer ? '' : 'display:none' }"/>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication property="principal" var="prc"/>
+
+<c:set var="writerOnly" value="${prc.user_id eq projectDto.writer ? '' : 'display:none' }"/>
 
 <!DOCTYPE html>
 <html>
@@ -242,7 +245,7 @@
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
-                	  <button type="button" class="btn btn-primary" ${sessionScope.user_id eq projectDto.writer ? '': sessionScope.user_role eq '1' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                	  <button type="button" class="btn btn-primary" ${prc.user_id eq projectDto.writer ? '': prc.user_role eq 'USER_ADMIN' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">
@@ -401,6 +404,9 @@
 				headers:{"content-type" : "application/json"},
 				dataType : 'text',
 				data : JSON.stringify(updateData),
+				beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success:function(result){
 					showHide('writeArea2'); 
 					showHide('writeBtn2');
@@ -613,6 +619,9 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					url : '/purplaying/like/addlike',				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:$('#prdt_id').val()}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						_buttonI.classList.add("fas");
 				      	_buttonI.classList.add("active");
@@ -627,6 +636,9 @@ let selectedRewardPrice = document.getElementById("selectedRewardPrice");
 					url : '/purplaying/like/removelike',				//요청 URI
 					headers :	{ "content-type" : "application/json"},				//요청 헤더
 					data : JSON.stringify({prdt_id:$('#prdt_id').val()}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						  _buttonI.classList.remove("fas");
 					      _buttonI.classList.remove("active");

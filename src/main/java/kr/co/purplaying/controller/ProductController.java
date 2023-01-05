@@ -191,8 +191,9 @@ public class ProductController {
   
   //지정된 댓글을 삭제하는 메서드 
   @DeleteMapping("/remove/{prdt_id}")
-  public ResponseEntity<String> remove(@PathVariable Integer prdt_id, HttpSession session) {
-      String writer = (String) session.getAttribute("user_id");
+  public ResponseEntity<String> remove(@PathVariable Integer prdt_id, HttpSession session ,Authentication authentication) {
+      UserDto user = (UserDto) authentication.getPrincipal();
+      String writer = user.getUser_id();
       
       try {
           int removeResult = projectService.remove(prdt_id, writer);
@@ -212,10 +213,7 @@ public class ProductController {
                       RedirectAttributes rattr, Authentication authentication, HttpServletRequest request) {
     
     UserDto udt = (UserDto) authentication.getPrincipal();
-    if (!loginCheck(udt.getUser_id())) {
-        return "redirect:/user/login?toURL=" + request.getRequestURL();
-      }
-      
+          
       String writer = udt.getUser_id();
       projectDto.setWriter(writer);
       projectDto.setUser_id(writer);
@@ -280,11 +278,12 @@ public class ProductController {
   @PatchMapping("/modify/{prdt_id}")
   public ResponseEntity<List<ProjectDto>> modify(@PathVariable Integer prdt_id,
                                        @RequestBody ProjectDto projectDto, 
-                                       HttpSession session){
+                                       HttpSession session, Authentication authentication){
     
       List<ProjectDto> list = null;
       
-      String writer = (String)session.getAttribute("user_id");
+      UserDto user = (UserDto)authentication.getPrincipal();
+      String writer = user.getUser_id();
       projectDto.setWriter(writer);
       projectDto.setPrdt_id(prdt_id);
       
@@ -303,9 +302,10 @@ public class ProductController {
   
   
   @GetMapping("/modify/{prdt_id}")
-  public String modify(@PathVariable Integer prdt_id, Model m, SearchItem sc, HttpSession session) {
+  public String modify(@PathVariable Integer prdt_id, Model m, SearchItem sc, HttpSession session,Authentication authentication) {
     try {
-          String user_id = (String)session.getAttribute("user_id");
+          UserDto user = (UserDto) authentication.getPrincipal();
+          String user_id = user.getUser_id();
           m.addAttribute(user_id);
           
           ProjectDto projectDto = projectService.read(prdt_id);
@@ -350,8 +350,9 @@ public class ProductController {
   
   @PostMapping("/writeUpdate")
   @ResponseBody
-  public List<UpdateDto> writeUpdate(@RequestBody UpdateDto updateDto, HttpSession session) {
-    updateDto.setUser_id((String)session.getAttribute("user_id"));
+  public List<UpdateDto> writeUpdate(@RequestBody UpdateDto updateDto, HttpSession session, Authentication authentication) {
+    UserDto user = (UserDto) authentication.getPrincipal();
+    updateDto.setUser_id(user.getUser_id());
     System.out.println(updateDto);
    
     try {
@@ -392,8 +393,4 @@ public class ProductController {
     }
   }
   
-  private boolean loginCheck(String string) {
-    // 1. 세션을 얻어서
-    return string != null || string != ""; 
-  }
 }

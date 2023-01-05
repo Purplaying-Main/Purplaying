@@ -193,6 +193,9 @@
 						headers:{"content-type" : "application/json"},
 						dataType : 'text',
 						data : JSON.stringify({reward_id:reward_id}),
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
 							//alert(result);
 							$('#rewardDelModal').modal("hide");
@@ -215,6 +218,9 @@
 					headers:{"content-type" : "application/json"},
 					dataType : 'text',
 					data : JSON.stringify({reward_id:reward_id}),
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success:function(result){
 						reward2 = JSON.parse(result);
 						$("#reward_modi_name").val(reward2.reward_name);
@@ -256,6 +262,9 @@
 						headers:{"content-type" : "application/json"},
 						dataType : 'text',
 						data : JSON.stringify(modi_reward),
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
 							$('#rewardModiModal').modal("hide");
 							$("#BtnGroup").html(toHtmlModi(JSON.parse(result)));
@@ -313,6 +322,9 @@
 				headers:{"content-type" : "application/json"},
 				dataType : 'text',
 				data : JSON.stringify(reward),
+				beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success:function(result){
 					//alert(result);
 					$('#reward_category option[value=0]').prop('selected', 'selected').change();
