@@ -160,4 +160,12 @@ public class ProjectDaoImpl implements ProjectDao {
     // TODO Auto-generated method stub
     return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
   }
+
+  @Override
+  public int updateProject(int prdt_id, int refundFee) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("refundFee",refundFee );
+    return session.update(namespace+"updateProject", map);
+  }
 }

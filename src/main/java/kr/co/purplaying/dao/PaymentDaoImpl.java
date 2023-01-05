@@ -70,4 +70,10 @@ public class PaymentDaoImpl implements PaymentDao {
     return session.selectList(namespace+"paynoinfo", pay_no);
   }
 
+  @Override
+  public int fundingCancel(int pay_no) throws Exception {
+    // TODO Auto-generated method stub
+    return session.delete(namespace+"fundingCancel", pay_no);
+  }
+
 }

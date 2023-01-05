@@ -55,4 +55,14 @@
 		</choose>
 	</select>
 	
+	<!-- 결제 취소에 따른 재고 조정 -->
+	<update id="renewReward" parameterType="int">
+		update tb_reward
+		set reward_stock = 
+		case
+			when #{reward_stock} = -1 then -1 
+			when #{reward_stock} != -1 then #{reward_stock} + #{reward_user_cnt}
+		end
+		where reward_id = #{reward_id} and  prdt_id = #{prdt_id}
+	</update>
 </mapper>

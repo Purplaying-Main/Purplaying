@@ -27,4 +27,7 @@ public interface PaymentDao {
   
   //CSV 파일 추출을 위해 결제 내역 select
   List<PaymentDto> fundingManage(Map map) throws Exception;
+  
+  //결제취소 delete
+  int fundingCancel(int pay_no) throws Exception;
 }

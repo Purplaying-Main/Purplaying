@@ -36,36 +36,14 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <input type="hidden" id="cancelDay">
-                          <table class="table text-center">
-                            <tr>
-                          	<th>취소 기간</th>
-                          	<td>환불 금액</td>
-                          	</tr>
-                          	<tr>
-                          	<th>결제 예정 3일 전</th>
-                          	<td>취소 불가</td>
-                          	</tr>
-							<tr>
-                          	<th>결제 예정 7일 전</th>
-                          	<td>결제 금액의 80% </td>
-                          	</tr>
-                          	<tr>
-                          	<th>결제 예정 15일 전</th>
-                          	<td>결제 금액의 90%</td>
-                          	</tr>
-                          	 <tr>
-                          	<th>결제 예정 15일 이상</th>
-                          	<td>결제 금액 전액 환불</td>
-                          	</tr>
-                          </table> 
+							취소안내
                         </div>
                         <div class="modal-footer">
-                          <div>
-                          환불예정금액
-							<input type="text" value="${paymentDto.get(0).getPay_total() }" readonly>
-						  </div>
-                          <button class="btn btn-danger" data-bs-dismiss="modal">취소</button>
+                        <form id="cancelForm">
+                          <input type="hidden" id="pay_no" name ="pay_no" value="${paymentDto.get(0).getPay_no()}">
+                          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        </form>
+                          <button class="btn btn-danger" id="cancelConfirm" onclick="cancel()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cancelConfirm">취소</button>
                         </div>
                       </div>
                     </div>
@@ -94,7 +72,7 @@
 	                <span> | </span>
 	                <span class="ms-2" id="dt_creator">${projectDto.writer}</span>
 	                </div> 
-                  <div>예약번호 : ${paymentDto.get(0).getPay_no() }</div>
+                  <div>예약번호 : ${paymentDto.get(0).getPay_no()}</div>
                 </div>
                 <h4 class="fw-bold lh-lg">${projectDto.prdt_name}</h4>
                 <br>
@@ -150,10 +128,7 @@
                     <p class="form-label fw-bold">후원 금액</p>
                     <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.get(0).getPay_total()}"/></span>원</p>
                   </div> 
-<%--                   <div class="d-flex justify-content-between">
-                    <p class="form-label fw-bold">결제 예정일</p>
-                    <p class="form-label" id="purchaseDay"><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></p>
-                  </div> --%>
+                    <input type="hidden" id="purchaseDay" value="<fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/>">
                 </div>
               </div>
             </div>            
@@ -206,15 +181,20 @@
   $(document).ready(function(){
  	let today = new Date();
  	today = new Date(today.getFullYear()+"."+(today.getMonth()+1)+"."+today.getDate());
- 	let purchaseDay = new Date($("#purchaseDay").text());
+ 	let purchaseDay = new Date($("#purchaseDay").val());
 	let diffDay = (purchaseDay - today)/(1000*60*60*24);
- 	if(diffDay <= 3){
+ 	if(diffDay < 0){
  		document.getElementById("paymentCancelBtn").disabled = true;
  	}
- 	else{
- 		document.getElementById("cancelDay").value = diffDay;
- 		} 
   });
+  </script>
+  <script>
+  	function cancel(){
+  		let form = $("#cancelForm")
+  		form.attr("action","/purplaying/paymentCancel")
+  		form.attr("method","post")
+  		form.submit()
+  	}
   </script>
 </body>
 </html>

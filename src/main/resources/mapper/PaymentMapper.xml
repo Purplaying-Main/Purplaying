@@ -102,4 +102,9 @@
 	where prdt_id =  #{prdt_id}
  	</select>
 	
+	<!-- 결제 취소 쿼리문 -->
+	<delete id="fundingCancel" parameterType="int">
+		delete from tb_payment
+		where pay_no = #{pay_no}
+	</delete>
  </mapper>

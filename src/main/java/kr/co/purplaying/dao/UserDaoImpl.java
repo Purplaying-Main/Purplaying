@@ -154,6 +154,14 @@ public class UserDaoImpl implements UserDao {
       return users;
     }
 
+    @Override
+    public int refundPoint(int user_no, int refundFee) throws Exception {
+      Map map = new HashMap();
+      map.put("user_no", user_no);
+      map.put("refundFee", refundFee);
+      return session.update(namespace+"refundPoint",map);
+    }
+
     
 }
 

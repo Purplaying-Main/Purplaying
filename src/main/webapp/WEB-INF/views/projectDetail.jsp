@@ -464,7 +464,7 @@
 		
 	let dday =  <c:out value="${projectDto.prdt_dday}"/>
 	// 유저 = 창작자이면 관리하기 버튼으로 보여줌
-	if(${sessionScope.user_id eq projectDto.writer}){
+	if(${prc.user_id eq projectDto.writer}){
 			document.getElementById("doFundingBtn").value = "펀딩관리하기";
 			document.getElementById("doFundingBtn").addEventListener('click',function(){
 			window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
@@ -472,7 +472,7 @@
 		return false
 	}	
 	// 유저!=창작자이면서 펀딩이 종료되면 종료된 펀딩이라고 띄움
-	else if(dday < 0 && ${sessionScope.user_id ne projectDto.writer}){
+	else if(dday < 0 && ${prc.user_id ne projectDto.writer}){
 		document.getElementById("doFundingBtn").disabled = true;
 		document.getElementById("doFundingBtn").value = "종료된 펀딩입니다";
 		return false
