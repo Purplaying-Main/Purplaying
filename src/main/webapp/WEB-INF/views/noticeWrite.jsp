@@ -80,7 +80,10 @@
 									<div class="invalid-feedback">공지사항 등록이 완료되었습니다.</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="/notice/list">확인</button>
+									<button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" onclick="/notice/list">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+										확인
+									</button>
 								</div>
 							</div>
 						</div>

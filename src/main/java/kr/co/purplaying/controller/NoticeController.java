@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,9 @@ public class NoticeController {
   
   @PostMapping("/modify")
   public String modify(NoticeDto noticeDto, Integer page, Integer pageSize, 
-                      RedirectAttributes rattr, Model m, HttpSession session) {
-      String writer = (String) session.getAttribute("user_id");
+                      RedirectAttributes rattr, Model m, Authentication authentication) {
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String writer = userDto.getUser_id();
       noticeDto.setWriter(writer);
       
       try {
@@ -55,16 +57,18 @@ public class NoticeController {
   }
   
   @GetMapping("/modify")
-  public String modify(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
+  public String modify(Integer notice_id, Integer page, Integer pageSize, Model m, Authentication authentication) {
     //read와 동일. notice_id를 불러와서 조회.
     try {
           System.out.println("notice_id: "+notice_id);
           NoticeDto noticeDto = noticeService.read(notice_id);
           m.addAttribute(noticeDto);
           
-          String user_id = (String)session.getAttribute("user_id");
-          m.addAttribute(user_id);
+          UserDto userDto = (UserDto) authentication.getPrincipal();
+          String user_id = userDto.getUser_id();
 
+          m.addAttribute("user_id", user_id);
+          
           m.addAttribute("page", page);
           m.addAttribute("pageSize", pageSize);
           
@@ -81,8 +85,9 @@ public class NoticeController {
   }
   
   @PostMapping("/write/reg")
-  public String write(NoticeDto noticeDto, RedirectAttributes rattr, Model m, HttpSession session) {
-      String writer = (String) session.getAttribute("user_id");
+  public String write(NoticeDto noticeDto, RedirectAttributes rattr, Model m, Authentication authentication) {
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String writer = userDto.getUser_id();
       noticeDto.setWriter(writer);
       
       try {
@@ -104,8 +109,10 @@ public class NoticeController {
   
   
   @GetMapping("/write")
-  public String write(Model m, HttpSession session, NoticeDto noticeDto) {
-    String writer = (String) session.getAttribute("user_id");
+  public String write(Model m, NoticeDto noticeDto, Authentication authentication) {
+   
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     noticeDto.setWriter(writer);
     
     m.addAttribute("mode", "new");
@@ -115,8 +122,9 @@ public class NoticeController {
   
   @PostMapping("/remove")
   public String remove(Integer notice_id, Integer page, Integer pageSize, 
-          RedirectAttributes rattr, HttpSession session) {
-    String writer = (String) session.getAttribute("user_id");
+          RedirectAttributes rattr, Authentication authentication) {
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     String msg = "DEL_OK";
     
     try {
@@ -140,17 +148,17 @@ public class NoticeController {
   }
   
   @GetMapping("/read")
-  public String read(Integer notice_id, Integer page, Integer pageSize, Model m, HttpSession session) {
+  public String read(Integer notice_id, Integer page, Integer pageSize, Model m, Authentication authentication) {
     
     try {
-          String user_id = (String)session.getAttribute("user_id");
-          String non_member = "비회원";
-          
-          if (user_id != null ) {
-            m.addAttribute(user_id);
-          }else {
-            m.addAttribute("user_id", non_member);
-          }
+//          UserDto userDto = (UserDto) authentication.getPrincipal();
+//          String non_member = "비회원";
+//          
+//          if (userDto != null ) {
+//            m.addAttribute(userDto);
+//          }else {
+//            m.addAttribute("userDto", non_member);
+//          }
           
           NoticeDto noticeDto = noticeService.read(notice_id);
           
@@ -172,8 +180,7 @@ public class NoticeController {
   @GetMapping("/list")
   public String list(@RequestParam(defaultValue = "1") Integer page,
                      @RequestParam(defaultValue = "10") Integer pageSize,
-                     Model m,
-                     HttpServletRequest request) {
+                     Model m) {
       
       try {
           
@@ -196,6 +203,7 @@ public class NoticeController {
           
           m.addAttribute("page", page);
           m.addAttribute("pageSize", pageSize);
+          
           
       } catch (Exception e) {
           e.printStackTrace();
