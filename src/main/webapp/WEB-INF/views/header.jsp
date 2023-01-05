@@ -71,11 +71,11 @@
 	        </sec:authorize>
           <sec:authorize access="isAuthenticated()">
 	          <div> <!-- 로그인 후 보이는 화면 : 프로필-->
-		          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+		          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
 		            <img src="${prc.user_profile}" alt="${prc.user_name }" width="32" height="32" class="rounded-circle">
+		            <label class="align-middle text-truncate" style="max-width: 100px; cursor: pointer;">${prc.user_nickname }</label>
 		          </a>
 		          <ul class="dropdown-menu text-small">
-		          	<li class="mx-3 border-bottom" >${prc.user_nickname }님</li>
 		          	<%-- <c:if test="${sessionScope.user_role eq '1'}"> --%> 
 		          	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		          		<li><a class="dropdown-item" href="/purplaying/admin/userlist">Admin 페이지</a></li>

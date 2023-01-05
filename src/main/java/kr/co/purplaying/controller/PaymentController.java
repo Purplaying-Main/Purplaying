@@ -69,10 +69,7 @@ public class PaymentController {
       Model m, RewardDto rewardDto,Authentication authentication ) {
     
     UserDto udt = (UserDto) authentication.getPrincipal();
-    // 1. 로그인 하지 않는 경우 펀딩하기 클릭시 로그인 요구
-    if (!loginCheck(udt.getUser_id()))
-      return "redirect:/user/login?toURL=/project/{prdt_id}";
-
+   
     // 2. 로그인 성공시 펀딩결제 진행
     try {
       

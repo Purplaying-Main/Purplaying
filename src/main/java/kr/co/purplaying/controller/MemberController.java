@@ -61,7 +61,12 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(HttpServletRequest request) {
+        String uri = request.getHeader("Referer");
+        System.out.println("요청 :"+uri);
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
         return "signIn";
     }
 

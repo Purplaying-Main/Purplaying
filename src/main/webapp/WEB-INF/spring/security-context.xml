@@ -13,7 +13,13 @@
 	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
 	
 	<security:http>
-		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우-->
+		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우 isAnonymous() : 권한이없을때 or 로그인 안되어있을때 -->
+		<security:intercept-url pattern="/user/login" access="isAnonymous()" />
+		<security:intercept-url pattern="/user/signup" access="isAnonymous()" />
+		<security:intercept-url pattern="/iamport/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/setting/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/mypage/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/payment/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/project/write" access="isAuthenticated()" />
 		<security:intercept-url pattern="/admin/display/**" access="permitAll" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
