@@ -6,7 +6,9 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <sec:authentication property="principal" var="prc"/>
 
-<c:set var="writerOnly" value="${prc.user_id eq projectDto.writer ? '' : 'display:none' }"/>
+
+<%-- <c:set var="writerOnly" value="${prc.user_id eq projectDto.writer ? '' : 'display:none' }"/> --%>
+
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +33,9 @@
    
    <!--페이지 내용 시작-->
    <section>
-	<input type="hidden" id="user_point" value="${sessionScope.UserDto.user_point }">
+    <sec:authorize access="isAuthenticated()">
+		<input type="hidden" id="user_point" value="${prc.user_point }">
+	</sec:authorize>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
       <input type="hidden" id="prdt_id" value="${projectDto.prdt_id}" />
@@ -245,7 +249,9 @@
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
-                	  <button type="button" class="btn btn-primary" ${prc.user_id eq projectDto.writer ? '': prc.user_role eq 'USER_ADMIN' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                    	<sec:authorize access="isAuthenticated()">
+                	  		<button type="button" class="btn btn-primary" ${prc.user_id eq projectDto.writer ? '': prc.user_role eq 'USER_ADMIN' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
+                    	</sec:authorize>
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">
@@ -262,6 +268,12 @@
                 <!-- tab 3 contents -->
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                   <div class="text-start">
+                  <sec:authorize access="isAnonymous()">
+						<div id="needLogin" class="text-center">
+							<h1>로그인이 필요한 서비스입니다</h1>
+						</div>
+					</sec:authorize>
+                  <sec:authorize access="isAuthenticated()">
                     <p> 작성자 닉네임 > ${sessionScope.UserDto.user_nickname }</p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
@@ -307,6 +319,7 @@
                      <!--답글 종료-->
 						</div>
 					</div>
+					</sec:authorize>
 				</div>
 			</div>
                  <!--댓글 종료-->
