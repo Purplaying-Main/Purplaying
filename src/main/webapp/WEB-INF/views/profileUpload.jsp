@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<meta name="_csrf_header" content="${_csrf.headerName}">
+  	<meta name="_csrf" content="${_csrf.token}">
 
   <div class="wrapper">
   	<input type="hidden" id="user_profile" value="${userDto.user_profile }">
@@ -14,8 +16,10 @@
    <!-- <script src="resources/assets/js/profileUpload.js"></script> -->
    
    <script type="text/javascript">
-	/* 이미지 미리보기(섬네일 출력) */
-	var uploadResult = $("#uploadResult");
+		var header = $("meta[name='_csrf_header']").attr('content');
+		var token = $("meta[name='_csrf']").attr('content');
+		/* 이미지 미리보기(섬네일 출력) */
+		var uploadResult = $("#uploadResult");
 		/* 첨부파일 파일명 인코딩 처리 */
 		function showUploadedFile(uploadResultArr) {
 			var str= "";
@@ -80,6 +84,9 @@
 				processData: false,
 			    contentType: false,
 			    dataType:'json',
+			    beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success: function(result) {
 					console.log(result)
 					showUploadedFile(result)				
@@ -105,7 +112,10 @@
 				type: 'PATCH',
 				url: '/purplaying/setting/profile/'+user_no,
 				headers : { "content-type" : "application/json-patch+json; charset=utf-8" }, 		//요청 헤더
-               data: JSON.stringify(userData),
+                data: JSON.stringify(userData),
+                beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success : function() { 
 					console.log("modify Profile success")
 					location.reload(); // 페이지 전체 새로고침

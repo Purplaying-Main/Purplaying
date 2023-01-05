@@ -259,7 +259,7 @@ CREATE TABLE tb_setting (
     update_agree bool NOT NULL DEFAULT false,
     favor_agree bool NOT NULL DEFAULT false,
     marketing_agree bool NOT NULL DEFAULT false,
-    user_introduce text NULL,
+    user_introduce text NULL DEFAULT "안녕하세요.",
     user_no int4 NOT NULL,
     CONSTRAINT tb_setting_pkey PRIMARY KEY (setting_no)
 );

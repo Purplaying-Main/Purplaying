@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal" var="prc"/>
 
 <c:set var="loginId" value="${sessionScope.id}" />
 <!DOCTYPE html>
@@ -23,7 +25,7 @@
         <section>
             <h1 class="visually-hidden">HOME</h1>
             <div class="contentsWrap">
-            <input type="hidden" id="user_no" value="${userDto.user_no }">
+            <input type="hidden" id="user_no" value="${prc.user_no }">
                 <!--컨텐츠 영역-->
                 <div class="row justify-content-md-center">
                     <h2 class="col-auto mb-5">설정</h2>
@@ -66,7 +68,7 @@
                                         </div>
                                     </li>
                                     <li class="row w-25">
-                                        <img class="img-thumbnail" id = "user_profile_db" src="${userDto.user_profile }" />
+                                        <img class="img-thumbnail" id = "user_profile_db" src="${prc.user_profile }" />
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3" id="NameArea">
@@ -76,7 +78,7 @@
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p id="userName">${userDto.user_name }</p>
+                                        <p id="userName">${prc.user_name }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3" id="NickNameArea">
@@ -85,13 +87,13 @@
                                             <h6>닉네임</h6>
                                         </div>
                                         <div class="col-auto px-3 text-end">
-                                            <button id="nicknamechangeBtn" class="btn btn-outline-primary" type="button" data-nickname="${userDto.user_nickname }">
+                                            <button id="nicknamechangeBtn" class="btn btn-outline-primary" type="button" data-nickname="${prc.user_nickname }">
                                                 변경
                                             </button>
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p id="userNickName">${userDto.user_nickname }</p>
+                                        <p id="userNickName">${prc.user_nickname }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3" id="IntroArea">
@@ -119,9 +121,11 @@
                                             <h5 class="modal-title" id="profileChangeModalLabel">프로필 사진 변경</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <div class="modal-body"><%@ include file = "profileUpload.jsp"%></div>
+                                        <div class="modal-body">
+                                        <p>${prc }</p>
+                                        <%@ include file = "profileUpload.jsp"%></div>
                                         <div class="modal-footer">
-                                            <button type="button" id="modifyUserBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                            <button type="button" id="modifyUPFBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
                                                 확인
                                             </button>
                                         </div>
@@ -139,7 +143,7 @@
                                         <div class="modal-body mx-auto">
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">@</span>
-                                                <input name="user_NickName" id="user_NickName" type="text" class="form-control" placeholder="${userDto.user_nickname }" aria-label="Username" aria-describedby="basic-addon1" />
+                                                <input name="user_NickName" id="user_NickName" type="text" class="form-control" placeholder="${prc.user_nickname }" aria-label="Username" aria-describedby="basic-addon1" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -183,7 +187,7 @@
                   						</div> -->
                                     </li>
                                     <li class="row">
-                                        <p>${userDto.user_id }</p>
+                                        <p>${prc.user_id }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3">
@@ -213,7 +217,7 @@
                                         </div>
                                     </li>
                                     <li class="row">
-                                        <p id="userPhone">${userDto.user_phone }</p>
+                                        <p id="userPhone">${prc.user_phone }</p>
                                     </li>
                                 </ul>
                                 <ul class="border-bottom py-3">
@@ -513,6 +517,9 @@
 					headers:{"content-type" : "application/json"},
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success:function(result){
 						// JSON 방식으로 넘어온 user의 값을 js 형식으로 바꿈
 						user = JSON.parse(result)
@@ -541,6 +548,9 @@
 	  				url : '/purplaying/setting/nname/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_nickname:user_nickname}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							// 수정된 닉네임을 html로 출력
 							$("#userNickName").html(user_nickname)
@@ -564,6 +574,9 @@
 					headers:{"content-type" : "application/json"},
 					data : JSON.stringify({user_no:user_no}),
 					dataType : 'text',
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success:function(result){
 						// JSON 방식으로 넘어온 user의 값을 js 형식으로 바꿈
 						user = JSON.parse(result)
@@ -587,6 +600,9 @@
 	  				url : '/purplaying/setting/intro/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_introduce:user_introduce}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 						$("#userIntro").html(user_introduce)
 						$("#introChangeModal").modal("hide")
@@ -609,14 +625,15 @@
 				let user_no = $("#user_no").val()
 	  			let user_pwd = $("#password").val()
 	  			let pwdcheck = $("#passwordConfirm").val()
-				
-	  			
 	  			
 	  			$.ajax({
 	  				type : 'PATCH',
 	  				url : '/purplaying/setting/pwd/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_pwd:user_pwd}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 						
 						$("#pwdChangeModal").modal("hide")
@@ -645,6 +662,9 @@
 	  				url : '/purplaying/setting/phone/'+user_no,
 	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 					data : JSON.stringify({user_phone:user_phone}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },
 					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 						$("#userPhone").html(user_phone)
 						$("#phoneChangeModal").modal("hide")
@@ -675,6 +695,9 @@
 						headers:{"content-type" : "application/json"},
 						data : JSON.stringify({user_no:user_no}),
 						dataType : 'text',
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
 							cnt = JSON.parse(result)
 							if (cnt >= 3) {
@@ -720,6 +743,9 @@
 											   address_detail:address_detail,
 											   receiver_phonenum:receiver_phonenum,
 											   default_address:default_address}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						beforeSend: function(xhr){
+							xhr.setRequestHeader(header, token);
+						},
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressRegModal").modal("hide")
@@ -729,7 +755,7 @@
 							$("#address").val("")
 							$("#address_detail").val("")
 							$("#receiver_phonenum").val("")
-							$("#default_address").val("")
+							$("#Moddefault_address").removeAttr("checked")
 						},
 		  				error : function() {alert("error")}
 		  			})
@@ -746,6 +772,9 @@
 						headers:{"content-type" : "application/json"},
 						dataType : 'text',
 						data : JSON.stringify({address_id:address_id}),
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
 							address = JSON.parse(result)
 				  			$("#Modaddress_name").val(address.address_name)
@@ -806,6 +835,9 @@
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 						data : JSON.stringify(mod_address),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
 						dataType : 'text',
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							$("#addressList").html(toHtml(JSON.parse(result)));
 						
@@ -840,12 +872,14 @@
 		  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 		  				data : JSON.stringify({address_id:address_id}),
 		  				dataType : 'text',
+		  				beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
 							alert("배송지가 삭제되었습니다.")
 							//alert(JSON.parse(result))
 							$("#addressList").html(toHtml(JSON.parse(result)));
 							$("#addressDelModal").modal("hide")
-							
 						},
 		  				error : function() {
 		  					alert("error")
@@ -900,13 +934,13 @@
 	        		}
 	        	})
 	        	
-	        	
-	        	
-	        	
 	        	let showList = function(user_no) {
 		        	$.ajax({
 		        		type: 'POST',			//요청 메서드
 						url: '/purplaying/setting/addresslist/'+user_no,		// 요청 URI
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
 							$("#addressList").html(toHtml(result))		// result는 서버가 전송한 데이터
 						},
@@ -977,6 +1011,9 @@
 	      	  				url : '/purplaying/setting/alarm/'+user_no,
 	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 	      	  				data: JSON.stringify(agreeData),
+		      	  			beforeSend: function(xhr){
+						        xhr.setRequestHeader(header, token);
+						    },
 	      					success : function(result) { 
 	      						 _buttonI.classList.remove("fas");
 	      	  					 _buttonI.classList.remove("text-info");
@@ -995,6 +1032,9 @@
 	      	  				url : '/purplaying/setting/alarm/'+user_no,
 	      	  				headers : { "content-type" : "application/json" }, 		//요청 헤더
 	      	  				data: JSON.stringify(agreeData),
+		      	  			beforeSend: function(xhr){
+						        xhr.setRequestHeader(header, token);
+						    },
 	      					success : function(result) { 
 	      						 _buttonI.classList.remove("far");
 	      		  				 _buttonI.classList.remove("text-muted");
