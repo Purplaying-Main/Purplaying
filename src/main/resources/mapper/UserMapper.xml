@@ -152,7 +152,7 @@
 	</update>
 	
 	<!-- 결제 취소에 따른 유저 포인트 갱신 -->
-	<update id="refundPoint" parameterType="map">
+	<update id="refundPoint" parameterType="int">
 		update tb_user
 		set user_point = (user_point + #{refundFee})
 		where user_no = #{user_no}

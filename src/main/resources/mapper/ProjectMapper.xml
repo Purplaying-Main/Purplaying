@@ -210,7 +210,7 @@
   	</select>
  	
  	<!-- 결제 취소에 따른 프로젝트 현황 변동(후원자수,펀딩금액 감소) -->
- 	<update id="updateProject" parameterType="map">
+ 	<update id="updateProject" parameterType="int">
 	 	update tb_product
 		set prdt_currenttotal = (prdt_currenttotal - #{refundFee}), prdt_buyercnt = (prdt_buyercnt-1)
 		where prdt_id = #{prdt_id}
