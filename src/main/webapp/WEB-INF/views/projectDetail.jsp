@@ -96,7 +96,18 @@
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
               </li>
-              <li><input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="펀딩하기"/></li>
+              <li>
+              <sec:authorize access="isAnonymous()">              
+              	<input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="${projectDto.prdt_dday < 0 ? '종료된 펀딩입니다' : '펀딩하기' }" ${projectDto.prdt_dday < 0 ? 'disabled' : '' }/>
+              </sec:authorize>
+              <sec:authorize access="isAuthenticated()">
+              	<c:choose>
+              		<c:when test="${prc.user_id eq projectDto.writer}"><input type="button" class="btn btn-primary container btn-lg mb-3" value="펀딩관리하기" onclick="location.href='/purplaying/mypage/fundingmanage/${projectDto.prdt_id}'"/></c:when>
+              		<c:when test="${projectDto.prdt_dday < 0 and prc.user_id ne projectDto.writer}"><input type="button" class="btn btn-primary container btn-lg mb-3" value="종료된 펀딩입니다" disabled/></c:when>
+              		<c:when test="${projectDto.prdt_dday > 0 and prc.user_id ne projectDto.writer}"><input type="button" class="btn btn-primary container btn-lg mb-3" id="doFundingBtn" value="펀딩하기"/></c:when>
+              	</c:choose>
+              </sec:authorize>
+              </li>
               <div class="row px-2 justify-content-between">
               	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="pickBtn()" value="&#xf004 찜하기">
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
@@ -286,7 +297,9 @@
                 <div id="f5"></div>
                   <!--작성 댓글 노출-->
                  <input type="hidden" id="rno" value="${replyDto.rno }" />
-                <input type="hidden" id="user_id_for_comment" value="${prc.user_no}" />			<!-- 세션값에 있는 유저번호를 담음 -->
+                  <sec:authorize access="isAuthenticated()">
+                	<input type="hidden" id="user_id_for_comment" value="${prc.user_no}" />			<!-- 세션값에 있는 유저번호를 담음 -->
+                  </sec:authorize>                  
                   <div id="commentList">
                   	<div class="row text-start">
 					</div>
@@ -395,23 +408,9 @@
 				continue;
 			}
 		}   
-		// 유저 = 창작자이면 관리하기 버튼으로 보여줌
-		if(${prc.user_id eq projectDto.writer}){
-				document.getElementById("doFundingBtn").value = "펀딩관리하기";
-				document.getElementById("doFundingBtn").addEventListener('click',function(){
-				window.location.replace('${pageContext.request.contextPath}/mypage/fundingmanage/${projectDto.prdt_id}/');
-				})
-			return false
-		}	
-		// 유저!=창작자이면서 펀딩이 종료되면 종료된 펀딩이라고 띄움
-		else if(dday < 0 && ${prc.user_id ne projectDto.writer}){
-			document.getElementById("doFundingBtn").disabled = true;
-			document.getElementById("doFundingBtn").value = "종료된 펀딩입니다";
-			return false
-		}
+
 		
 		// 유저!=창작자 
-		else {
 	    $('#doFundingBtn').click(function(){
 			console.log("펀딩하기 버튼 클릭");
 			let form = $('#selectedRewardForm');
@@ -421,7 +420,7 @@
 				form.submit()	
 		})
 		
-		} 
+		
 		
 	});
 		/*펀딩하기 버튼 클릭시 validation 체크*/
