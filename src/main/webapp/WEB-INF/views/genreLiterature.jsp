@@ -78,11 +78,7 @@
     </div>
 
   </section>
-  	<script>
-	/*progressbar 연동 JS*/
-	const perValue = ${ProjectDto.prdt_percent };
-	if(perValue >= 100) {perValue = 100;}
-	</script>
+
 	<script>
 	    let orderSelect = document.getElementById("orderSelect");
     function searchParam(key) {

@@ -98,10 +98,8 @@ public class ProductController {
  
   /*펀딩 상세 페이지 (로그인 유무 상관없음)*/
   @GetMapping("/{prdt_id}")
-  public String viewproduct(@PathVariable Integer prdt_id, Model m, HttpSession session) {
+  public String viewproduct(@PathVariable Integer prdt_id, Model m, Authentication authentication) {
 
-    String user_id = (String)session.getAttribute("user_id");
-    
         try {
           //1.프로젝트정보 가져오기
           ProjectDto projectDto = projectService.read(prdt_id);
@@ -114,6 +112,7 @@ public class ProductController {
           //List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
           UserDto userDto = userDao.selectUser(projectDto.getWriter());
           m.addAttribute(userDto);
+          
 
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
           for(int i = 0; i<list_update.size(); i++) {
@@ -125,7 +124,12 @@ public class ProductController {
 //          System.out.println("user_id :"+session.getAttribute("user_id"));
 //          System.out.println(session.getAttribute("user_id").equals(projectDto.getWriter()));
 //          System.out.println(session.getAttribute("user_role").equals(1));
-          
+          if(authentication != null) {
+            UserDto udt = (UserDto) authentication.getPrincipal();          
+           String user_id = (String)udt.getUser_id();
+           UserDto cuser = userDao.selectUser(user_id);
+           m.addAttribute("cuser", cuser);
+           
           if(user_id!=null) {
             boolean likecheck = false;
             List<Integer> Likelist = likeService.selectLikelist(user_id);
@@ -134,6 +138,7 @@ public class ProductController {
        
             m.addAttribute("Likelist",Likelist);
             
+          }
           }
           
           m.addAttribute("list_update",list_update);     

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,13 +76,14 @@ public class ReplyController {
   @PostMapping("/reply/insert/{rno}")
   @ResponseBody
   public ResponseEntity<List<ReplyDto>> write(@RequestBody ReplyDto rDto, RedirectAttributes rattr,
-      Model m, HttpSession session) {
+      Model m, Authentication authentication) {
     List<ReplyDto> list = null;
-    String writer = (String) session.getAttribute("user_id");
-    UserDto nickname = (UserDto) session.getAttribute("UserDto");
-
+    UserDto udt = (UserDto)authentication.getPrincipal();
+    String writer = (String) udt.getUser_id();
+    String nickname = (String) udt.getUser_nickname();
+    
     rDto.setChat_writer(writer);
-    rDto.setUser_nickname(nickname.getUser_nickname());
+    rDto.setUser_nickname(nickname);
 
     System.out.println("list13 =" + list);
     try {
