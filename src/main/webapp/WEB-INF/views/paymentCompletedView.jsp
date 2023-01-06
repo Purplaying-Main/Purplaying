@@ -129,6 +129,10 @@
                     <p class="form-label"><span id="dt_totalPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${paymentDto.get(0).getPay_total()}"/></span>원</p>
                   </div> 
                     <input type="hidden" id="purchaseDay" value="<fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/>">
+                  <div class="d-flex justify-content-between">
+                    <p class="form-label fw-bold">결제 일시</p>
+                    <p class="form-label"><fmt:formatDate pattern ="yyyy.MM.dd" value="${paymentDto.get(0).getPay_time()}"/></p>
+                  </div>
                 </div>
               </div>
             </div>            
