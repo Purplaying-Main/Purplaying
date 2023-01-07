@@ -3,13 +3,13 @@
   	<meta name="_csrf" content="${_csrf.token}">
 
   <div class="wrapper">
-  	<input type="hidden" id="user_profile" value="${userDto.user_profile }">
+  	<input type="hidden" id="user_profile" value="${prc.user_profile }">
   	<div class="input-group mb-3">
    		<input type="file" class="form-control" name="file_id" id="file_id" value="${attachFileDto.file_id}"/>
     	<button class="btn btn-outline-primary" id="fileAddBtn">Upload</button>
    	</div>
    	<div class="bg-light p-2" id="uploadResult" style="height:260px;">
-    	<img width="100%" height="240px" id="user_profile_preview" name="user_profile_preview" src="${userDto.user_profile }">
+    	<img width="100%" height="240px" id="user_profile_preview" name="user_profile_preview" src="${prc.user_profile }">
   	</div>
   </div>
    
