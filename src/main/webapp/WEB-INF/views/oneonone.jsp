@@ -39,7 +39,7 @@
 					<div class="tab-content" id="v-pills-tabContent">
 						<!-- tab 1 contents -->
 						<div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" >
-						<input type="hidden" name=user_role value="${userDto.user_id}">
+						<input type="hidden" name=user_id value="${prc.user_id}">
 						<input type="hidden" name=user_role value="${userDto.user_role}">
 						<input type="hidden" name=inquiry_private value="${oneononeDto.inquiry_private}">
 						<div class="row justify-content-end mt-4">
@@ -68,7 +68,7 @@
 												<c:if test="${oneononeDto.inquiry_private == false}" >
 													
 						            				<c:choose>
-						                				<c:when test="${oneononeDto.writer eq userDto.user_id}">
+						                				<c:when test="${oneononeDto.writer eq prc.user_id or userDto.user_role eq 'ROLE_ADMIN'}">
 						                    				<a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
 						                    				<c:out value="${oneononeDto.inquiry_title }"/>
 						                    				</a>

@@ -299,7 +299,11 @@ public class OneononeController {
   public String list(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer pageSize,
       Model m,
-      HttpServletRequest request, String string) {
+      HttpServletRequest request, String string, Authentication authentication) {
+    
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String user_id = userDto.getUser_id();
+    m.addAttribute(userDto);
 
     if (!loginCheck(string)) {
       return "redirect:/user/login?toURL=/oneonone/list";
