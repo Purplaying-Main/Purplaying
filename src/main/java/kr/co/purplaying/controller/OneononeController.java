@@ -335,7 +335,7 @@ public class OneononeController {
   
   // 로그인 상태인지 체크
   private boolean loginCheck(String string) {
-    // 1. 세션을 얻어서
+    
     return string != null || string != ""; 
        
   }

@@ -20,6 +20,7 @@
 		<security:intercept-url pattern="/setting/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/mypage/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/payment/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/oneonone/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/project/write" access="isAuthenticated()" />
 		<security:intercept-url pattern="/admin/display/**" access="permitAll" />
 		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />

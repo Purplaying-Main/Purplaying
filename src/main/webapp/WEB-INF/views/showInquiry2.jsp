@@ -248,6 +248,9 @@
 	            headers : { "content-type" : "application/json" }, 	// 요청 헤더	//생략가능
 	            dataType : 'text',									// 서버에서 전송받을 데이터타입
 	            data : JSON.stringify(ansData),						// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
+	            beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 	            success : function(result) {						// 서버로부터 응답이 도착하면 호출될 함수 { 정상적으로 요청, 응답 시 처리 }
 	            	$('#ansModal').modal("hide")
 	            	location.reload();
@@ -292,6 +295,9 @@
 	            headers : { "content-type" : "application/json" }, 	// 요청 헤더	//생략가능
 	            dataType : 'text',									// 서버에서 전송받을 데이터타입
 	            data : JSON.stringify(ansmodiData),					// 서버로 전송할 데이터,stringify()로 직렬화 필요,	//실제 데이터
+	            beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 	            success : function(result) {						// 서버로부터 응답이 도착하면 호출될 함수 { 정상적으로 요청, 응답 시 처리 }
 	      			$('#ans_modiModal').modal("hide")
 	            	location.reload();
