@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.purplaying.dao.AlarmDao;
 import kr.co.purplaying.domain.AlarmDto;
+import kr.co.purplaying.domain.LikeDto;
 
 @Service
 public class AlarmServiceImpl implements AlarmService{
@@ -26,16 +27,6 @@ public class AlarmServiceImpl implements AlarmService{
   }
 
   @Override
-  public AlarmDto selectAlarm(int alarm_no) throws Exception {
-    return alarmDao.selectAlarm(alarm_no);
-  }
-
-  @Override
-  public int insertAlarm(AlarmDto alarmDto) throws Exception {
-    return alarmDao.insertAlarm(alarmDto);
-  }
-
-  @Override
   public List<AlarmDto> selectPage(Map map) throws Exception {
     return alarmDao.selectPage(map);
   }
@@ -47,5 +38,16 @@ public class AlarmServiceImpl implements AlarmService{
     alarmDao.increaseViewCnt(alarm_no);
     return alarmDto;
   }
+
+  @Override
+  public int insertAlarm(AlarmDto alarmDto) throws Exception {
+    return alarmDao.insertAlarm(alarmDto);
+  }
+
+  @Override
+  public int deleteAlarm(AlarmDto alarmDto) throws Exception {
+    return alarmDao.deleteAlarm(alarmDto);
+  }
+
 
 }

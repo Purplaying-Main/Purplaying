@@ -45,6 +45,16 @@ public class HeaderFundingDaoImpl implements HeaderFundingDao {
     return session.selectList(namespace+"searchSelectPage_n", sc2);
   }
   
+  @Override
+  public int getSearchResultCnt_c(SearchItem2 sc2) throws Exception {
+    return session.selectOne(namespace+"searchResultCnt_c", sc2);
+  }
+
+  @Override
+  public List<ProjectDto> getSearchResultPage_c(SearchItem2 sc2) throws Exception {
+    return session.selectList(namespace+"searchSelectPage_c", sc2);
+  }
+  
   
 
 

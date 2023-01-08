@@ -70,7 +70,7 @@
 					<c:if test="${totalCnt != null || totalCnt != 0 }">
 						<c:if test="${pr.showPrev }">
 							<li class="page-item">
-						    	 <a class="page-link" href="<c:url value="/notice/list?page=${pr.beginPage-1 }"/>">Previous</a>
+						    	 <a class="page-link" href="<c:url value="/popularFunding?page=${pr.beginPage-1 }"/>">Previous</a>
 							</li>
 						</c:if>
 						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
@@ -80,7 +80,7 @@
 						</c:forEach>
 						<c:if test="${pr.showNext }">
 							<li class="page-item">
-						    	<a class="page-link" href="<c:url value="/notice/list?page=${pr.endPage+1 }"/>">Next</a>
+						    	<a class="page-link" href="<c:url value="/popularFunding?page=${pr.endPage+1 }"/>">Next</a>
 							</li>
 						</c:if>
 					</c:if>

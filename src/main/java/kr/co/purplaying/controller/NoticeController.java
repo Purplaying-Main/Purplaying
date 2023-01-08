@@ -151,15 +151,6 @@ public class NoticeController {
   public String read(Integer notice_id, Integer page, Integer pageSize, Model m, Authentication authentication) {
     
     try {
-//          UserDto userDto = (UserDto) authentication.getPrincipal();
-//          String non_member = "비회원";
-//          
-//          if (userDto != null ) {
-//            m.addAttribute(userDto);
-//          }else {
-//            m.addAttribute("userDto", non_member);
-//          }
-          
           NoticeDto noticeDto = noticeService.read(notice_id);
           
           m.addAttribute(noticeDto);

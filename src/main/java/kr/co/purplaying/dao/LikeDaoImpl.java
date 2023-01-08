@@ -35,9 +35,4 @@ public class LikeDaoImpl implements LikeDao{
     return session.selectList(namespace+"selectByUserId",user_id);
   }
 
-  @Override
-  public LikeDto selectByRecently(String user_id) throws Exception {
-    return session.selectOne(namespace+"selectByRecently",user_id);
-  }
-
 }

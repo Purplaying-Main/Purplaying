@@ -13,4 +13,6 @@ public interface HeaderFundingDao {
   int getSearchResultCnt(SearchItem2 sc2) throws Exception;
   List<ProjectDto> getSearchResultPage_p(SearchItem2 sc2) throws Exception;
   List<ProjectDto> getSearchResultPage_n(SearchItem2 sc2) throws Exception;
+  int getSearchResultCnt_c(SearchItem2 sc2) throws Exception;
+  List<ProjectDto> getSearchResultPage_c(SearchItem2 sc2) throws Exception;
 }

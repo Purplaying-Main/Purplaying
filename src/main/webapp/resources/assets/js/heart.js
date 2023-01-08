@@ -14,6 +14,9 @@ function clickBtntest() {
 						url : '/purplaying/like/addlike',				//요청 URI
 						headers :	{ "content-type" : "application/json"},				//요청 헤더
 						data : JSON.stringify({prdt_id:Number(prdt_id)}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						beforeSend: function(xhr){
+  			        		xhr.setRequestHeader(header, token);
+  			   			},
 						success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 							childElement.classList.add("fas");
 						    childElement.classList.add("active");
@@ -34,6 +37,9 @@ function clickBtntest() {
 						url : '/purplaying/like/removelike',				//요청 URI
 						headers :	{ "content-type" : "application/json"},				//요청 헤더
 						data : JSON.stringify({prdt_id:Number(prdt_id)}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						beforeSend: function(xhr){
+  			        		xhr.setRequestHeader(header, token);
+  			    		},
 						success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 							childElement.classList.remove("fas");
 						    childElement.classList.remove("active");
@@ -55,6 +61,9 @@ function clickBtntest() {
 						url : '/purplaying/like/addlike',				//요청 URI
 						headers :	{ "content-type" : "application/json"},				//요청 헤더
 						data : JSON.stringify({prdt_id:Number(prdt_id)}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						beforeSend: function(xhr){
+  			        		xhr.setRequestHeader(header, token);
+  			    		},
 						success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 					 		_buttonI.classList.add("fas");
 					   		_buttonI.classList.add("active");
@@ -74,6 +83,9 @@ function clickBtntest() {
 						url : '/purplaying/like/removelike',				//요청 URI
 						headers :	{ "content-type" : "application/json"},				//요청 헤더
 						data : JSON.stringify({prdt_id:Number(prdt_id)}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						beforeSend: function(xhr){
+  			        		xhr.setRequestHeader(header, token);
+  			    		},
 						success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
 						  	_buttonI.classList.remove("fas");
 					      	_buttonI.classList.remove("active");

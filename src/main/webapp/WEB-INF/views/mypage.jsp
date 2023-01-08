@@ -45,7 +45,7 @@
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
             
             <!-- 창작중인 펀딩 영역-->
-              <h5 class="my-4">${prc.user_id}님이 창작중인 펀딩</h5>
+              <h5 class="my-4">${prc.user_nickname }님이 창작중인 펀딩</h5>
 			  <c:if test="${fn:length(list) ne 0}">
 			  <c:forEach var="projectDto" items="${list}">
 		             <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> 
@@ -149,7 +149,7 @@
             
             <!-- 관심 tab -->
             <div class="tab-pane fade" id="v-pills-tab02" role="tabpanel" aria-labelledby="v-pills-tab02-tab">
-              <h5 class="my-4">${user_id}님이 관심중인 펀딩</h5>
+              <h5 class="my-4">${prc.user_nickname }님이 관심중인 펀딩</h5>
               <!-- project card start-->
              <c:choose>
               <c:when test="${fn:length(list_like) ne 0 }">
@@ -175,7 +175,8 @@
 	                    <div class="col-auto">
 	                      <!-- on off btn -->
 	                     <div class="col-auto justify-content-end">
-	                       <i class="fa-regular fa-bell fas active alretBtn text-info fs-6" onclick="alretBtn()">알림 ON</i>
+	                       <i class="fa-regular fa-heart fas active alretBtn text-danger fs-6" onclick="alretBtn()"
+	                       	  data-bs-toggle="tooltip" data-bs-placement="top" title="관심해제하기(클릭)">관심 ON</i>
 	                    </div>
 	                    </div>
 	                  </div>
@@ -187,7 +188,7 @@
 		                  <c:otherwise>D-DAY 출력</c:otherwise>
 		              </c:choose>
 	                  </p>
-                  	  <p class="card-text mb-2 text-truncate" style="max-width:1000px">${projectDto.prdt_desc}</p>
+                  	  <p class="card-text mb-2 text-truncate" style="max-width:500px">${projectDto.prdt_desc}</p>
 	                  <p class="text-muted mb-0">심사완료</p>
 	                </div>
 	              </form> 
@@ -222,7 +223,7 @@
             </div>
             
             <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
-            		<h5 class="my-4">${user_id}님의 관심펀딩 소식</h5>
+            		<h5 class="my-4">${prc.user_nickname }님의 관심펀딩 소식</h5>
 	             <!-- project card start-->
 	             <c:choose>
 	              <c:when test="${fn:length(list_alarm) ne 0 }">
@@ -309,11 +310,14 @@
   				url : '/purplaying/like/removelike',				//요청 URI
   				headers :	{ "content-type" : "application/json"},				//요청 헤더
   				data : JSON.stringify({prdt_id:Number(prdt_id)}),				// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+  				beforeSend: function(xhr){
+  			        xhr.setRequestHeader(header, token);
+  			    },
   				success : function(result) {				// 서버로부터 응답이 도착하면 호출될 함수
   				  	_buttonI.classList.remove("fas");
   					   _buttonI.classList.remove("active");
   					   _buttonI.classList.add("far");
-  					   _buttonI.innerText="알림 OFF";
+  					   _buttonI.innerText="관심 OFF";
   					   _buttonI.classList.remove("text-info");
   					   _buttonI.classList.add("text-muted");
   			      	location.reload();
@@ -338,23 +342,23 @@
 	})
 	// 알림확인 버튼클릭시 조회수 1 증가
 	function alarm_confirm(){
+		let _buttonAlarm = event.target;
+		let _buttonTr = _buttonAlarm.closest('tr')
 		let alarm_no = $("#alarm_no").val()
-		let new_alarm_tr = $("#new_alarm_tr")
 		let alarm_message = $(".alarm_message")
-		console.log("alarm_no: ",alarm_no)	
-		console.log("new_alarm_tr: ",new_alarm_tr)	
-		console.log("alarm_message: ",alarm_message)	
 		
 		$.ajax({
 			type:'PATCH',	//통신방식 (get,post)
 			url: '/purplaying/alarm/read/'+alarm_no,
 			headers:{"content-type" : "application/json"},
 			data : JSON.stringify({alarm_no:Number(alarm_no)}),
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			dataType : 'text',
 			success:function(data){
-				console.log("alarm_no: ",alarm_no)
-				new_alarm_tr.classList.remove("table-light");
-				
+				_buttonTr.classList.remove('table-light')
+				_buttonAlarm.innerText=" ";
 			},
 			error : function(){
 				console.log("alarm_no error");

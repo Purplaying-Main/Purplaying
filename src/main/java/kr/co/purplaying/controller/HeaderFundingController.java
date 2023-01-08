@@ -28,9 +28,7 @@ public class HeaderFundingController {
   LikeService likeService;
   
   @GetMapping("/popularFunding")
-  public String popularFunding(SearchItem2 sc2, Model m, HttpSession session) {
-    
-    String id = (String)session.getAttribute("user_id");
+  public String popularFunding(SearchItem2 sc2, Model m, Authentication authentication) {
     
     try {
       int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
@@ -47,12 +45,15 @@ public class HeaderFundingController {
 //      List<ProjectDto> list_p = headerFundingDao.popularFunding(map);
 //      m.addAttribute("list_p",list_p);
       
-      if(id!=null) {
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
         boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(id);
-        System.out.println(Likelist);
-        m.addAttribute("Likelist",Likelist);
-        
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
       }      
       
     } catch (Exception e) {
@@ -63,23 +64,27 @@ public class HeaderFundingController {
   }
   
   @GetMapping("/newFunding")
-  public String newFunding(ProjectDto projectDto, Model m, HttpSession session) {
-    
-    String id = (String)session.getAttribute("user_id");
+  public String newFunding(SearchItem2 sc2, Model m, Authentication authentication) {
+
     try {
-      Map map = new HashMap();
-      List<ProjectDto> list_n = headerFundingDao.newFunding(map);
-      m.addAttribute("list_n",list_n);
+      int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
+      m.addAttribute("totalCnt", totalCnt);
       
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
       
-      if(id!=null) {
+      List<ProjectDto> list_n = headerFundingDao.getSearchResultPage_n(sc2);
+      m.addAttribute("list_n", list_n);
+      m.addAttribute("pr", pageResolver2);
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
         boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(id);
-        System.out.println(Likelist);
-     
-   
-        m.addAttribute("Likelist",Likelist);
-        
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
       }      
       
     } catch (Exception e) {
@@ -91,23 +96,27 @@ public class HeaderFundingController {
   
 
   @GetMapping("/comingsoonFunding")
-  public String getPage(ProjectDto projectDto, Model m, HttpSession session ) {
-    
-    String id = (String)session.getAttribute("user_id");
+  public String getPage(SearchItem2 sc2, Model m, Authentication authentication) {
     
     try {
-      Map map = new HashMap();
-      List<ProjectDto> list_c = headerFundingDao.comingsoonFunding(map);
-      m.addAttribute("list_c",list_c);
+      int totalCnt = headerFundingDao.getSearchResultCnt_c(sc2);
+      m.addAttribute("totalCnt", totalCnt);
       
-      if(id!=null) {
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+      
+      List<ProjectDto> list_c = headerFundingDao.getSearchResultPage_c(sc2);
+      m.addAttribute("list_c", list_c);
+      m.addAttribute("pr", pageResolver2);
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
         boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(id);
-        System.out.println(Likelist);
-     
-   
-        m.addAttribute("Likelist",Likelist);
-        
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
       }      
       
 

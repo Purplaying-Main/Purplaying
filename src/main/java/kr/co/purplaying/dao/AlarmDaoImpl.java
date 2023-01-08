@@ -42,5 +42,10 @@ public class AlarmDaoImpl implements AlarmDao{
     return session.update(namespace+"increaseViewCnt", alarm_no);
   }
 
+  @Override
+  public int deleteAlarm(AlarmDto alarmDto) throws Exception {
+    return session.delete(namespace+"deleteAlarm",alarmDto);
+  }
+
 
 }

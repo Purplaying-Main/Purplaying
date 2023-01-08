@@ -27,7 +27,7 @@
         <div class="container py-4"><!-- genre div start -->
           <h3>New! 신규펀딩✨</h3>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          	<c:forEach var="ProjectDto" items="${list_n }">
+          	<c:forEach var="ProjectDto" items="${list_n}">
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
@@ -59,6 +59,33 @@
             </div><!-- project thumb end -->
           	</c:forEach>			
           </div><!-- project row end -->
+          
+          <!-- 페이지 네비게이션 -->
+			<div class="col-1"></div>
+				<ul class="pagination mt-4 justify-content-center">
+					<c:if test="${totalCnt == null || totalCnt == 0 }">
+						<h6 class="row text-center ">게시물이 없습니다.</h6>
+					</c:if>
+					<!-- 게시물이 있는 경우, page nav 출력  -->
+					<c:if test="${totalCnt != null || totalCnt != 0 }">
+						<c:if test="${pr.showPrev }">
+							<li class="page-item">
+						    	 <a class="page-link" href="<c:url value="/newFunding?page=${pr.beginPage-1 }"/>">Previous</a>
+							</li>
+						</c:if>
+						<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+							<li class="page-item" style="">
+								<a class="page-link <c:if test="${pr.sc2.page==i}">active</c:if>" href="<c:url value="/newFunding?page=${i}"/>"> ${i} </a>
+							</li>
+						</c:forEach>
+						<c:if test="${pr.showNext }">
+							<li class="page-item">
+						    	<a class="page-link" href="<c:url value="/newFunding?page=${pr.endPage+1 }"/>">Next</a>
+							</li>
+						</c:if>
+					</c:if>
+				</ul>
+				
         </div><!-- genre div end -->
       </div>
     </div>

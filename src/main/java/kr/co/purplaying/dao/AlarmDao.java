@@ -17,4 +17,6 @@ public interface AlarmDao {
 
   int increaseViewCnt(int alarm_no) throws Exception;
 
+  int deleteAlarm(AlarmDto alarmDto) throws Exception;
+
 }

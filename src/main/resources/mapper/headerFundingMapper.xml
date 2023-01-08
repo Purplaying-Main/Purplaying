@@ -70,5 +70,40 @@
 		limit #{pageSize} offset #{offset}
 	</select>
 	
+	<select id="searchSelectPage_n" parameterType="SearchItem2" resultType="ProjectDto" >
+		select 
+		prdt_id,
+		prdt_genre,
+		prdt_name,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-current_date) as "prdt_dday",
+		prdt_opendate,
+		row_number() over(order by prdt_opendate desc, prdt_id desc), <!--시작일이 같을 경우 상품 번호로 내림차순 정렬  -->
+		prdt_thumbnail
+		from tb_product
+		where<![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+		limit #{pageSize} offset #{offset}
+	</select>
+	
+	<select id="searchResultCnt_c" parameterType="SearchItem2" resultType="int">
+		select count(*) 
+		from tb_product
+		where <![CDATA[prdt_opendate > current_date]]> <!--오늘 이후 데이터만 추출  -->
+	</select>
+	
+	<select id="searchSelectPage_c" parameterType="SearchItem2" resultType="ProjectDto" >
+		select 
+		prdt_id,
+		prdt_genre,
+		prdt_name,
+		prdt_opendate,
+		(prdt_opendate - current_date) as "prdt_comingday",
+		prdt_thumbnail
+		from tb_product
+		where <![CDATA[prdt_opendate > current_date]]> <!--오늘 이후 데이터만 추출  -->
+		order by prdt_comingday, prdt_id desc	
+		limit #{pageSize} offset #{offset}
+	</select>
 	
 </mapper>

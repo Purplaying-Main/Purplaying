@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.purplaying.dao.PaymentDao;
@@ -142,17 +143,20 @@ public class MypageController {
   
 //알림 확인 누르면 조회수 1증가. new 뱃지 삭제됨
   @PatchMapping("/alarm/read/{alarm_no}")
+  @ResponseBody
   public String read(@PathVariable Integer alarm_no, Model m, Authentication authentication) {
 
     try {
-      UserDto udt = (UserDto) authentication.getPrincipal();
-      String user_id = udt.getUser_id();
-
-          if (user_id != null )
-            m.addAttribute(user_id);
-
-          AlarmDto alarmDto = alarmService.read(alarm_no);
-          m.addAttribute(alarmDto);
+        UserDto udt = (UserDto) authentication.getPrincipal();
+        String user_id = udt.getUser_id();
+        System.out.println("user_id: "+user_id);
+        if (user_id != null ) {
+          m.addAttribute(user_id);
+        }
+        
+        AlarmDto alarmDto = alarmService.read(alarm_no);
+        m.addAttribute(alarmDto);
+        System.out.println("alarmDto: "+alarmDto);
 
       } catch (Exception e) {
           e.printStackTrace();

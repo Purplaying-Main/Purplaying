@@ -48,15 +48,12 @@ public class IndexController {
   LikeService likeService;
   
   @RequestMapping("/")
-  public String getPage(ProjectDto projectDto, Model m, HttpSession session) {
+  public String getPage(ProjectDto projectDto, Model m, Authentication authentication) {
    
-    String id = (String)session.getAttribute("user_id");
-    
-    
     try {
 //    로그인 시 유저정보(userDto) 세션에 저장
-      UserDto userDto = settingService.setUser(id);
-      session.putValue("userDto", userDto);
+//      UserDto userDto = settingService.setUser(id);
+//      session.putValue("userDto", userDto);
       
 //    페이지네이션
       Map map = new HashMap();
@@ -77,15 +74,18 @@ public class IndexController {
 //    메인 캐러셀 리스트
       List<BannerFileDto> bannerList = fileService.selectBannerList();
       m.addAttribute("bannerList",bannerList);
-     
-//    세션의 유저 id의 좋아요 리스트 
-      if(id!=null) {
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
         boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(id);
-        System.out.println(Likelist);
-        m.addAttribute("Likelist",Likelist);
-        
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
       }
+       
     } catch (Exception e) {
       e.printStackTrace();
     }

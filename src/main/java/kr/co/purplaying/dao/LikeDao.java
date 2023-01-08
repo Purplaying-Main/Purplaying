@@ -16,6 +16,4 @@ public interface LikeDao {
 
   List<LikeDto> selectByUserId(String user_id) throws Exception;
 
-  LikeDto selectByRecently(String user_id) throws Exception;
-
 }
