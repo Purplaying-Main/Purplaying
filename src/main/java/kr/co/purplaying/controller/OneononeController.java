@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +45,9 @@ public class OneononeController {
   @PostMapping("/modify")
   public String modify(Integer inquiry_no, String inquiry_title, String inquiry_context, boolean inquiry_private,
       Integer page, Integer pageSize,
-      RedirectAttributes rattr, Model m, HttpSession session) {
-    String writer = (String) session.getAttribute("user_id");
+      RedirectAttributes rattr, Model m, Authentication authentication) {
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     OneononeDto oneononeDto = new OneononeDto();
     oneononeDto.setWriter(writer);
     oneononeDto.setInquiry_no(inquiry_no);
@@ -74,12 +76,12 @@ public class OneononeController {
   
   // 게시글 수정 get
   @GetMapping("/modify")
-  public String modify(Integer inquiry_no, Integer page, Integer pageSize, Model m, HttpSession session) {
+  public String modify(Integer inquiry_no, Integer page, Integer pageSize, Model m, Authentication authentication) {
     // read와 동일. inquiry_no를 불러와서 조회.
     try {
 
-      String user_id = (String) session.getAttribute("user_id");
-      m.addAttribute(user_id);
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
 
       OneononeDto oneononeDto = oneononeService.read(inquiry_no);
 
@@ -104,9 +106,12 @@ public class OneononeController {
   @ResponseBody
   public void modifyAns(
       @RequestBody AnsDto ansDto, Integer ans_no, Integer ans_state, String admin_id, String ans_context,
-      Integer inquiry_no, Date ans_regdate,  Integer page, Integer pageSize, RedirectAttributes rattr, Model m, HttpSession session) {
+      Integer inquiry_no, Date ans_regdate,  Integer page, Integer pageSize, RedirectAttributes rattr, Model m, Authentication authentication) {
     
-    String admin = (String) session.getAttribute("user_id");
+//    String admin = (String) session.getAttribute("user_id");
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String admin = userDto.getUser_id();
+    ansDto.setAdmin_id(admin);
 
     System.out.println(ansDto);
 
@@ -122,8 +127,9 @@ public class OneononeController {
 
   // 1:1 문의 작성 페이지
   @PostMapping("/write/reg")
-  public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, HttpSession session) {
-    String writer = (String) session.getAttribute("user_id");
+  public String write(OneononeDto oneononeDto, RedirectAttributes rattr, Model m, Authentication authentication) {
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     oneononeDto.setWriter(writer);
 
     try {
@@ -145,8 +151,9 @@ public class OneononeController {
 
   // 1:1문의 작성
   @GetMapping("/write")
-  public String write(Model m, HttpSession session, OneononeDto oneononeDto) {
-    String writer = (String) session.getAttribute("user_id");
+  public String write(Model m, Authentication authentication, OneononeDto oneononeDto) {
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     oneononeDto.setWriter(writer);
     System.out.println(oneononeDto);
     m.addAttribute("mode", "new");
@@ -157,9 +164,11 @@ public class OneononeController {
   // 답변 작성
   @PostMapping("/write/ans")
   @ResponseBody
-  public void writeans(@RequestBody AnsDto ansDto, Integer inquiry_no, HttpSession session) {
+  public void writeans(@RequestBody AnsDto ansDto, Integer inquiry_no, Authentication authentication) {
 
-    String admin = (String) session.getAttribute("user_id");
+//    String admin = (String) session.getAttribute("user_id");
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String admin = userDto.getUser_id();
     ansDto.setAdmin_id(admin);
 //    ansDto.setInquiry_no(inquiry_no);
     System.out.println(ansDto);
@@ -176,11 +185,12 @@ public class OneononeController {
 
   // 답변 삭제 기능
   @PostMapping("/remove/ans")
-  public String removeAns(Integer ans_no, Integer inquiry_no, String admin_id, Integer page, Integer pageSize,
-      RedirectAttributes rattr, HttpSession session) {
+  public String removeAns(AnsDto ansDto, Integer ans_no, Integer inquiry_no, String admin_id, Integer page, Integer pageSize,
+      RedirectAttributes rattr, Authentication authentication) {
 
-    String admin = (String) session.getAttribute("user_id");
-//    ansDto.setAdmin_id(admin);
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String admin = userDto.getUser_id();
+    ansDto.setAdmin_id(admin);
     String msg = "DEL_OK";
     System.out.println(msg);
     
@@ -211,9 +221,10 @@ public class OneononeController {
   // 게시글 삭제
   @PostMapping("/remove")
   public String remove(Integer inquiry_no, Integer page, Integer pageSize,
-      RedirectAttributes rattr, HttpSession session) {
+      RedirectAttributes rattr, Authentication authentication) {
 
-    String writer = (String) session.getAttribute("user_id");
+    UserDto userDto = (UserDto) authentication.getPrincipal();
+    String writer = userDto.getUser_id();
     String msg = "DEL_OK";
 
     try {
@@ -238,13 +249,14 @@ public class OneononeController {
 
   // 게시글 읽기
   @GetMapping("/read")
-  public String read(Integer inquiry_no, boolean user_role , Integer page, Integer pageSize, Model m, HttpSession session) {
+  public String read(Integer inquiry_no, boolean user_role , Integer page, Integer pageSize, Model m, Authentication authentication) {
    
     try {
-      String user_id = (String) session.getAttribute("user_id");
-      m.addAttribute(user_id);
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String writer = userDto.getUser_id();
+      m.addAttribute(userDto);
       
-      UserDto userDto = userDao.selectUser(user_id);
+//      UserDto userDto = userDao.selectUser(user_id);
       m.addAttribute("user_role",user_role);
       System.out.println(userDto);
       AnsDto ansDto = ansService.selectAnsData(inquiry_no);
@@ -267,10 +279,10 @@ public class OneononeController {
       m.addAttribute("page", page);
       m.addAttribute("pageSize", pageSize);
       m.addAttribute("inquiry_private",oneononeDto.isInquiry_private());
-      session.setAttribute("inquiry_private", oneononeDto.isInquiry_private());
-      session.getAttribute("inquiry_private");
-      System.out.println(session.getAttribute("inquiry_private"));
-      String writer = oneononeDto.getWriter();
+//      session.setAttribute("inquiry_private", oneononeDto.isInquiry_private());
+//     session.getAttribute("inquiry_private");
+//      System.out.println(session.getAttribute("inquiry_private"));
+       writer = oneononeDto.getWriter();
       m.addAttribute(writer);
 
     } catch (Exception e) {
@@ -287,9 +299,9 @@ public class OneononeController {
   public String list(@RequestParam(defaultValue = "1") Integer page,
       @RequestParam(defaultValue = "10") Integer pageSize,
       Model m,
-      HttpServletRequest request) {
+      HttpServletRequest request, String string) {
 
-    if (!loginCheck(request)) {
+    if (!loginCheck(string)) {
       return "redirect:/user/login?toURL=/oneonone/list";
     }
     
@@ -322,12 +334,10 @@ public class OneononeController {
   }
   
   // 로그인 상태인지 체크
-  private boolean loginCheck(HttpServletRequest request) {
+  private boolean loginCheck(String string) {
     // 1. 세션을 얻어서
-    HttpSession session = request.getSession(false);                //false 는 session 이 없어도 새로 생성하지 않음. 반환값 null
-    // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-    return session != null && session.getAttribute("user_id") != null;
-}
-  
+    return string != null || string != ""; 
+       
+  }
 
 }

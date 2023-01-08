@@ -12,6 +12,8 @@ public class OneononeDto{
     private String inquiry_context;
     private boolean inquiry_private;
     private Date inquiry_regdate;
+    private String user_id;
+    private String user_nickname;
     private AnsDto ansDto;
     private UserDto userDto;
     
@@ -22,7 +24,8 @@ public class OneononeDto{
 
 
   public OneononeDto(Integer inquiry_no, Integer inquiry_state, String writer, String inquiry_title,
-      String inquiry_context, boolean inquiry_private, Date inquiry_regdate, AnsDto ansDto, UserDto userDto) {
+      String inquiry_context, boolean inquiry_private, Date inquiry_regdate, String user_id, String user_nickname,
+      AnsDto ansDto, UserDto userDto) {
     super();
     this.inquiry_no = inquiry_no;
     this.inquiry_state = inquiry_state;
@@ -31,8 +34,37 @@ public class OneononeDto{
     this.inquiry_context = inquiry_context;
     this.inquiry_private = inquiry_private;
     this.inquiry_regdate = inquiry_regdate;
+    this.user_id = user_id;
+    this.user_nickname = user_nickname;
     this.ansDto = ansDto;
     this.userDto = userDto;
+  }
+  
+  
+
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ansDto, inquiry_context, inquiry_no, inquiry_private, inquiry_regdate, inquiry_state,
+        inquiry_title, userDto, user_id, user_nickname, writer);
+  }
+
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    OneononeDto other = (OneononeDto) obj;
+    return Objects.equals(ansDto, other.ansDto) && Objects.equals(inquiry_context, other.inquiry_context)
+        && Objects.equals(inquiry_no, other.inquiry_no) && inquiry_private == other.inquiry_private
+        && Objects.equals(inquiry_regdate, other.inquiry_regdate) && Objects.equals(inquiry_state, other.inquiry_state)
+        && Objects.equals(inquiry_title, other.inquiry_title) && Objects.equals(userDto, other.userDto)
+        && Objects.equals(user_id, other.user_id) && Objects.equals(user_nickname, other.user_nickname)
+        && Objects.equals(writer, other.writer);
   }
 
 
@@ -106,6 +138,26 @@ public class OneononeDto{
   }
 
 
+  public String getUser_id() {
+    return user_id;
+  }
+
+
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
+  }
+
+
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+
+
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
+  }
+
+
   public AnsDto getAnsDto() {
     return ansDto;
   }
@@ -127,37 +179,13 @@ public class OneononeDto{
 
 
   @Override
-  public int hashCode() {
-    return Objects.hash(ansDto, inquiry_context, inquiry_no, inquiry_private, inquiry_regdate, inquiry_state,
-        inquiry_title, userDto, writer);
-  }
-
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    OneononeDto other = (OneononeDto) obj;
-    return Objects.equals(ansDto, other.ansDto) && Objects.equals(inquiry_context, other.inquiry_context)
-        && Objects.equals(inquiry_no, other.inquiry_no) && inquiry_private == other.inquiry_private
-        && Objects.equals(inquiry_regdate, other.inquiry_regdate) && Objects.equals(inquiry_state, other.inquiry_state)
-        && Objects.equals(inquiry_title, other.inquiry_title) && Objects.equals(userDto, other.userDto)
-        && Objects.equals(writer, other.writer);
-  }
-
-
-  @Override
   public String toString() {
     return "OneononeDto [inquiry_no=" + inquiry_no + ", inquiry_state=" + inquiry_state + ", writer=" + writer
         + ", inquiry_title=" + inquiry_title + ", inquiry_context=" + inquiry_context + ", inquiry_private="
-        + inquiry_private + ", inquiry_regdate=" + inquiry_regdate + ", ansDto=" + ansDto + ", userDto=" + userDto
-        + "]";
+        + inquiry_private + ", inquiry_regdate=" + inquiry_regdate + ", user_id=" + user_id + ", user_nickname="
+        + user_nickname + ", ansDto=" + ansDto + ", userDto=" + userDto + "]";
   }
 
-  
+
     
 }

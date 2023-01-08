@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="prev_notice_id" value="${noticeDto.notice_id -1}" />
 <c:set var="adminAns"
-	value="${sessionScope.ans_state == 0 ? 'display:none':'' }" />
+	value="${ansDto.ans_state == 0 ? 'display:none':'' }" />
 <c:set var="AnsAns"
 	value="${oneononeDto.inquiry_state == 1 ? 'display:none':'' }" />
 	
@@ -65,12 +65,13 @@
 							<h2 class="writing-header">일대일 문의</h2>
 							<form class="card p-5 mb-3" id="form" action="" method="post">
 								<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<!-- 제목 영역  -->
 								<div class="mt-3">
 									<h4 class="card-title">${oneononeDto.inquiry_title}</h4>
 									<small class="card-subtitle mb-2 text-muted">
 									<fmt:formatDate value="${oneononeDto.inquiry_regdate}" pattern="yyyy-MM-dd"	type="date" /></small> 
-									<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id}</small>
+									<small class="card-subtitle mb-2 text-muted">writer : ${oneononeDto.user_nickname}</small>
 								</div>
 								<hr class="my-4">
 								<!-- 본문 영역 -->
@@ -79,7 +80,7 @@
 								<hr class="my-4">
 								<div class="mt-3 text-end">
 									<!-- 수정권한 확인  -->
-									<c:if test="${oneononeDto.writer eq sessionScope.user_id}">
+									<c:if test="${oneononeDto.writer eq userDto.user_id}">
 										<button type="button" id="modifyBtn" class="btn btn-outline-primary">
 											<i class="fa fa-edit"></i>수정
 										</button>
@@ -91,7 +92,7 @@
 							</form>
 							<!-- 답변 버튼 영역 -->
 							<input type="hidden" name="inquiry_State" value="${ansState}">
-							<input type="hidden" name=user_role value="${sessionScope.user_role}">
+							<input type="hidden" name=user_role value="${userDto.user_role}">
 							<div id="ans_area" style="${ansState ? '' :'display:none'}">
 								<form class="card p-5 mb-3" id="Ansform" action="" method="post">
 									<input type="hidden" id="inquiry_no" name="inquiry_no" value="${oneononeDto.inquiry_no }"> 
@@ -103,7 +104,7 @@
 										<small class="card-subtitle mb-2 text-muted" name="ans"><fmt:formatDate
 												value="${ansDto.ans_regdate}" pattern="yyyy-MM-dd" type="date" /></small> 
 												<small class="card-subtitle mb-2 text-muted">
-												writer : ${oneononeDto.writer} | user_id : ${sessionScope.user_id} | user_role : ${sessionScope.user_role } </small>
+												writer : ${oneononeDto.user_nickname} </small>
 									</div>
 									<hr class="my-4">
 									<!-- 본문 영역 -->
@@ -112,20 +113,21 @@
 									<hr class="my-4">
 									<div class="mt-3 text-end">
 										<!-- 수정권한 확인  -->
-										<c:if test="${sessionScope.user_role eq '1'}">
-											<button type="button" id="ans_modifyBtn" class="btn btn-outline-primary">
-												<i class="fa fa-edit"></i>수정
-											</button>
-											<button type="button" id="removeAnsBtn" class="btn btn-outline-danger">
-												<i class="fa fa-trash"></i>삭제
-											</button>
-										</c:if>
+										<sec:authorize access="hasRole('ROLE_ADMIN')">
+											<button type="button" id="modifyBtn" class="btn btn-outline-primary">
+												<input type="hidden" name="${csrf.parameterName}" value="${csrf.token}" /><i class="fa fa-edit"></i>수정</button>
+											<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash">
+												<input type="hidden" name="${csrf.parameterName}" value="${csrf.token}" /></i>삭제</button>
+										</sec:authorize>
+
 									</div>
 								</form>
 							</div>
-						
 							<div style="${AnsAns}">
-							<button type="button" id="ansBtn" class="col-1 btn btn-primary"	style="${adminWrite}" class="btn btn-info btn-sm">답변</button>
+							<!-- 관리자일 때 답변 버튼 보이기  -->
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+				                <button type="button" id="ansBtn" class="col-1 btn btn-primary"	class="btn btn-info btn-sm">답변</button>
+				            </sec:authorize>						
 							</div>
 							<!-- 목록으로 가기 -->
 							<div class="row mx-auto col-md-4">
@@ -175,7 +177,8 @@
 												<hr class="mb-4">
 												<h5>문의 답변</h5>
 												<textarea class="form-control mt-2 summernote" id="ansModiContext" name="ans_context">${ansDto.ans_context}</textarea>
-											 	<button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" id="ansModiComplete" type="button">답변 저장</button>
+											 	<button class="w-100 my-3 btn btn-lg rounded-3 btn-primary" id="ansModiComplete" type="button">
+											 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />답변 저장</button>
 											</form>
 										</div>
 										<!-- modal body -->
