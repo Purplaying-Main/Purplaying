@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class PaymentDaoImpl implements PaymentDao {
 
   @Override
   public int insert(PaymentDto paymentDto) throws Exception {
-    
+   
     return session.insert(namespace+"insert", paymentDto);
   }
 
@@ -74,6 +75,14 @@ public class PaymentDaoImpl implements PaymentDao {
   public int fundingCancel(int pay_no) throws Exception {
     // TODO Auto-generated method stub
     return session.delete(namespace+"fundingCancel", pay_no);
+  }
+
+  @Override
+  public PaymentDto alreadyBuy(int prdt_id, int user_no) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("user_no", user_no);
+    return session.selectOne(namespace+"alreadyBuy", map);
   }
 
 }

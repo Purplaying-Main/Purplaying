@@ -35,6 +35,13 @@
  	where prdt_id = #{prdt_id} and user_no = #{user_no} and pay_total = #{pay_total} and reward_id = #{reward_id} and delivery_postcode = #{delivery_postcode}
  	</select>
  	
+ 	<!-- 해당 펀딩에 대해 구매이력이 있는지 조회 -->
+ 	<select id="alreadyBuy" parameterType="map" resultType="PaymentDto">
+ 		select coalesce(pay_no,null) as pay_no
+ 		from tb_payment
+ 		where prdt_id = #{prdt_id} and user_no = #{user_no}
+ 	</select>
+ 	
  	<!-- 마이페이지 후원중인 펀딩 출력 -->
  	<select id="userFunding" parameterType="int" resultType="PaymentDto" >
  		<include refid="selectAll"/>

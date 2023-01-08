@@ -109,6 +109,7 @@
               	<input type="button" id="doFundingBtn" class="btn btn-primary container btn-lg mb-3" value="${projectDto.prdt_dday < 0 ? '종료된 펀딩입니다' : '펀딩하기' }" ${projectDto.prdt_dday < 0 ? 'disabled' : '' }/>
               </sec:authorize>
               <sec:authorize access="isAuthenticated()">
+              	<c:if test="${alreadyBuy eq true }"><p class="text-center" style="color: rgb(156, 102, 255);">후원 내역이 존재하는 펀딩입니다.</p></c:if>
               	<c:choose>
               		<c:when test="${prc.user_id eq projectDto.writer}"><input type="button" class="btn btn-primary container btn-lg mb-3" value="펀딩관리하기" onclick="location.href='/purplaying/mypage/fundingmanage/${projectDto.prdt_id}'"/></c:when>
               		<c:when test="${projectDto.prdt_dday < 0 and prc.user_id ne projectDto.writer}"><input type="button" class="btn btn-primary container btn-lg mb-3" value="종료된 펀딩입니다" disabled/></c:when>
@@ -162,6 +163,7 @@
 					    리워드 타입
 					  </button>
 					  <ul class="dropdown-menu">
+					 	<li><button class="dropdown-item" id="dropDownOption0">모두 보기</button></li>
 					    <li><button class="dropdown-item" id="dropDownOption1">슈퍼얼리버드</button></li>
 					    <li><button class="dropdown-item" id="dropDownOption2">얼리버드</button></li>
 					  </ul>
@@ -297,8 +299,8 @@
                 <div class="tab-pane fade" id="v-pills-tab03" role="tabpanel" aria-labelledby="v-pills-tab03-tab">
                 
                 <!-- 댓글 작성 창(회원에게만 노출) -->
-                <sec:authorize access="isAuthenticated()">
                   <div class="text-start">
+<<<<<<< HEAD
 <<<<<<< HEAD
                   <sec:authorize access="isAnonymous()">
 						<div id="needLogin" class="text-center">
@@ -310,19 +312,23 @@
 =======
                     <p> 작성자 닉네임 > ${prc.user_nickname}</p>
 >>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
+=======
+                    <p> 작성자 닉네임 > <sec:authorize access="isAuthenticated()">${prc.user_nickname}</sec:authorize></p>
+>>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
 								<textarea class="form-control" id="comment" placeholder="내용 작성​" rows="5" style="resize: none;"></textarea>
                       		</div>
 							<div class=" col-2 text-start">
+							<sec:authorize access="isAuthenticated()">
 								<button type="button" id="insertBtn" class="btn btn-primary">작 성</button>
+							</sec:authorize>
 							</div>
                    		<hr class="mt-3">
 						</div>
                     </div>
                  </div>
-                </sec:authorize>
                 <div id="f5"></div>
                   <!--작성 댓글 노출-->
                  <input type="hidden" id="rno" value="${replyDto.rno }" />
@@ -660,6 +666,10 @@
 	<!-- 리워드 dropbox 옵션에 따른 스크립트 -->
 	<script type="text/javascript">
 	  //슈퍼얼리버드 클릭 시
+	  $("#dropDownOption0").click(function(){
+		$("#rewardBox").load(window.location.href + " #rewardBox");
+	  })
+	  //슈퍼얼리버드 클릭 시
 	  $("#dropDownOption1").click(function(){
 		  dropbox(1)
 	  })
@@ -709,7 +719,7 @@
 				tmp += '<div class="card-body"><h5 class="card-title pricing-card-title">';	
 				tmp += '<span>'+reward.reward_desc+'</span></h5>';
 				tmp += '<div class="text-end"><span class="text-primary mt-3">'+reward.reward_price+'원</span></div>';
-				tmp += '<div class="text-info text-end">남은 수량<span class="fw-bold" id="reward_stock'+reward.row_number+'">';
+				tmp += '<div class="text-info text-end">남은 수량 <span class="fw-bold" id="reward_stock'+reward.row_number+'">';
 				if(reward.reward_stock == -1){
 					tmp += '제한없음';
 				}

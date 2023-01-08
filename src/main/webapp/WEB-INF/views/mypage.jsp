@@ -45,10 +45,9 @@
             <div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab">
             
             <!-- 창작중인 펀딩 영역-->
-              <h5 class="my-4">${user_id}님이 창작중인 펀딩</h5>
-			  <c:if test="${fn:length(list) > 0}">
+              <h5 class="my-4">${prc.user_id}님이 창작중인 펀딩</h5>
+			  <c:if test="${fn:length(list) ne 0}">
 			  <c:forEach var="projectDto" items="${list}">
-	              <c:if test="${projectDto.writer eq user_id}">
 		             <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> 
 		                <div class="col-auto d-none d-lg-block">
 		                	<img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
@@ -91,7 +90,6 @@
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
 		             </form>  
-		      	</c:if>
 		      </c:forEach>
 		      </c:if>
 	          
@@ -102,7 +100,7 @@
               <hr class="mt-4 mb-2">
               
               <!-- 후원중인 펀딩 영역-->
-              <h5 class="mt-4 mb-2">${user_id}님이 후원중인 펀딩</h5>
+              <h5 class="mt-4 mb-2">${prc.user_id}님이 후원중인 펀딩</h5>
                <c:choose>
                	<c:when test="${fn:length(userF) ne 0 }">
                	<c:set var="i" value="0"/>
@@ -364,9 +362,14 @@
 		})
 	}
 	</script>
-	 <script>
+	<script>
   	let msg = "${msg}";
   	if(msg == "no_authorization") alert("접근 권한이 없습니다.");
+  	if(msg == "not_equal_error") alert("결제 정보를 다시 확인해주세요.");
+  	if(msg == "payment_error") alert("결제 중 오류 발생");
+  	if(msg == "invalid_request") alert("펀딩종료일 이후 결제취소가 불가능합니다.");
+  	if(msg == "paymentCancel_error") alert("결제 취소 중 오류 발생");
+  	if(msg == "payment_cancel") alert("결제가 취소 되었습니다.");
   </script>
 </body>
 </html>

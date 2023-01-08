@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.purplaying.dao.PaymentDao;
 import kr.co.purplaying.dao.RewardDao;
 import kr.co.purplaying.dao.UserDao;
 import kr.co.purplaying.domain.ProjectDto;
@@ -48,6 +49,10 @@ public class ProductController {
   
   @Autowired
   RewardDao rewardDao;
+  
+  @Autowired
+  PaymentDao paymentDao;
+  
   
   @Autowired
   RewardService rewardService;
@@ -101,35 +106,35 @@ public class ProductController {
   public String viewproduct(@PathVariable Integer prdt_id, Model m, Authentication authentication) {
 
         try {
-          //1.프로젝트정보 가져오기
+          //1.펀딩 정보 가져오기
           ProjectDto projectDto = projectService.read(prdt_id);
           m.addAttribute(projectDto);
           
-          //2.리워드정보 가져오기
+          //2.리워드,업데이트 정보 가져오기
           List<RewardDto> list = rewardService.selectReward(prdt_id);
           List<UpdateDto> list_update = projectService.selectUpdate(prdt_id);
-          //List<CommunityDto> list_community = communityService.selectCommunity(prdt_id);
-          //List<ReplyDto> list_reply = replyService.selectReply(prdt_id);
           UserDto userDto = userDao.selectUser(projectDto.getWriter());
           m.addAttribute(userDto);
           
-
+          
           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
           for(int i = 0; i<list_update.size(); i++) {
             list_update.get(i).setUpdate_regdate_string(list_update.get(i).getUpdate_regdate());
           }
-//          HttpServletRequest request;
-//          HttpSession session =  request.getSession();
-//          System.out.println("user_role :"+session.getAttribute("user_role"));
-//          System.out.println("user_id :"+session.getAttribute("user_id"));
-//          System.out.println(session.getAttribute("user_id").equals(projectDto.getWriter()));
-//          System.out.println(session.getAttribute("user_role").equals(1));
+          
+          //3.로그인한 경우
           if(authentication != null) {
-            UserDto udt = (UserDto) authentication.getPrincipal();          
+           UserDto udt = (UserDto) authentication.getPrincipal();          
            String user_id = (String)udt.getUser_id();
            UserDto cuser = userDao.selectUser(user_id);
            m.addAttribute("cuser", cuser);
            
+           //3-1.구매이력 존재 확인
+           if(paymentDao.alreadyBuy(prdt_id, cuser.getUser_no()) == null) {             
+             m.addAttribute("alreadyBuy", false );
+           }
+           else {m.addAttribute("alreadyBuy", true );}
+
           if(user_id!=null) {
             boolean likecheck = false;
             List<Integer> Likelist = likeService.selectLikelist(user_id);

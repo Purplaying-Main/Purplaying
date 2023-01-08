@@ -213,6 +213,7 @@
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </form>
           <div class="row justify-content-center">
+            <div class="mx-1" style="background-color:rgb(128,128,128,0.15);">전자상거래법상 통신판매는 소비자의 청약 전 규격, 제조연월일 등 구체적인 상품정보가 제공 가능한 것을 대상으로 합니다. 따라서 퍼플레잉에서의 후원은 통신판매에 해당하지 않고, 전자상거래법 및 소비자보호규정(수령 후 7일 내 청약철회 등)이 적용되지 않습니다.</div>
             <div class="col-8 text-center">
              <%-- <p class="fs-5 mt-4 mb-2">펀딩이 성공하면 <span id="dt_payDate"><strong><fmt:formatDate pattern ="yyyy.MM.dd" value="${projectDto.prdt_purchaseday}"/></strong></span> 에 자동으로 결제됩니다.</p> --%>
              <button type="button" class="btn btn-primary fs-3 w-50 my-3" id="doPaymentBtn">후원하기</button>
@@ -267,7 +268,6 @@
 		//3.배열로 담은 리워드 아이디,수량을 input hidden에 저장
   	    document.getElementById("reward_id").value = rn;
   	    document.getElementById("reward_cnt").value = rc;
-  	    console.log("리워드번호 : " + rn +"\리워드수량 : "+ rc)
   	    
   		let form = $(".paymentForm");
 		form.attr("action", "<c:url value='/paymentCompleted/${prdt_id}' />")

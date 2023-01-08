@@ -30,4 +30,7 @@ public interface PaymentDao {
   
   //결제취소 delete
   int fundingCancel(int pay_no) throws Exception;
+  
+  //결제 이력 조회
+  PaymentDto alreadyBuy(int prdt_id,int user_no) throws Exception;
 }

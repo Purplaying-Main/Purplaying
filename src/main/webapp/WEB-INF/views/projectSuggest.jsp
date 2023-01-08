@@ -54,10 +54,5 @@
 		<!-- genre div end -->
 
 	</section>
-  	<script>
-	/*progressbar 연동 JS*/
-	const perValue = ${ProjectDto.prdt_percent };
-	if(perValue >= 100) {perValue = 100;}
-	</script>
 </body>
 </html>

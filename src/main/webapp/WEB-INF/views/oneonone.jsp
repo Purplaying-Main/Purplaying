@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
-<c:set var="readAuthority" value="${sessionScope.inquiry_private == false ? '':'display:none' }" />
+<c:set var="readAuthority" value="${oneononeDto.inquiry_private == false ? '':'display:none' }" />
 
 <!DOCTYPE html>
 <html>
@@ -39,8 +39,9 @@
 					<div class="tab-content" id="v-pills-tabContent">
 						<!-- tab 1 contents -->
 						<div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" >
-						<input type="hidden" name=user_role value="${sessionScope.user_role}">
-						<input type="hidden" name=inquiry_private value="${sessionScope.inquiry_private}">
+						<input type="hidden" name=user_id value="${prc.user_id}">
+						<input type="hidden" name=user_role value="${userDto.user_role}">
+						<input type="hidden" name=inquiry_private value="${oneononeDto.inquiry_private}">
 						<div class="row justify-content-end mt-4">
 							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
 						<%--	<form action="<c:url value="/oneonone/list" />" class="search-form" method="get">  --%>
@@ -63,16 +64,21 @@
 											<td class="no">${oneononeDto.inquiry_no }</td>
 											<td class="state">${oneononeDto.inquiry_state eq 0 ? "답변중" : "답변완료" }</td>
 											<td class="title">
+												<sec:authorize access="isAuthenticated()">
 												<c:if test="${oneononeDto.inquiry_private == false}" >
+													
 						            				<c:choose>
-						                				<c:when test="${oneononeDto.writer eq sessionScope.user_id or sessionScope.user_role eq '1'}">
+						                				<c:when test="${oneononeDto.writer eq prc.user_id or userDto.user_role eq 'ROLE_ADMIN'}">
 						                    				<a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
 						                    				<c:out value="${oneononeDto.inquiry_title }"/>
 						                    				</a>
+						                    				
 						                				</c:when>
 						               					<c:otherwise>작성자와 관리자만 볼 수 있습니다.</c:otherwise>
 						            				</c:choose>
+						            				
 										        </c:if>
+										        </sec:authorize>
 										        <c:if test="${oneononeDto.inquiry_private == true}" >
 										            <a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
 										            <c:out value="${oneononeDto.inquiry_title }"/>
@@ -115,7 +121,7 @@
 										</c:if>
 									</c:if>
 								</ul>
-	
+							
 							<button type="button" id="writeBtn" class="col-1 btn btn-primary" >작성</button>
 
 						</div>

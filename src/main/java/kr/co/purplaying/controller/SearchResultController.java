@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,10 +43,9 @@ public class SearchResultController {
   LikeService likeService;
 
   @GetMapping("/searchResult")
-  public String searchResult(SearchItem2 sc2, ProjectDto projectDto,  Model m, HttpSession session) {
+  public String searchResult(SearchItem2 sc2, ProjectDto projectDto,  Model m, Authentication authentication
+      ) {
         
-        String id = (String)session.getAttribute("user_id");
-    
         try {
           Map map = new HashMap();
 
@@ -70,7 +70,9 @@ public class SearchResultController {
           m.addAttribute("list_ps", list_ps);
           
           //세션의 유저 id의 좋아요 리스트 
-          if(id!=null) {
+          if(authentication!=null) {
+            UserDto udt = (UserDto) authentication.getPrincipal();
+            String id = (String)udt.getUser_id();
             boolean likecheck = false;
             List<Integer> Likelist = likeService.selectLikelist(id);
             System.out.println(Likelist);
@@ -83,9 +85,8 @@ public class SearchResultController {
         }
           
   @GetMapping("/projectViewMore")
-  public String projectViewMore(SearchItem2 sc2, ProjectDto projectDto,  Model m, HttpSession session) {
+  public String projectViewMore(SearchItem2 sc2, ProjectDto projectDto,  Model m, Authentication authentication) {
           
-          String id = (String)session.getAttribute("user_id");    
           
           try {
                       
@@ -98,7 +99,9 @@ public class SearchResultController {
             PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
             m.addAttribute("pr2", pageResolver2);
             
-            if(id!=null) {
+            if(authentication!=null) {
+              UserDto udt = (UserDto) authentication.getPrincipal();
+              String id = (String)udt.getUser_id();
               boolean likecheck = false;
               List<Integer> Likelist = likeService.selectLikelist(id);
               System.out.println(Likelist);
@@ -139,11 +142,7 @@ public class SearchResultController {
   
   //창작자 프로젝트 더보기
   @GetMapping("/creatorSearch/{user_id}")       
-  public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, HttpSession session) {
-          System.out.println(user_id);
-          System.out.println(user_id);
-          
-          String id = (String)session.getAttribute("user_id"); 
+  public String creatorSearch(@PathVariable String user_id, UserDto userDto, Model m, Authentication authentication) {
 
           try {
               // 유저 id에 해당하는 펀딩 리스트
@@ -162,7 +161,9 @@ public class SearchResultController {
               m.addAttribute("list_crea", list_crea);
               
               // 세션의 유저 id의 좋아요 리스트 
-              if(id!=null) {
+              if(authentication!=null) {
+                UserDto udt = (UserDto) authentication.getPrincipal();
+                String id = (String)udt.getUser_id();
                 boolean likecheck = false;
                 List<Integer> Likelist = likeService.selectLikelist(id);
                 System.out.println(Likelist);        

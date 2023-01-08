@@ -80,7 +80,8 @@
 								<p>[확인]버튼 클릭시 작성중인 글은 저장되지 않습니다.</p>
 								</div>
 								<div class="modal-footer">
-									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/purplaying/oneonone/list'">확인</button>
+									<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close" onclick="location.href='/purplaying/oneonone/list'">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />확인</button>
 								</div>
 							</div>
 						</div>

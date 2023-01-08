@@ -32,18 +32,20 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title fw-bold" id="paymentCancelModalLabel">펀딩 취소 하기</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <h5 class="modal-title fw-bold" id="paymentCancelModalLabel">펀딩취소하기</h5>
                         </div>
-                        <div class="modal-body">
-							취소안내
+                        <div class="modal-body mx-1">
+							펀딩취소는 펀딩종료일까지 가능하며<br>
+							취소 시 재고가 없는 리워드에 대해서는 재결제가 불가능할 수 있습니다.<br>
+							그래도 펀딩을 취소하시겠습니까?
                         </div>
                         <div class="modal-footer">
                         <form id="cancelForm">
                           <input type="hidden" id="pay_no" name ="pay_no" value="${paymentDto.get(0).getPay_no()}">
                           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </form>
-                          <button class="btn btn-danger" id="cancelConfirm" onclick="cancel()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cancelConfirm">취소</button>
+                          <button class="btn btn-danger" id="cancelConfirm" onclick="cancel()" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#cancelConfirm">펀딩취소</button>
+                          <button type="button" class="btn" data-bs-dismiss="modal" onclick="hide()">닫기</button>
                         </div>
                       </div>
                     </div>
@@ -192,7 +194,7 @@
  	}
   });
   </script>
-  <script>
+  <script type="text/javascript">
   	function cancel(){
   		let form = $("#cancelForm")
   		form.attr("action","/purplaying/paymentCancel")

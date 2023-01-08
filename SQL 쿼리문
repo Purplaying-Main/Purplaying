@@ -1,4 +1,4 @@
---VER - 2023-01-04
+--VER - 2023-01-08
 --tb_abc순 정렬
 --- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
 
@@ -244,8 +244,8 @@ CREATE TABLE public.tb_reward (
     reward_id serial4 NOT NULL,
     reward_name varchar(100) NOT NULL,
     reward_desc text NOT NULL,
-    reward_price numeric NULL DEFAULT 1000,
-    reward_stock int4 NULL,
+    reward_price numeric NOT NULL DEFAULT 1000,
+    reward_stock int4 NOT NULL,
     reward_category int4 NOT NULL DEFAULT 0,
     prdt_id int4 NOT NULL,
     CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
