@@ -51,7 +51,6 @@
 		<choose>
 			<when test="#{reward_category == 1}">and reward_category = #{reward_category}</when>
 			<when test="#{reward_category == 2}">and reward_category = #{reward_category}</when>
-			<otherwise>and (reward_category == 1 or reward_category == 2)</otherwise>
 		</choose>
 	</select>
 	

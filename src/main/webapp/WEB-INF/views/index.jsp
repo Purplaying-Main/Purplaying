@@ -210,5 +210,9 @@
 
 	})(jQuery);
   </script>
+  <script type="text/javascript">
+  	let msg = "${msg}";
+  	if(msg == "invalid_access") alert("잘못된 접근입니다.");
+  </script>
 </body>
 </html>
