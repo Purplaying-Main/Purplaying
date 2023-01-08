@@ -337,7 +337,7 @@ public class OneononeController {
   private boolean loginCheck(String string) {
     
     return string != null || string != ""; 
-       
+      
   }
 
 }
