@@ -122,10 +122,9 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                        <p>${prc }</p>
                                         <%@ include file = "profileUpload.jsp"%></div>
                                         <div class="modal-footer">
-                                            <button type="button" id="modifyUPFBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
+                                            <button type="button" id="modifyUserBtn" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >
                                                 확인
                                             </button>
                                         </div>

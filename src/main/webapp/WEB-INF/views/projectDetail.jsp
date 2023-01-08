@@ -36,6 +36,9 @@
     <sec:authorize access="isAuthenticated()">
 		<input type="hidden" id="user_point" value="${prc.user_point }"/>
 	</sec:authorize>
+	<sec:authorize access="isAnonymous()">
+		<input type="hidden" id="user_point" value="-1">
+	</sec:authorize>
       <h1 class="visually-hidden">펀딩 상세페이지</h1>
       <div class="contentsWrap col-10 mx-auto">
       <input type="hidden" id="prdt_id" value="${projectDto.prdt_id}" />
@@ -114,7 +117,12 @@
               </sec:authorize>
               </li>
               <div class="row px-2 justify-content-between">
+              <sec:authorize access="isAuthenticated()">
               	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="pickBtn()" value="&#xf004 찜하기">
+              </sec:authorize>
+              <sec:authorize access="isAnonymous()">
+              	<input type="button" class="col mx-1 btn fa-1x fa-heart ${fn:contains(Likelist, projectDto.prdt_id)? 'fas active' : 'far' }" style="${fn:contains(Likelist, projectDto.prdt_id)? 'color: red;' : 'color: rgb(156, 102, 255);' }" onclick="alert('로그인 후 이용해주세요')" value="&#xf004 찜하기">
+              </sec:authorize>
                 <input type="button" class="col mx-1 btn fa-1x fa-thin fa-share-from-square far" style="color: rgb(156, 102, 255);" data-bs-toggle="modal" data-bs-target="#agree4Modal" value="&#xf14d 공유하기">
                   <!-- 공유하기 Modal -->
                   <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
@@ -479,7 +487,11 @@
 			//3. 유저 포인트가 결제 총액 보다 많은지 확인 > 적으면 iamport.jsp 호출
 			let user_point = parseInt(document.getElementById("user_point").value)
 			let total_price = parseInt(document.getElementById("rewardTotalPrice").value)
-			if(user_point <total_price){
+			if(user_point == -1){
+				alert("로그인 후 이용해주세요")
+				return false
+			}
+			else if(user_point <total_price){
 				alert("포인트가 부족합니다.")
 				document.getElementById("iamport").click()
 				return false
