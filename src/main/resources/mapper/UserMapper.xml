@@ -151,6 +151,13 @@
 		where user_no = #{user_no}
 	</update>
 	
+	<!-- 결제 취소에 따른 유저 포인트 갱신 -->
+	<update id="refundPoint" parameterType="int">
+		update tb_user
+		set user_point = (user_point + #{refundFee})
+		where user_no = #{user_no}
+	</update>
+
 	<!-- security 로그인 -->
 	<select id="getUserById" parameterType="String" resultType="UserDto">
 		SELECT * FROM tb_user WHERE user_id = #{id} and user_activate = 1

@@ -44,4 +44,6 @@ public interface ProjectDao {
   List<ProjectDto> getListByWriter(String user_id) throws Exception;
   List<ProjectDto> getSoonListByWriter(String user_id) throws Exception;
   List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception;
+  
+  int updateProject(int prdt_id, int refundFee) throws Exception;
 }

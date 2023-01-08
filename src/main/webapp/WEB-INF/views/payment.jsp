@@ -42,7 +42,7 @@
 		                <c:otherwise>장르</c:otherwise>
 	                </c:choose>
 	                <span> | </span>
-	                <span class="ms-2" id="dt_creator">${projectDtㄴo.writer}</span>
+	                <span class="ms-2" id="dt_creator">${projectDto.writer}</span>
                 </p> 
                 <h4 class="fw-bold mb-2">${projectDto.prdt_name}</h4>
                 <p>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,13 +76,15 @@ public class CommunityController {
   @PostMapping("/community/insert/{prdt_id}")
   @ResponseBody
   public ResponseEntity<List<CommunityDto>> write(@RequestBody CommunityDto communityDto, RedirectAttributes rattr,
-      Model m, HttpSession session) {
+      Model m, Authentication authentication) {
     List<CommunityDto> list = null;
-    String writer = (String) session.getAttribute("user_id");
-    UserDto nickname = (UserDto) session.getAttribute("UserDto");
+    UserDto user = (UserDto) authentication.getPrincipal();
+    String user_id = (String)user.getUser_id();
+    String writer = user_id;
+    String nickname = user.getUser_nickname();
 
     communityDto.setChat_writer(writer);
-    communityDto.setUser_nickname(nickname.getUser_nickname());
+    communityDto.setUser_nickname(nickname);
 
     try {
       UserDto userDto = userDao.searchUser_no(writer);

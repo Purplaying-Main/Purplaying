@@ -9,4 +9,5 @@ public interface PaymentService {
   //결제에 따른 DB 업데이트 및 결제 insert
   int payment(ProjectDto projectDto, UserDto userDto, PaymentDto paymentDto) throws Exception;
   
+  int paymentCancel(int pay_no, int pay_total, int prdt_id, int user_no) throws Exception;
 }

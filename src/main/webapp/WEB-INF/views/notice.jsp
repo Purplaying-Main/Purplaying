@@ -2,7 +2,6 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="prev_notice_id" value="${noticeDto.notice_id -1}"/>
 
 <!DOCTYPE html>
 <html>
@@ -42,12 +41,13 @@ pageEncoding="UTF-8"%>
 									<!-- 게시판 글 내용 -->
 									<form class="card p-5 mb-3" id="notice_form" action="" method="post">
 										<input type="hidden" name="notice_id" value="${noticeDto.notice_id }">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 										<!-- 제목 영역  -->			                    	
 										<div class="mt-3">
 											<h6 class="card-subtitle mb-2 text-muted">${noticeDto.notice_category == 1 ? "공지사항" : noticeDto.notice_category == 2 ? "이벤트" : "기타"}</h6>
 											<h4 class="card-title">${noticeDto.notice_title}</h4>
 											<small class="card-subtitle mb-2 text-muted"><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></small>
-											<small class="card-subtitle mb-2 text-muted">writer : ${noticeDto.writer} | user_id : ${sessionScope.user_id}</small>
+											<small class="card-subtitle mb-2 text-muted">writer : ${noticeDto.user_nickname} </small>
 										</div>
 										<hr class="my-4">
 										<!-- 본문 영역 -->
@@ -58,10 +58,12 @@ pageEncoding="UTF-8"%>
 										<hr class="my-4">
 										<div class="mt-3 text-end">			
 											<!-- 수정권한 확인  -->
-											<c:if test="${sessionScope.user_role eq '1'}">
-												<button type="button" id="modifyBtn" class="btn btn-outline-primary"><i class="fa fa-edit"></i>수정</button>
-												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash"></i>삭제</button>
-											</c:if>
+											<sec:authorize access="hasRole('ROLE_ADMIN')">
+												<button type="button" id="modifyBtn" class="btn btn-outline-primary">
+													<input type="hidden" name="${csrf.parameterName}" value="${csrf.token}" /><i class="fa fa-edit"></i>수정</button>
+												<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash">
+													<input type="hidden" name="${csrf.parameterName}" value="${csrf.token}" /></i>삭제</button>
+											</sec:authorize>
 										</div>
 									</form>
 									

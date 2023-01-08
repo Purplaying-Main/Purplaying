@@ -34,4 +34,14 @@ public class PaymentServiceImpl implements PaymentService {
     return paymentDao.insert(paymentDto);//결제insert
   }
 
+  @Override
+  public int paymentCancel(int pay_no, int pay_total, int prdt_id, int user_no)
+      throws Exception {
+    //유저포인트 증가
+    userDao.refundPoint(user_no, pay_total);
+    //후원자수,후원금액 감소
+    projectDao.updateProject(prdt_id, pay_total);
+    return paymentDao.fundingCancel(pay_no);
+  }
+
 }

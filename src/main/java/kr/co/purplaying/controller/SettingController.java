@@ -1,5 +1,6 @@
 package kr.co.purplaying.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,7 +85,6 @@ public class SettingController {
   }
   
   // 프로필 이미지 수정
-  @SuppressWarnings("deprecation")
   @RequestMapping(value="/setting/profile/{user_no}", method = RequestMethod.PATCH)
   public ResponseEntity<String> modifyProfile(@PathVariable int user_no, @RequestBody Map<String, Object> map , HttpSession session, Authentication authentication) {
     //map에 유저 번호를 할당함
@@ -91,11 +95,13 @@ public class SettingController {
     try {
       //프로필 변경시 유저정보(userDto) 세션에 저장
       UserDto userDto = settingService.setUser(id);
-      session.putValue("userDto", userDto);
         
         // 프로필 사진 수정이 되지 않았으면 오류를 반환
         if(settingService.modifyProfile(map) != 1)
             throw new Exception("Update failed");
+        
+        setUserSecurity(userDto);
+        System.out.println("유저 정보 : "+authentication.getPrincipal().toString());
         return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
     }catch(Exception e) {
         e.printStackTrace();
@@ -354,4 +360,11 @@ public class SettingController {
     }
   }
   
+  public void setUserSecurity(UserDto userDto) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+    updatedAuthorities.add(new SimpleGrantedAuthority(userDto.getUser_profile())); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
+    Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+    SecurityContextHolder.getContext().setAuthentication(newAuth);
+  }
 }

@@ -1,11 +1,18 @@
 package kr.co.purplaying.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,9 +54,10 @@ public class iamportController {
   
   @ResponseBody
   @PostMapping("/insertpoint/{paid_amount}")
-  public int pointInsert(Model model, HttpSession session, @PathVariable int paid_amount) {
+  public int pointInsert(Model model, HttpSession session, @PathVariable int paid_amount, Authentication authentication) {
     System.out.println("결제 포인트 : "+paid_amount);
-    UserDto userDto = (UserDto) session.getAttribute("UserDto");
+    
+    UserDto userDto = (UserDto) authentication.getPrincipal();
 
     userDto.setUser_point(userDto.getUser_point()+paid_amount);
     System.out.println("user 포인트정보 : "+userDto);
@@ -58,7 +66,7 @@ public class iamportController {
         return 0;
       }
       UserDto returnuserDto = userDao.selectUser(userDto.getUser_id());
-      session.setAttribute("UserDto", returnuserDto);
+      setUserSecurity(userDto);
       return returnuserDto.getUser_point();
     } catch (Exception e) {
       // TODO Auto-generated catch block
@@ -68,4 +76,11 @@ public class iamportController {
     
   }
  
+  public void setUserSecurity(UserDto userDto) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
+    updatedAuthorities.add(new SimpleGrantedAuthority(String.valueOf(userDto.getUser_point()))); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
+    Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
+    SecurityContextHolder.getContext().setAuthentication(newAuth);
+  }
 }

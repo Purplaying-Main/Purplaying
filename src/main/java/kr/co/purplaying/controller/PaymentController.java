@@ -290,6 +290,64 @@ public class PaymentController {
     
   }
   
+  /*결제취소*/
+  @PostMapping("/paymentCancel")
+  public String paymentCancel(int pay_no, HttpServletResponse response, HttpServletRequest request) {
+      try {
+      List<PaymentDto> list = paymentDao.paynoinfo(pay_no);
+      int user_no = list.get(0).getUser_no();
+      int prdt_id = list.get(0).getPrdt_id();
+      int pay_total = list.get(0).getPay_total();
+      
+      
+      Map pn = new HashMap();
+      pn.put("pay_no", pay_no);
+      
+      List<PaymentDto> list_r = paymentDao.paynoreinfo(pn);
+
+      String[] rd_id = list_r.get(0).getReward_id_s().split(",");
+      String[] rd_cnt = list_r.get(0).getReward_user_cnt_s().split(",");
+
+      Cookie[] cookies = request.getCookies();
+      Cookie cancelCookie = null;
+      
+      if(cookies!=null && cookies.length>0) {
+        for(int i=0;i<cookies.length;i++) {
+          if(cookies[i].getName().equals("cookie"+pay_no)){
+            cancelCookie = cookies[i];
+          }
+        }
+      }
+      
+      if(cancelCookie == null) {
+        Cookie newcookie = new Cookie("cookie"+pay_no,"pay_no");
+        response.addCookie(newcookie);
+        
+        List<RewardDto> rewardInfo = rewardDao.selectReward(prdt_id);
+        
+        for (int i = 0; i < rd_id.length; i++) {
+          for (int j = 0; j < rewardInfo.size(); j++) {
+            if (Integer.parseInt(rd_id[i]) == rewardInfo.get(j).getRow_number()) {
+              rewardDao.renewReward(prdt_id, rewardInfo.get(j).getReward_id(),
+                  rewardInfo.get(j).getReward_stock(), Integer.parseInt(rd_cnt[i]));
+            }
+            else {
+              continue;
+            }
+          }
+        }
+               
+        paymentService.paymentCancel(pay_no, pay_total,prdt_id,user_no);
+        }
+      }
+      catch (Exception e) {
+        
+      }
+      return "redirect:/mypage";
+      
+  }
+  
+  
   /*로그인 validation*/
   private boolean loginCheck(String string) {
     // 1. 세션을 얻어서

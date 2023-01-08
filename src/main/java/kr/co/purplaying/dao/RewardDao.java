@@ -23,4 +23,6 @@ public interface RewardDao {
   //결제-리워드 수량 감소
   int calRewardStock(int prdt_id, int reward_id, int reward_stock, int reward_user_cnt) throws Exception;
   
+  //결제취소-리워드 수량 증가
+  int renewReward(int prdt_id,int reward_id, int reward_stock, int reward_user_cnt) throws Exception;
 }

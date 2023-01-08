@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication property="principal" var="prc"/>
 <!DOCTYPE html>
 <html>
 
@@ -12,10 +14,10 @@
                 <div class="modal-body p-5 pt-0">
                 	<input type="hidden" id="payaddress_num" />
                 	<input type="hidden" id="payaddress" />
-                	<input type="hidden" id="payuser_no" value="${UserDto.user_no}" />
-                	<input type="hidden" id="payuser_id" value="${UserDto.user_id}" />
-                	<input type="hidden" id="payuser_name" value="${UserDto.user_name}" />
-                	<input type="hidden" id="payuser_phone" value="${UserDto.user_phone}" />
+                	<input type="hidden" id="payuser_no" value="${prc.user_no}" />
+                	<input type="hidden" id="payuser_id" value="${prc.user_id}" />
+                	<input type="hidden" id="payuser_name" value="${prc.user_name}" />
+                	<input type="hidden" id="payuser_phone" value="${prc.user_phone}" />
                     <select id="point_price" class="form-select fs-6" onchange="pointSelect()">
 						<option value="0"selected disabled>금액을 선택해주세요</option>
 						<!-- <option value="10">10원</option> -->
@@ -69,7 +71,10 @@
     	    	console.log(rsp);
     	    	$.ajax({
   	        	type : "POST",
-  	        	url : "/purplaying/iamport/verifyIamport/" + rsp.imp_uid 
+  	        	url : "/purplaying/iamport/verifyIamport/" + rsp.imp_uid,
+  	        	beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    }
   	        }).done(function(data) {
   	        	console.log(data);
   	        	// 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
@@ -80,6 +85,9 @@
   						url: '/purplaying/iamport/insertpoint/'+rsp.paid_amount,                                                                                
   						headers:{"content-type" : "application/json"},
   						dataType : 'text',
+  						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
   						success:function(result){	//결제 완료후 포인트 출력
   							$('#user_point').html("현재 보유 포인트 : "+result)
   							$('#pointpayModal').modal("hide");
@@ -114,6 +122,9 @@
 			$.ajax({
       		type: 'POST',			
 				url: '/purplaying/setting/addresslist/'+user_no,
+				beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success : function(result) {			
 					console.log(result[0].address)
 					$("#payaddress").val(result[0].address)		

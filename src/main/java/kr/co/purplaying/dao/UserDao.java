@@ -37,4 +37,6 @@ public interface UserDao {
     //결제-유저포인트감소
     int updatePoint(int user_no,int user_point)  throws Exception;
     UserDto getUserById(String user_id) throws Exception;
+    
+    int refundPoint(int user_no,int refundFee) throws Exception;
 }

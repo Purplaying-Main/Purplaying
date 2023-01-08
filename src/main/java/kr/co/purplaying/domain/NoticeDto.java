@@ -13,6 +13,8 @@ public class NoticeDto{
 	private Integer notice_category;
 	private boolean notice_private;
 	private int view_cnt;
+	private String user_id;
+	private String user_nickname;
 
 	
 	public NoticeDto() {
@@ -57,7 +59,7 @@ public class NoticeDto{
   public String toString() {
     return "NoticeDto [notice_id=" + notice_id + ", writer=" + writer + ", notice_title=" + notice_title
         + ", notice_context=" + notice_context + ", notice_regdate=" + notice_regdate + ", notice_category="
-        + notice_category + ", notice_private=" + notice_private + ", view_cnt=" + view_cnt + "]";
+        + notice_category + ", notice_private=" + notice_private + ", view_cnt=" + view_cnt + ", user_id=" + user_id + ", user_nickname=" + user_nickname + "]";
   }
 
 
@@ -140,5 +142,24 @@ public class NoticeDto{
     this.view_cnt = view_cnt;
   }
 
-	
+
+  public String getUser_id() {
+    return user_id;
+  }
+
+
+  public void setUser_id(String user_id) {
+    this.user_id = user_id;
+  }
+
+
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+
+
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
+  }
+
 }

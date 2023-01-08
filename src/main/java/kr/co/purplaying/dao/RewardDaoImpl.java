@@ -60,6 +60,16 @@ public class RewardDaoImpl implements RewardDao {
     return session.selectList(namespace+"rewardCategory", map);
   }
 
+  @Override
+  public int renewReward(int prdt_id, int reward_id, int reward_stock, int reward_user_cnt) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("reward_id", reward_id);
+    map.put("reward_stock", reward_stock);
+    map.put("reward_user_cnt", reward_user_cnt);
+    return session.update(namespace+"renewReward", map);
+  }
+
 
   
 }
