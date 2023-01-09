@@ -130,10 +130,14 @@ public class MypageController {
       List<AlarmDto> list_alarm = alarmService.selectPage(map);
 //      System.out.println("list_alarm : "+list_alarm);
       m.addAttribute("list_alarm", list_alarm);
-
-      AlarmDto alarmDto = list_alarm.get(0);
-      System.out.println("alarmDto : "+alarmDto);
-      m.addAttribute("alarmDto", alarmDto);
+        
+        // 알림 목록 있을 때
+        if (list_alarm.size() != 0) {
+          AlarmDto alarmDto = list_alarm.get(0);
+          System.out.println("alarmDto : "+alarmDto);
+          m.addAttribute("alarmDto", alarmDto);
+        }
+      
 
       } catch (Exception e) {
         e.printStackTrace();

@@ -47,7 +47,9 @@
             <!-- 창작중인 펀딩 영역-->
               <h5 class="my-4">${prc.user_nickname }님이 창작중인 펀딩</h5>
 			  <c:if test="${fn:length(list) ne 0}">
-			  <c:forEach var="projectDto" items="${list}">
+			  
+			  	<c:forEach var="projectDto" items="${list}">
+			  	  <c:if test="${projectDto.user_id == prc.user_id}">
 		             <form id="form" class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"> 
 		                <div class="col-auto d-none d-lg-block">
 		                	<img class="bd-placeholder-img" width="230" height="100%" id="prdt_thumbnail" name="prdt_thumbnail"
@@ -89,9 +91,11 @@
 		                  <p class="card-text mb-2 text-truncate" style="max-width:500px">${projectDto.prdt_desc}</p>
 		                  <p class="text-muted mb-0">심사완료</p>
 		                </div>
-		             </form>  
-		      </c:forEach>
-		      </c:if>
+		             </form>
+		            </c:if>  
+		     	 </c:forEach>
+		        </c:if>
+		      
 	          
               <!-- 신규 프로젝트 작성 버튼 -->
               <div class="row">
