@@ -272,15 +272,9 @@
                   </div>
                	  <div class="pt-3"><!-- 업데이트 내용 입력 / 수정 영역 -->
                     <div class="pt-3 text-end" id="writeBtn2" style="display: block;">
-<<<<<<< HEAD
-                    	<sec:authorize access="isAuthenticated()">
-                	  		<button type="button" class="btn btn-primary" ${prc.user_id eq projectDto.writer ? '': prc.user_role eq 'USER_ADMIN' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
-                    	</sec:authorize>
-=======
                     <sec:authorize access="isAuthenticated()">
                 	  <button type="button" class="btn btn-primary" ${prc.user_id eq projectDto.writer ? '': prc.user_role eq 'USER_ADMIN' ? '': 'style="display:none;"' } onclick="showHide('writeArea2'); showHide('writeBtn2');">업데이트 내역 추가하기</button>
                     </sec:authorize>
->>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
                     </div>
                     <div class="align-items-end" id="writeArea2" style="display: none;">
                       <div class="col-10">
@@ -300,21 +294,14 @@
                 
                 <!-- 댓글 작성 창(회원에게만 노출) -->
                   <div class="text-start">
-<<<<<<< HEAD
-<<<<<<< HEAD
+                  <p><span class="fw-bold">작성자 닉네임></span>
                   <sec:authorize access="isAnonymous()">
-						<div id="needLogin" class="text-center">
-							<h1>로그인이 필요한 서비스입니다</h1>
-						</div>
+						로그인 후 이용해주세요.
 					</sec:authorize>
                   <sec:authorize access="isAuthenticated()">
-                    <p> 작성자 닉네임 > ${sessionScope.UserDto.user_nickname }</p>
-=======
-                    <p> 작성자 닉네임 > ${prc.user_nickname}</p>
->>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
-=======
-                    <p> 작성자 닉네임 > <sec:authorize access="isAuthenticated()">${prc.user_nickname}</sec:authorize></p>
->>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
+						${prc.user_nickname}
+				  </sec:authorize>
+				  </p>
                     <div id="commentStart">
                     	<div class="row align-items-end">
                       		<div class="col-10">
@@ -353,13 +340,8 @@
 		                      	</div>
 		                     </div> -->
 					</div>
-<<<<<<< HEAD
-					</sec:authorize>
 				</div>
-=======
-                     <!--답글 종료-->
-                     
->>>>>>> branch 'Spring-Security' of https://github.com/Purplaying-Main/Purplaying.git
+
 			</div>
 			
                  <!--댓글 종료-->
@@ -973,9 +955,9 @@
 		    	tmp +=  '		</div>'
 				}
 			else {			// 로그인한 유저 번호와 작성댓글 유저 번호가 다르면 출력
-				tmp +=	'		<div class="d-flex justify-content-end">'
+				tmp +=	'		<sec:authorize access="isAuthenticated()"><div class="d-flex justify-content-end">'
 	    		tmp +=	'			<button type="button" id="replyBtn" class="replyBtn btn btn-primary" onclick="reply_Modal()">답 변</button>'
-    			tmp +=  '		</div>'
+    			tmp +=  '		</div></sec:authorize>'
 				} 
 				
 				

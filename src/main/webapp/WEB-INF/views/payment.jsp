@@ -330,9 +330,12 @@
 		$.ajax({
 			type: 'POST',			//요청 메서드
 			url: '/purplaying/payment/addresslist/'+user_no,		// 요청 URI
+			beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
 			success : function(result) {			// 서버로부터 응답이 도착하면 호출될 함수 
 				$("#addlist").html(toHtml(result))		// result는 서버가 전송한 데이터
-			},
+			}, 
 			error : function() { alert("error") }	// 에러가 발생할 때, 호출될 함수 
 		})
 	}
@@ -365,6 +368,9 @@
 				headers:{"content-type" : "application/json"},
 				dataType : 'text',
 				data : JSON.stringify({address_id:address_id}),
+				beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+			    },
 				success:function(result){
 					address = JSON.parse(result)
 					$("#dt_recieverName").val(address.receiver_name)
