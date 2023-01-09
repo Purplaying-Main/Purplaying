@@ -94,7 +94,7 @@ public class MypageController {
 //      System.out.println("list_like: "+list_like);
       m.addAttribute("list_like",list_like);   
         
-      List<ProjectDto> list = projectService.getPage(map);
+      List<ProjectDto> list = projectDao.getMyFunding(user_id);
       
      
       m.addAttribute("list", list);

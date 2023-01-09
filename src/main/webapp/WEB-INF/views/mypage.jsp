@@ -77,9 +77,7 @@
 		                      </div>
 		                    </div>
 		                  </div>
-		                  <a href='<c:url value="/project/modify/${projectDto.prdt_id }"/>'>
-		                  <h4 class="mb-0">${projectDto.prdt_name}</h4>
-		                  </a> 
+		                  <a  class="mb-0" onclick="modifyFunding(${projectDto.prdt_id})"><h4>${projectDto.prdt_name}</h4></a>
 		                  <p class="mb-1 text-danger">현재 달성률 ${projectDto.prdt_percent}% 
 		                  <c:choose>
 			                  <c:when test="${projectDto.prdt_comingday > 0 }">공개 D-${projectDto.prdt_comingday}</c:when>
@@ -369,6 +367,15 @@
 			}
 		})
 	}
+	</script>
+	<script type="text/javascript">
+		function modifyFunding(prdtid){
+			let prdt_id = prdtid;
+			let location ="/	purplaying/project/modify/"+prdt_id
+			if(confirm("창작중인 펀딩을 수정하시겠습니까?")){
+				window.location.href= location
+			}
+		}
 	</script>
 	<script>
   	let msg = "${msg}";
