@@ -51,7 +51,7 @@
               <label for="username" class="form-label">이름</label>
               <div class="input-group has-validation">
                 <!-- <span class="input-group-text"></span> -->
-                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" required>
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" onchange="check_name(this)" required>
               <div class="invalid-feedback">
                   이름을 입력해주세요
                 </div>
@@ -63,7 +63,7 @@
               <label for="username" class="form-label">닉네임</label>
               <div class="input-group has-validation">
                 <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="닉네임" required>
+                <input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="닉네임" onchange="check_nickname(this)" required>
               <div class="invalid-feedback">
                   닉네임을 입력해주세요
                 </div>
@@ -74,7 +74,7 @@
             <div class="col-12 mt-2">
               <label for="userphone" class="form-label">연락처</label>
               <div class="input-group mb-3">
-                <input type="text" class="form-control" id="user_phone" name="user_phone" maxlength="11" placeholder="휴대폰 번호 (-없이 입력)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
+                <input type="text" class="form-control" pattern="[0-9]+" id="user_phone" name="user_phone" maxlength="11" placeholder="휴대폰 번호 (-없이 입력)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                	<div class="invalid-feedback">
                   번호를 입력해주세요
                 </div>
@@ -311,6 +311,22 @@
 
     </div>
 	<script type="text/javascript">
+		function blankCheck(value){
+			let blank_pattern = /[\s]/g;
+			if(blank_pattern.test(value)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		function specialCheck(value){
+			let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+			if(special_pattern.test(value)){
+				return true;
+			}else{
+				return false;
+			}
+		}
 		function check_id_change(element){
 			if(element.classList.contains("IDCHECK")){
 				$("#email").removeClass('IDCHECK')
@@ -344,18 +360,42 @@
 			let pwd = document.getElementById('password').value;
 			let pwdchk = document.getElementById('passwordConfirm').value;
 			if(pwdchk != ""){
-				if(pwd == pwdchk){
-					$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
-					$("#password").addClass('PWDCHECK')
-				}
-				else{
-					$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
-					$("#password").removeClass('PWDCHECK')
+				if(!blankCheck(pwd) || !blankCheck(pwdchk)){
+					if(pwd == pwdchk){
+						$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
+						$("#password").addClass('PWDCHECK')
+					}
+					else{
+						$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
+						$("#password").removeClass('PWDCHECK')
+					}
+				}else{
+					$("#check_pwd_msg").show().html('비밀번호에 공백이 있습니다').css("color","red");
 				}
 			}else{
 				$("#check_pwd_msg").hide().html('').css("color","red");
 			}
-			
+		}
+		function check_name(element){
+			let name = element.value;
+			if(blankCheck(name)){
+				$("#check_name_msg").show().html('이름에 공백이 있습니다.').css("color","red");
+			}else if(specialCheck(name)){
+				$("#check_name_msg").show().html('이름에 특수기호가 있습니다.').css("color","red");
+			}else{
+				$("#check_name_msg").hide().html('');
+			}
+		}
+		
+		function check_nickname(element){
+			let nickname = element.value;
+			if(blankCheck(nickname)){
+				$("#check_nickname_msg").show().html('이름에 공백이 있습니다.').css("color","red");
+			}else if(specialCheck(nickname)){
+				$("#check_nickname_msg").show().html('이름에 특수기호가 있습니다.').css("color","red");
+			}else{
+				$("#check_nickname_msg").hide().html('');
+			}
 		}
 		
 		$(document).ready(function(){
@@ -394,7 +434,10 @@
 					$("#check_id_msg").show().html('아이디를 입력해주세요').css("color","red");
 				}else if(!id_form.test(val)){
 					$("#check_id_msg").show().html('이메일형식을 입력해주세요').css("color","red");
+				}else if(blankCheck(val)){
+					$("#check_id_msg").show().html('공백이 있습니다.').css("color","red");
 				}else{
+					console.log(val)
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/chkuserid',
