@@ -37,11 +37,11 @@
                 <div class="text-center" id="findIdAlert" style="display:none;"></div>
                 <form>
                   <div class="form-floating py-2">
-                    <input type="email" class="form-control" id="user_name" name="user_name" placeholder="이름을 입력하세요">
+                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름을 입력하세요">
                     <label for="user_number">Name</label>
                   </div>
                   <div class="form-floating py-2">
-                    <input type="email" class="form-control" id="user_phone" name="user_phone" placeholder="- 을 제외한 전화번호">
+                    <input type="text" class="form-control" id="user_phone" name="user_phone" placeholder="- 을 제외한 전화번호" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                     <label for="user_phone">Phone Number( - 을 제외한 전화번호)</label>
                   </div>
                   <input class="w-100 btn btn-lg btn-primary" type="button" id="findAccountBtn" value="이메일 확인" onclick="findAccount()"/>
