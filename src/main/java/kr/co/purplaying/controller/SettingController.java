@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import kr.co.purplaying.domain.AddressDto;
 import kr.co.purplaying.domain.SettingDto;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.SettingService;
+import kr.co.purplaying.service.UserService;
 
 
 @Controller
@@ -41,6 +44,10 @@ public class SettingController {
   
   @Autowired
   SettingDao settingDao;
+  
+  @Autowired
+  UserService userService;
+  
   
   
   @RequestMapping(value="/setting", method=RequestMethod.GET)
@@ -94,14 +101,18 @@ public class SettingController {
     
     try {
       //프로필 변경시 유저정보(userDto) 세션에 저장
-      UserDto userDto = settingService.setUser(id);
+     
         
         // 프로필 사진 수정이 되지 않았으면 오류를 반환
         if(settingService.modifyProfile(map) != 1)
             throw new Exception("Update failed");
         
+        //DB(이미지변경)이후 유저의 데이터 불러오기
+        UserDto userDto = userDao.getUserById(id);
+        
+        //불러온 유저 데이터로 인증정보 수정하는 메서드(setUserSecurity호출)
         setUserSecurity(userDto);
-        System.out.println("유저 정보 : "+authentication.getPrincipal().toString());
+        
         return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
     }catch(Exception e) {
         e.printStackTrace();
@@ -360,11 +371,10 @@ public class SettingController {
     }
   }
   
+  //유저 정보 (principal 수정)
   public void setUserSecurity(UserDto userDto) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-    updatedAuthorities.add(new SimpleGrantedAuthority(userDto.getUser_profile())); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
-    Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-    SecurityContextHolder.getContext().setAuthentication(newAuth);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(userDto,"",userDto.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    System.out.println("변경후 : "+authentication.getPrincipal());
   }
 }
