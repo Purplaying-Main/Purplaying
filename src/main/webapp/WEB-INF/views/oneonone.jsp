@@ -17,6 +17,11 @@
 <body>
 	<!--헤더 인클루드-->
 	<%@ include file="header.jsp"%>
+	
+	<script type="text/javascript">
+		let msg = "${msg}"
+		if(msg == "no_authorization") alert("잘못된 접근입니다.")
+	</script>
 
 	<!--페이지 내용 시작-->
 	<section>
