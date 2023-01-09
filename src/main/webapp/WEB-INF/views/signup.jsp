@@ -74,7 +74,7 @@
             <div class="col-12 mt-2">
               <label for="userphone" class="form-label">연락처</label>
               <div class="input-group mb-3">
-                <input type="number" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" required>
+                <input type="text" class="form-control" id="user_phone" name="user_phone" maxlength="11" placeholder="휴대폰 번호 (-없이 입력)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                	<div class="invalid-feedback">
                   번호를 입력해주세요
                 </div>
@@ -500,6 +500,8 @@
 				}
 			});
 		});
+		
+		
 	</script>
 	</section>
   <!--푸터 인클루드-->
