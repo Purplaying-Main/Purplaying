@@ -104,7 +104,7 @@
               <hr class="mt-4 mb-2">
               
               <!-- 후원중인 펀딩 영역-->
-              <h5 class="mt-4 mb-2">${prc.user_id}님이 후원중인 펀딩</h5>
+              <h5 class="mt-4 mb-2">${prc.user_nickname}님이 후원중인 펀딩</h5>
                <c:choose>
                	<c:when test="${fn:length(userF) ne 0 }">
                	<c:set var="i" value="0"/>

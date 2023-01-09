@@ -369,7 +369,11 @@
 				alert("카테고리를 선택해주세요")
 				document.getElementById("prdt_genre").focus()
 				return false
-			}	
+			}
+			if(document.getElementById("rewardCardBefore")) {
+				alert("하나 이상의 리워드를 등록해주세요.")
+				return false
+			}
 			alert("저장되었습니다.")
 			return true; 
 		} 
@@ -614,6 +618,17 @@
 		})
 		
 		
+	</script>
+	<!-- 새로고침하여 double submit 되는거 방지 -->
+	<script type="text/javascript">
+	function NotReload(){
+	    if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+	        event.keyCode = 0;
+	        event.cancelBubble = true;
+	        event.returnValue = false;
+	    } 
+	}
+	document.onkeydown = NotReload;
 	</script>
 	<!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
