@@ -10,10 +10,12 @@
 	<bean id="customUserService" class="kr.co.purplaying.security.CustomUserDetailService" />
 	<bean id="loginSuccessHandler" class="kr.co.purplaying.security.loginSuccessHandler"/>
 	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
-	
-	
-	
+		
 	<security:http>
+		<security:headers>
+			<security:frame-options policy="SAMEORIGIN"/>
+		</security:headers>
+	
 		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우 isAnonymous() : 권한이없을때 or 로그인 안되어있을때 -->
 		<security:intercept-url pattern="/user/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/user/signup" access="isAnonymous()" />
