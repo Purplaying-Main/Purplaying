@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -264,8 +266,9 @@ public class OneononeController {
       m.addAttribute("user_role",user_role);
       System.out.println(userDto);
       AnsDto ansDto = ansService.selectAnsData(inquiry_no);
-      
-      if (inquiry_private == true) {
+
+        System.out.println("inquiry_private : " + oneononeDto.isInquiry_private());
+        
         if (ansDto == null) {
           m.addAttribute("ansState", false);
           m.addAttribute("user_role",user_role);
@@ -274,31 +277,22 @@ public class OneononeController {
           m.addAttribute("ansState", true);
           m.addAttribute("user_role",user_role);
         }
-      }
-        else {
-          if(!userDto.getUser_id().equals(oneononeDto.getWriter())|| userDto.getUser_role()=="ROLE_ADMIN") {
-            rattr.addFlashAttribute("msg", "no_authorization");
-            String msg = "no_authorization";
-            return "redirect:/oneonone/list";
-          }
-          else {
-            if (ansDto == null) {
-              m.addAttribute("ansState", false);
-              m.addAttribute("user_role",user_role);
-            } else {
-              m.addAttribute("ansDto", ansDto);
-              m.addAttribute("ansState", true);
-              m.addAttribute("user_role",user_role);
-          }
-          }
+
           
-        }
 //--          System.out.println(ansDto);
 
 //      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
       oneononeDto = oneononeService.read(inquiry_no);
 //--         System.out.println(oneononeDto);
       System.out.println(oneononeDto);
+      System.out.println("inquiry_private : " + oneononeDto.isInquiry_private());
+      if (oneononeDto.isInquiry_private() == false) {
+        if(!userDto.getUser_id().equals(oneononeDto.getWriter())|| userDto.getUser_role() == "ROLE_ADMIN") {
+          rattr.addFlashAttribute("msg", "no_authorization");
+          String msg = "no_authorization";
+          return "redirect:/oneonone/list";
+        }
+      }
       oneononeDto.getAnsDto();
 
       m.addAttribute("oneononeDto", oneononeDto);
@@ -368,6 +362,12 @@ public class OneononeController {
     
     return string != null || string != ""; 
       
+  }
+  // 유저 정보 (principal 수정)
+  public void setUserSecurity(UserDto userDto) {
+    Authentication authentication = new UsernamePasswordAuthenticationToken(userDto,"",userDto.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    System.out.println("변경후 : "+authentication.getPrincipal());
   }
 
 }
