@@ -4,15 +4,18 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 	<bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	<context:component-scan base-package="kr.co.purplaying" />
 	<bean id="customUserService" class="kr.co.purplaying.security.CustomUserDetailService" />
 	<bean id="loginSuccessHandler" class="kr.co.purplaying.security.loginSuccessHandler"/>
 	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
-	
+		
 	<security:http>
+		<security:headers>
+			<security:frame-options policy="SAMEORIGIN"/>
+		</security:headers>
+	
 		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우 isAnonymous() : 권한이없을때 or 로그인 안되어있을때 -->
 		<security:intercept-url pattern="/user/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/user/signup" access="isAnonymous()" />
@@ -46,9 +49,7 @@
             							  error-if-maximum-exceeded="true" />
             							  
         </security:session-management>
-		
-		
-		
+				
 	</security:http>
 	
 	<!--  provider  -->

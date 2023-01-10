@@ -65,9 +65,10 @@ public class iamportController {
       if(userDao.updatePoint(userDto)!=1) {
         return 0;
       }
-      UserDto returnuserDto = userDao.selectUser(userDto.getUser_id());
-      setUserSecurity(userDto);
-      return returnuserDto.getUser_point();
+      UserDto afterUserDto = userDao.getUserById(userDto.getUser_id());
+      setUserSecurity(afterUserDto);
+      
+      return afterUserDto.getUser_point();
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -76,11 +77,10 @@ public class iamportController {
     
   }
  
+  //유저 정보 (principal 수정)
   public void setUserSecurity(UserDto userDto) {
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
-    updatedAuthorities.add(new SimpleGrantedAuthority(String.valueOf(userDto.getUser_point()))); //add your role here [e.g., new SimpleGrantedAuthority("ROLE_NEW_ROLE")]
-    Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), updatedAuthorities);
-    SecurityContextHolder.getContext().setAuthentication(newAuth);
+    Authentication authentication = new UsernamePasswordAuthenticationToken(userDto,"",userDto.getAuthorities());
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+    System.out.println("변경후 : "+authentication.getPrincipal());
   }
 }

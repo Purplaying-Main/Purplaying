@@ -1,6 +1,10 @@
 package kr.co.purplaying.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +19,7 @@ public class UserServiceImpl implements UserService{
   
   @Autowired
   private BCryptPasswordEncoder bcryptPasswordEncoder;
-  
+    
   @Override
   public int signUpUser(String user_id, String user_pwd, String user_name, String user_nickname, String user_phone) throws Exception {
     UserDto userInfo = new UserDto();
@@ -45,7 +49,6 @@ public class UserServiceImpl implements UserService{
     
     return userDao.updateUserPwd(userDto);
   }
-  
-  
+    
 
 }

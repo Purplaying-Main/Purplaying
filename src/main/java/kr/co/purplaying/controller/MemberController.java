@@ -50,7 +50,7 @@ public class MemberController {
     
     @Autowired
     private BCryptPasswordEncoder bcryptPasswordEncoder;
-    
+       
     @Autowired
     private JavaMailSender mailSender;
   
@@ -107,6 +107,12 @@ public class MemberController {
     }
     
     //PostMapping////////////////////////////////////////////////////////////////////////////////////
+    
+//    @PostMapping("/remember")
+//    @ResponseBody
+//    public void rememberId(String user_id ,HttpServletRequest request, HttpServletResponse response) throws Exception{ 
+//      makeCookie(response, user_id);
+//    }
     
     @PostMapping("/sendMail")
     @ResponseBody
@@ -310,11 +316,12 @@ public class MemberController {
     }
     
     public static void makeCookie(HttpServletResponse response, String user_id) {
-        Cookie cookieid = new Cookie("user_id", user_id); 
+        Cookie cookieid = new Cookie("remember-id", user_id); 
+        cookieid.setMaxAge(604800);
         response.addCookie(cookieid);       
     }
     public static void deleteCookie(HttpServletResponse response, String user_id) {
-        Cookie cookieid = new Cookie("user_id", user_id); 
+        Cookie cookieid = new Cookie("remember-id", user_id); 
         cookieid.setMaxAge(0);
         response.addCookie(cookieid);   
     }
