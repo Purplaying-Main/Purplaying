@@ -191,7 +191,7 @@ public class OneononeController {
       RedirectAttributes rattr, Authentication authentication) {
 
     UserDto userDto = (UserDto) authentication.getPrincipal();
-    admin_id = userDto.getUser_id();
+    String writer = userDto.getUser_id();
     ansDto.setAdmin_id(admin_id);
     String msg = "DEL_OK";
     System.out.println(msg);
@@ -251,15 +251,21 @@ public class OneononeController {
 
   // 게시글 읽기
   @GetMapping("/read")
-  public String read(Integer inquiry_no, boolean user_role , boolean inquiry_private, Integer page, Integer pageSize, 
+  public String read(Integer inquiry_no, String user_nickname,String user_id, boolean user_role , boolean inquiry_private, Integer page, Integer pageSize, 
                     Model m, Authentication authentication, RedirectAttributes rattr) {
    
+    
+    OneononeDto oneononeDto = new OneononeDto();
+
+       
     try {
       UserDto userDto = (UserDto) authentication.getPrincipal();
       String writer = userDto.getUser_id();
       m.addAttribute(userDto);
+
       
-      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
+      oneononeDto = oneononeService.read(inquiry_no);
+      
       m.addAttribute("inquiry_private", inquiry_private);
       oneononeDto.setInquiry_private(inquiry_private);
 //      UserDto userDto = userDao.selectUser(user_id);
@@ -269,6 +275,14 @@ public class OneononeController {
 
         System.out.println("inquiry_private : " + oneononeDto.isInquiry_private());
         
+      //--          System.out.println(ansDto);
+
+//      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
+      oneononeDto = oneononeService.read(inquiry_no);
+//--         System.out.println(oneononeDto);
+      System.out.println(oneononeDto);
+      System.out.println("inquiry_private : " + oneononeDto.isInquiry_private());
+        
         if (ansDto == null) {
           m.addAttribute("ansState", false);
           m.addAttribute("user_role",user_role);
@@ -277,22 +291,37 @@ public class OneononeController {
           m.addAttribute("ansState", true);
           m.addAttribute("user_role",user_role);
         }
-
-          
-//--          System.out.println(ansDto);
-
-//      OneononeDto oneononeDto = oneononeService.read(inquiry_no);
-      oneononeDto = oneononeService.read(inquiry_no);
-//--         System.out.println(oneononeDto);
-      System.out.println(oneononeDto);
-      System.out.println("inquiry_private : " + oneononeDto.isInquiry_private());
+/*          
       if (oneononeDto.isInquiry_private() == false) {
-        if(!userDto.getUser_id().equals(oneononeDto.getWriter())|| userDto.getUser_role() == "ROLE_ADMIN") {
+        if (!userDto.getUser_id().equals(oneononeDto.getWriter() ) ) {
+          rattr.addFlashAttribute("msg", "no_authorization");
+          String msg = "no_authorization";
+          return "redirect:/oneonone/list";
+        }
+        else if (!userDto.getUser_role().equals("ROLE_ADMIN")) {
           rattr.addFlashAttribute("msg", "no_authorization");
           String msg = "no_authorization";
           return "redirect:/oneonone/list";
         }
       }
+*/      
+        if (oneononeDto.isInquiry_private() == false) {  
+      if (userDto.getUser_id().equals(oneononeDto.getWriter()) || userDto.getUser_role().equals("ROLE_ADMIN")) {
+        if (ansDto == null) {
+          m.addAttribute("ansState", false);
+          m.addAttribute("user_role",user_role);
+        } else {
+          m.addAttribute("ansDto", ansDto);
+          m.addAttribute("ansState", true);
+          m.addAttribute("user_role",user_role);
+        }
+    } else {
+              rattr.addFlashAttribute("msg", "no_authorization");
+              String msg = "no_authorization";
+              return "redirect:/oneonone/list";
+              
+    }
+        }
       oneononeDto.getAnsDto();
 
       m.addAttribute("oneononeDto", oneononeDto);
