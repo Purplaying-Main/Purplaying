@@ -136,5 +136,12 @@
 		})
 	})
 	</script>
+	<script type="text/javascript">
+		let msg = "${msg}";
+		if(msg == "invalid_access") {
+			alert("비정상적인 접근입니다.");
+		}
+		
+	</script>
 </body>
 </html>

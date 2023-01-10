@@ -109,9 +109,13 @@ public class NoticeController {
   
   
   @GetMapping("/write")
-  public String write(Model m, NoticeDto noticeDto, Authentication authentication) {
-   
+  public String write(Model m, NoticeDto noticeDto, Authentication authentication, RedirectAttributes rattr) {
+    
     UserDto userDto = (UserDto) authentication.getPrincipal();
+    if(!userDto.getUser_role().equals("ROLE_ADMIN")) {
+      rattr.addFlashAttribute("msg", "invalid_access");
+      return "redirect:/notice/list";
+    }
     String writer = userDto.getUser_id();
     noticeDto.setWriter(writer);
     

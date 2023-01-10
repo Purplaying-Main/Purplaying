@@ -35,12 +35,14 @@
 				  <tr>
 				    <th scope="col">제목</th>
 				    <td scope="col" class="col-2">
-	              		<select class="form-select fs-6" id="notice_category" name="notice_category" value="${noticeDto.notice_category}">
+	              		<select class="form-select fs-6" id="notice_category" name="notice_category">
 						  	<option value="0" selected>카테고리</option>
 						 	<option value="1">공지사항</option>
 						  	<option value="2">이벤트</option>
 						  	<option value="3">기타</option>
 						</select>
+						  	<input type="hidden" id="mode" value="${mode }" >
+						  	<input type="hidden" id="category" value="${noticeDto.notice_category }" >
 				    </td>
 				    <td>
   						<input type="text" class="form-control" placeholder="제목을 입력하세요" name="notice_title" value="${noticeDto.notice_title}">
@@ -65,7 +67,7 @@
 			<div style="height: 500px;">
 				<textarea class="summernote" placeholder="내용을 입력하세요​" name="notice_context">${noticeDto.notice_context}</textarea>
 			</div>
-
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<div class="text-end my-5">
 					<label class="btn btn-outline-danger" id="noticeWriteCancelBtn">작성취소</label>
 					<button type="button" class="btn btn-primary" id='${mode=="new" ? "writeBtn" : "modifyBtn" }'>게 시</button>
@@ -89,6 +91,7 @@
 						</div>
 					</div>
 				</div>
+				</sec:authorize>
 				<!-- 작성취소 모달창 start -->
 					<div class="modal fade" id="noticeWriteCancel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="noticeWriteCancelLabel" aria-hidden="true">
@@ -156,6 +159,12 @@
 				return false
 			}	
 			return true;
+		}
+	</script>
+	<!-- 글 수정시 카테고리 유지 -->
+	<script type="text/javascript">
+		if(document.getElementById("mode").value != "new"){
+			document.getElementById("notice_category").value = document.getElementById("category").value;
 		}
 	</script>
 </body>
