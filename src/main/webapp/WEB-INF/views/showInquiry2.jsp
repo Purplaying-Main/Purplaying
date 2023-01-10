@@ -28,6 +28,7 @@
 		if(msg == "MOD_ERR") alert("게시물 수정에 [실패] 하였습니다. 다시 시도해 주세요.")
 	</script>
 
+
 	<!--페이지 내용 시작-->
 	<section>
 		<h1 class="visually-hidden">홈</h1>
@@ -117,10 +118,9 @@
 									<div class="mt-3 text-end">
 										<!-- 수정권한 확인  -->
 										<sec:authorize access="hasRole('ROLE_ADMIN')">
-											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-											<button type="button" id="modifyBtn" class="btn btn-outline-primary">
+											<button type="button" id="ans_modifyBtn" class="btn btn-outline-primary">
 												<i class="fa fa-edit"></i>수정</button>
-											<button type="button" id="removeBtn" class="btn btn-outline-danger"><i class="fa fa-trash">
+											<button type="button" id="removeAnsBtn" class="btn btn-outline-danger"><i class="fa fa-trash">
 												</i>삭제</button>
 										
 										</sec:authorize>

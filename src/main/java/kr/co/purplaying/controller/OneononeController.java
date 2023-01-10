@@ -116,6 +116,7 @@ public class OneononeController {
     ansDto.setAdmin_id(admin);
 
     System.out.println(ansDto);
+    System.out.println(userDto);
 
     try {
       if (ansService.modifyAns(ansDto) != 1) {
