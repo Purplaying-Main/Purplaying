@@ -168,4 +168,10 @@ public class ProjectDaoImpl implements ProjectDao {
     map.put("refundFee",refundFee );
     return session.update(namespace+"updateProject", map);
   }
+
+  @Override
+  public List<ProjectDto> getMyFunding(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"getMyFunding", user_id);
+  }
 }

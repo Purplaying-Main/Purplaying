@@ -77,6 +77,13 @@
 			limit #{pageSize} OFFSET  #{offset}
 	</select>
 	
+	<!-- 마이페이지 창작중인 펀딩 -->
+	<select id="getMyFunding" parameterType="String" resultType="ProjectDto"> 
+		<include refid="selectFromProject"/>
+			where writer = #{user_id}
+			order by prdt_id desc
+	</select>
+	
 	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
   		SELECT count(*)
 		FROM tb_product

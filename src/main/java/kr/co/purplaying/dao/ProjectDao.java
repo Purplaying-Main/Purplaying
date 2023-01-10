@@ -46,4 +46,6 @@ public interface ProjectDao {
   List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception;
   
   int updateProject(int prdt_id, int refundFee) throws Exception;
+  //마이페이지
+  List<ProjectDto> getMyFunding(String user_id) throws Exception;
 }

@@ -65,6 +65,8 @@
 							<h2 class="writing-header">일대일 문의</h2>
 							<form class="card p-5 mb-3" id="form" action="" method="post">
 								<input type="hidden" name="inquiry_no" value="${oneononeDto.inquiry_no }">
+								<input type="hidden" name="user_id" value="${oneononeDto.user_id }">
+								<input type="hidden" name="user_nickname" value="${oneononeDto.user_nickname }">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 								<!-- 제목 영역  -->
 								<div class="mt-3">
@@ -105,7 +107,7 @@
 										<small class="card-subtitle mb-2 text-muted" name="ans"><fmt:formatDate
 												value="${ansDto.ans_regdate}" pattern="yyyy-MM-dd" type="date" /></small> 
 												<small class="card-subtitle mb-2 text-muted">
-												writer : ${oneononeDto.user_nickname} </small>
+												writer : ${ansDto.admin_id} </small>
 									</div>
 									<hr class="my-4">
 									<!-- 본문 영역 -->
