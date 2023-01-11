@@ -4,28 +4,57 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import kr.co.purplaying.dao.HeaderFundingDao;
-import kr.co.purplaying.domain.IndexDto;
-import kr.co.purplaying.domain.HeaderFundingDto;
+import kr.co.purplaying.domain.PageResolver2;
+import kr.co.purplaying.domain.ProjectDto;
+import kr.co.purplaying.domain.SearchItem2;
+import kr.co.purplaying.domain.UserDto;
+import kr.co.purplaying.service.LikeService;
 
 @Controller
 public class HeaderFundingController { 
   @Autowired
   HeaderFundingDao headerFundingDao;
   
+  @Autowired
+  LikeService likeService;
   
-  @RequestMapping("/popularFunding")
   @GetMapping("/popularFunding")
-  public String popularFunding(HeaderFundingDto headerFundingDto, Model m) {
+  public String popularFunding(SearchItem2 sc2, Model m, Authentication authentication) {
+    
     try {
-      Map map = new HashMap();
-      List<HeaderFundingDto> list_p = headerFundingDao.popularFunding(map);
-      m.addAttribute("list_p",list_p);
+      int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
+      m.addAttribute("totalCnt", totalCnt);
+      
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+      
+      List<ProjectDto> list_p = headerFundingDao.getSearchResultPage_p(sc2);
+      m.addAttribute("list_p", list_p);
+      m.addAttribute("pr", pageResolver2);
+      
+      
+//      Map map = new HashMap();
+//      List<ProjectDto> list_p = headerFundingDao.popularFunding(map);
+//      m.addAttribute("list_p",list_p);
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
+        boolean likecheck = false;
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
+      }      
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -34,13 +63,29 @@ public class HeaderFundingController {
     return "popularFunding";
   }
   
-  @RequestMapping("/newFunding")
   @GetMapping("/newFunding")
-  public String newFunding(HeaderFundingDto headerFundingDto, Model m) {
+  public String newFunding(SearchItem2 sc2, Model m, Authentication authentication) {
+
     try {
-      Map map = new HashMap();
-      List<HeaderFundingDto> list_n = headerFundingDao.newFunding(map);
-      m.addAttribute("list_n",list_n);
+      int totalCnt = headerFundingDao.getSearchResultCnt(sc2);
+      m.addAttribute("totalCnt", totalCnt);
+      
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+      
+      List<ProjectDto> list_n = headerFundingDao.getSearchResultPage_n(sc2);
+      m.addAttribute("list_n", list_n);
+      m.addAttribute("pr", pageResolver2);
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
+        boolean likecheck = false;
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
+      }      
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -49,15 +94,31 @@ public class HeaderFundingController {
     return "newFunding";
   }
   
-  
-  @RequestMapping("/comingsoonFunding")
+
   @GetMapping("/comingsoonFunding")
-  public String getPage(HeaderFundingDto headerFundingDto, Model m ) {
+  public String getPage(SearchItem2 sc2, Model m, Authentication authentication) {
     
     try {
-      Map map = new HashMap();
-      List<HeaderFundingDto> list_c = headerFundingDao.comingsoonFunding(map);
-      m.addAttribute("list_c",list_c);
+      int totalCnt = headerFundingDao.getSearchResultCnt_c(sc2);
+      m.addAttribute("totalCnt", totalCnt);
+      
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+      
+      List<ProjectDto> list_c = headerFundingDao.getSearchResultPage_c(sc2);
+      m.addAttribute("list_c", list_c);
+      m.addAttribute("pr", pageResolver2);
+      
+//    좋아요 리스트
+      UserDto userDto = (UserDto) authentication.getPrincipal();
+      String user_id = userDto.getUser_id();
+      
+      if(user_id!=null) {
+        boolean likecheck = false;
+         List<Integer> Likelist = likeService.selectLikelist(user_id);
+         System.out.println(Likelist);
+         m.addAttribute("Likelist",Likelist);
+      }      
+      
 
     } catch (Exception e) {
       e.printStackTrace();

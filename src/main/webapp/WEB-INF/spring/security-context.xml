@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	<bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	<context:component-scan base-package="kr.co.purplaying" />
+	<bean id="customUserService" class="kr.co.purplaying.security.CustomUserDetailService" />
+	<bean id="loginSuccessHandler" class="kr.co.purplaying.security.loginSuccessHandler"/>
+	<bean id="loginFailureHandler" class="kr.co.purplaying.security.loginFailureHandler"/>
+		
+	<security:http>
+		<security:headers>
+			<security:frame-options policy="SAMEORIGIN"/>
+		</security:headers>
+	
+		<!-- isAuthenticated() : 로그인했을경우 permitAll : 모든 권한 hasRole('ROLE_ADMIN') 괄호한의 권한이 있을경우 isAnonymous() : 권한이없을때 or 로그인 안되어있을때 -->
+		<security:intercept-url pattern="/user/login" access="isAnonymous()" />
+		<security:intercept-url pattern="/user/signup" access="isAnonymous()" />
+		<security:intercept-url pattern="/iamport/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/setting/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/mypage/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/payment/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/oneonone/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/project/write" access="isAuthenticated()" />
+		<security:intercept-url pattern="/admin/display/**" access="permitAll" />
+		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+
+		
+		<security:logout logout-url="/user/logout" 
+		        logout-success-url="/"
+		        invalidate-session="true"
+		        delete-cookies="JSESSIONID" />
+		
+		<security:form-login login-page="/user/login"
+							 username-parameter="user_id"
+							 password-parameter="user_pwd"	
+							 login-processing-url="/user/login"
+							 authentication-failure-handler-ref="loginFailureHandler"
+    						 authentication-success-handler-ref="loginSuccessHandler"/>
+							 
+		<!-- 최대 한 개의 세션만 생성되도록 -->
+		<security:session-management invalid-session-url="/user/login">
+            <security:concurrency-control max-sessions="1"
+            							  expired-url="/user/login"
+            							  error-if-maximum-exceeded="true" />
+            							  
+        </security:session-management>
+				
+	</security:http>
+	
+	<!--  provider  -->
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="customUserService">
+			<security:password-encoder ref="bcrypt"/>
+	  	</security:authentication-provider>
+	</security:authentication-manager>
+
+</beans>

@@ -1,0 +1,49 @@
+@startuml
+actor User as U
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "Purplaying DB" as D
+
+U -> C: 계정탭(Tab2) 버튼 입력
+activate C
+C -> S : static asset(HTML,CSS,JS) 요청
+activate S
+S -> D : 유저 정보, 유저 셋팅 정보 요청
+activate D
+D --> S : select user_id = {user_id}에 해당하는 유저 정보, 유저 셋팅 정보 응답
+deactivate D
+S --> C : static asset(HTML,CSS,JS) 응답
+deactivate S
+C --> U : 계정탭 활성화
+deactivate C
+
+U -> C : 비밀번호(연락처) 변경 버튼 입력
+activate C
+C -> S : static asset(HTML,CSS,JS) 요청
+activate S
+S --> C : static asset(HTML,CSS,JS) 응답
+deactivate S
+C --> U : 비밀번호(연락처) 수정 모달 활성화
+deactivate C
+
+U -> C : 비밀번호(연락처), 비밀번호(연락처) 확인 입력
+activate C
+alt 비밀번호(연락처) != 비밀번호(연락처) 확인
+C -> C : 비밀번호(연락처) 변경 완료 버튼 비활성화
+
+else 비밀번호(연락처) == 비밀번호(연락처) 확인
+C -> C : 비밀번호(연락처) 변경 완료 버튼 활성화
+U -> C : 비밀번호(연락처) 변경 완료 버튼 입력
+C -> S : static asset(HTML,CSS,JS) 요청
+activate S
+S -> D : 변경된 비밀번호(연락처) 정보 전달
+activate D
+D --> S : 변경된(연락처) 유저 정보 응답
+deactivate D
+S --> C : static asset(HTML,CSS,JS) 응답
+deactivate S
+C --> U : 비밀번호(연락처) 수정 모달 비활성화
+end
+
+deactivate C
+@enduml

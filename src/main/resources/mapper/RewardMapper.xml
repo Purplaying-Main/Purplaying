@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.dao.RewardMapper">
+
+	<sql id="selectAllReward">
+		select (row_number() over(order by reward_category,reward_id )), * from tb_reward
+	</sql>
+	
+	<select id="selectReward" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE prdt_id = #{prdt_id}
+	</select>
+	<select id="selectItem" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE reward_id = #{reward_id}
+		order by reward_id
+	</select>
+	
+	<insert id="insertReward" parameterType="RewardDto">
+		insert into tb_reward (reward_name, reward_desc, reward_price, reward_stock, reward_category, prdt_id) VALUES (#{reward_name}, #{reward_desc}, #{reward_price}, #{reward_stock}, #{reward_category}, #{prdt_id})
+	</insert>
+	
+	<update id="updateReward" parameterType="RewardDto">
+		update tb_reward set reward_name = #{reward_name}, reward_price = #{reward_price}, reward_desc = #{reward_desc}, reward_stock = #{reward_stock}, reward_category = #{reward_category} 
+		WHERE reward_id = #{reward_id}
+	</update>
+	
+	<delete id="deleteReward" parameterType="int">
+		delete from tb_reward
+		where reward_id = #{reward_id}
+	</delete>
+	
+
+	<!-- 결제에 따른 리워드 재고 조정 -->
+	<update id="calRewardStock" parameterType="int">
+		update tb_reward
+		set reward_stock = 
+		case
+			when #{reward_stock} = -1 then -1 <!-- 리워드 재고가 무한인 경우 -1로 유지 -->
+			when #{reward_stock}-#{reward_user_cnt} >= 0 then #{reward_stock} - #{reward_user_cnt} <!-- 리워드 재고가 한정인 경우 기존 리워드 재고에서 감소 -->
+		end
+		where reward_id = #{reward_id} and  prdt_id = #{prdt_id}
+	</update>
+	
+	<!--드롭박스 카테고리에 해당하는 리워드 출력--> 
+	<select id="rewardCategory" parameterType="map" resultType="RewardDto">
+	<include refid="selectAllReward"/>
+	where prdt_id = #{prdt_id}
+		<choose>
+			<when test="#{reward_category == 1}">and reward_category = #{reward_category}</when>
+			<when test="#{reward_category == 2}">and reward_category = #{reward_category}</when>
+		</choose>
+	</select>
+	
+	<!-- 결제 취소에 따른 재고 조정 -->
+	<update id="renewReward" parameterType="int">
+		update tb_reward
+		set reward_stock = 
+		case
+			when #{reward_stock} = -1 then -1 
+			when #{reward_stock} != -1 then #{reward_stock} + #{reward_user_cnt}
+		end
+		where reward_id = #{reward_id} and  prdt_id = #{prdt_id}
+	</update>
+</mapper>

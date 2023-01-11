@@ -4,16 +4,50 @@
 	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.purplaying.SettingMapper">
 
-	<sql id="selectFromBoard"> <!--Board 내용 전체 select 추출-->
-		SELECT setting_no, msg_agree, update_agree, favor_agree, marketing_agree, user_introduce, user_no
-		FROM tb_setting
+	<sql id="selectUserandSetting"> <!--Board 내용 전체 select 추출-->
+		select  s.user_no, user_name, user_phone, user_id, user_pwd, user_regdate, user_activate, user_role, setting_no, msg_agree, update_agree, favor_agree, marketing_agree, user_introduce
+		from tb_setting s, tb_user u
 	</sql>
 	
+	<select id="selectSettingJoinUser" parameterType="String" resultType="map">
+		<include refid="selectUserandSetting" />
+		where s.user_no = u.user_no and u.user_id = #{user_id}
+	</select>
+	
 	<select id="selectSetting" parameterType="int" resultType="SettingDto">
-		<include refid="selectFromBoard" />
+		select *
+		from tb_setting
 		where user_no = #{user_no}
 	</select>
 	
+	<update id="updateIntro" parameterType="SettingDto">
+		UPDATE tb_setting
+		SET user_introduce= #{user_introduce}
+		WHERE user_no = #{user_no}
+	</update>
 	
-
+	<insert id="insertcheckbox" parameterType="map">
+		insert into tb_setting
+		(user_no,marketing_agree)
+		values (#{user_no},#{agree_marketing})
+	</insert>
+	
+	<select id="selectUserCheck" parameterType="int" resultType="SettingDto">
+		select setting_no, user_no, msg_agree, update_agree, favor_agree, marketing_agree, user_introduce
+		from tb_setting
+		where user_no = #{user_no}
+	</select>
+	
+	<update id="updateAlarm" parameterType="SettingDto">
+		UPDATE tb_setting
+		SET msg_agree=#{msg_agree}, update_agree=#{update_agree}, favor_agree=#{favor_agree}, marketing_agree=#{marketing_agree}
+		WHERE user_no = #{user_no}
+	</update>
+	
+	<select id="selectAll" parameterType="int" resultType="SettingDto">
+		select setting_no, user_no, msg_agree, update_agree, favor_agree, marketing_agree
+		from tb_setting
+		where user_no = #{user_no}
+	</select>
+	
 </mapper>

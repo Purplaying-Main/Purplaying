@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.purplaying.dao.RewardMapper">
+
+	<sql id="selectAllReward">
+		select (row_number() over()), * from tb_reward
+	</sql>
+	
+	<select id="selectReward" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE prdt_id = #{prdt_id}
+		order by reward_id
+	</select>
+	<select id="selectItem" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE reward_id = #{reward_id}
+		order by reward_id
+	</select>
+	
+	<insert id="insertReward" parameterType="RewardDto">
+		insert into tb_reward (reward_name, reward_desc, reward_price, reward_stock, reward_category, prdt_id) VALUES (#{reward_name}, #{reward_desc}, #{reward_price}, #{reward_stock}, #{reward_category}, #{prdt_id})
+	</insert>
+	
+	<update id="updateReward" parameterType="RewardDto">
+		update tb_reward set reward_name = #{reward_name}, reward_price = #{reward_price}, reward_desc = #{reward_desc}, reward_stock = #{reward_stock}, reward_category = #{reward_category} 
+		WHERE reward_id = #{reward_id}
+	</update>
+	
+	<delete id="deleteReward" parameterType="int">
+		delete from tb_reward
+		where reward_id = #{reward_id}
+	</delete>
+	
+	<select id="getPaymentRewardInfo" parameterType="int" resultType="RewardDto">
+		<include refid="selectAllReward"/>
+		WHERE prdt_id = #{prdt_id}
+		order by reward_id
+		limit 1
+	</select>
+	
+
+</mapper>

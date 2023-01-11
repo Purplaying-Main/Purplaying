@@ -1,0 +1,45 @@
+@startuml
+
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "DBMS Server" as D
+
+group 회원가입
+    User -> C:1. 회원가입페이지 요청\nGET:[/purplaying/user/signup]
+
+    activate C
+    C -> S:static asset 요청(HTML/CSS)
+    activate S
+    S --> C: static asset 응답(HTML/CSS)
+    deactivate S
+    C --> User: 회원가입 페이지 출력
+
+    User -> C:회원가입 아이디 입력
+
+    C -> S:아이디 중복체크 요청
+    activate S
+    S -> D: 아이디 DB select 요청
+    D --> S: 아이디 DB select 응답
+    S --> C: 아이디 중복체크 응답
+    deactivate S
+
+    User -> C:pw,pw 확인 입력
+    C -> S:pw,pw 확인 일치 여부 요청
+    activate S
+    S --> C:pw,pw 확인 일치 여부 출력
+    deactivate S
+
+    User -> C:이름,연락처 입력
+    User -> C:약관 동의 선택
+    C -> C: 회원가입 버튼 선택
+    S -> D: 회원가입 DB insert 요청
+    activate S
+    D -> S: 회원가입 DB insert 응답
+    deactivate S
+    C -> C:로그인 페이지로 redirection
+    C --> User: 로그인 페이지 노출
+    deactivate C
+end
+
+@enduml

@@ -3,9 +3,8 @@ package kr.co.purplaying.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.co.purplaying.domain.ProjectSuggestDto;
-
+import kr.co.purplaying.domain.ProjectDto;
 
 public interface ProjectSuggestDao {
-  List<ProjectSuggestDto> projectSuggest(Map map) throws Exception;
+  List<ProjectDto> projectSuggest(Map map) throws Exception;
 }

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+<web-app 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
-	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
-	<context-param>
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WepApp_ID" version="3.1">
+	
+	
+    <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>
-	
+		
+ 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -22,20 +25,28 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
-		
-	<!-- 오류-->
-	<init-param>
-		<param-name>throwExceptionIfNoHandlerFound</param-name>
-		<param-value>true</param-value>
-	</init-param>
-    <!-- 오류 끝-->
-		<load-on-startup>1</load-on-startup>
+			
+		<!-- 오류-->
+		<init-param>
+			<param-name>throwExceptionIfNoHandlerFound</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	    <!-- 오류 끝-->
+			<load-on-startup>1</load-on-startup>
+			
+		<!-- file upload -->
+		<multipart-config>
+	        <max-file-size>209715200</max-file-size><!-- 업로드되는 파일의 최대 크기 1MB * 20 -->
+	        <max-request-size>209715200</max-request-size><!-- 한 번에 올릴 수 있는 최대 크기 -->
+	        <file-size-threshold>209715200</file-size-threshold><!-- 특정 사이즈의 메모리 사용 -->
+    	</multipart-config>
 	</servlet>
 		
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
 	
 	<!-- 한글 변환 필터 -->
 	<filter>
@@ -56,6 +67,33 @@
 		<filter-name>encodigFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
+	<!-- security -->
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/security-context.xml
+		</param-value>
+	</context-param>
+	
+	
+	<!-- fontawesome woff error -->
+	<mime-mapping>
+        <extension>woff</extension>
+        <mime-type>font/woff</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>woff2</extension>
+        <mime-type>font/woff2</mime-type>
+    </mime-mapping>
 	
 </web-app>

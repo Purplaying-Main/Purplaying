@@ -3,17 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
+<c:set var="readAuthority" value="${oneononeDto.inquiry_private == false ? '':'display:none' }" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <!-- meta태그, CSS, JS, 타이틀 인클루드  -->
 <%@ include file="meta.jsp"%>
-<link rel="stylesheet" href="resources/assets/css/indexHover.css">
+<link rel="stylesheet" href="/src/main/webapp/resources/assets/css/indexHover.css">
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 </head>
 
 <body>
 	<!--헤더 인클루드-->
 	<%@ include file="header.jsp"%>
+	
+	<script type="text/javascript">
+		let msg = "${msg}"
+		if(msg == "no_authorization") alert("잘못된 접근입니다.")
+	</script>
 
 	<!--페이지 내용 시작-->
 	<section>
@@ -27,33 +35,23 @@
 				<div class="nav nav-tabs nav-justified" id="v-pills-tab"
 					role="tablist">
 					<!-- 탭 menu start-->
-					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/servicecenter'">공지사항</button>
+					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/notice/list'">공지사항</button>
 					<button class="nav-link" aria-selected="false" onclick="location.href='/purplaying/questions'">자주 묻는 질문</button>
-					<button class="nav-link active" aria-selected="true">1:1
-						문의</button>
+					<button class="nav-link active" aria-selected="true">1:1문의</button>
 				</div>
 				<!-- 탭 menu end-->
 				<div class="row col-10 justify-content-center mx-auto">
-					<div>
+					<div class="tab-content" id="v-pills-tabContent">
+						<!-- tab 1 contents -->
+						<div class="tab-pane fade show active" id="v-pills-tab01" role="tabpanel" aria-labelledby="v-pills-tab01-tab" >
+						<input type="hidden" name=user_id value="${prc.user_id}">
+						<input type="hidden" name=user_role value="${userDto.user_role}">
+						<input type="hidden" name=inquiry_private value="${oneononeDto.inquiry_private}">
 						<div class="row justify-content-end mt-4">
 							<form class=" col-lg-auto mb-5 mb-lg-0 me-lg-3" role="search" action="genre">
-								<form action="<c:url value="/oneonone/list" />" class="search-form" method="get"> 
+						<%--	<form action="<c:url value="/oneonone/list" />" class="search-form" method="get">  --%>
 								<input type="search" class="form-control" name="search" value="${param.keyword }" placeholder="Search..." aria-label="Search"	onclick="frm.submit()">
-		<%-- 		 				<select class="search-option" name="option">
-										<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
-									</select> --%>
-				 
-				 
-								<!--	<select class="search-option" name="option">
-										<option value="A" ${pr.sc.option=='A' || pr.sc.option=='' ? "selected" : "" }>제목+내용</option>
-										<option value="T" ${pr.sc.option=='T' ? "selected" : "" }>제목</option>
-										<option value="W" ${pr.sc.option=='W' ? "selected" : "" }>작성자</option>
-									</select> -->
-					
-					<!-- <input type="submit" class="search-button" value="검색">  -->
-							
 							</form>
-
 							<table class="table project-table table-centered table-nowrap table-hover">
 								<thead class="border-3 border-bottom">
 									<tr>
@@ -69,17 +67,37 @@
 									<c:forEach var="oneononeDto" items="${list }">
 										<tr>
 											<td class="no">${oneononeDto.inquiry_no }</td>
-											<td class="state">${oneononeDto.inquiry_state == true ? "답변완료" : "답변중" }</td>
-											<td class="title"><a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
-													${oneononeDto.inquiry_title } </a></td>
-											<td class="writer">${oneononeDto.user_id }</td>
+											<td class="state">${oneononeDto.inquiry_state eq 0 ? "답변중" : "답변완료" }</td>
+											<td class="title">
+												<sec:authorize access="isAuthenticated()">
+												<c:if test="${oneononeDto.inquiry_private == false}" >
+													
+						            				<c:choose>
+						                				<c:when test="${oneononeDto.writer eq prc.user_id or userDto.user_role eq 'ROLE_ADMIN'}">
+						                    				<a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
+						                    				<c:out value="${oneononeDto.inquiry_title }"/>
+						                    				</a>
+						                    				
+						                				</c:when>
+						               					<c:otherwise>작성자와 관리자만 볼 수 있습니다.</c:otherwise>
+						            				</c:choose>
+						            				
+										        </c:if>
+										        </sec:authorize>
+										        <c:if test="${oneononeDto.inquiry_private == true}" >
+										            <a href="<c:url value="/oneonone/read?inquiry_no=${oneononeDto.inquiry_no}&page=${page }&pageSize=${pageSize }"/>">
+										            <c:out value="${oneononeDto.inquiry_title }"/>
+										            </a>
+										        </c:if>
+												</td>
+											<td class="writer">${oneononeDto.writer }</td>
 											<td class="private">${oneononeDto.inquiry_private == true ? "공개" : "비공개" }</td>
 
 											<td class="regdate"><fmt:formatDate	value="${oneononeDto.inquiry_regdate }" pattern="yyyy-MM-dd" type="date" /></td>
 										</tr>
 									</c:forEach>
 								</tbody>
-							</table>
+							</table>					
 						</div>
 						<!-- end project-list -->
 						<div class="pt-3 row">
@@ -90,7 +108,7 @@
 											<h6 class="row text-center ">게시물이 없습니다.</h6>
 									</c:if>
 					                <!-- 게시물이 있는 경우, page nav 출력  -->
-									<c:if test="${totalCnt != null || totalCnt != 0 }">
+									<c:if test="${totalCnt != null && totalCnt != 0 }">
 										<c:if test="${pr.showPrev }">
 											<li class="page-item">
 						                        <a class="page-link" href="<c:url value="/oneonone/list?page=${pr.beginPage-1 }"/>">Prev</a>
@@ -108,12 +126,13 @@
 										</c:if>
 									</c:if>
 								</ul>
-	
-							<button type="button" id="writeBtn" class="col-1 btn btn-primary" />작성</button>
+							
+							<button type="button" id="writeBtn" class="col-1 btn btn-primary" >작성</button>
 
 						</div>
 						<!-- end row -->
-					</div>
+					</div><!-- 탭 컨텐츠 end -->
+				</div>
 
 				</div>
 				<!-- 탭 end-->
@@ -123,25 +142,28 @@
 	</section>
 	<!--페이지 내용 종료-->
 		<script type="text/javascript">
-	$(document).ready(function() {
-		$("#listBtn").on("click", function() {
-			location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
-		})
-		
-		$("#removeBtn").on("click", function() {
-			if(!confirm("정말로 삭제하시겠습니까?")) return;
+		//일대일 문의 리스트 요청 function
+		$(document).ready(function() {
+			$("#listBtn").on("click", function() {
+				location.href ="<c:url value='/oneonone/list?page=${page}&pageSize=${pageSize}' />";
+			})
 			
-			let form = $("#form")
-			form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
-			form.attr("method", "post")
-			form.submit()
-		})
-		
-		$("#writeBtn").on("click", function() {
-			form.attr("action", "<c:url value='/oneonone/write' />")			
+			// 삭제 버튼
+			$("#removeBtn").on("click", function() {
+				if(!confirm("정말로 삭제하시겠습니까?")) return;
+				
+				let form = $("#form")
+				form.attr("action","<c:url value='/oneonone/remove?page=${page}&pageSize=${pageSize}' />")
+				form.attr("method", "post")
+				form.submit()
+			})
+			
+			// 작성 버튼
+			$("#writeBtn").on("click", function() {
+			location.href ="<c:url value='/oneonone/write' />";	
 		})
 
-	})
+		})
 	</script>
 
 	<!--푸터 인클루드-->

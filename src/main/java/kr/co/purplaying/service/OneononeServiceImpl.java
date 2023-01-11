@@ -28,16 +28,15 @@ public class OneononeServiceImpl implements OneononeService{
 	}
 
 	@Override
-	public OneononeDto read(int inquiry_no) throws Exception {
+	public OneononeDto read(Integer inquiry_no) throws Exception {
 	  OneononeDto oneononeDto = oneononeDao.select(inquiry_no);
 
 		return oneononeDto;
 	}
 
   @Override
-  public int remove(Integer inquiry_no, String user_id) throws Exception {
-    // TODO Auto-generated method stub
-    return oneononeDao.delete(inquiry_no,user_id);
+  public int remove(Integer inquiry_no, String writer) throws Exception {
+    return oneononeDao.delete(inquiry_no,writer);
   }
 
   @Override
@@ -53,7 +52,7 @@ public class OneononeServiceImpl implements OneononeService{
       return oneononeDao.update(oneononeDto);
 //    throw new Exception();              // 예외상황 테스트
   }
-
+/*
   @Override
   public int getSearchResultCnt(SearchItem sc) throws Exception {
       // TODO Auto-generated method stub
@@ -65,6 +64,20 @@ public class OneononeServiceImpl implements OneononeService{
       // TODO Auto-generated method stub
       return oneononeDao.searchSelectPage(sc);
   }
+
+  */
+  /*
+  @Override
+  public OneononeDto readans(Integer inquiry_no) throws Exception {
+    OneononeDto oneononeDto = oneononeDao.selectAns(inquiry_no);
+    return oneononeDto;
+  }
+  */
+
+//  @Override
+//    public int privateFalse(OneononeDto oneononeDto) throws Exception {
+//    return oneononeDao.privateFalse(oneononeDto);
+//  }
 	
 	
 }

@@ -6,12 +6,17 @@
 <mapper namespace="kr.co.purplaying.dao.NoticeMapper">
 
 	<sql id="selectFromNotice"> <!--Board 내용 전체 select 추출-->
-		SELECT notice_id, writer, notice_title, notice_context, notice_regdate, notice_category, notice_private, view_cnt FROM tb_notice
+		SELECT notice_id, writer, notice_title, notice_context, notice_regdate, notice_category, notice_private, view_cnt, user_id, user_nickname
+		FROM tb_notice tn
+		INNER JOIN tb_user tu 
+		ON tn.writer = tu.user_id
 	</sql>
 	
 	<sql id="selectFromNotice_privateTrue"> <!--Board 내용 공개글만 select 추출-->
-		SELECT notice_id, notice_category, notice_title, notice_context, writer, notice_regdate, view_cnt 
-		FROM tb_notice
+		SELECT notice_id, notice_category, notice_title, notice_context, writer, notice_regdate, view_cnt, user_id, user_nickname 
+		FROM tb_notice tn
+		INNER JOIN tb_user tu 
+		ON tn.writer = tu.user_id
 		WHERE notice_private = true
 	</sql>
 	

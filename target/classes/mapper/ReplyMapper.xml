@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+<mapper namespace="kr.co.purplaying.dao.ReplyMapper">
+
+	<select id="selectAll" parameterType="int" resultType="ReplyDto">
+		SELECT rno, prdt_id, chat_no, chat_writer, chat_context, chat_date, user_no
+		FROM tb_reply
+	</select>
+	
+</mapper>

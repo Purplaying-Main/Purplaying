@@ -12,7 +12,7 @@ public class AddressDto {
   private String receiver_phonenum;
   private String receiver_name;
   private boolean default_address;
-  private Integer user_no;
+  private int user_no;
   
   public AddressDto() {
     this(0, "", "", "", "", "", "", false, 0);
@@ -47,8 +47,13 @@ public class AddressDto {
         && Objects.equals(address_num, other.address_num) && user_no == other.user_no;
   }
   
-  
-  
+  @Override
+  public String toString() {
+    return "AddressDto [address_id=" + address_id + ", address_name=" + address_name + ", address_num=" + address_num
+        + ", address=" + address + ", address_detail=" + address_detail + ", receiver_phonenum=" + receiver_phonenum
+        + ", receiver_name=" + receiver_name + ", default_address=" + default_address + ", user_no=" + user_no + "]";
+  }
+
   public Integer getAddress_id() {
     return address_id;
   }

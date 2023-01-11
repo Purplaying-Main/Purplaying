@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "Web Client" as C
+participant "Purplaying Server" as S
+database "Purplaying DB" as D
+
+User -> C : 펀딩예정 페이지 GET(/purplaying/comingsoonFunding)
+activate C
+C -> S : static asset(HTML,CSS,JS) 요청
+activate S
+S -> D : 펀딩예정 요청
+activate D
+D --> S : Select 펀딩예정(예정일-오늘) 상위 6개 응답
+deactivate D
+S --> C : static asset(HTML,CSS,JS) 응답
+deactivate S
+C --> User : 펀딩예정 페이지 노출
+deactivate C
+
+@enduml

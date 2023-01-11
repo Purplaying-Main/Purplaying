@@ -17,7 +17,7 @@ public class PageResolver {
   
   
   public PageResolver(int totalCnt, int page) {
-      this(totalCnt, new SearchItem(page, 10));
+      this(totalCnt, new SearchItem(page, 1));
   }
   
   
@@ -40,8 +40,6 @@ public class PageResolver {
       this.showPrev = (beginPage != 1);
       this.showNext = endPage != totalPage;
   }
-
-
 
   public void print() {
       System.out.println("page = "+ sc.getPage());

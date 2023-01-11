@@ -13,17 +13,24 @@
 
 	<!--페이지 내용 시작-->
 	<section>
-<div class="article-container">
+	<div class="contentsWrap">
+		<div class="container">
+		
+        <div class="row">
+		
+		<div class="article-container">>
     <article class="static article">
       <h1 title="개인정보 처리방침" class="article-title">
         개인정보 처리방침
-        
       </h1>
       <div class="article-content">
         <div class="article-body"><p>시행일 : 2022. 8. 10.</p>
- 
+<blockquote>
+</blockquote>
+
 <p>&nbsp;</p>
- 
+<hr>
+
 <h3>제1조 의의</h3>
 <p>회사는 이용자(이하 "회원" 또는 "이용자")의 동의를 기반으로 개인정보를 수집·이용·제공하고 있으며, 「정보통신망 이용촉진 및 정보보호에 관한 법률」(이하 "정보통신망법")을 준수하여 이용자의 개인정보 자기결정권을 적극적으로 보장합니다. 본 「개인정보처리방침」을 통하여 이용자는 자신의 개인정보가 어떠한 용도와 방식으로 취급되고 있으며, 회사가 개인정보 보호를 위해 어떠한 조치들을 취하고 있는지 알 수 있습니다.</p>
 <p>「개인정보처리방침」은 다음과 같은 의미를 가지고 있습니다.</p>
@@ -310,6 +317,9 @@
   </div>
   
 </div>
+</div>
+</div>
+
 
 	</section>
 	<!--페이지 내용 종료-->

@@ -1,0 +1,325 @@
+--VER - 2023-01-08
+--tb_abc순 정렬
+--- 이하 쿼리문이므로 그대로 복사하셔서 생성하시면 됩니다.
+
+------------------------- product 테이블 -------------------------
+DROP TABLE if exists tb_product;
+CREATE TABLE tb_product (
+	prdt_id serial4 NOT NULL,
+	prdt_name varchar(30) NULL,
+	prdt_desc varchar(2000) NULL,
+	prdt_desc_detail text NULL,
+	prdt_regdate timestamp NULL DEFAULT now(),
+	prdt_opendate date NULL,
+	prdt_enddate date NULL,
+	prdt_goal numeric NULL,
+	prdt_currenttotal numeric NULL,
+	prdt_open bool NULL,
+	prdt_desc_policy text NULL,
+	writer varchar(100) NULL,
+	prdt_genre int4 NULL,
+	prdt_thumbnail text NULL,
+	prdt_img text NULL,
+	prdt_buyercnt int4 NULL DEFAULT 0,
+	user_id varchar(100) NULL,
+	update_regdate timestamp NOT NULL DEFAULT now(),
+	CONSTRAINT tb_product_pkey PRIMARY KEY (prdt_id)
+);
+
+------------------------- user 테이블 -------------------------
+DROP TABLE if exists tb_user;
+CREATE TABLE tb_user (
+	user_no serial4 NOT NULL,
+	user_id varchar(100) NOT NULL,
+	user_pwd varchar(100) NOT NULL,
+	user_name varchar(100) NOT NULL,
+	user_phone varchar(100) NOT NULL DEFAULT '010-0000-0000'::character varying,
+	user_regdate timestamp NULL DEFAULT now(),
+	user_activate int4 NOT NULL DEFAULT 1,
+	user_role varchar(100) NOT NULL DEFAULT 'ROLE_USER',
+	user_profile varchar(300) NULL DEFAULT '/purplaying/file/profile/display?file_name=/2022%5C12%5C02%2Fac892600-b007-46ce-bdac-5ec0ff7b1e3d_%EA%B8%B0%EB%B3%B8%EC%9D%B4%EB%AF%B8%EC%A7%80.jfif'::character varying,
+	user_point int4 NULL DEFAULT 0,
+	user_nickname varchar(100) NULL DEFAULT NULL::character varying,
+	enabled int4 NOT NULL,
+	CONSTRAINT constraintname UNIQUE (user_id),
+	CONSTRAINT tb_user_pkey PRIMARY KEY (user_no)
+);
+
+------------------------- address 테이블 -------------------------
+DROP TABLE if exists tb_address;
+CREATE TABLE tb_address (
+	address_id serial4 NOT NULL,
+	address_name varchar(100) NULL,
+	address varchar(100) NOT NULL,
+	address_detail varchar(100) NOT NULL,
+	receiver_name varchar(100) NOT NULL,
+	receiver_phonenum varchar(100) NOT NULL,
+	default_address bool NULL,
+	user_no int4 NOT NULL,
+	address_num bpchar(5) NOT NULL,
+	CONSTRAINT tb_address_pkey PRIMARY KEY (address_id)
+);
+
+------------------------- agreement 테이블 -------------------------
+DROP TABLE if exists tb_agreement;
+CREATE TABLE tb_agreement (
+    agree_no serial4 NOT NULL,
+    agree_age bool NOT NULL DEFAULT false,
+    agree_terms bool NOT NULL DEFAULT false,
+    agree_inform bool NOT NULL DEFAULT false,
+    agree_inform_third bool NOT NULL DEFAULT false,
+    agree_marketing bool NOT NULL DEFAULT false,
+    user_no int4 NOT NULL,
+    CONSTRAINT tb_agreement_pkey PRIMARY KEY (agree_no)
+);
+
+--------------------------- alarm 테이블---------------------------
+drop table if exists tb_alarm;
+create table tb_alarm
+(	
+   	alarm_no serial4 NOT NULL,
+	alarm_cnt int4 NULL DEFAULT 0,
+	alarm_regdate timestamp NULL DEFAULT now(),
+	like_id int4 NOT NULL,
+	CONSTRAINT tb_alarm_pkey PRIMARY KEY (alarm_no)
+); 
+
+------------------------- bannerfile 테이블 -------------------------
+drop table if exists tb_bannerfile;
+CREATE TABLE tb_bannerfile
+(
+    bannerfile_id serial,
+    bannerfile_file text,
+    bannerfile_prdt_id int,
+    bannerfile_regdate timestamp DEFAULT now() NOT NULL, 
+    PRIMARY KEY(bannerfile_id)
+);
+
+--------------------------- chat_service 테이블 -------------------------
+DROP TABLE IF EXISTS tb_chat_service;
+CREATE TABLE IF NOT EXISTS tb_chat_service(
+	chat_no serial4 NOT NULL,
+	prdt_id int4 NOT NULL,
+	chat_writer varchar(30) NOT NULL,
+	chat_context varchar(3000) NULL,
+	chat_date date NULL DEFAULT now(),
+	user_no int4 NOT NULL,
+	user_nickname varchar(100) NULL,
+	CONSTRAINT tb_chat_service_pkey PRIMARY KEY (chat_no)
+    );
+
+------------------------- file 테이블 -------------------------
+DROP TABLE if exists tb_file;
+CREATE TABLE tb_file (
+	file_id serial4 NOT NULL,
+	file_name varchar(200) NOT NULL,
+	file_location text NULL,
+	file_size numeric NULL,
+	file_regdate timestamp NOT NULL DEFAULT now(),
+	file_state varchar(1) NOT NULL DEFAULT 'F'::character varying,
+	prdt_id int4 NULL,
+	user_no int4 NULL,
+	isbannerimg int4 NOT NULL DEFAULT 0,
+	CONSTRAINT tb_file_pkey PRIMARY KEY (file_id)
+);
+
+------------------------- image 테이블 -------------------------
+DROP TABLE if exists tb_image;
+CREATE TABLE tb_image (
+    img_no numeric NOT NULL,
+    img_type bpchar(1) NOT NULL,
+    img_path varchar(200) NOT NULL,
+    img_nm varchar(200) NOT NULL,
+    CONSTRAINT tb_image_pkey PRIMARY KEY (img_no)
+);
+
+------------------------- inquiry 테이블 -------------------------
+DROP TABLE if exists tb_inquiry;
+CREATE TABLE tb_inquiry (
+    inquiry_no serial4 NOT NULL,
+    inquiry_state int4 NOT NULL DEFAULT 0,
+    writer varchar(100) NOT NULL,
+    inquiry_title varchar(30) NOT NULL,
+    inquiry_context text NULL,
+    inquiry_private bool NOT NULL DEFAULT false,
+    inquiry_regdate date NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT tb_inquiry_pkey PRIMARY KEY (inquiry_no)
+);
+
+------------------------- inquiry_ans 테이블 -------------------------
+DROP TABLE if exists tb_inquiry_ans;
+CREATE TABLE tb_inquiry_ans (
+    ans_no serial4 NOT NULL,
+    ans_state int4 NOT NULL,
+    admin_id varchar(100) NOT NULL,
+    ans_context text NULL,
+    ans_regdate date NULL DEFAULT CURRENT_TIMESTAMP,
+    inquiry_no int4 NOT NULL,
+    CONSTRAINT tb_inquiry_ans_pkey PRIMARY KEY (ans_no)
+);
+
+------------------------- leave 테이블 -------------------------
+DROP TABLE if exists tb_leave;
+CREATE TABLE tb_leave (
+    leave_no serial NOT NULL,
+    leave_category int4 NOT NULL,
+    leave_reason text NULL,
+    user_no int4 NOT NULL,
+    CONSTRAINT tb_leave_pkey PRIMARY KEY (leave_no)
+);
+
+--------------------------- like 테이블---------------------------
+
+drop table if exists tb_like;
+create table tb_like(
+	like_id serial4 NOT NULL,
+	like_regdate date NULL,
+	user_id varchar(100) NULL,
+	prdt_id int4 NULL,
+	CONSTRAINT tb_like_pk PRIMARY KEY (like_id)
+);
+
+------------------------- mypage 테이블 -------------------------
+DROP TABLE if exists tb_mypage;
+CREATE TABLE tb_mypage (
+    user_no int4 NOT NULL,
+    prdt_id int4 NOT NULL,
+    product_like bool NULL DEFAULT false,
+    CONSTRAINT tb_mypage_pkey PRIMARY KEY (user_no)
+);
+
+select * from  TB_SETTING TS 
+
+------------------------- notice 테이블 -------------------------
+DROP TABLE if exists tb_notice;
+CREATE TABLE tb_notice (
+    notice_id serial4 NOT NULL,
+    writer varchar(100) NOT NULL,
+    notice_title varchar(200) NOT NULL,
+    notice_context text NULL,
+    notice_regdate timestamp NULL,
+    notice_category int4 NOT NULL DEFAULT 1,
+    notice_private bool NOT NULL DEFAULT false,
+    view_cnt int4 NULL DEFAULT 0,
+    CONSTRAINT tb_notice_pkey PRIMARY KEY (notice_id)
+);
+
+------------------------- payment 테이블 -------------------------
+DROP TABLE if exists tb_payment;
+CREATE TABLE tb_payment (
+	pay_no serial4 NOT NULL,
+	pay_time timestamp NULL DEFAULT now(),
+	user_no int4 NULL,
+	prdt_id int4 NULL,
+	reward_id _varchar NULL,
+	reward_user_cnt _varchar NULL,
+	pay_total numeric NOT NULL,
+	delivery_reciever varchar(100) NOT NULL,
+	delivery_phone varchar(100) NOT NULL,
+	delivery_postcode varchar(100) NOT NULL,
+	delivery_address varchar(500) NOT NULL,
+	delivery_addressdetail varchar(500) NULL,
+	delivery_memo varchar(1000) NULL,
+	CONSTRAINT tb_payment_pkey PRIMARY KEY (pay_no)
+);
+
+
+------------------------- reply 테이블 -------------------------
+DROP TABLE IF EXISTS tb_reply;
+CREATE TABLE IF NOT EXISTS tb_reply(
+	rno serial4 NOT NULL,
+	prdt_id int4 NULL,
+	chat_no int4 NULL,
+	chat_writer varchar(30) NOT NULL,
+	chat_context varchar(3000) NULL,
+	chat_date date NULL DEFAULT now(),
+	user_no int4 NULL,
+	user_nickname varchar(100) NULL,
+	CONSTRAINT tb_reply_pkey PRIMARY KEY (rno)
+    );
+
+------------------------- reward 테이블 -------------------------
+DROP TABLE if exists tb_reward;
+CREATE TABLE public.tb_reward (
+    reward_id serial4 NOT NULL,
+    reward_name varchar(100) NOT NULL,
+    reward_desc text NOT NULL,
+    reward_price numeric NOT NULL DEFAULT 1000,
+    reward_stock int4 NOT NULL,
+    reward_category int4 NOT NULL DEFAULT 0,
+    prdt_id int4 NOT NULL,
+    CONSTRAINT tb_reward_pkey PRIMARY KEY (reward_id)
+);
+
+------------------------- setting 테이블 -------------------------
+DROP TABLE if exists tb_setting;
+CREATE TABLE tb_setting (
+    setting_no serial4 NOT NULL,
+    msg_agree bool NOT NULL DEFAULT false,
+    update_agree bool NOT NULL DEFAULT false,
+    favor_agree bool NOT NULL DEFAULT false,
+    marketing_agree bool NOT NULL DEFAULT false,
+    user_introduce text NULL DEFAULT "안녕하세요.",
+    user_no int4 NOT NULL,
+    CONSTRAINT tb_setting_pkey PRIMARY KEY (setting_no)
+);
+
+------------------------- update 테이블 -------------------------
+DROP TABLE if exists tb_update;
+CREATE TABLE tb_update (
+    update_id serial4 NOT NULL,
+    update_regdate timestamp NOT NULL DEFAULT now(),
+    update_title varchar(30) NOT NULL,
+    update_desc text NOT NULL,
+    user_id varchar(100) NOT NULL,
+    prdt_id int4 NOT NULL,
+    CONSTRAINT tb_update_pkey PRIMARY KEY (update_id)
+);
+
+
+------------------------- FK 생성 -------------------------
+ALTER TABLE tb_product ADD CONSTRAINT tb_product_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_address ADD CONSTRAINT tb_address_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_agreement ADD CONSTRAINT tb_agreement_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_alarm ADD CONSTRAINT tb_alarm_fk FOREIGN KEY (like_id) REFERENCES public.tb_like(like_id) ON DELETE CASCADE;
+ALTER TABLE tb_chat_service ADD CONSTRAINT tb_chat_service_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_chat_service ADD CONSTRAINT tb_chat_service_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_file ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_file ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_inquiry_ans ADD CONSTRAINT tb_inquiry_ans_inquiry_no_fkey FOREIGN KEY (inquiry_no) REFERENCES public.tb_inquiry(inquiry_no) ON DELETE CASCADE;
+ALTER TABLE tb_leave ADD CONSTRAINT tb_leave_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_like ADD CONSTRAINT tb_like_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_like ADD CONSTRAINT tb_like_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_mypage ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_mypage ADD CONSTRAINT tb_mypage_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_notice ADD CONSTRAINT user_id FOREIGN KEY (writer) REFERENCES public.tb_user(user_id) ON DELETE CASCADE;
+ALTER TABLE tb_payment ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_payment ADD CONSTRAINT user_no FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_reply ADD CONSTRAINT tb_reply_chat_no_fkey FOREIGN KEY (chat_no) REFERENCES public.tb_chat_service(chat_no) ON DELETE CASCADE;
+ALTER TABLE tb_reply ADD CONSTRAINT tb_reply_prdt_id_fkey FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_reply ADD CONSTRAINT tb_reply_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_reward ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_setting ADD CONSTRAINT tb_setting_user_no_fkey FOREIGN KEY (user_no) REFERENCES public.tb_user(user_no) ON DELETE CASCADE;
+ALTER TABLE tb_update ADD CONSTRAINT prdt_id FOREIGN KEY (prdt_id) REFERENCES public.tb_product(prdt_id) ON DELETE CASCADE;
+ALTER TABLE tb_update ADD CONSTRAINT user_id FOREIGN KEY (user_id) REFERENCES public.tb_user(user_id) ON DELETE CASCADE;
+
+
+-- tb_banner 더미 생성 --
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+INSERT INTO tb_bannerfile (bannerfile_file, bannerfile_prdt_id, bannerfile_regdate) VALUES('', 0, now());
+
+--시리얼 초기화 
+-- truncate table tb_ restart identity;
+-- 컬럼명 변경
+--ALTER TABLE [테이블명] RENAME COLUMN [기존컬럼명] TO [변경할컬럼명];
+--컬럼 데이터타입 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 TYPE 변경할데이터타입;
+--컬럼 디폴트값 변경
+--ALTER TABLE 테이블명 ALTER COLUMN 컬럼명 SET DEFAULT 변경할디폴트값;
+--컬럼 삭제
+--ALTER TABLE [테이블명] DROP COLUMN [기존컬럼명];
+--컬럼 not null 제거
+--ALTER TABLE [테이블명] ALTER COLUMN [기존컬럼명] DROP NOT NULL;
+--컬럼 추가
+--ALTER TABLE 테이블명 ADD COLUMN 컬럼명 데이터타입 제약조건

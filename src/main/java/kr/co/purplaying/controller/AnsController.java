@@ -15,12 +15,7 @@ public class AnsController {
 	
 	@Autowired
 	OneononeService oneononeService;
-	
-
-	
-	
-	
-	
+		
 	private boolean loginCheck(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		// 1. 세션을 얻어서

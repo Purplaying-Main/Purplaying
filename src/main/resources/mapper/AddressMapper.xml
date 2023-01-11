@@ -5,19 +5,32 @@
 <mapper namespace="kr.co.purplaying.AddressMapper">
 
 	<sql id="selectFromBoard"> <!--Board 내용 전체 select 추출-->
-		SELECT address_id, address_name, address, address_detail, receiver_name, receiver_phonenum, default_address,
-			user_no, address_num
-		FROM tb_address
+		SELECT a.user_no, u.user_name, u.user_phone, u.user_id, u.user_pwd, u.user_regdate, u.user_activate, u.user_role, a.address_id, a.address_name, a.address,
+			a.address_detail, a.receiver_name, a.receiver_phonenum, a.default_address, a.address_num
+		from tb_address a, tb_user u
 	</sql>
 	
-	<select id="AddressList" parameterType="int" resultType="AddressDto">
+	<select id="Address" parameterType="int" resultType="map">
 		<include refid="selectFromBoard" />
+		where a.user_no = #{user_no}
+	</select>
+	
+	<select id="AddressList" parameterType="int" resultType="AddressDto">
+		SELECT address_id, address_name, address_num, address, address_detail, receiver_name, receiver_phonenum, default_address, user_no
+		FROM tb_address
 		where user_no = #{user_no}
+		order by default_address desc, address_id asc
+	</select>
+	
+	<select id="select" parameterType="int" resultType="map">
+		<include refid="selectFromBoard" />
+		where a.user_no = u.user_no and address_id = #{address_id}
 	</select>
 	
 	<select id="selectAddress" parameterType="int" resultType="AddressDto">
-		<include refid="selectFromBoard" />
-		where user_no = #{user_no} <!-- 출력확인 후에는 이거로 바꾸기address_id = #{address_id} -->
+		SELECT address_id, address_name, address_num, address, address_detail, receiver_name, receiver_phonenum, default_address, user_no
+		FROM tb_address
+		where address_id = #{address_id}
 	</select>
 	
 	<delete id="deleteAddress" parameterType="int">
@@ -29,7 +42,7 @@
 		UPDATE tb_address
 		SET address_name = #{address_name}, address = #{address}, address_detail = #{address_detail},
 			receiver_name = #{receiver_name}, receiver_phonenum = #{receiver_phonenum}, default_address = #{default_address},
-			address_num = #{address_num}
+			address_num = #{address_num}, user_no = #{user_no}
 		WHERE address_id = #{address_id}
 	</update>
 	
@@ -39,5 +52,22 @@
 		VALUES(#{address_name}, #{address}, #{address_detail}, #{receiver_name}, #{receiver_phonenum}, #{default_address},
 			#{user_no}, #{address_num})
 	</insert>
+	
+	
+	<select id="CountDefaultAddress" resultType="int">
+		select count(*) from tb_address
+		where default_address = true and user_no = #{user_no}
+	</select>
+	
+	<update id="updateDefaultAddress" parameterType="int">
+		UPDATE tb_address
+		SET default_address = false
+		WHERE user_no = #{user_no} and default_address = true
+	</update>
+	
+	<select id="CountAddress" resultType="int">
+		select count(*) from tb_address
+		where user_no = #{user_no}
+	</select>
 	
 </mapper>

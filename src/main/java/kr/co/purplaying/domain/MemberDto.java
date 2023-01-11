@@ -35,6 +35,7 @@ public class MemberDto {
   private String user_id;
   private String user_pwd;
   private String user_name;
+  private String user_nickname;
   private String user_phone;
   private Date user_regdate;
   private int user_active;
@@ -46,18 +47,33 @@ public class MemberDto {
   private boolean agree_marketing;
   
   
+  
 
   public MemberDto() {
     
   }
   
+  public MemberDto( String user_id, String user_pwd, String user_name, String user_nickname, String user_phone, boolean agree_age, boolean agree_terms, boolean agree_inform,
+      boolean agree_inform_third, boolean agree_marketing) {
+    this.user_id = user_id;
+    this.user_pwd = user_pwd;
+    this.user_name = user_name;
+    this.user_nickname = user_nickname;
+    this.user_phone = user_phone;
+    this.agree_age = agree_age;
+    this.agree_terms = agree_terms;
+    this.agree_inform = agree_inform;
+    this.agree_inform_third = agree_inform_third;
+    this.agree_marketing = agree_marketing;
+  }
 
-  public MemberDto(int user_no, String user_id, String user_pwd, String user_name, String user_phone, boolean agree_age, boolean agree_terms, boolean agree_inform,
+  public MemberDto(int user_no, String user_id, String user_pwd, String user_name, String user_nickname, String user_phone, boolean agree_age, boolean agree_terms, boolean agree_inform,
       boolean agree_inform_third, boolean agree_marketing) {
     this.user_no = user_no;
     this.user_id = user_id;
     this.user_pwd = user_pwd;
     this.user_name = user_name;
+    this.user_nickname = user_nickname;
     this.user_phone = user_phone;
     this.agree_age = agree_age;
     this.agree_terms = agree_terms;
@@ -104,6 +120,14 @@ public class MemberDto {
     this.user_name = user_name;
   }
 
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+
+
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
+  }  
 
   public String getUser_phone() {
     return user_phone;

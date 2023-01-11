@@ -59,7 +59,8 @@
 					                            		${noticeDto.notice_title}
 					                            	</a>
 					                            </td>
-					                            <td>${noticeDto.writer eq 'admin@gmail.com' ? '관리자' : noticeDto.writer}</td>
+					                            <%-- <td>${prc.user_role eq '1' ? '관리자' : noticeDto.writer}</td> --%>
+					                            <td>${noticeDto.user_nickname}</td>
 					                            <td><fmt:formatDate value="${noticeDto.notice_regdate}" pattern="yyyy-MM-dd" type="date"/></td>
 				                        		<td>${noticeDto.view_cnt}</td>
 				                        		<td>${noticeDto.notice_private}</td>
@@ -95,20 +96,11 @@
 										</c:if>
 									</c:if>
 								</ul>
-								
-				              <!--   <div class="col-1"></div>
-				                <ul class="pagination mb-0 col-10 justify-content-center">
-				                    <li class="page-item disabled">
-				                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-				                    </li>
-				                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-				                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-				                    <li class="page-item">
-				                        <a class="page-link" href="#">Next</a>
-				                    </li>
-				                </ul> -->
-								<button type="button" id="writeBtn" class="col-1 btn btn-primary" style="${adminWrite}" >작성</button>
+								<!-- 관리자일 때 작성 버튼 보이기  -->
+				                <sec:authorize access="hasRole('ROLE_ADMIN')">
+				                	<button type="button" id="writeBtn" class="col-1 btn btn-primary">작성</button>
+				                </sec:authorize>
+				                
 				            </div>
 				            <!-- end row -->
 				        </div>
@@ -143,6 +135,13 @@
 			location.href ="<c:url value='/notice/write' />";	
 		})
 	})
+	</script>
+	<script type="text/javascript">
+		let msg = "${msg}";
+		if(msg == "invalid_access") {
+			alert("비정상적인 접근입니다.");
+		}
+		
 	</script>
 </body>
 </html>

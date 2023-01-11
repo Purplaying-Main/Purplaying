@@ -1,18 +1,15 @@
-package kr.co.purplaying.dao;
+  package kr.co.purplaying.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import javax.sql.DataSource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.SearchItem2;
 import kr.co.purplaying.domain.UserDto;
 
 @Repository
@@ -24,22 +21,9 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int deleteAll() throws Exception {
       return session.delete(namespace+"deleteAll");
-  }
+    }
 	
-	private void close(AutoCloseable...closeables) {
-		for(AutoCloseable autoCloseable : closeables) {
-			try {
-				if(autoCloseable!=null) {
-					autoCloseable.close();
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
-
-    @Override
+	@Override
     public int insertUser(UserDto dto) throws Exception {
         return session.insert(namespace+"insert",dto);
     }
@@ -54,25 +38,16 @@ public class UserDaoImpl implements UserDao {
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
     }
-	
-	
-
 
     @Override
-    public int updateName(UserDto userDto) throws Exception {
+    public int updateNickName(UserDto userDto) throws Exception {
       
-      return session.update(namespace + "updatename", userDto);
+      return session.update(namespace + "updateNickName", userDto);
     }
-    
 
-    public int signUpUser(String user_id, String user_pwd, String user_name, String user_phone) throws Exception {
-      Map map = new HashMap();
-      map.put("user_id", user_id);
-      map.put("user_pwd", user_pwd);
-      map.put("user_name", user_name);
-      map.put("user_phone", user_phone);
+    public int signUpUser(UserDto userDto) throws Exception {
       
-      return session.insert(namespace+"insertUserInfo",map);
+      return session.insert(namespace+"insertUserInfo",userDto);
     }
     
     @Override
@@ -98,6 +73,95 @@ public class UserDaoImpl implements UserDao {
       return session.update(namespace+"updateUserActivation",user_no);
     }
 
-  	
+    @Override
+    public int findUserData(UserDto userDto) throws Exception {
+      return session.selectOne(namespace+"findUserData",userDto);
+    }
+
+    @Override
+    public String findUserId(UserDto userDto) throws Exception {
+      return session.selectOne(namespace+"findUserId",userDto);
+    }
+
+    @Override
+    public int updateUserPwd(UserDto userDto) throws Exception {
+      return session.update(namespace+"updateUserPwd",userDto);
+    }
+    @Override
+    public int modifyProfile(Map<String, Object> map) throws Exception {
+      return session.update(namespace+"modifyProfile",map);
+    }
+    
+
+    @Override
+    public List<UserDto> adminSelect(SearchItem sc) throws Exception {
+      return session.selectList(namespace+"adminSelect",sc);
+    }
+
+    @Override
+    public int updateRole(UserDto userDto) throws Exception {
+      return session.update(namespace+"updateRole",userDto);
+    }
+
+    
+    //검색기능
+    @Override
+    public int searchuser(SearchItem2 sc2) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectOne(namespace+"searchuser", sc2);
+    }
+
+    @Override
+    public List<UserDto> searchUserPage(SearchItem2 sc2) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectList(namespace+"searchUserPage", sc2);
+    }
+    //검색기능
+
+    @Override
+    public int getSearchResultCnt(SearchItem sc) throws Exception {
+      return session.selectOne(namespace +"searchResultCnt", sc);
+    }
+
+    @Override
+    public int updateUserPhone(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.update(namespace +"updateUserPhone", userDto);
+    }
+
+    @Override
+    public List<UserDto> getUserList(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.selectList(namespace+"getUserList", userDto);
+    }
+
+    @Override
+    public int updatePoint(UserDto userDto) throws Exception {
+      // TODO Auto-generated method stub
+      return session.update(namespace+"insertPoint",userDto);
+    }
+
+    @Override
+    public int updatePoint(int user_no, int user_point) throws Exception {
+      Map map = new HashMap();
+      map.put("user_no", user_no);
+      map.put("user_point", user_point);
+      return session.update(namespace+"updatePoint",map);
+    }
+    @Override
+    public UserDto getUserById(String id) {
+      UserDto users = session.selectOne(namespace + "getUserById", id);
+      return users;
+    }
+
+    @Override
+    public int refundPoint(int user_no, int refundFee) throws Exception {
+      Map map = new HashMap();
+      map.put("user_no", user_no);
+      map.put("refundFee", refundFee);
+      return session.update(namespace+"refundPoint",map);
+    }
+
+    
 }
 

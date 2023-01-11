@@ -7,24 +7,24 @@
       <div class="col-6 col-md-2 mb-3">
         <h5>퍼플레잉</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="servicecenter" class="nav-link p-0 text-muted">공지사항</a></li>
-          <li class="nav-item mb-2"><a href="serviceIntroduce" class="nav-link p-0 text-muted">서비스 소개</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/notice/list" class="nav-link p-0 text-muted">공지사항</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/serviceIntroduce" class="nav-link p-0 text-muted">서비스 소개</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-md-2 mb-3">
         <h5>이용안내</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="creationguide" class="nav-link p-0 text-muted">창작 가이드</a></li>
-          <li class="nav-item mb-2"><a href="fundingguide" class="nav-link p-0 text-muted">후원 가이드</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/creationguide" class="nav-link p-0 text-muted">창작 가이드</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/fundingguide" class="nav-link p-0 text-muted">후원 가이드</a></li>
         </ul>
       </div>
 
       <div class="col-6 col-md-2 mb-3">
         <h5>정책</h5>
         <ul class="nav flex-column">
-          <li class="nav-item mb-2"><a href="termsofuse" class="nav-link p-0 text-muted">이용약관</a></li>
-          <li class="nav-item mb-2"><a href="privacypolicy" class="nav-link p-0 text-muted">개인정보처리 방침</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/termsofuse" class="nav-link p-0 text-muted">이용약관</a></li>
+          <li class="nav-item mb-2"><a href="/purplaying/privacypolicy" class="nav-link p-0 text-muted">개인정보처리 방침</a></li>
         </ul>
       </div>
 
@@ -32,7 +32,7 @@
         <form>
           <h5>고객지원</h5>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><button class="btn btn-primary" type="button" onclick="location.href='servicecenter'">고객센터 문의하기</button></li>
+            <li class="nav-item mb-2"><button class="btn btn-primary" type="button" onclick="location.href='/purplaying/oneonone/list'">고객센터 문의하기</button></li>
           </ul>
         </form>
       </div>

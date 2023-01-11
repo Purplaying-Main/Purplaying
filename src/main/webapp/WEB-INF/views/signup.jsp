@@ -27,8 +27,8 @@
           <div class="row">
             <label for="email" class="form-label">Email</label>
             <div class="input-group mb-2">
-                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" value="" required autofocus>
-                <input class="btn btn-outline-secondary" type="button" id="check_id" value="중복체크" required>
+                <input type="email" class="form-control" id="email" name="user_id" placeholder="you@example.com" value="" onchange="check_id_change(this)" required autofocus/>
+                <input class="btn btn-outline-secondary" type="button" id="check_id" value="중복체크" required/>
                 <div class="invalid-feedback">
                   아이디를 입력해주세요
                 </div>   
@@ -39,7 +39,7 @@
 
           <div class="col-12 mt-2" onsubmit="return formCheck(this)">
             <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" required>
+            <input type="password" class="form-control mb-2" id="password" name="user_pwd" placeholder="비밀번호 입력" onchange="check_pw()" required>
             <input type="password" class="form-control" id="passwordConfirm" name="chk_user_pwd" placeholder="비밀번호 확인" onchange="check_pw()" required><!-- onchange='func_chk_Pwd()' 값바뀌면 script실행--> 
             <div class="invalid-feedback">
               비밀번호를 입력해주세요
@@ -48,10 +48,10 @@
           </div>
 
             <div class="col-12 mt-2">
-              <label for="username" class="form-label">Username</label>
+              <label for="username" class="form-label">이름</label>
               <div class="input-group has-validation">
-                <span class="input-group-text">@</span>
-                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="Username" required>
+                <!-- <span class="input-group-text"></span> -->
+                <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" onchange="check_name(this)" required>
               <div class="invalid-feedback">
                   이름을 입력해주세요
                 </div>
@@ -60,9 +60,21 @@
             </div>
 
             <div class="col-12 mt-2">
+              <label for="username" class="form-label">닉네임</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="user_nickname" name="user_nickname" placeholder="닉네임" onchange="check_nickname(this)" required>
+              <div class="invalid-feedback">
+                  닉네임을 입력해주세요
+                </div>
+              </div>
+              	<i class="fa fa-exclamation-circle" id="check_nickname_msg" style="display:none"></i>
+            </div>            
+
+            <div class="col-12 mt-2">
               <label for="userphone" class="form-label">연락처</label>
               <div class="input-group mb-3">
-                <input type="number" class="form-control" id="user_phone" name="user_phone" placeholder="휴대폰 번호 (-없이 입력)" required>
+                <input type="text" class="form-control" pattern="[0-9]+" id="user_phone" name="user_phone" maxlength="11" placeholder="휴대폰 번호 (-없이 입력)" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" required>
                	<div class="invalid-feedback">
                   번호를 입력해주세요
                 </div>
@@ -79,17 +91,17 @@
                 <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                   <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                     <div class="form-check">
-                      <input type="checkbox" class="form-check-input" id="agreeAll" name="agree" onclick="selectAll(this)"> 
-                      <label class="form-check-label" for="agree-14">전체동의  <i class="fa fa-exclamation-circle" id="check_check_msg" style="display:none"></i></label>
+                      <input type="checkbox" class="form-check-input" id="agreeAll" name="agree"> 
+                      <label class="form-check-label" for="agreeAll">전체동의</label><i class="fa fa-exclamation-circle" id="check_check_msg" style="display:none"></i>
                     </div>
                   </button>
                 </h2>
                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
                   <div class="accordion-body">
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree1" name="agree1" required>
-                        <label class="form-check-label" for="agree-1">만 14세 이상입니다. (* 필수)</label>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree1" name="agree1" required>
+                        <label class="form-check-label" for="agree1">만 14세 이상입니다. (* 필수)</label>
                          <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -97,7 +109,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree1Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree1Modal" tabindex="-1" aria-labelledby="agree1ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree1Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree1ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -123,9 +135,9 @@
                     </div>
                     
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree2" name="agree2" required>
-                        <label class="form-check-label" for="agree-2">퍼플레잉 이용 약관 동의 (* 필수)</label>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree2" name="agree2" required>
+                        <label class="form-check-label" for="agree2">퍼플레잉 이용 약관 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -133,7 +145,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree2Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree2Modal" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree2Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree2ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -160,9 +172,9 @@
                     </div>
                     
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree3" name="agree3" required>
-                        <label class="form-check-label" for="agree-3">개인정보 수집 및 이용 동의 (* 필수)</label>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree3" name="agree3" required>
+                        <label class="form-check-label" for="agree3">개인정보 수집 및 이용 동의 (* 필수)</label>
                         <div class="invalid-feedback">
 		                  체크 해주세요
 		                </div>
@@ -170,7 +182,7 @@
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree3Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree3Modal" tabindex="-1" aria-labelledby="agree3ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree3Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree3ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -196,14 +208,14 @@
                     </div>
 
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree4" name="agree4"	>
-                        <label class="form-check-label" for="agree-4">개인정보 제 3자 제공 동의 (선택)</label>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree4" name="agree4">
+                        <label class="form-check-label" for="agree4">개인정보 제 3자 제공 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree4Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree4Modal" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree4Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree4ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -229,14 +241,14 @@
                     </div>
 
                     <div class="row mb-2">
-                      <div class="col-8">
-                        <input type="checkbox" class="form-check-input" id="agree5" name="agree5">
-                        <label class="form-check-label" for="agree-5">마케팅 정보 수신 동의 (선택)</label>
+                      <div class="col-8 check-group">
+                        <input type="checkbox" class="form-check-input agreeCheck" id="agree5" name="agree5">
+                        <label class="form-check-label" for="agree5">마케팅 정보 수신 동의 (선택)</label>
                       </div>
                       <!-- Button trigger modal -->
                       <div class="col-4 text-small text-muted text-end" data-bs-toggle="modal" data-bs-target="#agree5Modal"><a href="#">내용보기</a></div>
                       <!-- Modal -->
-                      <div class="modal fade" id="agree5Modal" tabindex="-1" aria-labelledby="agree5ModalLabel" aria-hidden="true">
+                      <div class="modal fade" id="agree5Modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="agree5ModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -269,7 +281,7 @@
           <input type="button" class="w-100 btn btn-primary btn-lg mt-4" id="signUp" value="회원가입"><!--  -->
           </form>
           <!-- 회원가입 완료 모달창 -->
-          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" data-bs-toggle="modal" aria-hidden="true"><!--  모달실행 -->
+          <div class="modal fade" id="signUpCompleteModal" tabindex="-1" aria-labelledby="signUpCompleteModalLabel" aria-hidden="true"><!--  모달실행 -->
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
@@ -299,41 +311,149 @@
 
     </div>
 	<script type="text/javascript">
-		function check_pw(){
-			var pw = document.getElementById('password').value;
-			if(document.getElementById('password').value == document.getElementById('passwordConfirm').value && document.getElementById('password').value != null ){
-				$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
-			}
-			else{
-				$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
+		function blankCheck(value){
+			let blank_pattern = /[\s]/g;
+			if(blank_pattern.test(value)){
+				return true;
+			}else{
+				return false;
 			}
 		}
-		$(document).ready(function(){
-		
+		function specialCheck(value){
+			let special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+			if(special_pattern.test(value)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		function check_id_change(element){
+			if(element.classList.contains("IDCHECK")){
+				$("#email").removeClass('IDCHECK')
+				$("#check_id_msg").show().html('아이디 중복체크를 해주세요').css("color","red");
+			}
+		}
 
+		/* 전체동의 */
+		$('#agreeAll').on('click', function(){
+			var checked = $(this).is(':checked');
+		    if(checked) {
+		    	$(".agreeCheck").prop('checked', true);
+		    } else {
+		    	$(".agreeCheck").prop('checked', false);
+		    }
+		})
+		/* 전체동의 후 하나라도 체크안되어있으면 전체동의 체크 풀림 */
+		$('.agreeCheck').on('click', function(){
+			var chkGroup = $('.check-group')
+			var chkGroup_cnt = chkGroup.length
+		    checked_cnt = $('.check-group .agreeCheck:checked').length
+		    
+		    if (checked_cnt < chkGroup_cnt) {
+		    	$('#agreeAll').prop('checked', false);
+		    } else if (checked_cnt == chkGroup_cnt) {
+		   		$('#agreeAll').prop('checked', true);
+		    }
+		})
+		//비밀번호,비밀번호확인 일치 function
+		function check_pw(){
+			let pwd = document.getElementById('password').value;
+			let pwdchk = document.getElementById('passwordConfirm').value;
+			if(pwdchk != ""){
+				if(!blankCheck(pwd) || !blankCheck(pwdchk)){
+					if(pwd == pwdchk){
+						$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치합니다').css("color","#9E62FA");
+						$("#password").addClass('PWDCHECK')
+					}
+					else{
+						$("#check_pwd_msg").show().html(' 비밀번호와 비밀번호확인이 일치하지 않습니다').css("color","red");
+						$("#password").removeClass('PWDCHECK')
+					}
+				}else{
+					$("#check_pwd_msg").show().html('비밀번호에 공백이 있습니다').css("color","red");
+				}
+			}else{
+				$("#check_pwd_msg").hide().html('').css("color","red");
+			}
+		}
+		function check_name(element){
+			let name = element.value;
+			if(blankCheck(name)){
+				$("#check_name_msg").show().html('이름에 공백이 있습니다.').css("color","red");
+			}else if(specialCheck(name)){
+				$("#check_name_msg").show().html('이름에 특수기호가 있습니다.').css("color","red");
+			}else{
+				$("#check_name_msg").hide().html('');
+			}
+		}
+		
+		function check_nickname(element){
+			let nickname = element.value;
+			if(blankCheck(nickname)){
+				$("#check_nickname_msg").show().html('닉네임에 공백이 있습니다.').css("color","red");
+			}else if(specialCheck(nickname)){
+				$("#check_nickname_msg").show().html('닉네임에 특수기호가 있습니다.').css("color","red");
+			}else{
+				$("#check_nickname_msg").hide().html('');
+			}
+		}
+		
+		$(document).ready(function(){
+			function parseXML (data) {
+			    var xml, tmp;
+			    if (!data || typeof data !== "string") {
+			        return null;
+			    }
+			    try {
+			        if (window.DOMParser) { // Standard
+			            tmp = new DOMParser();
+			            xml = tmp.parseFromString(data, "text/xml");
+			        } else { // IE
+			            xml = new ActiveXObject("Microsoft.XMLDOM");
+			            xml.async = "false";
+			            xml.loadXML(data);
+			        }
+			    } catch(e) {
+			        xml = undefined;
+			    }
+			    if (!xml || !xml.documentElement || xml.getElementsByTagName("parsererror").length) {
+			        throw new Error("Invalid XML: " + data);
+			    }
+			    return xml;
+			}
+			
 			$('#check_id').click(function(){
+				var header = $("meta[name='_csrf_header']").attr('content');
+				var token = $("meta[name='_csrf']").attr('content');
 				let val = document.getElementById("email").value;
 				let user_id = {user_id: val};
 				let user_id_check = {};
+				let id_form = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+				
 				if(val==null || val==""){
-					$("#check_id_msg").show().html(' 아이디를 입력해주세요').css("color","red");
+					$("#check_id_msg").show().html('아이디를 입력해주세요').css("color","red");
+				}else if(!id_form.test(val)){
+					$("#check_id_msg").show().html('이메일형식을 입력해주세요').css("color","red");
+				}else if(blankCheck(val)){
+					$("#check_id_msg").show().html('공백이 있습니다.').css("color","red");
 				}else{
-					alert("the request is sent");
+					console.log(val)
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
-						url: '/purplaying/user/chkuserid',                                                                                
-						headers:{"content-type" : "application/json"},
-						dataType : 'text',
-						data : JSON.stringify(user_id),
+						url: '/purplaying/user/chkuserid',
+						data : user_id,
+						beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
-							user_id_check = JSON.parse(result);
-							if(user_id_check.user_id==null || user_id_check.user_id == ""){
+							user_id_check = result;
+							alert(result)
+							if(user_id_check==null || user_id_check == ""){
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");
-								/* $("#check_msg").show();
-								$("#check_msg") */	
 							}else{
 								$("#check_id_msg").show().html(' 사용가능한 아이디 입니다').css("color","#9E62FA");
+								$("#email").addClass('IDCHECK')
 							}
 						},
 						error : function(){
@@ -344,9 +464,11 @@
 			});
 			
 			$('#signUp').click(function(){
-				let id = document.getElementById("email");
+
+				let id =  document.getElementById("email");
 				let pwd = document.getElementById("password");
 				let name = document.getElementById("user_name");
+				let nickname = document.getElementById("user_nickname");
 				let phone = document.getElementById("user_phone");
 				let agree1 = document.getElementById("agree1");
 				let agree2 = document.getElementById("agree2");
@@ -355,12 +477,21 @@
 				if(id.value == null || id.value == ""){
 					id.scrollIntoView({block:"center"});
 					$("#check_id_msg").show().html('아이디를 입력해주세요').css("color","red");
+				}else if(!id.classList.contains("IDCHECK")){
+					id.scrollIntoView({block:"center"});
+					$("#check_id_msg").show().html('아이디 중복체크를 해주세요').css("color","red");
 				}else if(pwd.value == null || pwd.value == ""){
 					pwd.scrollIntoView({block:"center"});
 					$("#check_pwd_msg").show().html('비밀번호를 입력해주세요').css("color","red");
+				}else if(!pwd.classList.contains("PWDCHECK") ){
+					pwd.scrollIntoView({block:"center"});
+					$("#check_pwd_msg").show().html('비밀번호가 일치하지 않습니다').css("color","red");
 				}else if(name.value == null || name.value == ""){
 					name.scrollIntoView({block:"center"});
 					$("#check_name_msg").show().html('이름을 입력해주세요').css("color","red");
+				}else if(nickname.value == null || nickname.value == ""){
+					nickname.scrollIntoView({block:"center"});
+					$("#check_nickname_msg").show().html('닉네임을 입력해주세요').css("color","red");
 				}else if(phone.value == null || phone.value == ""){
 					phone.scrollIntoView({block:"center"});
 					$("#check_phone_msg").show().html('전화번호를 입력해주세요').css("color","red");
@@ -378,22 +509,31 @@
 							user_id : document.getElementById("email").value,
 							user_pwd : document.getElementById("password").value,
 							user_name : document.getElementById("user_name").value,
+							user_nickname : document.getElementById("user_nickname").value,
 							user_phone : document.getElementById("user_phone").value,
 							user_name : document.getElementById("user_name").value,
-							Agree_age : document.getElementById("agree1").value,
-							Agree_terms : document.getElementById("agree2").value,
-							Agree_inform : document.getElementById("agree3").value,
-							Agree_inform_third : document.getElementById("agree4").value,
-							Agree_marketing : document.getElementById("agree5").value
+							agree_age : $('#agree1').is(":checked"),
+							agree_terms : $('#agree2').is(":checked"),
+							agree_inform : $('#agree3').is(":checked"),
+							agree_inform_third : $('#agree4').is(":checked"),
+							agree_marketing : $('#agree5').is(":checked")
 					} 
-					
+					console.log(user_info)
+					var header = $("meta[name='_csrf_header']").attr('content');
+					var token = $("meta[name='_csrf']").attr('content');
+					console.log(header)
+			    	console.log(token)
 					$.ajax({
 						type:'post',	//통신방식 (get,post)
 						url: '/purplaying/user/signup',                                                                                
 						headers:{"content-type" : "application/json"},
 						dataType : 'text',
 						data : JSON.stringify(user_info),
+					 	beforeSend: function(xhr){
+					        xhr.setRequestHeader(header, token);
+					    },
 						success:function(result){
+							$('#signUpCompleteModal').modal({backdrop: 'static', keyboard: false});
 							$("#signUpCompleteModal").modal("show");
 						},
 						error : function(){
@@ -403,6 +543,8 @@
 				}
 			});
 		});
+		
+		
 	</script>
 	</section>
   <!--푸터 인클루드-->

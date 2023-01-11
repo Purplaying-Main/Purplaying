@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.FileMapper">	
+	<!-- 첨부파일 mapper start -->
+	<select id="selectFileList" parameterType="map" resultType="AttachFileDto">
+		SELECT file_name, file_location, file_regdate
+		FROM tb_file
+		JOIN tb_product
+		ON tb_product.prdt_id = tb_file.prdt_id 
+		where tb_product.prdt_id = #{prdt_id}
+		ORDER BY tb_file.file_regdate DESC LIMIT 1
+	</select>
+	
+	<select id="selectFile" parameterType="map" resultType="AttachFileDto">
+		SELECT file_id, file_name, file_location, file_size, file_del, file_del
+		FROM tb_file
+		WHERE prdt_id = #{prdt_id}
+		ORDER BY file_regdate DESC LIMIT 1
+	</select>
+	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO tb_file
+			(file_name, file_location, file_size, file_regdate, prdt_id)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{prdt_id});
+	</insert>
+	<!-- 첨부파일 mapper end -->
+	
+	<!-- 프로필이미지 mapper start -->
+	<insert id="insertUserProfile" parameterType="map">
+		INSERT INTO tb_file
+			(file_name, file_location, file_size, file_regdate, user_no)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now(), #{user_no});
+	</insert>
+
+	<insert id="insertbannerFile" parameterType="map">
+		INSERT INTO tb_bannerfile
+			(bannerfile_name, bannerfile_location, bannerfile_size, bannerfile_regdate)
+		VALUES(#{file_name}, #{file_location}, #{file_size}, now());
+	</insert>
+	
+	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+  		SELECT count(*)
+		FROM tb_file
+		WHERE TRUE
+		AND file_name LIKE concat('%', #{keyword}, '%')
+  	</select>
+  	
+  	<select id="selectFileListforAdmin" parameterType="SearchItem" resultType="AttachFileDto">
+  		SELECT  file_id, file_name, file_location, file_regdate, prdt_id
+		FROM tb_file
+		WHERE TRUE
+		AND file_name LIKE concat('%', #{keyword}, '%')
+		order by file_regdate desc
+		limit #{pageSize} OFFSET #{offset}
+  	</select>
+</mapper>

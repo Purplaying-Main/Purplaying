@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+
+<mapper namespace="kr.co.purplaying.dao.indexMapper">
+	<sql id="selectFromIndex">
+		SELECT prdt_id, prdt_genre, prdt_name, prdt_opendate, prdt_enddate, prdt_goal, prdt_currenttotal, prdt_thumbnail
+		FROM tb_product;
+	</sql>
+	
+		<select id="popluarFunding" parameterType="map" resultType="ProjectDto" >
+		select 
+		prdt_id,
+		prdt_genre,
+		prdt_name,
+		prdt_thumbnail,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc, prdt_id desc)
+		from tb_product
+		where <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+		limit 3
+	</select>
+	
+	<select id="newFunding" parameterType="map" resultType="ProjectDto" >
+		select 
+		prdt_id,
+		prdt_genre,
+		prdt_name,
+		prdt_thumbnail,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		prdt_opendate,
+		row_number() over(order by prdt_opendate desc, prdt_id desc) <!--시작일이 같을 경우 상품 번호로 내림차순 정렬  -->
+		from tb_product
+		where <![CDATA[prdt_opendate <= current_date and current_date <= prdt_enddate]]> <!-- 오픈일 ~ 종료일에 있는 펀딩만 추출  -->		
+		limit 3
+	</select>
+</mapper>

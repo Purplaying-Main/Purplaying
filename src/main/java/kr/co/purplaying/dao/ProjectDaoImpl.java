@@ -1,5 +1,6 @@
 package kr.co.purplaying.dao;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.purplaying.domain.PaymentDto;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.UpdateDto;
+import kr.co.purplaying.domain.UserDto;
 
 @Repository
 public class ProjectDaoImpl implements ProjectDao {
@@ -18,6 +22,8 @@ public class ProjectDaoImpl implements ProjectDao {
   @Autowired
   private SqlSession session;
   private static String namespace = "kr.co.purplaying.dao.ProjectMapper.";
+  
+  ProjectDto projectDto;
   
   @Override
   public int insert(ProjectDto projectDto) throws Exception {
@@ -77,4 +83,95 @@ public class ProjectDaoImpl implements ProjectDao {
     return session.selectOne(namespace+"projectDetail", prdt_id);
   }
 
+  @Override
+  public int insertFile(File uploadPath, String uploadFileName, long uploadFileSize, int prdt_id) throws Exception {
+    Map map = new HashMap();
+    map.put("file_location", uploadPath);
+    map.put("file_name", uploadFileName);
+    map.put("file_size", uploadFileSize);
+    map.put("prdt_id", prdt_id);
+    
+    return session.insert(namespace+"insertFile", map);
+  }
+
+
+  @Override
+  public int insertUpdate(UpdateDto updateDto) throws Exception {
+    return session.insert(namespace+"insertUpdate",updateDto);
+  }
+
+  @Override
+  public List<UpdateDto> selectUpdate(Integer prdt_id) throws Exception {
+    return session.selectList(namespace+"selectUpdate", prdt_id);
+  }
+  
+  @Override
+  public int plusBuyerCnt(int prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.update(namespace+"plusBuyerCnt", prdt_id);
+  }
+
+  @Override
+  public List<ProjectDto> selectProject(SearchItem sc) throws Exception {
+    return session.selectList(namespace+"selectProject",sc);
+  }
+  
+
+  @Override
+  public int deleteProject(Integer prdt_id) throws Exception {
+    return session.delete(namespace+"deleteProject",prdt_id);
+  }
+  
+
+  @Override
+  public ProjectDto selectProjectlikelist(int prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"selectProjectlikelist",prdt_id);
+  }
+  
+  @Override
+  public int plusBuyerPrice(int prdt_id,int pay_total,int prdt_currenttotal) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("prdt_currenttotal",pay_total );
+    map.put("pay_total",prdt_currenttotal );
+    return session.update(namespace+"plusBuyerPrice",map);
+  }
+  
+  @Override
+  public List<ProjectDto> getListByWriter(String user_id) throws Exception {
+    return session.selectList(namespace+"getListByWriter", user_id);
+  }
+
+  @Override
+  public List<ProjectDto> getSoonListByWriter(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"getSoonListByWriter", user_id);
+  }
+
+  @Override
+  public List<ProjectDto> selectProjectImgforAdmin(SearchItem sc) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"selectProjectImgforAdmin",sc);
+  }
+
+  @Override
+  public ProjectDto getPaymentProjectInfo(Integer prdt_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectOne(namespace+"getPaymentProjectInfo", prdt_id);
+  }
+
+  @Override
+  public int updateProject(int prdt_id, int refundFee) throws Exception {
+    Map map = new HashMap();
+    map.put("prdt_id", prdt_id);
+    map.put("refundFee",refundFee );
+    return session.update(namespace+"updateProject", map);
+  }
+
+  @Override
+  public List<ProjectDto> getMyFunding(String user_id) throws Exception {
+    // TODO Auto-generated method stub
+    return session.selectList(namespace+"getMyFunding", user_id);
+  }
 }

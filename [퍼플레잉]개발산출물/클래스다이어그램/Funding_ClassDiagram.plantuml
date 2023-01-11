@@ -1,0 +1,98 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class GenreController {
+  + GenreController(): 
+  ~ genreDao: GenreDao
+}
+interface GenreDao << interface >>
+class GenreDto {
+  + GenreDto(int, int, String): 
+  + GenreDto(): 
+  - prdt_enddate: Date
+  - prdt_goal: int
+  - order: Order
+  - prdt_genre: int
+  - prdt_name: String
+  - prdt_percent: int
+  - prdt_id: int
+  - prdt_dday: int
+  - prdt_currenttotal: int
+  - prdt_opendate: Date
+}
+class GenreImpl {
+  + GenreImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class HeaderFundingController {
+  + HeaderFundingController(): 
+  ~ headerFundingDao: HeaderFundingDao
+}
+interface HeaderFundingDao << interface >>
+class HeaderFundingDaoImpl {
+  + HeaderFundingDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class IndexController {
+  + IndexController(): 
+  ~ indexDao: IndexDao
+  ~ fileSevice: FileService
+  ~ likeService: LikeService
+  ~ settingService: SettingService
+}
+interface IndexDao << interface >>
+class IndexDaoImpl {
+  + IndexDaoImpl(): 
+  - session: SqlSession
+  - namespace: String
+}
+class Order {
+  + Order(): 
+  + Order(String): 
+  - order: String
+}
+class ProjectDto {
+  + ProjectDto(String, Integer, String, String, String, Date, Date, Date, int, int, boolean, String, Integer, String, String, int, int, int, Date, Date, int, String, String, String, int, Date, String, String, int, int, int): 
+  + ProjectDto(): 
+  - prdt_user_no: int
+  - user_role: String
+  - prdt_open: boolean
+  - prdt_desc_detail: String
+  - prdt_limitday: Date
+  - prdt_enddate: Date
+  - user_id: String
+  - user_regdate: Date
+  - user_phone: int
+  - prdt_desc: String
+  - prdt_desc_policy: String
+  - prdt_thumbnail: String
+  - prdt_dday: int
+  - prdt_currenttotal: int
+  - prdt_regdate: Date
+  - prdt_comingday: int
+  - prdt_percent: int
+  - user_no: int
+  - writer: String
+  - prdt_buyercnt: int
+  - prdt_name: String
+  - user_activate: String
+  - pay_no: int
+  - prdt_genre: Integer
+  - prdt_img: String
+  - user_name: String
+  - user_pwd: String
+  - prdt_opendate: Date
+  - prdt_purchaseday: Date
+  - prdt_id: Integer
+  - prdt_goal: int
+}
+
+GenreImpl                -[#008200,dashed]-^  GenreDao                
+HeaderFundingDaoImpl     -[#008200,dashed]-^  HeaderFundingDao        
+IndexDaoImpl             -[#008200,dashed]-^  IndexDao                
+@enduml

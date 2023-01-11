@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 -->
-<c:set var="loginout" value="${sessionScope.user_id == null ? 'Login' : 'Logout' }"/>
-<c:set var="loginoutlink" value="${sessionScope.user_id == null ? '/user/login' : '/user/logout' }"/>
-<c:set var="loginHidden" value="${sessionScope.user_id == null ? '' : 'display:none' }"/>
-<c:set var="loginDisplay" value="${sessionScope.user_id == null ? 'display:none' : '' }"/>
-<c:set var="adminWrite" value="${sessionScope.user_id eq 'admin@gmail.com' ? '' : 'display:none' }"/>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:csrfMetaTags/>
 
-	
+<sec:authentication property="principal" var="prc"/>
+<%-- <%@ page session="false" %> --%>    <!-- 이페이지에서는 세션을 새로 시작하지 않음 --> 
+
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066 20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951 11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51 94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577 2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317 46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 10.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0 10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
@@ -56,29 +54,40 @@
         </div>
 
         <!-- 검색창 -->
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="${pageContext.request.contextPath}/searchResult">
-          <input type="search" class="form-control" name="search" placeholder="Search..." aria-label="Search">
+		<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" name="searchform" role="search" method="get" onsubmit="return searchCheck()" action="${pageContext.request.contextPath}/searchResult" >
+          <input type="text" class="form-control" name="keyword" placeholder="Search..." aria-label="Search">
         </form>
 
         <div class="dropdown text-end">
-          <div style="${loginHidden}"> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
-	          <a class="btn btn-outline-primary me-2" href="<c:url value='${loginoutlink}'/>">${loginout }</a>
-	          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button><!-- goPost() -->
-          </div>
-          <div style="${loginDisplay}"> <!-- 로그인 후 보이는 화면 : 프로필-->
-	          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-	          </a>
-	          <ul class="dropdown-menu text-small">
-	            <li><a class="dropdown-item link-primary" href="/purplaying/project/write"><strong>신규 프로젝트 올리기</strong></a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
-	            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
-	            <li><a class="dropdown-item" href="/purplaying/notice/list">고객센터</a></li>
-	            <li><hr class="dropdown-divider"></li>
-	            <li><a class="dropdown-item" href="<c:url value='${loginoutlink}'/>">로그아웃</a></li>
-	          </ul>
-          </div>
+	        <sec:authorize access="isAnonymous()">
+	          <div> <!-- 로그인 전 보이는 화면 : 로그인, 회원가입 -->
+		          <a class="btn btn-outline-primary me-2" href="/purplaying/user/login">Login</a>
+		          <button type="button" class="btn btn-primary" onclick="location.href='/purplaying/user/signup'">Sign-up</button><!-- goPost() -->
+	          </div>
+	        </sec:authorize>
+          <sec:authorize access="isAuthenticated()">
+	          <div> <!-- 로그인 후 보이는 화면 : 프로필-->
+		          <a href="/purplaying/" class="d-block link-dark text-decoration-none dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
+		            <img src="${prc.user_profile}" alt="${prc.user_name }" width="32" height="32" class="rounded-circle">
+		            <label class="align-middle text-truncate" style="max-width: 100px; cursor: pointer;">${prc.user_nickname }</label>
+		          </a>
+		          <ul class="dropdown-menu text-small">
+		          	<%-- <c:if test="${sessionScope.user_role eq '1'}"> --%> 
+		          	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		          		<li><a class="dropdown-item" href="/purplaying/admin/userlist">Admin 페이지</a></li>
+		            </sec:authorize>
+		            <li><a class="dropdown-item link-primary" href="/purplaying/project/write"><strong>신규 프로젝트 올리기</strong></a></li>
+		            <li><hr class="dropdown-divider"></li>
+		            <li><button class="dropdown-item" id="iamport" data-bs-toggle="modal" data-bs-target="#pointpayModal">포인트 충전하기 <i class="fa-solid fa-sack-dollar" style="color:#9E62FA"></i></button></li>
+		            <li><a class="dropdown-item" href="/purplaying/mypage">마이페이지</a></li>
+		            <li><a class="dropdown-item" href="/purplaying/setting">설정</a></li>
+		            <li><a class="dropdown-item" href="/purplaying/notice/list">고객센터</a></li>
+		            <li><hr class="dropdown-divider"></li>
+		            <li><form id="form_logout" action="<c:url value='/user/logout'/>" method="post"><input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><a class="dropdown-item" onclick="logoutSubmit()">로그아웃</a></form></li>
+		          </ul>
+		          <%@ include file ="iamport.jsp" %>
+	          </div>
+	    </sec:authorize>
         <!--   <script type="text/javascript">
           		function goPost(){
           			let form = document.createElement('form');
@@ -88,6 +97,30 @@
           			form.submit();
           		}
           </script> -->
+      
+<script type="text/javascript">
+
+function searchCheck()
+{
+     var str_keyword = window.searchform.keyword.value;
+     if(!str_keyword || str_keyword == "")
+     {
+          window.alert("검색어를 입력해주시기 바랍니다.");
+          window.searchform.keyword.focus();
+          return false;
+     }
+     window.sendform.submit();
+}
+function logoutSubmit(){
+	$('#form_logout').submit();
+}
+	</script>
+	<script type="text/javascript">
+	    var header = $("meta[name='_csrf_header']").attr('content');
+		var token = $("meta[name='_csrf']").attr('content');
+    </script>
+		
+          
         </div>
       </div>
     </div>

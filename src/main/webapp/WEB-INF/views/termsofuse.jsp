@@ -13,15 +13,21 @@
 
 	<!--페이지 내용 시작-->
 	<section>
+    <div class="contentsWrap">
+        <div class="container">
+    
+        <div class="row">
+	
 		<div class="article-container">
     <article class="static article">
       <h1 title="서비스 이용약관" class="article-title">
-        서비스 이용약관
-        
+        서비스 이용약관       
       </h1>
       <div class="article-content">
         <div class="article-body"><p>시행일: 2022. 8. 11.</p>
 <blockquote>
+</blockquote>
+
 <h4>목차</h4>
 <ul>
 <li><a href="#section-1" rel="nofollow noreferrer">제1절 총칙</a></li>
@@ -34,7 +40,7 @@
 <li><a href="#section-8" rel="nofollow noreferrer">제8절 기타</a></li>
 <li><a href="#section-0" rel="nofollow noreferrer">부칙</a></li>
 </ul>
-</blockquote>
+
 <p>&nbsp;</p>
 <hr>
 <h2><a rel="nofollow noreferrer" name="section-1"></a>제1절 총칙</h2>
@@ -443,6 +449,12 @@
       </div>
     </article>
   </div>
+  
+ </div>
+ </div>
+ </div>
+  
+  
 	</section>
 	<!--페이지 내용 종료-->
 

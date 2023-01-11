@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+  <mapper namespace="kr.co.purplaying.dao.projectSuggestMapper">
+	<select id="projectSuggest" parameterType="map" resultType="ProjectDto" >
+		select 
+		prdt_id,
+		prdt_genre,
+		prdt_name,
+		(prdt_currenttotal/prdt_goal)*100 as "prdt_percent",
+		prdt_currenttotal, 
+		(prdt_enddate-prdt_opendate) as "prdt_dday",
+		row_number() over(order by (prdt_currenttotal/prdt_goal)*100 desc,prdt_id desc),
+		prdt_thumbnail
+		from tb_product
+		where <![CDATA[current_date-7 <= prdt_opendate and prdt_opendate <= current_date]]> <!-- 최근 일주일간 인기있는 펀딩 추출  -->		
+		limit 3
+	</select>
+</mapper>

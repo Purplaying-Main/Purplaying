@@ -1,9 +1,18 @@
 package kr.co.purplaying.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class UserDto {
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+@SuppressWarnings("serial")
+public class UserDto implements UserDetails {
   
   private int user_no;
   private String user_id;
@@ -11,10 +20,39 @@ public class UserDto {
   private String user_name;
   private String user_phone;
   private Date user_regdate;
-  private int user_active;
-  private int user_role;
+  private int user_activate;
+  private String user_role;
+  private String user_profile;
+  private int user_point;
+  private String user_nickname;
+  private int enabled;
   
-
+  
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+      ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+      authList.add(new SimpleGrantedAuthority(user_role));
+      return authList;
+  }
+  
+ 
+  public int getEnabled() {
+    return enabled;
+  }
+  public void setEnabled(int enabled) {
+    this.enabled = enabled;
+  }
+  public String getUser_nickname() {
+    return user_nickname;
+  }
+  public void setUser_nickname(String user_nickname) {
+    this.user_nickname = user_nickname;
+  }
+  public int getUser_point() {
+    return user_point;
+  }
+  public void setUser_point(int user_point) {
+    this.user_point = user_point;
+  }
   public int getUser_no() {
     return user_no;
   }
@@ -51,27 +89,38 @@ public class UserDto {
   public void setUser_regdate(Date user_regdate) {
     this.user_regdate = user_regdate;
   }
-  public int getUser_active() {
-    return user_active;
+  public int getUser_activate() {
+    return user_activate;
   }
-  public void setUser_active(int user_active) {
-    this.user_active = user_active;
+  public void setUser_activate(int user_activate) {
+    this.user_activate = user_activate;
   }
-  public int getUser_role() {
+  public String getUser_role() {
     return user_role;
   }
-  public void setUser_role(int user_role) {
+  public void setUser_role(String user_role) {
     this.user_role = user_role;
   }
-  public UserDto() {
-    this("","",0);
+  public String getUser_profile() {
+    return user_profile;
+  }
+  public void setUser_profile(String user_profile) {
+    this.user_profile = user_profile;
   }
   
-  public UserDto(String user_id, String user_pwd, int user_role) {
+  
+  public UserDto() {
+    this(0,"","","",0);
+  }
+  
+  
+  public UserDto(int user_no, String user_id, String user_pwd, String user_role,int user_point) {
     super();
+    this.user_no = user_no;
     this.user_id = user_id;
     this.user_pwd = user_pwd;
     this.user_role = user_role;
+    this.user_point = user_point;
   }
   @Override
   public int hashCode() {
@@ -90,13 +139,47 @@ public class UserDto {
         && Objects.equals(user_pwd, other.user_pwd) && user_role == other.user_role;
 
   }
+  
+  
   @Override
   public String toString() {
-    return "UserDto [user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name=" + user_name + ", user_phone="
-        + user_phone + ", user_regdate=" + user_regdate + ", user_active=" + user_active + ", user_role=" + user_role
-        + "]";
+    return "UserDto [user_no=" + user_no + ", user_id=" + user_id + ", user_pwd=" + user_pwd + ", user_name="
+        + user_name + ", user_phone=" + user_phone + ", user_regdate=" + user_regdate + ", user_activate="
+        + user_activate + ", user_role=" + user_role + ", user_profile=" + user_profile + ", user_point=" + user_point
+        + ", user_nickname=" + user_nickname + ", enabled=" + enabled + "]";
   }
-  
-  
+
+
+  @Override
+  public String getPassword() {
+      return user_pwd;
+  }
+
+  @Override
+  public String getUsername() {
+      return user_id;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+      return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+      return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+      return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+      return enabled==1?true:false;
+  }
+
+
   
 }

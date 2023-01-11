@@ -1,7 +1,7 @@
 /*
   찜하기 버튼 클릭시 색상 변화 JS
 
- */
+ 
 
 function pickBtn() {
    let _buttonI = event.target;
@@ -18,6 +18,6 @@ function pickBtn() {
       _buttonI.classList.add("far");
    }
 }
-
+*/
 
 

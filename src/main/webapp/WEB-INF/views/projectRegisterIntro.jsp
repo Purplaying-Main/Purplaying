@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="loginId" value="${sessionScope.id }" />
+<c:set var="loginId" value="${user_id }" />
    
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
       <div class="tab-content px-5 row justify-content-center" id="v-pills-tabContent"><!-- 탭 컨텐츠 start -->
           <form class="row col-8 mb-4 text-center" id="form" action="" method="">   
              <input type="hidden" name="prdt_id" value="${projectDto.prdt_id }"> 
-         	  <input type="hidden" name="writer" value="${sessionScope.user_id}"> 
+         	  <input type="hidden" name="writer" value="${user_id}"> 
           	      
               <h5>프로젝트 시작하기 전 읽어주세요.</h5>
               <ul class="bg-light rounded p-3 text-muted text-small">
@@ -44,6 +44,7 @@
                 </li>
               </ul>
               <button class="btn btn-primary col-6 mx-auto" type="button" id="writeBtn">시작하기</button>          
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           </form>
       </div><!-- 탭 컨텐츠 end -->
     </div><!-- contentsWrap end -->

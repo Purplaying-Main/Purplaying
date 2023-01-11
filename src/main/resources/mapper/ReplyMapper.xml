@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd ">
+  
+<mapper namespace="kr.co.purplaying.dao.ReplyMapper">
+
+	<select id="selectReply" parameterType="int" resultType="ReplyDto">
+		SELECT rno, prdt_id, chat_no, chat_writer, chat_context, chat_date, user_no, user_nickname
+		FROM tb_reply
+		order by rno, chat_date asc
+	</select>
+	
+	<insert id="replyInsert" parameterType="ReplyDto">
+		INSERT INTO public.tb_reply
+			(prdt_id, chat_no, chat_writer, chat_context, user_no, user_nickname)
+		VALUES
+			(#{prdt_id}, #{chat_no}, #{chat_writer}, #{chat_context}, #{user_no}, #{user_nickname});
+	</insert>
+	
+</mapper>

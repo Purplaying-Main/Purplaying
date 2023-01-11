@@ -35,7 +35,7 @@
 				<div class="text-end">
 					<div class="py-3 px-2">
 						<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AnswerCancelModal">취 소</button>
-					<div class="modal fade" id="AnswerCancelModal" tabindex="-1"
+					<div class="modal fade" id="AnswerCancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 						aria-labelledby="AnswerCancelModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -54,7 +54,7 @@
 							</div>
 						</div>
 					</div>
-					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AnswerFinishModal">게 시</button>
+					<button class="btn btn-primary" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-keyboard="false" data-bs-target="#AnswerFinishModal">게 시</button>
 					<div class="modal fade" id="AnswerFinishModal" tabindex="-1"
 						aria-labelledby="AnswerFinishModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
