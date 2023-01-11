@@ -16,6 +16,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,9 +48,7 @@ public class SettingController {
   
   @Autowired
   UserService userService;
-  
-  
-  
+    
   @RequestMapping(value="/setting", method=RequestMethod.GET)
   public String list(Model m, HttpSession session, Authentication authentication) {
     
@@ -201,7 +200,7 @@ public class SettingController {
     
     try {
         // 비밀번호 수정이 이루어지지 않았으면 오류를 반환한다.
-        if(settingService.modifyPwd(userDto) != 1)
+        if(userService.updateUserPwd(userDto) != 1)
             throw new Exception("Update failed");
         return new ResponseEntity<String>("MOD_OK",HttpStatus.OK);
     }catch(Exception e) {

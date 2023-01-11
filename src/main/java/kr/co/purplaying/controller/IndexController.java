@@ -76,14 +76,16 @@ public class IndexController {
       m.addAttribute("bannerList",bannerList);
       
 //    좋아요 리스트
-      UserDto userDto = (UserDto) authentication.getPrincipal();
-      String user_id = userDto.getUser_id();
-      
-      if(user_id!=null) {
-        boolean likecheck = false;
-         List<Integer> Likelist = likeService.selectLikelist(user_id);
-         System.out.println(Likelist);
-         m.addAttribute("Likelist",Likelist);
+      if(authentication.getPrincipal() != null) {
+        UserDto userDto = (UserDto) authentication.getPrincipal();
+        String user_id = userDto.getUser_id();
+        
+        if(user_id!=null) {
+          boolean likecheck = false;
+           List<Integer> Likelist = likeService.selectLikelist(user_id);
+           System.out.println(Likelist);
+           m.addAttribute("Likelist",Likelist);
+        }
       }
        
     } catch (Exception e) {
