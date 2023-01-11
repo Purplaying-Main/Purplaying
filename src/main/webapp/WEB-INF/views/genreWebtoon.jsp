@@ -41,11 +41,23 @@
         <div class="container py-4">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           	<c:forEach var="ProjectDto" items="${list_gw }">        
-            <div class="col">
+			<c:set var="doneloop"  value="false"/>
+            <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
-                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
+                 <c:forEach var="like" items="${Likelist }" varStatus="status">
+                 	<c:if test="${not doneloop }">
+	                	<c:choose>
+	                		<c:when test="${like eq ProjectDto.prdt_id }">
+	                			<c:set var="i" value="true" />
+	                			<c:set var="doneloop"  value="true"/>
+	                		</c:when>
+	                		<c:otherwise><c:set var="i" value="false" /></c:otherwise>
+	                	</c:choose>
+                	</c:if>
+                </c:forEach>
+                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${i? 'fas active' : 'far' }"></i></button>
+	                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" id="${ProjectDto.prdt_id }" style="cursor:pointer">
 					<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
                 		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }"> 
                 </div>

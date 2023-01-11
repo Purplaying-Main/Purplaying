@@ -10,7 +10,7 @@
 	<%@ include file ="meta.jsp" %>
 	<link rel="stylesheet" href="resources/assets/css/heart.css">
 	<link rel="stylesheet" href="resources/assets/css/indexHover.css">
-	<script src="resources/assets/js/heart.js"></script>
+	<!-- <script src="resources/assets/js/heart.js"></script> -->
 </head>
 <body>
   <!--헤더 인클루드-->
@@ -28,11 +28,23 @@
           <h3>지금 달성률이 높은 펀딩🔥</h3>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-3">
           	<c:forEach var="ProjectDto" items="${list_p }">
+          	<c:set var="doneloop"  value="false"/>
             <div class="col"><!-- project thumb start -->
               <div class="card shadow-sm">
                 <!-- 좋아요 버튼 -->
-	                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${fn:contains(Likelist, ProjectDto.prdt_id)? 'fas active' : 'far' }"></i></button>
-	                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" style="cursor:pointer">
+                 <c:forEach var="like" items="${Likelist }" varStatus="status">
+                 	<c:if test="${not doneloop }">
+	                	<c:choose>
+	                		<c:when test="${like eq ProjectDto.prdt_id }">
+	                			<c:set var="i" value="true" />
+	                			<c:set var="doneloop"  value="true"/>
+	                		</c:when>
+	                		<c:otherwise><c:set var="i" value="false" /></c:otherwise>
+	                	</c:choose>
+                	</c:if>
+                </c:forEach>
+                <button class="likeBtn" onclick="clickBtntest()"><i class="fa-regular fa-heart ${i? 'fas active' : 'far' }"></i></button>
+	                <div onclick="location.href='/purplaying/project/${ProjectDto.prdt_id}'" id="${ProjectDto.prdt_id }" style="cursor:pointer">
 	                	<img class="bd-placeholder-img" width="100%" height="225" id="prdt_thumbnail" name="prdt_thumbnail"
 	                		src="${ProjectDto.prdt_thumbnail}" style=" ${ProjectDto.prdt_thumbnail == null ? 'display:none' : '' }">					
 	                </div>
@@ -91,7 +103,6 @@
     </div>
 
   </section>
-
   <!--푸터 인클루드-->
   <%@ include file ="footer.jsp" %>
 </body>

@@ -390,9 +390,9 @@
 		function check_nickname(element){
 			let nickname = element.value;
 			if(blankCheck(nickname)){
-				$("#check_nickname_msg").show().html('이름에 공백이 있습니다.').css("color","red");
+				$("#check_nickname_msg").show().html('닉네임에 공백이 있습니다.').css("color","red");
 			}else if(specialCheck(nickname)){
-				$("#check_nickname_msg").show().html('이름에 특수기호가 있습니다.').css("color","red");
+				$("#check_nickname_msg").show().html('닉네임에 특수기호가 있습니다.').css("color","red");
 			}else{
 				$("#check_nickname_msg").hide().html('');
 			}
@@ -452,7 +452,7 @@
 								$("#email").val('');
 								$("#check_id_msg").show().html('이미 존재하는 아이디입니다').css("color","red");
 							}else{
-								$("#check_id_msg").show().html('사용가능한 아이디 입니다').css("color","#9E62FA");
+								$("#check_id_msg").show().html(' 사용가능한 아이디 입니다').css("color","#9E62FA");
 								$("#email").addClass('IDCHECK')
 							}
 						},
