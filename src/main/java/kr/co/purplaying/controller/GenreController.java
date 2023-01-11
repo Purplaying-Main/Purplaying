@@ -27,24 +27,25 @@ public class GenreController {
   LikeService likeService;
   
   @GetMapping("/literature")
-  public String getLiterature(Order order, Model m, HttpSession session) {
-  
-    String user_id = (String)session.getAttribute("user_id");
+  public String getLiterature(Order order, Model m, Authentication authentication) {
     
     try {
       List<ProjectDto> list_gl = genreDao.genreLiterature(order);
       m.addAttribute("list_gl",list_gl);
       m.addAttribute("order",order);
 
-      if(user_id!=null) {
-        boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(user_id);
-        System.out.println(Likelist);
-     
-   
-        m.addAttribute("Likelist",Likelist);
+//    좋아요 리스트
+      if(authentication.getPrincipal() != null) {
+        UserDto userDto = (UserDto) authentication.getPrincipal();
+        String user_id = userDto.getUser_id();
         
-      }            
+        if(user_id!=null) {
+          boolean likecheck = false;
+           List<Integer> Likelist = likeService.selectLikelist(user_id);
+           System.out.println(Likelist);
+           m.addAttribute("Likelist",Likelist);
+        }
+      }          
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -54,24 +55,25 @@ public class GenreController {
   
  
   @GetMapping("/poemessay")
-  public String getPoemEssay (Order order, Model m, HttpSession session) {
-    
-    String user_id = (String)session.getAttribute("user_id");
+  public String getPoemEssay (Order order, Model m, Authentication authentication) {
     
     try {
       List<ProjectDto> list_gpe = genreDao.genrePoemEssay(order);
       m.addAttribute("list_gpe",list_gpe);
       m.addAttribute("order",order);
       
-      if(user_id!=null) {
-        boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(user_id);
-        System.out.println(Likelist);
-     
-   
-        m.addAttribute("Likelist",Likelist);
+//    좋아요 리스트
+      if(authentication.getPrincipal() != null) {
+        UserDto userDto = (UserDto) authentication.getPrincipal();
+        String user_id = userDto.getUser_id();
         
-      }  
+        if(user_id!=null) {
+          boolean likecheck = false;
+           List<Integer> Likelist = likeService.selectLikelist(user_id);
+           System.out.println(Likelist);
+           m.addAttribute("Likelist",Likelist);
+        }
+      }
       
     } catch (Exception e) {
       e.printStackTrace();
@@ -80,24 +82,25 @@ public class GenreController {
   }
   
   @GetMapping("/webtoon")
-  public String genrWebtoon (Order order, Model m, HttpSession session) {
-    
-    String user_id = (String)session.getAttribute("user_id");
+  public String genrWebtoon (Order order, Model m, Authentication authentication) {
 
     try {
       List<ProjectDto> list_gw = genreDao.genreWebtoon(order);
       m.addAttribute("list_gw",list_gw);
       m.addAttribute("order",order);
       
-      if(user_id!=null) {
-        boolean likecheck = false;
-        List<Integer> Likelist = likeService.selectLikelist(user_id);
-        System.out.println(Likelist);
-     
-   
-        m.addAttribute("Likelist",Likelist);
+//    좋아요 리스트
+      if(authentication.getPrincipal() != null) {
+        UserDto userDto = (UserDto) authentication.getPrincipal();
+        String user_id = userDto.getUser_id();
         
-      }  
+        if(user_id!=null) {
+          boolean likecheck = false;
+           List<Integer> Likelist = likeService.selectLikelist(user_id);
+           System.out.println(Likelist);
+           m.addAttribute("Likelist",Likelist);
+        }
+      } 
       
     } catch (Exception e) {
       e.printStackTrace();

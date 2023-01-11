@@ -99,16 +99,17 @@ public class SearchResultController {
             PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
             m.addAttribute("pr2", pageResolver2);
             
-            if(authentication!=null) {
-              UserDto udt = (UserDto) authentication.getPrincipal();
-              String id = (String)udt.getUser_id();
-              boolean likecheck = false;
-              List<Integer> Likelist = likeService.selectLikelist(id);
-              System.out.println(Likelist);
-           
-         
-              m.addAttribute("Likelist",Likelist);
+//          좋아요 리스트
+            if(authentication.getPrincipal() != null) {
+              UserDto userDto = (UserDto) authentication.getPrincipal();
+              String user_id = userDto.getUser_id();
               
+              if(user_id!=null) {
+                boolean likecheck = false;
+                 List<Integer> Likelist = likeService.selectLikelist(user_id);
+                 System.out.println(Likelist);
+                 m.addAttribute("Likelist",Likelist);
+              }
             }
             
           } catch (Exception e) {
@@ -160,15 +161,16 @@ public class SearchResultController {
               System.out.println(list_crea);
               m.addAttribute("list_crea", list_crea);
               
-              // 세션의 유저 id의 좋아요 리스트 
-              if(authentication!=null) {
-                UserDto udt = (UserDto) authentication.getPrincipal();
-                String id = (String)udt.getUser_id();
-                boolean likecheck = false;
-                List<Integer> Likelist = likeService.selectLikelist(id);
-                System.out.println(Likelist);        
-                m.addAttribute("Likelist",Likelist);               
+//            좋아요 리스트
+              if(authentication.getPrincipal() != null) {
+                if(user_id!=null) {
+                  boolean likecheck = false;
+                   List<Integer> Likelist = likeService.selectLikelist(user_id);
+                   System.out.println(Likelist);
+                   m.addAttribute("Likelist",Likelist);
+                }
               }
+              
           } catch (Exception e) {
             e.printStackTrace();
           }          
