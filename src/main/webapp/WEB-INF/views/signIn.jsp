@@ -33,11 +33,11 @@
 				</c:if>
 			</div>
             <div class="form-floating py-2">
-              <input type="email" class="form-control" id="floatingInput" placeholder="example@example.com" name="user_id" value="${cookie.rememberId.value}" autofocus>
+              <input type="email" class="form-control" id="floatingInput" onkeypress="onKeyUp(event)" placeholder="example@example.com" name="user_id"  value="${cookie.rememberId.value}" autofocus>
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating py-2">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="user_pwd">
+              <input type="password" class="form-control" id="floatingPassword" onkeypress="onKeyUp(event)" placeholder="Password" name="user_pwd">
               <label for="floatingPassword">Password</label>
             </div>
             <div class="form-floating py-2">
@@ -49,7 +49,7 @@
                 <input type="checkbox" name="remember-me" id="remeber" value="on" ${empty cookie.rememberId.value ? "" : "checked" }/> 다음에도 내 정보 기억하기
               </label>
             </div>
-            <button class="w-100 btn btn-lg btn-primary" type="button" onclick="loginCheck()">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="button" id="loginSubmitBtn" onclick="loginCheck()">Sign in</button>
             <p class="text-center mt-4">아이디/비밀번호를 잊으셨나요?<a href="findaccount">아이디 / 비밀번호 찾기</a></p>
             <p class="mt-5 mb-3 text-muted">&copy; 2022 Purplaying</p>
           	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
@@ -68,7 +68,13 @@
       </div>
 
     </div>
-    <script type="text/javascript">
+    <script type="text/javascript">    
+	    function onKeyUp(e){	    	
+	        if (e.keyCode == 13){
+	        	loginCheck();
+	        }
+	       
+	    }
     	function loginCheck(){
     		let rememberChk = $('#remeber').is(":checked");
     		let user_id = $('#floatingInput').val();
