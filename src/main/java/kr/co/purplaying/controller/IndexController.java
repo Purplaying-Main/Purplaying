@@ -25,8 +25,10 @@ import kr.co.purplaying.dao.IndexDao;
 import kr.co.purplaying.domain.BannerFileDto;
 import kr.co.purplaying.domain.NoticeDto;
 import kr.co.purplaying.domain.PageResolver;
+import kr.co.purplaying.domain.PageResolver2;
 import kr.co.purplaying.domain.ProjectDto;
 import kr.co.purplaying.domain.SearchItem;
+import kr.co.purplaying.domain.SearchItem2;
 import kr.co.purplaying.domain.UserDto;
 import kr.co.purplaying.service.FileService;
 import kr.co.purplaying.service.LikeService;
@@ -48,7 +50,7 @@ public class IndexController {
   LikeService likeService;
   
   @RequestMapping("/")
-  public String getPage(ProjectDto projectDto, Model m, Authentication authentication) {
+  public String getPage(SearchItem2 sc2, ProjectDto projectDto, Model m, Authentication authentication) {
    
     try {
 //    로그인 시 유저정보(userDto) 세션에 저장
@@ -62,10 +64,14 @@ public class IndexController {
       m.addAttribute("totalCnt", totalCnt);
       System.out.println("totalCnt : "+ totalCnt);
       
+      PageResolver2 pageResolver2 = new PageResolver2(totalCnt, sc2);
+      m.addAttribute("pr", pageResolver2);
+      System.out.println("pr : "+ pageResolver2);
+      
 //    인기펀딩 리스트
       List<ProjectDto> list_p = indexDao.popluarFunding(map);
       m.addAttribute("list_p",list_p);
-      System.out.println("list_p"+list_p.size());
+      m.addAttribute("list_p_size",list_p.size());
       
 //    신규펀딩 리스트
       List<ProjectDto> list_n = indexDao.newFunding(map);
@@ -76,7 +82,7 @@ public class IndexController {
       m.addAttribute("bannerList",bannerList);
       
 //    좋아요 리스트
-      if(authentication.getPrincipal() != null) {
+      if(authentication != null) {
         UserDto userDto = (UserDto) authentication.getPrincipal();
         String user_id = userDto.getUser_id();
         
