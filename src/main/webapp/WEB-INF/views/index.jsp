@@ -59,12 +59,8 @@
 						</c:if>
 					    <!-- 게시물이 있는 경우, page nav 출력  -->
 						<c:if test="${totalCnt != null || totalCnt != 0 }">
-						    <!-- <button type="button" role="presentation" class="page-link"> <i class="fa-solid fa-angle-left"></i></button>
-						    <button type="button" role="presentation" class="page-link"><i class="fa-solid fa-angle-right"></i> </button> -->
-<!-- 						    <div class="owl-nav">
-						    	<button type="button" role="presentation" class="owl-prev"><i class="fa-solid fa-angle-left"></i></button>
-						    	<button type="button" role="presentation" class="owl-next"><i class="fa-solid fa-angle-right"></i></button>
-						    </div> -->
+						    <button type="button" role="presentation" class="page-link" onclick="location.href='#popular-1'"> <i class="fa-solid fa-angle-left"></i></button>
+						    <button type="button" role="presentation" class="page-link" onclick="location.href='#popular-4'"><i class="fa-solid fa-angle-right"></i> </button>
 						</c:if>
 					</div>          	 	
           	 	</div>
@@ -73,7 +69,8 @@
           
           <div class="featured-carousel owl-carousel">
           	 <c:forEach var="ProjectDto" items="${list_p}">
-	          	<div class="item">
+          	  <c:set var="pcount" value="${pcount + 1}" /> <!-- 아이템 글번호 매기기  -->
+	          	<div class="item" data-hash="popular-${pcount}"> 
 					<div class="work">
 						<c:set var="doneloop"  value="false"/>
 						<div class="" id="popularList"><!-- project thumb start -->
@@ -123,11 +120,27 @@
 
           </div>
          
-          <h4 class="mb-2 fw-bold"><a href="/purplaying/newFunding">오늘의 신규 펀딩✨</a></h4>
+          <div class="mb-2 row justify-content-between">
+          	 <a class="col-6" href="/purplaying/newFunding"><span class="fs-4 fw-bold">오늘의 신규 펀딩✨</span>   <i class="fa-regular fa-square-plus"></i> 더보기</a>
+          	 <div class="col-4">
+				<!-- 페이지 네비게이션 -->
+				<div class="col-1"></div>
+					<div class="pagination mb-0 justify-content-end">
+				    	<c:if test="${totalCnt == null || totalCnt == 0 }">
+							<h6 class="row text-center ">게시물이 없습니다.</h6>
+						</c:if>
+					    <!-- 게시물이 있는 경우, page nav 출력  -->
+						<c:if test="${totalCnt != null || totalCnt != 0 }">
+						    <button type="button" role="presentation" class="page-link" onclick="location.href='#new-1'"> <i class="fa-solid fa-angle-left"></i></button>
+						    <button type="button" role="presentation" class="page-link" onclick="location.href='#new-4'"><i class="fa-solid fa-angle-right"></i> </button>
+						</c:if>
+					</div>          	 	
+          	 	</div>
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-4">
           <div class="featured-carousel owl-carousel">         
           	<c:forEach var="ProjectDto" items="${list_n }">
-          	  <div class="item">
+          	  <c:set var="ncount" value="${ncount + 1}" /> <!-- 아이템 글번호 매기기  -->
+          	  <div class="item" data-hash="new-${ncount}">
 			    <div class="work">
        		  	<c:set var="doneloop"  value="false"/>
 	            <div class="col"><!-- project thumb start -->
@@ -204,27 +217,30 @@
 
 		var carousel = function() {
 			$('.featured-carousel').owlCarousel({
-		    loop:true,
-		    autoplay: false,
-		    margin:30,
-		    animateOut: 'fadeOut',
-		    animateIn: 'fadeIn',
-		    nav:true,
-		    dots: true,
-		    autoplayHoverPause: false,
-		    items: 1,
-		    navText : ["<i class='fa-solid fa-angle-left'></i>","<i class='fa-solid fa-angle-right'></i>"],
-		    responsive:{
-		      0:{
-		        items:1
-		      },
-		      600:{
-		        items:2
-		      },
-		      1000:{
-		        items:3
-		      }
-		    }
+			    loop:true,
+			    autoplay: false,
+			    margin:30,
+			    animateOut: 'fadeOut',
+			    animateIn: 'fadeIn',
+			    nav:false,
+			    dots: true,
+			    /* autoplayHoverPause: false, */
+			    items: 3,
+		        URLhashListener:true,
+		        autoplayHoverPause:true,
+		        startPosition: 'URLHash'
+			    /* navText : ["<i class='fa-solid fa-angle-left'></i>","<i class='fa-solid fa-angle-right'></i>"],
+			    responsive:{
+			      0:{
+			        items:1
+			      },
+			      600:{
+			        items:2
+			      },
+			      1000:{
+			        items:3
+			      }
+			    } */
 			});
 
 		};
